@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Media.Imaging;
 
 using CommandLine;
@@ -19,13 +20,19 @@ namespace Xps2Img.CommandLine
       "Page number(s)\n  all pages by default\nSyntax:\n  all:\t\t1-\n  single:\t1\n  set:\t\t1,3\n  range:\t1-10\n  combined:\t1,3-5,7-9,15-",
       DefaultValue = "",
       ConverterType = typeof(IntervalTypeConverter),
-      ValidationExpression = @"/^(,?((\d{1,5}-\d{1,5})|(\d{1,5}-?)|(-?\d{1,5})))+$/"
+      ValidationExpression = "/" + Interval.ValidationRegex + "/"
     )]
     public List<Interval> Pages { get; set; }
     
     [Option("Output image type", DefaultValue = "Png")]
     public ImageType FileType { get; set; }
 
+    [Option("Desired image size",
+            ConverterType = typeof(RequiredTypeConverter),
+            ValidationExpression = "/" + RequiredTypeConverter.ValidationRegex + "/"
+    )]
+    public Size? RequiredSize { get; set; }
+    
     [Option("Image DPI (16-720)", DefaultValue = "120", ValidationExpression = "16-720")]
     public int Dpi { get; set; }
 

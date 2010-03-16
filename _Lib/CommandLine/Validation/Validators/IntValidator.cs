@@ -6,7 +6,7 @@ namespace CommandLine.Validation
 {
   internal class IntValidator: IValidator
   {
-    public static readonly Regex Filter = new Regex(@"^\s*(?<lowerBound>\d+)\s*-\s*(?<upperBound>\d+)\s*$");
+    private static readonly Regex filter = new Regex(@"^\s*(?<lowerBound>\d+)\s*-\s*(?<upperBound>\d+)\s*$");
   
     public static IValidator Create(object validation)
     {
@@ -15,7 +15,7 @@ namespace CommandLine.Validation
         return null;
       }
       
-      var match = Filter.Match((string)validation);
+      var match = filter.Match((string)validation);
       return match.Success ?
               new IntValidator(match.Groups["lowerBound"].Value, match.Groups["upperBound"].Value) :
               null;

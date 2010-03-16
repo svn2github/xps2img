@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -7,6 +8,7 @@ namespace CommandLine
 {
   internal class IntegrityCheck
   {
+    [Conditional("DEBUG")]
     public static void Perform(Type optionsObjectType, List<LongOptEx> longOpts)
     {
       Func<LongOptEx, string> formatLOE = longOptEx =>

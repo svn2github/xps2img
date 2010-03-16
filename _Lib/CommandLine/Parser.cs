@@ -52,9 +52,7 @@ namespace CommandLine
     {
       var optionsObjectType = typeof (T);
       
-      #if DEBUG
       IntegrityCheck.Perform(optionsObjectType, GetOptionsList(optionsObjectType));
-      #endif
 
       var optionsObject = (T)Activator.CreateInstance(optionsObjectType);
       var longOpts = GetOptionsList(optionsObject).ToArray();

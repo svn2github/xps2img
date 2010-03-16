@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -121,7 +119,8 @@ namespace Xps2Img.CommandLine
       return String.Format("{0}-{1}", Begin, End);
     }
 
-    private static readonly Regex validationRegex = new Regex(@"^(,?((\d{1,5}-\d{1,5})|(\d{1,5}-?)|(-?\d{1,5})))+$");
+    public const string ValidationRegex = @"^(,?((\d{1,5}-\d{1,5})|(\d{1,5}-?)|(-?\d{1,5})))+$";
+    private static readonly Regex validationRegex = new Regex(ValidationRegex);
 
     public static List<Interval> Parse(string intervalString)
     {
@@ -132,7 +131,7 @@ namespace Xps2Img.CommandLine
 
       if (!validationRegex.IsMatch(intervalString))
       {
-        throw new ArgumentException("Param syntax error");
+        throw new ArgumentException(@"UNEXPECTED: Interval format is invalid", "intervalString");
       }
       
       return Optimize(intervalString.Split(new[] {','}).Select(interval => new Interval(interval)).ToList());
@@ -248,29 +247,6 @@ namespace Xps2Img.CommandLine
               .Where(interval => interval.End >= beginValue)
               .Select(interval => (interval.Begin >= beginValue) ? interval : new Interval(beginValue, interval.End))
               .ToList();
-    }
-  }
-
-  public class IntervalTypeConverter : TypeConverter
-  {
-    public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
-    {
-      return destinationType == typeof(string);
-    }
-
-    public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-    {
-      return CanConvertTo(destinationType) ? IntervalUtils.ToString((IEnumerable<Interval>)value) : null;
-    }
-  
-    public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-    {
-      return sourceType == typeof(string);
-    }
-
-    public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-    {
-      return CanConvertFrom(value.GetType()) ? Interval.Parse((string)value) : null;
     }
   }
 }

@@ -66,6 +66,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.XML" />
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
@@ -75,6 +76,8 @@
     <Compile Include="CommandLine\CommandLine.cs" />
     <Compile Include="CommandLine\Interval.cs" />
     <Compile Include="CommandLine\Options.cs" />
+    <Compile Include="CommandLine\TypeConverters\IntervalTypeConverter.cs" />
+    <Compile Include="CommandLine\TypeConverters\RequiredTypeConverter.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

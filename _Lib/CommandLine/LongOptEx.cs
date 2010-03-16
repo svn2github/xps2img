@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+
 using CommandLine.Validation;
+
 using Gnu.Getopt;
 
 namespace CommandLine
@@ -119,7 +121,7 @@ namespace CommandLine
 
     public override string ToString()
     {
-      Func<object, string> formatParam = x => (x != null) ? String.Format("\"{0}\"", TypeConverter.ConvertToInvariantString(x)) : "";
+      Func<object, string> formatParam = x => (x != null) ? String.Format("\"{0}\"", TypeConverter.ConvertToInvariantString(x)) : String.Empty;
       
       var propertyValue = GetPropertyValue();
       var propertyValueFormatted = formatParam(propertyValue);

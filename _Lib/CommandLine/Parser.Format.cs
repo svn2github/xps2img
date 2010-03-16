@@ -29,6 +29,8 @@ namespace CommandLine
     public static string GetUsageString<T>()
     {
       var optionsObjectType = typeof (T);
+
+      IntegrityCheck.Perform(optionsObjectType, GetOptionsList(optionsObjectType));
       
       var longOpts = GetOptionsList(optionsObjectType);
       var stringBuilder = new StringBuilder(longOpts.Count * 80);

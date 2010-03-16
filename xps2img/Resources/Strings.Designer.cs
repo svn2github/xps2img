@@ -61,7 +61,7 @@ namespace Xps2Img.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fatal error: worker process has been terminated nexpectedly..
+        ///   Looks up a localized string similar to Fatal error: worker process has been terminated unexpectedly..
         /// </summary>
         internal static string Error_Fatal {
             get {
