@@ -106,6 +106,7 @@ namespace Xps2Img
                 EndPage       = interval.End,
                 ImageType     = options.FileType,
                 ImageOptions  = new ImageOptions(options.JpegQuality, options.TiffCompression),
+                RequiredSize  = options.RequiredSize,
                 Dpi           = options.Dpi,
                 OutputDir     = options.OutDir,
                 BaseImageName = !String.IsNullOrEmpty(options.ImageName) ?

@@ -24,11 +24,11 @@ namespace Xps2Img.CommandLine
     )]
     public List<Interval> Pages { get; set; }
     
-    [Option("Output image type", DefaultValue = "Png")]
+    [Option("Output image type", DefaultValue = "png")]
     public ImageType FileType { get; set; }
 
     [Option(
-      "Desired image size",
+      "Desired image size\n  DPI will be ignored if specified \nSyntax:\n  width only:\t2000\n  height only:\tx1000\n  both:\t\t2000x1000\n\t\twidth for landscape orientation\n\t\theigth for portrait orientation\n",
       ConverterType = typeof(RequiredTypeConverter),
       ValidationExpression = "/" + RequiredTypeConverter.ValidationRegex + "/"
     )]
@@ -46,7 +46,7 @@ namespace Xps2Img.CommandLine
     [Option("JPEG quality level (10-100)", 'q', DefaultValue = "85", ValidationExpression = "10-100")]
     public int JpegQuality { get; set; }
 
-    [Option("TIFF compression method", DefaultValue = "Zip")]
+    [Option("TIFF compression method", DefaultValue = "zip")]
     public TiffCompressOption TiffCompression { get; set; }
 
     [Option("Silent mode (no progress will be shown)", ArgumentExpectancy.No)]

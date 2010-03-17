@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.IO.Packaging;
 using System.Windows.Documents;
@@ -53,6 +54,7 @@ namespace Xps2Img
       public int EndPage { get; set; }
       public ImageType ImageType { get; set; }
       public ImageOptions ImageOptions { get; set; }
+      public Size? RequiredSize { get; set; }
       public int Dpi { get; set; }
       public string OutputDir { get; set; }
       public string BaseImageName { get; set; }
@@ -95,17 +97,40 @@ namespace Xps2Img
           fileName,
           parameters.ImageType,
           parameters.ImageOptions,
-          GetPageBitmap(documentPaginator, docPageNumber-1, parameters.Dpi),
+          GetPageBitmap(documentPaginator, docPageNumber-1, parameters),
           fullFileName => { if (OnProgress != null) { ConverterState.ActivePageIndex++; OnProgress(new ProgressEventArgs(fullFileName, ConverterState)); } });
       }
     }
 
-    private static RenderTargetBitmap GetPageBitmap(DocumentPaginator documentPaginator, int pageNumber, double dpi)
+    private static RenderTargetBitmap GetPageBitmap(DocumentPaginator documentPaginator, int pageNumber, Parameters parameters)
     {
-      using(var page = documentPaginator.GetPage(pageNumber))
+      const double dpiConst = 96.0;
+
+      double dpi = parameters.Dpi;
+
+      var size = parameters.RequiredSize ?? new Size();
+
+      Func<int, bool> isSizeDefined = requiredSize => requiredSize > 0;
+      Action<int, double> calcDpi = (requiredSize, pageSize) => { if (isSizeDefined(requiredSize)) { dpi = (requiredSize / pageSize) * dpiConst; } };
+     
+      using (var page = documentPaginator.GetPage(pageNumber))
       {
-        //dpi = (2000.0 / page.Size.Width)*96.0;
-        var ratio = dpi/96.0;
+        if (!size.IsEmpty)
+        {
+          var portrait = page.Size.Height >= page.Size.Width;
+
+          if (portrait || !isSizeDefined(size.Width))
+          {
+            calcDpi(size.Height, page.Size.Height);
+          }
+
+          if (!portrait || !isSizeDefined(size.Height))
+          {
+            calcDpi(size.Width, page.Size.Width);
+          }
+        }
+
+        var ratio = dpi / dpiConst;
 
         var bitmap = new RenderTargetBitmap((int) Math.Round(page.Size.Width*ratio),
                                             (int) Math.Round(page.Size.Height*ratio), dpi, dpi, PixelFormats.Pbgra32);

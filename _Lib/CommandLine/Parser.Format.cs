@@ -85,7 +85,12 @@ namespace CommandLine
 
         if (longOpt.IsEnum)
         {
-          optStringBuilder.AppendFormat(Resources.Strings.Format_Alternatives, String.Join(Resources.Strings.Format_AlternativesSeparator, Enum.GetNames(longOpt.GetPropertyValue().GetType())));
+          optStringBuilder.AppendFormat(
+            Resources.Strings.Format_Alternatives,
+            String.Join(Resources.Strings.Format_AlternativesSeparator,
+              Array.ConvertAll(Enum.GetNames(longOpt.GetPropertyValue().GetType()), x => x.ToLowerInvariant())
+            )
+          );
         }
 
         const string LineSeparator = "\n";
