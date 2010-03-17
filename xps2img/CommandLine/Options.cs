@@ -27,9 +27,10 @@ namespace Xps2Img.CommandLine
     [Option("Output image type", DefaultValue = "Png")]
     public ImageType FileType { get; set; }
 
-    [Option("Desired image size",
-            ConverterType = typeof(RequiredTypeConverter),
-            ValidationExpression = "/" + RequiredTypeConverter.ValidationRegex + "/"
+    [Option(
+      "Desired image size",
+      ConverterType = typeof(RequiredTypeConverter),
+      ValidationExpression = "/" + RequiredTypeConverter.ValidationRegex + "/"
     )]
     public Size? RequiredSize { get; set; }
     

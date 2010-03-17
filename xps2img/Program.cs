@@ -100,18 +100,20 @@ namespace Xps2Img
         {
           options.Pages.ForEach(interval =>
             xps2Img.Convert(
-              interval.Begin,
-              interval.End,
-              options.FileType,
-              new ImageOptions(options.JpegQuality, options.TiffCompression),
-              options.Dpi,
-              options.OutDir,
-              !String.IsNullOrEmpty(options.ImageName) ?
-                options.ImageName :
-                options.ImageName == null ?
-                  String.Empty :
-                  null
-          ));
+              new Converter.Parameters
+              {
+                StartPage     = interval.Begin,
+                EndPage       = interval.End,
+                ImageType     = options.FileType,
+                ImageOptions  = new ImageOptions(options.JpegQuality, options.TiffCompression),
+                Dpi           = options.Dpi,
+                OutputDir     = options.OutDir,
+                BaseImageName = !String.IsNullOrEmpty(options.ImageName) ?
+                                  options.ImageName :
+                                  (options.ImageName == null ? String.Empty : null)
+              }
+            )
+          );
         }
         catch(OutOfMemoryException)
         {

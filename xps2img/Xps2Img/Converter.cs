@@ -47,44 +47,55 @@ namespace Xps2Img
     
     public event ProgressDelegate OnProgress;
 
-    public void Convert(int startPage, int endPage, ImageType imageType, ImageOptions imageOptions, int dpi, string outputDir, string baseImageName)
+    public class Parameters
+    {
+      public int StartPage { get; set; }
+      public int EndPage { get; set; }
+      public ImageType ImageType { get; set; }
+      public ImageOptions ImageOptions { get; set; }
+      public int Dpi { get; set; }
+      public string OutputDir { get; set; }
+      public string BaseImageName { get; set; }
+    }
+
+    public void Convert(Parameters parameters)
     {
       var xpsFileName = xpsDocument.Uri.OriginalString;
       
       var numberFormat = PageCount.GetNumberFormat();
 
-      if(baseImageName == null)
+      if(parameters.BaseImageName == null)
       {
-        baseImageName = Path.GetFileNameWithoutExtension(xpsFileName) + '-';
+        parameters.BaseImageName = Path.GetFileNameWithoutExtension(xpsFileName) + '-';
       }
       
-      if (String.IsNullOrEmpty(outputDir))
+      if (String.IsNullOrEmpty(parameters.OutputDir))
       {
-        outputDir = Path.Combine(Path.GetDirectoryName(xpsFileName), Path.GetFileNameWithoutExtension(xpsFileName));
+        parameters.OutputDir = Path.Combine(Path.GetDirectoryName(xpsFileName), Path.GetFileNameWithoutExtension(xpsFileName));
       }
 
-      Directory.CreateDirectory(outputDir);
+      Directory.CreateDirectory(parameters.OutputDir);
 
       if (!ConverterState.HasPageCount)
       {
-        ConverterState.SetLastAndTotalPages(endPage, PageCount);
+        ConverterState.SetLastAndTotalPages(parameters.EndPage, PageCount);
       }
       
-      var activeDir = outputDir;
+      var activeDir = parameters.OutputDir;
 
-      for (var docPageNumber = startPage; docPageNumber <= endPage; docPageNumber++)
+      for (var docPageNumber = parameters.StartPage; docPageNumber <= parameters.EndPage; docPageNumber++)
       {
         ConverterState.ActivePage = docPageNumber;
 
-        var fileName = Path.Combine(activeDir, baseImageName + String.Format(numberFormat, docPageNumber));
+        var fileName = Path.Combine(activeDir, parameters.BaseImageName + String.Format(numberFormat, docPageNumber));
         
         Directory.CreateDirectory(activeDir);
 
         ImageWriter.Write(
           fileName,
-          imageType,
-          imageOptions,
-          GetPageBitmap(documentPaginator, docPageNumber-1, dpi),
+          parameters.ImageType,
+          parameters.ImageOptions,
+          GetPageBitmap(documentPaginator, docPageNumber-1, parameters.Dpi),
           fullFileName => { if (OnProgress != null) { ConverterState.ActivePageIndex++; OnProgress(new ProgressEventArgs(fullFileName, ConverterState)); } });
       }
     }
@@ -93,6 +104,7 @@ namespace Xps2Img
     {
       using(var page = documentPaginator.GetPage(pageNumber))
       {
+        //dpi = (2000.0 / page.Size.Width)*96.0;
         var ratio = dpi/96.0;
 
         var bitmap = new RenderTargetBitmap((int) Math.Round(page.Size.Width*ratio),
