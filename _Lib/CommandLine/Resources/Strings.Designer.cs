@@ -174,7 +174,7 @@ namespace CommandLine.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No validator found for validation expression.
+        ///   Looks up a localized string similar to UNEXPECTED: No validator found for validation expression.
         /// </summary>
         internal static string Validation_NoValidator {
             get {
@@ -183,7 +183,7 @@ namespace CommandLine.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to value format is incorrect.
+        ///   Looks up a localized string similar to value format is incorrect (see help).
         /// </summary>
         internal static string Validation_RegexValidator {
             get {

@@ -159,9 +159,9 @@ One of:
     <value>value should be between {0} and {1}</value>
   </data>
   <data name="Validation_NoValidator" xml:space="preserve">
-    <value>No validator found for validation expression</value>
+    <value>UNEXPECTED: No validator found for validation expression</value>
   </data>
   <data name="Validation_RegexValidator" xml:space="preserve">
-    <value>value format is incorrect</value>
+    <value>value format is incorrect (see help)</value>
   </data>
 </root>

@@ -7,12 +7,12 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("XPS (XML Paper Specification) document to images converter")]
 [assembly: AssemblyDescription("XPS (XML Paper Specification) document to images converter")]
-[assembly : AssemblyConfiguration("")]
-[assembly : AssemblyCompany("Ivan Ivon")]
-[assembly : AssemblyProduct("Xps2Img")]
-[assembly : AssemblyCopyright("Copyright © Ivan Ivon, 2009-2010")]
-[assembly : AssemblyTrademark("")]
-[assembly : AssemblyCulture("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("http://xps2img.sf.net")]
+[assembly: AssemblyProduct("Xps2Img")]
+[assembly: AssemblyCopyright("Copyright © Ivan Ivon, 2009-2010")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -35,5 +35,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly : AssemblyVersion("1.1.0.0")]
-[assembly : AssemblyFileVersion("1.1.0.0")]
+[assembly : AssemblyVersion("1.1.0.*")]
+[assembly : AssemblyFileVersion("1.1.0.*")]

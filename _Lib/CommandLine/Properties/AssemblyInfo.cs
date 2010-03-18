@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Command line parser")]
 [assembly: AssemblyDescription("Command line parser")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Ivan Ivon")]
+[assembly: AssemblyCompany("http://xps2img.sf.net")]
 [assembly: AssemblyProduct("Command line parser")]
 [assembly: AssemblyCopyright("Copyright © Ivan Ivon, 2009-2010")]
 [assembly: AssemblyTrademark("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.1.0.*")]
+[assembly: AssemblyFileVersion("1.1.0.*")]
