@@ -1,0 +1,13 @@
+1.1.1.0		2010/03/19
+
+[*] Refactoring.
+[*] Texts cleanup.
+
+1.1.0.0		2010/03/17 
+
+[+] Image size can be specified by -r/--required-size option.
+[*] Refactoring.
+
+1.0.0.0		2010/03/16
+
+Initial release. 
