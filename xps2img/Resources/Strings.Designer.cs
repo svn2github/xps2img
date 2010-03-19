@@ -61,11 +61,20 @@ namespace Xps2Img.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fatal error: worker process has been terminated unexpectedly..
+        ///   Looks up a localized string similar to Worker process terminated unexpectedly..
         /// </summary>
         internal static string Error_Fatal {
             get {
                 return ResourceManager.GetString("Error_Fatal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: .
+        /// </summary>
+        internal static string Error_Header {
+            get {
+                return ResourceManager.GetString("Error_Header", resourceCulture);
             }
         }
         
