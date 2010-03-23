@@ -1,0 +1,7 @@
+GNU Getopt Argument Parser
+	http://www.codeplex.com/getopt
+
+Licenses
+
+SAConv
+	http://www.gnu.org/copyleft/lgpl.html
