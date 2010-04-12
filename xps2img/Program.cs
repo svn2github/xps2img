@@ -102,6 +102,7 @@ namespace Xps2Img
             xps2Img.Convert(
               new Converter.Parameters
               {
+                Test          = options.Test,
                 StartPage     = interval.Begin,
                 EndPage       = interval.End,
                 ImageType     = options.FileType,

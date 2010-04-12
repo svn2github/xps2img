@@ -87,6 +87,7 @@
     <Compile Include="Xps2Img\ImageWriter.cs" />
     <Compile Include="Xps2Img\ImageDefs.cs" />
     <Compile Include="Xps2Img\ConverterState.cs" />
+    <Compile Include="Xps2Img\MemoryUsageChecker.cs" />
     <Compile Include="Xps2Img\Utils.cs" />
     <Compile Include="Xps2Img\Converter.cs" />
     <Compile Include="Program.cs" />

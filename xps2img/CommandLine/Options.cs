@@ -49,6 +49,9 @@ namespace Xps2Img.CommandLine
     [Option("TIFF compression method", DefaultValue = "zip")]
     public TiffCompressOption TiffCompression { get; set; }
 
+    [Option("Test mode (no files will be written)", 'e', ArgumentExpectancy.No)]
+    public bool Test { get; set; }
+    
     [Option("Silent mode (no progress will be shown)", ArgumentExpectancy.No)]
     public bool Silent { get; set; }
 

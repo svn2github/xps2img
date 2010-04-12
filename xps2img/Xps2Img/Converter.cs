@@ -50,6 +50,7 @@ namespace Xps2Img
 
     public class Parameters
     {
+      public bool Test { get; set; }
       public int StartPage { get; set; }
       public int EndPage { get; set; }
       public ImageType ImageType { get; set; }
@@ -76,29 +77,34 @@ namespace Xps2Img
         parameters.OutputDir = Path.Combine(Path.GetDirectoryName(xpsFileName), Path.GetFileNameWithoutExtension(xpsFileName));
       }
 
-      Directory.CreateDirectory(parameters.OutputDir);
-
       if (!ConverterState.HasPageCount)
       {
         ConverterState.SetLastAndTotalPages(parameters.EndPage, PageCount);
       }
-      
+
       var activeDir = parameters.OutputDir;
+      if(!parameters.Test)
+      {
+        Directory.CreateDirectory(activeDir);
+      }
+
+      var memoryUsageCheck = new MemoryUsageChecker(!false, 500);
 
       for (var docPageNumber = parameters.StartPage; docPageNumber <= parameters.EndPage; docPageNumber++)
       {
         ConverterState.ActivePage = docPageNumber;
-
+        
+        memoryUsageCheck.Check();
+        
         var fileName = Path.Combine(activeDir, parameters.BaseImageName + String.Format(numberFormat, docPageNumber));
         
-        Directory.CreateDirectory(activeDir);
-
         ImageWriter.Write(
+          !parameters.Test,
           fileName,
           parameters.ImageType,
           parameters.ImageOptions,
           GetPageBitmap(documentPaginator, docPageNumber-1, parameters),
-          fullFileName => { if (OnProgress != null) { ConverterState.ActivePageIndex++; OnProgress(new ProgressEventArgs(fullFileName, ConverterState)); } });
+          fullFileName => { if (OnProgress != null) { ConverterState.ActivePageIndex++; OnProgress(new ProgressEventArgs(fullFileName, ConverterState)); } });          
       }
     }
 

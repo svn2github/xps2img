@@ -29,20 +29,27 @@ namespace Xps2Img
     
     public static void Write(string fileName, ImageType imageType, ImageOptions imageOptions, BitmapSource bitmapSource, Action<string> writeCallback)
     {
+      Write(true, fileName, imageType, imageOptions, bitmapSource, writeCallback);
+    }
+    
+    public static void Write(bool writeFile, string fileName, ImageType imageType, ImageOptions imageOptions, BitmapSource bitmapSource, Action<string> writeCallback)
+    {
       var bitmapEncoder = CreateEncoder(imageType, imageOptions);
       var fullFileName = fileName + bitmapEncoder.CodecInfo.FileExtensions.Split(new[] { ',' })[0];
+      
       if(writeCallback != null)
       {
         writeCallback(fullFileName);
       }
-      using (var stream = File.Create(fullFileName))
+      
+      if (writeFile)
       {
-        bitmapEncoder.Frames.Add(BitmapFrame.Create(bitmapSource));
-        bitmapEncoder.Save(stream);
+        using (var stream = File.Create(fullFileName))
+        {
+          bitmapEncoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+          bitmapEncoder.Save(stream);
+        }
       }
-      bitmapEncoder.Frames[0].Dispatcher.InvokeShutdown();
-      bitmapEncoder.Dispatcher.InvokeShutdown();
-      bitmapSource.Dispatcher.InvokeShutdown();
     }
   }
 }
