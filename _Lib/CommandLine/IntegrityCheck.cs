@@ -13,7 +13,7 @@ namespace CommandLine
     {
       Func<LongOptEx, string> formatLOE = longOptEx =>
         String.Format(longOptEx.IsUnnamed ? "{{ BoundPropertyName: \"{2}\" }}" : "{{ Name: \"{0}\", Val: '{1}', BoundPropertyName: \"{2}\" }}",
-                      longOptEx.Name, (char)longOptEx.Val, longOptEx.BoundPropertyName);
+                      longOptEx.Name, longOptEx.Val >= ' ' ? ((char)longOptEx.Val).ToString() : String.Format("0x{0,02:X}", longOptEx.Val), longOptEx.BoundPropertyName);
       
       var errors = new List<string>();
 
@@ -64,7 +64,7 @@ namespace CommandLine
           errors.Add(String.Format("'Name' is not set for {0}", formatLOE(longOptEx)));
         }
 
-        if (!isUnnamed && !longOptEx.HasShortOption)
+        if (!isUnnamed && longOptEx.IsShortOptionAuto)
         {
           errors.Add(String.Format("'Val' is not set for {0}", formatLOE(longOptEx)));
         }

@@ -33,6 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ColumnFormatter.cs" />
+    <Compile Include="ShortOptionType.cs" />
     <Compile Include="Parser.Format.cs" />
     <Compile Include="OptionAttribute.cs" />
     <Compile Include="Parser.cs" />

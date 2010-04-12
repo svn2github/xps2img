@@ -10,7 +10,6 @@ namespace CommandLine
 {
   internal class LongOptEx : LongOpt
   {
-    public const char NoShortOptionMark = ' ';
     private const string Unnamed = "UnnamedE7CD7C04EA3D40178BBB8AB31CE75FDA";
     
     public static string GetLongName(string name)
@@ -21,7 +20,7 @@ namespace CommandLine
     }
 
     public LongOptEx(string description, bool isRequired) :
-      this(description, Unnamed, NoShortOptionMark, isRequired ? ArgumentExpectancy.Required : ArgumentExpectancy.Optional)
+      this(description, Unnamed, ShortOptionType.Auto, isRequired ? ArgumentExpectancy.Required : ArgumentExpectancy.Optional)
     {
     }
 
@@ -36,7 +35,7 @@ namespace CommandLine
     }
 
     public LongOptEx(string description, string name, ArgumentExpectancy hasArg) :
-      this(description, name, NoShortOptionMark, hasArg)
+      this(description, name, ShortOptionType.Auto, hasArg)
     {
     }
 
@@ -47,9 +46,9 @@ namespace CommandLine
 
     public LongOptEx(string description, string name, char shortOption, ArgumentExpectancy hasArg) :
       base( name, (Argument)hasArg, null,
-            name == Unnamed ? NoShortOptionMark :
-              shortOption != NoShortOptionMark ? shortOption :
-                String.IsNullOrEmpty(name) ? NoShortOptionMark : Char.ToLower(name[0]))
+            name == Unnamed ? ShortOptionType.Auto :
+              shortOption != ShortOptionType.Auto ? shortOption :
+                String.IsNullOrEmpty(name) ? ShortOptionType.Auto : Char.ToLower(name[0]))
     {
       Description = description;
     }
@@ -63,7 +62,7 @@ namespace CommandLine
     {
       try
       {
-        if(Validator != null)
+        if (value != null && Validator != null)
         {
           Validator.Validate(value);
         }
@@ -102,8 +101,10 @@ namespace CommandLine
     
     public TypeConverter TypeConverter { get; set; }
     public bool IsEnum {get { return TypeConverter.GetType() == typeof (EnumConverter); } }
-    
-    public bool HasShortOption { get { return Val != NoShortOptionMark; } }
+
+    public bool IsShortOptionAuto { get { return Val == ShortOptionType.Auto; } }
+    public bool IsShortOptionNone { get { return Val < ShortOptionType.Auto; } }
+    public bool HasShortOption    { get { return !IsShortOptionAuto && !IsShortOptionNone; } }
 
     public bool IsUnnamed { get { return Name == Unnamed; } }
     public bool IsNamed   { get { return !IsUnnamed; } }
@@ -144,8 +145,11 @@ namespace CommandLine
       {
         return String.Empty;
       }
-      
-      return String.Format("{0} {1}", optionName, propertyValueFormatted);
+
+      return String.Format("{0}{1}{2}",
+              optionName,
+              HasShortOption ? ((ArgumentExpectancy)HasArg == ArgumentExpectancy.Optional ? "" : " ") : "=",
+              propertyValueFormatted);
     }
 
     public string FormatOptional(string text)

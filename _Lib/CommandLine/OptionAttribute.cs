@@ -33,7 +33,7 @@ namespace CommandLine
     }
 
     public OptionAttribute(string description, string name, ArgumentExpectancy hasArg) :
-      this(description, name, LongOptEx.NoShortOptionMark, hasArg)
+      this(description, name, ShortOptionType.Auto, hasArg)
     {
     }
 
@@ -64,7 +64,7 @@ namespace CommandLine
       if (String.IsNullOrEmpty(longOptEx.Name))
       {
         var attrName = LongOptEx.GetLongName(name);
-        longOptEx = longOptEx.HasShortOption ?
+        longOptEx = longOptEx.HasShortOption || longOptEx.IsShortOptionNone ?
                       new LongOptEx(longOptEx.Description, attrName, (char)longOptEx.Val, (ArgumentExpectancy)longOptEx.HasArg) :
                       new LongOptEx(longOptEx.Description, attrName, (ArgumentExpectancy)longOptEx.HasArg);
       }
