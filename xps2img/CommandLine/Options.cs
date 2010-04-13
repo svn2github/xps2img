@@ -49,6 +49,14 @@ namespace Xps2Img.CommandLine
     [Option("TIFF compression method", DefaultValue = "zip")]
     public TiffCompressOption TiffCompression { get; set; }
 
+    [Option(
+      "Converter memory limit in megabytes (16-16384)\nUseful if your PC has less than 2GB of RAM\nPlease note omitted space after short option",
+      ArgumentExpectancy.Optional,
+      DefaultValue = "256",
+      ValidationExpression = "16-16384"
+    )]
+    public int? MemoryLimit { get; set; }
+
     [Option("Test mode (no files will be written)", 'e', ArgumentExpectancy.No)]
     public bool Test { get; set; }
     

@@ -119,6 +119,15 @@ namespace CommandLine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}{2}, {1}.
+        /// </summary>
+        internal static string Format_ShortOptionalAndLongOpt {
+            get {
+                return ResourceManager.GetString("Format_ShortOptionalAndLongOpt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Usage: {0}.
         /// </summary>
         internal static string Format_Usage {

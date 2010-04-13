@@ -67,7 +67,7 @@ namespace CommandLine
           Validator.Validate(value);
         }
         var propertyInfo = BoundObject.GetType().GetProperty(BoundPropertyName);
-        propertyInfo.SetValue(BoundObject, TypeConverter.ConvertFromInvariantString(IsFlag ? "true" : value), null);
+        propertyInfo.SetValue(BoundObject, TypeConverter.ConvertFromInvariantString(IsFlag ? "true" : value ?? DefaultValue), null);
       }
       catch(Exception ex)
       {
@@ -141,14 +141,14 @@ namespace CommandLine
         return Convert.ToBoolean(propertyValue) ? optionName : String.Empty;
       }
 
-      if (IsRequired && propertyValue == null)
+      if ((IsRequired || IsOptional) && propertyValue == null)
       {
         return String.Empty;
       }
 
       return String.Format("{0}{1}{2}",
               optionName,
-              HasShortOption ? ((ArgumentExpectancy)HasArg == ArgumentExpectancy.Optional ? "" : " ") : "=",
+              HasShortOption ? (IsOptional ? "" : " ") : "=",
               propertyValueFormatted);
     }
 

@@ -78,7 +78,7 @@ namespace CommandLine
       longOptEx.BoundObject = optionsObject;
       longOptEx.DefaultValue = DefaultValue;
 
-      if (!ignoreDefault && DefaultValue != null)
+      if (!ignoreDefault && DefaultValue != null && longOptEx.TypeConverter.GetType() != typeof(NullableConverter))
       {
         longOptEx.SetPropertyValue(DefaultValue);
       }

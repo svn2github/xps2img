@@ -112,7 +112,8 @@ namespace Xps2Img
                 OutputDir     = options.OutDir,
                 BaseImageName = !String.IsNullOrEmpty(options.ImageName) ?
                                   options.ImageName :
-                                  (options.ImageName == null ? String.Empty : null)
+                                  (options.ImageName == null ? String.Empty : null),
+                MemoryLimit   = options.MemoryLimit
               }
             )
           );

@@ -1,3 +1,9 @@
+1.2.0.0		2010/04/13
+
+[+] Converter memory limit for PC with less than 2Gb of RAM.
+[+] Test mode - no files will be written if enabled.
+[+] CommandLine Library: Optional arguments support.
+
 1.1.1.0		2010/03/19
 
 [*] Refactoring.

@@ -59,6 +59,7 @@ namespace Xps2Img
       public int Dpi { get; set; }
       public string OutputDir { get; set; }
       public string BaseImageName { get; set; }
+      public int? MemoryLimit { get; set; }
     }
 
     public void Convert(Parameters parameters)
@@ -88,7 +89,7 @@ namespace Xps2Img
         Directory.CreateDirectory(activeDir);
       }
 
-      var memoryUsageCheck = new MemoryUsageChecker(!false, 500);
+      var memoryUsageCheck = new MemoryUsageChecker(parameters.MemoryLimit);
 
       for (var docPageNumber = parameters.StartPage; docPageNumber <= parameters.EndPage; docPageNumber++)
       {

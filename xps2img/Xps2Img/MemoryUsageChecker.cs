@@ -5,19 +5,31 @@ namespace Xps2Img
 {
   public class MemoryUsageChecker
   {
-    private const int checkInterval = 10;
+    private readonly int checkInterval;
 
     private readonly long memoryLimit;
 
-    private int checkCountdown = checkInterval;
+    private int checkCountdown;
 
+    public MemoryUsageChecker(int? mbMemoryLimit):
+      this(mbMemoryLimit.HasValue, mbMemoryLimit ?? 0)
+    {
+    }
+    
     public MemoryUsageChecker(bool enabled, int mbMemoryLimit)
     {
-      memoryLimit = mbMemoryLimit * 1024 * 1024;
       if(!enabled)
       {
-        checkCountdown = Int32.MaxValue;
+        checkInterval = int.MaxValue;
+        memoryLimit = int.MaxValue;
       }
+      else
+      {
+        checkInterval = (int)Math.Log(mbMemoryLimit, 2) + 1;
+        memoryLimit = mbMemoryLimit * 1024 * 1024;
+      }
+
+      checkCountdown = checkInterval;
     }
       
     public void Check()

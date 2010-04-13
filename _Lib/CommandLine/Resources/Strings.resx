@@ -164,4 +164,7 @@ One of:
   <data name="Validation_RegexValidator" xml:space="preserve">
     <value>value format is incorrect (see help)</value>
   </data>
+	<data name="Format_ShortOptionalAndLongOpt">
+		<value xml:space="preserve">{0}{2}, {1}</value>
+	</data>
 </root>
