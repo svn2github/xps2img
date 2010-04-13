@@ -20,9 +20,9 @@ namespace CommandLine
       var longOpts = GetOptionsList(optionsObject, true);
       var stringBuilder = new StringBuilder(longOpts.Count * 4);
 
-      foreach (var longOpt in longOpts.Where(longOpt => !String.IsNullOrEmpty(longOpt.ToString())))
+      foreach (var str in longOpts.Select(longOpt => longOpt.ToString()).Where(str => !String.IsNullOrEmpty(str)))
       {
-        stringBuilder.AppendFormat(" {0}", longOpt);
+        stringBuilder.AppendFormat(" {0}", str);
       }
       
       return stringBuilder.ToString();
