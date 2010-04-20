@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace Xps2Img.CommandLine
 {
-  public class RequiredTypeConverter : TypeConverter
+  public class RequiredSizeTypeConverter : TypeConverter
   {
     public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
     {

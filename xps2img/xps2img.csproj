@@ -77,7 +77,7 @@
     <Compile Include="CommandLine\Interval.cs" />
     <Compile Include="CommandLine\Options.cs" />
     <Compile Include="CommandLine\TypeConverters\IntervalTypeConverter.cs" />
-    <Compile Include="CommandLine\TypeConverters\RequiredTypeConverter.cs" />
+    <Compile Include="CommandLine\TypeConverters\RequiredSizeTypeConverter.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
