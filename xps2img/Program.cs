@@ -70,8 +70,6 @@ namespace Xps2Img
 			return (int)CommandLine.CommandLine.ReturnCode.OK;
 		}
 
-		#region Progress.
-
 		private static string progreessFormatString;
 
 		private static void OnProgress(Converter.ProgressEventArgs args)
@@ -86,7 +84,5 @@ namespace Xps2Img
 			}
 			Console.WriteLine(String.Format(progreessFormatString, args.ConverterState.ActivePage, args.ConverterState.ActivePageIndex, args.ConverterState.TotalPages, args.FullFileName, (int)args.ConverterState.Percent));
 		}
-
-		#endregion
 	}
 }
