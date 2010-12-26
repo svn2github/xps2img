@@ -9,148 +9,149 @@ using System.Windows.Xps.Packaging;
 
 namespace Xps2Img
 {
-  public class Converter: IDisposable
-  {
-    private readonly XpsDocument xpsDocument;
-    private readonly DocumentPaginator documentPaginator;
+	public class Converter : IDisposable
+	{
+		private readonly XpsDocument xpsDocument;
+		private readonly DocumentPaginator documentPaginator;
 
-    public ConverterState ConverterState { get; set; }
+		public ConverterState ConverterState { get; set; }
 
-    private Converter(string xpsFileName)
-    {
-      xpsDocument = new XpsDocument(xpsFileName, FileAccess.Read, CompressionOption.NotCompressed);
-      // ReSharper disable PossibleNullReferenceException
-      documentPaginator = xpsDocument.GetFixedDocumentSequence().DocumentPaginator;
-      // ReSharper restore PossibleNullReferenceException
-      ConverterState = new ConverterState();
-    }
-    
-    public int PageCount { get { return documentPaginator.PageCount; } }
+		private Converter(string xpsFileName)
+		{
+			xpsDocument = new XpsDocument(xpsFileName, FileAccess.Read, CompressionOption.NotCompressed);
+			// ReSharper disable PossibleNullReferenceException
+			documentPaginator = xpsDocument.GetFixedDocumentSequence().DocumentPaginator;
+			// ReSharper restore PossibleNullReferenceException
+			ConverterState = new ConverterState();
+		}
 
-    public static Converter Create(string xpsFileName)
-    {
-      return new Converter(xpsFileName);
-    }
-    
-    public class ProgressEventArgs: EventArgs
-    {
-      public ProgressEventArgs(string fullFileName, ConverterState converterState)
-      {
-        FullFileName = fullFileName;
-        ConverterState = converterState;
-      }
+		public int PageCount { get { return documentPaginator.PageCount; } }
 
-      public readonly string FullFileName;
-      public readonly ConverterState ConverterState;
-    }
-    
-    public delegate void ProgressDelegate(ProgressEventArgs args);
-    
-    public event ProgressDelegate OnProgress;
+		public static Converter Create(string xpsFileName)
+		{
+			return new Converter(xpsFileName);
+		}
 
-    public class Parameters
-    {
-      public bool Test { get; set; }
-      public int StartPage { get; set; }
-      public int EndPage { get; set; }
-      public ImageType ImageType { get; set; }
-      public ImageOptions ImageOptions { get; set; }
-      public Size? RequiredSize { get; set; }
-      public int Dpi { get; set; }
-      public string OutputDir { get; set; }
-      public string BaseImageName { get; set; }
-      public int? MemoryLimit { get; set; }
-    }
+		public class ProgressEventArgs : EventArgs
+		{
+			public ProgressEventArgs(string fullFileName, ConverterState converterState)
+			{
+				FullFileName = fullFileName;
+				ConverterState = converterState;
+			}
 
-    public void Convert(Parameters parameters)
-    {
-      var xpsFileName = xpsDocument.Uri.OriginalString;
-      
-      var numberFormat = PageCount.GetNumberFormat();
+			public readonly string FullFileName;
+			public readonly ConverterState ConverterState;
+		}
 
-      if(parameters.BaseImageName == null)
-      {
-        parameters.BaseImageName = Path.GetFileNameWithoutExtension(xpsFileName) + '-';
-      }
-      
-      if (String.IsNullOrEmpty(parameters.OutputDir))
-      {
-        parameters.OutputDir = Path.Combine(Path.GetDirectoryName(xpsFileName), Path.GetFileNameWithoutExtension(xpsFileName));
-      }
+		public delegate void ProgressDelegate(ProgressEventArgs args);
 
-      if (!ConverterState.HasPageCount)
-      {
-        ConverterState.SetLastAndTotalPages(parameters.EndPage, PageCount);
-      }
+		public event ProgressDelegate OnProgress;
 
-      var activeDir = parameters.OutputDir;
-      if(!parameters.Test)
-      {
-        Directory.CreateDirectory(activeDir);
-      }
+		public class Parameters
+		{
+			public bool Test { get; set; }
+			public int StartPage { get; set; }
+			public int EndPage { get; set; }
+			public ImageType ImageType { get; set; }
+			public ImageOptions ImageOptions { get; set; }
+			public Size? RequiredSize { get; set; }
+			public int Dpi { get; set; }
+			public string OutputDir { get; set; }
+			public string BaseImageName { get; set; }
+		}
 
-      var memoryUsageCheck = new MemoryUsageChecker(parameters.MemoryLimit);
+		public void Convert(Parameters parameters)
+		{
+			var xpsFileName = xpsDocument.Uri.OriginalString;
 
-      for (var docPageNumber = parameters.StartPage; docPageNumber <= parameters.EndPage; docPageNumber++)
-      {
-        ConverterState.ActivePage = docPageNumber;
-        
-        memoryUsageCheck.Check();
-        
-        var fileName = Path.Combine(activeDir, parameters.BaseImageName + String.Format(numberFormat, docPageNumber));
-        
-        ImageWriter.Write(
-          !parameters.Test,
-          fileName,
-          parameters.ImageType,
-          parameters.ImageOptions,
-          GetPageBitmap(documentPaginator, docPageNumber-1, parameters),
-          fullFileName => { if (OnProgress != null) { ConverterState.ActivePageIndex++; OnProgress(new ProgressEventArgs(fullFileName, ConverterState)); } });          
-      }
-    }
+			var numberFormat = PageCount.GetNumberFormat();
 
-    private static RenderTargetBitmap GetPageBitmap(DocumentPaginator documentPaginator, int pageNumber, Parameters parameters)
-    {
-      const double dpiConst = 96.0;
+			if (parameters.BaseImageName == null)
+			{
+				parameters.BaseImageName = Path.GetFileNameWithoutExtension(xpsFileName) + '-';
+			}
 
-      double dpi = parameters.Dpi;
+			if (String.IsNullOrEmpty(parameters.OutputDir))
+			{
+				// ReSharper disable AssignNullToNotNullAttribute
+				parameters.OutputDir = Path.Combine(Path.GetDirectoryName(xpsFileName), Path.GetFileNameWithoutExtension(xpsFileName));
+				// ReSharper restore AssignNullToNotNullAttribute
+			}
 
-      var size = parameters.RequiredSize ?? new Size();
+			if (!ConverterState.HasPageCount)
+			{
+				ConverterState.SetLastAndTotalPages(parameters.EndPage, PageCount);
+			}
 
-      Func<int, bool> isSizeDefined = requiredSize => requiredSize > 0;
-      Action<int, double> calcDpi = (requiredSize, pageSize) => { if (isSizeDefined(requiredSize)) { dpi = (requiredSize / pageSize) * dpiConst; } };
-     
-      using (var page = documentPaginator.GetPage(pageNumber))
-      {
-        if (!size.IsEmpty)
-        {
-          var portrait = page.Size.Height >= page.Size.Width;
+			var activeDir = parameters.OutputDir;
+			if (!parameters.Test)
+			{
+				Directory.CreateDirectory(activeDir);
+			}
 
-          if (portrait || !isSizeDefined(size.Width))
-          {
-            calcDpi(size.Height, page.Size.Height);
-          }
+			for (var docPageNumber = parameters.StartPage; docPageNumber <= parameters.EndPage; docPageNumber++)
+			{
+				ConverterState.ActivePage = docPageNumber;
 
-          if (!portrait || !isSizeDefined(size.Height))
-          {
-            calcDpi(size.Width, page.Size.Width);
-          }
-        }
+				var fileName = Path.Combine(activeDir, parameters.BaseImageName + String.Format(numberFormat, docPageNumber));
 
-        var ratio = dpi / dpiConst;
+				ImageWriter.Write(
+				  !parameters.Test,
+				  fileName,
+				  parameters.ImageType,
+				  parameters.ImageOptions,
+				  GetPageBitmap(documentPaginator, docPageNumber - 1, parameters),
+				  fullFileName => { if (OnProgress != null) { ConverterState.ActivePageIndex++; OnProgress(new ProgressEventArgs(fullFileName, ConverterState)); } });
+			}
+		}
 
-        var bitmap = new RenderTargetBitmap((int) Math.Round(page.Size.Width*ratio),
-                                            (int) Math.Round(page.Size.Height*ratio), dpi, dpi, PixelFormats.Pbgra32);
-        bitmap.Render(page.Visual);
-        
-        return bitmap;
-      }
-    }
-    
-    public void Dispose()
-    {
-      xpsDocument.Close();
-      GC.SuppressFinalize(this);
-    }
-  }
+		private static RenderTargetBitmap GetPageBitmap(DocumentPaginator documentPaginator, int pageNumber, Parameters parameters)
+		{
+			const double dpiConst = 96.0;
+
+			double dpi = parameters.Dpi;
+
+			var size = parameters.RequiredSize ?? new Size();
+
+			Func<int, bool> isSizeDefined = requiredSize => requiredSize > 0;
+			Action<int, double> calcDpi = (requiredSize, pageSize) => { if (isSizeDefined(requiredSize)) { dpi = (requiredSize / pageSize) * dpiConst; } };
+
+			using (var page = documentPaginator.GetPage(pageNumber))
+			{
+				if (!size.IsEmpty)
+				{
+					var portrait = page.Size.Height >= page.Size.Width;
+
+					if (portrait || !isSizeDefined(size.Width))
+					{
+						calcDpi(size.Height, page.Size.Height);
+					}
+
+					if (!portrait || !isSizeDefined(size.Height))
+					{
+						calcDpi(size.Width, page.Size.Width);
+					}
+				}
+
+				var ratio = dpi / dpiConst;
+
+				var bitmap = new RenderTargetBitmap((int)Math.Round(page.Size.Width * ratio),
+													(int)Math.Round(page.Size.Height * ratio), dpi, dpi, PixelFormats.Pbgra32);
+				bitmap.Render(page.Visual);
+
+				// Memory leak fix.
+				// http://social.msdn.microsoft.com/Forums/en/wpf/thread/c6511918-17f6-42be-ac4c-459eeac676fd
+				((FixedPage)page.Visual).UpdateLayout();
+
+				return bitmap;
+			}
+		}
+
+		public void Dispose()
+		{
+			xpsDocument.Close();
+			GC.SuppressFinalize(this);
+		}
+	}
 }

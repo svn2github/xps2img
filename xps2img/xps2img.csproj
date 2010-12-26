@@ -67,7 +67,6 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
-    <Reference Include="System.XML" />
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -83,11 +82,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Utils\Win32.cs" />
     <Compile Include="Xps2Img\ImageWriter.cs" />
     <Compile Include="Xps2Img\ImageDefs.cs" />
     <Compile Include="Xps2Img\ConverterState.cs" />
-    <Compile Include="Xps2Img\MemoryUsageChecker.cs" />
     <Compile Include="Xps2Img\Utils.cs" />
     <Compile Include="Xps2Img\Converter.cs" />
     <Compile Include="Program.cs" />

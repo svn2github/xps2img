@@ -7,65 +7,65 @@ using System.Text.RegularExpressions;
 
 namespace Xps2Img.CommandLine
 {
-  public class RequiredSizeTypeConverter : TypeConverter
-  {
-    public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
-    {
-      return destinationType == typeof(string);
-    }
+	public class RequiredSizeTypeConverter : TypeConverter
+	{
+		public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+		{
+			return destinationType == typeof(string);
+		}
 
-    public const string ValidationRegex = @"^(((?<width>[1-9]\d{1,6})x?)|((?<width>[1-9]\d{1,6}))?(x(?<height>[1-9]\d{1,6})?))$";
-    private static readonly Regex filter = new Regex(ValidationRegex);
+		public const string ValidationRegex = @"^(((?<width>[1-9]\d{1,6})x?)|((?<width>[1-9]\d{1,6}))?(x(?<height>[1-9]\d{1,6})?))$";
+		private static readonly Regex filter = new Regex(ValidationRegex);
 
-    public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-    {
-      if (!CanConvertTo(destinationType))
-      {
-        return null;
-      }
+		public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+		{
+			if (!CanConvertTo(destinationType))
+			{
+				return null;
+			}
 
-      var size = (Size) value;
-      
-      var converted = new StringBuilder(16);
-      
-      if(size.Width > 0)
-      {
-        converted.AppendFormat("{0}", size.Width);
-      }
-      
-      if (size.Height > 0)
-      {
-        converted.AppendFormat("x{0}", size.Height);
-      }
+			var size = (Size)value;
 
-      return converted.ToString();
-    }
+			var converted = new StringBuilder(16);
 
-    public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-    {
-      return sourceType == typeof(string);
-    }
+			if (size.Width > 0)
+			{
+				converted.AppendFormat("{0}", size.Width);
+			}
 
-    public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-    {
-      if (!CanConvertFrom(value.GetType()) || String.IsNullOrEmpty((string)value))
-      {
-        return null;
-      }
+			if (size.Height > 0)
+			{
+				converted.AppendFormat("x{0}", size.Height);
+			}
 
-      var match = filter.Match((string) value);
-      if (!match.Success)
-      {
-        throw new ArgumentException(@"UNEXPECTED: Invalid input string. Validation failed", "value");
-      }
+			return converted.ToString();
+		}
 
-      Func<string, int> convertToInt = group =>
-      {
-        var strVal = match.Groups[group].Value;
-        return String.IsNullOrEmpty(strVal) ? 0 : Convert.ToInt32(strVal);
-      };
+		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+		{
+			return sourceType == typeof(string);
+		}
 
-      return new Size(convertToInt("width"), convertToInt("height"));
-    }
-  }
+		public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+		{
+			if (!CanConvertFrom(value.GetType()) || String.IsNullOrEmpty((string)value))
+			{
+				return null;
+			}
+
+			var match = filter.Match((string)value);
+			if (!match.Success)
+			{
+				throw new ArgumentException(@"UNEXPECTED: Invalid input string. Validation failed", "value");
+			}
+
+			Func<string, int> convertToInt = group =>
+			{
+				var strVal = match.Groups[group].Value;
+				return String.IsNullOrEmpty(strVal) ? 0 : Convert.ToInt32(strVal);
+			};
+
+			return new Size(convertToInt("width"), convertToInt("height"));
+		}
+	}
 }

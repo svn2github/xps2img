@@ -23,7 +23,7 @@ namespace Xps2Img
         case ImageType.Gif:
           return new GifBitmapEncoder();
         default:
-          throw new InvalidCastException(String.Format(Resources.Strings.Error_UnknownImageType, imageType));
+          throw new InvalidOperationException(String.Format(Resources.Strings.Error_UnknownImageType, imageType));
       }
     }
     
