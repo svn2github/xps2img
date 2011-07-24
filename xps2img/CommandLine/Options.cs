@@ -24,7 +24,7 @@ namespace Xps2Img.CommandLine
 		)]
 		public List<Interval> Pages { get; set; }
 
-		[Option("Output image type", DefaultValue = "png")]
+		[Option("Image type", DefaultValue = "png")]
 		public ImageType FileType { get; set; }
 
 		[Option(
@@ -38,7 +38,7 @@ namespace Xps2Img.CommandLine
 		public int Dpi { get; set; }
 
 		[Option(
-		  "Beginning of the output image name\n  numeric if ommited: 01.png\n  name of src file if empty: src_file-01.png",
+		  "Image prefix\n  numeric if ommited: 01.png\n  name of src file if empty: src_file-01.png",
 		  ValidationExpression = @"/^([^<>:""/\\|?*])*$/"
 		)]
 		public string ImageName { get; set; }
