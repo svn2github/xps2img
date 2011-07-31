@@ -28,7 +28,7 @@ namespace Xps2Img.CommandLine
 		public ImageType FileType { get; set; }
 
 		[Option(
-		  "Desired image size\n  DPI will be ignored if specified \nSyntax:\n  width only:\t2000\n  height only:\tx1000\n  both:\t\t2000x1000\n\t\twidth for landscape orientation\n\t\theigth for portrait orientation\n",
+		  "Desired image size\n  DPI will be ignored if specified \nSyntax:\n  width only:\t2000\n  height only:\tx1000\n  both:\t\t2000x1000\n\t\twidth for landscape orientation\n\t\theight for portrait orientation",
 		  ConverterType = typeof(RequiredSizeTypeConverter),
 		  ValidationExpression = "/" + RequiredSizeTypeConverter.ValidationRegex + "/"
 		)]
