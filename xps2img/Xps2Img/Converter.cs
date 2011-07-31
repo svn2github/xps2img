@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.IO.Packaging;
+using System.Text;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -51,14 +52,27 @@ namespace Xps2Img
 		public class Parameters
 		{
 			public bool Test { get; set; }
+
 			public int StartPage { get; set; }
 			public int EndPage { get; set; }
+
 			public ImageType ImageType { get; set; }
 			public ImageOptions ImageOptions { get; set; }
+
 			public Size? RequiredSize { get; set; }
 			public int Dpi { get; set; }
+
 			public string OutputDir { get; set; }
 			public string BaseImageName { get; set; }
+
+			public int FirstPageIndex { get; set; }
+			public char PrelimsPrefix { get; set; }
+
+			public Parameters()
+			{
+				FirstPageIndex	= 1;
+				PrelimsPrefix	= '$';
+			}
 		}
 
 		public void Convert(Parameters parameters)
@@ -94,7 +108,22 @@ namespace Xps2Img
 			{
 				ConverterState.ActivePage = docPageNumber;
 
-				var fileName = Path.Combine(activeDir, parameters.BaseImageName + String.Format(numberFormat, docPageNumber));
+				var pageIndex = docPageNumber - parameters.FirstPageIndex + 1;
+
+				var isContent = pageIndex <= 0;
+				if(isContent)
+				{
+					pageIndex = -(pageIndex + parameters.FirstPageIndex - 1);
+				}
+
+				var pageIndexFormatted = new StringBuilder(4).AppendFormat(numberFormat, pageIndex);
+
+				if(isContent)
+				{
+					pageIndexFormatted[0] = parameters.PrelimsPrefix;
+				}
+
+				var fileName = Path.Combine(activeDir, parameters.BaseImageName + pageIndexFormatted);
 
 				ImageWriter.Write(
 				  !parameters.Test,

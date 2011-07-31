@@ -37,10 +37,7 @@ namespace Xps2Img.CommandLine
 		[Option("Image DPI (16-1500)", DefaultValue = "120", ValidationExpression = "16-1500")]
 		public int Dpi { get; set; }
 
-		[Option(
-		  "Image prefix\n  numeric if ommited: 01.png\n  name of src file if empty: src_file-01.png",
-		  ValidationExpression = @"/^([^<>:""/\\|?*])*$/"
-		)]
+		[Option("Image prefix\n  numeric if ommited: 01.png\n  name of src file if empty: src_file-01.png", ValidationExpression = OptionsValidators.FileNameValidationRegex)]
 		public string ImageName { get; set; }
 
 		[Option("JPEG quality level (10-100)", 'q', DefaultValue = "85", ValidationExpression = "10-100")]
@@ -49,10 +46,21 @@ namespace Xps2Img.CommandLine
 		[Option("TIFF compression method", DefaultValue = "zip")]
 		public TiffCompressOption TiffCompression { get; set; }
 
+		[Option("Document body first page index", 'a', DefaultValue = "1", ValidationExpression = "1-1000000")]
+		public int FirstPageIndex { get; set; }
+
+		[Option("Preliminaries prefix", 'x', DefaultValue = "$", ValidationExpression = OptionsValidators.FileNameValidationRegex)]
+		public char PrelimsPrefix { get; set; }
+
 		[Option("Test mode (no files will be written)", 'e', ArgumentExpectancy.No)]
 		public bool Test { get; set; }
 
 		[Option("Silent mode (no progress will be shown)", ArgumentExpectancy.No)]
 		public bool Silent { get; set; }
+	}
+
+	public static class OptionsValidators
+	{
+		public const string FileNameValidationRegex = @"/^([^<>:""/\\|?*])*$/";
 	}
 }
