@@ -88,11 +88,6 @@ namespace Xps2ImgUI.Model
 		{
 			try
 			{
-				if (_process != null)
-				{
-					_process.Dispose();
-				}
-
 				var consoleEncoding = Encoding.GetEncoding(Thread.CurrentThread.CurrentCulture.GetConsoleFallbackUICulture().TextInfo.OEMCodePage);
 
 				var processStartInfo = new ProcessStartInfo(Xps2ImgExecutable, FormatCommandLine())
@@ -105,22 +100,19 @@ namespace Xps2ImgUI.Model
 											   StandardErrorEncoding = consoleEncoding
 										   };
 
-				_process = new Process
+				using (_process = new Process { StartInfo = processStartInfo, EnableRaisingEvents = true })
 				{
-					StartInfo = processStartInfo,
-					EnableRaisingEvents = true
-				};
+					_process.OutputDataReceived += OutputDataReceivedWrapper;
+					_process.ErrorDataReceived += ErrorDataReceivedWrapper;
+					_process.Exited += ExitedWrapper;
 
-				_process.OutputDataReceived += OutputDataReceivedWrapper;
-				_process.ErrorDataReceived += ErrorDataReceivedWrapper;
-				_process.Exited += ExitedWrapper;
+					_process.Start();
 
-				_process.Start();
+					_process.BeginOutputReadLine();
+					_process.BeginErrorReadLine();
 
-				_process.BeginOutputReadLine();
-				_process.BeginErrorReadLine();
-
-				_process.WaitForExit();
+					_process.WaitForExit();
+				}
 			}
 			catch (Exception ex)
 			{
