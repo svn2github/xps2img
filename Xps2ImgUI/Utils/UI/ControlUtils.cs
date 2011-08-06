@@ -9,7 +9,7 @@ namespace Xps2ImgUI.Utils.UI
         {
             if (control.InvokeRequired)
             {
-                control.Invoke(action);
+                control.BeginInvoke(action);
             }
             else
             {
