@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 
-namespace Xps2Img.CommandLine
+namespace Xps2Img.CommandLine.TypeConverters
 {
 	public class IntervalTypeConverter : TypeConverter
 	{

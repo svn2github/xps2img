@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 
-namespace CommandLine.Validation
+namespace CommandLine.Validation.Validators
 {
-  internal class EnumValidator: IValidator
+  internal class EnumValidator: Validator
   {
-    public static IValidator Create(object validation)
+    public static Validator Create(object validation)
     {
       if (validation == null || !(validation is Type) || ((Type)validation).BaseType.Name != "Enum")
       {

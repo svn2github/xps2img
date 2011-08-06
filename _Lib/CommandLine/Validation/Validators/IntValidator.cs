@@ -2,13 +2,13 @@
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace CommandLine.Validation
+namespace CommandLine.Validation.Validators
 {
-  internal class IntValidator: IValidator
+  internal class IntValidator: Validator
   {
     private static readonly Regex filter = new Regex(@"^\s*(?<lowerBound>\d+)\s*-\s*(?<upperBound>\d+)\s*$");
   
-    public static IValidator Create(object validation)
+    public static Validator Create(object validation)
     {
       if (!IsTypeOf<string>(validation))
       {

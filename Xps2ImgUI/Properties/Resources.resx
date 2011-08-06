@@ -124,7 +124,7 @@
     <value>Reset Settings</value>
   </data>
   <data name="Launch" xml:space="preserve">
-    <value>Launch</value>
+    <value>Convert</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -136,16 +136,16 @@
     <value>Xps2Img Launcher</value>
   </data>
   <data name="WindowTitleProgressFormat" xml:space="preserve">
-    <value>{0}% - {1}</value>
+    <value>{1}% ({2}) - {0}</value>
   </data>
   <data name="ClosingQuery" xml:space="preserve">
-    <value>Convertion operation is in progress. Would you like to abort it?</value>
+    <value>Convertion is in progress. Would you like to abort it and exit?</value>
   </data>
   <data name="Xps2ImgError" xml:space="preserve">
     <value>Convertion failed.{0}{0}{1}</value>
   </data>
   <data name="SpecifyValue" xml:space="preserve">
-    <value>Specify {0} value.</value>
+    <value>{0} is required.</value>
   </data>
   <data name="NoExceptionMessage" xml:space="preserve">
     <value>Unknown error</value>

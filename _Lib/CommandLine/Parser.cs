@@ -41,11 +41,11 @@ namespace CommandLine
       return result;
     }
     
-    private static readonly string[] helpOpt = new[] { "-h", "--help" };
+    private static readonly string[] HelpOpt = new[] { "-h", "--help" };
       
     public static bool IsUsageRequiested(string[] args)
     {
-      return !args.Any() || (args.Length == 1 && helpOpt.Contains(args.First()));
+      return !args.Any() || (args.Length == 1 && HelpOpt.Contains(args.First()));
     }
 
     public static T Parse<T>(string[] args, string aplicationName) where T: class

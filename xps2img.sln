@@ -1,18 +1,18 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CBE6DA08-FEBD-4539-ABFF-0EF1665E789B}"
+	ProjectSection(SolutionItems) = preProject
+		_Docs\credits.txt = _Docs\credits.txt
+		_Docs\xps2img-release.txt = _Docs\xps2img-release.txt
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xps2img", "xps2img\xps2img.csproj", "{236BBAAD-700A-4695-834F-713A79E29310}"
 	ProjectSection(ProjectDependencies) = postProject
 		{33D069F8-1FB0-475D-B19F-51979CB3E9DD} = {33D069F8-1FB0-475D-B19F-51979CB3E9DD}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLine", "_Lib\CommandLine\CommandLine.csproj", "{33D069F8-1FB0-475D-B19F-51979CB3E9DD}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CBE6DA08-FEBD-4539-ABFF-0EF1665E789B}"
-	ProjectSection(SolutionItems) = preProject
-		_Docs\credits.txt = _Docs\credits.txt
-		_Docs\xps2img-release.txt = _Docs\xps2img-release.txt
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

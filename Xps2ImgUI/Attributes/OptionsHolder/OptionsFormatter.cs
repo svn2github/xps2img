@@ -63,9 +63,15 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
 
         private static string FormatOptionValue(string optionValue)
         {
-            return String.IsNullOrEmpty(optionValue) ?
-                    String.Empty :
-                    String.Format("\"{0}\"", optionValue.Trim(TrimSymbols));
+            if(String.IsNullOrEmpty(optionValue))
+            {
+                return String.Empty;
+            }
+
+            optionValue = optionValue.Trim(TrimSymbols);
+            return optionValue.Contains("\x20")
+                    ? String.Format("\"{0}\"", optionValue)
+                    : optionValue;
         }
 
         private static string FormatOption(bool exceptionIfNoRequired, object boundObject, BaseOptionAttribute optionAttribute, OptionFormatInfo optionFormatInfo)

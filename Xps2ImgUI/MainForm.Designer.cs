@@ -32,7 +32,7 @@
             this.settingsPropertyGrid = new System.Windows.Forms.PropertyGrid();
             this.commandLineTextBox = new System.Windows.Forms.TextBox();
             this.progressBar = new System.Windows.Forms.ProgressBar();
-            this.launchButton = new System.Windows.Forms.Button();
+            this.convertButton = new System.Windows.Forms.Button();
             this.settingsSplitContainer.Panel1.SuspendLayout();
             this.settingsSplitContainer.Panel2.SuspendLayout();
             this.settingsSplitContainer.SuspendLayout();
@@ -55,9 +55,8 @@
             // settingsSplitContainer.Panel2
             // 
             this.settingsSplitContainer.Panel2.Controls.Add(this.commandLineTextBox);
-            this.settingsSplitContainer.Panel2Collapsed = true;
-            this.settingsSplitContainer.Size = new System.Drawing.Size(535, 312);
-            this.settingsSplitContainer.SplitterDistance = 251;
+            this.settingsSplitContainer.Size = new System.Drawing.Size(727, 466);
+            this.settingsSplitContainer.SplitterDistance = 401;
             this.settingsSplitContainer.TabIndex = 7;
             // 
             // settingsPropertyGrid
@@ -66,7 +65,7 @@
             this.settingsPropertyGrid.Location = new System.Drawing.Point(0, 0);
             this.settingsPropertyGrid.Name = "settingsPropertyGrid";
             this.settingsPropertyGrid.PropertySort = System.Windows.Forms.PropertySort.Categorized;
-            this.settingsPropertyGrid.Size = new System.Drawing.Size(535, 312);
+            this.settingsPropertyGrid.Size = new System.Drawing.Size(727, 401);
             this.settingsPropertyGrid.TabIndex = 0;
             this.settingsPropertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.settingsPropertyGrid_PropertyValueChanged);
             this.settingsPropertyGrid.PropertySortChanged += new System.EventHandler(this.settingsPropertyGrid_PropertySortChanged);
@@ -81,35 +80,35 @@
             this.commandLineTextBox.Name = "commandLineTextBox";
             this.commandLineTextBox.ReadOnly = true;
             this.commandLineTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.commandLineTextBox.Size = new System.Drawing.Size(150, 46);
-            this.commandLineTextBox.TabIndex = 6;
+            this.commandLineTextBox.Size = new System.Drawing.Size(727, 61);
+            this.commandLineTextBox.TabIndex = 0;
             // 
             // progressBar
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar.Location = new System.Drawing.Point(8, 327);
+            this.progressBar.Location = new System.Drawing.Point(8, 481);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(457, 23);
-            this.progressBar.TabIndex = 4;
+            this.progressBar.Size = new System.Drawing.Size(649, 23);
+            this.progressBar.TabIndex = 0;
             // 
-            // launchButton
+            // convertButton
             // 
-            this.launchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.launchButton.Location = new System.Drawing.Point(469, 327);
-            this.launchButton.Name = "launchButton";
-            this.launchButton.Size = new System.Drawing.Size(75, 23);
-            this.launchButton.TabIndex = 3;
-            this.launchButton.UseVisualStyleBackColor = true;
-            this.launchButton.Click += new System.EventHandler(this.launchButton_Click);
+            this.convertButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.convertButton.Location = new System.Drawing.Point(660, 481);
+            this.convertButton.Name = "convertButton";
+            this.convertButton.Size = new System.Drawing.Size(75, 23);
+            this.convertButton.TabIndex = 1;
+            this.convertButton.UseVisualStyleBackColor = true;
+            this.convertButton.Click += new System.EventHandler(this.convertButton_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(551, 359);
+            this.ClientSize = new System.Drawing.Size(743, 513);
             this.Controls.Add(this.progressBar);
-            this.Controls.Add(this.launchButton);
+            this.Controls.Add(this.convertButton);
             this.Controls.Add(this.settingsSplitContainer);
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
@@ -127,7 +126,7 @@
     private System.Windows.Forms.PropertyGrid settingsPropertyGrid;
     private System.Windows.Forms.TextBox commandLineTextBox;
     private System.Windows.Forms.SplitContainer settingsSplitContainer;
-    private System.Windows.Forms.Button launchButton;
+    private System.Windows.Forms.Button convertButton;
     private System.Windows.Forms.ProgressBar progressBar;
   }
 }

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows.Media.Imaging;
 
-namespace Xps2Img
+namespace Xps2Img.Xps2Img
 {
 	public static class ImageWriter
 	{

@@ -2,157 +2,168 @@
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 
+using Xps2Img.CommandLine;
 using Xps2ImgUI.Attributes.OptionsHolder;
 
 namespace Xps2ImgUI.Model
 {
-    class Xps2ImgModel
-    {
-        public static readonly string ApplicationFolder = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-        public static readonly string Xps2ImgExecutable = Path.Combine(ApplicationFolder, "xps2img.exe");
+	class Xps2ImgModel
+	{
+		public static readonly string ApplicationFolder = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+		public static readonly string Xps2ImgExecutable = Path.Combine(ApplicationFolder, "xps2img.exe");
 
-        public Xps2ImgModel()
-        {
-            Reset();
-        }
+		public Xps2ImgModel()
+		{
+			Reset();
+		}
 
-        public void Reset()
-        {
-            _optionsHolder = OptionsHolder.Create(new Xps2ImgOptions());
-        }
+		public void Reset()
+		{
+			_optionsHolder = OptionsHolder.Create(new Options());
+		}
 
-        public void Launch()
-        {
-            Stop();
-            new Thread(Xps2ImgTreadStart).Start();
-        }
+		public void Launch()
+		{
+			Stop();
 
-        public void Stop()
-        {
-            try
-            {
-                _process.Kill();
-            }
-            // ReSharper disable EmptyGeneralCatchClause
-            catch
-            // ReSharper restore EmptyGeneralCatchClause
-            {
-                // Ignore.
-            }
-        }
+			new Thread(Xps2ImgTreadStart).Start();
+		}
 
-        public string FormatCommandLine()
-        {
-            return _optionsHolder.FormatCommandLine();
-        }
+		public void Stop()
+		{
+			try
+			{
+				_process.CancelOutputRead();
+				_process.CancelErrorRead();
+				_process.Kill();
+			}
+			// ReSharper disable EmptyGeneralCatchClause
+			catch
+			// ReSharper restore EmptyGeneralCatchClause
+			{
+				// Ignore.
+			}
+		}
 
-        public object OptionsObject
-        {
-            get { return _optionsHolder.OptionsObject; }
-        }
+		public string FormatCommandLine()
+		{
+			return _optionsHolder.FormatCommandLine();
+		}
 
-        public string FirstRequiredOptionLabel
-        {
-            get { return _optionsHolder.FirstRequiredOptionLabel; }
-        }
+		public object OptionsObject
+		{
+			get { return _optionsHolder.OptionsObject; }
+		}
 
-        public bool IsRunning
-        {
-            get
-            {
-                try
-                {
-                    return !_process.HasExited;
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-        }
+		public string FirstRequiredOptionLabel
+		{
+			get { return _optionsHolder.FirstRequiredOptionLabel; }
+		}
 
-        public event DataReceivedEventHandler OutputDataReceived;
-        public event DataReceivedEventHandler ErrorDataReceived;
-        public event EventHandler Completed;
+		public bool IsRunning
+		{
+			get
+			{
+				try
+				{
+					return !_process.HasExited;
+				}
+				catch
+				{
+					return false;
+				}
+			}
+		}
 
-        public event ThreadExceptionEventHandler LaunchFailed;
+		public event DataReceivedEventHandler OutputDataReceived;
+		public event DataReceivedEventHandler ErrorDataReceived;
+		public event EventHandler Completed;
 
-        private void Xps2ImgTreadStart(object context)
-        {
-            try
-            {
-                if (_process != null)
-                {
-                    _process.Dispose();
-                }
+		public event ThreadExceptionEventHandler LaunchFailed;
 
-                var processStartInfo = new ProcessStartInfo(Xps2ImgExecutable, FormatCommandLine())
-                                           {
-                                               CreateNoWindow = true,
-                                               UseShellExecute = false,
-                                               RedirectStandardOutput = true,
-                                               RedirectStandardError = true
-                                           };
+		private void Xps2ImgTreadStart(object context)
+		{
+			try
+			{
+				if (_process != null)
+				{
+					_process.Dispose();
+				}
 
-                _process = new Process
-                               {
-                                   StartInfo = processStartInfo,
-                                   EnableRaisingEvents = true
-                               };
+				var consoleEncoding = Encoding.GetEncoding(Thread.CurrentThread.CurrentCulture.GetConsoleFallbackUICulture().TextInfo.OEMCodePage);
 
-                _process.OutputDataReceived += OutputDataReceivedWrapper;
-                _process.ErrorDataReceived += ErrorDataReceivedWrapper;
-                _process.Exited += ExitedWrapper;
+				var processStartInfo = new ProcessStartInfo(Xps2ImgExecutable, FormatCommandLine())
+										   {
+											   CreateNoWindow = true,
+											   UseShellExecute = false,
+											   RedirectStandardOutput = true,
+											   RedirectStandardError = true,
+											   StandardOutputEncoding = consoleEncoding,
+											   StandardErrorEncoding = consoleEncoding
+										   };
 
-                _process.Start();
+				_process = new Process
+				{
+					StartInfo = processStartInfo,
+					EnableRaisingEvents = true
+				};
 
-                _process.BeginOutputReadLine();
-                _process.BeginErrorReadLine();
-            }
-            catch (Exception ex)
-            {
-                if (LaunchFailed == null)
-                {
-                    throw;
-                }
+				_process.OutputDataReceived += OutputDataReceivedWrapper;
+				_process.ErrorDataReceived += ErrorDataReceivedWrapper;
+				_process.Exited += ExitedWrapper;
 
-                LaunchFailed(this, new ThreadExceptionEventArgs(ex));
-            }
-        }
+				_process.Start();
 
-        private void OutputDataReceivedWrapper(object sender, DataReceivedEventArgs e)
-        {
-            if (OutputDataReceived != null)
-            {
-                OutputDataReceived(sender, e);
-            }
-        }
+				_process.BeginOutputReadLine();
+				_process.BeginErrorReadLine();
 
-        private void ErrorDataReceivedWrapper(object sender, DataReceivedEventArgs e)
-        {
-            if (ErrorDataReceived != null)
-            {
-                ErrorDataReceived(sender, e);
-            }
-        }
+				_process.WaitForExit();
+			}
+			catch (Exception ex)
+			{
+				if (LaunchFailed == null)
+				{
+					throw;
+				}
 
-        private void ExitedWrapper(object sender, EventArgs e)
-        {
-            var process = (Process) sender;
+				LaunchFailed(this, new ThreadExceptionEventArgs(ex));
+			}
+		}
 
-            process.OutputDataReceived -= OutputDataReceivedWrapper;
-            process.ErrorDataReceived -= ErrorDataReceivedWrapper;
-            process.Exited -= ExitedWrapper;
+		private void OutputDataReceivedWrapper(object sender, DataReceivedEventArgs e)
+		{
+			if (OutputDataReceived != null)
+			{
+				OutputDataReceived(sender, e);
+			}
+		}
 
-            if (Completed != null)
-            {
-                Completed(sender, e);
-            }
-        }
+		private void ErrorDataReceivedWrapper(object sender, DataReceivedEventArgs e)
+		{
+			if (ErrorDataReceived != null)
+			{
+				ErrorDataReceived(sender, e);
+			}
+		}
 
-        private OptionsHolder _optionsHolder;
-        private Process _process;
-    }
+		private void ExitedWrapper(object sender, EventArgs e)
+		{
+			var process = (Process) sender;
+
+			process.OutputDataReceived -= OutputDataReceivedWrapper;
+			process.ErrorDataReceived -= ErrorDataReceivedWrapper;
+			process.Exited -= ExitedWrapper;
+
+			if (Completed != null)
+			{
+				Completed(sender, e);
+			}
+		}
+
+		private OptionsHolder _optionsHolder;
+		private Process _process;
+	}
 }

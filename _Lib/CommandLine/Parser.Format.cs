@@ -100,9 +100,9 @@ namespace CommandLine
           );
         }
 
-        const string LineSeparator = "\n";
+        const string lineSeparator = "\n";
     
-        lines.AddRange(optStringBuilder.Replace(LineSeparator, LineSeparator + ColumnFormatter.Separator).ToString().Split(new [] { LineSeparator }, StringSplitOptions.None));
+        lines.AddRange(optStringBuilder.Replace(lineSeparator, lineSeparator + ColumnFormatter.Separator).ToString().Split(new [] { lineSeparator }, StringSplitOptions.None));
       }
 
       stringBuilder.Append(ColumnFormatter.Format(lines));

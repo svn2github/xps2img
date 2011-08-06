@@ -121,7 +121,7 @@ namespace Xps2Img.CommandLine
 		}
 
 		public const string ValidationRegex = @"^(,?((\d{1,5}-\d{1,5})|(\d{1,5}-?)|(-?\d{1,5})))+$";
-		private static readonly Regex validationRegex = new Regex(ValidationRegex);
+		private static readonly Regex RegexValidation = new Regex(ValidationRegex);
 
 		public static List<Interval> Parse(string intervalString)
 		{
@@ -130,7 +130,7 @@ namespace Xps2Img.CommandLine
 				return new List<Interval> { new Interval() };
 			}
 
-			if (!validationRegex.IsMatch(intervalString))
+			if (!RegexValidation.IsMatch(intervalString))
 			{
 				throw new ArgumentException(@"UNEXPECTED: Interval format is invalid", "intervalString");
 			}

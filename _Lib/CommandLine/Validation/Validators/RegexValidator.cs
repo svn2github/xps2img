@@ -1,12 +1,12 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace CommandLine.Validation
+namespace CommandLine.Validation.Validators
 {
-  internal class RegexValidator: IValidator
+  internal class RegexValidator: Validator
   {
     private static readonly Regex filter = new Regex(@"^/(?<regex>[\s\S]+?)/(?<options>[ims]*)$");
   
-    public static IValidator Create(object validation)
+    public static Validator Create(object validation)
     {
       if (!IsTypeOf<string>(validation))
       {

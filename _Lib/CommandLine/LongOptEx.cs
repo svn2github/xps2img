@@ -94,7 +94,7 @@ namespace CommandLine
 
     public object BoundObject { get; set; }
 
-    internal IValidator Validator { get; set; }
+    internal Validator Validator { get; set; }
 
     public string DefaultValue { get; set; }
     public bool HasDefaultValue { get { return !String.IsNullOrEmpty(DefaultValue); } }

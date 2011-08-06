@@ -61,8 +61,14 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\xps2img\CommandLine\Options.cs">
+      <Link>Shared\Options.cs</Link>
+    </Compile>
     <Compile Include="..\xps2img\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\xps2img\Xps2Img\ImageDefs.cs">
+      <Link>Shared\ImageDefs.cs</Link>
     </Compile>
     <Compile Include="Attributes\Options\OptionsBase.cs" />
     <Compile Include="Attributes\Options\BaseOptionAttribute.cs" />
@@ -70,9 +76,12 @@
     <Compile Include="Attributes\Options\UnnamedOptionAttribute.cs" />
     <Compile Include="Attributes\OptionsHolder\OptionsFormatter.cs" />
     <Compile Include="Attributes\OptionsHolder\OptionsHolder.cs" />
+    <Compile Include="Converters\YesNoConverter.cs" />
     <Compile Include="Model\Xps2ImgModel.cs" />
     <Compile Include="Dialogs\SelectFileEditor.cs" />
     <Compile Include="Dialogs\SelectFolderEditor.cs" />
+    <Compile Include="Utils\StringUtils.cs" />
+    <Compile Include="Utils\UI\TabbedDescriptionAttribute.cs" />
     <Compile Include="Utils\UI\ControlUtils.cs" />
     <Compile Include="Utils\Strings.cs" />
     <Compile Include="Utils\ReflectionUtils.cs" />
@@ -102,7 +111,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Model\Xps2ImgOptions.cs" />
+    <Compile Include="Dialogs\SelectXpsFileEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

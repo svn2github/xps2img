@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Xps2Img.CommandLine
+namespace Xps2Img.CommandLine.TypeConverters
 {
 	public class RequiredSizeTypeConverter : TypeConverter
 	{
@@ -15,7 +15,7 @@ namespace Xps2Img.CommandLine
 		}
 
 		public const string ValidationRegex = @"^(((?<width>[1-9]\d{1,6})x?)|((?<width>[1-9]\d{1,6}))?(x(?<height>[1-9]\d{1,6})?))$";
-		private static readonly Regex filter = new Regex(ValidationRegex);
+		private static readonly Regex Filter = new Regex(ValidationRegex);
 
 		public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
 		{
@@ -53,7 +53,7 @@ namespace Xps2Img.CommandLine
 				return null;
 			}
 
-			var match = filter.Match((string)value);
+			var match = Filter.Match((string)value);
 			if (!match.Success)
 			{
 				throw new ArgumentException(@"UNEXPECTED: Invalid input string. Validation failed", "value");

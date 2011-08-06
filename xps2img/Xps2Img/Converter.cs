@@ -8,25 +8,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Xps.Packaging;
 
-namespace Xps2Img
+namespace Xps2Img.Xps2Img
 {
 	public class Converter : IDisposable
 	{
-		private readonly XpsDocument xpsDocument;
-		private readonly DocumentPaginator documentPaginator;
+		private readonly XpsDocument _xpsDocument;
+		private readonly DocumentPaginator _documentPaginator;
 
 		public ConverterState ConverterState { get; set; }
 
 		private Converter(string xpsFileName)
 		{
-			xpsDocument = new XpsDocument(xpsFileName, FileAccess.Read, CompressionOption.NotCompressed);
+			_xpsDocument = new XpsDocument(xpsFileName, FileAccess.Read, CompressionOption.NotCompressed);
 			// ReSharper disable PossibleNullReferenceException
-			documentPaginator = xpsDocument.GetFixedDocumentSequence().DocumentPaginator;
+			_documentPaginator = _xpsDocument.GetFixedDocumentSequence().DocumentPaginator;
 			// ReSharper restore PossibleNullReferenceException
 			ConverterState = new ConverterState();
 		}
 
-		public int PageCount { get { return documentPaginator.PageCount; } }
+		public int PageCount { get { return _documentPaginator.PageCount; } }
 
 		public static Converter Create(string xpsFileName)
 		{
@@ -77,7 +77,7 @@ namespace Xps2Img
 
 		public void Convert(Parameters parameters)
 		{
-			var xpsFileName = xpsDocument.Uri.OriginalString;
+			var xpsFileName = _xpsDocument.Uri.OriginalString;
 
 			var numberFormat = PageCount.GetNumberFormat();
 
@@ -130,7 +130,7 @@ namespace Xps2Img
 				  fileName,
 				  parameters.ImageType,
 				  parameters.ImageOptions,
-				  GetPageBitmap(documentPaginator, docPageNumber - 1, parameters),
+				  GetPageBitmap(_documentPaginator, docPageNumber - 1, parameters),
 				  fullFileName => { if (OnProgress != null) { ConverterState.ActivePageIndex++; OnProgress(new ProgressEventArgs(fullFileName, ConverterState)); } });
 			}
 		}
@@ -179,7 +179,7 @@ namespace Xps2Img
 
 		public void Dispose()
 		{
-			xpsDocument.Close();
+			_xpsDocument.Close();
 			GC.SuppressFinalize(this);
 		}
 	}

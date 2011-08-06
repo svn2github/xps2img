@@ -1,6 +1,6 @@
 ﻿namespace CommandLine.Validation
 {
-  internal abstract class IValidator
+  internal abstract class Validator
   {
     public abstract void Validate(string value);
     

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
@@ -15,269 +16,340 @@ using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI
 {
-    public partial class MainForm : Form
-    {
-        public MainForm()
-        {
-            InitializeComponent();
+	public partial class MainForm : Form
+	{
+		public MainForm()
+		{
+			InitializeComponent();
 
-            _xps2ImgModel.OutputDataReceived += Xps2ImgOutputDataReceived;
-            _xps2ImgModel.ErrorDataReceived += Xps2ImgErrorDataReceived;
-            _xps2ImgModel.Completed += Xps2ImgCompleted;
-            _xps2ImgModel.LaunchFailed += Xps2ImgLaunchFailed;
-        }
+			_xps2ImgModel.OutputDataReceived += Xps2ImgOutputDataReceived;
+			_xps2ImgModel.ErrorDataReceived += Xps2ImgErrorDataReceived;
+			_xps2ImgModel.Completed += Xps2ImgCompleted;
+			_xps2ImgModel.LaunchFailed += Xps2ImgLaunchFailed;
+		}
 
-        protected override void OnLoad(EventArgs e)
-        {
-            Text = Resources.WindowTitle;
-            launchButton.Text = Resources.Launch;
+		protected override void OnLoad(EventArgs e)
+		{
+			Text = Resources.WindowTitle;
+			convertButton.Text = Resources.Launch;
 
-            MinimumSize = new Size(Size.Width, Size.Height);
-            
-            ModifyPropertyGridToolStrip();
+			MinimumSize = new Size(Size.Width, Size.Height);
 
-            ResetSettings();
+			AdjustPropertyGrid();
 
-            FocusFirstRequiredOption(null);
-            
-            base.OnLoad(e);
-        }
+			ResetSettings();
 
-        protected override void OnActivated(EventArgs e)
-        {
-            this.StopFlashing();
-            base.OnActivated(e);
-        }
+			FocusFirstRequiredOption(null);
+			
+			base.OnLoad(e);
+		}
 
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            if (_xps2ImgModel.IsRunning)
-            {
-                var dialogResult = MessageBox.Show(this, Resources.ClosingQuery,
-                                                   Resources.WindowTitle,
-                                                   MessageBoxButtons.YesNoCancel,
-                                                   MessageBoxIcon.Exclamation,
-                                                   MessageBoxDefaultButton.Button3);
+		protected override void OnActivated(EventArgs e)
+		{
+			this.StopFlashing();
+			base.OnActivated(e);
+		}
 
-                if (dialogResult == DialogResult.Yes)
-                {
-                    _xps2ImgModel.Stop();
-                }
+		protected override void OnClosing(CancelEventArgs e)
+		{
+			if (_xps2ImgModel.IsRunning)
+			{
+				var dialogResult = MessageBox.Show(this, Resources.ClosingQuery,
+												   Resources.WindowTitle,
+												   MessageBoxButtons.YesNo,
+												   MessageBoxIcon.Exclamation,
+												   MessageBoxDefaultButton.Button2);
 
-                e.Cancel = dialogResult == DialogResult.Cancel;
-            }
+				if (dialogResult == DialogResult.Yes)
+				{
+					_xps2ImgModel.Stop();
+				}
 
-            base.OnClosing(e);
-        }
+				e.Cancel = dialogResult == DialogResult.No;
+			}
 
-        private void ModifyPropertyGridToolStrip()
-        {
-            var toolStrip = settingsPropertyGrid.Controls.OfType<ToolStrip>().FirstOrDefault();
-            if (toolStrip == null)
-            {
-                return;
-            }
+			base.OnClosing(e);
+		}
 
-            // Remove property pages button.
-            toolStrip.Items.RemoveAt(toolStrip.Items.Count - 1);
+		private void AdjustPropertyGrid()
+		{
+			AdjustPropertyGridToolStrip();
+			AdjustPropertyGridDocComment();
+		}
 
-            // Show command line.
-            var button = new ToolStripButton(Resources.ShowCommandLine);
-            button.Click += showCommandLineToolStripButton_Click;
-            toolStrip.Items.Add(button);
+		private void AdjustPropertyGridDocComment()
+		{
+			var docComment = settingsPropertyGrid.Controls.OfType<Control>().Where(c => c.GetType().Name == "DocComment").FirstOrDefault();
+			if(docComment == null)
+			{
+				return;
+			}
 
-            // Separator.
-            toolStrip.Items.Add(new ToolStripSeparator());
+			var docCommentType = docComment.GetType();
 
-            // Reset settings.
-            _resetToolStripButton = new ToolStripButton(Resources.ResetSettings) { Enabled = false };
-            _resetToolStripButton.Click += resetSettingsToolStripButton_Click;
-            toolStrip.Items.Add(_resetToolStripButton);
-        }
+			var userSizedField = docCommentType.GetField("userSized", BindingFlags.Instance | BindingFlags.NonPublic);
+			if (userSizedField != null)
+			{
+				userSizedField.SetValue(docComment, true);
+			}
 
-        private void ResetSettings()
-        {
-            _xps2ImgModel.Reset();
-            settingsPropertyGrid.SelectedObject = _xps2ImgModel.OptionsObject;
-        }
+			docCommentType.GetProperty("Lines").SetValue(docComment, 9, null);
 
-        private void UpdateProgress(int percent)
-        {
-            Text = String.Format(Resources.WindowTitleProgressFormat, percent, Resources.WindowTitle);
-            progressBar.Value = percent;
+			var fontProperty = docCommentType.GetProperty("Font");
 
-            this.SetProgressValue(progressBar.Value, progressBar.Maximum);
-        }
+			var originalFont = (Font)fontProperty.GetValue(docComment, null);
 
-        private void UpdateRunningStatus(bool isRunning)
-        {
-            if (!isRunning)
-            {
-                Text = Resources.WindowTitle;
-            }
+			var fonts = new[]
+			{
+				new { Name = "Consolas", Scale = 1.006 },
+				new { Name = "Lucida Sans Typewriter", Scale = 0.995 },
+				new { Name = "Courier New", Scale = 1.005 },
+				new { Name = "Lucida Console", Scale = 1.001 }
+			};
 
-            launchButton.Text = isRunning ? Resources.Cancel : Resources.Launch;
-            settingsPropertyGrid.Enabled = !isRunning;
+			foreach (var font in fonts)
+			{
+				var newFont = new Font(font.Name, (float)(originalFont.Size * font.Scale), originalFont.Style, originalFont.Unit);
+				if (newFont.Name != "Microsoft Sans Serif")
+				{
+					fontProperty.SetValue(docComment, newFont, null);
+					break;
+				}
+				newFont.Dispose();
+			}
+		}
 
-            progressBar.Value = 0;
+		private void AdjustPropertyGridToolStrip()
+		{
+			var toolStrip = settingsPropertyGrid.Controls.OfType<ToolStrip>().FirstOrDefault();
+			if (toolStrip == null)
+			{
+				return;
+			}
 
-            this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.NoProgress);
-        }
+			// Remove property pages button.
+			toolStrip.Items.RemoveAt(toolStrip.Items.Count - 1);
 
-        private void UpdateFailedStatus(string message)
-        {
-            _conversionFailed = true;
+			// Show command line.
+			_showCommandLineToolStripButton = new ToolStripButton(Resources.ShowCommandLine);
+			_showCommandLineToolStripButton.Click += showCommandLineToolStripButton_Click;
+			toolStrip.Items.Add(_showCommandLineToolStripButton);
 
-            this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.Error);
+			UpdateShowCommandLineCommand();
 
-            FlashForm();
+			// Separator.
+			toolStrip.Items.Add(new ToolStripSeparator());
 
-            MessageBox.Show(this, String.Format(Resources.Xps2ImgError, Environment.NewLine, message),
-                            Resources.WindowTitle,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+			// Reset settings.
+			_resetToolStripButton = new ToolStripButton(Resources.ResetSettings) { Enabled = false };
+			_resetToolStripButton.Click += resetSettingsToolStripButton_Click;
+			toolStrip.Items.Add(_resetToolStripButton);
+		}
 
-            UpdateRunningStatus(false);
-        }
+		private void ResetSettings()
+		{
+			_xps2ImgModel.Reset();
+			settingsPropertyGrid.SelectedObject = _xps2ImgModel.OptionsObject;
+		}
 
-        private void UpdateCommandLine()
-        {
-            var commandLine = _xps2ImgModel.FormatCommandLine();
-            var separator = String.IsNullOrEmpty(commandLine) ? String.Empty : "\x20";
-            commandLineTextBox.Text = String.Format("\"{0}\"{1}{2}", Xps2ImgModel.Xps2ImgExecutable, separator, commandLine);
-        }
+		private void UpdateProgress(int percent, string pages)
+		{
+			Text = String.Format(Resources.WindowTitleProgressFormat, Resources.WindowTitle, percent, pages);
+			progressBar.Value = percent;
 
-        private void FlashForm()
-        {
-            if (ActiveForm == null)
-            {
-                this.Flash(4);
-            }
-        }
+			this.SetProgressValue(progressBar.Value, progressBar.Maximum);
+		}
 
-        private bool FocusFirstRequiredOption(Action<string> action)
-        {
-            var firstRequiredOptionLabel = _xps2ImgModel.FirstRequiredOptionLabel;
-            if (!String.IsNullOrEmpty(firstRequiredOptionLabel))
-            {
-                if (action != null)
-                {
-                    action(firstRequiredOptionLabel);
-                }
-                settingsPropertyGrid.SelectGridItem(firstRequiredOptionLabel, gi => (gi.Label ?? String.Empty).StartsWith(firstRequiredOptionLabel), true);
-                return true;
-            }
-            return false;
-        }
+		private void UpdateRunningStatus(bool isRunning)
+		{
+			if (!isRunning)
+			{
+				Text = Resources.WindowTitle;
+			}
 
-        private void Xps2ImgOutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (String.IsNullOrEmpty(e.Data))
-            {
-                return;
-            }
+			convertButton.Text = isRunning ? Resources.Cancel : Resources.Launch;
+			settingsPropertyGrid.Enabled = !isRunning;
 
-            var match = OutputRegex.Match(e.Data);
-            if (match.Success)
-            {
-                this.InvokeIfNeeded(() => UpdateProgress(Convert.ToInt32(match.Groups[1].Value)));
-            }
-        }
+			progressBar.Value = 0;
 
-        private void Xps2ImgErrorDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (String.IsNullOrEmpty(e.Data))
-            {
-                return;
-            }
+			this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.NoProgress);
+		}
 
-            this.InvokeIfNeeded(() => UpdateFailedStatus(e.Data));
-        }
+		private void UpdateFailedStatus(string message)
+		{
+			_conversionFailed = true;
 
-        private void Xps2ImgCompleted(object sender, EventArgs e)
-        {
-            if (_conversionFailed)
-            {
-                return;
-            }
+			this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.Error);
 
-            FlashForm();
+			FlashForm();
 
-            this.InvokeIfNeeded(() => UpdateRunningStatus(false));
-        }
+			MessageBox.Show(this, String.Format(Resources.Xps2ImgError, Environment.NewLine, message),
+							Resources.WindowTitle,
+							MessageBoxButtons.OK,
+							MessageBoxIcon.Error);
 
-        private void Xps2ImgLaunchFailed(object sender, ThreadExceptionEventArgs e)
-        {
-            this.InvokeIfNeeded(() => UpdateFailedStatus(e.Exception.Message));
-        }
+			UpdateRunningStatus(false);
+		}
 
-        private void launchButton_Click(object sender, EventArgs e)
-        {
-            var isRunning = _xps2ImgModel.IsRunning;
-            if (isRunning)
-            {
-                _xps2ImgModel.Stop();
-            }
-            else
-            {
-                _conversionFailed = false;
+		private void UpdateCommandLine()
+		{
+			var commandLine = _xps2ImgModel.FormatCommandLine();
+			var separator = String.IsNullOrEmpty(commandLine) ? String.Empty : "\x20";
+			commandLineTextBox.Text = String.Format("\"{0}\"{1}{2}", Xps2ImgModel.Xps2ImgExecutable, separator, commandLine);
+		}
 
-                if (FocusFirstRequiredOption(
-                    firstRequiredOptionLabel =>
-                    MessageBox.Show(this, String.Format(Resources.SpecifyValue, firstRequiredOptionLabel),
-                                    Resources.WindowTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)))
-                {
-                    return;
-                }
+		private void UpdateShowCommandLineCommand()
+		{
+			_showCommandLineToolStripButton.Text =
+				_showCommandLineToolStripButton.ToolTipText = settingsSplitContainer.Panel2Collapsed
+																  ? Resources.ShowCommandLine
+																  : Resources.HideCommandLine;
+		}
 
-                this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.Indeterminate);
+		private void FlashForm()
+		{
+			if (ActiveForm == null)
+			{
+				this.Flash(4);
+			}
+		}
 
-                _xps2ImgModel.Launch();
-            }
+		private bool FocusFirstRequiredOption(Action<string> action)
+		{
+			var firstRequiredOptionLabel = _xps2ImgModel.FirstRequiredOptionLabel;
+			if (!String.IsNullOrEmpty(firstRequiredOptionLabel))
+			{
+				if (action != null)
+				{
+					action(firstRequiredOptionLabel);
+				}
+				settingsPropertyGrid.SelectGridItem(firstRequiredOptionLabel, gi => (gi.Label ?? String.Empty).StartsWith(firstRequiredOptionLabel), true);
+				return true;
+			}
+			return false;
+		}
 
-            UpdateRunningStatus(!isRunning);
-        }
+		private static readonly Regex OutputRegex = new Regex(@"^\[\s*(?<percent>\d+)%\].+\(\s*(?<pages>\d+/\d+)\)");
 
-        private void settingsPropertyGrid_PropertySortChanged(object sender, EventArgs e)
-        {
-            var propertyGrid = (PropertyGrid) sender;
-            if (propertyGrid.PropertySort == PropertySort.CategorizedAlphabetical)
-            {
-                propertyGrid.PropertySort = PropertySort.Categorized;
-            }
-        }
+		private void Xps2ImgOutputDataReceived(object sender, DataReceivedEventArgs e)
+		{
+			if (String.IsNullOrEmpty(e.Data))
+			{
+				return;
+			}
 
-        private void settingsPropertyGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
-        {
-            _resetToolStripButton.Enabled = true;
-            UpdateCommandLine();
-        }
+			var match = OutputRegex.Match(e.Data);
+			if (match.Success)
+			{
+				var percent = Convert.ToInt32(match.Groups["percent"].Value);
+				var pages = match.Groups["pages"].Value;
+				this.InvokeIfNeeded(() => UpdateProgress(percent, pages));
+			}
+		}
 
-        private void settingsPropertyGrid_SelectedObjectsChanged(object sender, EventArgs e)
-        {
-            UpdateCommandLine();
-        }
+		private void Xps2ImgErrorDataReceived(object sender, DataReceivedEventArgs e)
+		{
+			if (String.IsNullOrEmpty(e.Data))
+			{
+				return;
+			}
 
-        private void resetSettingsToolStripButton_Click(object sender, EventArgs e)
-        {
-            ((ToolStripButton)sender).Enabled = false;
-            ResetSettings();
-        }
+			this.InvokeIfNeeded(() => UpdateFailedStatus(e.Data));
+		}
 
-        private void showCommandLineToolStripButton_Click(object sender, EventArgs e)
-        {
-            var collapsed = settingsSplitContainer.Panel2Collapsed;
-            var button = (ToolStripButton) sender;
-            settingsSplitContainer.Panel2Collapsed = !collapsed;
-            button.Text = button.ToolTipText = collapsed ? Resources.HideCommandLine : Resources.ShowCommandLine;
-        }
+		private void Xps2ImgCompleted(object sender, EventArgs e)
+		{
+			if (_conversionFailed)
+			{
+				return;
+			}
 
-        private static readonly Regex OutputRegex = new Regex(@"^\[(\d+)%\]");
+			FlashForm();
 
-        private volatile bool _conversionFailed;
+			this.InvokeIfNeeded(() => UpdateRunningStatus(false));
+		}
 
-        private readonly Xps2ImgModel _xps2ImgModel = new Xps2ImgModel();
+		private void Xps2ImgLaunchFailed(object sender, ThreadExceptionEventArgs e)
+		{
+			this.InvokeIfNeeded(() => UpdateFailedStatus(e.Exception.Message));
+		}
 
-        private ToolStripButton _resetToolStripButton;
-    }
+		// ReSharper disable InconsistentNaming
+		private void convertButton_Click(object sender, EventArgs e)
+		// ReSharper restore InconsistentNaming
+		{
+			var isRunning = _xps2ImgModel.IsRunning;
+			if (isRunning)
+			{
+				_xps2ImgModel.Stop();
+			}
+			else
+			{
+				_conversionFailed = false;
+
+				if (FocusFirstRequiredOption(
+					firstRequiredOptionLabel =>
+					MessageBox.Show(this, String.Format(Resources.SpecifyValue, firstRequiredOptionLabel),
+									Resources.WindowTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)))
+				{
+					return;
+				}
+
+				this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.Indeterminate);
+
+				_xps2ImgModel.Launch();
+			}
+
+			UpdateRunningStatus(!isRunning);
+		}
+
+		// ReSharper disable InconsistentNaming
+		private void settingsPropertyGrid_PropertySortChanged(object sender, EventArgs e)
+		// ReSharper restore InconsistentNaming
+		{
+			var propertyGrid = (PropertyGrid) sender;
+			if (propertyGrid.PropertySort == PropertySort.CategorizedAlphabetical)
+			{
+				propertyGrid.PropertySort = PropertySort.Categorized;
+			}
+		}
+
+		// ReSharper disable InconsistentNaming
+		private void settingsPropertyGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+		// ReSharper restore InconsistentNaming
+		{
+			_resetToolStripButton.Enabled = true;
+			UpdateCommandLine();
+		}
+
+		// ReSharper disable InconsistentNaming
+		private void settingsPropertyGrid_SelectedObjectsChanged(object sender, EventArgs e)
+		// ReSharper restore InconsistentNaming
+		{
+			UpdateCommandLine();
+		}
+
+		// ReSharper disable InconsistentNaming
+		private void resetSettingsToolStripButton_Click(object sender, EventArgs e)
+		// ReSharper restore InconsistentNaming
+		{
+			((ToolStripButton)sender).Enabled = false;
+			ResetSettings();
+		}
+
+		// ReSharper disable InconsistentNaming
+		private void showCommandLineToolStripButton_Click(object sender, EventArgs e)
+		// ReSharper restore InconsistentNaming
+		{
+			settingsSplitContainer.Panel2Collapsed = !settingsSplitContainer.Panel2Collapsed;
+			UpdateShowCommandLineCommand();
+		}
+
+		private volatile bool _conversionFailed;
+
+		private readonly Xps2ImgModel _xps2ImgModel = new Xps2ImgModel();
+
+		private ToolStripButton _resetToolStripButton;
+		private ToolStripButton _showCommandLineToolStripButton;
+	}
 }

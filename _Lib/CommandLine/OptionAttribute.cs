@@ -54,43 +54,43 @@ namespace CommandLine
     
     public OptionAttribute(string description, string name, char shortOption, ArgumentExpectancy hasArg)
     {
-      longOptEx = new LongOptEx(description, name, shortOption, hasArg);
+      _longOptEx = new LongOptEx(description, name, shortOption, hasArg);
     }
 
     internal LongOptEx Create(object optionsObject, PropertyInfo propertyInfo, bool ignoreDefault)
     {
       var name = propertyInfo.Name;
       
-      if (String.IsNullOrEmpty(longOptEx.Name))
+      if (String.IsNullOrEmpty(_longOptEx.Name))
       {
         var attrName = LongOptEx.GetLongName(name);
-        longOptEx = longOptEx.HasShortOption || longOptEx.IsShortOptionNone ?
-                      new LongOptEx(longOptEx.Description, attrName, (char)longOptEx.Val, (ArgumentExpectancy)longOptEx.HasArg) :
-                      new LongOptEx(longOptEx.Description, attrName, (ArgumentExpectancy)longOptEx.HasArg);
+        _longOptEx = _longOptEx.HasShortOption || _longOptEx.IsShortOptionNone ?
+                      new LongOptEx(_longOptEx.Description, attrName, (char)_longOptEx.Val, (ArgumentExpectancy)_longOptEx.HasArg) :
+                      new LongOptEx(_longOptEx.Description, attrName, (ArgumentExpectancy)_longOptEx.HasArg);
       }
       
-      longOptEx.BoundPropertyName = name;
+      _longOptEx.BoundPropertyName = name;
 
-      longOptEx.TypeConverter = (TypeConverter)(ConverterType == null ?
+      _longOptEx.TypeConverter = (TypeConverter)(ConverterType == null ?
                                     TypeDescriptor.GetConverter(propertyInfo.PropertyType) :
                                     Activator.CreateInstance(ConverterType));
 
-      longOptEx.BoundObject = optionsObject;
-      longOptEx.DefaultValue = DefaultValue;
+      _longOptEx.BoundObject = optionsObject;
+      _longOptEx.DefaultValue = DefaultValue;
 
-      if (!ignoreDefault && DefaultValue != null && longOptEx.TypeConverter.GetType() != typeof(NullableConverter))
+      if (!ignoreDefault && DefaultValue != null && _longOptEx.TypeConverter != null && _longOptEx.TypeConverter.GetType() != typeof(NullableConverter))
       {
-        longOptEx.SetPropertyValue(DefaultValue);
+        _longOptEx.SetPropertyValue(DefaultValue);
       }
 
-      longOptEx.IsInternal = IsInternal;
+      _longOptEx.IsInternal = IsInternal;
 
-      longOptEx.Validator = IsNoValidation ? null :
-        Validation.Parser.Parse((String.IsNullOrEmpty(ValidationExpression) && longOptEx.IsEnum) ?
+      _longOptEx.Validator = IsNoValidation ? null :
+        Validation.Parser.Parse((String.IsNullOrEmpty(ValidationExpression) && _longOptEx.IsEnum) ?
                                   propertyInfo.PropertyType :
                                   (object)ValidationExpression);
 
-      return longOptEx;
+      return _longOptEx;
     }
     
     public string DefaultValue { get; set; }
@@ -104,12 +104,12 @@ namespace CommandLine
 
     public Type ConverterType { get; set; }
 
-    private LongOptEx longOptEx;
+    private LongOptEx _longOptEx;
 
     // Unnamed options only.
     protected OptionAttribute(string description, bool isRequired)
     {
-      longOptEx = new LongOptEx(description, isRequired);
+      _longOptEx = new LongOptEx(description, isRequired);
     }
   }
 
