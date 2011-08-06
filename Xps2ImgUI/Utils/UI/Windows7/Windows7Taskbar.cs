@@ -77,18 +77,14 @@ namespace Windows7.DesktopIntegration
 			TaskbarList.SetProgressState(hwnd, (TBPFLAG)state);
 		}
 
-		public static void SetProgressState(this Form control, ThumbnailProgressState state)
+		public static void SetProgressState(this Form form, ThumbnailProgressState state)
 		{
-			try
+			if (form.IsDisposed)
 			{
-				SetProgressState(control.Handle, state);
+				return;
 			}
-			// ReSharper disable EmptyGeneralCatchClause
-			catch
-			// ReSharper restore EmptyGeneralCatchClause
-			{
-				// Ignore.
-			}
+
+			SetProgressState(form.Handle, state);
 		}
 
 		public static void SetProgressValue(IntPtr hwnd, int current, int maximum)
@@ -96,18 +92,14 @@ namespace Windows7.DesktopIntegration
 			TaskbarList.SetProgressValue(hwnd, (ulong)current, (ulong)maximum);
 		}
 
-		public static void SetProgressValue(this Form control, int current, int maximum)
+		public static void SetProgressValue(this Form form, int current, int maximum)
 		{
-			try
+			if (form.IsDisposed)
 			{
-				SetProgressValue(control.Handle, current, maximum);
+				return;
 			}
-			// ReSharper disable EmptyGeneralCatchClause
-			catch
-			// ReSharper restore EmptyGeneralCatchClause
-			{
-				// Ignore.
-			}
+
+			SetProgressValue(form.Handle, current, maximum);
 		}
 
 		#endregion

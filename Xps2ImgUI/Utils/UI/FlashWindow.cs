@@ -52,15 +52,12 @@ namespace Xps2ImgUI.Utils.UI
 
 		private static bool PerformFlashAction(this Form form, uint flags, uint timeout)
 		{
-			try
-			{
-				var fi = Create_FLASHWINFO(form.Handle, flags, timeout, 0);
-				return FlashWindowEx(ref fi);
-			}
-			catch
+			if(form.IsDisposed)
 			{
 				return false;
 			}
+			var fi = Create_FLASHWINFO(form.Handle, flags, timeout, 0);
+			return FlashWindowEx(ref fi);
 		}
 
 		/// <summary>
