@@ -150,4 +150,7 @@
   <data name="NoExceptionMessage" xml:space="preserve">
     <value>Unknown error</value>
   </data>
+  <data name="Xps2ImgNotFount" xml:space="preserve">
+    <value>{1}{0}{0}Make sure that xps2img.exe utility is present in application folder.</value>
+  </data>
 </root>

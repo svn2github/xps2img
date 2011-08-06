@@ -121,29 +121,20 @@ namespace Xps2ImgUI
 
         private void AdjustPropertyGridToolStrip()
         {
-            var toolStrip = settingsPropertyGrid.Controls.OfType<ToolStrip>().FirstOrDefault();
-            if (toolStrip == null)
-            {
-                return;
-            }
+            // Remove Property Pages button.
+            settingsPropertyGrid.RemoveLastToolStripButton();
 
-            // Remove property pages button.
-            toolStrip.Items.RemoveAt(toolStrip.Items.Count - 1);
-
-            // Show command line.
-            _showCommandLineToolStripButton = new ToolStripButton(Resources.ShowCommandLine);
-            _showCommandLineToolStripButton.Click += showCommandLineToolStripButton_Click;
-            toolStrip.Items.Add(_showCommandLineToolStripButton);
+            // Show Command Line button.
+            _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripButton(Resources.ShowCommandLine, showCommandLineToolStripButton_Click);
 
             UpdateShowCommandLineCommand();
 
             // Separator.
-            toolStrip.Items.Add(new ToolStripSeparator());
+            settingsPropertyGrid.AddToolStripSeparator();
 
-            // Reset settings.
-            _resetToolStripButton = new ToolStripButton(Resources.ResetSettings) { Enabled = false };
-            _resetToolStripButton.Click += resetSettingsToolStripButton_Click;
-            toolStrip.Items.Add(_resetToolStripButton);
+            // Reset Settings button.
+            _resetToolStripButton = settingsPropertyGrid.AddToolStripButton(Resources.ResetSettings, resetSettingsToolStripButton_Click);
+            _resetToolStripButton.Enabled = false;
         }
 
         private void ResetSettings()
@@ -269,7 +260,10 @@ namespace Xps2ImgUI
 
         private void Xps2ImgLaunchFailed(object sender, ThreadExceptionEventArgs e)
         {
-            this.InvokeIfNeeded(() => UpdateFailedStatus(e.Exception.Message));
+            var message = e.Exception is Win32Exception
+                            ? String.Format(Resources.Xps2ImgNotFount, Environment.NewLine, e.Exception.Message)
+                            : e.Exception.Message;
+            this.InvokeIfNeeded(() => UpdateFailedStatus(message));
         }
 
         // ReSharper disable InconsistentNaming

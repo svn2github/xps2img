@@ -1,4 +1,6 @@
-﻿namespace Xps2ImgUI
+﻿using Xps2ImgUI.Controls;
+
+namespace Xps2ImgUI
 {
   partial class MainForm
   {
@@ -29,7 +31,7 @@
     private void InitializeComponent()
     {
             this.settingsSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.settingsPropertyGrid = new System.Windows.Forms.PropertyGrid();
+            this.settingsPropertyGrid = new PropertyGridEx();
             this.commandLineTextBox = new System.Windows.Forms.TextBox();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.convertButton = new System.Windows.Forms.Button();
@@ -123,7 +125,7 @@
 
     #endregion
 
-    private System.Windows.Forms.PropertyGrid settingsPropertyGrid;
+    private PropertyGridEx settingsPropertyGrid;
     private System.Windows.Forms.TextBox commandLineTextBox;
     private System.Windows.Forms.SplitContainer settingsSplitContainer;
     private System.Windows.Forms.Button convertButton;

@@ -101,15 +101,15 @@ namespace Xps2ImgUI.Model
             {
                 var consoleEncoding = Encoding.GetEncoding(Thread.CurrentThread.CurrentCulture.GetConsoleFallbackUICulture().TextInfo.OEMCodePage);
 
-                var processStartInfo = new ProcessStartInfo(Xps2ImgExecutable, FormatCommandLine())
-                                           {
-                                               CreateNoWindow = true,
-                                               UseShellExecute = false,
-                                               RedirectStandardOutput = true,
-                                               RedirectStandardError = true,
-                                               StandardOutputEncoding = consoleEncoding,
-                                               StandardErrorEncoding = consoleEncoding
-                                           };
+                var processStartInfo =  new ProcessStartInfo(Xps2ImgExecutable, FormatCommandLine())
+                                        {
+                                            CreateNoWindow = true,
+                                            UseShellExecute = false,
+                                            RedirectStandardOutput = true,
+                                            RedirectStandardError = true,
+                                            StandardOutputEncoding = consoleEncoding,
+                                            StandardErrorEncoding = consoleEncoding
+                                        };
 
                 using (_process = new Process { StartInfo = processStartInfo, EnableRaisingEvents = true })
                 {
