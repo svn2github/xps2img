@@ -264,8 +264,7 @@ namespace Xps2ImgUI
                 return;
             }
 
-            this.InvokeIfNeeded(FlashForm);
-            this.InvokeIfNeeded(() => UpdateRunningStatus(false));
+            this.InvokeIfNeeded(() => { FlashForm(); UpdateRunningStatus(false); });
         }
 
         private void Xps2ImgLaunchFailed(object sender, ThreadExceptionEventArgs e)

@@ -60,7 +60,8 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
         }
 
         private static readonly char[] TrimSymbols = { '"' };
-
+        private static readonly char[] EscapeSymbols = new [] { '\x20', '\'' };
+        
         private static string FormatOptionValue(string optionValue)
         {
             if(String.IsNullOrEmpty(optionValue))
@@ -68,8 +69,10 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
                 return String.Empty;
             }
 
+            var escape = optionValue == "\"\"";
             optionValue = optionValue.Trim(TrimSymbols);
-            return optionValue.Contains("\x20")
+
+            return escape || optionValue.IndexOfAny(EscapeSymbols) != -1
                     ? String.Format("\"{0}\"", optionValue)
                     : optionValue;
         }
