@@ -87,7 +87,7 @@ namespace Xps2ImgUI
 
             // Reset Settings button.
             _resetToolStripButton = settingsPropertyGrid.AddToolStripButton(Resources.ResetSettings, resetSettingsToolStripButton_Click);
-            _resetToolStripButton.Enabled = false;
+            _resetToolStripButton.Enabled = _isDirty = false;
         }
 
         private void ResetSettings()
@@ -112,7 +112,8 @@ namespace Xps2ImgUI
             }
 
             convertButton.Text = isRunning ? Resources.Cancel : Resources.Launch;
-            settingsPropertyGrid.Enabled = !isRunning;
+            settingsPropertyGrid.PropertyGridViewEnaled = !isRunning;
+            _resetToolStripButton.Enabled = !isRunning && _isDirty;
 
             progressBar.Value = 0;
 
@@ -263,7 +264,7 @@ namespace Xps2ImgUI
         private void settingsPropertyGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         // ReSharper restore InconsistentNaming
         {
-            _resetToolStripButton.Enabled = true;
+            _resetToolStripButton.Enabled = _isDirty = true;
             UpdateCommandLine();
         }
 
@@ -289,6 +290,8 @@ namespace Xps2ImgUI
             settingsSplitContainer.Panel2Collapsed = !settingsSplitContainer.Panel2Collapsed;
             UpdateShowCommandLineCommand();
         }
+
+        private bool _isDirty;
 
         private volatile bool _conversionFailed;
 

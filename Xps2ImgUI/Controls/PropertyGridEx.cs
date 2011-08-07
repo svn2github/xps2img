@@ -13,10 +13,18 @@ namespace Xps2ImgUI.Controls
         {
             base.OnCreateControl();
 
-            _toolStrip = Controls.OfType<ToolStrip>().FirstOrDefault();
+            var controls = Controls.OfType<Control>().ToArray();
+
+            _toolStrip = (ToolStrip)controls.Where(c => c is ToolStrip).FirstOrDefault();
             Debug.Assert(_toolStrip != null);
-        
-            _docComment = Controls.OfType<Control>().Where(c => c.GetType().Name == "DocComment").FirstOrDefault();
+
+            _toolStripDefaultButtons = new ToolStripItem[_toolStrip.Items.Count];
+            _toolStrip.Items.CopyTo(_toolStripDefaultButtons, 0);
+
+            _propertyGridView = controls.Where(c => c.GetType().Name == "PropertyGridView").FirstOrDefault();
+            Debug.Assert(_propertyGridView != null);
+
+            _docComment = controls.Where(c => c.GetType().Name == "DocComment").FirstOrDefault();
             Debug.Assert(_docComment != null);
 
             _docCommentType = _docComment.GetType();
@@ -88,8 +96,21 @@ namespace Xps2ImgUI.Controls
             set { _docFontPropertyInfo.SetValue(_docComment, value, null); }
         }
 
+        public bool PropertyGridViewEnaled
+        {
+            get { return _propertyGridView.Enabled; }
+            set
+            {
+                Array.ForEach(_toolStripDefaultButtons, b => b.Enabled = value);
+                _propertyGridView.Enabled = value;
+            }
+        }
+
         private ToolStrip _toolStrip;
+        private ToolStripItem[] _toolStripDefaultButtons;
+
         private Control _docComment;
+        private Control _propertyGridView;
         private Type _docCommentType;
     }
 }
