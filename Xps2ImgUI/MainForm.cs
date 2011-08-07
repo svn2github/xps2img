@@ -72,7 +72,7 @@ namespace Xps2ImgUI
         private void AdjustPropertyGrid()
         {
             settingsPropertyGrid.DocLines = 9;
-            settingsPropertyGrid.SetMonospaceFont();
+            settingsPropertyGrid.SetDocMonospaceFont();
 
             // Remove Property Pages button.
             settingsPropertyGrid.RemoveLastToolStripButton();

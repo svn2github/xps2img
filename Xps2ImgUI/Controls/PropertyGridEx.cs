@@ -21,19 +21,15 @@ namespace Xps2ImgUI.Controls
 
             _docCommentType = _docComment.GetType();
 
-            _linesPropertyInfo = _docCommentType.GetProperty("Lines");
-            _fontPropertyInfo = _docCommentType.GetProperty("Font");
+            _docLinesPropertyInfo = _docCommentType.GetProperty("Lines");
+            _docFontPropertyInfo = _docCommentType.GetProperty("Font");
 
-            var userSizedField = _docCommentType.GetField("userSized", BindingFlags.Instance | BindingFlags.NonPublic);
-            if (userSizedField != null)
+            var docUserSizedField = _docCommentType.GetField("userSized", BindingFlags.Instance | BindingFlags.NonPublic);
+            if (docUserSizedField != null)
             {
-                userSizedField.SetValue(_docComment, true);
+                docUserSizedField.SetValue(_docComment, true);
             }
         }
-
-        private ToolStrip _toolStrip;
-        private Control _docComment;
-        private Type _docCommentType;
 
         public void RemoveLastToolStripButton()
         {
@@ -56,37 +52,41 @@ namespace Xps2ImgUI.Controls
             _toolStrip.Items.Add(new ToolStripSeparator());
         }
 
-        private PropertyInfo _linesPropertyInfo;
-        public int DocLines
+        public void SetDocMonospaceFont()
         {
-            get { return (int)_linesPropertyInfo.GetValue(_docComment, null); }
-            set { _linesPropertyInfo.SetValue(_docComment, value, null); }
-        }
-
-        private PropertyInfo _fontPropertyInfo;
-
-        public void SetMonospaceFont()
-        {
-            var originalFont = (Font)_fontPropertyInfo.GetValue(_docComment, null);
+            var originalFont = (Font)_docFontPropertyInfo.GetValue(_docComment, null);
 
             var fonts = new[]
-            {
-                new { Name = "Consolas", Scale = 1.006 },
-                new { Name = "Lucida Sans Typewriter", Scale = 0.995 },
-                new { Name = "Courier New", Scale = 1.005 },
-                new { Name = "Lucida Console", Scale = 1.001 }
-            };
+                            {
+                                new { Name = "Consolas", Scale = 1.006 },
+                                new { Name = "Lucida Sans Typewriter", Scale = 0.995 },
+                                new { Name = "Courier New", Scale = 1.005 },
+                                new { Name = "Lucida Console", Scale = 1.001 }
+                            };
 
             foreach (var font in fonts)
             {
                 var newFont = new Font(font.Name, (float)(originalFont.Size * font.Scale), originalFont.Style, originalFont.Unit);
                 if (newFont.Name != "Microsoft Sans Serif")
                 {
-                    _fontPropertyInfo.SetValue(_docComment, newFont, null);
+                    _docFontPropertyInfo.SetValue(_docComment, newFont, null);
                     break;
                 }
                 newFont.Dispose();
             }
         }
+
+        private PropertyInfo _docLinesPropertyInfo;
+        public int DocLines
+        {
+            get { return (int)_docLinesPropertyInfo.GetValue(_docComment, null); }
+            set { _docLinesPropertyInfo.SetValue(_docComment, value, null); }
+        }
+
+        private PropertyInfo _docFontPropertyInfo;
+
+        private ToolStrip _toolStrip;
+        private Control _docComment;
+        private Type _docCommentType;
     }
 }
