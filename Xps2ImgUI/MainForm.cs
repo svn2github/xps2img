@@ -112,7 +112,7 @@ namespace Xps2ImgUI
             }
 
             convertButton.Text = isRunning ? Resources.Cancel : Resources.Launch;
-            settingsPropertyGrid.PropertyGridViewEnaled = !isRunning;
+            settingsPropertyGrid.ReadOnly = isRunning;
             _resetToolStripButton.Enabled = !isRunning && _isDirty;
 
             progressBar.Value = 0;

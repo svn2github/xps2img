@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -18,12 +19,6 @@ namespace Xps2ImgUI.Controls
             _toolStrip = (ToolStrip)controls.Where(c => c is ToolStrip).FirstOrDefault();
             Debug.Assert(_toolStrip != null);
 
-            _toolStripDefaultButtons = new ToolStripItem[_toolStrip.Items.Count];
-            _toolStrip.Items.CopyTo(_toolStripDefaultButtons, 0);
-
-            _propertyGridView = controls.Where(c => c.GetType().Name == "PropertyGridView").FirstOrDefault();
-            Debug.Assert(_propertyGridView != null);
-
             _docComment = controls.Where(c => c.GetType().Name == "DocComment").FirstOrDefault();
             Debug.Assert(_docComment != null);
 
@@ -37,6 +32,12 @@ namespace Xps2ImgUI.Controls
             {
                 docUserSizedField.SetValue(_docComment, true);
             }
+        }
+
+        protected override void OnSelectedObjectsChanged(EventArgs e)
+        {
+            SetSelectedObjectReadOnly();
+            base.OnSelectedObjectsChanged(e);
         }
 
         public void RemoveLastToolStripButton()
@@ -96,21 +97,29 @@ namespace Xps2ImgUI.Controls
             set { _docFontPropertyInfo.SetValue(_docComment, value, null); }
         }
 
-        public bool PropertyGridViewEnaled
+        private bool _readOnly;
+        public bool ReadOnly
         {
-            get { return _propertyGridView.Enabled; }
+            get { return _readOnly; }
             set
             {
-                Array.ForEach(_toolStripDefaultButtons, b => b.Enabled = value);
-                _propertyGridView.Enabled = value;
+                _readOnly = value;
+                SetSelectedObjectReadOnly();
+            }
+        }
+
+        private void SetSelectedObjectReadOnly()
+        {
+            if (SelectedObject != null)
+            {
+                TypeDescriptor.AddAttributes(SelectedObject, new [] { new ReadOnlyAttribute(_readOnly) });
+                Refresh();
             }
         }
 
         private ToolStrip _toolStrip;
-        private ToolStripItem[] _toolStripDefaultButtons;
-
         private Control _docComment;
-        private Control _propertyGridView;
+
         private Type _docCommentType;
     }
 }
