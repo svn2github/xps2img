@@ -66,12 +66,12 @@ namespace Xps2Img.Xps2Img
 			public string BaseImageName { get; set; }
 
 			public int FirstPageIndex { get; set; }
-			public char PrelimsPrefix { get; set; }
+			public string PrelimsPrefix { get; set; }
 
 			public Parameters()
 			{
 				FirstPageIndex	= 1;
-				PrelimsPrefix	= '$';
+				PrelimsPrefix	= "$";
 			}
 		}
 
@@ -120,7 +120,8 @@ namespace Xps2Img.Xps2Img
 
 				if(isContent)
 				{
-					pageIndexFormatted[0] = parameters.PrelimsPrefix;
+				    pageIndexFormatted.Remove(0, 1);
+				    pageIndexFormatted.Insert(0, parameters.PrelimsPrefix);
 				}
 
 				var fileName = Path.Combine(activeDir, parameters.BaseImageName + pageIndexFormatted);
