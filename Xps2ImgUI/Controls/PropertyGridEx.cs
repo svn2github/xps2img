@@ -54,22 +54,20 @@ namespace Xps2ImgUI.Controls
 
         public void SetDocMonospaceFont()
         {
-            var originalFont = (Font)_docFontPropertyInfo.GetValue(_docComment, null);
-
             var fonts = new[]
-                            {
-                                new { Name = "Consolas", Scale = 1.006 },
-                                new { Name = "Lucida Sans Typewriter", Scale = 0.995 },
-                                new { Name = "Courier New", Scale = 1.005 },
-                                new { Name = "Lucida Console", Scale = 1.001 }
-                            };
+                        {
+                            new { Name = "Consolas", Scale = 1.006 },
+                            new { Name = "Lucida Sans Typewriter", Scale = 0.995 },
+                            new { Name = "Courier New", Scale = 1.005 },
+                            new { Name = "Lucida Console", Scale = 1.001 }
+                        };
 
             foreach (var font in fonts)
             {
-                var newFont = new Font(font.Name, (float)(originalFont.Size * font.Scale), originalFont.Style, originalFont.Unit);
+                var newFont = new Font(font.Name, (float)(DocFont.Size * font.Scale), DocFont.Style, DocFont.Unit);
                 if (newFont.Name != "Microsoft Sans Serif")
                 {
-                    _docFontPropertyInfo.SetValue(_docComment, newFont, null);
+                    DocFont = newFont;
                     break;
                 }
                 newFont.Dispose();
@@ -84,6 +82,11 @@ namespace Xps2ImgUI.Controls
         }
 
         private PropertyInfo _docFontPropertyInfo;
+        public Font DocFont
+        {
+            get { return (Font)_docFontPropertyInfo.GetValue(_docComment, null); }
+            set { _docFontPropertyInfo.SetValue(_docComment, value, null); }
+        }
 
         private ToolStrip _toolStrip;
         private Control _docComment;
