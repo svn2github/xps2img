@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -18,7 +19,7 @@ namespace Xps2ImgUI
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.ThreadException += Application_ThreadException;
 
-            Application.Run(new MainForm());
+            Application.Run(new MainForm { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) });
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
