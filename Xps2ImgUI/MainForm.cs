@@ -2,8 +2,6 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
@@ -73,54 +71,9 @@ namespace Xps2ImgUI
 
         private void AdjustPropertyGrid()
         {
-            AdjustPropertyGridToolStrip();
-            AdjustPropertyGridDocComment();
-        }
+            settingsPropertyGrid.DocLines = 9;
+            settingsPropertyGrid.SetMonospaceFont();
 
-        private void AdjustPropertyGridDocComment()
-        {
-            var docComment = settingsPropertyGrid.Controls.OfType<Control>().Where(c => c.GetType().Name == "DocComment").FirstOrDefault();
-            if(docComment == null)
-            {
-                return;
-            }
-
-            var docCommentType = docComment.GetType();
-
-            var userSizedField = docCommentType.GetField("userSized", BindingFlags.Instance | BindingFlags.NonPublic);
-            if (userSizedField != null)
-            {
-                userSizedField.SetValue(docComment, true);
-            }
-
-            docCommentType.GetProperty("Lines").SetValue(docComment, 9, null);
-
-            var fontProperty = docCommentType.GetProperty("Font");
-
-            var originalFont = (Font)fontProperty.GetValue(docComment, null);
-
-            var fonts = new[]
-            {
-                new { Name = "Consolas", Scale = 1.006 },
-                new { Name = "Lucida Sans Typewriter", Scale = 0.995 },
-                new { Name = "Courier New", Scale = 1.005 },
-                new { Name = "Lucida Console", Scale = 1.001 }
-            };
-
-            foreach (var font in fonts)
-            {
-                var newFont = new Font(font.Name, (float)(originalFont.Size * font.Scale), originalFont.Style, originalFont.Unit);
-                if (newFont.Name != "Microsoft Sans Serif")
-                {
-                    fontProperty.SetValue(docComment, newFont, null);
-                    break;
-                }
-                newFont.Dispose();
-            }
-        }
-
-        private void AdjustPropertyGridToolStrip()
-        {
             // Remove Property Pages button.
             settingsPropertyGrid.RemoveLastToolStripButton();
 

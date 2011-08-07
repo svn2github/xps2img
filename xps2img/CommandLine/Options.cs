@@ -60,7 +60,7 @@ namespace Xps2Img.CommandLine
 		#endif
 		public string OutDir { get; set; }
 
-		private const string PagesDescription = "Page number(s)\n  all pages by default\nSyntax:\n  all:\t\t1-\n  single:\t1\n  set:\t\t1,3\n  range:\t1-10\n  combined:\t1,3-5,7-9,15-";
+		private const string PagesDescription = "Page number(s)\n  all pages by default\nSyntax:\n  all:\t\t1-\n  single:\t1\n  set:\t\t1,3\n  range:\t1-10 or -10 or 10-\n  combined:\t1,3-5,7-9,15-";
 		private const char PagesShortOption = 'p';
 
 		#if XPS2IMG_UI
