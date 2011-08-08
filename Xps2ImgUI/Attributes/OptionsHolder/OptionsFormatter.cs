@@ -33,7 +33,7 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
             }
 
             var defaultAttribute = propertyInfo.GetCustomAttributes(true).OfType<DefaultValueAttribute>().FirstOrDefault();
-            if (defaultAttribute != null && defaultAttribute.Value.Equals(value))
+            if (defaultAttribute != null && defaultAttribute.Value != null && defaultAttribute.Value.Equals(value))
             {
                 return null;
             }

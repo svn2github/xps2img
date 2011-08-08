@@ -8,6 +8,24 @@ using System.Windows.Forms;
 
 namespace Xps2ImgUI.Controls
 {
+    public class ToolStripButtonItem
+    {
+        public readonly string Text;
+        public readonly EventHandler EventHandler;
+
+        public bool IsSeparator { get { return Text == null; } }
+
+        public ToolStripButtonItem()
+        {
+        }
+
+        public ToolStripButtonItem(string text, EventHandler eventHandler)
+        {
+            Text = text;
+            EventHandler = eventHandler;
+        }
+    }
+
     public class PropertyGridEx : PropertyGrid
     {
         protected override void OnCreateControl()
@@ -46,6 +64,29 @@ namespace Xps2ImgUI.Controls
             {
                 _toolStrip.Items.RemoveAt(_toolStrip.Items.Count - 1);
             }
+        }
+
+        public ToolStripSplitButton AddToolStripSplitButton(string text, EventHandler eventHandler, params ToolStripButtonItem[] items)
+        {
+            var toolStripSplitButton = new ToolStripSplitButton(text);
+
+            _toolStrip.Items.Add(toolStripSplitButton);
+            toolStripSplitButton.ButtonClick += eventHandler;
+
+            foreach (var item in items)
+            {
+                if (item.IsSeparator)
+                {
+                    toolStripSplitButton.DropDownItems.Add(new ToolStripSeparator());
+                }
+                else
+                {
+                    var itemControl = toolStripSplitButton.DropDownItems.Add(item.Text);
+                    itemControl.Click += item.EventHandler;
+                }
+            }
+
+            return toolStripSplitButton;
         }
 
         public ToolStripButton AddToolStripButton(string text, EventHandler eventHandler)

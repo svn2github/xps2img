@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -7,6 +8,7 @@ using System.Threading;
 
 using Xps2Img.CommandLine;
 using Xps2ImgUI.Attributes.OptionsHolder;
+using Xps2ImgUI.Utils;
 
 namespace Xps2ImgUI.Model
 {
@@ -15,14 +17,32 @@ namespace Xps2ImgUI.Model
         public static readonly string ApplicationFolder = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         public static readonly string Xps2ImgExecutable = Path.Combine(ApplicationFolder, "xps2img.exe");
 
-        public Xps2ImgModel()
+        public void Init()
         {
             Reset();
         }
 
         public void Reset()
         {
-            _optionsHolder = OptionsHolder.Create(new Options());
+            if (_optionsHolder != null)
+            {
+                _optionsHolder.OptionsObjectChanged -= OptionsHolderOptionsObjectChanged;
+            }
+
+            _optionsHolder = new OptionsHolder<Options>();
+            _optionsHolder.OptionsObjectChanged += OptionsHolderOptionsObjectChanged;
+
+            _optionsHolder.OptionsObject = new Options();
+        }
+
+        public void ResetParameters()
+        {
+            ResetByCategory(Category.Parameters);
+        }
+
+        public void ResetOptions()
+        {
+            ResetByCategory(Category.Options);
         }
 
         public void Launch()
@@ -54,7 +74,7 @@ namespace Xps2ImgUI.Model
             return _optionsHolder.FormatCommandLine();
         }
 
-        public object OptionsObject
+        public Options OptionsObject
         {
             get { return _optionsHolder.OptionsObject; }
         }
@@ -82,6 +102,8 @@ namespace Xps2ImgUI.Model
         public event DataReceivedEventHandler OutputDataReceived;
         public event DataReceivedEventHandler ErrorDataReceived;
         public event EventHandler Completed;
+
+        public event EventHandler OptionsObjectChanged;
 
         public event ThreadExceptionEventHandler LaunchFailed;
 
@@ -162,7 +184,26 @@ namespace Xps2ImgUI.Model
             }
         }
 
-        private OptionsHolder _optionsHolder;
+        private void OptionsHolderOptionsObjectChanged(object sender, EventArgs e)
+        {
+            FireOptionsObjectChanged();
+        }
+
+        private void FireOptionsObjectChanged()
+        {
+            if (OptionsObjectChanged != null)
+            {
+                OptionsObjectChanged(this, EventArgs.Empty);
+            }
+        }
+
+        private void ResetByCategory(string category)
+        {
+            ReflectionUtils.SetDefaultValues(OptionsObject, pi => category == pi.FirstOrDefaultAttribute<CategoryAttribute>().Category);
+            FireOptionsObjectChanged();
+        }
+
+        private OptionsHolder<Options> _optionsHolder;
         private Process _process;
     }
 }

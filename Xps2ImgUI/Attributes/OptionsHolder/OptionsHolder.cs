@@ -7,20 +7,19 @@ using Xps2ImgUI.Utils;
 
 namespace Xps2ImgUI.Attributes.OptionsHolder
 {
-    public class OptionsHolder
+    public class OptionsHolder<T> where T: class
     {
-        public readonly List<BaseOptionAttribute> OptionAttributes;
+        public List<BaseOptionAttribute> OptionAttributes;
 
-        public object OptionsObject { get; private set; }
+        private T _optionsObject;
 
-        protected OptionsHolder(object optionsObject, List<BaseOptionAttribute> optionAttributes)
+        public T OptionsObject
         {
-            OptionsObject = optionsObject;
-
-            OptionAttributes = optionAttributes;
+            get { return _optionsObject; }
+            set { SetOptionsObject(value); }
         }
 
-        public static OptionsHolder Create(object optionsObject)
+        public void SetOptionsObject(T optionsObject)
         {
             var optionAttributes = new List<BaseOptionAttribute>();
 
@@ -37,7 +36,12 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
                 }
             );
 
-            return new OptionsHolder(optionsObject, optionAttributes);
+            OptionAttributes = optionAttributes;
+            _optionsObject = optionsObject;
+            if (OptionsObjectChanged != null)
+            {
+                OptionsObjectChanged(this, EventArgs.Empty);
+            }
         }
 
         public string FormatCommandLine()
@@ -58,5 +62,7 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
                 return requiredAttribute != null && String.IsNullOrEmpty(OptionsFormatter.GetOptionValue(false, requiredAttribute, OptionsObject)) ? requiredAttribute.Name : String.Empty;
             }
         }
+
+        public event EventHandler OptionsObjectChanged;
     }
 }

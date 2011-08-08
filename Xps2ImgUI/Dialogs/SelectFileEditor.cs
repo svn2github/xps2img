@@ -6,10 +6,8 @@ using System.Windows.Forms;
 
 namespace Xps2ImgUI.Dialogs
 {
-    public class SelectFileEditor : UITypeEditor
+    public class SelectFileEditor : BaseSelectFileFolderEditor
     {
-        public static readonly string DefaultFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
         public string Filter { get; set; }
         public string InitialDirectory { get; set; }
 
@@ -26,7 +24,7 @@ namespace Xps2ImgUI.Dialogs
         public SelectFileEditor(string filter, string initialDirectory)
         {
             Filter = String.IsNullOrEmpty(filter) ? Utils.Filter.AllFiles : filter;
-            InitialDirectory = initialDirectory ?? DefaultFolder;
+            InitialDirectory = String.IsNullOrEmpty(initialDirectory) ? DefaultFolder : initialDirectory;
         }
 
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)

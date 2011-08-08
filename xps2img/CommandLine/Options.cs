@@ -17,6 +17,8 @@ using Xps2Img.CommandLine.TypeConverters;
 
 using Xps2Img.Xps2Img;
 
+// ReSharper disable LocalizableElement
+
 namespace Xps2Img.CommandLine
 {
     #if !XPS2IMG_UI
@@ -32,6 +34,7 @@ namespace Xps2Img.CommandLine
         [UnnamedOption]
         [Category(Category.Parameters)]
         [Editor(typeof(SelectXpsFileEditor), typeof(UITypeEditor))]
+        [DefaultValue(null)]
         [TabbedDescription
         #else
         [UnnamedOption
@@ -48,6 +51,7 @@ namespace Xps2Img.CommandLine
         [UnnamedOption(false)]
         [Editor(typeof(SelectFolderEditor), typeof(UITypeEditor))]
         [Category(Category.Parameters)]
+        [DefaultValue(null)]
         [TabbedDescription
         #else
         [UnnamedOption

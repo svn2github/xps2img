@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Xps2ImgUI.Dialogs
 {
-    public class SelectFolderEditor : UITypeEditor
+    public class SelectFolderEditor : BaseSelectFileFolderEditor
     {
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
         {
@@ -14,7 +14,12 @@ namespace Xps2ImgUI.Dialogs
 
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
-            var path = (string)value ?? String.Empty;
+            var path = (string) value;
+
+            if (String.IsNullOrEmpty(path))
+            {
+                path = DefaultFolder;
+            }
 
             using (var dialog = new FolderBrowserDialog { SelectedPath = path })
             {

@@ -61,6 +61,24 @@ namespace Xps2ImgUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Browse Converted Images.
+        /// </summary>
+        internal static string BrowseConvertedImages {
+            get {
+                return ResourceManager.GetString("BrowseConvertedImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse XPS File.
+        /// </summary>
+        internal static string BrowseXPSFile {
+            get {
+                return ResourceManager.GetString("BrowseXPSFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Cancel {
@@ -75,6 +93,24 @@ namespace Xps2ImgUI.Properties {
         internal static string ClosingQuery {
             get {
                 return ResourceManager.GetString("ClosingQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy Command Line To Clipboard.
+        /// </summary>
+        internal static string CopyCommandLineToClipboard {
+            get {
+                return ResourceManager.GetString("CopyCommandLineToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy Converted Images Path To Clipboard.
+        /// </summary>
+        internal static string CopyConvertedImagesPathToClipboard {
+            get {
+                return ResourceManager.GetString("CopyConvertedImagesPathToClipboard", resourceCulture);
             }
         }
         
@@ -108,9 +144,27 @@ namespace Xps2ImgUI.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Reset Settings.
         /// </summary>
-        internal static string ResetSettings {
+        internal static string Reset {
             get {
-                return ResourceManager.GetString("ResetSettings", resourceCulture);
+                return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset Options.
+        /// </summary>
+        internal static string ResetOptions {
+            get {
+                return ResourceManager.GetString("ResetOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset Parameters.
+        /// </summary>
+        internal static string ResetParameters {
+            get {
+                return ResourceManager.GetString("ResetParameters", resourceCulture);
             }
         }
         
@@ -142,7 +196,16 @@ namespace Xps2ImgUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {1}% ({2}) - {0}.
+        ///   Looks up a localized string similar to Launching xps2img... - {0}.
+        /// </summary>
+        internal static string WindowTitleLaunchingFormat {
+            get {
+                return ResourceManager.GetString("WindowTitleLaunchingFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {1}% ({2}) [{3}] - {0}.
         /// </summary>
         internal static string WindowTitleProgressFormat {
             get {

@@ -116,7 +116,7 @@ namespace Xps2Img.Xps2Img
 					pageIndex = -(pageIndex + parameters.FirstPageIndex - 1);
 				}
 
-				var pageIndexFormatted = new StringBuilder(4).AppendFormat(numberFormat, pageIndex);
+				var pageIndexFormatted = new StringBuilder(16).AppendFormat(numberFormat, pageIndex);
 
 				if(isContent)
 				{

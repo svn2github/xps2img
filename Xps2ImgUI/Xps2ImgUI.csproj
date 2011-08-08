@@ -83,10 +83,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Converters\YesNoConverter.cs" />
+    <Compile Include="Dialogs\BaseSelectFileFolderEditor.cs" />
     <Compile Include="Model\Xps2ImgModel.cs" />
     <Compile Include="Dialogs\SelectFileEditor.cs" />
     <Compile Include="Dialogs\SelectFolderEditor.cs" />
     <Compile Include="Utils\StringUtils.cs" />
+    <Compile Include="Utils\UI\Explorer.cs" />
     <Compile Include="Utils\UI\TabbedDescriptionAttribute.cs" />
     <Compile Include="Utils\UI\ControlUtils.cs" />
     <Compile Include="Utils\Strings.cs" />

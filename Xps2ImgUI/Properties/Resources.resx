@@ -120,8 +120,8 @@
   <data name="ShowCommandLine" xml:space="preserve">
     <value>Show Command Line</value>
   </data>
-  <data name="ResetSettings" xml:space="preserve">
-    <value>Reset Settings</value>
+  <data name="ResetOptions" xml:space="preserve">
+    <value>Reset Options</value>
   </data>
   <data name="Launch" xml:space="preserve">
     <value>Convert</value>
@@ -136,7 +136,7 @@
     <value>Xps2Img Launcher</value>
   </data>
   <data name="WindowTitleProgressFormat" xml:space="preserve">
-    <value>{1}% ({2}) - {0}</value>
+    <value>{1}% ({2}) [{3}] - {0}</value>
   </data>
   <data name="ClosingQuery" xml:space="preserve">
     <value>Convertion is in progress. Would you like to abort it and exit?</value>
@@ -152,5 +152,26 @@
   </data>
   <data name="Xps2ImgNotFount" xml:space="preserve">
     <value>{1}{0}{0}Make sure that xps2img.exe utility is present in application folder.</value>
+  </data>
+  <data name="BrowseConvertedImages" xml:space="preserve">
+    <value>Browse Converted Images</value>
+  </data>
+  <data name="BrowseXPSFile" xml:space="preserve">
+    <value>Browse XPS File</value>
+  </data>
+  <data name="WindowTitleLaunchingFormat" xml:space="preserve">
+    <value>Launching xps2img... - {0}</value>
+  </data>
+  <data name="ResetParameters" xml:space="preserve">
+    <value>Reset Parameters</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset Settings</value>
+  </data>
+  <data name="CopyCommandLineToClipboard" xml:space="preserve">
+    <value>Copy Command Line To Clipboard</value>
+  </data>
+  <data name="CopyConvertedImagesPathToClipboard" xml:space="preserve">
+    <value>Copy Converted Images Path To Clipboard</value>
   </data>
 </root>
