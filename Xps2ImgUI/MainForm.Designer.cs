@@ -31,7 +31,7 @@ namespace Xps2ImgUI
     private void InitializeComponent()
     {
             this.settingsSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.settingsPropertyGrid = new PropertyGridEx();
+            this.settingsPropertyGrid = new Xps2ImgUI.Controls.PropertyGridEx();
             this.commandLineTextBox = new System.Windows.Forms.TextBox();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.convertButton = new System.Windows.Forms.Button();
@@ -63,10 +63,14 @@ namespace Xps2ImgUI
             // 
             // settingsPropertyGrid
             // 
-            this.settingsPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.settingsPropertyGrid.AllowDrop = true;
+            this.settingsPropertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.settingsPropertyGrid.Location = new System.Drawing.Point(0, 0);
             this.settingsPropertyGrid.Name = "settingsPropertyGrid";
             this.settingsPropertyGrid.PropertySort = System.Windows.Forms.PropertySort.Categorized;
+            this.settingsPropertyGrid.ReadOnly = false;
             this.settingsPropertyGrid.Size = new System.Drawing.Size(727, 401);
             this.settingsPropertyGrid.TabIndex = 0;
             this.settingsPropertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.settingsPropertyGrid_PropertyValueChanged);
@@ -91,13 +95,13 @@ namespace Xps2ImgUI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar.Location = new System.Drawing.Point(8, 481);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(649, 23);
+            this.progressBar.Size = new System.Drawing.Size(650, 23);
             this.progressBar.TabIndex = 0;
             // 
             // convertButton
             // 
             this.convertButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.convertButton.Location = new System.Drawing.Point(660, 481);
+            this.convertButton.Location = new System.Drawing.Point(661, 481);
             this.convertButton.Name = "convertButton";
             this.convertButton.Size = new System.Drawing.Size(75, 23);
             this.convertButton.TabIndex = 1;
@@ -106,6 +110,7 @@ namespace Xps2ImgUI
             // 
             // MainForm
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(743, 513);
@@ -115,6 +120,8 @@ namespace Xps2ImgUI
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainForm_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainForm_DragEnter);
             this.settingsSplitContainer.Panel1.ResumeLayout(false);
             this.settingsSplitContainer.Panel2.ResumeLayout(false);
             this.settingsSplitContainer.Panel2.PerformLayout();

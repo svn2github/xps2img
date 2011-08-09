@@ -8,24 +8,6 @@ using System.Windows.Forms;
 
 namespace Xps2ImgUI.Controls
 {
-    public class ToolStripButtonItem
-    {
-        public readonly string Text;
-        public readonly EventHandler EventHandler;
-
-        public bool IsSeparator { get { return Text == null; } }
-
-        public ToolStripButtonItem()
-        {
-        }
-
-        public ToolStripButtonItem(string text, EventHandler eventHandler)
-        {
-            Text = text;
-            EventHandler = eventHandler;
-        }
-    }
-
     public class PropertyGridEx : PropertyGrid
     {
         protected override void OnCreateControl()
@@ -60,9 +42,10 @@ namespace Xps2ImgUI.Controls
 
         public void RemoveLastToolStripButton()
         {
-            if (_toolStrip.Items.Count > 0)
+            var lastIndex = _toolStrip.Items.Count - 1;
+            if (lastIndex >= 0)
             {
-                _toolStrip.Items.RemoveAt(_toolStrip.Items.Count - 1);
+                _toolStrip.Items.RemoveAt(lastIndex);
             }
         }
 
@@ -125,6 +108,9 @@ namespace Xps2ImgUI.Controls
         }
 
         private PropertyInfo _docLinesPropertyInfo;
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int DocLines
         {
             get { return (int)_docLinesPropertyInfo.GetValue(_docComment, null); }
@@ -132,6 +118,9 @@ namespace Xps2ImgUI.Controls
         }
 
         private PropertyInfo _docFontPropertyInfo;
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Font DocFont
         {
             get { return (Font)_docFontPropertyInfo.GetValue(_docComment, null); }

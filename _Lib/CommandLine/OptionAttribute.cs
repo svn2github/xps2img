@@ -85,11 +85,11 @@ namespace CommandLine
 
       _longOptEx.IsInternal = IsInternal;
 
-      _longOptEx.Validator = IsNoValidation ? null :
-        Validation.Parser.Parse((String.IsNullOrEmpty(ValidationExpression) && _longOptEx.IsEnum) ?
-                                  propertyInfo.PropertyType :
-                                  (object)ValidationExpression);
-
+      _longOptEx.Validator = IsNoValidation
+                               ? null
+                               : Validation.Parser.Parse((String.IsNullOrEmpty(ValidationExpression) && _longOptEx.IsEnum)
+                                 ? propertyInfo.PropertyType
+                                 : (object)ValidationExpression);
       return _longOptEx;
     }
     

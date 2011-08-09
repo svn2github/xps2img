@@ -11,16 +11,17 @@ using Windows7.DesktopIntegration;
 
 using Xps2ImgUI.Controls;
 using Xps2ImgUI.Model;
-using Xps2ImgUI.Properties;
 using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        public MainForm(Xps2ImgModel xps2ImgModel)
         {
             InitializeComponent();
+
+            _xps2ImgModel = xps2ImgModel;
 
             _xps2ImgModel.OutputDataReceived += Xps2ImgOutputDataReceived;
             _xps2ImgModel.ErrorDataReceived += Xps2ImgErrorDataReceived;
@@ -40,8 +41,8 @@ namespace Xps2ImgUI
 
         protected override void OnLoad(EventArgs e)
         {
-            Text = Resources.WindowTitle;
-            convertButton.Text = Resources.Launch;
+            Text = Resources.Strings.WindowTitle;
+            convertButton.Text = Resources.Strings.Launch;
 
             MinimumSize = new Size(Size.Width, Size.Height);
 
@@ -62,8 +63,8 @@ namespace Xps2ImgUI
         {
             if (_xps2ImgModel.IsRunning)
             {
-                var dialogResult = MessageBox.Show(this, Resources.ClosingQuery,
-                                                   Resources.WindowTitle,
+                var dialogResult = MessageBox.Show(this, Resources.Strings.ClosingQuery,
+                                                   Resources.Strings.WindowTitle,
                                                    MessageBoxButtons.YesNo,
                                                    MessageBoxIcon.Exclamation,
                                                    MessageBoxDefaultButton.Button2);
@@ -81,6 +82,9 @@ namespace Xps2ImgUI
 
         private void AdjustPropertyGrid()
         {
+            settingsPropertyGrid.DragDrop += MainForm_DragDrop;
+            settingsPropertyGrid.DragEnter += MainForm_DragEnter;
+
             settingsPropertyGrid.DocLines = 9;
             settingsPropertyGrid.SetDocMonospaceFont();
 
@@ -88,8 +92,8 @@ namespace Xps2ImgUI
             settingsPropertyGrid.RemoveLastToolStripButton();
 
             // Show Command Line button.
-            _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.ShowCommandLine, showCommandLineToolStripButton_Click,
-                new ToolStripButtonItem(Resources.CopyCommandLineToClipboard, (s, e) => Clipboard.SetDataObject(commandLineTextBox.Text, true))
+            _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.ShowCommandLine, showCommandLineToolStripButton_Click,
+                new ToolStripButtonItem(Resources.Strings.CopyCommandLineToClipboard, (s, e) => Clipboard.SetDataObject(commandLineTextBox.Text, true))
              );
 
             UpdateShowCommandLineCommand();
@@ -98,26 +102,26 @@ namespace Xps2ImgUI
             settingsPropertyGrid.AddToolStripSeparator();
 
             // Reset Settings button.
-            _resetToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.ResetOptions, (s, e) => _xps2ImgModel.ResetOptions(),
-                new ToolStripButtonItem(Resources.ResetParameters, (s, e) => _xps2ImgModel.ResetParameters()),
+            _resetToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.ResetOptions, (s, e) => _xps2ImgModel.ResetOptions(),
+                new ToolStripButtonItem(Resources.Strings.ResetParameters, (s, e) => _xps2ImgModel.ResetParameters()),
                 new ToolStripButtonItem(),
-                new ToolStripButtonItem(Resources.Reset, (s, e) => _xps2ImgModel.Reset())
+                new ToolStripButtonItem(Resources.Strings.Reset, (s, e) => _xps2ImgModel.Reset())
              );
 
             // Separator.
             settingsPropertyGrid.AddToolStripSeparator();
 
             // Explorer browse folders.
-            settingsPropertyGrid.AddToolStripSplitButton(Resources.BrowseConvertedImages, browseConvertedImagesToolStripButton_Click,
-                new ToolStripButtonItem(Resources.BrowseXPSFile, browseXPSFileToolStripButton_Click),
+            settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.BrowseConvertedImages, browseConvertedImagesToolStripButton_Click,
+                new ToolStripButtonItem(Resources.Strings.BrowseXPSFile, (s, e) => Explorer.Select(_xps2ImgModel.OptionsObject.SrcFile)),
                 new ToolStripButtonItem(),
-                new ToolStripButtonItem(Resources.CopyConvertedImagesPathToClipboard, (s, e) => Clipboard.SetDataObject(ConvertedImagesFolder, true))
+                new ToolStripButtonItem(Resources.Strings.CopyConvertedImagesPathToClipboard, (s, e) => Clipboard.SetDataObject(ConvertedImagesFolder, true))
             );
         }
 
         private void UpdateProgress(int percent, string pages, string file)
         {
-            Text = String.Format(Resources.WindowTitleProgressFormat, Resources.WindowTitle, percent, pages, Path.GetFileName(file));
+            Text = String.Format(Resources.Strings.WindowTitleProgressFormat, Resources.Strings.WindowTitle, percent, pages, Path.GetFileName(file));
             progressBar.Value = percent;
 
             this.SetProgressValue(progressBar.Value, progressBar.Maximum);
@@ -127,10 +131,10 @@ namespace Xps2ImgUI
         {
             if (!isRunning)
             {
-                Text = Resources.WindowTitle;
+                Text = Resources.Strings.WindowTitle;
             }
 
-            convertButton.Text = isRunning ? Resources.Cancel : Resources.Launch;
+            convertButton.Text = isRunning ? Resources.Strings.Cancel : Resources.Strings.Launch;
 
             settingsPropertyGrid.ReadOnly = isRunning;
             _resetToolStripButton.Enabled = !isRunning;
@@ -148,8 +152,8 @@ namespace Xps2ImgUI
 
             FlashForm();
 
-            MessageBox.Show(this, String.Format(Resources.Xps2ImgError, Environment.NewLine, message),
-                            Resources.WindowTitle,
+            MessageBox.Show(this, String.Format(Resources.Strings.Xps2ImgError, Environment.NewLine, message),
+                            Resources.Strings.WindowTitle,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
 
@@ -167,8 +171,8 @@ namespace Xps2ImgUI
         {
             _showCommandLineToolStripButton.Text =
                 _showCommandLineToolStripButton.ToolTipText = settingsSplitContainer.Panel2Collapsed
-                                                                  ? Resources.ShowCommandLine
-                                                                  : Resources.HideCommandLine;
+                                                                  ? Resources.Strings.ShowCommandLine
+                                                                  : Resources.Strings.HideCommandLine;
         }
 
         private void FlashForm()
@@ -194,6 +198,42 @@ namespace Xps2ImgUI
             return false;
         }
 
+        // ReSharper disable InconsistentNaming
+        private static string GetDragFile(IDataObject dataObject)
+        {
+            if(!dataObject.GetDataPresent(DataFormats.FileDrop))
+            {
+                return String.Empty;
+            }
+
+            var files =  dataObject.GetData(DataFormats.FileDrop) as string[];
+
+            var file = files != null && files.Length == 1 ? files[0] : null;
+
+            return file != null && ((File.GetAttributes(file) & FileAttributes.Directory) == 0) ? file : null;
+        }
+
+        private void MainForm_DragEnter(object sender, DragEventArgs e)
+        // ReSharper restore InconsistentNaming
+        {
+            e.Effect = _xps2ImgModel.IsRunning || String.IsNullOrEmpty(GetDragFile(e.Data))
+                        ? DragDropEffects.None
+                        : DragDropEffects.Copy;
+        }
+
+        // ReSharper disable InconsistentNaming
+        private void MainForm_DragDrop(object sender, DragEventArgs e)
+        // ReSharper restore InconsistentNaming
+        {
+            var file = GetDragFile(e.Data);
+
+            if (!String.IsNullOrEmpty(file))
+            {
+                _xps2ImgModel.OptionsObject.SrcFile = file;
+                settingsPropertyGrid.Refresh();
+            }
+        }
+
         private static readonly Regex OutputRegex = new Regex(@"^\[\s*(?<percent>\d+)%\].+\(\s*(?<pages>\d+/\d+)\).+?'(?<file>.+)'");
 
         private void Xps2ImgOutputDataReceived(object sender, DataReceivedEventArgs e)
@@ -204,14 +244,18 @@ namespace Xps2ImgUI
             }
 
             var match = OutputRegex.Match(e.Data);
-            if (match.Success)
+            if (!match.Success)
             {
-                var percent = Convert.ToInt32(match.Groups["percent"].Value);
-                var pages = match.Groups["pages"].Value;
-                var file = match.Groups["file"].Value;
-                ConvertedImagesFolder = Path.GetDirectoryName(file);
-                this.InvokeIfNeeded(() => UpdateProgress(percent, pages, file));
+                return;
             }
+
+            var percent = Convert.ToInt32(match.Groups["percent"].Value);
+            var pages = match.Groups["pages"].Value;
+            var file = match.Groups["file"].Value;
+
+            ConvertedImagesFolder = Path.GetDirectoryName(file);
+
+            this.InvokeIfNeeded(() => UpdateProgress(percent, pages, file));
         }
 
         private void Xps2ImgErrorDataReceived(object sender, DataReceivedEventArgs e)
@@ -237,8 +281,9 @@ namespace Xps2ImgUI
         private void Xps2ImgLaunchFailed(object sender, ThreadExceptionEventArgs e)
         {
             var message = e.Exception is Win32Exception
-                            ? String.Format(Resources.Xps2ImgNotFount, Environment.NewLine, e.Exception.Message)
+                            ? String.Format(Resources.Strings.Xps2ImgNotFount, Environment.NewLine, e.Exception.Message)
                             : e.Exception.Message;
+
             this.InvokeIfNeeded(() => UpdateFailedStatus(message));
         }
 
@@ -257,13 +302,13 @@ namespace Xps2ImgUI
 
                 if (FocusFirstRequiredOption(
                     firstRequiredOptionLabel =>
-                    MessageBox.Show(this, String.Format(Resources.SpecifyValue, firstRequiredOptionLabel),
-                                    Resources.WindowTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)))
+                    MessageBox.Show(this, String.Format(Resources.Strings.SpecifyValue, firstRequiredOptionLabel),
+                                    Resources.Strings.WindowTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)))
                 {
                     return;
                 }
 
-                Text = String.Format(Resources.WindowTitleLaunchingFormat, Resources.WindowTitle);
+                Text = String.Format(Resources.Strings.WindowTitleLaunchingFormat, Resources.Strings.WindowTitle);
 
                 this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.Indeterminate);
 
@@ -309,13 +354,6 @@ namespace Xps2ImgUI
         }
 
         // ReSharper disable InconsistentNaming
-        private void browseXPSFileToolStripButton_Click(object sender, EventArgs e)
-        // ReSharper restore InconsistentNaming
-        {
-            Explorer.Select(_xps2ImgModel.OptionsObject.SrcFile);
-        }
-
-        // ReSharper disable InconsistentNaming
         private void browseConvertedImagesToolStripButton_Click(object sender, EventArgs e)
         // ReSharper restore InconsistentNaming
         {
@@ -328,10 +366,10 @@ namespace Xps2ImgUI
         private string ConvertedImagesFolder
         {
             get { return _convertedImagesFolder ?? Xps2ImgModel.ApplicationFolder; }
-            set { if (_convertedImagesFolder == null) _convertedImagesFolder = value; }
+            set { _convertedImagesFolder = value; }
         }
 
-        private readonly Xps2ImgModel _xps2ImgModel = new Xps2ImgModel();
+        private readonly Xps2ImgModel _xps2ImgModel;
 
         private ToolStripItem _resetToolStripButton;
         private ToolStripItem _showCommandLineToolStripButton;

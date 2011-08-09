@@ -225,6 +225,15 @@ namespace Xps2Img.CommandLine
 
         [Option(SilentModeDescription, SilentModeShortOption, ArgumentExpectancy.No)]
         public bool Silent { get; set; }
+        #else
+        [Browsable(false)]
+        public bool Silent
+        {
+            get { return false; }
+            // ReSharper disable ValueParameterNotUsed
+            set { }
+            // ReSharper restore ValueParameterNotUsed
+        }
         #endif
     }
 

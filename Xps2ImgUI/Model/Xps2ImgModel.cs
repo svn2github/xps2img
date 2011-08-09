@@ -12,7 +12,7 @@ using Xps2ImgUI.Utils;
 
 namespace Xps2ImgUI.Model
 {
-    class Xps2ImgModel
+    public class Xps2ImgModel
     {
         public static readonly string ApplicationFolder = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         public static readonly string Xps2ImgExecutable = Path.Combine(ApplicationFolder, "xps2img.exe");
@@ -199,7 +199,7 @@ namespace Xps2ImgUI.Model
 
         private void ResetByCategory(string category)
         {
-            ReflectionUtils.SetDefaultValues(OptionsObject, pi => category == pi.FirstOrDefaultAttribute<CategoryAttribute>().Category);
+            ReflectionUtils.SetDefaultValues(OptionsObject, pi => category == (pi.FirstOrDefaultAttribute<CategoryAttribute>() ?? new CategoryAttribute()).Category);
             FireOptionsObjectChanged();
         }
 

@@ -52,7 +52,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Properties\Application.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Application.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -82,6 +82,7 @@
     <Compile Include="Controls\PropertyGridEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\ToolStripButtonItem.cs" />
     <Compile Include="Converters\YesNoConverter.cs" />
     <Compile Include="Dialogs\BaseSelectFileFolderEditor.cs" />
     <Compile Include="Model\Xps2ImgModel.cs" />
@@ -109,14 +110,14 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Include="Resources\Strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
+    <Compile Include="Resources\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
+      <DependentUpon>Strings.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Dialogs\SelectXpsFileEditor.cs" />
@@ -139,7 +140,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Properties\Application.ico" />
+    <Content Include="Resources\Application.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\_Lib\CommandLine\CommandLine.csproj">
+      <Project>{33D069F8-1FB0-475D-B19F-51979CB3E9DD}</Project>
+      <Name>CommandLine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
