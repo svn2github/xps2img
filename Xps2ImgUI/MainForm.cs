@@ -169,10 +169,9 @@ namespace Xps2ImgUI
 
         private void UpdateShowCommandLineCommand()
         {
-            _showCommandLineToolStripButton.Text =
-                _showCommandLineToolStripButton.ToolTipText = settingsSplitContainer.Panel2Collapsed
-                                                                  ? Resources.Strings.ShowCommandLine
-                                                                  : Resources.Strings.HideCommandLine;
+            _showCommandLineToolStripButton.Text = settingsSplitContainer.Panel2Collapsed
+                                                        ? Resources.Strings.ShowCommandLine
+                                                        : Resources.Strings.HideCommandLine;
         }
 
         private void FlashForm()

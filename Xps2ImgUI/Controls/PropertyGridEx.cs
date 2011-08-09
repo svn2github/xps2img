@@ -10,6 +10,8 @@ namespace Xps2ImgUI.Controls
 {
     public class PropertyGridEx : PropertyGrid
     {
+        private const bool UseAutoToolTip = false;
+
         protected override void OnCreateControl()
         {
             base.OnCreateControl();
@@ -51,7 +53,7 @@ namespace Xps2ImgUI.Controls
 
         public ToolStripSplitButton AddToolStripSplitButton(string text, EventHandler eventHandler, params ToolStripButtonItem[] items)
         {
-            var toolStripSplitButton = new ToolStripSplitButton(text);
+            var toolStripSplitButton = new ToolStripSplitButton(text) { AutoToolTip = UseAutoToolTip };
 
             _toolStrip.Items.Add(toolStripSplitButton);
             toolStripSplitButton.ButtonClick += eventHandler;
@@ -65,6 +67,7 @@ namespace Xps2ImgUI.Controls
                 else
                 {
                     var itemControl = toolStripSplitButton.DropDownItems.Add(item.Text);
+                    itemControl.AutoToolTip = UseAutoToolTip;
                     itemControl.Click += item.EventHandler;
                 }
             }
@@ -74,7 +77,7 @@ namespace Xps2ImgUI.Controls
 
         public ToolStripButton AddToolStripButton(string text, EventHandler eventHandler)
         {
-            var toolStripButton = new ToolStripButton(text);
+            var toolStripButton = new ToolStripButton(text) { AutoToolTip = UseAutoToolTip };
             toolStripButton.Click += eventHandler;
             _toolStrip.Items.Add(toolStripButton);
             return toolStripButton;
