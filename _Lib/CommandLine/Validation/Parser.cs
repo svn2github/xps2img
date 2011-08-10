@@ -1,33 +1,34 @@
 ﻿using System;
 using System.Linq;
+
 using CommandLine.Validation.Validators;
 
 namespace CommandLine.Validation
 {
-  internal static class Parser
-  {
-    private static readonly Func<object, Validator>[] validators = new Func<object, Validator>[]
+    internal static class Parser
     {
-      IntValidator.Create,
-      RegexValidator.Create,
-      EnumValidator.Create
-    };
-    
-    public static Validator Parse(object validationExpression)
-    {
-      if (validationExpression == null || (Validator.IsTypeOf<string>(validationExpression) && String.IsNullOrEmpty(validationExpression as string)))
-      {
-        return null;
-      }
+        private static readonly Func<object, IValidator>[] validators = new Func<object, IValidator>[]
+        {
+            IntValidator.Create,
+            RegexValidator.Create,
+            EnumValidator.Create
+        };
 
-      var result = validators.Select(creator => creator(validationExpression)).Where(validator => validator != null).FirstOrDefault();
+        public static IValidator Parse(object validationExpression)
+        {
+            if (validationExpression == null || (validationExpression is string && String.IsNullOrEmpty(validationExpression as string)))
+            {
+                return null;
+            }
 
-      if(result == null)
-      {
-        throw new ArgumentException(Resources.Strings.Validation_NoValidator, "validationExpression");
-      }
+            var result = validators.Select(creator => creator(validationExpression)).Where(validator => validator != null).FirstOrDefault();
 
-      return result;
+            if (result == null)
+            {
+                throw new ArgumentException(Resources.Strings.Validation_NoValidator, "validationExpression");
+            }
+
+            return result;
+        }
     }
-  }
 }

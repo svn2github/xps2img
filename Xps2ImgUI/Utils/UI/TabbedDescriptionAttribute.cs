@@ -15,6 +15,5 @@ namespace Xps2ImgUI.Utils.UI
         {
             get { return _formattedDescription ?? (_formattedDescription = base.Description.TabsToSpaces(8)); }
         }
-
     }
 }

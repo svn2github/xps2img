@@ -70,7 +70,7 @@
     <Compile Include="IntegrityCheck.cs" />
     <Compile Include="Validation\Validators\EnumValidator.cs" />
     <Compile Include="Validation\Validators\RegexValidator.cs" />
-    <Compile Include="Validation\Validator.cs" />
+    <Compile Include="Validation\IValidator.cs" />
     <Compile Include="Validation\Validators\IntValidator.cs" />
     <Compile Include="Validation\Parser.cs" />
     <Compile Include="Validation\ValidationException.cs" />

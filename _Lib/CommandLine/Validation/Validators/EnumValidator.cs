@@ -3,32 +3,30 @@ using System.Linq;
 
 namespace CommandLine.Validation.Validators
 {
-  internal class EnumValidator: Validator
-  {
-    public static Validator Create(object validation)
+    internal class EnumValidator : IValidator
     {
-      if (validation == null || !(validation is Type) || ((Type)validation).BaseType.Name != "Enum")
-      {
-        return null;
-      }
+        public static IValidator Create(object validation)
+        {
+            var type = validation as Type;
+            return type != null && type.BaseType != null && type.BaseType.Name == "Enum"
+                       ? new EnumValidator(((Type)validation).UnderlyingSystemType)
+                       : null;
+        }
 
-      return new EnumValidator(((Type)validation).UnderlyingSystemType);
-    }
+        private readonly string[] names;
 
-    private readonly string[] names;
+        public EnumValidator(Type enumType)
+        {
+            names = Array.ConvertAll(Enum.GetNames(enumType), x => x.ToLowerInvariant());
+        }
 
-    public EnumValidator(Type enumType)
-    {
-      names = Array.ConvertAll(Enum.GetNames(enumType), x => x.ToLowerInvariant());
+        public void Validate(string value)
+        {
+            var lowerValue = value.ToLowerInvariant();
+            if (!names.Contains(lowerValue))
+            {
+                throw new ValidationException(Resources.Strings.Validation_EnumValidator);
+            }
+        }
     }
-    
-    public override void Validate(string value)
-    {
-      var lowerValue = value.ToLowerInvariant();
-      if (!names.Contains(lowerValue))
-      {
-        throw new ValidationException(Resources.Strings.Validation_EnumValidator);
-      }
-    }
-  }
 }
