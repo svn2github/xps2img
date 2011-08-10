@@ -57,6 +57,7 @@ namespace Xps2ImgUI.Utils.UI
             {
                 propertyGrid.Select();
                 propertyGrid.Focus();
+                propertyGrid.SelectedGridItem.Select();
                 SendKeys.Send("{TAB}");
             }
         }
