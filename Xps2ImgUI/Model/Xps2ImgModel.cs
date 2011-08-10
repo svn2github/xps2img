@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 
 using Xps2Img.CommandLine;
+
 using Xps2ImgUI.Attributes.OptionsHolder;
 using Xps2ImgUI.Utils;
 
@@ -20,7 +21,13 @@ namespace Xps2ImgUI.Model
         public Xps2ImgModel(Options options)
         {
             InitOptionsHolder();
+
             _optionsHolder.OptionsObject = options ?? new Options();
+
+            if (OptionsObject.ImageName == String.Empty)
+            {
+                OptionsObject.ImageName = "\"\"";
+            }
         }
 
         public void Init()
