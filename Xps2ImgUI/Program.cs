@@ -2,7 +2,9 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+
 using CommandLine;
+
 using Xps2Img.CommandLine;
 using Xps2ImgUI.Model;
 
