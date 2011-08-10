@@ -64,8 +64,17 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\xps2img\CommandLine\Interval.cs">
+      <Link>Shared\Interval.cs</Link>
+    </Compile>
     <Compile Include="..\xps2img\CommandLine\Options.cs">
       <Link>Shared\Options.cs</Link>
+    </Compile>
+    <Compile Include="..\xps2img\CommandLine\TypeConverters\IntervalTypeConverter.cs">
+      <Link>Shared\TypeConverters\IntervalTypeConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\xps2img\CommandLine\TypeConverters\RequiredSizeTypeConverter.cs">
+      <Link>Shared\TypeConverters\RequiredSizeTypeConverter.cs</Link>
     </Compile>
     <Compile Include="..\xps2img\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
@@ -148,6 +157,7 @@
       <Name>CommandLine</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

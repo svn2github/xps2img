@@ -48,7 +48,12 @@ namespace CommandLine
       return !args.Any() || (args.Length == 1 && HelpOpt.Contains(args.First()));
     }
 
-    public static T Parse<T>(string[] args, string aplicationName) where T: class
+    public static T Parse<T>(string[] args, string aplicationName) where T : class
+    {
+        return Parse<T>(args, aplicationName, false);
+    }
+
+    public static T Parse<T>(string[] args, string aplicationName, bool ignoreErrors) where T: class
     {
       var optionsObjectType = typeof (T);
       
@@ -63,8 +68,11 @@ namespace CommandLine
 
       Action<LongOptEx, string> displayError = (longOptEx, message) => 
       {
-        Console.Error.WriteLine(String.Format("{0}: option ''{1}'' {2}", ApplicationName, longOptEx.OptionNameToString(), message));
-        isValid = false;
+          if (!ignoreErrors)
+          {
+              Console.Error.WriteLine(String.Format("{0}: option ''{1}'' {2}", ApplicationName, longOptEx.OptionNameToString(), message));
+              isValid = false;
+          }
       };
     
       int opt;
@@ -72,7 +80,7 @@ namespace CommandLine
       // Named args.
       while ((opt = getopt.getopt()) != -1)
       {
-        if (opt == '?')
+        if (!ignoreErrors && opt == '?')
         {
           return null;
         }
@@ -98,7 +106,7 @@ namespace CommandLine
 
         var hasUnnamedOption = currentOption < unnamedArgs.Length;
 
-        if (longOptEx.IsRequired && !hasUnnamedOption)
+        if (!ignoreErrors && longOptEx.IsRequired && !hasUnnamedOption)
         {
           displayError(longOptEx, String.Format(Resources.Strings.Message_OptNotSpecified, ApplicationName, longOptEx.DisplayName));
           return null;

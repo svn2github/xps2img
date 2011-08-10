@@ -17,12 +17,24 @@ namespace Xps2ImgUI.Model
         public static readonly string ApplicationFolder = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         public static readonly string Xps2ImgExecutable = Path.Combine(ApplicationFolder, "xps2img.exe");
 
-        public void Init()
+        public Xps2ImgModel(Options options)
         {
-            Reset();
+            InitOptionsHolder();
+            _optionsHolder.OptionsObject = options ?? new Options();
         }
 
-        public void Reset()
+        public void Init()
+        {
+            var initOptions = _optionsHolder != null ? _optionsHolder.OptionsObject : new Options();
+
+            InitOptionsHolder();
+
+            Debug.Assert(_optionsHolder != null);
+
+            _optionsHolder.OptionsObject = initOptions;
+        }
+
+        private void InitOptionsHolder()
         {
             if (_optionsHolder != null)
             {
@@ -31,7 +43,11 @@ namespace Xps2ImgUI.Model
 
             _optionsHolder = new OptionsHolder<Options>();
             _optionsHolder.OptionsObjectChanged += OptionsHolderOptionsObjectChanged;
+        }
 
+        public void Reset()
+        {
+            InitOptionsHolder();
             _optionsHolder.OptionsObject = new Options();
         }
 
