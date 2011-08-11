@@ -48,7 +48,7 @@ namespace Xps2ImgUI.Utils.UI
         }
 
         /// <summary>
-        /// Stop flashing. The system restores the window to its original stae.
+        /// Stop flashing. The system restores the window to its original state.
         /// </summary>
         public const uint FLASHW_STOP = 0;
 
