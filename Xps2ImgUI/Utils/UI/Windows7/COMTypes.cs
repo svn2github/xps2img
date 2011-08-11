@@ -9,7 +9,7 @@ namespace Windows7.DesktopIntegration.Interop
     [ComImportAttribute]
     [GuidAttribute("ea1afb91-9e28-4b86-90e9-9e9f8a5eefaf")]
     [InterfaceTypeAttribute(ComInterfaceType.InterfaceIsIUnknown)]
-    internal interface ITaskbarList3
+    public interface ITaskbarList3
     {
         // ITaskbarList
         [PreserveSig]

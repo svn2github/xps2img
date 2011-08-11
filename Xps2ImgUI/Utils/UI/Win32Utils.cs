@@ -7,50 +7,27 @@ using System.Windows.Forms;
 namespace Xps2ImgUI.Utils.UI
 {
     // http://pietschsoft.com/post/2009/01/26/CSharp-Flash-Window-in-Taskbar-via-Win32-FlashWindowEx.aspx
-    public static class FlashWindow
+    public static class Win32Utils
     {
-        /// <summary>
-        /// Flash the spacified Window (Form) until it recieves focus.
-        /// </summary>
-        /// <param name="form">The Form (Window) to Flash.</param>
-        /// <returns></returns>
-        public static bool Flash(Form form)
+        public static void Restore(this Form form)
         {
-            return PerformFlashAction(form, FLASHW_ALL | FLASHW_TIMERNOFG, uint.MaxValue);
+            if (!form.IsDisposed)
+            {
+                ShowWindow(form.Handle, SW_RESTORE);
+            }
         }
 
-        /// <summary>
-        /// Flash the specified Window (form) for the specified number of times
-        /// </summary>
-        /// <param name="form">The Form (Window) to Flash.</param>
-        /// <param name="count">The number of times to Flash.</param>
-        /// <returns></returns>
+        public static bool Flash(this Form form)
+        {
+            return Flash(form, FLASHW_ALL | FLASHW_TIMERNOFG, uint.MaxValue);
+        }
+
         public static bool Flash(this Form form, uint count)
         {
-            return PerformFlashAction(form, FLASHW_ALL, count);
+            return Flash(form, FLASHW_ALL, count);
         }
 
-        /// <summary>
-        /// Start Flashing the specified Window (form)
-        /// </summary>
-        /// <param name="form">The Form (Window) to Flash.</param>
-        /// <returns></returns>
-        public static bool StartFlashing(this Form form)
-        {
-            return Flash(form, uint.MaxValue);
-        }
-
-        /// <summary>
-        /// Stop Flashing the specified Window (form)
-        /// </summary>
-        /// <param name="form"></param>
-        /// <returns></returns>
-        public static bool StopFlashing(this Form form)
-        {
-            return PerformFlashAction(form, FLASHW_STOP, uint.MaxValue);
-        }
-
-        private static bool PerformFlashAction(this Form form, uint flags, uint timeout)
+        public static bool Flash(this Form form, uint flags, uint timeout)
         {
             if (form.IsDisposed)
             {
@@ -58,6 +35,16 @@ namespace Xps2ImgUI.Utils.UI
             }
             var fi = Create_FLASHWINFO(form.Handle, flags, timeout, 0);
             return FlashWindowEx(ref fi);
+        }
+
+        public static bool StartFlashing(this Form form)
+        {
+            return Flash(form, uint.MaxValue);
+        }
+
+        public static bool StopFlashing(this Form form)
+        {
+            return Flash(form, FLASHW_STOP, uint.MaxValue);
         }
 
         /// <summary>
@@ -130,5 +117,10 @@ namespace Xps2ImgUI.Utils.UI
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool FlashWindowEx(ref FLASHWINFO pwfi);
+
+        private const uint SW_RESTORE = 0x09;
+
+        [DllImport("user32.dll")]
+        private static extern int ShowWindow(IntPtr hWnd, uint msg);
     }
 }

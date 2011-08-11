@@ -13,10 +13,7 @@ namespace Windows7.DesktopIntegration
     {
         #region Infrastructure
 
-        private static readonly object _syncRoot = new Object();
-
-        private static volatile ITaskbarList3 _taskbarList;
-        private static ITaskbarList3 TaskbarList
+        public static ITaskbarList3 TaskbarList
         {
             get
             {
@@ -30,6 +27,7 @@ namespace Windows7.DesktopIntegration
                             {
                                 _taskbarList = (ITaskbarList3)new TaskbarList();
                                 _taskbarList.HrInit();
+                                _supported = true;
                             }
                         }
                         catch(Exception ex)
@@ -46,6 +44,32 @@ namespace Windows7.DesktopIntegration
                 return _taskbarList;
             }
         }
+
+        public static uint WM_TaskbarButtonCreated
+        {
+            get
+            {
+                if (_uTBBCMsg == 0)
+                {
+                    _uTBBCMsg = RegisterWindowMessage("TaskbarButtonCreated");
+                }
+                return _uTBBCMsg;
+            }
+        }
+
+        public static volatile bool _supported;
+        public static bool Supported
+        {
+            get { return _supported; }
+        }
+
+        [DllImport("user32.dll")]
+        private static extern uint RegisterWindowMessage(string lpString);
+
+        private static readonly object _syncRoot = new Object();
+        private static volatile uint _uTBBCMsg;
+
+        private static volatile ITaskbarList3 _taskbarList;
 
         #endregion
 

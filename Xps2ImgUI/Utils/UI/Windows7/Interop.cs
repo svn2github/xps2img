@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 namespace Windows7.DesktopIntegration.Interop
 {
     [StructLayout(LayoutKind.Sequential)]
-    internal struct RECT
+    public struct RECT
     {
         public int left;
         public int top;
@@ -23,7 +23,8 @@ namespace Windows7.DesktopIntegration.Interop
         }
     }
 
-    internal enum TBPFLAG
+    [Flags]
+    public enum TBPFLAG
     {
         TBPF_NOPROGRESS = 0,
         TBPF_INDETERMINATE = 0x1,
@@ -32,13 +33,15 @@ namespace Windows7.DesktopIntegration.Interop
         TBPF_PAUSED = 0x8
     }
 
-    internal enum TBATFLAG
+    [Flags]
+    public enum TBATFLAG
     {
         TBATF_USEMDITHUMBNAIL = 0x1,
         TBATF_USEMDILIVEPREVIEW = 0x2
     }
 
-    internal enum THBMASK
+    [Flags]
+    public enum THBMASK
     {
         THB_BITMAP = 0x1,
         THB_ICON = 0x2,
@@ -46,7 +49,8 @@ namespace Windows7.DesktopIntegration.Interop
         THB_FLAGS = 0x8
     }
 
-    internal enum THBFLAGS
+    [Flags]
+    public enum THBFLAGS
     {
         THBF_ENABLED = 0,
         THBF_DISABLED = 0x1,
@@ -56,7 +60,7 @@ namespace Windows7.DesktopIntegration.Interop
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-    internal struct THUMBBUTTON
+    public struct THUMBBUTTON
     {
         [MarshalAs(UnmanagedType.U4)]
         public THBMASK dwMask;

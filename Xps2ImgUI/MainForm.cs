@@ -80,6 +80,23 @@ namespace Xps2ImgUI
             base.OnClosing(e);
         }
 
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == Windows7Taskbar.WM_TaskbarButtonCreated)
+            {
+                _thumbButtonManager = new ThumbButtonManager(Handle);
+                _thumbButton = _thumbButtonManager.CreateThumbButton(SystemIcons.Error, Resources.Strings.Launch, (s, e) => StartConvertion());
+                _thumbButtonManager.AddThumbButtons(_thumbButton);
+            }
+
+            if (_thumbButtonManager != null)
+            {
+                _thumbButtonManager.DispatchMessage(ref m);
+            }
+
+            base.WndProc(ref m);
+        }
+
         private void AdjustPropertyGrid()
         {
             settingsPropertyGrid.DragDrop += MainForm_DragDrop;
@@ -136,9 +153,16 @@ namespace Xps2ImgUI
 
             convertButton.Text = isRunning ? Resources.Strings.Cancel : Resources.Strings.Launch;
 
+            if (Windows7Taskbar.Supported)
+            {
+                _thumbButton.Tooltip = convertButton.Text;
+                _thumbButton.Icon = isRunning ? SystemIcons.Shield : SystemIcons.Error;
+                _thumbButtonManager.RefreshThumbButtons();
+            }
+
             settingsPropertyGrid.ReadOnly = isRunning;
             _resetToolStripButton.Enabled = !isRunning;
-
+            
             progressBar.Value = 0;
 
             this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.NoProgress);
@@ -290,6 +314,40 @@ namespace Xps2ImgUI
         private void convertButton_Click(object sender, EventArgs e)
         // ReSharper restore InconsistentNaming
         {
+            StartConvertion();
+        }
+
+        private bool _isModalWindowOpened;
+
+        public void ShowOptionIsRequiredMessage(string firstRequiredOptionLabel)
+        {
+            _isModalWindowOpened = true;
+
+            if (WindowState == FormWindowState.Minimized)
+            {
+                this.Restore();
+            }
+            else
+            {
+                Activate();
+            }
+
+            MessageBox.Show(this,
+                            String.Format(Resources.Strings.SpecifyValue, firstRequiredOptionLabel),
+                            Resources.Strings.WindowTitle, MessageBoxButtons.OK,
+                            MessageBoxIcon.Exclamation);
+
+            _isModalWindowOpened = false;
+        }
+
+        private void StartConvertion()
+        {
+            if (_isModalWindowOpened)
+            {
+                Activate();
+                return;
+            }
+
             var isRunning = _xps2ImgModel.IsRunning;
             if (isRunning)
             {
@@ -299,10 +357,7 @@ namespace Xps2ImgUI
             {
                 _conversionFailed = false;
 
-                if (FocusFirstRequiredOption(
-                    firstRequiredOptionLabel =>
-                    MessageBox.Show(this, String.Format(Resources.Strings.SpecifyValue, firstRequiredOptionLabel),
-                                    Resources.Strings.WindowTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)))
+                if (FocusFirstRequiredOption(ShowOptionIsRequiredMessage))
                 {
                     return;
                 }
@@ -372,5 +427,8 @@ namespace Xps2ImgUI
 
         private ToolStripItem _resetToolStripButton;
         private ToolStripItem _showCommandLineToolStripButton;
+
+        private ThumbButtonManager _thumbButtonManager;
+        private ThumbButton _thumbButton;
     }
 }

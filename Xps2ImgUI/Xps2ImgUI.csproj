@@ -103,7 +103,7 @@
     <Compile Include="Utils\UI\ControlUtils.cs" />
     <Compile Include="Utils\Strings.cs" />
     <Compile Include="Utils\ReflectionUtils.cs" />
-    <Compile Include="Utils\UI\FlashWindow.cs" />
+    <Compile Include="Utils\UI\Win32Utils.cs" />
     <Compile Include="Utils\UI\PropertyGridUtils.cs" />
     <Compile Include="Utils\UI\WaitCursor.cs" />
     <Compile Include="MainForm.cs">
@@ -115,6 +115,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Utils\UI\Windows7\COMTypes.cs" />
     <Compile Include="Utils\UI\Windows7\Interop.cs" />
+    <Compile Include="Utils\UI\Windows7\ThumbButton.cs" />
+    <Compile Include="Utils\UI\Windows7\ThumbButtonManager.cs" />
     <Compile Include="Utils\UI\Windows7\Windows7Taskbar.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
