@@ -85,7 +85,7 @@ namespace Xps2ImgUI
             if (m.Msg == Windows7Taskbar.WM_TaskbarButtonCreated)
             {
                 _thumbButtonManager = new ThumbButtonManager(Handle);
-                _thumbButton = _thumbButtonManager.CreateThumbButton(SystemIcons.Error, Resources.Strings.Launch, (s, e) => StartConvertion());
+                _thumbButton = _thumbButtonManager.CreateThumbButton(SystemIcons.Error, Resources.Strings.Launch, (s, e) => ExecuteConvertion());
                 _thumbButtonManager.AddThumbButtons(_thumbButton);
             }
 
@@ -221,7 +221,6 @@ namespace Xps2ImgUI
             return false;
         }
 
-        // ReSharper disable InconsistentNaming
         private static string GetDragFile(IDataObject dataObject)
         {
             if(!dataObject.GetDataPresent(DataFormats.FileDrop))
@@ -236,6 +235,7 @@ namespace Xps2ImgUI
             return file != null && ((File.GetAttributes(file) & FileAttributes.Directory) == 0) ? file : null;
         }
 
+        // ReSharper disable InconsistentNaming
         private void MainForm_DragEnter(object sender, DragEventArgs e)
         // ReSharper restore InconsistentNaming
         {
@@ -314,7 +314,7 @@ namespace Xps2ImgUI
         private void convertButton_Click(object sender, EventArgs e)
         // ReSharper restore InconsistentNaming
         {
-            StartConvertion();
+            ExecuteConvertion();
         }
 
         private bool _isModalWindowOpened;
@@ -340,7 +340,7 @@ namespace Xps2ImgUI
             _isModalWindowOpened = false;
         }
 
-        private void StartConvertion()
+        private void ExecuteConvertion()
         {
             if (_isModalWindowOpened)
             {
