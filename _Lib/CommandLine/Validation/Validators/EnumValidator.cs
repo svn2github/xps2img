@@ -13,17 +13,17 @@ namespace CommandLine.Validation.Validators
                        : null;
         }
 
-        private readonly string[] names;
+        private readonly string[] _names;
 
         public EnumValidator(Type enumType)
         {
-            names = Array.ConvertAll(Enum.GetNames(enumType), x => x.ToLowerInvariant());
+            _names = Array.ConvertAll(Enum.GetNames(enumType), x => x.ToLowerInvariant());
         }
 
         public void Validate(string value)
         {
             var lowerValue = value.ToLowerInvariant();
-            if (!names.Contains(lowerValue))
+            if (!_names.Contains(lowerValue))
             {
                 throw new ValidationException(Resources.Strings.Validation_EnumValidator);
             }

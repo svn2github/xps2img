@@ -4,7 +4,11 @@ using System.Windows.Media.Imaging;
 using Xps2Img.CommandLine.TypeConverters;
 
 #if XPS2IMG_UI
+using System;
 using System.Drawing.Design;
+
+using CommandLine.Validation;
+
 using Xps2ImgUI.Attributes.Options;
 using Xps2ImgUI.Converters;
 using Xps2ImgUI.Dialogs;
@@ -57,22 +61,32 @@ namespace Xps2Img.CommandLine
 
         private const string PagesDescription = "Page number(s)\n  all pages by default\nSyntax:\n  all:\t\t1-\n  single:\t1\n  set:\t\t1,3\n  range:\t1-10 or -10 or 10-\n  combined:\t1,3-5,7-9,15-";
         private const char PagesShortOption = 'p';
+        private const string PagesValidationExpression = "/" + Interval.ValidationRegex + "/";
 
         [global::CommandLine.Option(
             PagesDescription,
             PagesShortOption,
-            #if !XPS2IMG_UI
-                DefaultValue = "",
-                ConverterType = typeof(IntervalTypeConverter),
-            #endif
-            ValidationExpression = "/" + Interval.ValidationRegex + "/"
+        #if !XPS2IMG_UI
+            DefaultValue = "",
+            ConverterType = typeof(IntervalTypeConverter),
+        #endif
+            ValidationExpression = PagesValidationExpression
         )]
         #if XPS2IMG_UI
         [DisplayName("Page Number(s)")]
         [TabbedDescription(PagesDescription)]
         [Category(Category.Options)]
         [Option(PagesShortOption)]
-        public string Pages { get; set; }
+        public string Pages
+        {
+            get { return _pages; }
+            set
+            {
+                ValidateProperty(value, PagesValidationExpression);
+                _pages = value;
+            }
+        }
+        private string _pages;
         #else
         public List<Interval> Pages { get; set; }
         #endif
@@ -92,6 +106,7 @@ namespace Xps2Img.CommandLine
 
         private const string RequiredSizeDescription = "Desired image size\n  DPI will be ignored if specified \nSyntax:\n  width only:\t2000\n  height only:\tx1000\n  both:\t\t2000x1000\n\t\twidth for landscape orientation\n\t\theight for portrait orientation";
         private const char RequiredSizeOption = 'r';
+        private const string RequiredSizeValidationExpression = "/" + RequiredSizeTypeConverter.ValidationRegex + "/";
 
         [global::CommandLine.Option(
             RequiredSizeDescription,
@@ -99,56 +114,97 @@ namespace Xps2Img.CommandLine
             #if !XPS2IMG_UI
             ConverterType = typeof(RequiredSizeTypeConverter),
             #endif
-            ValidationExpression = "/" + RequiredSizeTypeConverter.ValidationRegex + "/"
+            ValidationExpression = RequiredSizeValidationExpression
         )]
         #if XPS2IMG_UI
         [DisplayName("Image Size")]
         [TabbedDescription(RequiredSizeDescription)]
         [Option(RequiredSizeOption)]
         [Category(Category.Options)]
-        public string RequiredSize { get; set; }
+        public string RequiredSize
+        {
+            get { return _requiredSize; }
+            set
+            {
+                ValidateProperty(value, RequiredSizeValidationExpression);
+                _requiredSize = value;
+            }
+        }
+        private string _requiredSize;
         #else
         public Size? RequiredSize { get; set; }
         #endif
 
         private const string DpiDescription = "Image DPI (16-1500)";
         private const char DpiShortOption = 'd';
+        private const string DpiValidationExpression = "16-1500";
 
-        [global::CommandLine.Option(DpiDescription, DpiShortOption, DefaultValue = "120", ValidationExpression = "16-1500")]
+        [global::CommandLine.Option(DpiDescription, DpiShortOption, DefaultValue = "120", ValidationExpression = DpiValidationExpression)]
         #if XPS2IMG_UI
         [DisplayName("Image DPI")]
         [TabbedDescription(DpiDescription)]
         [Option(DpiShortOption)]
         [Category(Category.Options)]
         [DefaultValue(120)]
-        public int? Dpi { get; set; }
+        public int? Dpi
+        {
+            get { return _dpi; }
+            set
+            {
+                ValidateProperty(value, DpiValidationExpression);
+                _dpi = value;
+            }
+        }
+        private int? _dpi;
         #else
         public int Dpi { get; set; }
         #endif
 
         private const string ImageNameDescription = "Image prefix\n  numeric if ommited: 01.png\n  name of src file if empty (-i \"\"): src_file-01.png";
         private const char ImageNameShortOption = 'i';
+        private const string ImageNameValidationExpression = OptionsValidators.FileNameValidationRegex;
 
-        [global::CommandLine.Option(ImageNameDescription, ImageNameShortOption, ValidationExpression = OptionsValidators.FileNameValidationRegex)]
+        [global::CommandLine.Option(ImageNameDescription, ImageNameShortOption, ValidationExpression = ImageNameValidationExpression)]
         #if XPS2IMG_UI
         [DisplayName("Image Prefix")]
         [TabbedDescription(ImageNameDescription)]
         [Option(ImageNameShortOption)]
         [Category(Category.Options)]
-        #endif
+        public string ImageName
+        {
+            get { return _imageName; }
+            set
+            {
+                ValidateProperty(value, ImageNameValidationExpression);
+                _imageName = value;
+            }
+        }
+        private string _imageName;
+        #else
         public string ImageName { get; set; }
+        #endif
 
         private const string JpegQualityDescription = "JPEG quality level (10-100)";
         private const char JpegQualityShortOption = 'q';
+        private const string JpegQualityValidationExpression = "10-100";
 
-        [global::CommandLine.Option(JpegQualityDescription, JpegQualityShortOption, DefaultValue = "85", ValidationExpression = "10-100")]
+        [global::CommandLine.Option(JpegQualityDescription, JpegQualityShortOption, DefaultValue = "85", ValidationExpression = JpegQualityValidationExpression)]
         #if XPS2IMG_UI
         [DisplayName("JPEG Quality")]
         [TabbedDescription(JpegQualityDescription)]
         [Option(JpegQualityShortOption)]
         [Category(Category.Options)]
         [DefaultValue(85)]
-        public int? JpegQuality { get; set; }
+        public int? JpegQuality
+        {
+            get { return _jpegQuality; }
+            set
+            {
+                ValidateProperty(value, JpegQualityValidationExpression);
+                _jpegQuality = value;
+            }
+        }
+        private int? _jpegQuality;
         #else
         public int JpegQuality { get; set; }
         #endif
@@ -168,15 +224,25 @@ namespace Xps2Img.CommandLine
 
         private const string FirstPageIndexDescription = "Document body first page index";
         private const char FirstPageIndexShortOption = 'a';
+        private const string FirstPageIndexValidationExpression = "1-1000000";
 
-        [global::CommandLine.Option(FirstPageIndexDescription, FirstPageIndexShortOption, DefaultValue = "1", ValidationExpression = "1-1000000")]
+        [global::CommandLine.Option(FirstPageIndexDescription, FirstPageIndexShortOption, DefaultValue = "1", ValidationExpression = FirstPageIndexValidationExpression)]
         #if XPS2IMG_UI
         [DisplayName("First Page Index")]
         [TabbedDescription(FirstPageIndexDescription)]
         [Option(FirstPageIndexShortOption)]
         [Category(Category.Options)]
         [DefaultValue(1)]
-        public int? FirstPageIndex { get; set; }
+        public int? FirstPageIndex
+        {
+            get { return _firstPageIndex; }
+            set
+            {
+                ValidateProperty(value, FirstPageIndexValidationExpression);
+                _firstPageIndex = value;
+            }
+        }
+        private int? _firstPageIndex;
         #else
         public int FirstPageIndex { get; set; }
         #endif
@@ -184,16 +250,28 @@ namespace Xps2Img.CommandLine
         private const string PrelimsPrefixDescription = "Preliminaries prefix";
         private const char PrelimsPrefixShortOption = 'x';
         private const string PrelimsPrefixDefaultValue = "$";
+        private const string PrelimsPrefixValidationExpression = OptionsValidators.FileNameValidationRegex;
 
-        [global::CommandLine.Option(PrelimsPrefixDescription, PrelimsPrefixShortOption, DefaultValue = PrelimsPrefixDefaultValue, ValidationExpression = OptionsValidators.FileNameValidationRegex)]
+        [global::CommandLine.Option(PrelimsPrefixDescription, PrelimsPrefixShortOption, DefaultValue = PrelimsPrefixDefaultValue, ValidationExpression = PrelimsPrefixValidationExpression)]
         #if XPS2IMG_UI
         [DisplayName("Preliminaries Prefix")]
         [TabbedDescription(PrelimsPrefixDescription)]
         [Option(PrelimsPrefixShortOption)]
         [Category(Category.Options)]
         [DefaultValue(PrelimsPrefixDefaultValue)]
-        #endif
+        public string PrelimsPrefix
+        {
+            get { return _prelimsPrefix; }
+            set
+            {
+                ValidateProperty(value, PrelimsPrefixValidationExpression);
+                _prelimsPrefix = value;
+            }
+        }
+        private string _prelimsPrefix;
+        #else
         public string PrelimsPrefix { get; set; }
+        #endif
 
         private const string TestDescription = "Test mode (no files will be written)";
         private const char TestShortOption = 'e';
@@ -223,6 +301,28 @@ namespace Xps2Img.CommandLine
             // ReSharper disable ValueParameterNotUsed
             set { }
             // ReSharper restore ValueParameterNotUsed
+        }
+        #endif
+
+        #if XPS2IMG_UI
+        private static void ValidateProperty(object propertyValue, string validatorExpresion)
+        {
+            if (propertyValue == null)
+            {
+                return;
+            }
+
+            try
+            {
+                var validator = Parser.Parse(validatorExpresion);
+                validator.Validate(propertyValue.ToString());
+            }
+            catch (ValidationException ex)
+            {
+                var message = ex.Message.ToCharArray();
+                message[0] = Char.ToUpper(message[0]);
+                throw new ValidationException(new string(message));
+            }
         }
         #endif
     }

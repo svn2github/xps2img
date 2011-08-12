@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Xps2ImgUI.Utils
@@ -10,18 +11,15 @@ namespace Xps2ImgUI.Utils
         public static void SetDefaultValues(object obj, Func<PropertyInfo, bool> propertyFilter)
         {
             ForEachPropertyInfo(
-              obj,
-              propertyInfo =>
-              {
-                  if (propertyFilter == null || propertyFilter(propertyInfo))
-                  {
-                      var defaultValueAttribute = propertyInfo.FirstOrDefaultAttribute<DefaultValueAttribute>();
-                      if (defaultValueAttribute != null)
-                      {
-                          propertyInfo.SetValue(obj, defaultValueAttribute.Value, null);
-                      }
-                  }
-              }
+                obj,
+                propertyInfo =>
+                {
+                    if (propertyFilter == null || propertyFilter(propertyInfo))
+                    {
+                        var defaultValueAttribute = propertyInfo.FirstOrDefaultAttribute<DefaultValueAttribute>();
+                        propertyInfo.SetValue(obj, defaultValueAttribute != null ? defaultValueAttribute.Value : null, null);
+                    }
+                }
             );
         }
 
@@ -39,6 +37,15 @@ namespace Xps2ImgUI.Utils
         public static T FirstOrDefaultAttribute<T>(this MemberInfo memberInfo) where T : Attribute
         {
             return (T)memberInfo.GetCustomAttributes(typeof(T), true).FirstOrDefault();
+        }
+
+        public static string GetPropertyName(Expression<Func<object>> propertyExpression)
+        {
+            var body = propertyExpression.Body is UnaryExpression
+                            ? (MemberExpression) ((UnaryExpression) propertyExpression.Body).Operand
+                            : (MemberExpression) propertyExpression.Body;
+
+            return body.Member.Name;
         }
     }
 }

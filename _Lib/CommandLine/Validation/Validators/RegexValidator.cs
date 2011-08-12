@@ -4,7 +4,7 @@ namespace CommandLine.Validation.Validators
 {
     internal class RegexValidator : IValidator
     {
-        private static readonly Regex filter = new Regex(@"^/(?<regex>[\s\S]+?)/(?<options>[ims]*)$");
+        private static readonly Regex Filter = new Regex(@"^/(?<regex>[\s\S]+?)/(?<options>[ims]*)$");
 
         public static IValidator Create(object validation)
         {
@@ -14,11 +14,11 @@ namespace CommandLine.Validation.Validators
                 return null;
             }
 
-            var match = filter.Match(val);
+            var match = Filter.Match(val);
             return match.Success ? new RegexValidator(match.Groups["regex"].Value, match.Groups["options"].Value) : null;
         }
 
-        private readonly Regex Validator;
+        private readonly Regex _validator;
 
         public RegexValidator(string regexp, string options)
         {
@@ -33,12 +33,12 @@ namespace CommandLine.Validation.Validators
                 }
             }
 
-            Validator = new Regex(regexp, regexOptions);
+            _validator = new Regex(regexp, regexOptions);
         }
 
         public void Validate(string value)
         {
-            if (!Validator.IsMatch(value))
+            if (!_validator.IsMatch(value))
             {
                 throw new ValidationException(Resources.Strings.Validation_RegexValidator);
             }

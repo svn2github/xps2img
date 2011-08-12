@@ -85,7 +85,7 @@ namespace Xps2ImgUI
             if (m.Msg == Windows7Taskbar.WM_TaskbarButtonCreated)
             {
                 _thumbButtonManager = new ThumbButtonManager(Handle);
-                _thumbButton = _thumbButtonManager.CreateThumbButton(SystemIcons.Error, Resources.Strings.Launch, (s, e) => ExecuteConvertion());
+                _thumbButton = _thumbButtonManager.CreateThumbButton(Resources.Icons.Play, Resources.Strings.Launch, (s, e) => ExecuteConvertion());
                 _thumbButtonManager.AddThumbButtons(_thumbButton);
             }
 
@@ -151,12 +151,12 @@ namespace Xps2ImgUI
                 Text = Resources.Strings.WindowTitle;
             }
 
-            convertButton.Text = isRunning ? Resources.Strings.Cancel : Resources.Strings.Launch;
+            convertButton.Text = isRunning ? Resources.Strings.Stop : Resources.Strings.Launch;
 
             if (Windows7Taskbar.Supported)
             {
                 _thumbButton.Tooltip = convertButton.Text;
-                _thumbButton.Icon = isRunning ? SystemIcons.Shield : SystemIcons.Error;
+                _thumbButton.Icon = isRunning ? Resources.Icons.Stop : Resources.Icons.Play;
                 _thumbButtonManager.RefreshThumbButtons();
             }
 

@@ -5,9 +5,9 @@ using CommandLine.Validation.Validators;
 
 namespace CommandLine.Validation
 {
-    internal static class Parser
+    public static class Parser
     {
-        private static readonly Func<object, IValidator>[] validators = new Func<object, IValidator>[]
+        private static readonly Func<object, IValidator>[] Validators = new Func<object, IValidator>[]
         {
             IntValidator.Create,
             RegexValidator.Create,
@@ -21,7 +21,7 @@ namespace CommandLine.Validation
                 return null;
             }
 
-            var result = validators.Select(creator => creator(validationExpression)).Where(validator => validator != null).FirstOrDefault();
+            var result = Validators.Select(creator => creator(validationExpression)).Where(validator => validator != null).FirstOrDefault();
 
             if (result == null)
             {

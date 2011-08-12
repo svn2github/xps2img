@@ -1,6 +1,6 @@
 ﻿namespace CommandLine.Validation
 {
-    internal interface IValidator
+    public interface IValidator
     {
         void Validate(string value);
     }
