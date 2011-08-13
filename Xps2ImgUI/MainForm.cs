@@ -254,6 +254,7 @@ namespace Xps2ImgUI
             {
                 _xps2ImgModel.OptionsObject.SrcFile = file;
                 settingsPropertyGrid.Refresh();
+                UpdateCommandLine();
             }
         }
 
