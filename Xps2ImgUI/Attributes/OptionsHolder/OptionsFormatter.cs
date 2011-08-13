@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 
 using Xps2ImgUI.Attributes.Options;
+using Xps2ImgUI.Utils;
 
 namespace Xps2ImgUI.Attributes.OptionsHolder
 {
@@ -69,7 +70,7 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
                 return String.Empty;
             }
 
-            var escape = optionValue == "\"\"";
+            var escape = optionValue == Option.Empty;
             optionValue = optionValue.Trim(TrimSymbols);
 
             return escape || optionValue.IndexOfAny(EscapeSymbols) != -1

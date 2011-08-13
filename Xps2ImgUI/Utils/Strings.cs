@@ -10,4 +10,9 @@
     {
         public const string AllFiles = "All Files (*.*)|*.*";
     }
+
+    public static class Option
+    {
+        public const string Empty = "\"\"";
+    }
 }

@@ -175,7 +175,10 @@ namespace Xps2Img.CommandLine
             get { return _imageName; }
             set
             {
-                ValidateProperty(value, ImageNameValidationExpression);
+                if (value != Option.Empty)
+                {
+                    ValidateProperty(value, ImageNameValidationExpression);
+                }
                 _imageName = value;
             }
         }
