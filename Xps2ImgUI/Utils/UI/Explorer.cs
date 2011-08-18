@@ -28,17 +28,14 @@ namespace Xps2ImgUI.Utils.UI
             }
         }
 
+        public static void ShellExecute(string command)
+        {
+            Process.Start(command);
+        }
+
         private static void Execute(string command, string pathOrFile)
         {
-            try
-            {
-                Process.Start("explorer.exe", String.Format("/{0},{1}", command, pathOrFile));
-            }
-            // ReSharper disable EmptyGeneralCatchClause
-            catch
-            // ReSharper restore EmptyGeneralCatchClause
-            {
-            }
+            Process.Start("explorer.exe", String.Format("/{0},{1}", command, pathOrFile));
         }
     }
 }

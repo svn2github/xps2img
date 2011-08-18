@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ShowCommandLine" xml:space="preserve">
-    <value>Show Command Line</value>
+    <value>Show Co&amp;mmand Line</value>
   </data>
   <data name="ResetOptions" xml:space="preserve">
-    <value>Reset Options</value>
+    <value>Reset &amp;Options</value>
   </data>
   <data name="Launch" xml:space="preserve">
-    <value>Convert</value>
+    <value>&amp;Convert</value>
   </data>
   <data name="Stop" xml:space="preserve">
-    <value>Stop</value>
+    <value>&amp;Stop</value>
   </data>
   <data name="HideCommandLine" xml:space="preserve">
-    <value>Hide Command Line</value>
+    <value>Hide Co&amp;mmand Line</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>Xps2Img Launcher</value>
@@ -154,24 +154,30 @@
     <value>{1}{0}{0}Make sure that xps2img.exe utility is present in application folder.</value>
   </data>
   <data name="BrowseConvertedImages" xml:space="preserve">
-    <value>Browse Converted Images</value>
+    <value>Bro&amp;wse Converted Images</value>
   </data>
   <data name="BrowseXPSFile" xml:space="preserve">
-    <value>Browse XPS File</value>
+    <value>Browse &amp;XPS File</value>
   </data>
   <data name="WindowTitleLaunchingFormat" xml:space="preserve">
     <value>Launching xps2img... - {0}</value>
   </data>
   <data name="ResetParameters" xml:space="preserve">
-    <value>Reset Parameters</value>
+    <value>Reset &amp;Parameters</value>
   </data>
   <data name="Reset" xml:space="preserve">
-    <value>Reset Settings</value>
+    <value>Reset &amp;Settings</value>
   </data>
   <data name="CopyCommandLineToClipboard" xml:space="preserve">
-    <value>Copy Command Line To Clipboard</value>
+    <value>Copy Command &amp;Line To Clipboard</value>
   </data>
   <data name="CopyConvertedImagesPathToClipboard" xml:space="preserve">
-    <value>Copy Converted Images Path To Clipboard</value>
+    <value>Copy Co&amp;nverted Images Path To Clipboard</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>&amp;Help</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>&amp;About...</value>
   </data>
 </root>

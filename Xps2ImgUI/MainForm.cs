@@ -63,8 +63,7 @@ namespace Xps2ImgUI
         {
             if (_xps2ImgModel.IsRunning)
             {
-                var dialogResult = MessageBox.Show(this, Resources.Strings.ClosingQuery,
-                                                   Resources.Strings.WindowTitle,
+                var dialogResult = ShowMessageBox(Resources.Strings.ClosingQuery,
                                                    MessageBoxButtons.YesNo,
                                                    MessageBoxIcon.Exclamation,
                                                    MessageBoxDefaultButton.Button2);
@@ -78,6 +77,11 @@ namespace Xps2ImgUI
             }
 
             base.OnClosing(e);
+        }
+
+        protected override void OnHelpRequested(HelpEventArgs hevent)
+        {
+            ShowHelp();
         }
 
         protected override void WndProc(ref Message m)
@@ -128,12 +132,17 @@ namespace Xps2ImgUI
             // Separator.
             settingsPropertyGrid.AddToolStripSeparator();
 
-            // Explorer browse folders.
+            // Explorer browse.
             settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.BrowseConvertedImages, browseConvertedImagesToolStripButton_Click,
                 new ToolStripButtonItem(Resources.Strings.BrowseXPSFile, (s, e) => Explorer.Select(_xps2ImgModel.OptionsObject.SrcFile)),
                 new ToolStripButtonItem(),
                 new ToolStripButtonItem(Resources.Strings.CopyConvertedImagesPathToClipboard, (s, e) => Clipboard.SetDataObject(ConvertedImagesFolder, true))
             );
+
+            //  Help.
+            settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.Help, (s, e) => ShowHelp(),
+                new ToolStripButtonItem(Resources.Strings.About, (s, e) => new AboutForm().ShowDialog(this))
+            ).Alignment = ToolStripItemAlignment.Right;
         }
 
         private void UpdateProgress(int percent, string pages, string file)
@@ -176,10 +185,7 @@ namespace Xps2ImgUI
 
             FlashForm();
 
-            MessageBox.Show(this, String.Format(Resources.Strings.Xps2ImgError, Environment.NewLine, message),
-                            Resources.Strings.WindowTitle,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+            ShowMessageBox(String.Format(Resources.Strings.Xps2ImgError, Environment.NewLine, message), MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             UpdateRunningStatus(false);
         }
@@ -320,7 +326,7 @@ namespace Xps2ImgUI
 
         private bool _isModalWindowOpened;
 
-        public void ShowOptionIsRequiredMessage(string firstRequiredOptionLabel)
+        private void ShowOptionIsRequiredMessage(string firstRequiredOptionLabel)
         {
             _isModalWindowOpened = true;
 
@@ -333,12 +339,29 @@ namespace Xps2ImgUI
                 Activate();
             }
 
-            MessageBox.Show(this,
-                            String.Format(Resources.Strings.SpecifyValue, firstRequiredOptionLabel),
-                            Resources.Strings.WindowTitle, MessageBoxButtons.OK,
-                            MessageBoxIcon.Exclamation);
+            ShowMessageBox(String.Format(Resources.Strings.SpecifyValue, firstRequiredOptionLabel), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
             _isModalWindowOpened = false;
+        }
+
+        private void ShowMessageBox(string text, MessageBoxButtons buttons, MessageBoxIcon icon)
+        {
+            ShowMessageBox(text, buttons, icon, MessageBoxDefaultButton.Button1);
+        }
+
+        private DialogResult ShowMessageBox(string text, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton messageBoxDefaultButton)
+        {
+            if (OwnedForms.Length != 0)
+            {
+                Array.ForEach(OwnedForms, f => f.Close());
+                Application.DoEvents();
+            }
+            return MessageBox.Show(this, text, Resources.Strings.WindowTitle, buttons, icon, messageBoxDefaultButton);
+        }
+
+        private void ShowHelp()
+        {
+            Help.ShowHelp(this, "xps2img.chm", HelpNavigator.TableOfContents);
         }
 
         private void ExecuteConvertion()
