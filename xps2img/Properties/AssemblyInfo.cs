@@ -9,12 +9,12 @@ using System.Runtime.InteropServices;
 #if XPS2IMG_UI
     + " GUI front-end"
 #endif
-)]
++ ".")]
 [assembly: AssemblyDescription("XPS (XML Paper Specification) document to images converter"
 #if XPS2IMG_UI
     + " GUI front-end"
 #endif
-)]
++ ".")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("http://xps2img.sf.net")]
 [assembly: AssemblyProduct("Xps2Img")]

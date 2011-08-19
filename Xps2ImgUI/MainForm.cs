@@ -89,7 +89,7 @@ namespace Xps2ImgUI
             if (m.Msg == Windows7Taskbar.WM_TaskbarButtonCreated)
             {
                 _thumbButtonManager = new ThumbButtonManager(Handle);
-                _thumbButton = _thumbButtonManager.CreateThumbButton(Resources.Icons.Play, Resources.Strings.Launch, (s, e) => ExecuteConvertion());
+                _thumbButton = _thumbButtonManager.CreateThumbButton(Resources.Icons.Play, ConvertButtonCleanText, (s, e) => ExecuteConvertion());
                 _thumbButtonManager.AddThumbButtons(_thumbButton);
             }
 
@@ -164,7 +164,7 @@ namespace Xps2ImgUI
 
             if (Windows7Taskbar.Supported)
             {
-                _thumbButton.Tooltip = convertButton.Text;
+                _thumbButton.Tooltip = ConvertButtonCleanText;
                 _thumbButton.Icon = isRunning ? Resources.Icons.Stop : Resources.Icons.Play;
                 _thumbButtonManager.RefreshThumbButtons();
             }
@@ -445,6 +445,11 @@ namespace Xps2ImgUI
         {
             get { return _convertedImagesFolder ?? Xps2ImgModel.ApplicationFolder; }
             set { _convertedImagesFolder = value; }
+        }
+
+        private string ConvertButtonCleanText
+        {
+            get { return convertButton.Text.Replace("&", String.Empty); }
         }
 
         private readonly Xps2ImgModel _xps2ImgModel;
