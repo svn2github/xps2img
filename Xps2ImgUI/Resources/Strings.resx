@@ -145,7 +145,7 @@
     <value>Convertion has failed.{0}{0}{1}</value>
   </data>
   <data name="SpecifyValue" xml:space="preserve">
-    <value>{0} is required.</value>
+    <value>{0} parameter is required.</value>
   </data>
   <data name="NoExceptionMessage" xml:space="preserve">
     <value>Unknown error</value>

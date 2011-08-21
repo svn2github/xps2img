@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 
 using TKageyu.Utils;
+
 using Xps2ImgUI.Utils;
 using Xps2ImgUI.Utils.UI;
 
@@ -16,6 +17,8 @@ namespace Xps2ImgUI
 
         protected override void OnLoad(EventArgs e)
         {
+            this.RemoveSystemMenuDisabledItems();
+
             using (var iconExtractor = new IconExtractor(Application.ExecutablePath))
             {
                 iconPictureBox.Image = IconExtractor.SplitIcon(iconExtractor.GetIcon(0))[0].ToBitmap();

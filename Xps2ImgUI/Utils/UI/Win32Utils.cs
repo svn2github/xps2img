@@ -122,5 +122,73 @@ namespace Xps2ImgUI.Utils.UI
 
         [DllImport("user32.dll")]
         private static extern int ShowWindow(IntPtr hWnd, uint msg);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
+
+        private const uint MF_BYPOSITION = 0x00000400;
+
+        [DllImport("user32.dll")]
+        private static extern bool RemoveMenu(IntPtr hMenu, uint uPosition, uint uFlags);
+
+        [DllImport("user32.dll")]
+        private static extern int GetMenuItemCount(IntPtr hMenu);
+
+        [DllImport("user32.dll")]
+        private static extern bool GetMenuItemInfo(IntPtr hMenu, uint uItem, bool fByPosition, ref MENUITEMINFO lpmii);
+
+        private const uint MIIM_STATE   = 0x00000001;
+        private const uint MFS_DISABLED = 0x00000003;
+
+        // ReSharper disable MemberCanBePrivate.Local
+        // ReSharper disable FieldCanBeMadeReadOnly.Local
+        [StructLayout(LayoutKind.Sequential)]
+        private struct MENUITEMINFO
+        {
+            public uint cbSize;
+            public uint fMask;
+            public uint fType;
+            public uint fState;
+            public int wID;
+            public int hSubMenu;
+            public int hbmpChecked;
+            public int hbmpUnchecked;
+            public int dwItemData;
+            public string dwTypeData;
+            public uint cch;
+            public int hbmpItem;
+        }
+        // ReSharper restore MemberCanBePrivate.Local
+        // ReSharper restore FieldCanBeMadeReadOnly.Local
+
+        public static void RemoveSystemMenuDisabledItems(this Form form)
+        {
+            if (form.IsDisposed)
+            {
+                return;
+            }
+
+            var hMenu = GetSystemMenu(form.Handle, false);
+            if (hMenu == IntPtr.Zero)
+            {
+                return;
+            }
+
+            var mif = new MENUITEMINFO
+            {
+                cbSize = (uint)Marshal.SizeOf(typeof(MENUITEMINFO)),
+                fMask = MIIM_STATE
+            };
+
+            for (var itemPosition = 0; itemPosition < GetMenuItemCount(hMenu);)
+            {
+                if (GetMenuItemInfo(hMenu, (uint)itemPosition, true, ref mif) && (mif.fState & MFS_DISABLED) != 0)
+                {
+                    RemoveMenu(hMenu, (uint)itemPosition, MF_BYPOSITION);
+                    continue;
+                }
+                itemPosition++;
+            }
+        }
     }
 }

@@ -187,7 +187,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} is required..
+        ///   Looks up a localized string similar to {0} parameter is required..
         /// </summary>
         internal static string SpecifyValue {
             get {
