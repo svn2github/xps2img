@@ -47,6 +47,36 @@ namespace Xps2ImgUI.Utils.UI
             return Flash(form, FLASHW_STOP, uint.MaxValue);
         }
 
+        public static void RemoveSystemMenuDisabledItems(this Form form)
+        {
+            if (form.IsDisposed)
+            {
+                return;
+            }
+
+            var hMenu = GetSystemMenu(form.Handle, false);
+            if (hMenu == IntPtr.Zero)
+            {
+                return;
+            }
+
+            var mif = new MENUITEMINFO
+                          {
+                              cbSize = (uint)Marshal.SizeOf(typeof(MENUITEMINFO)),
+                              fMask = MIIM_STATE
+                          };
+
+            for (var itemPosition = 0; itemPosition < GetMenuItemCount(hMenu);)
+            {
+                if (GetMenuItemInfo(hMenu, (uint)itemPosition, true, ref mif) && (mif.fState & MFS_DISABLED) != 0)
+                {
+                    RemoveMenu(hMenu, (uint)itemPosition, MF_BYPOSITION);
+                    continue;
+                }
+                itemPosition++;
+            }
+        }
+
         /// <summary>
         /// Stop flashing. The system restores the window to its original state.
         /// </summary>
@@ -115,7 +145,6 @@ namespace Xps2ImgUI.Utils.UI
         }
 
         [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool FlashWindowEx(ref FLASHWINFO pwfi);
 
         private const uint SW_RESTORE = 0x09;
@@ -149,46 +178,16 @@ namespace Xps2ImgUI.Utils.UI
             public uint fMask;
             public uint fType;
             public uint fState;
-            public int wID;
-            public int hSubMenu;
-            public int hbmpChecked;
-            public int hbmpUnchecked;
-            public int dwItemData;
+            public uint wID;
+            public IntPtr hSubMenu;
+            public IntPtr hbmpChecked;
+            public IntPtr hbmpUnchecked;
+            public IntPtr dwItemData;
             public string dwTypeData;
             public uint cch;
-            public int hbmpItem;
+            public IntPtr hbmpItem;
         }
         // ReSharper restore MemberCanBePrivate.Local
         // ReSharper restore FieldCanBeMadeReadOnly.Local
-
-        public static void RemoveSystemMenuDisabledItems(this Form form)
-        {
-            if (form.IsDisposed)
-            {
-                return;
-            }
-
-            var hMenu = GetSystemMenu(form.Handle, false);
-            if (hMenu == IntPtr.Zero)
-            {
-                return;
-            }
-
-            var mif = new MENUITEMINFO
-            {
-                cbSize = (uint)Marshal.SizeOf(typeof(MENUITEMINFO)),
-                fMask = MIIM_STATE
-            };
-
-            for (var itemPosition = 0; itemPosition < GetMenuItemCount(hMenu);)
-            {
-                if (GetMenuItemInfo(hMenu, (uint)itemPosition, true, ref mif) && (mif.fState & MFS_DISABLED) != 0)
-                {
-                    RemoveMenu(hMenu, (uint)itemPosition, MF_BYPOSITION);
-                    continue;
-                }
-                itemPosition++;
-            }
-        }
     }
 }
