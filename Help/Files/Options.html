@@ -1,0 +1,102 @@
+<html>
+<head>
+    <title>Command-line</title>
+    <link rel="stylesheet" type="text/css" href="css/help.css" media="all" />
+</head>
+<body>
+    <h1>Command-line Options</h1>
+
+    <p>Mandatory arguments to long options are mandatory for short options too.</p>
+
+    <a class="anchor" name="srcfile" /><h3>src-file</h3>
+    <p>XPS file to process. Required.</p>
+
+    <a class="anchor" name="outdir" /><h3>[out-dir]</h3>
+    <p>Output folder. Optional.</p>
+    <p class="default">current folder by default.</p>
+
+    <a class="anchor" name="pages" /><h3>-p, --pages=pages</h3>
+    <p>Page number(s).</p>
+    <p class="default">all pages by default.</p>
+    <dl>
+        <dt>1-</dt><dd>all</dd>
+        <dt>1</dt><dd>single</dd>
+        <dt>1,3</dt><dd>set</dd>
+        <dt>1-10 or -10 or 10-</dt><dd>range</dd>
+        <dt>1,3-5,7-9,15-</dt><dd>combined</dd>
+    </dl>
+
+    <a class="anchor" name="filetype" /><h3>-f, --file-type=type</h3>
+    <p>Image type.</p>
+    <p class="default">png by default.</p>
+    <p>One of:</p>
+    <ul>
+        <li>png</li>
+        <li>jpeg</li>
+        <li>tiff</li>
+        <li>bmp</li>
+        <li>gif</li>
+    </ul>
+
+    <a class="anchor" name="requiredsize" /><h3>-r, --required-size=size</h3>
+    <p>Desired image size.</p>
+    <p class="default">DPI will be ignored if specified.</p>
+    <dl>
+        <dt>width only</dt>
+            <dd>2000</dd>
+        <dt>height only</dt>
+            <dd>x1000</dd>
+        <dt>both</dt>
+            <dd>
+                2000x1000
+                <div>width for landscape orientation.</div>
+                <div>height for portrait orientation.</div>
+            </dd>
+    </dl>
+
+    <a class="anchor" name="dpi" /><h3>-d, --dpi=dpi</h3>
+    <p>Image DPI (16-1500).</p>
+    <p class="default">120 by default.</p>
+
+    <a class="anchor" name="imagename" /><h3>-i, --image-name=name</h3>
+    <p>Image prefix.</p>
+    <dl>
+        <dt>numeric if ommited</dt>
+            <dd>01.png</dd>
+        <dt>name of src file if empty (-i "")</dt>
+            <dd>src_file-01.png</dd>
+    </dl>
+
+    <a class="anchor" name="jpegquality" /><h3>-q, --jpeg-quality=quality</h3>
+    <p>JPEG quality level (10-100).</p>
+    <p class="default">85 by default.</p>
+
+    <a class="anchor" name="tiffcompression" /><h3>-t, --tiff-compression=compression</h3>
+    <p>TIFF compression method.</p>
+    <p class="default">zip by default.</p>
+    <p>One of:</p>
+    <ul>
+        <li>default</li>
+        <li>none</li>
+        <li>ccitt3</li>
+        <li>ccitt4</li>
+        <li>lzw</li>
+        <li>rle</li>
+        <li>zip</li>
+    </ul>
+
+    <a class="anchor" name="firstpageindex" /><h3>-a, --first-page-index=index</h3>
+    <p>Document body first page index.</p>
+    <p class="default">1 by default.</p>
+
+    <a class="anchor" name="prelimsprefix" /><h3>-x, --prelims-prefix=prefix</h3>
+    <p>Preliminaries prefix.</p>
+    <p class="default">$ by default.</p>
+
+    <a class="anchor" name="test" /><h3>-e, --test</h3>
+    <p>Test mode (no files will be written).</p>
+
+    <a class="anchor" name="silent" /><h3>-s, --silent</h3>
+    <p>Silent mode (no progress will be shown).</p>
+</body>
+</html>

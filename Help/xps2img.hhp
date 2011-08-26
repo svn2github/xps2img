@@ -1,0 +1,25 @@
+[OPTIONS]
+Binary Index=No
+Compatibility=1.1 or later
+Compiled file=xps2img.chm
+Contents file=.\xps2img.hhc
+Default Window=Main
+Default topic=Files\About.html
+Display compile progress=No
+Full-text search=Yes
+Index file=.\xps2img.hhk
+Language=0x409 Английский (США)
+Title=xps2img Help
+
+[WINDOWS]
+Main=,"xps2img.hhc","xps2img.hhk","Files\About.html","Files\About.html",,,,,0x62520,,0x384e,[271,372,593,566],0xb0000,,,,,,0
+
+
+[FILES]
+Files\About.html
+Files\Features.html
+Files\Requirements.html
+Files\Options.html
+
+[INFOTYPES]
+

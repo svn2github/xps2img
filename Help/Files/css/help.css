@@ -1,0 +1,54 @@
+body
+{
+	color: black;
+	background: white;
+	font: 10pt Arial, Verdana;
+}
+
+h1
+{
+	font: 14pt;
+	font-weight: bold;
+}
+
+h3
+{
+	font: 11pt;
+	font-weight: bold;
+}
+
+dt
+{
+	font-weight: bold;
+}
+
+dd
+{
+	margin-top: 4pt;
+	margin-bottom: 4pt;
+}
+
+p.default
+{
+	font-style: italic;
+}
+
+a:link, a:visited
+{
+	color: blue;
+}
+
+a:hover, a:active
+{
+	color: red;
+}
+
+a.inactive
+{
+	text-decoration: line-through underline;
+}
+
+a.anchor:link, a.anchor:visited, a.anchor:hover, a.anchor:active
+{
+	color: black;
+}
