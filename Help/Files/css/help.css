@@ -11,10 +11,16 @@ h1
 	font-weight: bold;
 }
 
-h3
+h2
 {
 	font: 11pt;
 	font-weight: bold;
+}
+
+h3
+{
+	font: 11pt;
+	font-style: italic;
 }
 
 dt

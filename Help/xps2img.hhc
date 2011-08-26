@@ -24,5 +24,18 @@
 		<param name="Name" value="Command-line Options">
 		<param name="Local" value="Files\Options.html">
 		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="UI">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Parameters">
+			<param name="Local" value="Files\Options.html#srcfile">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Options">
+			<param name="Local" value="Files\Options.html#pages">
+			</OBJECT>
+	</UL>
 </UL>
 </BODY></HTML>

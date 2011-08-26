@@ -76,6 +76,114 @@
 		</OBJECT>
 	</UL>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="UI Parameters">
+		<param name="Local" value="Files\Options.html#srcfile">
+		</OBJECT>
+	<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="XPS File">
+		<param name="Local" value="Files\Options.html#srcfile">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Output Folder">
+		<param name="Local" value="Files\Options.html#outdir">
+		</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="UI Options">
+		<param name="Local" value="Files\Options.html#pages">
+		</OBJECT>
+	<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Page Number(s)">
+		<param name="Local" value="Files\Options.html#pages">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Image Type">
+		<param name="Local" value="Files\Options.html#filetype">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Image Size">
+		<param name="Local" value="Files\Options.html#requiredsize">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Image DPI">
+		<param name="Local" value="Files\Options.html#dpi">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Image Prefix">
+		<param name="Local" value="Files\Options.html#imagename">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="JPEG Quality">
+		<param name="Local" value="Files\Options.html#jpegquality">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIFF Compression">
+		<param name="Local" value="Files\Options.html#tiffcompression">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="First Page Index">
+		<param name="Local" value="Files\Options.html#firstpageindex">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Preliminaries Prefix">
+		<param name="Local" value="Files\Options.html#prelimsprefix">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Test Mode">
+		<param name="Local" value="Files\Options.html#test">
+		</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="XPS File">
+		<param name="Local" value="Files\Options.html#srcfile">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Output Folder">
+		<param name="Local" value="Files\Options.html#outdir">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="First Page Index">
+		<param name="Local" value="Files\Options.html#firstpageindex">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Image DPI">
+		<param name="Local" value="Files\Options.html#dpi">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Image Prefix">
+		<param name="Local" value="Files\Options.html#imagename">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Image Size">
+		<param name="Local" value="Files\Options.html#requiredsize">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Image Type">
+		<param name="Local" value="Files\Options.html#filetype">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="JPEG Quality">
+		<param name="Local" value="Files\Options.html#jpegquality">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Page Number(s)">
+		<param name="Local" value="Files\Options.html#pages">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Preliminaries Prefix">
+		<param name="Local" value="Files\Options.html#prelimsprefix">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Test Mode">
+		<param name="Local" value="Files\Options.html#test">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIFF Compression">
+		<param name="Local" value="Files\Options.html#tiffcompression">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="src-file">
 		<param name="Local" value="Files\Options.html#srcfile">
 		</OBJECT>
