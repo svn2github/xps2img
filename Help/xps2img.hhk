@@ -76,7 +76,7 @@
 		</OBJECT>
 	</UL>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="UI Parameters">
+		<param name="Name" value="GUI Front-end Parameters">
 		<param name="Local" value="Files\Options.html#srcfile">
 		</OBJECT>
 	<UL>
@@ -90,7 +90,7 @@
 		</OBJECT>
 	</UL>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="UI Options">
+		<param name="Name" value="GUI Front-end Options">
 		<param name="Local" value="Files\Options.html#pages">
 		</OBJECT>
 	<UL>

@@ -7,7 +7,7 @@ body
 
 h1
 {
-	font: 14pt;
+	font: 12pt;
 	font-weight: bold;
 }
 
@@ -39,22 +39,27 @@ p.default
 	font-style: italic;
 }
 
-a:link, a:visited
+a:link, a:visited, a:hover, a:active
 {
-	color: blue;
+	color: rgb(51, 102, 187);
+	text-decoration: none;
 }
 
 a:hover, a:active
 {
-	color: red;
-}
-
-a.inactive
-{
-	text-decoration: line-through underline;
+	text-decoration: underline;
 }
 
 a.anchor:link, a.anchor:visited, a.anchor:hover, a.anchor:active
 {
 	color: black;
+	text-decoration: none;
+}
+
+a.external
+{
+	padding-right: 13px;
+	background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFZJREFUeF59z4EJADEIQ1F36k7u5E7ZKXeUQPACJ3wK7UNokVxVk9kHnQH7bY9hbDyDhNXgjpRLqFlo4M2GgfyJHhjq8V4agfrgPQX3JtJQGbofmCHgA/nAKks+JAjFAAAAAElFTkSuQmCC");
+	background-position: 100% 50%;
+	background-repeat: no-repeat;
 }
