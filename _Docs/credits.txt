@@ -1,5 +1,2 @@
 GNU Getopt Argument Parser
 	http://www.codeplex.com/getopt
-
-Licenses
-	http://www.gnu.org/copyleft/lgpl.html
