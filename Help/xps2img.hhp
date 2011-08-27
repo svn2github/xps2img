@@ -12,7 +12,7 @@ Language=0x409 Английский (США)
 Title=xps2img Help
 
 [WINDOWS]
-Main=,"xps2img.hhc","xps2img.hhk","Files\About.html","Files\About.html",,,,,0x62520,,0x380e,[271,372,593,566],0xb0000,,,,,,0
+Main=,"xps2img.hhc","xps2img.hhk","Files\About.html","Files\About.html",,,,,0x62520,,0x380e,[293,186,1093,666],0xb0000,,,,,,0
 
 
 [FILES]
@@ -20,6 +20,7 @@ Files\About.html
 Files\Features.html
 Files\Requirements.html
 Files\Options.html
+Files\License.html
 
 [INFOTYPES]
 

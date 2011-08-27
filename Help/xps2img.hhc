@@ -37,5 +37,9 @@
 			<param name="Local" value="Files\Options.html#pages">
 			</OBJECT>
 	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="License">
+		<param name="Local" value="Files\License.html">
+		</OBJECT>
 </UL>
 </BODY></HTML>

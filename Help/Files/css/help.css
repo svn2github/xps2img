@@ -7,19 +7,19 @@ body
 
 h1
 {
-	font: 12pt;
+	font-size: 15pt;
 	font-weight: bold;
 }
 
 h2
 {
-	font: 11pt;
+	font-size: 13pt;
 	font-weight: bold;
 }
 
 h3
 {
-	font: 11pt;
+	font-size: 12pt;
 	font-style: italic;
 }
 
@@ -30,8 +30,8 @@ dt
 
 dd
 {
-	margin-top: 4pt;
-	margin-bottom: 4pt;
+	margin-top: 1pt;
+	margin-bottom: 1pt;
 }
 
 p.default
