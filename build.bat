@@ -1,7 +1,8 @@
 @echo off
 
 set buildConfig=Release
-::set buildConfig=Debug
+
+if not "%~1"=="" set buildConfig=Debug
 
 set slnFolder=%~dp0
 set helpFolder=%slnFolder%Help
@@ -34,5 +35,7 @@ exit /b 0
 echo.
 echo.
 echo There were errors!
+echo.
+pause
 exit /b 1
 

@@ -2,6 +2,8 @@
 
 using CommandLine;
 
+using Xps2ImgUI.Utils;
+
 namespace Xps2Img.CommandLine
 {
     public static class CommandLine
@@ -31,7 +33,11 @@ namespace Xps2Img.CommandLine
         {
             if (Parser.IsUsageRequiested(args))
             {
-                Console.WriteLine(Parser.GetUsageString<T>());
+                Console.WriteLine(String.Format("{1} {2}{0}{0}{3}",
+                                    Environment.NewLine,
+                                    AssemblyInfo.Description.TrimEnd(new[]{ '.'}),
+                                    AssemblyInfo.AssemblyVersion,
+                                    Parser.GetUsageString<T>()));
                 return true;
             }
             return false;

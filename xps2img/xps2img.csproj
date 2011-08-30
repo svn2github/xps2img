@@ -78,6 +78,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Xps2ImgUI\Utils\AssemblyInformation.cs">
+      <Link>Shared\AssemblyInformation.cs</Link>
+    </Compile>
     <Compile Include="CommandLine\CommandLine.cs" />
     <Compile Include="CommandLine\Interval.cs" />
     <Compile Include="CommandLine\Options.cs" />

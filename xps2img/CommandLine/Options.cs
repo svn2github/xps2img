@@ -59,9 +59,17 @@ namespace Xps2Img.CommandLine
         #endif
         public string OutDir { get; set; }
 
+        private const string RegexMatchEmptyString = 
+        #if XPS2IMG_UI
+        @"^$|"
+        #else
+        ""
+        #endif
+        ;
+
         private const string PagesDescription = "Page number(s)\n  all pages by default\nSyntax:\n  all:\t\t1-\n  single:\t1\n  set:\t\t1,3\n  range:\t1-10 or -10 or 10-\n  combined:\t1,3-5,7-9,15-";
         private const char PagesShortOption = 'p';
-        private const string PagesValidationExpression = "/" + Interval.ValidationRegex + "/";
+        private const string PagesValidationExpression = "/" + RegexMatchEmptyString + Interval.ValidationRegex + "/";
 
         [global::CommandLine.Option(
             PagesDescription,
@@ -106,7 +114,7 @@ namespace Xps2Img.CommandLine
 
         private const string RequiredSizeDescription = "Desired image size\n  DPI will be ignored if specified \nSyntax:\n  width only:\t2000\n  height only:\tx1000\n  both:\t\t2000x1000\n\t\twidth for landscape orientation\n\t\theight for portrait orientation";
         private const char RequiredSizeOption = 'r';
-        private const string RequiredSizeValidationExpression = "/" + RequiredSizeTypeConverter.ValidationRegex + "/";
+        private const string RequiredSizeValidationExpression = "/" + RegexMatchEmptyString + RequiredSizeTypeConverter.ValidationRegex + "/";
 
         [global::CommandLine.Option(
             RequiredSizeDescription,
