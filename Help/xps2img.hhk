@@ -18,6 +18,10 @@
 		<param name="Local" value="Files\Requirements.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="GUI Front-end">
+		<param name="Local" value="Files\GUI.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Revision History">
 		<param name="Local" value="Files\History.html">
 		</OBJECT>
