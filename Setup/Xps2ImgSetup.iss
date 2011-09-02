@@ -1,5 +1,4 @@
 //#define DEBUG
-
 //#define ISM_OnViewCleanTranslation
 
 #define ISM_RootDir		        AddBackslash(CompilerPath) + "Include/ISM"
@@ -24,14 +23,14 @@
 #define OutputDir		        "_Output"
 
 #define VersionInfoCopyright	"Copyright © 2010-2011, Ivan Ivon"
-#define VersionInfoCompany      "i1inst@gmail.com"
+#define VersionInfoCompany      "ivan.ivon@gmail.com"
 #define VersionInfoDescription  AppName + " Setup"
 
 #define AllowNoIcons            "yes"
 
 #define SetupIconFile           "Icons/Application.ico"
 
-#define ISM_UseInnoSetupImageFilesXP
+#define WizardImageFile         "Images/WizardImage.bmp"
 #define WizardSmallImageFile    "Images/WizardSmallImage.bmp"
 
 #define BinariesPath            "..\_bin\Release\"
