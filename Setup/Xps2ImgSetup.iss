@@ -36,6 +36,8 @@
 
 #define BinariesPath            "..\_bin\Release\"
 
+#include "Code.iss"
+
 #include ISM_RootDir + "/Include/IncludeAll.isi"
 
 #define Common_RunFlags     RunFlag_NoWait + RunFlag_PostInstall + RunFlag_SkipIfSilent + RunFlag_Unchecked
