@@ -133,7 +133,7 @@
     <value>Hide Co&amp;mmand Line</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>Xps2Img Launcher</value>
+    <value>XPS to Images Converter</value>
   </data>
   <data name="WindowTitleProgressFormat" xml:space="preserve">
     <value>{1}% ({2}) [{3}] - {0}</value>

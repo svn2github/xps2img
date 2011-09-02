@@ -1,6 +1,6 @@
 //#define DEBUG
 
-#define ISM_OnViewCleanTranslation
+//#define ISM_OnViewCleanTranslation
 
 #define ISM_RootDir		        AddBackslash(CompilerPath) + "Include/ISM"
 
@@ -25,34 +25,34 @@
 
 #define VersionInfoCopyright	"Copyright © 2010-2011, Ivan Ivon"
 #define VersionInfoCompany      "i1inst@gmail.com"
-#define VersionInfoDescription  AppName + ' Setup'
+#define VersionInfoDescription  AppName + " Setup"
 
 #define AllowNoIcons            "yes"
 
 #define SetupIconFile           "Icons/Application.ico"
 
-#define WizardImageFile         "Images/WizardImage.bmp"
+#define ISM_UseInnoSetupImageFilesXP
 #define WizardSmallImageFile    "Images/WizardSmallImage.bmp"
 
 #define BinariesPath            "..\_bin\Release\"
 
 #include ISM_RootDir + "/Include/IncludeAll.isi"
 
-#define Common_FileFlags    FileFlag_Touch + FileFlag_IgnoreVersion + FileFlag_OverwriteReadOnly
 #define Common_RunFlags     RunFlag_NoWait + RunFlag_PostInstall + RunFlag_SkipIfSilent + RunFlag_Unchecked
 
 <Language("en", "compiler:Default.isl")>
 
-<CustomMessage("en.Help",               " Help")>
+<CustomMessage("en.Help",               AppName + " Help")>
+<CustomMessage("en.License",            AppName + " License")>
 <CustomMessage("en.Group_Uninstall",    "Uninstall")>
 <CustomMessage("en.Menu_WebSite",       "%1 Web Site")>
 
-<File(BinariesPath + "CommandLine.dll", "{app}", Common_FileFlags)>
-<File(BinariesPath + "Gnu.Getopt.dll",  "{app}", Common_FileFlags)>
-<File(BinariesPath + "xps2img.exe",     "{app}", Common_FileFlags)>
-<File(BinariesPath + "xps2imgUI.exe",   "{app}", Common_FileFlags)>
-<File(BinariesPath + "xps2img.chm",     "{app}", Common_FileFlags)>
-<File("..\_Docs\lgpl-3.0.txt",          "{app}", Common_FileFlags)>
+<File(BinariesPath + "xps2img.exe")>
+<File(BinariesPath + "xps2imgUI.exe")>
+<File(BinariesPath + "CommandLine.dll")>
+<File(BinariesPath + "Gnu.Getopt.dll")>
+<File(BinariesPath + "xps2img.chm")>
+<File(LicenseFile)>
 
 #define Active_Tasks    "desktopicon"
     <Task(Active_Tasks, "{cm:CreateDesktopIcon}", "{cm:AdditionalIcons}")>
@@ -66,12 +66,11 @@
     <AppUrlGeneric("{group}")>
 #undef Active_Check 
 
-<Icon(AddBackslash("{group}\{cm:Group_Uninstall}") + Utils_CmFormat("UninstallProgram", AppName), "{uninstallexe}", "", "{app}")>
+<Icon(AddBackslash("{group}\{cm:Group_Uninstall}") + Utils_CmFormat("UninstallProgram", AppName), "{uninstallexe}")>
+<Icon("{group}\{cm:License}", AddBackslash("{app}") + ExtractFileName(LicenseFile))>
 <IconRun(AddBackslash("{group}") + AppName, AppExe)>
-<IconRun(AddBackslash("{group}") + AppName + "{cm:Help}", AppReadmeFile)>
+<IconRun("{group}\{cm:Help}", AppReadmeFile)>
 
 <Run(filename=AppExe, flags=Common_RunFlags, description=Utils_CmFormat("LaunchProgram", AppName))>
 
 <Debug_ViewTranslation>
-
-// http://www.idev.ch/content/view/291/1/
