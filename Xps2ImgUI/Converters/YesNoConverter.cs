@@ -22,6 +22,6 @@ namespace Xps2ImgUI.Converters
             return base.ConvertFrom(context, culture, value);
         }
 
-        private readonly string[] _values = new[] { "No", "Yes" };
+        private static readonly string[] _values = new[] { "No", "Yes" };
     }
 }
