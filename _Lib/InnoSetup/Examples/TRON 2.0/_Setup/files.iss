@@ -1,0 +1,33 @@
+<File("..\Game2.rez", "{app}", Common_FileFlags)>
+<File("..\Game.rez", "{app}", Common_FileFlags)>
+<File("..\gamep5.rez", "{app}", Common_FileFlags)>
+<File("..\gamep6.rez", "{app}", Common_FileFlags)>
+<File("..\Engine.REZ", "{app}", Common_FileFlags)>
+<File("..\autoexec.cfg", "{app}", Common_FileFlags)>
+<File("..\display.cfg", "{app}", Common_FileFlags)>
+<File("..\MFC42.DLL", "{app}", Common_FileFlags)>
+<File("..\server.dll", "{app}", Common_FileFlags)>
+<File("..\binkw32.dll", "{app}", Common_FileFlags)>
+<File("..\SndDrv.dll", "{app}", Common_FileFlags)>
+<File("..\ltmsg.dll", "{app}", Common_FileFlags)>
+<File("..\TRON.exe", "{app}", Common_FileFlags)>
+<File("..\Lithtech.exe", "{app}", Common_FileFlags)>
+<File("..\TRONSrv.exe", "{app}", Common_FileFlags)>
+<File("..\Setup.exe", "{app}", Common_FileFlags)>
+<File("..\Cheats\walkthrough.html", "{app}\Cheats", Common_FileFlags)>
+<File("..\Cheats\Subroutines.html", "{app}\Cheats", Common_FileFlags)>
+<File("..\Cheats\Cheats.html", "{app}\Cheats", Common_FileFlags)>
+<File("..\Profiles\Default.prf", "{app}\Profiles", Common_FileFlags)>
+<File("..\license.rtf", "{app}", Common_FileFlags)>
+<File("..\readme.txt", "{app}", Common_FileFlags)>
+<File("..\Tron Update 2 and Dedicated Server Readme.txt", "{app}", Common_FileFlags)>
+<File("..\Profiles\Player.txt", "{app}\Profiles", Common_FileFlags)>
+<File("..\ServerData\Default.txt", "{app}\ServerData", Common_FileFlags)>
+<File("..\LightCycleGameData\Default.txt", "{app}\LightCycleGameData", Common_FileFlags)>
+<File("..\Tron.chm", "{app}", Common_FileFlags)>
+<File("..\Multiplayer_Expansion_Patch_Help.chm", "{app}", Common_FileFlags)>
+<File("..\Movies\lithlogo.bik", "{app}\Movies", Common_FileFlags)>
+<File("..\Movies\nvidia.bik", "{app}\Movies", Common_FileFlags)>
+<File("..\Movies\disnlogo.bik", "{app}\Movies", Common_FileFlags)>
+<File("..\Sound.rez", "{app}", Common_FileFlags)>
+
