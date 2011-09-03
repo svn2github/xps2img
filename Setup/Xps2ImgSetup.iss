@@ -1,5 +1,4 @@
-//#define DEBUG
-//#define ISM_OnViewCleanTranslation
+;#define ISM_OnViewCleanTranslation
 
 #define ISM_RootDir		        AddBackslash(CompilerPath) + "Include/ISM"
 
@@ -11,12 +10,8 @@
 #define AppExe                  "{app}\xps2imgUI.exe"
 
 #define UrlOfficialSite         "http://xps2img.sf.net"
-#define AppPublisher			"Ivan Ivon"
-#define AppPublisherURL         "http://i2van.users.sf.net"
 
 #define ArchitecturesInstallIn64BitMode "x64"
-
-#define AppReadmeFile           "{app}\xps2img.chm"
 
 #define LicenseFile             "Docs\license.rtf"
 
@@ -25,6 +20,12 @@
 #define VersionInfoCopyright	"Copyright © 2010-2011, Ivan Ivon"
 #define VersionInfoCompany      "ivan.ivon@gmail.com"
 #define VersionInfoDescription  AppName + " Setup"
+
+#define AppComments             "XPS (XML Paper Specification) document to set of images conversion utility."
+#define AppContact              VersionInfoCompany
+#define AppPublisher            "Ivan Ivon (" + VersionInfoCompany + ")"
+#define AppPublisherURL         UrlOfficialSite
+#define AppReadmeFile           "{app}\xps2img.chm"
 
 #define AllowNoIcons            "yes"
 
