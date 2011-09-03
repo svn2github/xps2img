@@ -54,5 +54,9 @@
 		<param name="Name" value="License">
 		<param name="Local" value="Files\License.html">
 		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Credits">
+		<param name="Local" value="Files\Credits.html">
+		</OBJECT>
 </UL>
 </BODY></HTML>

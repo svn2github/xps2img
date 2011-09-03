@@ -30,6 +30,10 @@
 		<param name="Local" value="Files\License.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Credits">
+		<param name="Local" value="Files\Credits.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Command-line Options">
 		<param name="Local" value="Files\Options.html">
 		</OBJECT>
