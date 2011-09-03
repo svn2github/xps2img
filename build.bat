@@ -8,15 +8,26 @@ set slnFolder=%~dp0
 set helpFolder=%slnFolder%Help
 set setupFolder=%slnFolder%Setup
 set outFolder=%slnFolder%_bin\%buildConfig%
+set ismFolder=%slnFolder%_Lib\InnoSetup\ISM
 
 set PFx86=%PROGRAMFILES(x86)%
 if "%PFx86%"=="" set PFx86=%PROGRAMFILES%
 
 set msbuild="%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe"
 set hhc="%PFx86%\HTML Help Workshop\hhc.exe"
-set isComp="%PFx86%\Inno Setup 5\iscc.exe"
+set isFolder=%PFx86%\Inno Setup 5
+set isComp="%isFolder%\iscc.exe"
 
 set buildOptions=/p:Configuration=%buildConfig% /t:Rebuild
+
+call :isInstalled %msbuild% "Microsoft .NET Framework 4" "http://www.microsoft.com/download/en/details.aspx?id=17851" || goto ERROR
+call :isInstalled %hhc% "HTML Help Workshop" "http://www.microsoft.com/download/en/details.aspx?id=21138" || goto ERROR
+call :isInstalled %isComp% "Inno Setup 5.4.2(a)" "http://www.jrsoftware.org/isdl.php" || goto ERROR
+
+if not exist "%isFolder%\Include\ISM" (
+	echo Copying "%ismFolder%" to "%isFolder%\Include\ISM"...
+	xcopy "%ismFolder%" "%isFolder%\Include\ISM" /s /i || goto ERROR
+)
 
 @echo on
 
@@ -44,15 +55,8 @@ echo.
 pause
 exit /b 1
 
-HTML Help Workshop
-
-http://www.microsoft.com/download/en/details.aspx?id=21138
-
-Microsoft .NET Framework 4
-
-http://www.microsoft.com/download/en/details.aspx?id=17851
-
-Inno Setup 5.4.2(a)
-
-http://www.jrsoftware.org/isdl.php
-
+:isInstalled
+if exist "%~1" exit /b 0
+echo.
+echo %~2 is not found. Download at %~3
+exit /b 1
