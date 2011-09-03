@@ -1,0 +1,495 @@
+#ifndef __ISM_SECTIONS_ISI__
+#define __ISM_SECTIONS_ISI__
+
+#ifndef __ISM_SETUP_ISI__
+	#error "Setup.isi" must be included first
+#endif
+
+#include "Common/Utils.isi"
+#include "Common/Consts.isi"
+
+#include "WinVer.isi"
+#include "CommonParams.isi"
+
+// Section definition.
+
+#sub ISM_SubSectionStart
+	#define public ISM_SectionStarted
+#endsub 
+
+#sub ISM_SubSectionCheck
+	#ifdef ISM_SectionStarted
+		#error Section must be closed before starting new section
+	#endif
+#endsub 
+
+#sub ISM_SubSectionEnd
+	#undef public ISM_SectionStarted
+#endsub 
+
+#pragma parseroption -p-
+
+#define Section_Start(str sectionName)	\
+		ISM_SubSectionCheck, \
+		ISM_SubSectionStart, \
+		'[' + sectionName + ']\n'
+
+#define Section_End(str sectionName)	\
+		ISM_SubSectionEnd, \
+		'\n[/' + sectionName + ']\n\n'
+
+#pragma parseroption -p+
+
+// Setup sections
+
+#if	(defined(ISM_NoSectionTypes) && \
+	defined(ISM_NoSectionComponents) && \
+	defined(ISM_NoSectionTasks) && \
+	defined(ISM_NoSectionDirs) && \
+	defined(ISM_NoSectionFiles) && \
+	defined(ISM_NoSectionIcons) && \
+	defined(ISM_NoSectionIni) && \
+	defined(ISM_NoSectionLanguages) && \
+	defined(ISM_NoSectionLangOptions) && \
+	defined(ISM_NoSectionMessages) && \
+	defined(ISM_NoSectionCustomMessages) && \
+	defined(ISM_NoSectionRegistry) && \
+	defined(ISM_NoSectionInstallDelete) && \
+	defined(ISM_NoSectionUninstallDelete) && \
+	defined(ISM_NoSectionRun) && \
+	defined(ISM_NoSectionUninstallRun))
+		#define ISM_NoSections
+#endif
+
+#ifdef ISM_NoSections
+	#define ISM_NoSectionTypes
+	#define ISM_NoSectionComponents
+	#define ISM_NoSectionTasks
+	#define ISM_NoSectionDirs
+	#define ISM_NoSectionFiles
+	#define ISM_NoSectionIcons
+	#define ISM_NoSectionIni
+	#define ISM_NoSectionLanguages
+	#define ISM_NoSectionLangOptions
+	#define ISM_NoSectionMessages
+	#define ISM_NoSectionCustomMessages
+	#define ISM_NoSectionRegistry
+	#define ISM_NoSectionInstallDelete
+	#define ISM_NoSectionUninstallDelete
+	#define ISM_NoSectionRun
+	#define ISM_NoSectionUninstallRun
+#endif
+
+// [Types]
+
+#define TypeFlag_IsCustom	' iscustom'
+
+#ifdef ISM_NoSectionTypes
+	#define Type(str name, str description, str flags='') ''
+#else
+	#define Type(str name, str description, str flags='') \
+		Section_Start('Types') + \
+			Utils_AddParam(name, 'Name') + \
+			Utils_AddParam(description, 'Description') + \
+			Utils_AddParam(flags, 'Flags', False) + \
+		Section_End('Types')
+#endif
+
+// [Components]
+
+#define ComponentFlag_CheckableAlone	' checkablealone'
+#define ComponentFlag_DontInheritCheck	' dontinheritcheck'
+#define ComponentFlag_Exclusive			' exclusive'
+#define ComponentFlag_Fixed				' fixed'
+#define ComponentFlag_Restart			' restart'
+#define ComponentFlag_DisableNoUninstallWarning	' disablenouninstallwarning'
+
+#ifdef ISM_NoSectionComponents
+	#define Component(str name, str description, str types, str flags='', int extraDiskSpaceRequired=Const_UndefinedIntValue) ''
+#else
+	#define Component(str name, str description, str types, str flags='', int extraDiskSpaceRequired=Const_UndefinedIntValue) \
+		Section_Start('Components') + \
+			Utils_AddParam(name, 'Name') + \
+			Utils_AddParam(description, 'Description') + \
+			Utils_AddParam(types, 'Types') + \
+			Utils_AddParam(flags, 'Flags', False) + \
+			Utils_AddParam(Utils_DefinedInt(extraDiskSpaceRequired) ? extraDiskSpaceRequired : '', 'extraDiskSpaceRequired', False) + \
+		Section_End('Components')
+#endif
+
+// [Tasks]
+
+#define TaskFlag_CheckableAlone		' checkablealone'
+#define TaskFlag_CheckedOnce 		' checkedonce'
+#define TaskFlag_DontInheritCheck	' dontinheritcheck'
+#define TaskFlag_Exclusive			' exclusive'
+#define TaskFlag_Restart			' restart'
+#define TaskFlag_Unchecked			' unchecked'
+
+#ifdef ISM_NoSectionTasks
+	#define Task(str name, str description, str groupDescription='', components='', str flags='') ''
+#else
+	#define Task(str name, str description, str groupDescription='', components='', str flags='') \
+		Section_Start('Tasks') + \
+			Utils_AddParam(name, 'Name') + \
+			Utils_AddParam(description, 'Description') + \
+			Utils_AddParam(groupDescription, 'GroupDescription') + \
+			Utils_AddParam(components, 'Components') + \
+			Utils_AddParam(flags, 'Flags', False) + \
+		Section_End('Tasks')
+#endif
+
+// [Dirs]
+
+#define DirFlag_DeleteAfterInstall		' deleteafterinstall'
+#define DirFlag_UninsAlwaysUninstall	' uninsalwaysuninstall'
+#define DirFlag_UninsNeverUninstall		' uninsneveruninstall'
+#define DirFlag_SetNtfsCompression		' setntfscompression'
+#define DirFlag_UnsetNtfsCompression	' unsetntfscompression'
+
+#define DirFlag_Defauls		DirFlag_UninsAlwaysUninstall
+
+#ifdef ISM_NoSectionDirs
+	#define Dir(str name, str flags=DirFlag_Defauls, str attribs='', str permissions='') ''
+#else
+	#define Dir(str name, str flags=DirFlag_Defauls, str attribs='', str permissions='') \
+		Section_Start('Dirs') + \
+			Utils_AddParam(name, 'Name') + \
+			Utils_AddParam(flags, 'Flags', False) + \
+			Utils_AddParam(attribs, 'Attribs', False) + \
+			Utils_AddParam(permissions, 'Permissions', False) + \
+			Active_Commons() + \
+		Section_End('Dirs')
+#endif
+
+// [Files]
+
+#define FileFlag_32Bit						' 32bit'
+#define FileFlag_64Bit						' 64bit'
+#define FileFlag_AllowUnsafeFiles			' allowunsafefiles'
+#define FileFlag_CompareTimeStamp			' comparetimestamp'
+#define FileFlag_ConfirmOverwrite			' confirmoverwrite'
+#define FileFlag_CreateAllSubdirs			' createallsubdirs'
+#define FileFlag_DeleteAfterInstall			' deleteafterinstall'
+#define FileFlag_DontCopy					' dontcopy'
+#define FileFlag_DontVerifyChecksum			' dontverifychecksum'
+#define FileFlag_External					' external'
+#define FileFlag_FontIsntTrueType			' fontisnttruetype'
+#define FileFlag_IgnoreVersion				' ignoreversion'
+#define FileFlag_IsReadme					' isreadme'
+#define FileFlag_NoCompression				' nocompression'
+#define FileFlag_NoEncryption				' noencryption'
+#define FileFlag_NoRegError					' noregerror'
+#define FileFlag_OnlyIfDestFileExists		' onlyifdestfileexists'
+#define FileFlag_OnlyIfDoesntExist			' onlyifdoesntexist'
+#define FileFlag_OverwriteReadOnly			' overwritereadonly'
+#define FileFlag_PromptIfOlder				' promptifolder'
+#define FileFlag_RecurseSubdirs				' recursesubdirs'
+#define FileFlag_RegServer					' regserver'
+#define FileFlag_RegTypelib					' regtypelib'
+#define FileFlag_ReplaceSameVersion			' replacesameversion'
+#define FileFlag_RestartReplace				' restartreplace'
+#define FileFlag_SharedFile					' sharedfile'
+#define FileFlag_SkipIfSourceDoesntExist	' skipifsourcedoesntexist'
+#define FileFlag_SolidBreak		            ' solidbreak'
+#define FileFlag_SortFilesByExtension		' sortfilesbyextension'
+#define FileFlag_Touch						' touch'
+#define FileFlag_UninsNoSharedFilePrompt	' uninsnosharedfileprompt'
+#define FileFlag_UninsRemoveReadOnly		' uninsremovereadonly'
+#define FileFlag_UninsRestartDelete			' uninsrestartdelete'
+#define FileFlag_UninsNeverunInstall		' uninsneveruninstall'
+#define FileFlag_SetNtfsCompression			' setntfscompression'
+#define FileFlag_UnsetNtfsCompression		' unsetntfscompression'
+
+#define FileFlag_Defaults					FileFlag_Touch + FileFlag_IgnoreVersion + FileFlag_OverwriteReadOnly
+
+#define FileAttr_ReadOnly	' readonly'
+#define FileAttr_Hidden		' hidden'
+#define FileAttr_System		' system'
+
+#ifndef ISM_RootDir
+	#define ISM_RootDir "..\"
+#endif
+
+#ifdef ISM_NoSectionFiles
+	#define File(str source, str destDir=Const_DefaultDestDir, str flags=FileFlag_Defaults, str destName='', str attribs='', str permissions='', int externalSize=Const_UndefinedIntValue, str excludes='', str fontInstall='') ''
+#else
+
+	#define Base_File(str source, str destDir=Const_DefaultDestDir, str flags=FileFlag_Defaults, str destName='', str attribs='', str permissions='', int externalSize=Const_UndefinedIntValue, str excludes='', str fontInstall='') \
+		Section_Start('Files') + \
+			Utils_AddParam(source, 'Source') + \
+			Utils_AddParam(destDir, 'DestDir') + \
+			Utils_AddParam(flags + ((Utils_DefinedInt(externalSize) && !Utils_FlagSet(FileFlag_External, flags)) ? FileFlag_External : ''), 'Flags', False) + \
+			Utils_AddParam(destName, 'DestName') + \
+			Utils_AddParam(attribs, 'Attribs', False) + \
+			Utils_AddParam(permissions, 'Permissions', False) + \
+			Utils_AddParam(Utils_DefinedInt(externalSize) ? externalSize : '', 'ExternalSize', False) + \
+			Utils_AddParam(excludes, 'Excludes') + \
+			Utils_AddParam(fontInstall, 'FontInstall') + \
+			Active_Commons() + \
+    	Section_End('Files')
+
+	#ifdef ISM_OnFileStub
+	    #ifndef ISM_UserFileStub
+    	    #define ISM_UserFileStub(str ext, str flags) ''
+   	    #endif
+   	    
+   	    #ifndef ISM_FileStubDir
+            #define ISM_FileStubDir Str_Replace(ISM_RootDir, CompilerPath, 'compiler:')
+   	    #endif
+
+		#define Stub_ContainsWildcards(str source, str flags) \
+			Pos('*', source) || Pos('?', source) || Utils_FlagSet(FileFlag_RecurseSubdirs, flags)
+
+		#define Stub_GetDummy(str source, str flags) \
+			Stub_ContainsWildcards(source, flags) ? source : \
+			( \
+				Local[0] = LowerCase(ExtractFileExt(source)), \
+				ISM_FileStubDir + '\Files\dummy.' + \
+				( \
+					Local[0] == 'dll' ? 'dll' : \
+					Local[0] == 'exe' ? 'exe' : \
+					Local[0] == 'html'? 'html': \
+					Local[0] == 'pdf' ? 'pdf' : \
+					Local[0] == 'doc' ? 'rtf' : \
+					Local[0] == 'htm' ? 'html': \
+					Local[0] == 'rtf' ? 'rtf' : \
+					Local[0] == 'ocx' ? 'dll' : \
+					Local[0] == 'chm' ? 'chm' : \
+					Local[0] == 'hlp' ? 'hlp' : \
+					Utils_FlagSet(FileFlag_RegServer, flags) ? 'dll' : \
+					(Local[1]=ISM_UserFileStub(Local[0], flags)) != '' ? Local[1] : 'txt' \
+				) \
+			)
+	
+		#define File(str source, str destDir=Const_DefaultDestDir, str flags=FileFlag_Defaults, str destName='', str attribs='', str permissions='', int externalSize=Const_UndefinedIntValue, str excludes='', str fontInstall='') \
+			Base_File(Stub_GetDummy(source, flags), destDir, flags, Str_IsNotBlank(destName) ? destName : (!Stub_ContainsWildcards(source, flags) ? ExtractFileName(source) : ''), attribs, permissions, externalSize, excludes, fontInstall)
+	#else
+		#define File(str source, str destDir=Const_DefaultDestDir, str flags=FileFlag_Defaults, str destName='', str attribs='', str permissions='', int externalSize=Const_UndefinedIntValue, str excludes='', str fontInstall='') \
+    		Base_File(source, destDir, flags, destName, attribs, permissions, externalSize, excludes, fontInstall)
+	
+	#endif
+#endif
+
+// [Icons]
+
+#define IconFlag_CloseOnExit			' closeonexit'
+#define IconFlag_CreateOnlyIfFileExists	' createonlyiffileexists'
+#define IconFlag_DontCloseOnExit		' dontcloseonexit'
+#define IconFlag_FolderShortcut			' foldershortcut'
+#define IconFlag_RunMaximized			' runmaximized'
+#define IconFlag_RunMinimized			' runminimized'
+#define IconFlag_UninsNeverUninstall	' uninsneveruninstall'
+#define IconFlag_UseAppPaths			' useapppaths'
+
+#ifdef ISM_NoSectionIcons
+	#define Icon(str name, str filename, str parameters='', str workingDir='', str comment='', str flags='', str hotKey='', str iconFilename='', int iconIndex=0) ''
+#else
+	#define Icon(str name, str filename, str parameters='', str workingDir='', str comment='', str flags='', str hotKey='', str iconFilename='', int iconIndex=0) \
+		Section_Start('Icons') + \
+			Utils_AddParam(name, 'Name') + \
+			Utils_AddParam(filename, 'Filename') + \
+			Utils_AddParam(parameters, 'Parameters') + \
+			Utils_AddParam(Str_IsNotBlank(workingDir) ? workingDir : ExtractFilePath(filename), 'WorkingDir') + \
+			Utils_AddParam(hotKey, 'HotKey') + \
+			Utils_AddParam(comment, 'Comment') + \
+			Utils_AddParam(iconFilename, 'IconFilename') + \
+			Utils_AddParam(iconIndex ? iconIndex : '', 'IconIndex', False) + \
+			Utils_AddParam(flags, 'Flags', False) + \
+			Active_Commons() + \
+		Section_End('Icons')
+#endif
+
+// [INI]
+
+#define IniFlag_CreateKeyIfDoesntExist		' createkeyifdoesntexist'
+#define IniFlag_UninsDeleteEntry			' uninsdeleteentry'
+#define IniFlag_UninsDeleteSection			' uninsdeletesection'
+#define IniFlag_UninsDeleteSectionIfEmpty	' uninsdeletesectionifempty'
+
+#define IniFlag_Defaults					IniFlag_UninsDeleteSectionIfEmpty + IniFlag_UninsDeleteEntry
+
+#ifdef ISM_NoSectionIni
+	#define Ini(str filename, str section, str key, str string, str flags=IniFlag_Defaults) ''
+#else
+	#define Ini(str filename, str section, str key, str string, str flags=IniFlag_Defaults) \
+		Section_Start('INI') + \
+			Utils_AddParam(filename, 'Filename') + \
+			Utils_AddParam(section, 'Section') + \
+			Utils_AddParam(key, 'Key') + \
+			Utils_AddParam(string, 'String') + \
+			Utils_AddParam(flags, 'Flags', False) + \
+			Active_Commons() + \
+		Section_End('INI')
+#endif
+	
+// [Languages]
+
+#ifdef ISM_NoSectionLanguages
+	#define Language(str name, str messagesFile, str licenseFile='', str infoBeforeFile='', str infoAfterFile='') ''
+#else
+	#define Language(str name, str messagesFile, str licenseFile='', str infoBeforeFile='', str infoAfterFile='') \
+		Section_Start('Languages') + \
+			Utils_AddParam(name, 'Name') + \
+			Utils_AddParam(messagesFile, 'MessagesFile') + \
+			Utils_AddParam(licenseFile, 'LicenseFile') + \
+			Utils_AddParam(infoBeforeFile, 'InfoBeforeFile') + \
+			Utils_AddParam(infoAfterFile, 'InfoAfterFile') + \
+			Active_Commons() + \
+		Section_End('Languages')
+#endif
+	
+// [LangOptions]
+
+#ifdef ISM_NoSectionLangOptions
+	#define LangOptions(str languageName, str languageID='', int languageCodePage=0, str dialogFontName='', int dialogFontSize=0, str welcomeFontName='', int welcomeFontSize=0, str titleFontName='', int titleFontSize=0, str copyrightFontName='', int copyrightFontSize=0) ''
+#else
+	#define LangOptions(str languageName, str languageID='', int languageCodePage=0, str dialogFontName='', int dialogFontSize=0, str welcomeFontName='', int welcomeFontSize=0, str titleFontName='', int titleFontSize=0, str copyrightFontName='', int copyrightFontSize=0) \
+		Section_Start('LangOptions') + \
+			Utils_AddLine('LanguageName', languageName, False) + \
+			Utils_AddLine('LanguageID', languageID, False) + \
+			Utils_AddLine('LanguageCodePage', languageCodePage ? languageCodePage : '', False) + \
+			Utils_AddLine('DialogFontName', dialogFontName, False) + \
+			Utils_AddLine('DialogFontSize', dialogFontSize ? dialogFontSize : '', False) + \
+			Utils_AddLine('WelcomeFontName', welcomeFontName, False) + \
+			Utils_AddLine('WelcomeFontSize', welcomeFontSize ? welcomeFontSize : '', False) + \
+			Utils_AddLine('TitleFontName', titleFontName, False) + \
+			Utils_AddLine('TitleFontSize', titleFontSize ? titleFontSize : '', False) + \
+			Utils_AddLine('CopyrightFontName', copyrightFontName, False) + \
+			Utils_AddLine('CopyrightFontSize', copyrightFontSize ? copyrightFontSize : '', False) + \
+		Section_End('LangOptions')
+#endif
+
+// [Messages]
+
+#ifdef ISM_NoSectionMessages
+	#define Message(str id, str message) ''
+#else
+	#define Message(str id, str message) \
+		Section_Start('Messages') + \
+			Utils_AddLine(id, message) + \
+		Section_End('Messages')
+#endif
+
+// [CustomMessages]
+
+#ifdef ISM_NoSectionCustomMessages
+	#define CustomMessage(str id, str message) ''
+#else
+	#define CustomMessage(str id, str message) \
+		Section_Start('CustomMessages') + \
+			Utils_AddLine(id, message) + \
+		Section_End('CustomMessages')
+#endif
+	
+// [Registry]
+
+#define RegFlag_CreateValueIfDoesntExist	' createvalueifdoesntexist'
+#define RegFlag_DeleteKey					' deletekey'
+#define RegFlag_DeleteValue					' deletevalue'
+#define RegFlag_DontCreateKey				' dontcreatekey'
+#define RegFlag_NoError						' noerror'
+#define RegFlag_PreserveStringType			' preservestringtype'
+#define RegFlag_UninsClearValue				' uninsclearvalue'
+#define RegFlag_UninsDeleteKey				' uninsdeletekey'
+#define RegFlag_UninsDeleteKeyIfEmpty		' uninsdeletekeyifempty'
+#define RegFlag_UninsDeleteValue			' uninsdeletevalue'
+
+#define RegFlag_Defaults					RegFlag_UninsDeleteKeyIfEmpty + RegFlag_UninsDeleteValue
+
+#ifdef ISM_NoSectionRegistry
+	#define Reg(str key, str value='', any valueData='', str flags=RegFlag_Defaults, str permissions='') ''
+#else
+	#define Reg(str key, str value='', any valueData='', str flags=RegFlag_Defaults, str permissions='') \
+		Section_Start('Registry') + \
+			Utils_AddParam(Utils_ExtractPathLeft(key), 'Root', False) + \
+			Utils_AddParam(Utils_ExtractPathRight(key), 'Subkey') + \
+			Utils_AddParam(flags, 'Flags', False) + \
+			Utils_AddParam(Utils_ExtractValueRight(value), 'ValueType', False) + \
+			Utils_AddParam(Utils_ExtractValueLeft(value), 'ValueName') + \
+			Utils_AddParam(valueData, 'ValueData') + \
+			Utils_AddParam(permissions, 'Permissions', False) + \
+			Active_Commons() + \
+		Section_End('Registry')
+#endif
+	
+// [InstallDelete]
+// [UninstallDelete]
+
+#define DeleteFlag_Files			' files'
+#define DeleteFlag_FilesAndOrDirs	' filesandordirs'
+#define DeleteFlag_DirIfEmpty		' dirifempty'
+
+#define DeleteFlag_Defaults			DeleteFlag_Files
+
+#define _UnInstallDelete(str section, str name, str type) \
+	Section_Start(section) + \
+		Utils_AddParam(name, 'Name') + \
+		Utils_AddParam(type, 'Type', False) + \
+		Active_Commons() + \
+	Section_End(section)
+
+#ifdef ISM_NoSectionInstallDelete
+	#define InstallDelete(str name, str type=DeleteFlag_Defaults)		''
+#else
+	#define InstallDelete(str name, str type=DeleteFlag_Defaults)		_UnInstallDelete('InstallDelete', name, type)
+#endif
+
+#ifdef ISM_NoSectionUninstallDelete
+	#define UninstallDelete(str name, str type=DeleteFlag_Defaults)	''
+#else
+	#define UninstallDelete(str name, str type=DeleteFlag_Defaults)	_UnInstallDelete('UninstallDelete', name, type)
+#endif
+
+// [Run]
+// [UninstallRun]
+
+#define RunFlag_32bit				' 32bit'
+#define RunFlag_64bit				' 64bit'
+#define RunFlag_HideWizard			' hidewizard'
+#define RunFlag_NoWait				' nowait'
+#define RunFlag_PostInstall			' postinstall'
+#define RunFlag_RunHidden			' runhidden'
+#define RunFlag_RunMaximized		' runmaximized'
+#define RunFlag_RunMinimized		' runminimized'
+#define RunFlag_ShellExec			' shellexec'
+#define RunFlag_SkipIfDoesntExist	' skipifdoesntexist'
+#define RunFlag_SkipIfNotSilent		' skipifnotsilent'
+#define RunFlag_SkipIfSilent		' skipifsilent'
+#define RunFlag_Unchecked			' unchecked'
+#define RunFlag_WaitUntilIdle		' waituntilidle'
+#define RunFlag_WaitUntilTerminated	' waituntilterminated'
+#define RunFlag_RunAsCurrentUser	' runascurrentuser'
+#define RunFlag_RunAsOriginalUser	' runasoriginaluser'
+
+#define RunFlag_Defaults			RunFlag_WaitUntilTerminated
+
+#define _UnInstallRun(str section, str filename, str parameters='', str flags=RunFlag_Defaults, str workingDir='', str statusMsg='' /* InstallRun */, str description='' /* InstallRun */, str verb='', str runOnceId='' /* UnInstallRun */) \
+	Section_Start(section) + \
+		Utils_AddParam(filename, 'Filename') + \
+		Utils_AddParam(parameters, 'Parameters') + \
+		Utils_AddParam(flags, 'Flags') + \
+		Utils_AddParam(Str_IsNotBlank(workingDir) ? workingDir : ExtractFilePath(filename), 'WorkingDir') + \
+		Utils_AddParam(statusMsg, 'StatusMsg') + \
+		Utils_AddParam(description, 'Description') + \
+		(Utils_FlagSet(RunFlag_ShellExec, flags) ? Utils_AddParam(Str_IsNotBlank(verb) ? verb : Const_DefaultVerb, 'Verb') : '') + \
+		Utils_AddParam(runOnceId, 'RunOnceId') + \
+		Active_Commons() + \
+	Section_End(section)
+
+#ifdef ISM_NoSectionRun
+	#define Run(str filename, str parameters='', str flags=RunFlag_Defaults, str workingDir='', str statusMsg='', str description='', str verb='') ''
+#else
+	#define Run(str filename, str parameters='', str flags=RunFlag_Defaults, str workingDir='', str statusMsg='', str description='', str verb='') \
+		_UnInstallRun(section='Run', filename=filename, parameters=parameters, flags=flags, workingDir=workingDir, statusMsg=statusMsg, description=description, verb=verb, runOnceId='')
+#endif
+
+#ifdef ISM_NoSectionUninstallRun
+	#define UninstallRun(str filename, str parameters='', str flags=RunFlag_Defaults, str workingDir='', str verb='', runOnceId='') ''
+#else
+	#define UninstallRun(str filename, str parameters='', str flags=RunFlag_Defaults, str workingDir='', str verb='', runOnceId='') \
+		_UnInstallRun(section='UninstallRun', filename=filename, parameters=parameters, flags=flags, workingDir=workingDir, statusMsg=statusMsg, description=description, verb=verb, runOnceId=runOnceId)
+#endif
+
+#endif
+

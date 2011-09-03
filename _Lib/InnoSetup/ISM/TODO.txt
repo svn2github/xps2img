@@ -1,0 +1,13 @@
+[Dummy.exe]
+
+///silent option - to prevent from showing message box. (?)
+Special flag to [Files] section, which indicates that empty.exe is used instead of Dummy.exe.
+Add flag to run Run section in file stub mode behave as below (?).
+
+[GENERAL]
+
+[Normal] Convert / to \ and remove redundant \ when extraction from path needed (preserve \\ for UNC names).
+[Normal] Install ISM to IS folder. Make installation.
+[Low] Silent MsgBox support. Add MsgBox macro with silent check.
+[LOW] Documenting as IS docs. Make script to extract docs from files.
+[LOW] Add do not delete modified files support.

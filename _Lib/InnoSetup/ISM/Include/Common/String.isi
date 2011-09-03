@@ -1,0 +1,109 @@
+#ifndef __ISM_COMMON_STRING_ISI__
+#define __ISM_COMMON_STRING_ISI__
+
+// Get char at position.
+
+#define Str_CharAt(str S, int index) \
+    Copy(S, index, 1)
+    
+// Retruns quote char.
+
+#define Str_QuoteChar(int quote=True)	quote ? '"' : ''
+
+// Returns left part of string before first delim. Returns value if delim is not found.
+
+#define Str_GetLeft(str value, str delim) \
+	!(Local[0] = Pos(delim, value)) ? \
+	value : \
+	Copy(value, 1, Local[0] - 1)
+
+// Returns right part of string after first delim. Returns value if delim is not found.
+
+#define Str_GetRight(str value, str delim) \
+	!(Local[0] = Pos(delim, value)) ? \
+	value : \
+	Copy(value, Local[0] + Len(delim))
+	
+// Returns left part of string before last delim. Returns value if delim is not found.
+
+#define Str_GetLeftLast(str value, str delim) \
+	!(Local[0] = RPos(delim, value)) ? \
+	value : \
+	Copy(value, 1, Local[0] - 1)
+
+// Returns right part of string after last delim. Returns value if delim is not found.
+
+#define Str_GetRightLast(str value, str delim) \
+	!(Local[0] = RPos(delim, value)) ? \
+	value : \
+	Copy(value, Local[0] + Len(delim))
+
+// Reverse string.
+
+#define _Str_Reverse(str *Result, str *S, int *Length) \
+    Local[0] = Length-1, \
+    !Length ? Result : \
+    ( \
+        Result = Result + Str_CharAt(S, Length), \
+        _Str_Reverse(Result, S, Local[0]) \
+    )
+
+#define Str_Reverse(str S) \
+    Local[0] = "", \
+    Local[1] = Len(S), \
+    _Str_Reverse(Local[0], S, Local[1])
+
+// Replace string.
+
+#define _Str_Replace(str *Result, str *S, str find, str replace) \
+    !Pos(find, S) ? Result + S : \
+    ( \
+        Result = Result + Str_GetLeft(S, find) + replace, \
+        Local[1] = Str_GetRight(S, find), \
+        _Str_Replace(Result, Local[1], find, replace) \
+    )
+
+#define Str_Replace(str S, str find, str replace) \
+    Local[0] = "", \
+    _Str_Replace(Local[0], S, find, replace)
+
+// Emptyness check.
+
+#define Str_IsEmpty(str value) \
+	!Len(value)
+
+#define Str_IsNotEmpty(str value) \
+	!Str_IsEmpty(value)
+    
+// String blank/empty check.
+
+#pragma parseroption -p-
+
+// Is string's first character space.
+
+#define Str_IsCharSpace(str value) \
+        !Len(value) \
+		|| (Local[0]=Str_CharAt(value, 1))=='\x20' \
+		|| Local[0]=='\t' \
+		|| Local[0]=='\v' \
+		|| Local[0]=='\r' \
+		|| Local[0]=='\n'
+
+#define Str_IsBlank(str value) \
+	Str_IsEmpty(value) ? True : \
+    	Str_IsCharSpace(value) ? Str_IsBlank(Copy(value, 2)) : False
+
+#define Str_IsNotBlank(str value) \
+	!Str_IsBlank(value)
+
+#pragma parseroption -p+
+
+// Starts/ends with.
+
+#define Str_StartsWith(str value, str with) \
+		(value==with) || Pos(with, value)==1
+
+#define Str_EndsWith(str value, str with) \
+		(value==with) || (Len(value)-RPos(with, value)==Len(with)+1)
+
+#endif

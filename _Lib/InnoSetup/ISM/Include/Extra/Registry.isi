@@ -1,0 +1,20 @@
+#ifndef __ISM_EXTRA_REGISTRY_ISI__
+#define __ISM_EXTRA_REGISTRY_ISI__
+
+#ifndef __ISM_SECTIONS_ISI__
+	#error "Sections.isi" must be included first
+#endif
+
+#ifdef AppExe
+    #define _RegAppPathsAppExe AppExe
+#else
+    #define _RegAppPathsAppExe ''
+#endif
+
+#define RegAppPaths(str keyName, str file='') \
+	Local[0]='HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\' + keyName, \
+	Local[1]=Str_IsNotBlank(file) ? file : '{app}\' + _RegAppPathsAppExe, \
+	Reg(Local[0], ':string', Local[1]) + \
+	Reg(Local[0], 'Path:string', ExtractFilePath(Local[1]))
+
+#endif

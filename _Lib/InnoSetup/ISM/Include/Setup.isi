@@ -1,0 +1,580 @@
+#ifndef __ISM_SETUP_ISI__
+#define __ISM_SETUP_ISI__
+
+#ifndef ISM_RootDir
+    #error ISM_RootDir must be defined
+#endif
+
+//#if !FindFirst(ISM_RootDir, faDirectory)
+//    #error ISM_RootDir is not valid folder or folder does not exist
+//#endif
+
+#include "Version.isi"
+
+// Setup.
+
+#ifdef DEBUG
+	#define private ISM_Header '[DEBUG] '
+	#define ISM_ExitSetupWithoutUserConfirmation
+#else
+	#define private ISM_Header ''
+#endif
+
+#ifdef ISM_OnFileStub
+    #define ISM_FileStubHeader  '[ISM_OnFileStub] '
+#else
+    #define ISM_FileStubHeader  ''
+#endif
+
+#ifndef ISM_DefaultDirName
+	#ifdef DEBUG
+		#define private ISM_DefaultDirName '{src}'
+	#else
+		#define private ISM_DefaultDirName '{pf}'
+	#endif
+#endif
+
+#ifndef AppDirName
+	#define private AppDirName AppName
+#endif
+
+#ifdef AppVersion
+	#define private ISM_AppVersionHeader ' ' + AppVersion
+#else
+	#define private ISM_AppVersionHeader ''
+#endif
+
+#ifndef DefaultDirName
+	#define DefaultDirName ISM_DefaultDirName + '\' + AppDirName
+#endif
+
+#if defined(ISM_UseInnoSetupImageFiles) || defined(ISM_UseInnoSetupImageFilesXP)
+	#if defined(ISM_UseInnoSetupImageFiles) && defined(ISM_UseInnoSetupImageFilesXP)
+		#error Only one of ISM_UseInnoSetupImageFiles or ISM_UseInnoSetupImageFilesXP must be defined.
+	#endif
+	#ifdef ISM_UseInnoSetupImageFiles
+		#ifndef WizardImageFile
+			#define WizardImageFile       'compiler:WizModernImage.bmp'
+		#endif
+		#ifndef WizardSmallImageFile
+			#define WizardSmallImageFile  'compiler:WizModernSmallImage.bmp'
+		#endif
+	#elif defined(ISM_UseInnoSetupImageFilesXP)
+		#ifndef WizardImageFile
+			#define WizardImageFile       'compiler:WizModernImage-IS.bmp'
+		#endif
+		#ifndef WizardSmallImageFile
+			#define WizardSmallImageFile  'compiler:WizModernSmallImage-IS.bmp'
+		#endif
+	#endif
+#endif
+
+// 680M	- 713031680 bytes.
+// 690M	- 723517440 bytes.
+// 700M	- 734003200 bytes.
+// DVD4	- 1566000000 bytes.
+#ifndef DiskSliceSize
+	#ifdef ISM_UseDiskSliceSize680M
+		#define DiskSliceSize	'713031680'
+	#elif defined(ISM_UseDiskSliceSize690M)
+		#define DiskSliceSize	'723517440'
+	#elif defined(ISM_UseDiskSliceSize700M)
+		#define DiskSliceSize	'734003200'
+	#elif defined(ISM_UseDiskSliceSizeDVD4)
+		#define DiskSliceSize	'1566000000'
+	#else
+		// 700M by default.
+		#define DiskSliceSize	'734003200'
+	#endif
+#endif
+
+#ifndef VersionInfoTextVersion
+	#define VersionInfoTextVersion AppVersion
+#endif
+
+#ifndef VersionInfoVersion
+	#define VersionInfoVersion AppVersion
+#endif
+
+[Setup]
+
+AppName={#ISM_FileStubHeader}{#ISM_Header}{#AppName}
+
+#ifdef AppVerName
+	AppVerName={#AppVerName}
+#else
+	AppVerName={#AppName}{#ISM_AppVersionHeader}
+#endif
+
+DefaultDirName={#DefaultDirName}
+
+// Compiler-related
+
+#ifdef Compression
+	Compression={#Compression}
+#endif
+
+#ifdef CompressionThreads
+	CompressionThreads={#CompressionThreads}
+#endif
+
+#ifdef SolidCompression
+	SolidCompression={#SolidCompression}
+#endif
+
+#ifdef InternalCompressLevel
+	InternalCompressLevel={#InternalCompressLevel}
+#endif
+
+#ifdef DiskSpanning
+	DiskSpanning={#DiskSpanning}
+#endif
+
+#ifdef DiskSpanning
+	#if LowerCase(DiskSpanning)=="yes"
+    	#ifdef SlicesPerDisk
+        	SlicesPerDisk={#SlicesPerDisk}
+        #endif
+
+		#ifdef DiskClusterSize
+			DiskClusterSize={#DiskClusterSize}
+		#endif
+
+		#ifdef DiskSliceSize
+			DiskSliceSize={#DiskSliceSize}
+		#endif
+	#endif
+#endif
+
+#ifdef Encryption
+	Encryption={#Encryption}
+#endif
+
+#ifdef MergeDuplicateFiles
+	MergeDuplicateFiles={#MergeDuplicateFiles}
+#endif
+
+#ifdef OutputBaseFilename
+	OutputBaseFilename={#OutputBaseFilename}
+#endif
+
+#ifdef OutputDir
+	OutputDir={#OutputDir}
+#endif
+
+#ifdef OutputManifestFile
+	OutputManifestFile={#OutputManifestFile}
+#endif
+
+#ifdef ReserveBytes
+	ReserveBytes={#ReserveBytes}
+#endif
+
+#ifdef SourceDir
+	SourceDir={#SourceDir}
+#endif
+
+#ifdef TerminalServicesAware
+	TerminalServicesAware={#TerminalServicesAware}
+#endif
+
+#ifdef UseSetupLdr
+	UseSetupLdr={#UseSetupLdr}
+#endif
+
+#ifdef VersionInfoCompany
+	VersionInfoCompany={#VersionInfoCompany}
+#endif
+
+#ifdef VersionInfoCopyright
+	VersionInfoCopyright={#VersionInfoCopyright}
+#endif
+
+#ifdef VersionInfoDescription
+	VersionInfoDescription={#VersionInfoDescription}
+#endif
+
+#ifdef VersionInfoTextVersion
+	VersionInfoTextVersion={#VersionInfoTextVersion}
+#endif
+
+#ifdef VersionInfoVersion
+	VersionInfoVersion={#VersionInfoVersion}
+#endif
+
+// Installer-related
+
+// Functional: These directives affect the operation of the Setup program, or are saved and used later by the uninstaller.
+
+#ifdef AllowCancelDuringInstall
+	AllowCancelDuringInstall={#AllowCancelDuringInstall}
+#endif
+
+#ifdef AllowNoIcons
+	AllowNoIcons={#AllowNoIcons}
+#endif
+
+#ifdef AllowRootDirectory
+	AllowRootDirectory={#AllowRootDirectory}
+#endif
+
+#ifdef AllowUNCPath
+	AllowUNCPath={#AllowUNCPath}
+#endif
+
+#ifdef AlwaysRestart
+	AlwaysRestart={#AlwaysRestart}
+#endif
+
+#ifdef AlwaysShowComponentsList
+	AlwaysShowComponentsList={#AlwaysShowComponentsList}
+#endif
+
+#ifdef AlwaysShowDirOnReadyPage
+	AlwaysShowDirOnReadyPage={#AlwaysShowDirOnReadyPage}
+#endif
+
+#ifdef AlwaysShowGroupOnReadyPage
+	AlwaysShowGroupOnReadyPage={#AlwaysShowGroupOnReadyPage}
+#endif
+
+#ifdef AlwaysUsePersonalGroup
+	AlwaysUsePersonalGroup={#AlwaysUsePersonalGroup}
+#endif
+
+#ifdef AppendDefaultDirName
+	AppendDefaultDirName={#AppendDefaultDirName}
+#endif
+
+#ifdef AppendDefaultGroupName
+	AppendDefaultGroupName={#AppendDefaultGroupName}
+#endif
+
+#ifdef AppComments
+	AppComments={#AppComments}
+#endif
+
+#ifdef AppContact
+	AppContact={#AppContact}
+#endif
+
+#ifdef AppId
+	AppId={#AppId}
+#endif
+
+#ifdef AppModifyPath
+	AppModifyPath={#AppModifyPath}
+#endif
+
+#ifdef AppMutex
+	AppMutex={#AppMutex}
+#endif
+
+#ifdef AppPublisher
+	AppPublisher={#AppPublisher}
+#endif
+
+#ifdef AppPublisherURL
+	AppPublisherURL={#AppPublisherURL}
+#endif
+
+#ifdef AppReadmeFile
+	AppReadmeFile={#AppReadmeFile}
+#endif
+
+#ifdef AppSupportPhone
+	AppSupportPhone={#AppSupportPhone}
+#endif
+
+#ifdef AppSupportURL
+	AppSupportURL={#AppSupportURL}
+#endif
+
+#ifdef AppUpdatesURL
+	AppUpdatesURL={#AppUpdatesURL}
+#endif
+
+#ifdef AppVersion
+	AppVersion={#AppVersion}
+#endif
+
+#ifdef ArchitecturesAllowed
+	ArchitecturesAllowed={#ArchitecturesAllowed}
+#endif
+
+#ifdef ArchitecturesInstallIn64BitMode
+	ArchitecturesInstallIn64BitMode={#ArchitecturesInstallIn64BitMode}
+#endif
+
+#ifdef ChangesAssociations
+	ChangesAssociations={#ChangesAssociations}
+#endif
+
+#ifdef ChangesEnvironment
+	ChangesEnvironment={#ChangesEnvironment}
+#endif
+
+#ifdef CreateAppDir
+	CreateAppDir={#CreateAppDir}
+#endif
+
+#ifdef CreateUninstallRegKey
+	CreateUninstallRegKey={#CreateUninstallRegKey}
+#endif
+
+#ifdef DefaultGroupName
+	DefaultGroupName={#DefaultGroupName}
+#else
+	DefaultGroupName={#AppName}
+#endif
+
+#ifdef DefaultUserInfoName
+	DefaultUserInfoName={#DefaultUserInfoName}
+#endif
+
+#ifdef DefaultUserInfoOrg
+	DefaultUserInfoOrg={#DefaultUserInfoOrg}
+#endif
+
+#ifdef DefaultUserInfoSerial
+	DefaultUserInfoSerial={#DefaultUserInfoSerial}
+#endif
+
+#ifdef DirExistsWarning
+	DirExistsWarning={#DirExistsWarning}
+#endif
+
+#ifdef DisableDirPage
+	DisableDirPage={#DisableDirPage}
+#endif
+
+#ifdef DisableFinishedPage
+	DisableFinishedPage={#DisableFinishedPage}
+#endif
+
+#ifdef DisableProgramGroupPage
+	DisableProgramGroupPage={#DisableProgramGroupPage}
+#endif
+
+#ifdef DisableReadyMemo
+	DisableReadyMemo={#DisableReadyMemo}
+#endif
+
+#ifdef DisableReadyPage
+	DisableReadyPage={#DisableReadyPage}
+#endif
+
+#ifdef DisableStartupPrompt
+	DisableStartupPrompt={#DisableStartupPrompt}
+#endif
+
+#ifdef EnableDirDoesntExistWarning
+	EnableDirDoesntExistWarning={#EnableDirDoesntExistWarning}
+#endif
+
+#ifdef ExtraDiskSpaceRequired
+	ExtraDiskSpaceRequired={#ExtraDiskSpaceRequired}
+#endif
+
+#ifdef InfoAfterFile
+	InfoAfterFile={#InfoAfterFile}
+#endif
+
+#ifdef InfoBeforeFile
+	InfoBeforeFile={#InfoBeforeFile}
+#endif
+
+#ifdef LanguageDetectionMethod
+	LanguageDetectionMethod={#LanguageDetectionMethod}
+#endif
+
+#ifdef LicenseFile
+	LicenseFile={#LicenseFile}
+#endif
+
+#ifdef MinVersion
+	MinVersion={#MinVersion}
+#endif
+
+#ifdef OnlyBelowVersion
+	OnlyBelowVersion={#OnlyBelowVersion}
+#endif
+
+#ifdef Password
+	Password={#Password}
+#endif
+
+#ifdef PrivilegesRequired
+	PrivilegesRequired={#PrivilegesRequired}
+#endif
+
+#ifdef RestartIfNeededByRun
+	RestartIfNeededByRun={#RestartIfNeededByRun}
+#endif
+
+#ifdef SetupLogging
+	SetupLogging={#SetupLogging}
+#endif
+
+#ifdef ShowLanguageDialog
+	ShowLanguageDialog={#ShowLanguageDialog}
+#endif
+
+#ifdef ShowUndisplayableLanguages
+	ShowUndisplayableLanguages={#ShowUndisplayableLanguages}
+#endif
+
+#ifdef SignedUninstaller
+	SignedUninstaller={#SignedUninstaller}
+#endif
+
+#ifdef SignedUninstallerDir
+	SignedUninstallerDir={#SignedUninstallerDir}
+#endif
+
+#ifdef TimeStampRounding
+	TimeStampRounding={#TimeStampRounding}
+#endif
+
+#ifdef TimeStampsInUTC
+	TimeStampsInUTC={#TimeStampsInUTC}
+#endif
+
+#ifdef TouchDate
+	TouchDate={#TouchDate}
+#endif
+
+#ifdef TouchTime
+	TouchTime={#TouchTime}
+#endif
+
+#ifdef Uninstallable
+	Uninstallable={#Uninstallable}
+#endif
+
+#ifdef UninstallDisplayIcon
+	UninstallDisplayIcon={#UninstallDisplayIcon}
+#endif
+
+#ifdef UninstallDisplayName
+	UninstallDisplayName={#UninstallDisplayName}
+#endif
+
+#ifdef UninstallFilesDir
+	UninstallFilesDir={#UninstallFilesDir}
+#endif
+
+#ifdef UninstallLogMode
+	UninstallLogMode={#UninstallLogMode}
+#endif
+
+#ifdef UninstallRestartComputer
+	UninstallRestartComputer={#UninstallRestartComputer}
+#endif
+
+#ifdef UpdateUninstallLogAppName
+	UpdateUninstallLogAppName={#UpdateUninstallLogAppName}
+#endif
+
+#ifdef UsePreviousAppDir
+	UsePreviousAppDir={#UsePreviousAppDir}
+#endif
+
+#ifdef UsePreviousGroup
+	UsePreviousGroup={#UsePreviousGroup}
+#endif
+
+#ifdef UsePreviousSetupType
+	UsePreviousSetupType={#UsePreviousSetupType}
+#endif
+
+#ifdef UsePreviousTasks
+	UsePreviousTasks={#UsePreviousTasks}
+#endif
+
+#ifdef UsePreviousUserInfo
+	UsePreviousUserInfo={#UsePreviousUserInfo}
+#endif
+
+#ifdef UserInfoPage
+	UserInfoPage={#UserInfoPage}
+#endif
+
+// Cosmetic: These directives only affect the appearance of the Setup program.
+
+#ifdef AppCopyright
+	AppCopyright={#AppCopyright}
+#endif
+
+#ifdef BackColor
+	BackColor={#BackColor}
+#endif
+
+#ifdef BackColor2
+	BackColor2={#BackColor2}
+#endif
+
+#ifdef BackColorDirection
+	BackColorDirection={#BackColorDirection}
+#endif
+
+#ifdef BackSolid
+	BackSolid={#BackSolid}
+#endif
+
+#ifdef FlatComponentsList
+	FlatComponentsList={#FlatComponentsList}
+#endif
+
+#ifdef SetupIconFile
+	SetupIconFile={#SetupIconFile}
+#endif
+
+#ifdef ShowComponentSizes
+	ShowComponentSizes={#ShowComponentSizes}
+#endif
+
+#ifdef ShowTasksTreeLines
+	ShowTasksTreeLines={#ShowTasksTreeLines}
+#endif
+
+#ifdef WindowShowCaption
+	WindowShowCaption={#WindowShowCaption}
+#endif
+
+#ifdef WindowStartMaximized
+	WindowStartMaximized={#WindowStartMaximized}
+#endif
+
+#ifdef WindowResizable
+	WindowResizable={#WindowResizable}
+#endif
+
+#ifdef WindowVisible
+	WindowVisible={#WindowVisible}
+#endif
+
+#ifdef WizardImageBackColor
+	WizardImageBackColor={#WizardImageBackColor}
+#endif
+
+#ifdef WizardImageFile
+	WizardImageFile={#WizardImageFile}
+#endif
+
+#ifdef WizardImageStretch
+	WizardImageStretch={#WizardImageStretch}
+#endif
+
+#ifdef WizardSmallImageFile
+	WizardSmallImageFile={#WizardSmallImageFile}
+#endif
+
+[/Setup]
+
+[Messages]
+AboutSetupNote=Inno Setup Preprocessor home page:%nhttp://ispp.sourceforge.net/%n%nInno Setup Meta (ISM)%nCopyright (C) 2007-2011, Ivan Ivon%nivan.ivon@gmail.com
+[/Messages]
+
+#endif
+

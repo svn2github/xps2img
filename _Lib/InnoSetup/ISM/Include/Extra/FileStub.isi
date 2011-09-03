@@ -1,0 +1,25 @@
+#ifndef __ISM_EXTRA_FILE_STUB_ISI__
+#define __ISM_EXTRA_FILE_STUB_ISI__
+
+#ifndef __ISM_SECTIONS_ISI__
+	#error "Sections.isi" must be included first
+#endif
+
+#ifndef __ISM_UTILS_ISI__
+	#error "Utils.isi" must be included first
+#endif
+
+#ifndef __ISM_CONSTS_ISI__
+	#error "Consts.isi" must be included first
+#endif
+
+#define FileStub(str file, flags='') \
+        Base_File( \
+            Const_EmptyFile, \
+            ExtractFileDir(file), \
+            flags + (!Utils_FlagSet(FileFlag_OverwriteReadOnly, flags) ? FileFlag_OverwriteReadOnly : ''), \
+            ExtractFileName(file) \
+        )
+
+#endif
+

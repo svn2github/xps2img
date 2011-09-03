@@ -1,0 +1,39 @@
+#ifndef __ISM_UTILS_ISI__
+#define __ISM_UTILS_ISI__
+
+#include "Consts.isi"
+
+#include "String.isi"
+
+#pragma parseroption -p-
+
+#define Utils_AddLine(str left, any right, int addEmpty=True) \
+		(Str(right) != '' || addEmpty) ? \
+			left + '=' + Str(right) + '\n' : \
+			''
+
+#pragma parseroption -p+
+
+#define Utils_AddParam(any value, str attr, int quote=True) \
+		Str(value) == '' ? '' : \
+			( \
+				attr + ': ' + \
+				Str_QuoteChar(quote) + \
+				Str(value) + \
+				Str_QuoteChar(quote) + '; ' \
+			) \
+	
+#define Utils_ExtractPathLeft(str path)		Str_GetLeft(path, '\')
+#define Utils_ExtractPathRight(str path)	Str_GetRight(path, '\')
+#define Utils_ExtractValueLeft(str value)	Str_GetLeft(value, ':')
+#define Utils_ExtractValueRight(str value)	Str_GetRight(value, ':')
+
+#define Utils_CmFormat(str cm, str cm1)		"{cm:" + cm + "," + cm1 + "}"
+
+#define Utils_FlagSet(str flag, str flags)	Pos(LowerCase(flag), LowerCase(flags))
+
+#define Utils_NotDefinedInt(int val)		val == Const_UndefinedIntValue
+#define Utils_DefinedInt(int val)			!Utils_NotDefinedInt(val)
+
+#endif
+

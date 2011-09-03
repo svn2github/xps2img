@@ -1,0 +1,27 @@
+#ifndef __ISM_COMMON_EMIT_CODE_ISI__
+#define __ISM_COMMON_EMIT_CODE_ISI__
+
+#ifndef __ISM_SECTIONS_ISI__
+	#error "Sections.isi" must be included first
+#endif
+
+#pragma parseroption -p-
+
+#define EmitCode_Line(str line) \
+		(Str_IsNotBlank(line) ? '\x09' + line + ';\n' : '')
+
+#define EmitCode_Proc(str *Name, str proc1, str proc2='', str proc3='', str proc4='') \
+	Name=Name + Str(__COUNTER__), \
+	Section_Start('Code') + \
+		'procedure ' + Name + ';\nbegin\n' + \
+		EmitCode_Line(proc1) + \
+		EmitCode_Line(proc2) + \
+		EmitCode_Line(proc3) + \
+		EmitCode_Line(proc4) + \
+		'end;' + \
+	Section_End('Code')
+
+#pragma parseroption -p+
+
+#endif
+

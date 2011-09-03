@@ -1,0 +1,399 @@
+<?xml version="1.0" standalone="yes"?>
+<?job debug="false"?>
+<package>
+<job>
+<!-- Usage. -->
+<runtime>
+<description>
+Inno Setup Meta generated script cleaning tool.
+</description>
+<unnamed name="translation" helpstring="Input script file to clear." required="true" />
+<unnamed name="translation_cleaned" helpstring="Output cleaned script file." required="true" />
+<named name="s" helpstring="Comma separated list of sections which content 
+                    will be sorted ascending case-insensitive.
+                    Example: /s:Setup,Types" type="string" required="false" />
+<named name="v" helpstring="View scripts:
+                    'i'       - input script.
+                    'o' or '' - output script.
+                    'io'      - both scripts." type="string" required="false" />
+<named name="c" helpstring="Compile scripts:
+                    'i'       - input script.
+                    'o' or '' - output script.
+                    'io'      - both scripts." type="string" required="false" />
+<named name="w" helpstring="Wait until user presses Enter key when finished." type="simple" required="false" />                 
+<named name="cc" helpstring="Compiler executable.
+                    If not specified 'ISCC.exe' will be used.
+                    Example: /cc:&#34;C:\bin\Inno Setup 5\ISCC.exe&#34;" type="string" required="false" />
+<named name="silent" helpstring="Silent mode - no user interaction required." type="simple" required="false" />
+<named name="nologo" helpstring="Do not display logo. Logo is displayed by default." type="simple" required="false" />
+<example>
+Examples:
+
+Cleans script 'translation.iss' and writes result to 'translation_clear.iss':
+
+  clear.wsf translation.iss translation_clear.iss
+  
+Cleans script 'translation.iss', sorts [Setup], [Types] sections content ascending case-insensitive and writes result to 'translation_clear.iss', compiles script and views it:
+  
+  clear.wsf translation.iss translation_clear.iss /s:Setup,Types /v /c /cc:"C:\bin\Inno Setup 5\ISCC.exe"
+</example>
+</runtime>
+<!-- Resources. -->
+<resource id="logo">Inno Setup Meta generated script cleaning tool.
+</resource>
+<resource id="allOK">
+All OK</resource>
+<resource id="formattingScript">Formatting '%FILE%'...</resource>
+   <resource id="readingScript">Reading    '%FILE%'...</resource>
+   <resource id="writingScript">Writing    '%FILE%'...</resource>
+ <resource id="compilingScript">Compiling  '%FILE%'...</resource>
+   <resource id="viewingScript">Viewing    '%FILE%'...</resource>
+<resource id="compileError">Compilation failed: %MESSAGE%.</resource>
+<resource id="compileErrorMessage_0">unknown error</resource>
+<resource id="compileErrorMessage_1">command line parameters were invalid</resource>
+<resource id="compileErrorMessage_2">compile failed</resource>
+<!-- Lib. -->
+<script language="JScript" src="Lib/Error.js"></script> 
+<script language="JScript" src="Lib/String.js"></script> 
+<script language="JScript" src="Lib/WSH.js"></script> 
+<!-- Classes. -->
+<script language="JScript" src="ScriptCleaner/ScriptCleaner.js"></script> 
+<script language="JScript" src="ScriptCleaner/Config.js"></script> 
+<script language="JScript" src="ScriptCleaner/ScriptCleaner.Options.js"></script> 
+<!-- Script body. -->
+<script language="JScript">
+<![CDATA[
+
+// Calls progress function.
+// [optional] progress - progress object (see ScriptCleaner function).
+// prop - name of method to call.
+ScriptCleaner.Progress = function(progress, prop, data)
+{
+	if(progress && progress.hasOwnProperty(prop))
+	{
+		progress[prop](data);
+	}
+};
+
+// Consts.
+
+ScriptCleaner.FormatProgressData = function(fileName)
+{
+	return { file: fileName };
+};
+
+// Performs script cleaning actions.
+ScriptCleaner.prototype.Exec = function ()
+{
+	this.sections		=	[];
+	this.sectionNames	=	[];
+
+	var stream;
+	
+	if(wshFSO.FileExists(this.outFileName))
+	{
+		wshFSO.DeleteFile(this.outFileName, true);
+	}
+	
+	ScriptCleaner.Progress(progress, "read", ScriptCleaner.FormatProgressData(this.inFileName));
+	stream = wshFSO.OpenTextFile(this.inFileName, 1 /* for reading */, false);
+	this.ReadScript(stream);
+	
+	if(this.options.FormatScript())
+	{
+		ScriptCleaner.Progress(progress, "format", ScriptCleaner.FormatProgressData(this.outFileName));
+		this.Format();
+	}
+	
+	ScriptCleaner.Progress(progress, "write", ScriptCleaner.FormatProgressData(this.outFileName));
+	stream = wshFSO.CreateTextFile(this.outFileName, true);
+	this.WriteScript(stream);
+	
+	try
+	{
+		// Compile scripts.
+		
+		if(this.options.CompileInScript())
+		{
+			this.CompileScript(this.inFileName);
+		}
+		
+		if(this.options.CompileOutScript())
+		{
+			this.CompileScript(this.outFileName);
+		}
+	}
+	finally
+	{
+		// View scripts regarding of compiling results.
+
+		if(this.options.ViewInScript())
+		{
+			ScriptCleaner.ViewScript(this.inFileName);
+		}
+		
+		if(this.options.ViewOutScript())
+		{
+			ScriptCleaner.ViewScript(this.outFileName);
+		}
+	}
+};
+
+ScriptCleaner.GetCompilerErrorMessage = function(exitCode)
+{
+	while(true)
+	{
+		try
+		{
+			return getResource("compileErrorMessage_" + exitCode);		
+		}
+		catch(ex)
+		{
+			// Unknown error message.
+			exitCode = 0;
+		}
+	}
+};
+
+ScriptCleaner.prototype.CompileScript = function(fileName)
+{
+	ScriptCleaner.Progress(progress, "compile", ScriptCleaner.FormatProgressData(fileName));
+	
+	var scriptExec =
+		wshShell.Exec(
+			'%COMPILER% "%FILE%"'
+			.replace(/%COMPILER%/g, this.options.compiler)
+			.replace(/%FILE%/g, fileName)
+		);
+
+	var reError = /(Error\s+on\s+line\s+.+)/g;
+	
+	while (scriptExec.Status == 0)
+	{
+		var output = WScript2.ReadProcessOutput(scriptExec);
+		if(reError.exec(output))
+		{
+			WScript2.Echo("\n" + RegExp.$1);
+		}
+
+		WScript.Sleep(100);
+	}
+
+	if(scriptExec.ExitCode != 0)
+	{
+		var errorCode = scriptExec.ExitCode;
+		throw new Error(errorCode,
+				getResource("compileError")
+					.replace(/%EXIT%/g, errorCode)
+					.replace(/%MESSAGE%/g, ScriptCleaner.GetCompilerErrorMessage(errorCode))
+			);
+	}
+};
+
+ScriptCleaner.ViewScript = function(fileName)
+{
+	ScriptCleaner.Progress(progress, "view", ScriptCleaner.FormatProgressData(fileName));
+	WScript2.ShellOpenFile(fileName);
+};
+
+ScriptCleaner.IsSectionCode = function(sectionName)
+{
+	return sectionName == "code";
+};
+
+// Reads script line from line performimg additional actions.
+// Removes empty line, leading and trailing spaces.
+// stream - stream to read from.
+ScriptCleaner.prototype.ReadScript = function (stream)
+{
+	var currentSection = null;
+	
+	try
+	{
+		while (!stream.AtEndOfStream)
+		{
+			var isCode = ScriptCleaner.IsSectionCode(currentSection);
+			var rawLine = stream.ReadLine();
+			// Remove leading and trailing spaces,
+			var line = rawLine.trim();
+			if(
+				// Preserve blank lines and comments in [Code] section.
+				(!isCode && line == "") ||
+				line.charAt(0) == ";" ||
+				line.match(ScriptCleaner.reSectionEnd)
+			)
+			{
+				continue;
+			}
+
+			// Section found.
+			if(ScriptCleaner.reSectionStart.exec(line))
+			{
+				currentSectionName = RegExp.$1;
+				currentSection = currentSectionName.toLowerCase();
+				// Create string array for section.
+				if(this.sections[currentSection] == null)
+				{
+					if(this.sectionNames[currentSection] == null)
+					{
+						this.sectionNames[currentSection] = "[" + currentSectionName + "]";
+					}
+					this.sections[currentSection] = [];			
+				}
+			}
+			else
+			{
+				this.sections[currentSection].push(isCode ? rawLine : line);
+			}
+		}
+	}
+	finally
+	{
+		stream.Close();
+	}
+};
+
+// Returns strings ranked array.
+// array - array to create from.
+ScriptCleaner.ToStringRankedArray = function(array)
+{
+	var rankedArray = [];
+	for(var i in array)
+	{
+		var elem = array[i].toLowerCase();
+		rankedArray[elem] = false;
+	}
+	return rankedArray;
+};
+
+// Returns list of sections present in setup script.
+ScriptCleaner.prototype.GetIncludedSectionsArray = function()
+{
+	var includedSectionsArray = ScriptCleaner.ToStringRankedArray(ScriptCleaner.sectionsOrder);
+	for(var sectionKey in this.sections)
+	{
+		includedSectionsArray[sectionKey] = true;
+	}
+	return includedSectionsArray;
+};
+
+// Performs script format processing based on options.
+ScriptCleaner.prototype.Format = function()
+{
+	// Sort section.
+	for(var i in this.options.sectionsToSort)
+	{
+		sectionKey = this.options.sectionsToSort[i];
+		if(this.sections[sectionKey] == null || ScriptCleaner.IsSectionCode(sectionKey))
+		{
+			continue;
+		}
+		this.sections[sectionKey].sort(String.CompareNoCase);
+	}
+};
+
+// Writes formatted script to file.
+// stream - stream to write to.
+ScriptCleaner.prototype.WriteScript = function(stream)
+{
+	try
+	{
+		var includedSectionsArray = this.GetIncludedSectionsArray();
+
+		for(var sectionKey in includedSectionsArray)
+		{	
+			// File has no section.	
+			if(!includedSectionsArray[sectionKey])
+			{
+				continue;
+			}
+			
+			var lines = this.sections[sectionKey];
+			
+			// Section header.
+			stream.WriteLine(this.sectionNames[sectionKey]);
+			
+			// If script section, process empty lines.
+			if(ScriptCleaner.IsSectionCode(sectionKey))
+			{
+				var line = lines
+							.join("\n")
+							// Compact 3 or more empty lines in one.
+							.replace(/(\s*\n){3,}/g, "\n\n")
+							// Remove last \n. stream.WriteLine will add one \n.
+							.replace(/\n{2,}$/, "");
+				stream.WriteLine(line);
+				// Avoid syntax errors by closing Code section.
+				stream.WriteLine("[/Code]\n");
+				continue;
+			}
+			
+			// Other sections.
+			for(var line in lines)
+			{
+				stream.WriteLine(lines[line]);
+			}
+			
+			stream.WriteLine();
+		}
+	}
+	finally
+	{
+		stream.Close();
+	}
+};
+
+// Command line parsing.
+var args = WScript.Arguments;
+
+if(args.length < 2)
+{
+	WScript.Arguments.ShowUsage();
+	WScript.Quit(1);
+}
+
+var scriptResult = 0;
+
+// File to read from.
+var inFileName = args(0);
+// File to write to.
+var outFileName = args(1);
+
+var progress = {
+	Echo:		function(resId, data){ WScript2.Echo(getResource(resId).replace(/%FILE%/g, data.file)); }
+	, read:		function(data){ this.Echo("readingScript", data); }
+	, format:	function(data){ this.Echo("formattingScript", data); }
+	, write:	function(data){ this.Echo("writingScript", data); }
+	, compile:	function(data){ this.Echo("compilingScript", data); }
+	, view:		function(data){ this.Echo("viewingScript", data); }
+};
+
+var scriptCleaner = new ScriptCleaner(inFileName, outFileName, new ScriptCleaner.Options(args.Named), progress);
+
+try
+{
+	if(!scriptCleaner.options.noLogo)
+	{
+		WScript2.Echo(getResource("logo"));
+	}
+	
+	scriptCleaner.Exec();
+	
+	WScript2.Echo(getResource("allOK"));
+	if(scriptCleaner.options.waitEnter)
+	{
+		WScript2.WaitEnterKey();
+	}
+}
+catch(ex)
+{
+	WScript2.Echo("\n" + ex.toString());
+	WScript2.WaitEnterKey();
+	scriptResult = -1;
+}
+
+WScript.Quit(scriptResult);
+]]>
+</script>
+</job>
+</package>

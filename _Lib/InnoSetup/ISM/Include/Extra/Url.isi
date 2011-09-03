@@ -1,0 +1,20 @@
+#ifndef __ISM_EXTRA_URL_ISI__
+#define __ISM_EXTRA_URL_ISI__
+
+#ifndef __ISM_SECTIONS_ISI__
+	#error "Sections.isi" must be included first
+#endif
+
+#define Base_IconUrl(int createIcon, str name, str urlFile, str url, str comment='', str flags='', str hotKey='', str iconFilename='', int iconIndex=0) \
+	Local[0]=urlFile + (LowerCase(ExtractFileExt(urlFile))=="url" ? "" : ".url"), \
+	(createIcon ? Icon(name, Local[0], '', ExtractFilePath(Local[0]), comment, flags, hotKey, iconFilename, iconIndex) : '') + \
+	Ini(Local[0], 'InternetShortcut', 'URL', url, '') + \
+	UninstallDelete(Local[0])
+
+#define IconUrl(str name, str urlFile, str url, comment='', str flags='', str hotKey='', str iconFilename='', int iconIndex=0) \
+	Base_IconUrl(True, name, urlFile, url, comment, flags, hotKey, iconFilename, iconIndex)
+	
+#define Url(str name, str urlFile, str url) \
+	Base_IconUrl(False, name, urlFile, url)
+
+#endif

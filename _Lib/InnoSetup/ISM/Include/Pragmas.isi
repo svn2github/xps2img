@@ -1,0 +1,9 @@
+#ifndef __ISM_SETUP_ISI__
+	#ifndef ISM_OnISMPragmas
+		#error "Setup.isi" must be included first
+	#endif
+#endif
+
+#pragma inlinestart '<'
+#pragma inlineend   '>'
+

@@ -1,0 +1,83 @@
+#ifndef __ISM_COMMON_PARAMS_ISI__
+#define __ISM_COMMON_PARAMS_ISI__
+
+// Optional parameters Tasks, Components, BeforeInstall AfterInstall for all sections except [Types], [Components] and [Tasks].
+
+// Tasks.
+
+#define Active_Tasks ''
+
+#sub Reset_ActiveTasks
+	#define public Active_Tasks ''
+#endsub
+
+// Components.
+ 
+#define Active_Components ''
+
+#sub Reset_ActiveComponents
+	#define public Active_Components ''
+#endsub
+
+// BeforeInstall.
+ 
+#define Active_BeforeInstall ''
+
+#sub Reset_ActiveBeforeInstall
+	#define public Active_BeforeInstall ''
+#endsub
+
+// AfterInstall.
+ 
+#define Active_AfterInstall ''
+
+#sub Reset_ActiveAfterInstall
+	#define public Active_AfterInstall ''
+#endsub
+
+// Check.
+
+#define Active_Check ''
+
+#sub Reset_ActiveCheck
+	#define public Active_Check ''
+#endsub
+
+// Languages.
+
+#define Active_Languages ''
+
+#sub Reset_ActiveLanguages
+	#define public Active_Languages ''
+#endsub
+
+// MinVersion.
+
+#define Active_MinVersion ''
+
+#sub Reset_ActiveMinVersion
+	#define public Active_MinVersion ''
+#endsub
+
+// OnlyBelowVersion.
+
+#define Active_OnlyBelowVersion ''
+
+#sub Reset_ActiveOnlyBelowVersion
+	#define public Active_OnlyBelowVersion ''
+#endsub
+
+// All parameters.
+
+#define Active_Commons() \
+		Utils_AddParam(Active_Components, 'Components') + \
+		Utils_AddParam(Active_Tasks, 'Tasks') + \
+		Utils_AddParam(Active_BeforeInstall, 'BeforeInstall', False) + \
+		Utils_AddParam(Active_AfterInstall, 'AfterInstall', False) + \
+		Utils_AddParam(Active_Check, 'Check', False) + \
+		Utils_AddParam(Active_Languages, 'Languages', False) + \
+		Utils_AddParam(Active_MinVersion, 'MinVersion', False) + \
+		Utils_AddParam(Active_OnlyBelowVersion, 'OnlyBelowVersion', False)
+
+#endif
+

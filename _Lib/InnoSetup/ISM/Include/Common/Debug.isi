@@ -1,0 +1,74 @@
+// Debug utils.
+
+#ifndef __ISM_COMMON_DEBUG_IIS__
+#define __ISM_COMMON_DEBUG_IIS__
+
+#include "String.isi"
+
+#ifndef ISM_TranslatedScriptName
+    #define ISM_TranslatedScriptName '_setup_translated.iss'
+#endif
+
+#ifndef ISM_TranslatedAndCleanScriptName
+    #define ISM_TranslatedAndCleanScriptName '_setup_translated_clean.iss'
+#endif
+
+#ifndef ISM_ScriptEditor
+    #define ISM_ScriptEditor 'cmd /c start'
+#endif
+
+#ifndef ISM_ClearScript
+    #define ISM_ClearScript 'cscript //NoLogo "' + Str_Replace(ISM_RootDir + '\Scripts\clear.wsf"', '/', '\')
+#endif
+
+#ifndef ISM_ClearScriptFiles
+    #define ISM_ClearScriptFiles  ' "' + ISM_TranslatedScriptName + '" "' + ISM_TranslatedAndCleanScriptName + '" '
+#endif
+
+#ifdef ISM_CompileCleanScriptOnly
+    #pragma option -c-
+    #define ISM_CleanScriptCompileOptions    ' /c /cc:"' + CompilerPath + '\iscc.exe"'
+#else
+    #define ISM_CleanScriptCompileOptions    ''
+#endif
+
+#ifndef ISM_ScriptCleaningOptions
+    #define ISM_ScriptCleaningOptions    ' /s:Languages,Setup,INI,Icons,CustomMessages,Messages'
+#endif
+
+#ifndef ISM_ScriptCleaningCommandLine
+    #define ISM_ScriptCleaningCommandLine ISM_ClearScriptFiles + ' /v ' + ISM_ScriptCleaningOptions + ISM_CleanScriptCompileOptions
+#endif
+
+#sub Debug_ViewTranslation
+	#ifdef ISM_Debug_ViewTranslationIncluded
+		#error Debug_ViewTranslation is already used. Only one Debug_ViewTranslation call is allowed
+	#else
+		#define public ISM_Debug_ViewTranslationIncluded
+		#ifndef ISM_NoTranslation
+			#expr SaveToFile(ISM_TranslatedScriptName)
+			#ifdef ISM_OnViewTranslation
+				#pragma message "Translated script will be open in external editor.."
+				#expr Exec(ISM_ScriptEditor, ISM_TranslatedScriptName, null, 0)
+			#elif defined(ISM_OnViewCleanTranslation)
+				#pragma message "Performing script cleaning.."
+				#ifdef ISM_CompileCleanScriptOnly
+					#pragma message "Cleaned script will be compiled and opened in new window"
+				#endif
+				#expr Exec(ISM_ClearScript, ISM_ScriptCleaningCommandLine, SourcePath, 0)
+			#endif
+		#endif
+	#endif
+#endsub
+
+#ifdef ISM_ExitSetupWithoutUserConfirmation
+[Code]
+procedure CancelButtonClick(CurPageID: Integer; var Cancel, Confirm: Boolean);
+begin
+    Confirm := False;
+end;
+[/Code]
+#endif
+
+#endif
+

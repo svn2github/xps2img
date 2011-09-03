@@ -1,0 +1,76 @@
+#ifndef __ISM_WIN_VER_ISI__
+#define __ISM_WIN_VER_ISI__
+
+#ifndef __ISM_COMMON_STRING_ISI__
+	#error "Common/String.isi" must be included first
+#endif
+
+//
+// Windows Versions.
+//
+
+// Windows 95
+#define Windows95           '4.0.950'
+
+// Windows 95 OSR 2
+#define Windows95OSR2       '4.0.1111'
+
+// Windows 95 OSR 2.1
+#define Windows95OSR2_1     '4.0.1111'
+
+// Windows 95 OSR 2.5
+#define Windows95OSR2_5     '4.0.1212'
+
+// Windows 98
+#define Windows98           '4.1.1998'
+
+// Windows 98 Second Edition
+#define Windows98SE         '4.1.2222'
+
+// Windows Me
+#define WindowsME           '4.9.3000'
+
+// Windows NT 4.0
+#define WindowsNT4_0        '4.0.1381'
+
+// Windows 2000
+#define Windows2000         '5.0.2195'
+
+// Windows XP
+#define WindowsXP           '5.01.2600'
+
+// Windows XP 64-Bit Edition Version 2002 (Itanium)
+#define WindowsXPx64v2002    '5.01.2600'
+
+// Windows Server 2003
+#define Windows2003         '5.02.3790'
+
+// Windows XP x64 Edition (AMD64/EM64T)
+#define WindowsXPx64        '5.02.3790'
+
+// Windows XP 64-Bit Edition Version 2003 (Itanium)
+#define WindowsXPx64v2003   '5.02.3790'
+
+// Windows Vista
+#define WindowsVista        '6.0.6000'
+
+//
+// Windows Service Packs.
+//
+
+#define WindowsSP1          'sp1'
+#define WindowsSP2          'sp2'
+#define WindowsSP3          'sp3'
+#define WindowsSP4          'sp4'
+#define WindowsSP5          'sp5'
+#define WindowsSP6          'sp6'
+
+//
+// Windows versions.
+//
+
+#define WindowsVersions(str windows='', str windowsNT='') \
+            (Str_IsNotBlank(windows) ? windows : '0') + ',' + (Str_IsNotBlank(windowsNT) ? windowsNT : '0')
+
+#endif
+

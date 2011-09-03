@@ -1,0 +1,26 @@
+#ifndef __ISM_PATH_UTILS_ISI__
+#define __ISM_PATH_UTILS_ISI__
+
+#define PathUtils_IsPathBig(str path) \
+        Pos('\\?\', path) == 1
+        
+#define PathUtils_ExtractPathFromBigPath(str path) \
+        PathUtils_IsPathBig(path) ? Copy(path, 5) : path
+
+#define PathUtils_IsFullPath(str path) \
+        Pos(':', path) == 2
+        
+#define PathUtils_IsFullPathBig(str path) \
+        PathUtils_IsPathBig(path) && PathUtils_IsFullPath(PathUtils_ExtractPathFromBigPath(path))
+
+#define PathUtils_IsUNCPath(str path) \
+        Pos('\\', path) == 1 && !PathUtils_IsPathBig(path)
+        
+#define PathUtils_IsUNCPathBig(str path) \
+        Pos('\\?\UNC\', path) == 1
+
+#define PathUtils_IsInnoSetupPath(str path) \
+        Pos('{', path) == 1 && Pos('}', path)
+
+#endif
+

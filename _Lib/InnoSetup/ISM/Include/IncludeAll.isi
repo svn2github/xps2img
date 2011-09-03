@@ -1,0 +1,26 @@
+#ifndef __ISM_INCLUDE_ALL_ISI__
+#define __ISM_INCLUDE_ALL_ISI__
+
+#define  ISM_RootDir	RemoveBackslash(ISM_RootDir)
+
+#include "Default.isi"
+
+#include "Setup.isi"
+#include "Sections.isi"
+
+#include "Common/Debug.isi"
+#include "Common/EmitCode.isi"
+
+#include "Extra/Registry.isi"
+#include "Extra/Url.isi"
+#include "Extra/ShellLink.isi"
+#include "Extra/FileStub.isi"
+#include "Extra/IconRun.isi"
+
+#include "PrepMessages.isi"
+
+#ifndef ISM_ExcludePragmasInclude
+	#include "Pragmas.isi"
+#endif
+
+#endif
