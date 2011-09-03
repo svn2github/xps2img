@@ -1,0 +1,54 @@
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\New World Computing]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\New World Computing\Heroes of Might and Magic 2]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\New World Computing\Heroes of Might and Magic 2\1.0]
+"Music Volume"=dword:00000002
+"Sound Volume"=dword:00000009
+"Walk Speed"=dword:00000003
+"Computer Walk Speed"=dword:00000003
+"Show Route"=dword:00000001
+"Blackout Computer"=dword:00000000
+"Sound Quality"=dword:00000000
+"Use Opera"=dword:00000001
+"Direct Connect Com Port"=dword:00000000
+"Direct Connect Baud Rate"=dword:00000000
+"Modem Com Port"=dword:00000000
+"Modem Baud Rate"=dword:00000000
+"Modem Init String"=""
+"Unique System ID"="NCD"
+"Network Default Name"="The Unknown Hero"
+"Autosave"=dword:00000001
+"Slow Video"=dword:00000000
+"Show Combat Grid"=dword:00000001
+"Show Combat Mouse Hex"=dword:00000001
+"Combat Shade Level"=dword:00000001
+"Combat Army Info Level"=dword:00000002
+"Evil Interface Usage"=dword:00000001
+"Quick Combat Level"=dword:00000000
+"Combat Speed"=dword:00000002
+"Auto Combat Use Spells"=dword:00000000
+"First Map Offset"=dword:00001649
+"Current Map Offset"=dword:00000000
+"Show Object Boxes"=dword:00000000
+"Editor Screen Animation"=dword:00000000
+"Editor Palette Cycling"=dword:00000000
+"Main Game Show Menu"=dword:00000001
+"Main Game Width"=dword:00000280
+"Main Game Height"=dword:000001e0
+"Main Game Full Screen"=dword:00000000
+"Main Game Color Mouse Cursor"=dword:00000001
+"Editor Show Menu"=dword:00000001
+"Editor Width"=dword:00000280
+"Editor Height"=dword:000001e0
+"Editor Full Screen"=dword:00000000
+"Editor Color Mouse Cursor"=dword:00000000
+"AppPath"=".\\"
+"CDDrive"="."
+"Main Game X"=dword:000000f6
+"Main Game Y"=dword:0000008d
+"Editor X"=dword:000000e6
+"Editor Y"=dword:00000072
+
