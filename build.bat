@@ -26,7 +26,7 @@ call :isInstalled %isComp% "Inno Setup 5.4.2(a)" "http://www.jrsoftware.org/isdl
 
 if not exist "%isFolder%\Include\ISM" (
 	echo Copying "%ismFolder%" to "%isFolder%\Include\ISM"...
-	xcopy "%ismFolder%" "%isFolder%\Include\ISM" /s /i || goto ERROR
+	xcopy "%ismFolder%" "%isFolder%\Include\ISM" /s /i /h || goto ERROR
 )
 
 @echo on
