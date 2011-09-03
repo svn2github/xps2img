@@ -1,0 +1,36 @@
+#ifndef __INNOLIB_DIRECTX_ISS__
+#define __INNOLIB_DIRECTX_ISS__
+
+#include "Messages.isi"
+
+#include "Version.isi"
+
+[Code]
+// DirectX version is stored in registry as 4.majorversion.minorversion
+// DirectX 8.0 is 4.8.0
+// DirectX 8.1 is 4.8.1
+// DirectX 9.0 is 4.9.0
+
+function GetDirectXVersion(): String;
+var
+  sVersion:  String;
+begin
+  sVersion := '';
+  RegQueryStringValue( HKLM, 'SOFTWARE\Microsoft\DirectX', 'Version', sVersion );
+  Result := sVersion;
+end;
+
+// Version is in major.minor format
+function CheckDirectX(ver: String): Boolean;
+begin
+  Result := CompareVersion( GetDirectXVersion(), '4.' + ver) >= 0;
+  if not Result then
+  begin
+    Result := MsgBox(Format(ExpandConstant('{cm:DirectXWarn}'), [ver]), mbConfirmation, MB_YESNO or MB_DEFBUTTON2) = idYes;
+    if Result = False then
+      MsgBox(ExpandConstant('{cm:DirectXUpdate}'), mbInformation, MB_OK);
+  end
+end;
+[/Code]
+
+#endif
