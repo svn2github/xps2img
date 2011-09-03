@@ -44,3 +44,15 @@ echo.
 pause
 exit /b 1
 
+HTML Help Workshop
+
+http://www.microsoft.com/download/en/details.aspx?id=21138
+
+Microsoft .NET Framework 4
+
+http://www.microsoft.com/download/en/details.aspx?id=17851
+
+Inno Setup 5.4.2(a)
+
+http://www.jrsoftware.org/isdl.php
+
