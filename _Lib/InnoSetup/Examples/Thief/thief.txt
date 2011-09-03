@@ -1,0 +1,9 @@
+Thief не запускается и выдает сообщение, что недостаточно свободного места на диске "You have **M of free disk space. Thief requires 35M. Thief cannot run", хотя места у меня много. Как это исправить?
+
+Откройте (или создайте, если его нет) файл "user.cfg", находящийся в директории игры и добавьте туда следующую строку:
+
+skip_starting_checks
+
+Add link to Thief 1,2:
+http://www.ttlg.com/forums/showthread.php?t=117616
+
