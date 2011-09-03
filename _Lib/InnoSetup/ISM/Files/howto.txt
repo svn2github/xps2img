@@ -1,0 +1,34 @@
+Applications required:
+
+1. Saxon XSLT processor 9.0.0.2+ (.NET version).
+	http://sourceforge.net/projects/saxon
+2. PDFCreator 0.9.5+
+   MUST be installed with /UseINI flag! (i.e. PDFCreator-0_9_5_setup.exe /UseINI)
+	http://sourceforge.net/projects/pdfcreator
+3. Microsoft Help Workshop
+	http://www.microsoft.com/Downloads/details.aspx?FamilyID=34d35502-4de9-4676-952c-34cc7f64f098&displaylang=en
+4. Microsoft HTML Help Workshop
+	http://www.microsoft.com/downloads/details.aspx?FamilyID=00535334-c8a6-452f-9aa0-d597d16580cc&displaylang=en
+5. Microsoft Visual Studio .NET 2005 (Express should be enough).
+   ATL is required.
+
+How to build:
+
+1. Open _Scripts\_generate.bat
+2. Edit applications folders.
+3. Run script _Scripts\_generate.bat
+4. List of files to be created:
+
+	dummy.chm
+	dummy.dll
+	dummy.exe
+	dummy.hlp
+	dummy.html
+	dummy.pdf
+	dummy.rtf
+	dummy.txt
+	dummyc.exe
+	empty
+	empty.exe
+
+

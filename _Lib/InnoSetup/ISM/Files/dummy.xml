@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<info>
+	<style>
+		<fonts size="11">
+			<font>Arial</font>
+			<font>Verdana</font>
+			<font>Sans-Serif</font>
+		</fonts>
+	</style>
+	<!-- Do not format text with tabs! They will be preserved by translator! -->
+	<product>
+		<version>
+			<major>5</major>
+			<minor>2</minor>
+			<bgfix>2</bgfix>
+			<build>0</build>
+		</version>
+		<name>Inno Setup Meta</name>
+	</product>
+	<header><product/> Dummy Document</header>
+	<text>This is dummy file. If you see this text you might created installation with <strong>ISM_OnFileStub</strong> defined.</text>
+	<footer><subject>This file is a part of <product/> <version/> distribution.</subject> <author>Copyright <copy /> 2007-2008, Ivan Ivon.</author></footer>
+</info>

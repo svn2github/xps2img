@@ -1,0 +1,3 @@
+This is dummy file. If you see this text you might created installation with ISM_OnFileStub defined.
+
+This file is a part of Inno Setup Meta 5.2.2.0 distribution. Copyright © 2007-2008, Ivan Ivon.

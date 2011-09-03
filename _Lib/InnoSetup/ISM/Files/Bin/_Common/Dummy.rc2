@@ -1,0 +1,77 @@
+//
+// Dummy.RC2 - resources Microsoft Visual C++ does not edit directly
+//
+
+#ifdef APSTUDIO_INVOKED
+#error this file is not editable by Microsoft Visual C++
+#endif //APSTUDIO_INVOKED
+
+#include "Version.h"
+
+#if defined(_WINDOWS) && !defined(EMPTY) && !defined(_WINDLL)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// RT_MANIFEST
+//
+
+IDR_MANIFEST            RT_MANIFEST             "res\Dummy.manifest"
+
+#endif
+
+#if defined(_WINDOWS) || defined(_CONSOLE)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+	#ifdef _WINDOWS
+    IDS_CAPTION             PRODUCT_NAME " Dummy Application"
+	#endif
+	#ifndef _WINDLL
+    IDS_TEXT                DUMMY_TEXT "\n______________________________________________________________________________________\n\nCurrent folder is:\n\n""%s""\n\nCommand line is:\n\n%s\n"
+    #endif
+END
+
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION VER_HEADER_VERSION
+ PRODUCTVERSION VER_HEADER_VERSION
+ FILEFLAGSMASK 0x17L
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "000004b0"
+        BEGIN
+            VALUE "Comments", COMMENTS
+            VALUE "FileDescription", FILE_DESCRIPTION
+            VALUE "InternalName", INTERNAL_NAME
+            VALUE "LegalCopyright", LEGAL_COPYRIGHT
+            VALUE "OriginalFilename", ORIGINAL_FILENAME
+            VALUE "ProductName", PRODUCT_NAME
+            VALUE "FileVersion", VER_VALUE_VERSION
+            VALUE "ProductVersion", VER_VALUE_VERSION
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0, 1200
+    END
+END

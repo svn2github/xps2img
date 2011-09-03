@@ -1,0 +1,31 @@
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dummy", "Dummy\Dummy.vcproj", "{CEF68A28-1788-4C2C-A9CF-9780D24D4671}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Console Debug|Win32 = Console Debug|Win32
+		Console Release|Win32 = Console Release|Win32
+		Empty Debug|Win32 = Empty Debug|Win32
+		Empty Release|Win32 = Empty Release|Win32
+		GUI Debug|Win32 = GUI Debug|Win32
+		GUI Release|Win32 = GUI Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CEF68A28-1788-4C2C-A9CF-9780D24D4671}.Console Debug|Win32.ActiveCfg = Console Debug|Win32
+		{CEF68A28-1788-4C2C-A9CF-9780D24D4671}.Console Debug|Win32.Build.0 = Console Debug|Win32
+		{CEF68A28-1788-4C2C-A9CF-9780D24D4671}.Console Release|Win32.ActiveCfg = Console Release|Win32
+		{CEF68A28-1788-4C2C-A9CF-9780D24D4671}.Console Release|Win32.Build.0 = Console Release|Win32
+		{CEF68A28-1788-4C2C-A9CF-9780D24D4671}.Empty Debug|Win32.ActiveCfg = Empty Debug|Win32
+		{CEF68A28-1788-4C2C-A9CF-9780D24D4671}.Empty Debug|Win32.Build.0 = Empty Debug|Win32
+		{CEF68A28-1788-4C2C-A9CF-9780D24D4671}.Empty Release|Win32.ActiveCfg = Empty Release|Win32
+		{CEF68A28-1788-4C2C-A9CF-9780D24D4671}.Empty Release|Win32.Build.0 = Empty Release|Win32
+		{CEF68A28-1788-4C2C-A9CF-9780D24D4671}.GUI Debug|Win32.ActiveCfg = GUI Debug|Win32
+		{CEF68A28-1788-4C2C-A9CF-9780D24D4671}.GUI Debug|Win32.Build.0 = GUI Debug|Win32
+		{CEF68A28-1788-4C2C-A9CF-9780D24D4671}.GUI Release|Win32.ActiveCfg = GUI Release|Win32
+		{CEF68A28-1788-4C2C-A9CF-9780D24D4671}.GUI Release|Win32.Build.0 = GUI Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
