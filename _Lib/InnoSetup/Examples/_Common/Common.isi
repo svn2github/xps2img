@@ -1,0 +1,123 @@
+#ifndef __INSTALL_COMMON_ISI__
+#define __INSTALL_COMMON_ISI__
+
+#ifndef DIR_LEVEL
+    #define DIR_LEVEL   ""
+#endif
+
+#define ISM_RootDir		AddBackslash(CompilerPath) + "Include/ISM"
+
+#define OutputDir		"..\_Output"
+
+// Localization issues.
+
+#ifndef AppName_en
+    #define AppName_en  AppName
+#endif
+
+#ifndef AppName_ru
+    #define AppName_ru  AppName
+#endif
+
+#define VersionInfoCopyright	"Copyright © 2006-2007, i1"
+#define VersionInfoCompany		"i1inst@gmail.com"
+#define VersionInfoDescription	AppName_en + ' Setup'
+
+#ifdef SetupVersion
+    #ifndef VersionInfoTextVersion
+	   #define VersionInfoTextVersion SetupVersion
+    #endif
+
+    #ifndef VersionInfoVersion
+	   #define VersionInfoVersion SetupVersion
+    #endif
+#endif
+
+#define AllowNoIcons        "yes"
+
+#ifndef PrivilegesRequired
+	#define PrivilegesRequired  "admin"
+#endif
+
+#define _COMMON_INFO    DIR_LEVEL + "..\..\_Common\Files\Info.rtf"
+
+#ifndef LicenseFile
+	#define LicenseFile		_COMMON_INFO
+#else
+    #if LicenseFile!='' && !FileExists(LicenseFile) && defined(ISM_OnFileStub)
+    	#define LicenseFile		_COMMON_INFO
+    #endif
+	#ifndef InfoBeforeFile
+		#define InfoBeforeFile	_COMMON_INFO
+	#endif
+#endif
+
+#if !defined(ISM_UseInnoSetupImageFiles) && !defined(ISM_UseInnoSetupImageFilesXP)
+    #if FileExists('Images\WizardImage.bmp')
+        #define WizardImageFile       'Images\WizardImage.bmp'
+    #endif
+    #if FileExists('Images\WizardSmallImage.bmp')
+        #define WizardSmallImageFile  'Images\WizardSmallImage.bmp'
+    #endif
+#endif
+
+#if !defined(WizardImageFile) && !defined(WizardSmallImageFile)
+    #define ISM_UseInnoSetupImageFilesXP
+#endif
+
+#define SetupIconFile   "Icons\AppIcon.ico"
+
+#ifndef AppParameters
+	#define AppParameters	""
+#endif
+
+// Language settings.
+
+#ifndef LicenseFile
+    #define LicenseFile ''
+#endif
+
+#ifndef InfoBeforeFile
+    #define InfoBeforeFile ''
+#endif
+
+#ifndef InfoAfterFile
+    #define InfoAfterFile ''
+#endif
+
+#define _LicenseFile     LicenseFile
+#define _InfoBeforeFile  InfoBeforeFile
+#define _InfoAfterFile   InfoAfterFile
+
+// Prevent from using by [Setup].
+
+#undef LicenseFile
+#undef InfoBeforeFile
+#undef InfoAfterFile
+
+// ISM includes.
+
+#define ISM_ExcludePragmasInclude
+
+#include ISM_RootDir + "/Include/IncludeAll.isi"
+
+#include AddBackslash(CompilerPath) + "Include/InnoLib/DirectX.isi"
+
+#include ISM_RootDir + "/Include/Pragmas.isi"
+
+// Common flags.
+
+#ifndef Common_FileFlags
+    #define Common_FileFlags    FileFlag_Touch + FileFlag_OnlyIfDoesntExist + FileFlag_IgnoreVersion + FileFlag_OverwriteReadOnly
+#endif
+
+#ifndef Common_RunFlags
+    #define Common_RunFlags     RunFlag_NoWait + RunFlag_PostInstall + RunFlag_SkipIfSilent + RunFlag_Unchecked
+#endif
+
+#ifndef Common_RegKeepValue
+    #define Common_RegKeepValue RegFlag_CreateValueIfDoesntExist + RegFlag_UninsDeleteKeyIfEmpty
+#endif
+
+#endif
+

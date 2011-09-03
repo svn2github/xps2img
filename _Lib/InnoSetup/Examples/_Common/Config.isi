@@ -1,0 +1,12 @@
+#ifndef __INSTALL_CONFIG_ISI__
+#define __INSTALL_CONFIG_ISI__
+
+#define DEBUG
+
+#define ISM_OnFileStub
+
+#define ISM_OnViewCleanTranslation
+//#define ISM_CompileCleanScriptOnly
+
+#endif
+

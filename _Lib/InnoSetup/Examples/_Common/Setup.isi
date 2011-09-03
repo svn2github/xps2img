@@ -1,0 +1,110 @@
+#ifndef __INSTALL_SETUP_ISI__
+#define __INSTALL_SETUP_ISI__
+
+#if !defined(Uninstallable)
+    #define Uninstallable "yes"
+#endif
+
+#include "Common.isi"
+#include "Sections.isi"
+
+// Default language.
+
+<Language("en", "compiler:Default.isl", _LicenseFile, _InfoBeforeFile, _InfoAfterFile)>
+
+// Common messages.
+
+#include "Messages.isi"
+
+// Types.
+
+<Type("typical",    "{cm:Type_Typical}")>
+<Type("full",       "{cm:Type_Full}")>
+<Type("custom",     "{cm:Type_Custom}", TypeFlag_IsCustom)>
+
+// Setup script.
+
+#if LowerCase(Uninstallable)=="yes"
+    <IconUninstall()>
+#else
+    #define OFF_ICONS
+    #define OFF_RUN
+#endif
+
+#ifndef OFF_ICONS
+    <IconRun(parameters=AppParameters)>
+
+    #ifdef UrlOfficialSite
+        <IconUrlWeb(UrlOfficialSite)>
+    #endif
+
+    #define Active_Tasks "desktopicon"
+        <TaskDesktopIcon(parameters=AppParameters)>
+    <Reset_ActiveTasks>
+
+    #ifndef OFF_QUICK_LAUNCH_ICON
+        #define Active_Tasks "quicklaunchicon"
+            <TaskQuickLaunchIcon(parameters=AppParameters)>
+        <Reset_ActiveTasks>
+    #endif
+    
+    #ifdef AppReadmeFile
+        <IconReadme(AppReadmeFile)>
+    #endif
+
+    #ifdef AppHelpFile
+        <IconHelp(AppHelpFile)>
+    #endif
+
+    #ifdef AppManualFile
+        <IconManual(AppManualFile)>
+    #endif
+#endif
+
+#ifndef OFF_RUN
+    <RunApp(parameters=AppParameters)>
+    #ifdef AppReadmeFile
+        <RunReadme(AppReadmeFile)>
+    #endif
+#endif
+
+#ifdef EditorExe
+    <IconRunEditor("{group}\{cm:Menu_Editor}", EditorExe)>
+
+    #define Active_Tasks "editoricon"
+        <TaskEditorIcon(EditorExe)>
+    <Reset_ActiveTasks>
+#endif
+
+#ifdef DirectXVersion
+    #ifndef OnInitializeSetup
+        #define OnInitializeSetup ""
+    #endif
+    #define OnInitializeSetup OnInitializeSetup + (Str_IsNotBlank(OnInitializeSetup) ? " and " : " ") + "CheckDirectX('" + DirectXVersion + "')"
+#endif
+
+#ifdef OnInitializeSetup
+[Code]
+function InitializeSetup(): Boolean;
+begin
+    Result := <OnInitializeSetup>;
+end;
+[/Code]
+#endif
+
+#if defined(OnPostInstall)
+[Code]
+procedure CurStepChanged(CurStep: TSetupStep);
+begin
+    #ifdef OnPostInstall
+    if CurStep = ssPostInstall then
+    begin
+        <OnPostInstall>;
+    end;
+    #endif
+end;
+[/Code]
+#endif
+
+#endif
+

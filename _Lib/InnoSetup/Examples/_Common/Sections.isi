@@ -1,0 +1,109 @@
+#ifndef __INSTALL_SECTIONS_ISI__
+#define __INSTALL_SECTIONS_ISI__
+
+#ifndef __INSTALL_COMMON_ISI__
+	#error "Common.isi" must be included first
+#endif
+
+// Run.
+
+#define RunApp(str file="{app}\" + AppExe, str parameters="", str workingDir="", str flags=Common_RunFlags, str comment=Utils_CmFormat("LaunchProgram", AppName)) \
+	Run(file, parameters, flags, workingDir, "", comment)
+
+#define RunReadme(str file="{app}\Readme.txt", str parameters="", str workingDir="", str flags=Common_RunFlags) \
+	Run(file, "", flags + RunFlag_ShellExec, workingDir, "", "{cm:Run_Readme}")
+	
+// Icons.
+
+#define _IconMenuCommon(str group, str folder, str file, str menu, str comment, str menuDefault, str menuFormat, str commentDefault, str commentFormat) \
+				Icon( \
+					Pos("\", menu) ? \
+						menu : \
+						group + (Str_IsNotBlank(menu) ? Utils_CmFormat(menuFormat, menu) : "{cm:" + menuDefault + "}"), \
+					Pos("\", file) ? file : folder + file, \
+					"", \
+					"", \
+					Str_IsNotBlank(comment) ? Utils_CmFormat(commentFormat, comment) : "{cm:" + commentDefault + "}")
+
+// Generic icons.
+
+#define _IconMenuRoot(str file, str menu="", str comment="", str menuDefault="", str menuFormat="", str commentDefault="", str commentFormat="") \
+				_IconMenuCommon("{group}\", "{app}\", file, menu, comment, menuDefault, menuFormat, commentDefault, commentFormat)
+			
+#define _IconMenuHelp(str file, str menu="", str comment="", str menuDefault="", str menuFormat="", str commentDefault="", str commentFormat="") \
+				_IconMenuCommon("{group}\{cm:Group_Help}\", "{app}\{cm:Folder_Help}\", file, menu, comment, menuDefault, menuFormat, commentDefault, commentFormat)
+
+#define _IconMenuCheats(str file, str menu="", str comment="", str menuDefault="", str menuFormat="", str commentDefault="", str commentFormat="") \
+				_IconMenuCommon("{group}\{cm:Group_Cheats}\", "{app}\{cm:Folder_Cheats}\", file, menu, comment, menuDefault, menuFormat, commentDefault, commentFormat)			
+					
+// Cheats.
+						
+#define IconCheats(str file="cheats.html", menu="", comment="") \
+				_IconMenuCheats(file, menu, comment, "Menu_Cheats", "Menu_FormatCheats", "View_Cheats", "View_FormatCheats")
+				
+#define IconWalkthrough(str file="walkthrough.html", menu="", comment="") \
+				_IconMenuCheats(file, menu, comment, "Menu_Walkthrough", "Menu_FormatWalkthrough", "View_Walkthrough", "View_FormatWalkthrough")
+				
+#define IconWalkthroughAlt(str file="walkthrough2.html", menu="", comment="") \
+				_IconMenuCheats(file, menu, comment, "Menu_WalkthroughAlt", "Menu_FormatWalkthroughAlt", "View_WalkthroughAlt", "View_FormatWalkthroughAlt")
+				
+#define IconEggs(str file="eggs.html", menu="", comment="") \
+				_IconMenuCheats(file, menu, comment, "Menu_Eggs", "Menu_FormatEggs", "View_Eggs", "View_FormatEggs")
+
+#define IconFaq(str file="faq.html", menu="", comment="") \
+				_IconMenuCheats(file, menu, comment, "Menu_Faq", "Menu_FormatFaq", "View_Faq", "View_FormatFaq")
+				
+#define IconHints(str file="hint.html", menu="", comment="") \
+				_IconMenuCheats(file, menu, comment, "Menu_Hints", "Menu_FormatHints", "View_Hints", "View_FormatHints")
+				
+#define IconSecrets(str file="secrets.html", menu="", comment="") \
+				_IconMenuCheats(file, menu, comment, "Menu_Secrets", "Menu_FormatSecrets", "View_Secrets", "View_FormatSecrets")
+
+// Common files.
+
+#define IconReadme(str file, str menu="", str comment="") \
+				_IconMenuRoot(file, menu, comment, "Menu_Readme", "Menu_FormatReadme", "View_Readme", "View_FormatReadme")
+				
+#define IconHelp(str file, str menu="", str comment="") \
+				_IconMenuHelp(file, menu, comment, "Menu_Help", "Menu_FormatHelp", "View_Help", "View_FormatHelp")
+			
+#define IconManual(str file, str menu="", str comment="") \
+				_IconMenuHelp(file, menu, comment, "Menu_Manual", "Menu_FormatManual", "View_Manual", "View_FormatManual")
+				
+#define IconLicense(str file, str menu="", str comment="") \
+				_IconMenuRoot(file, menu, comment, "Menu_License", "Menu_FormatLicense", "View_License", "View_FormatLicense")
+
+// Web.
+
+#define IconUrlWeb(str url, str name=AppName) \
+	IconUrl("{group}\{cm:Group_Web}\" + Utils_CmFormat("Menu_WebSite", name), "{app}\{cm:Group_Web}\" + name, url, Utils_CmFormat("Comment_ViewWebSite", name))
+
+// Uninstall.
+
+#define IconUninstall() \
+            Icon("{group}\{cm:Group_Uninstall}\" + Utils_CmFormat("UninstallProgram", AppName), "{uninstallexe}", "", "{app}", Utils_CmFormat("UninstallProgram", AppName))
+
+// Launch.
+
+#define IconRun(str name="{group}\" + AppName, str filename="{app}\" + AppExe, str parameters="", str workingDir="", str comment=AppName, str iconFilename='', int iconIndex=0) \
+    Base_IconLaunch(name=name, filename=filename, parameters=parameters, workingDir=workingDir, comment=comment, iconFilename=iconFilename, iconIndex=iconIndex)
+
+#define IconRunEditor(str name, str filename, str parameters="", str workingDir="", str comment="{cm:Menu_Editor}") \
+				IconRun(name, filename, parameters, workingDir, comment)
+
+// Tasks.
+
+#define TaskDesktopIcon(str parameters="") \
+	Task(Active_Tasks, "{cm:CreateDesktopIcon}", "{cm:AdditionalIcons}") + \
+	IconRun(name="{commondesktop}\" + AppName, parameters=parameters)
+
+#define TaskEditorIcon(str filename, int checked=False) \
+	Task(Active_Tasks, "{cm:Task_CreateEditorIcon}", "{cm:AdditionalIcons}", "", checked ? "" : TaskFlag_Unchecked) + \
+	IconRun("{commondesktop}\{cm:Menu_Editor}", filename, "", ExtractFilePath(filename), "{cm:Menu_Editor}")
+
+#define TaskQuickLaunchIcon(int checked=False, str parameters="") \
+	Task(Active_Tasks, "{cm:CreateQuickLaunchIcon}", "{cm:AdditionalIcons}", "", checked ? "" : TaskFlag_Unchecked) + \
+	IconRun(name="{userappdata}\Microsoft\Internet Explorer\Quick Launch\" + AppName, parameters=parameters)
+
+#endif
+

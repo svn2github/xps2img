@@ -1,0 +1,21 @@
+#ifndef __INSTALL_MESSAGES_ISI__
+#define __INSTALL_MESSAGES_ISI__
+
+#include "Languages/English.isl"
+
+#ifdef USE_LANG_RU
+    #include "Languages/Russian.isl"
+#endif
+
+// Special folders.
+
+<CustomMessage("Folder_Cheats",         "Cheats")>
+<CustomMessage("Folder_Help",           "Help")>
+
+// Menu items.
+
+<CustomMessage("Menu_Readme",           "README")>
+<CustomMessage("Menu_FormatReadme",     "%1 README")>
+
+#endif
+
