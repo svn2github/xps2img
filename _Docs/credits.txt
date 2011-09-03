@@ -1,2 +1,0 @@
-GNU Getopt Argument Parser
-	http://www.codeplex.com/getopt
