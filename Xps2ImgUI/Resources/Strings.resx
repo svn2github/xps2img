@@ -180,4 +180,10 @@
   <data name="About" xml:space="preserve">
     <value>&amp;About...</value>
   </data>
+  <data name="LoadSettings" xml:space="preserve">
+    <value>Lo&amp;ad Settings</value>
+  </data>
+  <data name="SaveSettings" xml:space="preserve">
+    <value>&amp;Save Settings</value>
+  </data>
 </root>

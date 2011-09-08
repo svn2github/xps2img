@@ -133,6 +133,14 @@ namespace Xps2ImgUI
             settingsPropertyGrid.AddToolStripSeparator();
 
             // Explorer browse.
+            settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.LoadSettings, loadSettingsToolStripButton_Click,
+                new ToolStripButtonItem(Resources.Strings.SaveSettings, saveSettingsToolStripButton_Click)
+            );
+
+            // Separator.
+            settingsPropertyGrid.AddToolStripSeparator();
+
+            // Explorer browse.
             settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.BrowseConvertedImages, browseConvertedImagesToolStripButton_Click,
                 new ToolStripButtonItem(Resources.Strings.BrowseXPSFile, (s, e) => Explorer.Select(_xps2ImgModel.OptionsObject.SrcFile)),
                 new ToolStripButtonItem(),
@@ -436,6 +444,32 @@ namespace Xps2ImgUI
         // ReSharper restore InconsistentNaming
         {
             Explorer.Browse(ConvertedImagesFolder);
+        }
+
+        private void loadSettingsToolStripButton_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
+        }
+
+        private void saveSettingsToolStripButton_Click(object sender, EventArgs e)
+        {
+            var initialDirectory = EnsureApplicationDataFolder();
+            var fileName = DateTime.Now.ToString("yyyyMMdd-HHmmss");
+            using (var dialog = new SaveFileDialog { Filter = "XPS2Img Files (*.x2i)|*.x2i|" + Utils.Filter.AllFiles, InitialDirectory = initialDirectory, FileName = fileName })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    //return dialog.FileName;
+                }
+            }
+        }
+
+        private string EnsureApplicationDataFolder()
+        {
+            var rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var appFolder = Path.Combine(rootFolder, Resources.Strings.WindowTitle);
+            Directory.CreateDirectory(appFolder);
+            return appFolder;
         }
 
         private volatile bool _conversionFailed;
