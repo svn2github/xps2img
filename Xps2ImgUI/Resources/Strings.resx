@@ -154,7 +154,7 @@
     <value>{1}{0}{0}Make sure that xps2img.exe utility is present in application folder.</value>
   </data>
   <data name="BrowseConvertedImages" xml:space="preserve">
-    <value>Bro&amp;wse Converted Images</value>
+    <value>Bro&amp;wse Images</value>
   </data>
   <data name="BrowseXPSFile" xml:space="preserve">
     <value>Browse &amp;XPS File</value>
@@ -169,10 +169,10 @@
     <value>Reset &amp;Settings</value>
   </data>
   <data name="CopyCommandLineToClipboard" xml:space="preserve">
-    <value>Copy Command &amp;Line To Clipboard</value>
+    <value>&amp;Copy Command Line To Clipboard</value>
   </data>
   <data name="CopyConvertedImagesPathToClipboard" xml:space="preserve">
-    <value>Copy Co&amp;nverted Images Path To Clipboard</value>
+    <value>&amp;Copy Images Path To Clipboard</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>&amp;Help</value>
@@ -181,9 +181,12 @@
     <value>&amp;About...</value>
   </data>
   <data name="LoadSettings" xml:space="preserve">
-    <value>Lo&amp;ad Settings</value>
+    <value>Lo&amp;ad Settings...</value>
   </data>
   <data name="SaveSettings" xml:space="preserve">
-    <value>&amp;Save Settings</value>
+    <value>&amp;Save Settings...</value>
+  </data>
+  <data name="XPS2ImgFilesFilter">
+    <value xml:space="preserve">XPS2Img Files (*.x2i)|*.x2i|</value>
   </data>
 </root>

@@ -131,6 +131,7 @@
     <Compile Include="Utils\UI\Windows7\ThumbButton.cs" />
     <Compile Include="Utils\UI\Windows7\ThumbButtonManager.cs" />
     <Compile Include="Utils\UI\Windows7\Windows7Taskbar.cs" />
+    <Compile Include="Model\SettingsManager.cs" />
     <EmbeddedResource Include="Resources\Icons.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Icons.Designer.cs</LastGenOutput>

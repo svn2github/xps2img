@@ -1,5 +1,4 @@
 ﻿using System.Drawing.Design;
-using System.IO;
 
 namespace Xps2ImgUI.Dialogs
 {
@@ -7,7 +6,11 @@ namespace Xps2ImgUI.Dialogs
     {
         public string DefaultFolder
         {
-            get { return Directory.GetCurrentDirectory(); }
+#if DEBUG
+            get { return System.Windows.Forms.Application.ExecutablePath; }
+#else
+            get { return System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments); }
+#endif
         }
     }
 }

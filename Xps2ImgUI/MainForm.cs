@@ -20,6 +20,24 @@ namespace Xps2ImgUI
         public MainForm(Xps2ImgModel xps2ImgModel)
         {
             InitializeComponent();
+            InitModel(xps2ImgModel);
+        }
+
+        private void InitModel(Xps2ImgModel xps2ImgModel)
+        {
+            if (xps2ImgModel == null)
+            {
+                return;
+            }
+
+            if (_xps2ImgModel != null)
+            {
+                _xps2ImgModel.OutputDataReceived -= Xps2ImgOutputDataReceived;
+                _xps2ImgModel.ErrorDataReceived -= Xps2ImgErrorDataReceived;
+                _xps2ImgModel.Completed -= Xps2ImgCompleted;
+                _xps2ImgModel.LaunchFailed -= Xps2ImgLaunchFailed;
+                _xps2ImgModel.OptionsObjectChanged -= Xps2ImgOptionsObjectChanged;
+            }
 
             _xps2ImgModel = xps2ImgModel;
 
@@ -122,20 +140,20 @@ namespace Xps2ImgUI
             // Separator.
             settingsPropertyGrid.AddToolStripSeparator();
 
+            // Load/save settings.
+            _loadToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.LoadSettings, (s, e) => InitModel(SettingsManager.LoadSettings()),
+                new ToolStripButtonItem(Resources.Strings.SaveSettings, (s, e) => SettingsManager.SaveSettings(_xps2ImgModel))
+            );
+
+            // Separator.
+            settingsPropertyGrid.AddToolStripSeparator();
+
             // Reset Settings button.
             _resetToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.ResetOptions, (s, e) => _xps2ImgModel.ResetOptions(),
                 new ToolStripButtonItem(Resources.Strings.ResetParameters, (s, e) => _xps2ImgModel.ResetParameters()),
                 new ToolStripButtonItem(),
                 new ToolStripButtonItem(Resources.Strings.Reset, (s, e) => _xps2ImgModel.Reset())
              );
-
-            // Separator.
-            settingsPropertyGrid.AddToolStripSeparator();
-
-            // Explorer browse.
-            settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.LoadSettings, loadSettingsToolStripButton_Click,
-                new ToolStripButtonItem(Resources.Strings.SaveSettings, saveSettingsToolStripButton_Click)
-            );
 
             // Separator.
             settingsPropertyGrid.AddToolStripSeparator();
@@ -178,7 +196,7 @@ namespace Xps2ImgUI
             }
 
             settingsPropertyGrid.ReadOnly = isRunning;
-            _resetToolStripButton.Enabled = !isRunning;
+            _resetToolStripButton.Enabled = _loadToolStripButton.Enabled = !isRunning;
             
             progressBar.Value = 0;
 
@@ -446,32 +464,6 @@ namespace Xps2ImgUI
             Explorer.Browse(ConvertedImagesFolder);
         }
 
-        private void loadSettingsToolStripButton_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
-        }
-
-        private void saveSettingsToolStripButton_Click(object sender, EventArgs e)
-        {
-            var initialDirectory = EnsureApplicationDataFolder();
-            var fileName = DateTime.Now.ToString("yyyyMMdd-HHmmss");
-            using (var dialog = new SaveFileDialog { Filter = "XPS2Img Files (*.x2i)|*.x2i|" + Utils.Filter.AllFiles, InitialDirectory = initialDirectory, FileName = fileName })
-            {
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    //return dialog.FileName;
-                }
-            }
-        }
-
-        private string EnsureApplicationDataFolder()
-        {
-            var rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            var appFolder = Path.Combine(rootFolder, Resources.Strings.WindowTitle);
-            Directory.CreateDirectory(appFolder);
-            return appFolder;
-        }
-
         private volatile bool _conversionFailed;
 
         private volatile string _convertedImagesFolder;
@@ -486,9 +478,10 @@ namespace Xps2ImgUI
             get { return convertButton.Text.Replace("&", String.Empty); }
         }
 
-        private readonly Xps2ImgModel _xps2ImgModel;
+        private Xps2ImgModel _xps2ImgModel;
 
         private ToolStripItem _resetToolStripButton;
+        private ToolStripItem _loadToolStripButton;
         private ToolStripItem _showCommandLineToolStripButton;
 
         private ThumbButtonManager _thumbButtonManager;
