@@ -10,7 +10,7 @@ namespace Xps2ImgUI.Model
 {
     public static class SettingsManager
     {
-        private const char optionsSeparator = '\x20';
+        private const string optionsSeparator = "\x20";
         private const string autoFileName = "x2i-yyyyMMdd-HHmmss";
 
         private static OpenFileDialog _loadDialog;
@@ -25,9 +25,8 @@ namespace Xps2ImgUI.Model
 
             if (_loadDialog.ShowDialog() == DialogResult.OK)
             {
-                var commandLine = String.Join(optionsSeparator.ToString(), File.ReadAllLines(_loadDialog.FileName));
-                // TODO: Parse command line
-                return new Xps2ImgModel(Parser.Parse<Options>(commandLine.Split(optionsSeparator), true));
+                var commandLine = String.Join(optionsSeparator, File.ReadAllLines(_loadDialog.FileName));
+                return new Xps2ImgModel(Parser.Parse<Options>(commandLine, true));
             }
 
             return null;
@@ -59,7 +58,9 @@ namespace Xps2ImgUI.Model
         {
             var rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var appFolder = Path.Combine(rootFolder, Resources.Strings.WindowTitle);
+
             Directory.CreateDirectory(appFolder);
+
             return appFolder;
         }
     }

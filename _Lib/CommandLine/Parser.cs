@@ -48,6 +48,26 @@ namespace CommandLine
             return !args.Any() || (args.Length == 1 && HelpOpt.Contains(args.First()));
         }
 
+        public static T Parse<T>(string cmdline) where T : class
+        {
+            return Parse<T>(cmdline, ApplicationName, false);
+        }
+
+        public static T Parse<T>(string cmdline, string applicationName) where T : class
+        {
+            return Parse<T>(cmdline, applicationName, false);
+        }
+
+        public static T Parse<T>(string cmdline, bool ignoreErrors) where T : class
+        {
+            return Parse<T>(cmdline, ApplicationName, ignoreErrors);
+        }
+
+        public static T Parse<T>(string cmdline, string applicationName, bool ignoreErrors) where T : class
+        {
+            return Parse<T>(CommandLineToArgv(cmdline), applicationName, ignoreErrors);
+        }
+
         public static T Parse<T>(string[] args) where T : class
         {
             return Parse<T>(args, ApplicationName);

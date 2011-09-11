@@ -5,25 +5,17 @@ using System.Text;
 
 namespace CommandLine
 {
-    public static class Win32
+    public static partial class Parser
     {
         // http://www.pinvoke.net/default.aspx/shell32/commandlinetoargvw.html
 
-        [DllImport("shell32.dll")]
-        private static extern IntPtr CommandLineToArgvW(
-            [MarshalAs(UnmanagedType.LPWStr)] string lpCmdLine,
-            out int pNumArgs);
-
-        [DllImport("kernel32.dll")]
-        private static extern IntPtr LocalFree(IntPtr hMem);
-
         // Here's an wrapper to CommandLineToArgvW I found useful (csells@sellsbrothers.com)
-        public static List<string> CommandLineToExeAndArgs()
+        public static string[] CommandLineToArgv()
         {
-            return CommandLineToExeAndArgs(Environment.CommandLine);
+            return CommandLineToArgv(Environment.CommandLine);
         }
 
-        public static List<string> CommandLineToExeAndArgs(string cmdline)
+        public static string[] CommandLineToArgv(string cmdline)
         {
             var args = new List<string>();
             var argvPtr = IntPtr.Zero;
@@ -49,16 +41,28 @@ namespace CommandLine
 
                     // Increment the pointer address by the number of Unicode bytes
                     // plus one Unicode character for the string's null terminator
-                    var unicodeByteCount = Encoding.Unicode.GetByteCount(arg) + Encoding.Unicode.GetByteCount(new [] { Char.MinValue });
+                    var unicodeByteCount = Encoding.Unicode.GetByteCount(arg) + Encoding.Unicode.GetByteCount(new[] { Char.MinValue });
                     argPtr = new IntPtr(argPtr.ToInt32() + unicodeByteCount);
                 }
+            }
+            catch
+            {
+                return args.ToArray();
             }
             finally
             {
                 LocalFree(argvPtr);
             }
 
-            return args;
+            return args.ToArray();
         }
+
+        [DllImport("shell32.dll")]
+        private static extern IntPtr CommandLineToArgvW(
+            [MarshalAs(UnmanagedType.LPWStr)] string lpCmdLine,
+            out int pNumArgs);
+
+        [DllImport("kernel32.dll")]
+        private static extern IntPtr LocalFree(IntPtr hMem);
     }
 }
