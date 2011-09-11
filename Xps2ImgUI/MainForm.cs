@@ -15,7 +15,7 @@ using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, ISettingsSerialization
     {
         public MainForm(Xps2ImgModel xps2ImgModel)
         {
@@ -173,7 +173,7 @@ namespace Xps2ImgUI
 
         private void UpdateProgress(int percent, string pages, string file)
         {
-            Text = String.Format(Resources.Strings.WindowTitleProgressFormat, Resources.Strings.WindowTitle, percent, pages, Path.GetFileName(file));
+            Text = String.Format(Resources.Strings.WindowTitleProgressFormat, Resources.Strings.WindowTitle, percent, pages, Path.GetFileName(file), _srcFileDisplayName);
             progressBar.Value = percent;
 
             this.SetProgressValue(progressBar.Value, progressBar.Maximum);
@@ -218,6 +218,7 @@ namespace Xps2ImgUI
 
         private void UpdateCommandLine()
         {
+            _srcFileDisplayName = Path.GetFileNameWithoutExtension(_xps2ImgModel.OptionsObject.SrcFile);
             var commandLine = _xps2ImgModel.FormatCommandLine();
             var separator = String.IsNullOrEmpty(commandLine) ? String.Empty : "\x20";
             commandLineTextBox.Text = String.Format("\"{0}\"{1}{2}", Xps2ImgModel.Xps2ImgExecutable, separator, commandLine);
@@ -480,11 +481,21 @@ namespace Xps2ImgUI
 
         private Xps2ImgModel _xps2ImgModel;
 
+        private string _srcFileDisplayName;
+
         private ToolStripItem _resetToolStripButton;
         private ToolStripItem _loadToolStripButton;
         private ToolStripItem _showCommandLineToolStripButton;
 
         private ThumbButtonManager _thumbButtonManager;
         private ThumbButton _thumbButton;
+
+        public void Serialize(Stream stream)
+        {
+        }
+
+        public void Deserialize(Stream stream)
+        {
+        }
     }
 }

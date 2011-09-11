@@ -100,6 +100,7 @@
     <Compile Include="Controls\ToolStripButtonItem.cs" />
     <Compile Include="Converters\YesNoConverter.cs" />
     <Compile Include="Dialogs\BaseSelectFileFolderEditor.cs" />
+    <Compile Include="Model\ISettingsSerialization.cs" />
     <Compile Include="Model\Xps2ImgModel.cs" />
     <Compile Include="Dialogs\SelectFileEditor.cs" />
     <Compile Include="Dialogs\SelectFolderEditor.cs" />

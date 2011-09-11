@@ -136,7 +136,7 @@
     <value>XPS to Images Converter</value>
   </data>
   <data name="WindowTitleProgressFormat" xml:space="preserve">
-    <value>{1}% ({2}) [{3}] - {0}</value>
+    <value>{1}% ({2}) [{3}] - {4} - {0}</value>
   </data>
   <data name="ClosingQuery" xml:space="preserve">
     <value>Convertion is in progress. Would you like to abort it and exit?</value>
@@ -186,7 +186,7 @@
   <data name="SaveSettings" xml:space="preserve">
     <value>&amp;Save Settings...</value>
   </data>
-  <data name="XPS2ImgFilesFilter">
-    <value xml:space="preserve">XPS2Img Files (*.x2i)|*.x2i|</value>
+  <data name="XPS2ImgFilesFilter" xml:space="preserve">
+    <value>XPS2Img Files (*.x2i)|*.x2i|</value>
   </data>
 </root>
