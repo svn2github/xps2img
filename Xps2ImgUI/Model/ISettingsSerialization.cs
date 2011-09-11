@@ -1,10 +1,8 @@
-﻿using System.IO;
-
-namespace Xps2ImgUI.Model
+﻿namespace Xps2ImgUI.Model
 {
     public interface ISettingsSerialization
     {
-        void Serialize(Stream stream);
-        void Deserialize(Stream stream);
+        object Serialize();
+        void Deserialize(string serialized);
     }
 }

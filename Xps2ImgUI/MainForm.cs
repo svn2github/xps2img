@@ -490,11 +490,12 @@ namespace Xps2ImgUI
         private ThumbButtonManager _thumbButtonManager;
         private ThumbButton _thumbButton;
 
-        public void Serialize(Stream stream)
+        public object Serialize()
         {
+            return null;
         }
 
-        public void Deserialize(Stream stream)
+        public void Deserialize(string serialized)
         {
         }
     }
