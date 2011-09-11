@@ -10,8 +10,8 @@ namespace Xps2ImgUI.Model
 {
     public static class SettingsManager
     {
-        private const string optionsSeparator = "\x20";
-        private const string autoFileName = "x2i-yyyyMMdd-HHmmss";
+        private const string optionsSeparator   = "\x20";
+        private const string autoFileName       = "x2i-yyyyMMdd-HHmmss";
 
         private static OpenFileDialog _loadDialog;
         private static SaveFileDialog _saveDialog;

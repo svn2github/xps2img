@@ -26,7 +26,7 @@ namespace Xps2Img.CommandLine
 
         public static Options Parse(string[] args)
         {
-            return Parser.Parse<Options>(args, Parser.ApplicationName);
+            return Parser.Parse<Options>(args);
         }
 
         public static bool IsUsageDisplayed<T>(string[] args)
