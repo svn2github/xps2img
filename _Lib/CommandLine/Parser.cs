@@ -48,12 +48,22 @@ namespace CommandLine
             return !args.Any() || (args.Length == 1 && HelpOpt.Contains(args.First()));
         }
 
-        public static T Parse<T>(string[] args, string aplicationName) where T : class
+        public static T Parse<T>(string[] args) where T : class
         {
-            return Parse<T>(args, aplicationName, false);
+            return Parse<T>(args, ApplicationName);
         }
 
-        public static T Parse<T>(string[] args, string aplicationName, bool ignoreErrors) where T : class
+        public static T Parse<T>(string[] args, string applicationName) where T : class
+        {
+            return Parse<T>(args, applicationName, false);
+        }
+
+        public static T Parse<T>(string[] args, bool ignoreErrors) where T : class
+        {
+            return Parse<T>(args, ApplicationName, ignoreErrors);
+        }
+
+        public static T Parse<T>(string[] args, string applicationName, bool ignoreErrors) where T : class
         {
             var optionsObjectType = typeof(T);
 
@@ -62,7 +72,7 @@ namespace CommandLine
             var optionsObject = (T)Activator.CreateInstance(optionsObjectType);
             var longOpts = GetOptionsList(optionsObject).ToArray();
 
-            var getopt = new Getopt(aplicationName, args, longOpts.BuildOptString(), longOpts, false);
+            var getopt = new Getopt(applicationName, args, longOpts.BuildOptString(), longOpts, false);
 
             var isValid = true;
 

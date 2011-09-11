@@ -11,7 +11,7 @@ namespace Xps2ImgUI.Model
     public static class SettingsManager
     {
         private const char optionsSeparator = '\x20';
-        private const string autoFileName = "yyyyMMdd-HHmmss";
+        private const string autoFileName = "x2i-yyyyMMdd-HHmmss";
 
         private static OpenFileDialog _loadDialog;
         private static SaveFileDialog _saveDialog;
@@ -27,7 +27,7 @@ namespace Xps2ImgUI.Model
             {
                 var commandLine = String.Join(optionsSeparator.ToString(), File.ReadAllLines(_loadDialog.FileName));
                 // TODO: Parse command line
-                return new Xps2ImgModel(Parser.Parse<Options>(commandLine.Split(optionsSeparator), Parser.ApplicationName, true));
+                return new Xps2ImgModel(Parser.Parse<Options>(commandLine.Split(optionsSeparator), true));
             }
 
             return null;

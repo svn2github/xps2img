@@ -21,7 +21,7 @@ namespace Xps2ImgUI
             AppDomain.CurrentDomain.UnhandledException += (sender, e) => HandleException(e.ExceptionObject as Exception);
             Application.ThreadException += (sender1, e1) => HandleException(e1.Exception);
 
-            var options = Parser.IsUsageRequiested(args) ? null : Parser.Parse<Options>(args, Parser.ApplicationName, true);
+            var options = Parser.IsUsageRequiested(args) ? null : Parser.Parse<Options>(args, true);
 
             Application.Run(new MainForm(new Xps2ImgModel(options)) { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) });
         }
