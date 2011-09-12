@@ -1,8 +1,11 @@
-﻿namespace Xps2ImgUI.Model
+﻿using System;
+
+namespace Xps2ImgUI.Model
 {
     public interface ISettingsSerialization
     {
         object Serialize();
-        void Deserialize(string serialized);
+        void Deserialize(object serialized);
+        Type GetSerializableType();
     }
 }

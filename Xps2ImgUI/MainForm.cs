@@ -6,9 +6,9 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-
+using CommandLine;
 using Windows7.DesktopIntegration;
-
+using Xps2Img.CommandLine;
 using Xps2ImgUI.Controls;
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Utils.UI;
@@ -226,9 +226,9 @@ namespace Xps2ImgUI
 
         private void UpdateShowCommandLineCommand()
         {
-            _showCommandLineToolStripButton.Text = settingsSplitContainer.Panel2Collapsed
-                                                        ? Resources.Strings.ShowCommandLine
-                                                        : Resources.Strings.HideCommandLine;
+            _showCommandLineToolStripButton.Text = IsCommandLineVisible
+                                                        ? Resources.Strings.HideCommandLine
+                                                        : Resources.Strings.ShowCommandLine;
         }
 
         private void FlashForm()
@@ -479,6 +479,12 @@ namespace Xps2ImgUI
             get { return convertButton.Text.Replace("&", String.Empty); }
         }
 
+        private bool IsCommandLineVisible
+        {
+            get { return !settingsSplitContainer.Panel2Collapsed; }
+            set { settingsSplitContainer.Panel2Collapsed = !value; }
+        }
+
         private Xps2ImgModel _xps2ImgModel;
 
         private string _srcFileDisplayName;
@@ -490,13 +496,38 @@ namespace Xps2ImgUI
         private ThumbButtonManager _thumbButtonManager;
         private ThumbButton _thumbButton;
 
-        public object Serialize()
+        [Serializable]
+        public class Settings
         {
-            return null;
+            public PropertySort PropertySort { get; set; }
+            public bool ShowCommandLine { get; set; }
+            public string CommandLine { get; set; }
         }
 
-        public void Deserialize(string serialized)
+        public object Serialize()
         {
+            return new Settings
+            {
+                PropertySort = settingsPropertyGrid.PropertySort,
+                ShowCommandLine = IsCommandLineVisible,
+                CommandLine = _xps2ImgModel.FormatCommandLine()
+            };
+        }
+
+        public void Deserialize(object serialized)
+        {
+            var settings = (Settings) serialized;
+            settingsPropertyGrid.PropertySort = settings.PropertySort;
+            IsCommandLineVisible = settings.ShowCommandLine;
+            if(!String.IsNullOrEmpty(settings.CommandLine))
+            {
+                InitModel(new Xps2ImgModel(Parser.Parse<Options>(settings.CommandLine, true)));
+            }
+        }
+
+        public Type GetSerializableType()
+        {
+            return typeof (Settings);
         }
     }
 }
