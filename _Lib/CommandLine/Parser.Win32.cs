@@ -17,6 +17,11 @@ namespace CommandLine
 
         public static string[] CommandLineToArgv(string cmdline)
         {
+            if (String.IsNullOrEmpty(cmdline))
+            {
+                return new string[0];
+            }
+
             var args = new List<string>();
             var argvPtr = IntPtr.Zero;
 

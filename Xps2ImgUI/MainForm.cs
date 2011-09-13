@@ -6,24 +6,25 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using CommandLine;
+
 using Windows7.DesktopIntegration;
-using Xps2Img.CommandLine;
+
 using Xps2ImgUI.Controls;
 using Xps2ImgUI.Model;
+using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI
 {
-    public partial class MainForm : Form, ISettingsSerialization
+    public partial class MainForm : Form, ISettings
     {
-        public MainForm(Xps2ImgModel xps2ImgModel)
+        public MainForm()
         {
             InitializeComponent();
-            InitModel(xps2ImgModel);
+            SetModel(new Xps2ImgModel());
         }
 
-        private void InitModel(Xps2ImgModel xps2ImgModel)
+        public void SetModel(Xps2ImgModel xps2ImgModel)
         {
             if (xps2ImgModel == null)
             {
@@ -141,7 +142,7 @@ namespace Xps2ImgUI
             settingsPropertyGrid.AddToolStripSeparator();
 
             // Load/save settings.
-            _loadToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.LoadSettings, (s, e) => InitModel(SettingsManager.LoadSettings()),
+            _loadToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.LoadSettings, (s, e) => SetModel(SettingsManager.LoadSettings()),
                 new ToolStripButtonItem(Resources.Strings.SaveSettings, (s, e) => SettingsManager.SaveSettings(_xps2ImgModel))
             );
 
@@ -495,39 +496,5 @@ namespace Xps2ImgUI
 
         private ThumbButtonManager _thumbButtonManager;
         private ThumbButton _thumbButton;
-
-        [Serializable]
-        public class Settings
-        {
-            public PropertySort PropertySort { get; set; }
-            public bool ShowCommandLine { get; set; }
-            public string CommandLine { get; set; }
-        }
-
-        public object Serialize()
-        {
-            return new Settings
-            {
-                PropertySort = settingsPropertyGrid.PropertySort,
-                ShowCommandLine = IsCommandLineVisible,
-                CommandLine = _xps2ImgModel.FormatCommandLine()
-            };
-        }
-
-        public void Deserialize(object serialized)
-        {
-            var settings = (Settings) serialized;
-            settingsPropertyGrid.PropertySort = settings.PropertySort;
-            IsCommandLineVisible = settings.ShowCommandLine;
-            if(!String.IsNullOrEmpty(settings.CommandLine))
-            {
-                InitModel(new Xps2ImgModel(Parser.Parse<Options>(settings.CommandLine, true)));
-            }
-        }
-
-        public Type GetSerializableType()
-        {
-            return typeof (Settings);
-        }
     }
 }

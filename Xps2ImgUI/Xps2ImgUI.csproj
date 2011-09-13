@@ -62,6 +62,7 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\xps2img\CommandLine\Interval.cs">
@@ -99,8 +100,9 @@
     </Compile>
     <Compile Include="Controls\ToolStripButtonItem.cs" />
     <Compile Include="Converters\YesNoConverter.cs" />
+    <Compile Include="MainForm.Settings.cs" />
     <Compile Include="Dialogs\BaseSelectFileFolderEditor.cs" />
-    <Compile Include="Model\ISettingsSerialization.cs" />
+    <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Model\Xps2ImgModel.cs" />
     <Compile Include="Dialogs\SelectFileEditor.cs" />
     <Compile Include="Dialogs\SelectFolderEditor.cs" />
@@ -132,7 +134,7 @@
     <Compile Include="Utils\UI\Windows7\ThumbButton.cs" />
     <Compile Include="Utils\UI\Windows7\ThumbButtonManager.cs" />
     <Compile Include="Utils\UI\Windows7\Windows7Taskbar.cs" />
-    <Compile Include="Model\SettingsManager.cs" />
+    <Compile Include="Settings\SettingsManager.cs" />
     <EmbeddedResource Include="Resources\Icons.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Icons.Designer.cs</LastGenOutput>

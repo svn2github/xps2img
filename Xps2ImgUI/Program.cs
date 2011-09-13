@@ -6,7 +6,9 @@ using System.Windows.Forms;
 using CommandLine;
 
 using Xps2Img.CommandLine;
+
 using Xps2ImgUI.Model;
+using Xps2ImgUI.Settings;
 
 namespace Xps2ImgUI
 {
@@ -19,11 +21,30 @@ namespace Xps2ImgUI
             Application.SetCompatibleTextRenderingDefault(false);
 
             AppDomain.CurrentDomain.UnhandledException += (sender, e) => HandleException(e.ExceptionObject as Exception);
-            Application.ThreadException += (sender1, e1) => HandleException(e1.Exception);
+            Application.ThreadException += (sender, e) => HandleException(e.Exception);
 
             var options = Parser.IsUsageRequiested(args) ? null : Parser.Parse<Options>(args, true);
 
-            Application.Run(new MainForm(new Xps2ImgModel(options)) { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) });
+            var mainForm =  new MainForm
+                            {
+                                Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath),
+                                Visible = false
+                            };
+
+            SettingsManager.DeserializeSettings(mainForm);
+
+            if (options != null)
+            {
+                mainForm.SetModel(SettingsManager.IsSettingFile(options.SrcFile)
+                                    ? SettingsManager.LoadSettings(options.SrcFile)
+                                    : new Xps2ImgModel(options));
+            }
+
+            mainForm.Visible = true;
+
+            Application.Run(mainForm);
+
+            SettingsManager.SerializeSettings(mainForm);
         }
 
         private static void HandleException(Exception ex)

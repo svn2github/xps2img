@@ -181,12 +181,15 @@
     <value>&amp;About...</value>
   </data>
   <data name="LoadSettings" xml:space="preserve">
-    <value>Lo&amp;ad Settings</value>
+    <value>Lo&amp;ad Settings...</value>
   </data>
   <data name="SaveSettings" xml:space="preserve">
-    <value>&amp;Save Settings</value>
+    <value>&amp;Save Settings...</value>
   </data>
   <data name="XPS2ImgFilesFilter" xml:space="preserve">
     <value>XPS2Img Files (*.x2i)|*.x2i|</value>
   </data>
+    <data name="XPS2ImgFileExtension">
+        <value xml:space="preserve">.x2i</value>
+    </data>
 </root>
