@@ -100,7 +100,9 @@
     </Compile>
     <Compile Include="Controls\ToolStripButtonItem.cs" />
     <Compile Include="Converters\YesNoConverter.cs" />
-    <Compile Include="MainForm.Settings.cs" />
+    <Compile Include="MainForm.Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dialogs\BaseSelectFileFolderEditor.cs" />
     <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Model\Xps2ImgModel.cs" />
