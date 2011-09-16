@@ -77,8 +77,8 @@
 
 <Run(filename=AppExe, flags=Common_RunFlags, description=Utils_CmFormat("LaunchProgram", AppName))>
 
-<Reg("HKCR\.x2i", ":string", AppName)>
-<Reg("HKCR\" + AppName, ":string", X2IFileDescription)>
+<Reg("HKCR\.x2i", ":string", AppName, RegFlag_UninsDeleteKey)>
+<Reg("HKCR\" + AppName, ":string", X2IFileDescription, RegFlag_UninsDeleteKey)>
 <Reg("HKCR\" + AppName + "\DefaultIcon", ":string", AppExe+",0")>
 <Reg("HKCR\" + AppName + "\shell\open\command", ":string", Str_Quote(AppExe) + " " + Str_Quote("%1"))>
 
