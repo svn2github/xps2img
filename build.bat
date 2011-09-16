@@ -37,7 +37,7 @@ if not exist "%isFolder%\Include\ISM" (
 %hhc% "%helpFolder%\xps2img.hhp" && goto ERROR
 copy "%helpFolder%\xps2img.chm" "%outFolder%" /Y || goto ERROR
 
-%isComp% /cc "%setupFolder%\Xps2ImgSetup.iss" || goto ERROR
+%isComp% /cc "%setupFolder%\Xps2ImgSetup.iss" || goto IS_ERROR
 copy "%setupFolder%\_Output\Xps2ImgSetup.exe" "%outFolder%" /Y || goto ERROR
 
 @echo off
@@ -45,6 +45,12 @@ copy "%setupFolder%\_Output\Xps2ImgSetup.exe" "%outFolder%" /Y || goto ERROR
 echo.
 echo All OK. Output folder is '%outFolder%'
 exit /b 0
+
+:IS_ERROR
+@echo off
+echo.
+echo.
+echo IMPORTANT: Execute clean-ism.bat first!
 
 :ERROR
 @echo off

@@ -36,6 +36,8 @@
 
 #define BinariesPath            "..\_bin\Release\"
 
+#define X2IFileDescription      AppName + " Settings"
+
 #include "Code.iss"
 
 #include ISM_RootDir + "/Include/IncludeAll.isi"
@@ -74,5 +76,10 @@
 <IconRun("{group}\{cm:Help}", AppReadmeFile)>
 
 <Run(filename=AppExe, flags=Common_RunFlags, description=Utils_CmFormat("LaunchProgram", AppName))>
+
+<Reg("HKCR\.x2i", ":string", AppName)>
+<Reg("HKCR\" + AppName, ":string", X2IFileDescription)>
+<Reg("HKCR\" + AppName + "\DefaultIcon", ":string", AppExe+",0")>
+<Reg("HKCR\" + AppName + "\shell\open\command", ":string", Str_Quote(AppExe) + " " + Str_Quote("%1"))>
 
 <Debug_ViewTranslation>

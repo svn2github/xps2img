@@ -18,9 +18,9 @@
 		Str(value) == '' ? '' : \
 			( \
 				attr + ': ' + \
-				Str_QuoteChar(quote) + \
+				Str_GetQuoteChar(quote) + \
 				Str(value) + \
-				Str_QuoteChar(quote) + '; ' \
+				Str_GetQuoteChar(quote) + '; ' \
 			) \
 	
 #define Utils_ExtractPathLeft(str path)		Str_GetLeft(path, '\')

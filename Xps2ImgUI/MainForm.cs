@@ -82,6 +82,8 @@ namespace Xps2ImgUI
         {
             if (_xps2ImgModel.IsRunning)
             {
+                Activate();
+
                 var dialogResult = ShowMessageBox(Resources.Strings.ClosingQuery,
                                                    MessageBoxButtons.YesNo,
                                                    MessageBoxIcon.Exclamation,
@@ -354,18 +356,23 @@ namespace Xps2ImgUI
 
         private bool _isModalWindowOpened;
 
-        private void ShowOptionIsRequiredMessage(string firstRequiredOptionLabel)
+        private new void Activate()
         {
-            _isModalWindowOpened = true;
-
             if (WindowState == FormWindowState.Minimized)
             {
                 this.Restore();
             }
             else
             {
-                Activate();
+                base.Activate();
             }
+        }
+
+        private void ShowOptionIsRequiredMessage(string firstRequiredOptionLabel)
+        {
+            _isModalWindowOpened = true;
+
+            Activate();
 
             ShowMessageBox(String.Format(Resources.Strings.SpecifyValue, firstRequiredOptionLabel), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 

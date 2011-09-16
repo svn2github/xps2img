@@ -8,7 +8,13 @@
     
 // Retruns quote char.
 
-#define Str_QuoteChar(int quote=True)	quote ? '"' : ''
+#define Str_GetQuoteChar(int quote=True)	quote ? '"' : ''
+
+// Quotes string.
+
+#define Str_Quote(str value, int useDouble=True) \
+	Local[0]=useDouble ? '""' : "'", \
+	Local[0] + value + Local[0]
 
 // Returns left part of string before first delim. Returns value if delim is not found.
 
@@ -79,7 +85,7 @@
 
 #pragma parseroption -p-
 
-// Is string's first character space.
+// Checks whether string first character is space.
 
 #define Str_IsCharSpace(str value) \
         !Len(value) \
