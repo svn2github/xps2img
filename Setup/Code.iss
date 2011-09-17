@@ -1,9 +1,11 @@
 [CustomMessages]
 en.Msg_DotNetIsMissing=This application requires Microsoft.NET 3.5 which is not installed.%n%nWould you like to download it now?
+en.Msg_KeepSettings=Would you like to keep saved settings?
 
 [Code]
+
 // Check for the .Net 3.5 framework
-function InitializeSetup(): Boolean;
+function InitializeSetup: Boolean;
 var
     errorCode: Integer;
     isInstalled: Cardinal;
@@ -22,4 +24,13 @@ begin
         Result := False;
     end;
 end;
+
+procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+begin
+    if (CurUninstallStep = usUninstall) and (MsgBox(ExpandConstant('{cm:Msg_KeepSettings}'), mbConfirmation, MB_YESNO) = idNo) then
+    begin
+        DelTree(ExpandConstant(AddBackslash('{userappdata}') + '{#AppName}'), True, True, True);
+    end;
+end;
+
 [/Code]
