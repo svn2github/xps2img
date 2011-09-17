@@ -26,10 +26,16 @@ begin
 end;
 
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+var
+    appDataDir: String;
 begin
-    if (CurUninstallStep = usUninstall) and (UninstallSilent or (MsgBox(ExpandConstant('{cm:Msg_KeepSettings}'), mbConfirmation, MB_YESNO) = idNo)) then
+    if (CurUninstallStep <> usUninstall) then Exit;
+    
+    appDataDir := ExpandConstant(AddBackslash('{userappdata}') + '{#AppName}');
+    
+    if DirExists(appDataDir) and (UninstallSilent or (MsgBox(ExpandConstant('{cm:Msg_KeepSettings}'), mbConfirmation, MB_YESNO) = idNo)) then
     begin
-        DelTree(ExpandConstant(AddBackslash('{userappdata}') + '{#AppName}'), True, True, True);
+        DelTree(appDataDir, True, True, True);
     end;
 end;
 
