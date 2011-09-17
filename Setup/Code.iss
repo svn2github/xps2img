@@ -27,7 +27,7 @@ end;
 
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 begin
-    if (CurUninstallStep = usUninstall) and (MsgBox(ExpandConstant('{cm:Msg_KeepSettings}'), mbConfirmation, MB_YESNO) = idNo) then
+    if (CurUninstallStep = usUninstall) and (UninstallSilent or (MsgBox(ExpandConstant('{cm:Msg_KeepSettings}'), mbConfirmation, MB_YESNO) = idNo)) then
     begin
         DelTree(ExpandConstant(AddBackslash('{userappdata}') + '{#AppName}'), True, True, True);
     end;
