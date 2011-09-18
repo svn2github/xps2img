@@ -15,14 +15,20 @@ namespace Xps2Img.Xps2Img
         private readonly XpsDocument _xpsDocument;
         private readonly DocumentPaginator _documentPaginator;
 
-        public ConverterState ConverterState { get; set; }
+        public string XpsFileName { get; private set; }
+
+        public ConverterState ConverterState { get; private set; }
+        public Parameters ConverterParameters { get; private set; }
 
         private Converter(string xpsFileName)
         {
+            XpsFileName = xpsFileName;
+
             _xpsDocument = new XpsDocument(xpsFileName, FileAccess.Read, CompressionOption.NotCompressed);
             // ReSharper disable PossibleNullReferenceException
             _documentPaginator = _xpsDocument.GetFixedDocumentSequence().DocumentPaginator;
             // ReSharper restore PossibleNullReferenceException
+
             ConverterState = new ConverterState();
         }
 
@@ -45,12 +51,13 @@ namespace Xps2Img.Xps2Img
             public readonly ConverterState ConverterState;
         }
 
-        public delegate void ProgressDelegate(ProgressEventArgs args);
+        public delegate void ProgressDelegate(object sender, ProgressEventArgs args);
 
         public event ProgressDelegate OnProgress;
 
         public class Parameters
         {
+            public bool Silent { get; set; }
             public bool Test { get; set; }
 
             public int StartPage { get; set; }
@@ -77,19 +84,19 @@ namespace Xps2Img.Xps2Img
 
         public void Convert(Parameters parameters)
         {
-            var xpsFileName = _xpsDocument.Uri.OriginalString;
+            ConverterParameters = parameters;
 
             var numberFormat = PageCount.GetNumberFormat();
 
             if (parameters.BaseImageName == null)
             {
-                parameters.BaseImageName = Path.GetFileNameWithoutExtension(xpsFileName) + '-';
+                parameters.BaseImageName = Path.GetFileNameWithoutExtension(XpsFileName) + '-';
             }
 
             if (String.IsNullOrEmpty(parameters.OutputDir))
             {
                 // ReSharper disable AssignNullToNotNullAttribute
-                parameters.OutputDir = Path.Combine(Path.GetDirectoryName(xpsFileName), Path.GetFileNameWithoutExtension(xpsFileName));
+                parameters.OutputDir = Path.Combine(Path.GetDirectoryName(XpsFileName), Path.GetFileNameWithoutExtension(XpsFileName));
                 // ReSharper restore AssignNullToNotNullAttribute
             }
 
@@ -132,7 +139,7 @@ namespace Xps2Img.Xps2Img
                   parameters.ImageType,
                   parameters.ImageOptions,
                   GetPageBitmap(_documentPaginator, docPageNumber - 1, parameters),
-                  fullFileName => { if (OnProgress != null) { ConverterState.ActivePageIndex++; OnProgress(new ProgressEventArgs(fullFileName, ConverterState)); } });
+                  fullFileName => { if (OnProgress != null) { ConverterState.ActivePageIndex++; OnProgress(this, new ProgressEventArgs(fullFileName, ConverterState)); } });
             }
         }
 

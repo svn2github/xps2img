@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 
 using CommandLine;
@@ -52,6 +53,7 @@ namespace Xps2Img
                     xps2Img.Convert(
                         new Converter.Parameters
                         {
+                            Silent = options.Silent,
                             Test = options.Test,
                             StartPage = interval.Begin,
                             EndPage = interval.End,
@@ -75,19 +77,36 @@ namespace Xps2Img
             return (int)CommandLine.CommandLine.ReturnCode.OK;
         }
 
-        private static string _progreessFormatString;
+        private static string _progressFormatString;
 
-        private static void OnProgress(Converter.ProgressEventArgs args)
+        private static void OnProgress(object sender, Converter.ProgressEventArgs args)
         {
-            if (_progreessFormatString == null)
+            var converter = (Converter) sender;
+
+            if (!converter.ConverterParameters.Silent)
             {
-                _progreessFormatString = String.Format(
-                                          Resources.Strings.Template_Progress,
-                                          0.GetNumberFormat(args.ConverterState.LastPage, false),
-                                          1.GetNumberFormat(args.ConverterState.LastPage, false),
-                                          2.GetNumberFormat(args.ConverterState.LastPage, false));
+                if (_progressFormatString == null)
+                {
+                    _progressFormatString = String.Format(
+                                                Resources.Strings.Template_Progress,
+                                                0.GetNumberFormat(args.ConverterState.LastPage, false),
+                                                1.GetNumberFormat(args.ConverterState.LastPage, false));
+                }
+
+                Console.WriteLine(String.Format(_progressFormatString,
+                                    args.ConverterState.ActivePage,
+                                    args.ConverterState.ActivePageIndex,
+                                    args.ConverterState.TotalPages,
+                                    args.FullFileName,
+                                    (int)args.ConverterState.Percent));
             }
-            Console.WriteLine(String.Format(_progreessFormatString, args.ConverterState.ActivePage, args.ConverterState.ActivePageIndex, args.ConverterState.TotalPages, args.FullFileName, (int)args.ConverterState.Percent));
+
+            Console.Title = String.Format(Resources.Strings.Template_ProgressTitle,
+                                (int)args.ConverterState.Percent,
+                                args.ConverterState.ActivePageIndex,
+                                args.ConverterState.TotalPages,
+                                Path.GetFileName(args.FullFileName),
+                                Path.GetFileNameWithoutExtension(converter.XpsFileName));
         }
     }
 }

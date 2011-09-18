@@ -294,7 +294,7 @@ namespace Xps2ImgUI
             }
         }
 
-        private static readonly Regex OutputRegex = new Regex(@"^\[\s*(?<percent>\d+)%\].+\(\s*(?<pages>\d+/\s*\d+)\).+?'(?<file>.+)'");
+        private static readonly Regex OutputRegex = new Regex(@"^\[\s*(?<percent>\d+)%\].+\(\s*(?<pages>\d+/\d+)\).+?'(?<file>.+)'");
 
         private void Xps2ImgOutputDataReceived(object sender, DataReceivedEventArgs e)
         {
@@ -310,7 +310,7 @@ namespace Xps2ImgUI
             }
 
             var percent = Convert.ToInt32(match.Groups["percent"].Value);
-            var pages = match.Groups["pages"].Value.Replace("\x20", String.Empty);
+            var pages = match.Groups["pages"].Value;
             var file = match.Groups["file"].Value;
 
             ConvertedImagesFolder = Path.GetDirectoryName(file);
