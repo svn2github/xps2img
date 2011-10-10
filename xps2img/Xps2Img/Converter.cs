@@ -20,9 +20,17 @@ namespace Xps2Img.Xps2Img
         public ConverterState ConverterState { get; private set; }
         public Parameters ConverterParameters { get; private set; }
 
-        private Converter(string xpsFileName)
+        private readonly Func<bool> _cancelConvertionFunc;
+
+        private bool IsCancelled
+        {
+            get { return _cancelConvertionFunc != null && _cancelConvertionFunc(); }
+        }
+
+        private Converter(string xpsFileName, Func<bool> cancelConvertionFunc)
         {
             XpsFileName = xpsFileName;
+            _cancelConvertionFunc = cancelConvertionFunc;
 
             _xpsDocument = new XpsDocument(xpsFileName, FileAccess.Read, CompressionOption.NotCompressed);
             // ReSharper disable PossibleNullReferenceException
@@ -34,9 +42,14 @@ namespace Xps2Img.Xps2Img
 
         public int PageCount { get { return _documentPaginator.PageCount; } }
 
+        public static Converter Create(string xpsFileName, Func<bool> cancelConvertionFunc)
+        {
+            return new Converter(xpsFileName, cancelConvertionFunc);
+        }
+
         public static Converter Create(string xpsFileName)
         {
-            return new Converter(xpsFileName);
+            return Create(xpsFileName, null);
         }
 
         public class ProgressEventArgs : EventArgs
@@ -84,6 +97,11 @@ namespace Xps2Img.Xps2Img
 
         public void Convert(Parameters parameters)
         {
+            if (IsCancelled)
+            {
+                return;
+            }
+
             ConverterParameters = parameters;
 
             var numberFormat = PageCount.GetNumberFormat();
@@ -113,6 +131,11 @@ namespace Xps2Img.Xps2Img
 
             for (var docPageNumber = parameters.StartPage; docPageNumber <= parameters.EndPage; docPageNumber++)
             {
+                if (IsCancelled)
+                {
+                    return;
+                }
+
                 ConverterState.ActivePage = docPageNumber;
 
                 var pageIndex = docPageNumber - parameters.FirstPageIndex + 1;

@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Windows.Media.Imaging;
-
 using Xps2Img.CommandLine.TypeConverters;
 
 #if XPS2IMG_UI
@@ -313,6 +312,24 @@ namespace Xps2Img.CommandLine
             set { }
             // ReSharper restore ValueParameterNotUsed
         }
+        #endif
+
+        #if !XPS2IMG_UI
+        [global::CommandLine.Option("", Flags = global::CommandLine.OptionFlags.Internal)]
+        public string CancellationObjectId { get; set; }
+        #else
+        [Option("cancellation-object-id", IsInternal = true)]
+        [Browsable(false)]
+        public string CancellationObjectId
+        {
+            get { return CancellationObjectIdStatic; }
+            // ReSharper disable ValueParameterNotUsed
+            set { }
+            // ReSharper restore ValueParameterNotUsed
+        }
+
+        private static readonly string CancellationObjectIdStatic = Guid.NewGuid().ToString();
+
         #endif
 
         #if XPS2IMG_UI

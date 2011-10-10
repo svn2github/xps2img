@@ -80,6 +80,13 @@ namespace Xps2ImgUI.Model
             new Thread(Xps2ImgTreadStart).Start();
         }
 
+        private EventWaitHandle _cancelEvent;
+
+        private EventWaitHandle CancelEvent
+        {
+            get { return _cancelEvent ?? (_cancelEvent = new EventWaitHandle(false, EventResetMode.AutoReset, _optionsHolder.OptionsObject.CancellationObjectId)); }
+        }
+        
         public void Stop()
         {
             if (_process == null)
@@ -90,7 +97,7 @@ namespace Xps2ImgUI.Model
             try
             {
                 FreeProcessResources();
-                _process.Kill();
+                CancelEvent.Set();
             }
             catch(InvalidOperationException)
             {
@@ -99,7 +106,12 @@ namespace Xps2ImgUI.Model
 
         public string FormatCommandLine()
         {
-            return _optionsHolder.FormatCommandLine();
+            return FormatCommandLine(false);
+        }
+
+        public string FormatCommandLine(bool formatInternal)
+        {
+            return _optionsHolder.FormatCommandLine(false, formatInternal);
         }
 
         public Options OptionsObject
@@ -149,9 +161,11 @@ namespace Xps2ImgUI.Model
         {
             try
             {
+                CancelEvent.Reset();
+
                 var consoleEncoding = Encoding.GetEncoding(Thread.CurrentThread.CurrentCulture.GetConsoleFallbackUICulture().TextInfo.OEMCodePage);
 
-                var processStartInfo =  new ProcessStartInfo(Xps2ImgExecutable, FormatCommandLine())
+                var processStartInfo =  new ProcessStartInfo(Xps2ImgExecutable, FormatCommandLine(true))
                                         {
                                             CreateNoWindow = true,
                                             UseShellExecute = false,

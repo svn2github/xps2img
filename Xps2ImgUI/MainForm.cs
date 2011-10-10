@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define SHOW_ELAPSED_TIME
+
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -186,6 +188,11 @@ namespace Xps2ImgUI
         {
             if (!isRunning)
             {
+                #if SHOW_ELAPSED_TIME
+                _stopwatch.Stop();
+                var ts = _stopwatch.Elapsed;
+                ShowMessageBox(String.Format("{0:00}:{1:00}:{2:00}.{3}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                #endif
                 Text = Resources.Strings.WindowTitle;
             }
 
@@ -399,6 +406,10 @@ namespace Xps2ImgUI
             Help.ShowHelp(this, "xps2img.chm", HelpNavigator.TableOfContents);
         }
 
+#if SHOW_ELAPSED_TIME
+        private Stopwatch _stopwatch;
+#endif
+
         private void ExecuteConvertion()
         {
             if (_isModalWindowOpened)
@@ -427,6 +438,11 @@ namespace Xps2ImgUI
 
                 ConvertedImagesFolder = null;
 
+                #if SHOW_ELAPSED_TIME
+                _stopwatch = new Stopwatch();
+                _stopwatch.Start();
+                #endif
+                
                 _xps2ImgModel.Launch();
             }
 

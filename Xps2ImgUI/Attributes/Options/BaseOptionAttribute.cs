@@ -9,6 +9,7 @@ namespace Xps2ImgUI.Attributes.Options
     public class BaseOptionAttribute : Attribute
     {
         public string Name { get; set; }
+        public bool IsInternal { get; set; }
 
         public readonly bool IsArgRequired;
         public readonly bool IsRequired;

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 
 using CommandLine;
 
@@ -12,6 +13,8 @@ namespace Xps2Img
 {
     internal static class Program
     {
+        private static volatile bool _isCancelled;
+
         [STAThread]
         private static int Main(string[] args)
         {
@@ -30,8 +33,14 @@ namespace Xps2Img
                 }
 
                 Trace.WriteLine(Parser.ToCommandLine(options));
+                
+                if (!String.IsNullOrEmpty(options.CancellationObjectId))
+                {
+                    var cancelEvent = new EventWaitHandle(false, EventResetMode.AutoReset, options.CancellationObjectId);
+                    ThreadPool.QueueUserWorkItem(_ => _isCancelled = cancelEvent.WaitOne(Timeout.Infinite));
+                }
 
-                return Convert(options);
+                return Convert(options, () => _isCancelled);
             }
             catch (Exception ex)
             {
@@ -39,9 +48,9 @@ namespace Xps2Img
             }
         }
 
-        private static int Convert(Options options)
+        private static int Convert(Options options, Func<bool> cancelConvertionFunc)
         {
-            using (var xps2Img = Converter.Create(options.SrcFile))
+            using (var xps2Img = Converter.Create(options.SrcFile, cancelConvertionFunc))
             {
                 xps2Img.OnProgress += OnProgress;
 

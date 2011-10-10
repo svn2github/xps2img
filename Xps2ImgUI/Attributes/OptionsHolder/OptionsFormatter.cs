@@ -60,7 +60,7 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
             return formattedValue;
         }
 
-        private static readonly char[] TrimSymbols = { '"' };
+        private static readonly char[] TrimSymbols = { '"', '\\', '/' };
         private static readonly char[] EscapeSymbols = new [] { '\x20', '\'' };
         
         private static string FormatOptionValue(string optionValue)
@@ -98,10 +98,15 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
 
         public static string FormatCommandLine(bool exceptionIfNoRequired, object optionsObject, IEnumerable<BaseOptionAttribute> optionAttributes)
         {
+            return FormatCommandLine(exceptionIfNoRequired, optionsObject, optionAttributes, true);
+        }
+
+        public static string FormatCommandLine(bool exceptionIfNoRequired, object optionsObject, IEnumerable<BaseOptionAttribute> optionAttributes, bool formatInternal)
+        {
             const string optionsSeparator = " ";
-            
+
             return String.Join(optionsSeparator, optionAttributes
-                    .Select(o => FormatOption(exceptionIfNoRequired, optionsObject, o, CurrentOptionFormatInfo))
+                    .Select(o => (formatInternal || !o.IsInternal) ? FormatOption(exceptionIfNoRequired, optionsObject, o, CurrentOptionFormatInfo) : String.Empty)
                     .Where(f => !String.IsNullOrEmpty(f))
                     .ToArray());
         }
