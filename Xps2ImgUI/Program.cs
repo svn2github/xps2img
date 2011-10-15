@@ -49,7 +49,12 @@ namespace Xps2ImgUI
 
         private static void HandleException(Exception ex)
         {
-            var exceptionMessage = (ex != null) ? ex.Message : Resources.Strings.NoExceptionMessage;
+            var exceptionMessage = (ex == null) ? Resources.Strings.NoExceptionMessage : ex
+                                                                                         #if DEBUG
+                                                                                         .ToString();
+                                                                                         #else
+                                                                                         .Message;
+                                                                                         #endif
             MessageBox.Show(Application.OpenForms.Cast<IWin32Window>().FirstOrDefault(), exceptionMessage, Resources.Strings.WindowTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }

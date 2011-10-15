@@ -45,7 +45,11 @@ namespace Xps2Img.CommandLine
 
         public static int DisplayError(Exception ex)
         {
-            Console.Error.WriteLine(String.Format("{0}{1}", Resources.Strings.Error_Header, ex.Message));
+            Console.Error.WriteLine(String.Format("{0}{1}", Resources.Strings.Error_Header, ex
+                                                                                            #if !DEBUG
+                                                                                            .Message
+                                                                                            #endif
+            ));
             return (int)ReturnCode.Failed;
         }
 

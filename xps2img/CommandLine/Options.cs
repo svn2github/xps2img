@@ -142,9 +142,9 @@ namespace Xps2Img.CommandLine
         public Size? RequiredSize { get; set; }
         #endif
 
-        private const string DpiDescription = "Image DPI (16-1500)";
+        private const string DpiDescription = "Image DPI (16-2350)";
         private const char DpiShortOption = 'd';
-        private const string DpiValidationExpression = "16-1500";
+        private const string DpiValidationExpression = "16-2350";
 
         [global::CommandLine.Option(DpiDescription, DpiShortOption, DefaultValue = "120", ValidationExpression = DpiValidationExpression)]
         #if XPS2IMG_UI

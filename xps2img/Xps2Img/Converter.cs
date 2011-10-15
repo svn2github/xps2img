@@ -198,7 +198,16 @@ namespace Xps2Img.Xps2Img
 
                 var bitmap = new RenderTargetBitmap((int)Math.Round(page.Size.Width * ratio),
                                                     (int)Math.Round(page.Size.Height * ratio), dpi, dpi, PixelFormats.Pbgra32);
-                bitmap.Render(page.Visual);
+
+                try
+                {
+                    bitmap.Render(page.Visual);
+                }
+                catch (OutOfMemoryException)
+                {
+                    GC.Collect();
+                    bitmap.Render(page.Visual);
+                }
 
                 // Memory leak fix.
                 // http://social.msdn.microsoft.com/Forums/en/wpf/thread/c6511918-17f6-42be-ac4c-459eeac676fd
