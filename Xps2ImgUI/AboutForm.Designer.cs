@@ -76,7 +76,7 @@
             this.siteLinkLabel.TabIndex = 1;
             this.siteLinkLabel.TabStop = true;
             this.siteLinkLabel.Text = "http://xps2img.sf.net";
-            this.siteLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.siteLinkLabel_LinkClicked);
+            this.siteLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.SiteLinkLabelLinkClicked);
             // 
             // labelAbout
             // 

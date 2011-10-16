@@ -32,9 +32,7 @@ namespace Xps2ImgUI
             base.OnLoad(e);
         }
 
-        // ReSharper disable InconsistentNaming
-        private void siteLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        // ReSharper restore InconsistentNaming
+        private void SiteLinkLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Explorer.ShellExecute(((Control)sender).Text);
             Close();
