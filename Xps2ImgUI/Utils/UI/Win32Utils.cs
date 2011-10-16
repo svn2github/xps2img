@@ -60,15 +60,15 @@ namespace Xps2ImgUI.Utils.UI
                 return;
             }
 
-            var mif = new MENUITEMINFO
-                          {
-                              cbSize = (uint)Marshal.SizeOf(typeof(MENUITEMINFO)),
-                              fMask = MIIM_STATE
-                          };
+            var menuItemInfo =  new MENUITEMINFO
+                                {
+                                    cbSize = (uint)Marshal.SizeOf(typeof(MENUITEMINFO)),
+                                    fMask = MIIM_STATE
+                                };
 
             for (var itemPosition = 0; itemPosition < GetMenuItemCount(hMenu);)
             {
-                if (GetMenuItemInfo(hMenu, (uint)itemPosition, true, ref mif) && (mif.fState & MFS_DISABLED) != 0)
+                if (GetMenuItemInfo(hMenu, (uint)itemPosition, true, ref menuItemInfo) && (menuItemInfo.fState & MFS_DISABLED) != 0)
                 {
                     RemoveMenu(hMenu, (uint)itemPosition, MF_BYPOSITION);
                     continue;
