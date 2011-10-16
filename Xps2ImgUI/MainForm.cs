@@ -1,4 +1,4 @@
-﻿#define SHOW_ELAPSED_TIME
+﻿//#define SHOW_ELAPSED_TIME
 
 using System;
 using System.ComponentModel;
@@ -39,6 +39,7 @@ namespace Xps2ImgUI
                 _xps2ImgModel.ErrorDataReceived -= Xps2ImgErrorDataReceived;
                 _xps2ImgModel.Completed -= Xps2ImgCompleted;
                 _xps2ImgModel.LaunchFailed -= Xps2ImgLaunchFailed;
+                _xps2ImgModel.LaunchSucceeded -= Xps2ImgLaunchSucceeded;
                 _xps2ImgModel.OptionsObjectChanged -= Xps2ImgOptionsObjectChanged;
             }
 
@@ -48,6 +49,7 @@ namespace Xps2ImgUI
             _xps2ImgModel.ErrorDataReceived += Xps2ImgErrorDataReceived;
             _xps2ImgModel.Completed += Xps2ImgCompleted;
             _xps2ImgModel.LaunchFailed += Xps2ImgLaunchFailed;
+            _xps2ImgModel.LaunchSucceeded += Xps2ImgLaunchSucceeded;
             _xps2ImgModel.OptionsObjectChanged += Xps2ImgOptionsObjectChanged;
 
             _xps2ImgModel.Init();
@@ -82,7 +84,7 @@ namespace Xps2ImgUI
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            if (_xps2ImgModel.IsRunning)
+            if (!IsProcessOperationPending && _xps2ImgModel.IsRunning)
             {
                 Activate();
 
@@ -226,6 +228,12 @@ namespace Xps2ImgUI
             UpdateRunningStatus(false);
         }
 
+        private void UpdateConvertControls()
+        {
+            convertButton.Enabled = true;
+            convertButton.Focus();
+        }
+
         private void UpdateCommandLine()
         {
             _srcFileDisplayName = Path.GetFileNameWithoutExtension(_xps2ImgModel.OptionsObject.SrcFile);
@@ -278,18 +286,14 @@ namespace Xps2ImgUI
             return file != null && ((File.GetAttributes(file) & FileAttributes.Directory) == 0) ? file : null;
         }
 
-        // ReSharper disable InconsistentNaming
         private void MainForm_DragEnter(object sender, DragEventArgs e)
-        // ReSharper restore InconsistentNaming
         {
             e.Effect = _xps2ImgModel.IsRunning || String.IsNullOrEmpty(GetDragFile(e.Data))
                         ? DragDropEffects.None
                         : DragDropEffects.Copy;
         }
 
-        // ReSharper disable InconsistentNaming
         private void MainForm_DragDrop(object sender, DragEventArgs e)
-        // ReSharper restore InconsistentNaming
         {
             var file = GetDragFile(e.Data);
 
@@ -343,6 +347,7 @@ namespace Xps2ImgUI
             }
 
             this.InvokeIfNeeded(() => { FlashForm(); UpdateRunningStatus(false); });
+            this.InvokeIfNeeded(UpdateConvertControls);
         }
 
         private void Xps2ImgLaunchFailed(object sender, ThreadExceptionEventArgs e)
@@ -352,16 +357,13 @@ namespace Xps2ImgUI
                             : e.Exception.Message;
 
             this.InvokeIfNeeded(() => UpdateFailedStatus(message));
+            this.InvokeIfNeeded(UpdateConvertControls);
         }
 
-        // ReSharper disable InconsistentNaming
-        private void convertButton_Click(object sender, EventArgs e)
-        // ReSharper restore InconsistentNaming
+        private void Xps2ImgLaunchSucceeded(object sender, EventArgs e)
         {
-            ExecuteConvertion();
+            this.InvokeIfNeeded(UpdateConvertControls);
         }
-
-        private bool _isModalWindowOpened;
 
         private new void Activate()
         {
@@ -418,40 +420,42 @@ namespace Xps2ImgUI
                 return;
             }
 
-            var isRunning = _xps2ImgModel.IsRunning;
-            if (isRunning)
+            if (_xps2ImgModel.IsRunning)
             {
                 _xps2ImgModel.Stop();
+                return;
             }
-            else
+
+            _conversionFailed = false;
+
+            if (FocusFirstRequiredOption(ShowOptionIsRequiredMessage))
             {
-                _conversionFailed = false;
-
-                if (FocusFirstRequiredOption(ShowOptionIsRequiredMessage))
-                {
-                    return;
-                }
-
-                Text = String.Format(Resources.Strings.WindowTitleLaunchingFormat, Resources.Strings.WindowTitle);
-
-                this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.Indeterminate);
-
-                ConvertedImagesFolder = null;
-
-                #if SHOW_ELAPSED_TIME
-                _stopwatch = new Stopwatch();
-                _stopwatch.Start();
-                #endif
-                
-                _xps2ImgModel.Launch();
+                return;
             }
 
-            UpdateRunningStatus(!isRunning);
+            Text = String.Format(Resources.Strings.WindowTitleLaunchingFormat, Resources.Strings.WindowTitle);
+
+            this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.Indeterminate);
+
+            ConvertedImagesFolder = null;
+
+            #if SHOW_ELAPSED_TIME
+            _stopwatch = new Stopwatch();
+            _stopwatch.Start();
+            #endif
+                
+            _xps2ImgModel.Launch();
+
+            UpdateRunningStatus(true);
         }
 
-        // ReSharper disable InconsistentNaming
+        private void convertButton_Click(object sender, EventArgs e)
+        {
+            convertButton.Enabled = false;
+            ExecuteConvertion();
+        }
+
         private void settingsPropertyGrid_PropertySortChanged(object sender, EventArgs e)
-        // ReSharper restore InconsistentNaming
         {
             var propertyGrid = (PropertyGrid) sender;
             if (propertyGrid.PropertySort == PropertySort.CategorizedAlphabetical)
@@ -460,31 +464,23 @@ namespace Xps2ImgUI
             }
         }
 
-        // ReSharper disable InconsistentNaming
         private void settingsPropertyGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
-        // ReSharper restore InconsistentNaming
         {
             UpdateCommandLine();
         }
 
-        // ReSharper disable InconsistentNaming
         private void settingsPropertyGrid_SelectedObjectsChanged(object sender, EventArgs e)
-        // ReSharper restore InconsistentNaming
         {
             UpdateCommandLine();
         }
 
-        // ReSharper disable InconsistentNaming
         private void showCommandLineToolStripButton_Click(object sender, EventArgs e)
-        // ReSharper restore InconsistentNaming
         {
             settingsSplitContainer.Panel2Collapsed = !settingsSplitContainer.Panel2Collapsed;
             UpdateShowCommandLineCommand();
         }
 
-        // ReSharper disable InconsistentNaming
         private void browseConvertedImagesToolStripButton_Click(object sender, EventArgs e)
-        // ReSharper restore InconsistentNaming
         {
             Explorer.Browse(ConvertedImagesFolder);
         }
@@ -508,6 +504,13 @@ namespace Xps2ImgUI
             get { return !settingsSplitContainer.Panel2Collapsed; }
             set { settingsSplitContainer.Panel2Collapsed = !value; }
         }
+
+        private bool IsProcessOperationPending
+        {
+            get { return !convertButton.Enabled; }
+        }
+
+        private bool _isModalWindowOpened;
 
         private Xps2ImgModel _xps2ImgModel;
 

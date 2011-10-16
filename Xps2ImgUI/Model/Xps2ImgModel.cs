@@ -96,7 +96,6 @@ namespace Xps2ImgUI.Model
 
             try
             {
-                FreeProcessResources();
                 CancelEvent.Set();
             }
             catch(InvalidOperationException)
@@ -146,6 +145,7 @@ namespace Xps2ImgUI.Model
         public event EventHandler OptionsObjectChanged;
 
         public event ThreadExceptionEventHandler LaunchFailed;
+        public event EventHandler LaunchSucceeded;
 
         private void FreeProcessResources()
         {
@@ -155,6 +155,10 @@ namespace Xps2ImgUI.Model
             _process.OutputDataReceived -= OutputDataReceivedWrapper;
             _process.ErrorDataReceived -= ErrorDataReceivedWrapper;
             _process.Exited -= ExitedWrapper;
+
+            _process.Dispose();
+
+            _process = null;
         }
 
         private void Xps2ImgTreadStart(object context)
@@ -186,9 +190,12 @@ namespace Xps2ImgUI.Model
                     _process.BeginOutputReadLine();
                     _process.BeginErrorReadLine();
 
-                    _process.WaitForExit();
+                    if (LaunchSucceeded != null)
+                    {
+                        LaunchSucceeded(this, EventArgs.Empty);
+                    }
 
-                    FreeProcessResources();
+                    _process.WaitForExit();
                 }
             }
             catch (Exception ex)
@@ -224,6 +231,8 @@ namespace Xps2ImgUI.Model
             {
                 Completed(sender, e);
             }
+
+            FreeProcessResources();
         }
 
         private void OptionsHolderOptionsObjectChanged(object sender, EventArgs e)

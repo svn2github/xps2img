@@ -21,23 +21,16 @@ namespace Windows7.DesktopIntegration
                 {
                     lock (_syncRoot)
                     {
-                        try
+                        if (_taskbarList == null)
                         {
-                            if (_taskbarList == null)
-                            {
-                                _taskbarList = (ITaskbarList3)new TaskbarList();
-                                _taskbarList.HrInit();
-                                _supported = true;
-                            }
-                        }
-                        catch(Exception ex)
-                        {
-                            if (!(ex is InvalidCastException || ex is COMException))
-                            {
-                                throw;
-                            }
-                            // Not supported by OS.
-                            _taskbarList = new TaskbarListStub();
+                            var taskbarList = new TaskbarList() as ITaskbarList3;
+                            var supported = taskbarList != null;
+
+                            taskbarList = taskbarList ?? new TaskbarListStub();
+                            taskbarList.HrInit();
+
+                            _taskbarList = taskbarList;
+                            _supported = supported;
                         }
                     }
                 }
