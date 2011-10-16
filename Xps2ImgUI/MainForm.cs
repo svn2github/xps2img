@@ -393,11 +393,17 @@ namespace Xps2ImgUI
 
         private DialogResult ShowMessageBox(string text, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton messageBoxDefaultButton)
         {
+            if (IsDisposed)
+            {
+                return DialogResult.Cancel;
+            }
+
             if (OwnedForms.Length != 0)
             {
                 Array.ForEach(OwnedForms, f => f.Close());
                 Application.DoEvents();
             }
+
             return MessageBox.Show(this, text, Resources.Strings.WindowTitle, buttons, icon, messageBoxDefaultButton);
         }
 
