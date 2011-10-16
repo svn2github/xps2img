@@ -25,11 +25,7 @@ namespace Xps2ImgUI
 
             var options = Parser.IsUsageRequiested(args) ? null : Parser.Parse<Options>(args, true);
 
-            var mainForm =  new MainForm
-                            {
-                                Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath),
-                                Visible = false
-                            };
+            var mainForm =  new MainForm { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) };
 
             SettingsManager.DeserializeSettings(mainForm);
 
@@ -39,8 +35,6 @@ namespace Xps2ImgUI
                                     ? SettingsManager.LoadSettings(options.SrcFile)
                                     : new Xps2ImgModel(options));
             }
-
-            mainForm.Visible = true;
 
             Application.Run(mainForm);
 

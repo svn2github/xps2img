@@ -228,7 +228,7 @@ namespace Xps2ImgUI
             UpdateRunningStatus(false);
         }
 
-        private void UpdateConvertControls()
+        private void EnableConvertControls()
         {
             convertButton.Enabled = true;
             convertButton.Focus();
@@ -346,7 +346,7 @@ namespace Xps2ImgUI
                 return;
             }
 
-            this.InvokeIfNeeded(() => { FlashForm(); UpdateRunningStatus(false); UpdateConvertControls(); });
+            this.InvokeIfNeeded(() => { FlashForm(); UpdateRunningStatus(false); EnableConvertControls(); });
         }
 
         private void Xps2ImgLaunchFailed(object sender, ThreadExceptionEventArgs e)
@@ -355,12 +355,12 @@ namespace Xps2ImgUI
                             ? String.Format(Resources.Strings.Xps2ImgNotFount, Environment.NewLine, e.Exception.Message)
                             : e.Exception.Message;
 
-            this.InvokeIfNeeded(() => { UpdateFailedStatus(message); UpdateConvertControls(); });
+            this.InvokeIfNeeded(() => { UpdateFailedStatus(message); EnableConvertControls(); });
         }
 
         private void Xps2ImgLaunchSucceeded(object sender, EventArgs e)
         {
-            this.InvokeIfNeeded(UpdateConvertControls);
+            this.InvokeIfNeeded(EnableConvertControls);
         }
 
         private new void Activate()
@@ -415,6 +415,7 @@ namespace Xps2ImgUI
             if (_isModalWindowOpened)
             {
                 Activate();
+                EnableConvertControls();
                 return;
             }
 
@@ -428,6 +429,7 @@ namespace Xps2ImgUI
 
             if (FocusFirstRequiredOption(ShowOptionIsRequiredMessage))
             {
+                EnableConvertControls();
                 return;
             }
 
