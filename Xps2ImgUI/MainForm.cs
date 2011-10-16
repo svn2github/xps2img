@@ -128,8 +128,8 @@ namespace Xps2ImgUI
 
         private void AdjustPropertyGrid()
         {
-            settingsPropertyGrid.DragDrop += MainForm_DragDrop;
-            settingsPropertyGrid.DragEnter += MainForm_DragEnter;
+            settingsPropertyGrid.DragDrop += MainFormDragDrop;
+            settingsPropertyGrid.DragEnter += MainFormDragEnter;
 
             settingsPropertyGrid.DocLines = 9;
             settingsPropertyGrid.SetDocMonospaceFont();
@@ -138,7 +138,7 @@ namespace Xps2ImgUI
             settingsPropertyGrid.RemoveLastToolStripButton();
 
             // Show Command Line button.
-            _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.ShowCommandLine, showCommandLineToolStripButton_Click,
+            _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.ShowCommandLine, ShowCommandLineToolStripButtonClick,
                 new ToolStripButtonItem(Resources.Strings.CopyCommandLineToClipboard, (s, e) => Clipboard.SetDataObject(commandLineTextBox.Text, true))
              );
 
@@ -166,7 +166,7 @@ namespace Xps2ImgUI
             settingsPropertyGrid.AddToolStripSeparator();
 
             // Explorer browse.
-            settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.BrowseConvertedImages, browseConvertedImagesToolStripButton_Click,
+            settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.BrowseConvertedImages, BrowseConvertedImagesToolStripButtonClick,
                 new ToolStripButtonItem(Resources.Strings.BrowseXPSFile, (s, e) => Explorer.Select(_xps2ImgModel.OptionsObject.SrcFile)),
                 new ToolStripButtonItem(),
                 new ToolStripButtonItem(Resources.Strings.CopyConvertedImagesPathToClipboard, (s, e) => Clipboard.SetDataObject(ConvertedImagesFolder, true))
@@ -286,14 +286,14 @@ namespace Xps2ImgUI
             return file != null && ((File.GetAttributes(file) & FileAttributes.Directory) == 0) ? file : null;
         }
 
-        private void MainForm_DragEnter(object sender, DragEventArgs e)
+        private void MainFormDragEnter(object sender, DragEventArgs e)
         {
             e.Effect = _xps2ImgModel.IsRunning || String.IsNullOrEmpty(GetDragFile(e.Data))
                         ? DragDropEffects.None
                         : DragDropEffects.Copy;
         }
 
-        private void MainForm_DragDrop(object sender, DragEventArgs e)
+        private void MainFormDragDrop(object sender, DragEventArgs e)
         {
             var file = GetDragFile(e.Data);
 
@@ -455,13 +455,13 @@ namespace Xps2ImgUI
             UpdateRunningStatus(true);
         }
 
-        private void convertButton_Click(object sender, EventArgs e)
+        private void ConvertButtonClick(object sender, EventArgs e)
         {
             convertButton.Enabled = false;
             ExecuteConvertion();
         }
 
-        private void settingsPropertyGrid_PropertySortChanged(object sender, EventArgs e)
+        private void SettingsPropertyGridPropertySortChanged(object sender, EventArgs e)
         {
             var propertyGrid = (PropertyGrid) sender;
             if (propertyGrid.PropertySort == PropertySort.CategorizedAlphabetical)
@@ -470,23 +470,23 @@ namespace Xps2ImgUI
             }
         }
 
-        private void settingsPropertyGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        private void SettingsPropertyGridPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
             UpdateCommandLine();
         }
 
-        private void settingsPropertyGrid_SelectedObjectsChanged(object sender, EventArgs e)
+        private void SettingsPropertyGridSelectedObjectsChanged(object sender, EventArgs e)
         {
             UpdateCommandLine();
         }
 
-        private void showCommandLineToolStripButton_Click(object sender, EventArgs e)
+        private void ShowCommandLineToolStripButtonClick(object sender, EventArgs e)
         {
             settingsSplitContainer.Panel2Collapsed = !settingsSplitContainer.Panel2Collapsed;
             UpdateShowCommandLineCommand();
         }
 
-        private void browseConvertedImagesToolStripButton_Click(object sender, EventArgs e)
+        private void BrowseConvertedImagesToolStripButtonClick(object sender, EventArgs e)
         {
             Explorer.Browse(ConvertedImagesFolder);
         }

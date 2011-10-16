@@ -74,9 +74,9 @@ namespace Xps2ImgUI
             this.settingsPropertyGrid.ReadOnly = false;
             this.settingsPropertyGrid.Size = new System.Drawing.Size(727, 466);
             this.settingsPropertyGrid.TabIndex = 0;
-            this.settingsPropertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.settingsPropertyGrid_PropertyValueChanged);
-            this.settingsPropertyGrid.PropertySortChanged += new System.EventHandler(this.settingsPropertyGrid_PropertySortChanged);
-            this.settingsPropertyGrid.SelectedObjectsChanged += new System.EventHandler(this.settingsPropertyGrid_SelectedObjectsChanged);
+            this.settingsPropertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.SettingsPropertyGridPropertyValueChanged);
+            this.settingsPropertyGrid.PropertySortChanged += new System.EventHandler(this.SettingsPropertyGridPropertySortChanged);
+            this.settingsPropertyGrid.SelectedObjectsChanged += new System.EventHandler(this.SettingsPropertyGridSelectedObjectsChanged);
             // 
             // commandLineTextBox
             // 
@@ -106,7 +106,7 @@ namespace Xps2ImgUI
             this.convertButton.Size = new System.Drawing.Size(75, 23);
             this.convertButton.TabIndex = 1;
             this.convertButton.UseVisualStyleBackColor = true;
-            this.convertButton.Click += new System.EventHandler(this.convertButton_Click);
+            this.convertButton.Click += new System.EventHandler(this.ConvertButtonClick);
             // 
             // MainForm
             // 
@@ -120,8 +120,8 @@ namespace Xps2ImgUI
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainForm_DragDrop);
-            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainForm_DragEnter);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainFormDragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainFormDragEnter);
             this.settingsSplitContainer.Panel1.ResumeLayout(false);
             this.settingsSplitContainer.Panel2.ResumeLayout(false);
             this.settingsSplitContainer.Panel2.PerformLayout();
