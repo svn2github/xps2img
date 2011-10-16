@@ -1,4 +1,4 @@
-﻿//#define SHOW_ELAPSED_TIME
+﻿#define SHOW_ELAPSED_TIME
 
 using System;
 using System.ComponentModel;
@@ -346,8 +346,7 @@ namespace Xps2ImgUI
                 return;
             }
 
-            this.InvokeIfNeeded(() => { FlashForm(); UpdateRunningStatus(false); });
-            this.InvokeIfNeeded(UpdateConvertControls);
+            this.InvokeIfNeeded(() => { FlashForm(); UpdateRunningStatus(false); UpdateConvertControls(); });
         }
 
         private void Xps2ImgLaunchFailed(object sender, ThreadExceptionEventArgs e)
@@ -356,8 +355,7 @@ namespace Xps2ImgUI
                             ? String.Format(Resources.Strings.Xps2ImgNotFount, Environment.NewLine, e.Exception.Message)
                             : e.Exception.Message;
 
-            this.InvokeIfNeeded(() => UpdateFailedStatus(message));
-            this.InvokeIfNeeded(UpdateConvertControls);
+            this.InvokeIfNeeded(() => { UpdateFailedStatus(message); UpdateConvertControls(); });
         }
 
         private void Xps2ImgLaunchSucceeded(object sender, EventArgs e)
