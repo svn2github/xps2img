@@ -230,8 +230,22 @@ namespace Xps2ImgUI
 
         private void EnableConvertControls()
         {
-            convertButton.Enabled = true;
-            convertButton.Focus();
+            EnableConvertControls(true);
+        }
+
+        private void EnableConvertControls(bool enable)
+        {
+            if (_thumbButton != null)
+            {
+                _thumbButton.Enabled = enable;
+            }
+
+            convertButton.Enabled = enable;
+
+            if (enable)
+            {
+                convertButton.Focus();
+            }
         }
 
         private void UpdateCommandLine()
@@ -418,6 +432,8 @@ namespace Xps2ImgUI
 
         private void ExecuteConvertion()
         {
+            EnableConvertControls(false);
+
             if (_isModalWindowOpened)
             {
                 Activate();
@@ -457,7 +473,6 @@ namespace Xps2ImgUI
 
         private void ConvertButtonClick(object sender, EventArgs e)
         {
-            convertButton.Enabled = false;
             ExecuteConvertion();
         }
 

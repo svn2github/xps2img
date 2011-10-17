@@ -34,15 +34,23 @@ namespace Windows7.DesktopIntegration
 
         public void RefreshThumbButtons()
         {
-            var win32Buttons = _thumbButtons.Values.Select(thumbButton => thumbButton.Win32ThumbButton).ToArray();
-            if (_buttonsLoaded)
+            try
             {
-                Windows7Taskbar.TaskbarList.ThumbBarUpdateButtons(_hwnd, (uint)win32Buttons.Length, win32Buttons);
+                var win32Buttons = _thumbButtons.Values.Select(thumbButton => thumbButton.Win32ThumbButton).ToArray();
+                if (_buttonsLoaded)
+                {
+                    Windows7Taskbar.TaskbarList.ThumbBarUpdateButtons(_hwnd, (uint) win32Buttons.Length, win32Buttons);
+                }
+                else
+                {
+                    Windows7Taskbar.TaskbarList.ThumbBarAddButtons(_hwnd, (uint) win32Buttons.Length, win32Buttons);
+                    _buttonsLoaded = true;
+                }
             }
-            else
+            // ReSharper disable EmptyGeneralCatchClause
+            catch
+            // ReSharper restore EmptyGeneralCatchClause
             {
-                Windows7Taskbar.TaskbarList.ThumbBarAddButtons(_hwnd, (uint)win32Buttons.Length, win32Buttons);
-                _buttonsLoaded = true;
             }
         }
 

@@ -49,6 +49,7 @@ namespace Xps2ImgUI
                                                                                          #else
                                                                                          .Message;
                                                                                          #endif
+
             MessageBox.Show(Application.OpenForms.Cast<IWin32Window>().FirstOrDefault(), exceptionMessage, Resources.Strings.WindowTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
