@@ -17,7 +17,10 @@ namespace Xps2ImgUI.Utils
                     if (propertyFilter == null || propertyFilter(propertyInfo))
                     {
                         var defaultValueAttribute = propertyInfo.FirstOrDefaultAttribute<DefaultValueAttribute>();
-                        propertyInfo.SetValue(obj, defaultValueAttribute != null ? defaultValueAttribute.Value : null, null);
+                        if (defaultValueAttribute != null)
+                        {
+                            propertyInfo.SetValue(obj, defaultValueAttribute.Value, null);
+                        }
                     }
                 }
             );

@@ -98,15 +98,15 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
 
         public static string FormatCommandLine(bool exceptionIfNoRequired, object optionsObject, IEnumerable<BaseOptionAttribute> optionAttributes)
         {
-            return FormatCommandLine(exceptionIfNoRequired, optionsObject, optionAttributes, true);
+            return FormatCommandLine(exceptionIfNoRequired, optionsObject, optionAttributes, null);
         }
 
-        public static string FormatCommandLine(bool exceptionIfNoRequired, object optionsObject, IEnumerable<BaseOptionAttribute> optionAttributes, bool formatInternal)
+        public static string FormatCommandLine(bool exceptionIfNoRequired, object optionsObject, IEnumerable<BaseOptionAttribute> optionAttributes, params string[] optionsToExclude)
         {
             const string optionsSeparator = " ";
 
             return String.Join(optionsSeparator, optionAttributes
-                    .Select(o => (formatInternal || !o.IsInternal) ? FormatOption(exceptionIfNoRequired, optionsObject, o, CurrentOptionFormatInfo) : String.Empty)
+                .Select(o => optionsToExclude != null && optionsToExclude.Contains(o.Name) ? String.Empty : FormatOption(exceptionIfNoRequired, optionsObject, o, CurrentOptionFormatInfo))
                     .Where(f => !String.IsNullOrEmpty(f))
                     .ToArray());
         }

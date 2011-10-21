@@ -11,6 +11,8 @@ using System.Windows.Forms;
 
 using Windows7.DesktopIntegration;
 
+using Xps2Img.CommandLine;
+
 using Xps2ImgUI.Controls;
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Settings;
@@ -251,7 +253,7 @@ namespace Xps2ImgUI
         private void UpdateCommandLine()
         {
             _srcFileDisplayName = Path.GetFileNameWithoutExtension(_xps2ImgModel.OptionsObject.SrcFile);
-            var commandLine = _xps2ImgModel.FormatCommandLine();
+            var commandLine = _xps2ImgModel.FormatCommandLine(Options.ExcludedOnView);
             var separator = String.IsNullOrEmpty(commandLine) ? String.Empty : "\x20";
             commandLineTextBox.Text = String.Format("\"{0}\"{1}{2}", Xps2ImgModel.Xps2ImgExecutable, separator, commandLine);
         }
@@ -345,11 +347,6 @@ namespace Xps2ImgUI
 
         private void Xps2ImgErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
-            if (String.IsNullOrEmpty(e.Data))
-            {
-                return;
-            }
-
             this.InvokeIfNeeded(() => UpdateFailedStatus(e.Data));
         }
 

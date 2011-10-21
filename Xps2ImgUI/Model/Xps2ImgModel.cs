@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Packaging;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using System.Windows.Xps.Packaging;
 
 using Xps2Img.CommandLine;
 
@@ -75,21 +79,24 @@ namespace Xps2ImgUI.Model
 
         public void Launch()
         {
-            Stop();
+            if (_isRunning)
+            {
+                throw new InvalidOperationException("Conversion is in progress. Complete it beforehand.");
+            }
 
-            new Thread(Xps2ImgTreadStart).Start();
+            new Thread(Xps2ImgLaunchThread).Start();
         }
 
         private EventWaitHandle _cancelEvent;
 
         private EventWaitHandle CancelEvent
         {
-            get { return _cancelEvent ?? (_cancelEvent = new EventWaitHandle(false, EventResetMode.AutoReset, _optionsHolder.OptionsObject.CancellationObjectId)); }
+            get { return _cancelEvent ?? (_cancelEvent = new EventWaitHandle(false, EventResetMode.ManualReset, _optionsHolder.OptionsObject.CancellationObjectId)); }
         }
         
         public void Stop()
         {
-            if (_process == null)
+            if (!_isRunning)
             {
                 return;
             }
@@ -103,14 +110,9 @@ namespace Xps2ImgUI.Model
             }
         }
 
-        public string FormatCommandLine()
+        public string FormatCommandLine(params string[] optionsToExclude)
         {
-            return FormatCommandLine(false);
-        }
-
-        public string FormatCommandLine(bool formatInternal)
-        {
-            return _optionsHolder.FormatCommandLine(false, formatInternal);
+            return _optionsHolder.FormatCommandLine(false, optionsToExclude);
         }
 
         public Options OptionsObject
@@ -123,19 +125,11 @@ namespace Xps2ImgUI.Model
             get { return _optionsHolder.FirstRequiredOptionLabel; }
         }
 
+        private volatile bool _isRunning;
+
         public bool IsRunning
         {
-            get
-            {
-                try
-                {
-                    return _process != null && !_process.HasExited;
-                }
-                catch(InvalidOperationException)
-                {
-                    return false;
-                }
-            }
+            get { return _isRunning; }
         }
 
         public event DataReceivedEventHandler OutputDataReceived;
@@ -147,59 +141,129 @@ namespace Xps2ImgUI.Model
         public event ThreadExceptionEventHandler LaunchFailed;
         public event EventHandler LaunchSucceeded;
 
-        private void FreeProcessResources()
+        private void FreeProcessResources(Process process)
         {
-            _process.CancelOutputRead();
-            _process.CancelErrorRead();
+            process.CancelOutputRead();
+            process.CancelErrorRead();
 
-            _process.OutputDataReceived -= OutputDataReceivedWrapper;
-            _process.ErrorDataReceived -= ErrorDataReceivedWrapper;
-            _process.Exited -= ExitedWrapper;
+            process.OutputDataReceived -= OutputDataReceivedWrapper;
+            process.ErrorDataReceived -= ErrorDataReceivedWrapper;
 
-            _process.Dispose();
-
-            _process = null;
+            process.Dispose();
         }
 
-        private void Xps2ImgTreadStart(object context)
+        private Process StartProcess(string commandLine, Encoding consoleEncoding)
+        {
+            var processStartInfo = new ProcessStartInfo(Xps2ImgExecutable, commandLine)
+            {
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                StandardOutputEncoding = consoleEncoding,
+                StandardErrorEncoding = consoleEncoding
+            };
+
+            var process = new Process {StartInfo = processStartInfo, EnableRaisingEvents = true};
+
+            process.OutputDataReceived += OutputDataReceivedWrapper;
+            process.ErrorDataReceived += ErrorDataReceivedWrapper;
+
+            process.Start();
+
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+
+            return process;
+        }
+
+        private List<Interval> GetPages()
+        {
+            var intervals = Interval.Parse(OptionsObject.Pages);
+            if (intervals.Last().HasMaxValue)
+            {
+                using (var xpsDocument = new XpsDocument(OptionsObject.SrcFile, FileAccess.Read, CompressionOption.NotCompressed))
+                {
+                    var fixedDocumentSequence = xpsDocument.GetFixedDocumentSequence();
+                    if (fixedDocumentSequence == null)
+                    {
+                        intervals.Clear();
+                    }
+                    else
+                    {
+                        intervals.Last().SetEndValue(fixedDocumentSequence.DocumentPaginator.PageCount);
+                    }
+                }
+            }
+            return intervals;
+        }
+
+        private void Xps2ImgProcessWaitThread(Process process)
         {
             try
             {
+                process.WaitForExit();
+                FreeProcessResources(process);
+            }
+            // ReSharper disable EmptyGeneralCatchClause
+            catch { }
+            // ReSharper restore EmptyGeneralCatchClause
+        }
+
+        private void Xps2ImgLaunchThread()
+        {
+            //var threadsCount = OptionsObject.ActualProcessorsNumber;
+
+            var pps = new[] { "-50", "51-100", "101-150", "151-200" };
+
+            //const int threadsCount = 2;
+            //var pps = new[] { "-100", "101-200" };
+
+            var waitProcessThreads = new List<Thread>();
+
+            Action waitAllProcessThreads = () => waitProcessThreads.ForEach(t => t.Join());
+
+            try
+            {
+                _isRunning = true;
+                _isErrorReported = false;
+
                 CancelEvent.Reset();
 
                 var consoleEncoding = Encoding.GetEncoding(Thread.CurrentThread.CurrentCulture.GetConsoleFallbackUICulture().TextInfo.OEMCodePage);
 
-                var processStartInfo =  new ProcessStartInfo(Xps2ImgExecutable, FormatCommandLine(true))
-                                        {
-                                            CreateNoWindow = true,
-                                            UseShellExecute = false,
-                                            RedirectStandardOutput = true,
-                                            RedirectStandardError = true,
-                                            StandardOutputEncoding = consoleEncoding,
-                                            StandardErrorEncoding = consoleEncoding
-                                        };
+                var intervals = GetPages();
 
-                using (_process = new Process { StartInfo = processStartInfo, EnableRaisingEvents = true })
+                var threadsCount = intervals.Any() ? OptionsObject.ActualProcessorsNumber : 1;
+
+                // calculate intervals
+
+                for (var i = 0; i < threadsCount; i++)
                 {
-                    _process.OutputDataReceived += OutputDataReceivedWrapper;
-                    _process.ErrorDataReceived += ErrorDataReceivedWrapper;
-                    _process.Exited += ExitedWrapper;
+                    var process = StartProcess(FormatCommandLine(Options.ExcludedOnLaunch) + String.Format(" -p \"{0}\"", pps[i]), consoleEncoding);
+                    var waitProcessThread = new Thread(() => Xps2ImgProcessWaitThread(process));
+                    waitProcessThread.Start();
+                    waitProcessThreads.Add(waitProcessThread);
+                }
 
-                    _process.Start();
+                if (LaunchSucceeded != null)
+                {
+                    LaunchSucceeded(this, EventArgs.Empty);
+                }
 
-                    _process.BeginOutputReadLine();
-                    _process.BeginErrorReadLine();
+                waitAllProcessThreads();
 
-                    if (LaunchSucceeded != null)
-                    {
-                        LaunchSucceeded(this, EventArgs.Empty);
-                    }
-
-                    _process.WaitForExit();
+                if (Completed != null)
+                {
+                    Completed(this, EventArgs.Empty);
                 }
             }
             catch (Exception ex)
             {
+                Stop();
+
+                waitAllProcessThreads();
+
                 if (LaunchFailed == null)
                 {
                     throw;
@@ -207,32 +271,36 @@ namespace Xps2ImgUI.Model
 
                 LaunchFailed(this, new ThreadExceptionEventArgs(ex));
             }
+            finally
+            {
+                _isRunning = false;
+            }
         }
 
         private void OutputDataReceivedWrapper(object sender, DataReceivedEventArgs e)
         {
             if (OutputDataReceived != null)
             {
-                OutputDataReceived(sender, e);
+                OutputDataReceived(this, e);
             }
         }
+
+        private volatile bool _isErrorReported;
 
         private void ErrorDataReceivedWrapper(object sender, DataReceivedEventArgs e)
         {
-            if (ErrorDataReceived != null)
+            if (String.IsNullOrEmpty(e.Data))
             {
-                ErrorDataReceived(sender, e);
-            }
-        }
-
-        private void ExitedWrapper(object sender, EventArgs e)
-        {
-            if (Completed != null)
-            {
-                Completed(sender, e);
+                return;
             }
 
-            FreeProcessResources();
+            if (ErrorDataReceived != null && !_isErrorReported)
+            {
+                _isErrorReported = true;
+                ErrorDataReceived(this, e);
+            }
+
+            Stop();
         }
 
         private void OptionsHolderOptionsObjectChanged(object sender, EventArgs e)
@@ -255,6 +323,5 @@ namespace Xps2ImgUI.Model
         }
 
         private OptionsHolder<Options> _optionsHolder;
-        private Process _process;
     }
 }

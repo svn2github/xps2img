@@ -44,14 +44,14 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
             }
         }
 
-        public string FormatCommandLine(bool formatInternal)
+        public string FormatCommandLine(params string[] optionsToExclude)
         {
-            return FormatCommandLine(false, formatInternal);
+            return FormatCommandLine(false, optionsToExclude);
         }
 
-        public string FormatCommandLine(bool exceptionIfNoRequired, bool formatInternal)
+        public string FormatCommandLine(bool exceptionIfNoRequired, params string[] optionsToExclude)
         {
-            return OptionsFormatter.FormatCommandLine(exceptionIfNoRequired, OptionsObject, OptionAttributes, formatInternal);
+            return OptionsFormatter.FormatCommandLine(exceptionIfNoRequired, OptionsObject, OptionAttributes, optionsToExclude);
         }
 
         public string FirstRequiredOptionLabel

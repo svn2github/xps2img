@@ -5,6 +5,7 @@ using Xps2Img.CommandLine.TypeConverters;
 #if XPS2IMG_UI
 using System;
 using System.Drawing.Design;
+using System.Linq;
 
 using CommandLine.Validation;
 
@@ -84,6 +85,7 @@ namespace Xps2Img.CommandLine
         [TabbedDescription(PagesDescription)]
         [Category(Category.Options)]
         [Option(PagesShortOption)]
+        [DefaultValue(null)]
         public string Pages
         {
             get { return _pages; }
@@ -128,6 +130,7 @@ namespace Xps2Img.CommandLine
         [TabbedDescription(RequiredSizeDescription)]
         [Option(RequiredSizeOption)]
         [Category(Category.Options)]
+        [DefaultValue(null)]
         public string RequiredSize
         {
             get { return _requiredSize; }
@@ -177,6 +180,7 @@ namespace Xps2Img.CommandLine
         [TabbedDescription(ImageNameDescription)]
         [Option(ImageNameShortOption)]
         [Category(Category.Options)]
+        [DefaultValue(null)]
         public string ImageName
         {
             get { return _imageName; }
@@ -315,10 +319,13 @@ namespace Xps2Img.CommandLine
         #endif
 
         #if !XPS2IMG_UI
-        [global::CommandLine.Option("", Flags = global::CommandLine.OptionFlags.Internal)]
+        [global::CommandLine.Option("", global::CommandLine.ShortOptionType.None1, Flags = global::CommandLine.OptionFlags.Internal)]
         public string CancellationObjectId { get; set; }
         #else
-        [Option("cancellation-object-id", IsInternal = true)]
+
+        private const string CancellationObjectIdName = "cancellation-object-id";
+
+        [Option(CancellationObjectIdName)]
         [Browsable(false)]
         public string CancellationObjectId
         {
@@ -333,6 +340,51 @@ namespace Xps2Img.CommandLine
         #endif
 
         #if XPS2IMG_UI
+
+        public const string AutoProcessors = "Auto";
+        private const string ProcessorsNameDefaultValue = AutoProcessors;
+
+        private const string ProcessorsName = "processors-number";
+
+        [global::CommandLine.Option("", global::CommandLine.ShortOptionType.None2, DefaultValue = ProcessorsNameDefaultValue)]
+        [Option(ProcessorsName)]
+        [DisplayName("Processors Number")]
+        [TabbedDescription("Number of simultaneous file processors")]
+        [Category(Category.Options)]
+        [TypeConverter(typeof(ProcessorsNumberConverter))]
+        [DefaultValue(ProcessorsNameDefaultValue)]
+        public string ProcessorsNumber
+        {
+            get { return _processorsNumber; }
+
+            set
+            {
+                var processesNumber = 1;
+
+                _processorsNumber =
+                    (AutoProcessors.CompareTo(value) != 0 && !Int32.TryParse(value, out processesNumber)) || (processesNumber <= 0 || processesNumber > ProcessorsNumberConverter.ProcessorCount)
+                    ? AutoProcessors
+                    : value;
+            }
+        }
+
+        private string _processorsNumber;
+
+        [Browsable(false)]
+        public int ActualProcessorsNumber
+        {
+            get
+            {
+                return AutoProcessors == ProcessorsNumber
+                           ? ProcessorsNumberConverter.ProcessorCount
+                           : int.Parse(ProcessorsNumber);
+            }
+        }
+
+        public static readonly string[] ExcludedOnSave = new[] { CancellationObjectIdName };
+        public static readonly string[] ExcludedOnLaunch = new[] { ProcessorsName };
+        public static readonly string[] ExcludedOnView = ExcludedOnSave.Concat(ExcludedOnLaunch).ToArray();
+
         private static void ValidateProperty(object propertyValue, string validatorExpresion)
         {
             if (propertyValue == null)
