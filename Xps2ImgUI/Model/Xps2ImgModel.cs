@@ -7,6 +7,7 @@ using System.IO.Packaging;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Xps.Packaging;
 
@@ -135,7 +136,7 @@ namespace Xps2ImgUI.Model
             get { return _isRunning; }
         }
 
-        public event DataReceivedEventHandler OutputDataReceived;
+        public event EventHandler<ConvertionProgressEventArgs> OutputDataReceived;
         public event DataReceivedEventHandler ErrorDataReceived;
         public event EventHandler Completed;
 
@@ -280,11 +281,28 @@ namespace Xps2ImgUI.Model
             }
         }
 
+        private static readonly Regex OutputRegex = new Regex(@"^\[\s*(?<percent>\d+)%\].+\(\s*(?<pages>\d+/\d+)\).+?'(?<file>.+)'");
+
         private void OutputDataReceivedWrapper(object sender, DataReceivedEventArgs e)
         {
+            if (String.IsNullOrEmpty(e.Data))
+            {
+                return;
+            }
+
             if (OutputDataReceived != null)
             {
-                OutputDataReceived(this, e);
+                var match = OutputRegex.Match(e.Data);
+                if (!match.Success)
+                {
+                    return;
+                }
+
+                var percent = Convert.ToInt32(match.Groups["percent"].Value);
+                var pages = match.Groups["pages"].Value;
+                var file = match.Groups["file"].Value;
+                
+                OutputDataReceived(this, new ConvertionProgressEventArgs(percent, pages, file));
             }
         }
 

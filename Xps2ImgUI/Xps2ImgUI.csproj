@@ -108,6 +108,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\BaseSelectFileFolderEditor.cs" />
+    <Compile Include="Model\ConvertionProgressEventArgs.cs" />
     <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Model\Xps2ImgModel.cs" />
     <Compile Include="Dialogs\SelectFileEditor.cs" />

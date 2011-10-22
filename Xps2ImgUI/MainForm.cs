@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -323,28 +322,10 @@ namespace Xps2ImgUI
             }
         }
 
-        private static readonly Regex OutputRegex = new Regex(@"^\[\s*(?<percent>\d+)%\].+\(\s*(?<pages>\d+/\d+)\).+?'(?<file>.+)'");
-
-        private void Xps2ImgOutputDataReceived(object sender, DataReceivedEventArgs e)
+        private void Xps2ImgOutputDataReceived(object sender, ConvertionProgressEventArgs e)
         {
-            if (String.IsNullOrEmpty(e.Data))
-            {
-                return;
-            }
-
-            var match = OutputRegex.Match(e.Data);
-            if (!match.Success)
-            {
-                return;
-            }
-
-            var percent = Convert.ToInt32(match.Groups["percent"].Value);
-            var pages = match.Groups["pages"].Value;
-            var file = match.Groups["file"].Value;
-
-            ConvertedImagesFolder = Path.GetDirectoryName(file);
-
-            this.InvokeIfNeeded(() => UpdateProgress(percent, pages, file));
+            ConvertedImagesFolder = Path.GetDirectoryName(e.File);
+            this.InvokeIfNeeded(() => UpdateProgress(e.Percent, e.Pages, e.File));
         }
 
         private void Xps2ImgErrorDataReceived(object sender, DataReceivedEventArgs e)
