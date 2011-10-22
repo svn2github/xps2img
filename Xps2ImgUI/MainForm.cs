@@ -32,7 +32,9 @@ namespace Xps2ImgUI
         {
             if (xps2ImgModel == null)
             {
-                return;
+                // ReSharper disable LocalizableElement
+                throw new ArgumentException("XPS2ImgModel could not be null", "xps2ImgModel");
+                // ReSharper restore LocalizableElement
             }
 
             if (_xps2ImgModel != null)
@@ -232,10 +234,10 @@ namespace Xps2ImgUI
 
         private void EnableConvertControls()
         {
-            EnableConvertControls(true);
+            EnableConvertControls(true, true);
         }
 
-        private void EnableConvertControls(bool enable)
+        private void EnableConvertControls(bool enable, bool focus)
         {
             if (_thumbButton != null)
             {
@@ -244,7 +246,7 @@ namespace Xps2ImgUI
 
             convertButton.Enabled = enable;
 
-            if (enable)
+            if (enable && focus)
             {
                 convertButton.Focus();
             }
@@ -429,7 +431,7 @@ namespace Xps2ImgUI
 
         private void ExecuteConvertion()
         {
-            EnableConvertControls(false);
+            EnableConvertControls(false, false);
 
             if (_isModalWindowOpened)
             {
@@ -448,7 +450,7 @@ namespace Xps2ImgUI
 
             if (FocusFirstRequiredOption(ShowOptionIsRequiredMessage))
             {
-                EnableConvertControls();
+                EnableConvertControls(true, false);
                 return;
             }
 

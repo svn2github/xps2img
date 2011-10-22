@@ -81,10 +81,13 @@ namespace Xps2ImgUI.Model
         {
             if (_isRunning)
             {
-                throw new InvalidOperationException("Conversion is in progress. Complete it beforehand.");
+                throw new InvalidOperationException("Conversion is in progress.");
             }
 
-            new Thread(Xps2ImgLaunchThread).Start();
+            var xps2ImgLaunchThread = new Thread(Xps2ImgLaunchThread);
+
+            xps2ImgLaunchThread.SetApartmentState(ApartmentState.STA);
+            xps2ImgLaunchThread.Start();
         }
 
         private EventWaitHandle _cancelEvent;
