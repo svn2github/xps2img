@@ -214,14 +214,24 @@ namespace Xps2ImgUI.Model
             // ReSharper restore EmptyGeneralCatchClause
         }
 
+        private int _pagesTotal;
+        private int _pagesProcessed;
+
+        private int _threadsCount;
+
+        private bool IsSingleProcessor
+        {
+            get { return _threadsCount == 1; }
+        }
+
         private void Xps2ImgLaunchThread()
         {
-            //var threadsCount = OptionsObject.ActualProcessorsNumber;
+            //_threadsCount = OptionsObject.ActualProcessorsNumber;
 
+            //var pps = new[] { "-100", "101-200" };
             var pps = new[] { "-50", "51-100", "101-150", "151-200" };
 
-            //const int threadsCount = 2;
-            //var pps = new[] { "-100", "101-200" };
+            _threadsCount = pps.Length;
 
             var waitProcessThreads = new List<Thread>();
 
@@ -238,11 +248,14 @@ namespace Xps2ImgUI.Model
 
                 var intervals = GetPages();
 
-                var threadsCount = intervals.Any() ? OptionsObject.ActualProcessorsNumber : 1;
+                _pagesTotal = 200; //intervals.GetTotalLength();
+                _pagesProcessed = 0;
+
+                _threadsCount = intervals.Any() ? OptionsObject.ActualProcessorsNumber : 1;
 
                 // calculate intervals
 
-                for (var i = 0; i < threadsCount; i++)
+                for (var i = 0; i < _threadsCount; i++)
                 {
                     var process = StartProcess(FormatCommandLine(Options.ExcludedOnLaunch) + String.Format(" -p \"{0}\"", pps[i]), consoleEncoding);
                     var waitProcessThread = new Thread(() => Xps2ImgProcessWaitThread(process));
@@ -281,29 +294,42 @@ namespace Xps2ImgUI.Model
             }
         }
 
-        private static readonly Regex OutputRegex = new Regex(@"^\[\s*(?<percent>\d+)%\].+\(\s*(?<pages>\d+/\d+)\).+?'(?<file>.+)'");
+        private const string FileNameGroup = @".+?'(?<file>.+)'";
+
+        private static readonly Regex OutputRegex = new Regex(@"^\[\s*(?<percent>\d+)%\].+\(\s*(?<pages>\d+/\d+)\)" + FileNameGroup);
+        private static readonly Regex FileNameRegex = new Regex(FileNameGroup);
 
         private void OutputDataReceivedWrapper(object sender, DataReceivedEventArgs e)
         {
-            if (String.IsNullOrEmpty(e.Data))
+            if (String.IsNullOrEmpty(e.Data) || OutputDataReceived == null)
             {
                 return;
             }
 
-            if (OutputDataReceived != null)
+            var match = (IsSingleProcessor ? OutputRegex : FileNameRegex).Match(e.Data);
+            if (!match.Success)
             {
-                var match = OutputRegex.Match(e.Data);
-                if (!match.Success)
-                {
-                    return;
-                }
-
-                var percent = Convert.ToInt32(match.Groups["percent"].Value);
-                var pages = match.Groups["pages"].Value;
-                var file = match.Groups["file"].Value;
-                
-                OutputDataReceived(this, new ConvertionProgressEventArgs(percent, pages, file));
+                return;
             }
+
+            int percent;
+            string pages;
+
+            if (IsSingleProcessor)
+            {
+                percent = Convert.ToInt32(match.Groups["percent"].Value);
+                pages = match.Groups["pages"].Value;
+            }
+            else
+            {
+                var pageIndex = Interlocked.Increment(ref _pagesProcessed);
+                percent = pageIndex*100 / _pagesTotal;
+                pages = String.Format("{0}/{1}", pageIndex, _pagesTotal);
+            }
+
+            var file = match.Groups["file"].Value;
+                
+            OutputDataReceived(this, new ConvertionProgressEventArgs(percent, pages, file));
         }
 
         private volatile bool _isErrorReported;

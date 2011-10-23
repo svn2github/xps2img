@@ -324,8 +324,8 @@ namespace Xps2ImgUI
 
         private void Xps2ImgOutputDataReceived(object sender, ConvertionProgressEventArgs e)
         {
-            ConvertedImagesFolder = Path.GetDirectoryName(e.File);
-            this.InvokeIfNeeded(() => UpdateProgress(e.Percent, e.Pages, e.File));
+            SetConvertedImagesFolder(e.File);
+            this.Invoke(() => UpdateProgress(e.Percent, e.Pages, e.File));
         }
 
         private void Xps2ImgErrorDataReceived(object sender, DataReceivedEventArgs e)
@@ -439,7 +439,7 @@ namespace Xps2ImgUI
 
             this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.Indeterminate);
 
-            ConvertedImagesFolder = null;
+            _convertedImagesFolder = null;
 
             #if SHOW_ELAPSED_TIME
             _stopwatch = new Stopwatch();
@@ -489,10 +489,23 @@ namespace Xps2ImgUI
         private volatile bool _conversionFailed;
 
         private volatile string _convertedImagesFolder;
+
         private string ConvertedImagesFolder
         {
-            get { return _convertedImagesFolder ?? Xps2ImgModel.ApplicationFolder; }
-            set { _convertedImagesFolder = value; }
+            get
+            {
+                return _convertedImagesFolder ?? Xps2ImgModel.ApplicationFolder;
+            }
+        }
+
+        public void SetConvertedImagesFolder(string fileName)
+        {
+            if (_convertedImagesFolder != null)
+            {
+                return;
+            }
+
+            _convertedImagesFolder = Path.GetDirectoryName(fileName);
         }
 
         private string ConvertButtonCleanText
