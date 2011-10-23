@@ -14,8 +14,7 @@ namespace Xps2ImgUI.Converters
         
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            StandardValuesCollection cols = new StandardValuesCollection(Processors);
-            return cols;
+            return new StandardValuesCollection(Processors);
         }
 
         public  static readonly int ProcessorCount = Environment.ProcessorCount;
@@ -24,7 +23,7 @@ namespace Xps2ImgUI.Converters
 
         private static IEnumerable<string> EnumProcessors()
         {
-            yield return Xps2Img.CommandLine.Options.AutoProcessors;
+            yield return Xps2Img.CommandLine.Options.AutoValue;
             for (var i = 1; i <= ProcessorCount; i++)
             {
                 yield return i.ToString();        

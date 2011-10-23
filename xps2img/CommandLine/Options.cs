@@ -4,6 +4,7 @@ using Xps2Img.CommandLine.TypeConverters;
 
 #if XPS2IMG_UI
 using System;
+using System.Diagnostics;
 using System.Drawing.Design;
 using System.Linq;
 
@@ -290,17 +291,6 @@ namespace Xps2Img.CommandLine
         private const string TestDescription = "Test mode (no files will be written)";
         private const char TestShortOption = 'e';
 
-        [global::CommandLine.Option(TestDescription, TestShortOption, global::CommandLine.ArgumentExpectancy.No)]
-        #if XPS2IMG_UI
-        [DisplayName("Test Mode")]
-        [TabbedDescription(TestDescription)]
-        [Option(TestShortOption)]
-        [Category(Category.Options)]
-        [DefaultValue(false)]
-        [TypeConverter(typeof(YesNoConverter))]
-        #endif
-        public bool Test { get; set; }
-
         #if !XPS2IMG_UI
         private const string SilentModeDescription = "Silent mode (no progress will be shown)";
         private const char SilentModeShortOption = 's';
@@ -341,15 +331,15 @@ namespace Xps2Img.CommandLine
 
         #if XPS2IMG_UI
 
-        public const string AutoProcessors = "Auto";
-        private const string ProcessorsNameDefaultValue = AutoProcessors;
+        public const string AutoValue = "Auto";
 
+        private const string ProcessorsNameDefaultValue = AutoValue;
         private const string ProcessorsName = "processors-number";
 
         [global::CommandLine.Option("", global::CommandLine.ShortOptionType.None2, DefaultValue = ProcessorsNameDefaultValue)]
         [Option(ProcessorsName)]
-        [DisplayName("Processors Number")]
-        [TabbedDescription("Number of simultaneous file processors")]
+        [DisplayName("Processors")]
+        [TabbedDescription("Number of simultaneously running document processors")]
         [Category(Category.Options)]
         [TypeConverter(typeof(ProcessorsNumberConverter))]
         [DefaultValue(ProcessorsNameDefaultValue)]
@@ -362,8 +352,8 @@ namespace Xps2Img.CommandLine
                 var processesNumber = 1;
 
                 _processorsNumber =
-                    (AutoProcessors.CompareTo(value) != 0 && !Int32.TryParse(value, out processesNumber)) || (processesNumber <= 0 || processesNumber > ProcessorsNumberConverter.ProcessorCount)
-                    ? AutoProcessors
+                    (AutoValue.CompareTo(value) != 0 && !Int32.TryParse(value, out processesNumber)) || (processesNumber <= 0 || processesNumber > ProcessorsNumberConverter.ProcessorCount)
+                    ? AutoValue
                     : value;
             }
         }
@@ -375,14 +365,49 @@ namespace Xps2Img.CommandLine
         {
             get
             {
-                return AutoProcessors == ProcessorsNumber
+                return AutoValue == ProcessorsNumber
                            ? ProcessorsNumberConverter.ProcessorCount
                            : int.Parse(ProcessorsNumber);
             }
         }
 
+        private const string ProcessorsPriorityNameDefaultValue = AutoValue;
+        private const string ProcessorsPriorityName = "processors-priority";
+
+        [global::CommandLine.Option("", global::CommandLine.ShortOptionType.None3, DefaultValue = ProcessorsPriorityNameDefaultValue)]
+        [Option(ProcessorsPriorityName)]
+        [DisplayName("Processors Priority")]
+        [TabbedDescription("Document processors priority")]
+        [Category(Category.Options)]
+        [TypeConverter(typeof(ProcessPriorityClassConverter))]
+        [DefaultValue(ProcessorsPriorityNameDefaultValue)]
+        public string ProcessorsPriority
+        {
+            get { return _processorsPriority; }
+
+            set
+            {
+               _processorsPriority = (AutoValue.CompareTo(value) != 0 && !Enum.IsDefined(typeof(ProcessPriorityClass), value))
+                                        ? AutoValue
+                                        : value;
+            }
+        }
+
+        private string _processorsPriority;
+
+        [Browsable(false)]
+        public ProcessPriorityClass ActualProcessorsPriority
+        {
+            get
+            {
+                return Enum.IsDefined(typeof(ProcessPriorityClass), _processorsPriority)
+                        ? (ProcessPriorityClass)Enum.Parse(typeof(ProcessPriorityClass), _processorsPriority)
+                        : ProcessPriorityClass.Normal;
+            }
+        }
+
         public static readonly string[] ExcludedOnSave = new[] { CancellationObjectIdName };
-        public static readonly string[] ExcludedOnLaunch = new[] { ProcessorsName };
+        public static readonly string[] ExcludedOnLaunch = new[] { ProcessorsName, ProcessorsPriorityName };
         public static readonly string[] ExcludedOnView = ExcludedOnSave.Concat(ExcludedOnLaunch).ToArray();
 
         private static void ValidateProperty(object propertyValue, string validatorExpresion)
@@ -405,6 +430,17 @@ namespace Xps2Img.CommandLine
             }
         }
         #endif
+
+        [global::CommandLine.Option(TestDescription, TestShortOption, global::CommandLine.ArgumentExpectancy.No)]
+        #if XPS2IMG_UI
+        [DisplayName("Test Mode")]
+        [TabbedDescription(TestDescription)]
+        [Option(TestShortOption)]
+        [Category(Category.Options)]
+        [DefaultValue(false)]
+        [TypeConverter(typeof(YesNoConverter))]
+        #endif
+        public bool Test { get; set; }
     }
 
     public static class OptionsValidators

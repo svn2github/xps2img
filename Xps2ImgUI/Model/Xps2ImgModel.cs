@@ -168,12 +168,22 @@ namespace Xps2ImgUI.Model
                 StandardErrorEncoding = consoleEncoding
             };
 
-            var process = new Process {StartInfo = processStartInfo, EnableRaisingEvents = true};
+            var process = new Process {StartInfo = processStartInfo, EnableRaisingEvents = true };
 
             process.OutputDataReceived += OutputDataReceivedWrapper;
             process.ErrorDataReceived += ErrorDataReceivedWrapper;
 
             process.Start();
+
+            try
+            {
+                process.PriorityClass = OptionsObject.ActualProcessorsPriority;
+            }
+            // ReSharper disable EmptyGeneralCatchClause
+            catch
+            // ReSharper restore EmptyGeneralCatchClause
+            {
+            }
 
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
@@ -224,6 +234,42 @@ namespace Xps2ImgUI.Model
             get { return _threadsCount == 1; }
         }
 
+        private ProcessPriorityClass _originalProcessPriorityClass;
+
+        private void BoostProcessPriority(bool boost)
+        {
+            try
+            {
+                var process = Process.GetCurrentProcess();
+
+                var processPriorityClass = _originalProcessPriorityClass;
+                
+                if (boost)
+                {
+                    _originalProcessPriorityClass = process.PriorityClass;
+
+                    switch (OptionsObject.ActualProcessorsPriority)
+                    {
+                        case ProcessPriorityClass.Normal:
+                            processPriorityClass = ProcessPriorityClass.AboveNormal;
+                            break;
+                        case ProcessPriorityClass.AboveNormal:
+                            processPriorityClass = ProcessPriorityClass.High;
+                            break;
+                        default:
+                            return;
+                    }
+                }
+
+                process.PriorityClass = processPriorityClass;
+            }
+            // ReSharper disable EmptyGeneralCatchClause
+            catch
+            // ReSharper restore EmptyGeneralCatchClause
+            {
+            }
+        }
+
         private void Xps2ImgLaunchThread()
         {
             //_threadsCount = OptionsObject.ActualProcessorsNumber;
@@ -239,6 +285,8 @@ namespace Xps2ImgUI.Model
 
             try
             {
+                BoostProcessPriority(true);           
+
                 _isRunning = true;
                 _isErrorReported = false;
 
@@ -291,6 +339,7 @@ namespace Xps2ImgUI.Model
             finally
             {
                 _isRunning = false;
+                BoostProcessPriority(false);
             }
         }
 

@@ -58,8 +58,8 @@ namespace Xps2ImgUI
             // 
             this.settingsSplitContainer.Panel2.Controls.Add(this.commandLineTextBox);
             this.settingsSplitContainer.Panel2Collapsed = true;
-            this.settingsSplitContainer.Size = new System.Drawing.Size(742, 484);
-            this.settingsSplitContainer.SplitterDistance = 416;
+            this.settingsSplitContainer.Size = new System.Drawing.Size(777, 513);
+            this.settingsSplitContainer.SplitterDistance = 440;
             this.settingsSplitContainer.TabIndex = 7;
             // 
             // commandLineTextBox
@@ -70,22 +70,22 @@ namespace Xps2ImgUI
             this.commandLineTextBox.Multiline = true;
             this.commandLineTextBox.Name = "commandLineTextBox";
             this.commandLineTextBox.ReadOnly = true;
-            this.commandLineTextBox.Size = new System.Drawing.Size(742, 64);
+            this.commandLineTextBox.Size = new System.Drawing.Size(777, 69);
             this.commandLineTextBox.TabIndex = 0;
             // 
             // progressBar
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar.Location = new System.Drawing.Point(8, 499);
+            this.progressBar.Location = new System.Drawing.Point(8, 528);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(665, 23);
+            this.progressBar.Size = new System.Drawing.Size(700, 23);
             this.progressBar.TabIndex = 0;
             // 
             // convertButton
             // 
             this.convertButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.convertButton.Location = new System.Drawing.Point(676, 499);
+            this.convertButton.Location = new System.Drawing.Point(711, 528);
             this.convertButton.Name = "convertButton";
             this.convertButton.Size = new System.Drawing.Size(75, 23);
             this.convertButton.TabIndex = 1;
@@ -102,7 +102,7 @@ namespace Xps2ImgUI
             this.settingsPropertyGrid.Name = "settingsPropertyGrid";
             this.settingsPropertyGrid.PropertySort = System.Windows.Forms.PropertySort.Categorized;
             this.settingsPropertyGrid.ReadOnly = false;
-            this.settingsPropertyGrid.Size = new System.Drawing.Size(742, 484);
+            this.settingsPropertyGrid.Size = new System.Drawing.Size(773, 505);
             this.settingsPropertyGrid.TabIndex = 0;
             this.settingsPropertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.SettingsPropertyGridPropertyValueChanged);
             this.settingsPropertyGrid.PropertySortChanged += new System.EventHandler(this.SettingsPropertyGridPropertySortChanged);
@@ -113,7 +113,7 @@ namespace Xps2ImgUI
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(758, 531);
+            this.ClientSize = new System.Drawing.Size(793, 560);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.convertButton);
             this.Controls.Add(this.settingsSplitContainer);

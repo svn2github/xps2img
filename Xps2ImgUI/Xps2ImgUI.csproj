@@ -102,6 +102,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ToolStripButtonItem.cs" />
+    <Compile Include="Converters\ProcessPriorityClassConverter.cs" />
     <Compile Include="Converters\ProcessorsNumberConverter.cs" />
     <Compile Include="Converters\YesNoConverter.cs" />
     <Compile Include="MainForm.Settings.cs">
