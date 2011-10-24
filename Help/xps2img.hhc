@@ -45,6 +45,10 @@
 			<param name="Name" value="Options">
 			<param name="Local" value="Files\Options.html#pages">
 			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="GUI Options">
+			<param name="Local" value="Files\OptionsGUI.html">
+			</OBJECT>
 	</UL>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Revision History">

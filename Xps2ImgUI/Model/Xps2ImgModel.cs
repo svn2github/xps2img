@@ -153,7 +153,7 @@ namespace Xps2ImgUI.Model
             process.OutputDataReceived -= OutputDataReceivedWrapper;
             process.ErrorDataReceived -= ErrorDataReceivedWrapper;
 
-            process.Dispose();
+            process.Close();
         }
 
         private Process StartProcess(string commandLine, Encoding consoleEncoding)
@@ -281,7 +281,9 @@ namespace Xps2ImgUI.Model
 
             var waitProcessThreads = new List<Thread>();
 
-            Action waitAllProcessThreads = () => waitProcessThreads.ForEach(t => t.Join());
+            // ReSharper disable EmptyGeneralCatchClause
+            Action waitAllProcessThreads = () => waitProcessThreads.ForEach(t => { try { t.Join(); } catch {} });
+            // ReSharper restore EmptyGeneralCatchClause
 
             try
             {
@@ -328,6 +330,10 @@ namespace Xps2ImgUI.Model
                 Stop();
 
                 waitAllProcessThreads();
+
+                // https://connect.microsoft.com/VisualStudio/feedback/details/430646/thread-handle-leak#tabs
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
 
                 if (LaunchFailed == null)
                 {

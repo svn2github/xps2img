@@ -325,7 +325,7 @@ namespace Xps2ImgUI
         private void Xps2ImgOutputDataReceived(object sender, ConvertionProgressEventArgs e)
         {
             SetConvertedImagesFolder(e.File);
-            this.Invoke(() => UpdateProgress(e.Percent, e.Pages, e.File));
+            this.InvokeIfNeeded(() => UpdateProgress(e.Percent, e.Pages, e.File));
         }
 
         private void Xps2ImgErrorDataReceived(object sender, DataReceivedEventArgs e)

@@ -147,6 +147,14 @@
 		<param name="Local" value="Files\Options.html#prelimsprefix">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Processors">
+		<param name="Local" value="Files\OptionsGUI.html#processors">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Processors Priority">
+		<param name="Local" value="Files\OptionsGUI.html#processorspriority">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Test Mode">
 		<param name="Local" value="Files\Options.html#test">
 		</OBJECT>
@@ -190,6 +198,14 @@
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Preliminaries Prefix">
 		<param name="Local" value="Files\Options.html#prelimsprefix">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Processors">
+		<param name="Local" value="Files\OptionsGUI.html#processors">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Processors Priority">
+		<param name="Local" value="Files\OptionsGUI.html#processorspriority">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Test Mode">
@@ -278,6 +294,14 @@
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="--prelims-prefix">
 		<param name="Local" value="Files\Options.html#prelimsprefix">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="--processors">
+		<param name="Local" value="Files\OptionsGUI.html#processors">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="--processors-priority">
+		<param name="Local" value="Files\OptionsGUI.html#processorspriority">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="--required-size">
