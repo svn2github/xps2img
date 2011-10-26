@@ -31,9 +31,7 @@ namespace Xps2ImgUI
         {
             if (xps2ImgModel == null)
             {
-                // ReSharper disable LocalizableElement
-                throw new ArgumentException("XPS2ImgModel could not be null", "xps2ImgModel");
-                // ReSharper restore LocalizableElement
+                return;
             }
 
             if (_xps2ImgModel != null)

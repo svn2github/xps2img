@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Packaging;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -168,7 +167,7 @@ namespace Xps2ImgUI.Model
                 StandardErrorEncoding = consoleEncoding
             };
 
-            var process = new Process {StartInfo = processStartInfo, EnableRaisingEvents = true };
+            var process = new Process { StartInfo = processStartInfo, EnableRaisingEvents = true };
 
             process.OutputDataReceived += OutputDataReceivedWrapper;
             process.ErrorDataReceived += ErrorDataReceivedWrapper;
@@ -196,7 +195,7 @@ namespace Xps2ImgUI.Model
             var intervals = Interval.Parse(OptionsObject.Pages);
             if (intervals.Last().HasMaxValue)
             {
-                using (var xpsDocument = new XpsDocument(OptionsObject.SrcFile, FileAccess.Read, CompressionOption.NotCompressed))
+                using (var xpsDocument = new XpsDocument(OptionsObject.SrcFile, FileAccess.Read))
                 {
                     var fixedDocumentSequence = xpsDocument.GetFixedDocumentSequence();
                     if (fixedDocumentSequence == null)
@@ -212,11 +211,18 @@ namespace Xps2ImgUI.Model
             return intervals;
         }
 
+        private int _processExitCode;
+
         private void Xps2ImgProcessWaitThread(Process process)
         {
             try
             {
                 process.WaitForExit();
+                if(process.ExitCode >= 0)
+                {
+                    Interlocked.CompareExchange(ref _processExitCode, 1, 0);
+                }
+                Interlocked.Decrement(ref _threadsLeft);
                 FreeProcessResources(process);
             }
             // ReSharper disable EmptyGeneralCatchClause
@@ -227,6 +233,7 @@ namespace Xps2ImgUI.Model
         private int _pagesTotal;
         private int _pagesProcessed;
 
+        private int _threadsLeft;
         private int _threadsCount;
 
         private bool IsSingleProcessor
@@ -270,27 +277,35 @@ namespace Xps2ImgUI.Model
             }
         }
 
+        private void WaitAllProcessThreads(bool checkExitCode)
+        {
+            while (Interlocked.CompareExchange(ref _threadsLeft, 0, 0) != 0)
+            {
+                Thread.Sleep(500);
+                if (checkExitCode && Interlocked.CompareExchange(ref _processExitCode, 0, 0) == 1)
+                {
+                    throw new Exception(Resources.Strings.Error_ProcessorHasTerminated);
+                }
+            }
+        }
+        
         private void Xps2ImgLaunchThread()
         {
             //_threadsCount = OptionsObject.ActualProcessorsNumber;
 
-            //var pps = new[] { "-100", "101-200" };
-            var pps = new[] { "-50", "51-100", "101-150", "151-200" };
+            var pps = new[] { "-100", "101-200" };
+            //var pps = new[] { "-50", "51-100", "101-150", "151-200" };
 
             _threadsCount = pps.Length;
 
-            var waitProcessThreads = new List<Thread>();
-
-            // ReSharper disable EmptyGeneralCatchClause
-            Action waitAllProcessThreads = () => waitProcessThreads.ForEach(t => { try { t.Join(); } catch {} });
-            // ReSharper restore EmptyGeneralCatchClause
-
             try
             {
-                BoostProcessPriority(true);           
+                BoostProcessPriority(true);
 
                 _isRunning = true;
                 _isErrorReported = false;
+                _processExitCode = 0;
+                _threadsLeft = 0;
 
                 CancelEvent.Reset();
 
@@ -308,9 +323,8 @@ namespace Xps2ImgUI.Model
                 for (var i = 0; i < _threadsCount; i++)
                 {
                     var process = StartProcess(FormatCommandLine(Options.ExcludedOnLaunch) + String.Format(" -p \"{0}\"", pps[i]), consoleEncoding);
-                    var waitProcessThread = new Thread(() => Xps2ImgProcessWaitThread(process));
-                    waitProcessThread.Start();
-                    waitProcessThreads.Add(waitProcessThread);
+                    ThreadPool.QueueUserWorkItem(_ => Xps2ImgProcessWaitThread(process));
+                    Interlocked.Increment(ref _threadsLeft);
                 }
 
                 if (LaunchSucceeded != null)
@@ -318,8 +332,8 @@ namespace Xps2ImgUI.Model
                     LaunchSucceeded(this, EventArgs.Empty);
                 }
 
-                waitAllProcessThreads();
-
+                WaitAllProcessThreads(true);
+                
                 if (Completed != null)
                 {
                     Completed(this, EventArgs.Empty);
@@ -329,11 +343,7 @@ namespace Xps2ImgUI.Model
             {
                 Stop();
 
-                waitAllProcessThreads();
-
-                // https://connect.microsoft.com/VisualStudio/feedback/details/430646/thread-handle-leak#tabs
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
+                WaitAllProcessThreads(false);
 
                 if (LaunchFailed == null)
                 {
@@ -346,6 +356,10 @@ namespace Xps2ImgUI.Model
             {
                 _isRunning = false;
                 BoostProcessPriority(false);
+
+                // https://connect.microsoft.com/VisualStudio/feedback/details/430646/thread-handle-leak#tabs
+                GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
+                GC.WaitForPendingFinalizers();
             }
         }
 

@@ -17,7 +17,8 @@ namespace Xps2Img.CommandLine
             // Errors.
             InvalidArg = 1,
             NoArgs = 2,
-            Failed = 3
+            Failed = 3,
+            InternalOK = -1
         }
 
         #endregion

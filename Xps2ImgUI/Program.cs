@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 using CommandLine;
@@ -22,6 +23,11 @@ namespace Xps2ImgUI
 
             AppDomain.CurrentDomain.UnhandledException += (sender, e) => HandleException(e.ExceptionObject as Exception);
             Application.ThreadException += (sender, e) => HandleException(e.Exception);
+
+            int workerThreads, completionPortThreads;
+
+            ThreadPool.GetMinThreads(out workerThreads, out completionPortThreads);
+            ThreadPool.SetMinThreads(workerThreads*10/4, completionPortThreads);
 
             var options = Parser.IsUsageRequiested(args) ? null : Parser.Parse<Options>(args, true);
 

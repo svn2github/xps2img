@@ -192,4 +192,7 @@
     <data name="XPS2ImgFileExtension">
         <value xml:space="preserve">.x2i</value>
     </data>
+    <data name="Error_ProcessorHasTerminated">
+        <value xml:space="preserve">Processor has terminated unexpectedly.</value>
+    </data>
 </root>

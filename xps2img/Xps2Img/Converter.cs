@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using System.IO.Packaging;
 using System.Text;
 using System.Windows.Documents;
 using System.Windows.Media;
@@ -32,7 +31,7 @@ namespace Xps2Img.Xps2Img
             XpsFileName = xpsFileName;
             _cancelConvertionFunc = cancelConvertionFunc;
 
-            _xpsDocument = new XpsDocument(xpsFileName, FileAccess.Read, CompressionOption.NotCompressed);
+            _xpsDocument = new XpsDocument(xpsFileName, FileAccess.Read);
             // ReSharper disable PossibleNullReferenceException
             _documentPaginator = _xpsDocument.GetFixedDocumentSequence().DocumentPaginator;
             // ReSharper restore PossibleNullReferenceException

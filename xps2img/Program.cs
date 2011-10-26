@@ -33,14 +33,20 @@ namespace Xps2Img
                 }
 
                 Trace.WriteLine(Parser.ToCommandLine(options));
-                
-                if (!String.IsNullOrEmpty(options.CancellationObjectId))
+
+                var launchedAsInternal = !String.IsNullOrEmpty(options.CancellationObjectId);
+
+                if (launchedAsInternal)
                 {
                     var cancelEvent = new EventWaitHandle(false, EventResetMode.AutoReset, options.CancellationObjectId);
                     ThreadPool.QueueUserWorkItem(_ => _isCancelled = cancelEvent.WaitOne(Timeout.Infinite));
                 }
 
-                return Convert(options, () => _isCancelled);
+                var result = Convert(options, () => _isCancelled);
+
+                return launchedAsInternal && result == (int)CommandLine.CommandLine.ReturnCode.OK
+                        ? (int)CommandLine.CommandLine.ReturnCode.InternalOK
+                        : result;
             }
             catch (Exception ex)
             {
