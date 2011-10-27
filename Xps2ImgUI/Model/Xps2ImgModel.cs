@@ -293,8 +293,8 @@ namespace Xps2ImgUI.Model
         {
             //_threadsCount = OptionsObject.ActualProcessorsNumber;
 
-            var pps = new[] { "-100", "101-200" };
-            //var pps = new[] { "-50", "51-100", "101-150", "151-200" };
+            //var pps = new[] { "-100", "101-200" };
+            var pps = new[] { "-50", "51-100", "101-150", "151-200" };
 
             _threadsCount = pps.Length;
 
