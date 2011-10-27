@@ -71,6 +71,9 @@
     <Compile Include="..\xps2img\CommandLine\Interval.cs">
       <Link>Shared\Interval.cs</Link>
     </Compile>
+    <Compile Include="..\xps2img\CommandLine\IntervalUtils.cs">
+      <Link>Shared\IntervalUtils.cs</Link>
+    </Compile>
     <Compile Include="..\xps2img\CommandLine\Options.cs">
       <Link>Shared\Options.cs</Link>
     </Compile>

@@ -407,8 +407,9 @@ namespace Xps2Img.CommandLine
         }
 
         public static readonly string[] ExcludedOnSave = new[] { CancellationObjectIdName };
-        public static readonly string[] ExcludedOnLaunch = new[] { ProcessorsName, ProcessorsPriorityName };
-        public static readonly string[] ExcludedOnView = ExcludedOnSave.Concat(ExcludedOnLaunch).ToArray();
+        public static readonly string[] ExcludedUIOptions = new[] { ProcessorsName, ProcessorsPriorityName };
+        public static readonly string[] ExcludedOnLaunch = ExcludedUIOptions.Concat(new[] { PagesShortOption.ToString() }).ToArray();
+        public static readonly string[] ExcludedOnView = ExcludedOnSave.Concat(ExcludedUIOptions).ToArray();
 
         private static void ValidateProperty(object propertyValue, string validatorExpresion)
         {

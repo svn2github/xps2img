@@ -83,6 +83,7 @@
     </Compile>
     <Compile Include="CommandLine\CommandLine.cs" />
     <Compile Include="CommandLine\Interval.cs" />
+    <Compile Include="CommandLine\IntervalUtils.cs" />
     <Compile Include="CommandLine\Options.cs" />
     <Compile Include="CommandLine\TypeConverters\IntervalTypeConverter.cs" />
     <Compile Include="CommandLine\TypeConverters\RequiredSizeTypeConverter.cs" />

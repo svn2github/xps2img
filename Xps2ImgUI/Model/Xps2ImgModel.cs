@@ -190,7 +190,7 @@ namespace Xps2ImgUI.Model
             return process;
         }
 
-        private List<Interval> GetPages()
+        private List<Interval> GetDocumentIntervals()
         {
             var intervals = Interval.Parse(OptionsObject.Pages);
             if (intervals.Last().HasMaxValue)
@@ -291,13 +291,6 @@ namespace Xps2ImgUI.Model
         
         private void Xps2ImgLaunchThread()
         {
-            //_threadsCount = OptionsObject.ActualProcessorsNumber;
-
-            //var pps = new[] { "-100", "101-200" };
-            var pps = new[] { "-50", "51-100", "101-150", "151-200" };
-
-            _threadsCount = pps.Length;
-
             try
             {
                 BoostProcessPriority(true);
@@ -306,23 +299,23 @@ namespace Xps2ImgUI.Model
                 _isErrorReported = false;
                 _processExitCode = 0;
                 _threadsLeft = 0;
+                _pagesProcessed = 0;
 
                 CancelEvent.Reset();
 
                 var consoleEncoding = Encoding.GetEncoding(Thread.CurrentThread.CurrentCulture.GetConsoleFallbackUICulture().TextInfo.OEMCodePage);
 
-                var intervals = GetPages();
+                var intervals = GetDocumentIntervals();
 
-                _pagesTotal = 200; //intervals.GetTotalLength();
-                _pagesProcessed = 0;
+                _pagesTotal = intervals.GetTotalLength();
 
                 _threadsCount = intervals.Any() ? OptionsObject.ActualProcessorsNumber : 1;
 
-                // calculate intervals
+                var splittedIntervals = intervals.SplitBy(_pagesTotal / _threadsCount);
 
-                for (var i = 0; i < _threadsCount; i++)
+                foreach (var t in splittedIntervals)
                 {
-                    var process = StartProcess(FormatCommandLine(Options.ExcludedOnLaunch) + String.Format(" -p \"{0}\"", pps[i]), consoleEncoding);
+                    var process = StartProcess(String.Format("{0} -p \"{1}\"", FormatCommandLine(Options.ExcludedOnLaunch), IntervalUtils.ToString(t)), consoleEncoding);
                     ThreadPool.QueueUserWorkItem(_ => Xps2ImgProcessWaitThread(process));
                     Interlocked.Increment(ref _threadsLeft);
                 }

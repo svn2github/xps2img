@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Xps2Img.CommandLine
@@ -208,46 +207,6 @@ namespace Xps2Img.CommandLine
             intervalsOptimized.Sort((x, y) => x.Begin < y.Begin ? -1 : 1);
 
             return intervalsOptimized;
-        }
-    }
-
-    public static class IntervalUtils
-    {
-        public static string ToString(this IEnumerable<Interval> intervals)
-        {
-            var sb = new StringBuilder(16);
-            var first = true;
-            foreach (var interval in intervals)
-            {
-                if (!first)
-                {
-                    sb.Append(',');
-                }
-                sb.Append(interval);
-                first = false;
-            }
-            return sb.ToString();
-        }
-
-        public static int GetTotalLength(this IEnumerable<Interval> intervals)
-        {
-            return intervals.Sum(interval => interval.Length);
-        }
-
-        public static void SetEndValue(this IEnumerable<Interval> intervals, int endValue)
-        {
-            foreach (var interval in intervals)
-            {
-                interval.SetEndValue(endValue);
-            }
-        }
-
-        public static List<Interval> AdjustBeginValue(this IEnumerable<Interval> intervals, int beginValue)
-        {
-            return intervals
-                    .Where(interval => interval.End >= beginValue)
-                    .Select(interval => (interval.Begin >= beginValue) ? interval : new Interval(beginValue, interval.End))
-                    .ToList();
         }
     }
 }
