@@ -87,6 +87,11 @@ namespace Xps2Img.CommandLine
             return intervals;
         }
 
+        public static List<List<Interval>> SplitBy(this IEnumerable<Interval> intervals, int intervalLength)
+        {
+            return SplitBy(intervals.ToList(), intervalLength);
+        }
+
         public static List<List<Interval>> SplitBy(this List<Interval> intervals, int intervalLength)
         {
             if (intervalLength <= 0)
