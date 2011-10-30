@@ -283,29 +283,38 @@ namespace Xps2ImgUI.Model
         {
             try
             {
-                BoostProcessPriority(true);
-
                 _isRunning = true;
                 _isErrorReported = false;
                 _processExitCode = 0;
                 _threadsLeft = 0;
                 _pagesProcessed = 0;
 
-                CancelEvent.Reset();
-
                 var consoleEncoding = Encoding.GetEncoding(Thread.CurrentThread.CurrentCulture.GetConsoleFallbackUICulture().TextInfo.OEMCodePage);
 
-                var intervals = GetDocumentIntervals();
+                _threadsCount = OptionsObject.ActualProcessorsNumber;
 
-                _pagesTotal = intervals.GetTotalLength();
+                var splittedIntervals = new List<List<Interval>> { new List<Interval>() };
 
-                _threadsCount = intervals.Any() ? OptionsObject.ActualProcessorsNumber : 1;
+                if (!IsSingleProcessor)
+                {
+                    BoostProcessPriority(true);
 
-                var splittedIntervals = intervals.SplitBy(_threadsCount);
+                    var intervals = GetDocumentIntervals();
+
+                    _pagesTotal = intervals.GetTotalLength();
+
+                    splittedIntervals = intervals.SplitBy(_threadsCount);
+                }
+
+                CancelEvent.Reset();
 
                 foreach (var t in splittedIntervals)
                 {
-                    var process = StartProcess(String.Format("{0} -p \"{1}\"", FormatCommandLine(Options.ExcludedOnLaunch), IntervalUtils.ToString(t)), consoleEncoding);
+                    var process = StartProcess(
+                                    IsSingleProcessor
+                                        ? FormatCommandLine(Options.ExcludedUIOptions)
+                                        : String.Format("{0} -p \"{1}\"", FormatCommandLine(Options.ExcludedOnLaunch), IntervalUtils.ToString(t))
+                                    , consoleEncoding);
                     ThreadPool.QueueUserWorkItem(_ => Xps2ImgProcessWaitThread(process));
                     Interlocked.Increment(ref _threadsLeft);
                 }
@@ -338,7 +347,11 @@ namespace Xps2ImgUI.Model
             finally
             {
                 _isRunning = false;
-                BoostProcessPriority(false);
+
+                if (!IsSingleProcessor)
+                {
+                    BoostProcessPriority(false);
+                }
 
                 // https://connect.microsoft.com/VisualStudio/feedback/details/430646/thread-handle-leak#tabs
                 GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
