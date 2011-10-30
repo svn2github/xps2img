@@ -81,7 +81,7 @@ namespace Xps2ImgUI.Model
         {
             if (_isRunning)
             {
-                throw new InvalidOperationException("Conversion is in progress.");
+                throw new InvalidOperationException("Conversion is in progress.");  
             }
 
             var xps2ImgLaunchThread = new Thread(Xps2ImgLaunchThread);
@@ -90,13 +90,6 @@ namespace Xps2ImgUI.Model
             xps2ImgLaunchThread.Start();
         }
 
-        private EventWaitHandle _cancelEvent;
-
-        private EventWaitHandle CancelEvent
-        {
-            get { return _cancelEvent ?? (_cancelEvent = new EventWaitHandle(false, EventResetMode.ManualReset, _optionsHolder.OptionsObject.CancellationObjectId)); }
-        }
-        
         public void Stop()
         {
             if (!_isRunning)
@@ -118,6 +111,13 @@ namespace Xps2ImgUI.Model
             return _optionsHolder.FormatCommandLine(false, optionsToExclude);
         }
 
+        private EventWaitHandle _cancelEvent;
+
+        private EventWaitHandle CancelEvent
+        {
+            get { return _cancelEvent ?? (_cancelEvent = new EventWaitHandle(false, EventResetMode.ManualReset, _optionsHolder.OptionsObject.CancellationObjectId)); }
+        }
+
         public Options OptionsObject
         {
             get { return _optionsHolder.OptionsObject; }
@@ -133,6 +133,11 @@ namespace Xps2ImgUI.Model
         public bool IsRunning
         {
             get { return _isRunning; }
+        }
+
+        private bool IsSingleProcessor
+        {
+            get { return _threadsCount == 1; }
         }
 
         public event EventHandler<ConvertionProgressEventArgs> OutputDataReceived;
@@ -211,8 +216,6 @@ namespace Xps2ImgUI.Model
             return intervals;
         }
 
-        private int _processExitCode;
-
         private void Xps2ImgProcessWaitThread(Process process)
         {
             try
@@ -229,19 +232,6 @@ namespace Xps2ImgUI.Model
             catch { }
             // ReSharper restore EmptyGeneralCatchClause
         }
-
-        private int _pagesTotal;
-        private int _pagesProcessed;
-
-        private int _threadsLeft;
-        private int _threadsCount;
-
-        private bool IsSingleProcessor
-        {
-            get { return _threadsCount == 1; }
-        }
-
-        private ProcessPriorityClass _originalProcessPriorityClass;
 
         private void BoostProcessPriority(bool boost)
         {
@@ -311,7 +301,7 @@ namespace Xps2ImgUI.Model
 
                 _threadsCount = intervals.Any() ? OptionsObject.ActualProcessorsNumber : 1;
 
-                var splittedIntervals = intervals.SplitBy(_pagesTotal / _threadsCount);
+                var splittedIntervals = intervals.SplitBy(_threadsCount);
 
                 foreach (var t in splittedIntervals)
                 {
@@ -356,11 +346,6 @@ namespace Xps2ImgUI.Model
             }
         }
 
-        private const string FileNameGroup = @".+?'(?<file>.+)'";
-
-        private static readonly Regex OutputRegex = new Regex(@"^\[\s*(?<percent>\d+)%\].+\(\s*(?<pages>\d+/\d+)\)" + FileNameGroup);
-        private static readonly Regex FileNameRegex = new Regex(FileNameGroup);
-
         private void OutputDataReceivedWrapper(object sender, DataReceivedEventArgs e)
         {
             if (String.IsNullOrEmpty(e.Data) || OutputDataReceived == null)
@@ -393,8 +378,6 @@ namespace Xps2ImgUI.Model
                 
             OutputDataReceived(this, new ConvertionProgressEventArgs(percent, pages, file));
         }
-
-        private volatile bool _isErrorReported;
 
         private void ErrorDataReceivedWrapper(object sender, DataReceivedEventArgs e)
         {
@@ -431,6 +414,23 @@ namespace Xps2ImgUI.Model
             FireOptionsObjectChanged();
         }
 
+        private const string FileNameGroup = @".+?'(?<file>.+)'";
+
+        private static readonly Regex OutputRegex = new Regex(@"^\[\s*(?<percent>\d+)%\].+\(\s*(?<pages>\d+/\d+)\)" + FileNameGroup);
+        private static readonly Regex FileNameRegex = new Regex(FileNameGroup);
+
         private OptionsHolder<Options> _optionsHolder;
+
+        private int _pagesTotal;
+        private int _pagesProcessed;
+
+        private int _threadsLeft;
+        private int _threadsCount;
+
+        private int _processExitCode;
+
+        private ProcessPriorityClass _originalProcessPriorityClass;
+
+        private volatile bool _isErrorReported;
     }
 }

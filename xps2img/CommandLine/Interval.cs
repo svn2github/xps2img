@@ -12,6 +12,13 @@ namespace Xps2Img.CommandLine
         {
         }
 
+        public Interval(int point)
+        {
+            Begin = End = point;
+
+            Normalize();
+        }
+
         public Interval(int begin, int end)
         {
             Begin = begin;

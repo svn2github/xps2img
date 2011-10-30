@@ -87,14 +87,14 @@ namespace Xps2Img.CommandLine
             return intervals;
         }
 
-        public static List<List<Interval>> SplitBy(this IEnumerable<Interval> intervals, int intervalLength)
+        public static List<List<Interval>> SplitBy(this IEnumerable<Interval> intervals, int intervalsCount)
         {
-            return SplitBy(intervals.ToList(), intervalLength);
+            return SplitBy(intervals.ToList(), intervalsCount);
         }
 
-        public static List<List<Interval>> SplitBy(this List<Interval> intervals, int intervalLength)
+        public static List<List<Interval>> SplitBy(this List<Interval> intervals, int intervalsCount)
         {
-            if (intervalLength <= 0)
+            if (intervalsCount <= 0)
             {
                 return new List<List<Interval>> { intervals };
             }
@@ -113,13 +113,18 @@ namespace Xps2Img.CommandLine
 
             var lastIndex = 1;
 
-            var doubledIntervalLength = intervalLength*2;
+            var intervalLength = (bits.Length-1)/intervalsCount;
+
+            if (intervalLength == 0)
+            {
+                intervalLength = 1;
+            }
 
             while (lastIndex < bits.Length)
             {
-                if (bits.Length - lastIndex < doubledIntervalLength)
+                if (--intervalsCount == 0)
                 {
-                    intervalLength = doubledIntervalLength;
+                    intervalLength = bits.Length;
                 }
                 splittedIntervals.Add(GetFromBitArray(bits, ref lastIndex, intervalLength));
             }
