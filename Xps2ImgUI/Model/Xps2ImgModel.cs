@@ -15,6 +15,8 @@ using Xps2Img.CommandLine;
 using Xps2ImgUI.Attributes.OptionsHolder;
 using Xps2ImgUI.Utils;
 
+//todo: fix if pages count out of range
+
 namespace Xps2ImgUI.Model
 {
     public class Xps2ImgModel
