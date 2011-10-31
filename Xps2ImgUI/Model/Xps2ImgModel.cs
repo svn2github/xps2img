@@ -111,13 +111,6 @@ namespace Xps2ImgUI.Model
             return _optionsHolder.FormatCommandLine(false, optionsToExclude);
         }
 
-        private EventWaitHandle _cancelEvent;
-
-        private EventWaitHandle CancelEvent
-        {
-            get { return _cancelEvent ?? (_cancelEvent = new EventWaitHandle(false, EventResetMode.ManualReset, _optionsHolder.OptionsObject.CancellationObjectId)); }
-        }
-
         public Options OptionsObject
         {
             get { return _optionsHolder.OptionsObject; }
@@ -128,11 +121,14 @@ namespace Xps2ImgUI.Model
             get { return _optionsHolder.FirstRequiredOptionLabel; }
         }
 
-        private volatile bool _isRunning;
-
         public bool IsRunning
         {
             get { return _isRunning; }
+        }
+
+        private EventWaitHandle CancelEvent
+        {
+            get { return _cancelEvent ?? (_cancelEvent = new EventWaitHandle(false, EventResetMode.ManualReset, _optionsHolder.OptionsObject.CancellationObjectId)); }
         }
 
         private bool IsSingleProcessor
@@ -445,5 +441,8 @@ namespace Xps2ImgUI.Model
         private ProcessPriorityClass _originalProcessPriorityClass;
 
         private volatile bool _isErrorReported;
+        private volatile bool _isRunning;
+
+        private EventWaitHandle _cancelEvent;
     }
 }

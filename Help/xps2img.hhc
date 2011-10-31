@@ -51,6 +51,20 @@
 			</OBJECT>
 	</UL>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Hints &amp; Tips">
+		<param name="Local" value="Files\Hints.html">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="XPS Printing">
+			<param name="Local" value="Files\Hints.html#xpsPrinting">
+		</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="XPS Convertion">
+			<param name="Local" value="Files\Hints.html#xpsConvertion">
+		</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Revision History">
 		<param name="Local" value="Files\History.html">
 		</OBJECT>
