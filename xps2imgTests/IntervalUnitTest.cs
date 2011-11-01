@@ -35,15 +35,20 @@ namespace Xps2ImgTests
         [TestMethod]
         public void SplitIntervals()
         {
-            VerifySplitIntervals(new[] { new Interval(50, 100), new Interval(150, 201) }, 4, new List<List<Interval>> { new List<Interval> { new Interval(50, 99) }, new List<Interval> { new Interval(100), new Interval(150, 198) }, new List<Interval> { new Interval(199, 201) } });
+            VerifySplitIntervals(new[] { new Interval(211, 413) }, 4, new List<List<Interval>> { new List<Interval> { new Interval(211, 260) }, new List<Interval> { new Interval(261, 310) }, new List<Interval> { new Interval(311, 360) }, new List<Interval> { new Interval(361, 413) } });
+            VerifySplitIntervals(new[] { new Interval(50, 100), new Interval(150, 201) }, 4, new List<List<Interval>> { new List<Interval> { new Interval(50, 74) }, new List<Interval> { new Interval(75, 99) }, new List<Interval> { new Interval(100), new Interval(150, 173) }, new List<Interval> { new Interval(174, 201) } });
             VerifySplitIntervals(new[] { new Interval(1, 101) }, 2, new List<List<Interval>> { new List<Interval> { new Interval(1, 50) }, new List<Interval> { new Interval(51, 101) } });
             VerifySplitIntervals(new[] { new Interval(1, 100) }, 2, new List<List<Interval>> { new List<Interval> { new Interval(1, 50) }, new List<Interval> { new Interval(51, 100) } });
             VerifySplitIntervals(new[] { new Interval(1, 2), new Interval(4, 100), new Interval(101, 103) }, 2, new List<List<Interval>> { new List<Interval> { new Interval(1, 2), new Interval(4, 52) }, new List<Interval> { new Interval(53, 103) } });
+            VerifySplitIntervals(new[] { new Interval(1) }, 1, new List<List<Interval>> { new List<Interval> { new Interval(1) } });
             VerifySplitIntervals(new[] { new Interval(1) }, 4, new List<List<Interval>> { new List<Interval> { new Interval(1) } });
             VerifySplitIntervals(new[] { new Interval(1, 6) }, 4, new List<List<Interval>> { new List<Interval> { new Interval(1) }, new List<Interval> { new Interval(2) }, new List<Interval> { new Interval(3) }, new List<Interval> { new Interval(4, 6) } });
             VerifySplitIntervals(new[] { new Interval(1, 8) }, 4, new List<List<Interval>> { new List<Interval> { new Interval(1, 2) }, new List<Interval> { new Interval(3, 4) }, new List<Interval> { new Interval(5, 6) }, new List<Interval> { new Interval(7, 8) } });
             VerifySplitIntervals(new[] { new Interval(1, 9) }, 4, new List<List<Interval>> { new List<Interval> { new Interval(1, 2) }, new List<Interval> { new Interval(3, 4) }, new List<Interval> { new Interval(5, 6) }, new List<Interval> { new Interval(7, 9) } });
             VerifySplitIntervals(new[] { new Interval(1, 9) }, 3, new List<List<Interval>> { new List<Interval> { new Interval(1, 3) }, new List<Interval> { new Interval(4, 6) }, new List<Interval> { new Interval(7, 9) } });
+            VerifySplitIntervals(new[] { new Interval(7, 9) }, 4, new List<List<Interval>> { new List<Interval> { new Interval(7) }, new List<Interval> { new Interval(8) }, new List<Interval> { new Interval(9) } });
+            VerifySplitIntervals(new[] { new Interval(7) }, 4, new List<List<Interval>> { new List<Interval> { new Interval(7) } });
+            VerifySplitIntervals(new[] { new Interval(1, 101) }, 0, new List<List<Interval>> { new List<Interval> { new Interval(1, 101) } });
         }
     }
 }

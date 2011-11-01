@@ -15,8 +15,6 @@ using Xps2Img.CommandLine;
 using Xps2ImgUI.Attributes.OptionsHolder;
 using Xps2ImgUI.Utils;
 
-//todo: fix if pages count out of range
-
 namespace Xps2ImgUI.Model
 {
     public class Xps2ImgModel
@@ -196,19 +194,16 @@ namespace Xps2ImgUI.Model
         private List<Interval> GetDocumentIntervals()
         {
             var intervals = Interval.Parse(OptionsObject.Pages);
-            if (intervals.Last().HasMaxValue)
+            using (var xpsDocument = new XpsDocument(OptionsObject.SrcFile, FileAccess.Read))
             {
-                using (var xpsDocument = new XpsDocument(OptionsObject.SrcFile, FileAccess.Read))
+                var fixedDocumentSequence = xpsDocument.GetFixedDocumentSequence();
+                if (fixedDocumentSequence == null)
                 {
-                    var fixedDocumentSequence = xpsDocument.GetFixedDocumentSequence();
-                    if (fixedDocumentSequence == null)
-                    {
-                        intervals.Clear();
-                    }
-                    else
-                    {
-                        intervals.Last().SetEndValue(fixedDocumentSequence.DocumentPaginator.PageCount);
-                    }
+                    intervals.Clear();
+                }
+                else
+                {
+                    intervals.Last().SetEndValue(fixedDocumentSequence.DocumentPaginator.PageCount);
                 }
             }
             return intervals;

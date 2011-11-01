@@ -113,7 +113,7 @@ namespace Xps2Img.CommandLine
 
             var lastIndex = 1;
 
-            var intervalLength = (bits.Length-1)/intervalsCount;
+            var intervalLength = intervals.GetTotalLength() /intervalsCount;
 
             if (intervalLength == 0)
             {
