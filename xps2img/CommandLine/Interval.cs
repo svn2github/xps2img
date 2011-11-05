@@ -93,16 +93,21 @@ namespace Xps2Img.CommandLine
             }
         }
 
-        public void SetEndValue(int beginValue)
+        public bool Contains(int val)
         {
-            if (Begin > beginValue)
+            return val >= Begin && (HasMaxValue || val <= End);
+        }
+
+        public void SetEndValue(int endValue)
+        {
+            if (Begin > endValue)
             {
-                Begin = End = beginValue;
+                Begin = End = endValue;
             }
 
-            if (End > beginValue)
+            if (End > endValue)
             {
-                End = beginValue;
+                End = endValue;
             }
         }
 
