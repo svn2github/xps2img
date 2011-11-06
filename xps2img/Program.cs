@@ -42,11 +42,9 @@ namespace Xps2Img
                     ThreadPool.QueueUserWorkItem(_ => _isCancelled = cancelEvent.WaitOne(Timeout.Infinite));
                 }
 
-                var result = Convert(options, () => _isCancelled);
+                Convert(options, () => _isCancelled);
 
-                return launchedAsInternal && result == (int)CommandLine.CommandLine.ReturnCode.OK
-                        ? (int)CommandLine.CommandLine.ReturnCode.InternalOK
-                        : result;
+                return (int)(launchedAsInternal ? CommandLine.CommandLine.ReturnCode.InternalOK : CommandLine.CommandLine.ReturnCode.OK);
             }
             catch (Exception ex)
             {
@@ -54,11 +52,16 @@ namespace Xps2Img
             }
         }
 
-        private static int Convert(Options options, Func<bool> cancelConvertionFunc)
+        private static void Convert(Options options, Func<bool> cancelConvertionFunc)
         {
             using (var xps2Img = Converter.Create(options.SrcFile, cancelConvertionFunc))
             {
                 xps2Img.OnProgress += OnProgress;
+
+                if (!options.Pages.LessThan(xps2Img.PageCount))
+                {
+                    throw new ConversionException(String.Format(Resources.Strings.Error_PagesRange, xps2Img.PageCount), CommandLine.CommandLine.ReturnCode.InvalidPages);
+                }
 
                 options.Pages.SetEndValue(xps2Img.PageCount);
 
@@ -88,8 +91,6 @@ namespace Xps2Img
 
                 xps2Img.OnProgress -= OnProgress;
             }
-
-            return (int)CommandLine.CommandLine.ReturnCode.OK;
         }
 
         private static string _progressFormatString;

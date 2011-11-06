@@ -93,9 +93,9 @@ namespace Xps2Img.CommandLine
             }
         }
 
-        public bool Contains(int val)
+        public bool LessThan(int val)
         {
-            return val >= Begin && (HasMaxValue || val <= End);
+            return val >= Begin && (HasMaxValue || val >= End);
         }
 
         public void SetEndValue(int endValue)

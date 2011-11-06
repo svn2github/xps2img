@@ -36,6 +36,10 @@
 		</OBJECT>
 	</UL>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="xps2img Exit Codes">
+		<param name="Local" value="Files\ExitCodes.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Revision History">
 		<param name="Local" value="Files\History.html">
 		</OBJECT>

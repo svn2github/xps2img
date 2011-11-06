@@ -335,7 +335,10 @@ namespace Xps2ImgUI.Model
                     throw;
                 }
 
-                LaunchFailed(this, new ThreadExceptionEventArgs(ex));
+                if (!_isErrorReported)
+                {
+                    LaunchFailed(this, new ThreadExceptionEventArgs(ex));
+                }
             }
             finally
             {

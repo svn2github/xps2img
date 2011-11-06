@@ -18,6 +18,7 @@ namespace Xps2Img.CommandLine
             InvalidArg = 1,
             NoArgs = 2,
             Failed = 3,
+            InvalidPages = 4,
             InternalOK = -1
         }
 
@@ -51,7 +52,7 @@ namespace Xps2Img.CommandLine
                                                                                             .Message
                                                                                             #endif
             ));
-            return (int)ReturnCode.Failed;
+            return (int)(ex is ConversionException ? (ex as ConversionException).ReturnCode : ReturnCode.Failed);
         }
 
         #endregion

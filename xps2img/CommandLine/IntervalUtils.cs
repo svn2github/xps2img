@@ -44,11 +44,10 @@ namespace Xps2Img.CommandLine
                 .ToList();
         }
 
-        public static bool Contains(this IEnumerable<Interval> intervals, int val)
+        public static bool LessThan(this IEnumerable<Interval> intervals, int val)
         {
-            // ReSharper disable PossibleMultipleEnumeration
-            return !intervals.Any() || intervals.Last().Contains(val);
-            // ReSharper restore PossibleMultipleEnumeration
+            var lastInterval = intervals.LastOrDefault();
+            return lastInterval != null && lastInterval.LessThan(val);
         }   
 
         private static List<Interval> GetFromBitArray(BitArray bits, ref int pageNumber, int count)
