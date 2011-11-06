@@ -259,7 +259,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Convertion has failed.{0}{0}{1}.
+        ///   Looks up a localized string similar to Convertion failed.{0}{0}{1}.
         /// </summary>
         internal static string Xps2ImgError {
             get {

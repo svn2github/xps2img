@@ -197,16 +197,23 @@ namespace Xps2ImgUI.Model
             using (var xpsDocument = new XpsDocument(OptionsObject.SrcFile, FileAccess.Read))
             {
                 var fixedDocumentSequence = xpsDocument.GetFixedDocumentSequence();
+
                 if (fixedDocumentSequence == null)
                 {
-                    intervals.Clear();
+                    return new List<Interval>();
                 }
-                else
+
+                var pageCount = fixedDocumentSequence.DocumentPaginator.PageCount;
+
+                if (!intervals.LessThan(pageCount))
                 {
-                    intervals.Last().SetEndValue(fixedDocumentSequence.DocumentPaginator.PageCount);
+                    return new List<Interval>();
                 }
+
+                intervals.Last().SetEndValue(pageCount);
+
+                return intervals;
             }
-            return intervals;
         }
 
         private void Xps2ImgProcessWaitThread(Process process)
@@ -294,9 +301,16 @@ namespace Xps2ImgUI.Model
 
                     var intervals = GetDocumentIntervals();
 
-                    _pagesTotal = intervals.GetTotalLength();
-
-                    splittedIntervals = intervals.SplitBy(_threadsCount);
+                    if (intervals.Any())
+                    {
+                        _pagesTotal = intervals.GetTotalLength();
+                        splittedIntervals = intervals.SplitBy(_threadsCount);
+                    }
+                    else
+                    {
+                        _threadsCount = 1;
+                        splittedIntervals = new List<List<Interval>> { new List<Interval> { new Interval() } };
+                    }
                 }
 
                 CancelEvent.Reset();

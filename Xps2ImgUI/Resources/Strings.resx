@@ -142,7 +142,7 @@
     <value>Convertion is in progress. Would you like to abort it and exit?</value>
   </data>
   <data name="Xps2ImgError" xml:space="preserve">
-    <value>Convertion has failed.{0}{0}{1}</value>
+    <value>Convertion failed.{0}{0}{1}</value>
   </data>
   <data name="SpecifyValue" xml:space="preserve">
     <value>{0} parameter is required.</value>
@@ -189,10 +189,10 @@
   <data name="XPS2ImgFilesFilter" xml:space="preserve">
     <value>XPS2Img Files (*.x2i)|*.x2i|</value>
   </data>
-    <data name="XPS2ImgFileExtension">
-        <value xml:space="preserve">.x2i</value>
-    </data>
-    <data name="Error_ProcessorHasTerminated">
-        <value xml:space="preserve">Processor has terminated unexpectedly.</value>
-    </data>
+  <data name="XPS2ImgFileExtension" xml:space="preserve">
+    <value>.x2i</value>
+  </data>
+  <data name="Error_ProcessorHasTerminated" xml:space="preserve">
+    <value>Processor has terminated unexpectedly.</value>
+  </data>
 </root>
