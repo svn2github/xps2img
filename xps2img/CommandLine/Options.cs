@@ -45,7 +45,13 @@ namespace Xps2Img.CommandLine
         [DefaultValue(null)]
         [TabbedDescription(SrcFileDescription + " (required)")]
         #endif
-        public string SrcFile { get; set; }
+        public string SrcFile
+        {
+            get { return TrimFileName(_srcFile); }
+            set { _srcFile = value; }
+        }
+
+        private string _srcFile;
 
         private const string OutDirDescription = "Output folder\n  current folder by default";
 
@@ -58,7 +64,20 @@ namespace Xps2Img.CommandLine
         [DefaultValue(null)]
         [TabbedDescription(OutDirDescription)]
         #endif
-        public string OutDir { get; set; }
+        public string OutDir
+        {
+            get { return TrimFileName(_outDir); }
+            set { _outDir = value; }
+        }
+
+        private string _outDir;
+
+        private static readonly char[] _fileNameTrimCharacters = "\"\x20\t\r\n".ToCharArray();
+
+        private static string TrimFileName(string val)
+        {
+            return val == null ? null : val.Trim(_fileNameTrimCharacters);
+        }
 
         private const string RegexMatchEmptyString = 
         #if XPS2IMG_UI
