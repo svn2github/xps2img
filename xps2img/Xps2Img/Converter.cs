@@ -117,6 +117,11 @@ namespace Xps2Img.Xps2Img
                 // ReSharper restore AssignNullToNotNullAttribute
             }
 
+            parameters.OutputDir = parameters.OutputDir
+                                    .Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar)
+                                    .TrimEnd(new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar })
+                                    + Path.DirectorySeparatorChar;
+
             if (!ConverterState.HasPageCount)
             {
                 ConverterState.SetLastAndTotalPages(parameters.EndPage, PageCount);
