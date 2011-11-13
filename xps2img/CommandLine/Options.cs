@@ -1,12 +1,14 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows.Media.Imaging;
+
 using Xps2Img.CommandLine.TypeConverters;
 
 #if XPS2IMG_UI
 using System;
 using System.Diagnostics;
 using System.Drawing.Design;
-using System.Linq;
 
 using CommandLine.Validation;
 
@@ -17,7 +19,6 @@ using Xps2ImgUI.Utils;
 using Xps2ImgUI.Utils.UI;
 #else
 using System.Drawing;
-using System.Collections.Generic;
 #endif
 
 using Xps2Img.Xps2Img;
@@ -329,14 +330,14 @@ namespace Xps2Img.CommandLine
 
         #if !XPS2IMG_UI
         [global::CommandLine.Option("", global::CommandLine.ShortOptionType.None1, Flags = global::CommandLine.OptionFlags.Internal)]
-        public string CancellationObjectId { get; set; }
+        public string CancellationObjectIds { get; set; }
         #else
 
-        private const string CancellationObjectIdName = "cancellation-object-id";
+        private const string CancellationObjectIdName = "cancellation-object-ids";
 
         [Option(CancellationObjectIdName)]
         [Browsable(false)]
-        public string CancellationObjectId
+        public string CancellationObjectIds
         {
             get { return CancellationObjectIdStatic; }
             // ReSharper disable ValueParameterNotUsed
@@ -344,9 +345,19 @@ namespace Xps2Img.CommandLine
             // ReSharper restore ValueParameterNotUsed
         }
 
-        private static readonly string CancellationObjectIdStatic = Guid.NewGuid().ToString();
+        private static readonly Func<string> getGuidNamePart = () => Guid.NewGuid().ToString().Substring(0, 8);
+
+        private static readonly string CancellationObjectIdStatic = String.Format("{0}-{1}", getGuidNamePart(), getGuidNamePart());
 
         #endif
+
+        private IEnumerable<string> SyncObjectsNames { get { return CancellationObjectIds.Split('-'); } }
+
+        [Browsable(false)]
+        public string CancellationEventName { get { return SyncObjectsNames.First(); } }
+
+        [Browsable(false)]
+        public string ParentAppMutexName { get { return SyncObjectsNames.Last(); } }
 
         #if XPS2IMG_UI
 

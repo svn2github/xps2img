@@ -34,12 +34,11 @@ namespace Xps2Img
 
                 Trace.WriteLine(Parser.ToCommandLine(options));
 
-                var launchedAsInternal = !String.IsNullOrEmpty(options.CancellationObjectId);
+                var launchedAsInternal = !String.IsNullOrEmpty(options.CancellationObjectIds);
 
                 if (launchedAsInternal)
                 {
-                    var cancelEvent = new EventWaitHandle(false, EventResetMode.AutoReset, options.CancellationObjectId);
-                    ThreadPool.QueueUserWorkItem(_ => _isCancelled = cancelEvent.WaitOne(Timeout.Infinite));
+                    ThreadPool.QueueUserWorkItem(_ => WaitForCancellationThread(options));
                 }
 
                 Convert(options, () => _isCancelled);
@@ -50,6 +49,24 @@ namespace Xps2Img
             {
                 return CommandLine.CommandLine.DisplayError(ex);
             }
+        }
+
+        private static void WaitForCancellationThread(Options options)
+        {
+            var parentAppMutex = Mutex.OpenExisting(options.ParentAppMutexName);
+            var cancelEvent = new EventWaitHandle(false, EventResetMode.AutoReset, options.CancellationEventName);
+            
+            try
+            {
+                WaitHandle.WaitAny(new WaitHandle[] { cancelEvent, parentAppMutex });
+            }
+            // ReSharper disable EmptyGeneralCatchClause
+            catch
+            // ReSharper restore EmptyGeneralCatchClause
+            {
+            }
+
+            _isCancelled = true;
         }
 
         private static void Convert(Options options, Func<bool> cancelConvertionFunc)

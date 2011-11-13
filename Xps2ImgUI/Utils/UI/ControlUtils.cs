@@ -16,6 +16,5 @@ namespace Xps2ImgUI.Utils.UI
                 action();
             }
         }
-
     }
 }

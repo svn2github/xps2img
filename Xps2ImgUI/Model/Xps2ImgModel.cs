@@ -128,7 +128,7 @@ namespace Xps2ImgUI.Model
 
         private EventWaitHandle CancelEvent
         {
-            get { return _cancelEvent ?? (_cancelEvent = new EventWaitHandle(false, EventResetMode.ManualReset, _optionsHolder.OptionsObject.CancellationObjectId)); }
+            get { return _cancelEvent ?? (_cancelEvent = new EventWaitHandle(false, EventResetMode.ManualReset, _optionsHolder.OptionsObject.CancellationEventName)); }
         }
 
         private bool IsSingleProcessor
@@ -313,6 +313,8 @@ namespace Xps2ImgUI.Model
                     }
                 }
 
+                _appMutex = new Mutex(true, _optionsHolder.OptionsObject.ParentAppMutexName);
+
                 CancelEvent.Reset();
 
                 foreach (var t in splittedIntervals)
@@ -357,6 +359,8 @@ namespace Xps2ImgUI.Model
             finally
             {
                 _isRunning = false;
+
+                _appMutex.Close();
 
                 if (!IsSingleProcessor)
                 {
@@ -458,5 +462,6 @@ namespace Xps2ImgUI.Model
         private volatile bool _isRunning;
 
         private EventWaitHandle _cancelEvent;
+        private Mutex _appMutex;
     }
 }
