@@ -360,7 +360,11 @@ namespace Xps2ImgUI.Model
             {
                 _isRunning = false;
 
-                _appMutex.Close();
+                if (_appMutex != null)
+                {
+                    _appMutex.Close();
+                    _appMutex = null;
+                }
 
                 if (!IsSingleProcessor)
                 {
