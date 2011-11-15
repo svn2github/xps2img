@@ -84,6 +84,8 @@ namespace Xps2ImgUI.Model
                 throw new InvalidOperationException("Conversion is in progress.");  
             }
 
+            CancelEvent.Reset();
+
             var xps2ImgLaunchThread = new Thread(Xps2ImgLaunchThread);
 
             xps2ImgLaunchThread.SetApartmentState(ApartmentState.STA);
@@ -282,7 +284,7 @@ namespace Xps2ImgUI.Model
         private void Xps2ImgLaunchThread()
         {
             try
-            {
+            {               
                 _isRunning = true;
                 _isErrorReported = false;
                 _processExitCode = 0;
@@ -314,8 +316,6 @@ namespace Xps2ImgUI.Model
                 }
 
                 _appMutex = new Mutex(true, _optionsHolder.OptionsObject.ParentAppMutexName);
-
-                CancelEvent.Reset();
 
                 foreach (var t in splittedIntervals)
                 {

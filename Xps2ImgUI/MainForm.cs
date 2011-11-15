@@ -85,7 +85,7 @@ namespace Xps2ImgUI
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            if (!IsProcessOperationPending && _xps2ImgModel.IsRunning)
+            if (_xps2ImgModel.IsRunning)
             {
                 Activate();
 
@@ -515,11 +515,6 @@ namespace Xps2ImgUI
         {
             get { return !settingsSplitContainer.Panel2Collapsed; }
             set { settingsSplitContainer.Panel2Collapsed = !value; }
-        }
-
-        private bool IsProcessOperationPending
-        {
-            get { return !convertButton.Enabled; }
         }
 
         private bool _isModalWindowOpened;
