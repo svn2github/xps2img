@@ -138,7 +138,7 @@
   <data name="WindowTitleProgressFormat" xml:space="preserve">
     <value>{1}% ({2}) [{3}] - {4} - {0}</value>
   </data>
-  <data name="ClosingQuery" xml:space="preserve">
+  <data name="ClosingConfirmation" xml:space="preserve">
     <value>Convertion is in progress. Would you like to abort it and exit?</value>
   </data>
   <data name="Xps2ImgError" xml:space="preserve">
@@ -194,5 +194,11 @@
   </data>
   <data name="Error_ProcessorHasTerminated" xml:space="preserve">
     <value>Processor has terminated unexpectedly.</value>
+  </data>
+  <data name="DeleteConvertedImages" xml:space="preserve">
+    <value>&amp;Delete Images</value>
+  </data>
+  <data name="DeleteConvertedImagesConfirmation" xml:space="preserve">
+    <value>Would you like to delete all converted images?</value>
   </data>
 </root>

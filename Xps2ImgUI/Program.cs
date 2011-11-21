@@ -31,6 +31,11 @@ namespace Xps2ImgUI
 
             var options = Parser.IsUsageRequiested(args) ? null : Parser.Parse<Options>(args, true);
 
+            if (options != null)
+            {
+                options.Clean = false;
+            }
+
             var mainForm =  new MainForm { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) };
 
             SettingsManager.DeserializeSettings(mainForm);

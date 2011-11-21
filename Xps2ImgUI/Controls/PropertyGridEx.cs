@@ -69,6 +69,8 @@ namespace Xps2ImgUI.Controls
                     var itemControl = toolStripSplitButton.DropDownItems.Add(item.Text);
                     itemControl.AutoToolTip = UseAutoToolTip;
                     itemControl.Click += item.EventHandler;
+
+                    item.ToolStripItem = itemControl;
                 }
             }
 

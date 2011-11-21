@@ -90,9 +90,9 @@ namespace Xps2ImgUI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Convertion is in progress. Would you like to abort it and exit?.
         /// </summary>
-        internal static string ClosingQuery {
+        internal static string ClosingConfirmation {
             get {
-                return ResourceManager.GetString("ClosingQuery", resourceCulture);
+                return ResourceManager.GetString("ClosingConfirmation", resourceCulture);
             }
         }
         
@@ -111,6 +111,24 @@ namespace Xps2ImgUI.Resources {
         internal static string CopyConvertedImagesPathToClipboard {
             get {
                 return ResourceManager.GetString("CopyConvertedImagesPathToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Delete Images.
+        /// </summary>
+        internal static string DeleteConvertedImages {
+            get {
+                return ResourceManager.GetString("DeleteConvertedImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to delete all converted images?.
+        /// </summary>
+        internal static string DeleteConvertedImagesConfirmation {
+            get {
+                return ResourceManager.GetString("DeleteConvertedImagesConfirmation", resourceCulture);
             }
         }
         

@@ -128,6 +128,11 @@ namespace Xps2ImgUI.Model
             get { return _isRunning; }
         }
 
+        public bool IsStopPending
+        {
+            get { return CancelEvent.WaitOne(0); }
+        }
+
         private EventWaitHandle CancelEvent
         {
             get { return _cancelEvent ?? (_cancelEvent = new EventWaitHandle(false, EventResetMode.ManualReset, _optionsHolder.OptionsObject.CancellationEventName)); }

@@ -21,6 +21,8 @@ namespace Xps2ImgUI
 {
     public partial class MainForm : Form, ISettings
     {
+        private const MessageBoxDefaultButton DefaultConfirmButton = MessageBoxDefaultButton.Button3;
+
         public MainForm()
         {
             InitializeComponent();
@@ -85,21 +87,21 @@ namespace Xps2ImgUI
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            if (_xps2ImgModel.IsRunning)
+            if (_xps2ImgModel.IsRunning && !_xps2ImgModel.IsStopPending)
             {
                 Activate();
 
-                var dialogResult = ShowMessageBox(Resources.Strings.ClosingQuery,
-                                                   MessageBoxButtons.YesNo,
+                var dialogResult = ShowMessageBox(Resources.Strings.ClosingConfirmation,
+                                                   MessageBoxButtons.YesNoCancel,
                                                    MessageBoxIcon.Exclamation,
-                                                   MessageBoxDefaultButton.Button2);
+                                                   DefaultConfirmButton);
 
                 if (dialogResult == DialogResult.Yes)
                 {
                     _xps2ImgModel.Stop();
                 }
 
-                e.Cancel = dialogResult == DialogResult.No;
+                e.Cancel = dialogResult != DialogResult.Yes;
             }
 
             base.OnClosing(e);
@@ -135,12 +137,14 @@ namespace Xps2ImgUI
             settingsPropertyGrid.DocLines = 9;
             settingsPropertyGrid.SetDocMonospaceFont();
 
+            Action<string> copyToClipboard = str => Clipboard.SetDataObject(str, true);
+
             // Remove Property Pages button.
             settingsPropertyGrid.RemoveLastToolStripButton();
 
             // Show Command Line button.
             _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.ShowCommandLine, ShowCommandLineToolStripButtonClick,
-                new ToolStripButtonItem(Resources.Strings.CopyCommandLineToClipboard, (s, e) => Clipboard.SetDataObject(commandLineTextBox.Text, true))
+                new ToolStripButtonItem(Resources.Strings.CopyCommandLineToClipboard, (s, e) => copyToClipboard(commandLineTextBox.Text))
              );
 
             UpdateShowCommandLineCommand();
@@ -170,7 +174,10 @@ namespace Xps2ImgUI
             settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.BrowseConvertedImages, BrowseConvertedImagesToolStripButtonClick,
                 new ToolStripButtonItem(Resources.Strings.BrowseXPSFile, (s, e) => Explorer.Select(_xps2ImgModel.OptionsObject.SrcFile)),
                 new ToolStripButtonItem(),
-                new ToolStripButtonItem(Resources.Strings.CopyConvertedImagesPathToClipboard, (s, e) => Clipboard.SetDataObject(ConvertedImagesFolder, true))
+                new ToolStripButtonItem(Resources.Strings.CopyConvertedImagesPathToClipboard, (s, e) => copyToClipboard(ConvertedImagesFolder)),
+                new ToolStripButtonItem(),
+                new ToolStripButtonItem(),
+                (_deleteConvertedImagesToolStripButtonItem = new ToolStripButtonItem(Resources.Strings.DeleteConvertedImages, DeleteConvertedImagesToolStripButtonClick))
             );
 
             //  Help.
@@ -209,7 +216,10 @@ namespace Xps2ImgUI
             }
 
             settingsPropertyGrid.ReadOnly = isRunning;
-            _resetToolStripButton.Enabled = _loadToolStripButton.Enabled = !isRunning;
+
+            _deleteConvertedImagesToolStripButtonItem.ToolStripItem.Enabled =
+                _resetToolStripButton.Enabled =
+                    _loadToolStripButton.Enabled = !isRunning;
             
             progressBar.Value = 0;
 
@@ -484,6 +494,11 @@ namespace Xps2ImgUI
             Explorer.Browse(ConvertedImagesFolder);
         }
 
+        private void DeleteConvertedImagesToolStripButtonClick(object sender, EventArgs e)
+        {
+            ShowMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation, DefaultConfirmButton);
+        }       
+
         private volatile bool _conversionFailed;
 
         private volatile string _convertedImagesFolder;
@@ -526,6 +541,7 @@ namespace Xps2ImgUI
         private ToolStripItem _resetToolStripButton;
         private ToolStripItem _loadToolStripButton;
         private ToolStripItem _showCommandLineToolStripButton;
+        private ToolStripButtonItem _deleteConvertedImagesToolStripButtonItem;
 
         private ThumbButtonManager _thumbButtonManager;
         private ThumbButton _thumbButton;

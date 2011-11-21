@@ -1,4 +1,5 @@
 using System;
+using System.Windows.Forms;
 
 namespace Xps2ImgUI.Controls
 {
@@ -6,6 +7,8 @@ namespace Xps2ImgUI.Controls
     {
         public readonly string Text;
         public readonly EventHandler EventHandler;
+
+        public ToolStripItem ToolStripItem { get; set; }
 
         public bool IsSeparator { get { return Text == null; } }
 

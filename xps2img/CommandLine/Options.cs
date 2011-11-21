@@ -329,7 +329,7 @@ namespace Xps2Img.CommandLine
         #endif
 
         #if !XPS2IMG_UI
-        [global::CommandLine.Option("", global::CommandLine.ShortOptionType.None1, Flags = global::CommandLine.OptionFlags.Internal)]
+        [global::CommandLine.Option("", global::CommandLine.ShortOptionType.None10, Flags = global::CommandLine.OptionFlags.Internal)]
         public string CancellationObjectIds { get; set; }
         #else
 
@@ -353,10 +353,14 @@ namespace Xps2Img.CommandLine
 
         private IEnumerable<string> SyncObjectsNames { get { return CancellationObjectIds.Split('-'); } }
 
+        #if XPS2IMG_UI
         [Browsable(false)]
+        #endif
         public string CancellationEventName { get { return SyncObjectsNames.First(); } }
 
+        #if XPS2IMG_UI
         [Browsable(false)]
+        #endif
         public string ParentAppMutexName { get { return SyncObjectsNames.Last(); } }
 
         #if XPS2IMG_UI
@@ -366,7 +370,7 @@ namespace Xps2Img.CommandLine
         private const string ProcessorsNameDefaultValue = AutoValue;
         private const string ProcessorsName = "processors-number";
 
-        [global::CommandLine.Option("", global::CommandLine.ShortOptionType.None2, DefaultValue = ProcessorsNameDefaultValue)]
+        [global::CommandLine.Option("", global::CommandLine.ShortOptionType.None12, DefaultValue = ProcessorsNameDefaultValue)]
         [Option(ProcessorsName)]
         [DisplayName("Processors")]
         [TabbedDescription("Number of simultaneously running document processors\n  number of logical CPUs by default")]
@@ -404,7 +408,7 @@ namespace Xps2Img.CommandLine
         private const string ProcessorsPriorityNameDefaultValue = AutoValue;
         private const string ProcessorsPriorityName = "processors-priority";
 
-        [global::CommandLine.Option("", global::CommandLine.ShortOptionType.None3, DefaultValue = ProcessorsPriorityNameDefaultValue)]
+        [global::CommandLine.Option("", global::CommandLine.ShortOptionType.None13, DefaultValue = ProcessorsPriorityNameDefaultValue)]
         [Option(ProcessorsPriorityName)]
         [DisplayName("Processors Priority")]
         [TabbedDescription("Document processors priority\n  Normal by default")]
@@ -472,6 +476,12 @@ namespace Xps2Img.CommandLine
         [TypeConverter(typeof(YesNoConverter))]
         #endif
         public bool Test { get; set; }
+
+        [global::CommandLine.Option("Clean (delete images)", global::CommandLine.ShortOptionType.None1, global::CommandLine.ArgumentExpectancy.No)]
+        #if XPS2IMG_UI
+        [Browsable(false)]
+        #endif
+        public bool Clean { get; set; }
     }
 
     public static class OptionsValidators
