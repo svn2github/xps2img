@@ -21,7 +21,8 @@ namespace Xps2ImgUI
 {
     public partial class MainForm : Form, ISettings
     {
-        private const MessageBoxDefaultButton DefaultConfirmButton = MessageBoxDefaultButton.Button3;
+        private const MessageBoxButtons DefaultConfirmButtons = MessageBoxButtons.YesNo;
+        private const MessageBoxDefaultButton DefaultConfirmButton = MessageBoxDefaultButton.Button2;
 
         public MainForm()
         {
@@ -92,7 +93,7 @@ namespace Xps2ImgUI
                 Activate();
 
                 var dialogResult = ShowMessageBox(Resources.Strings.ClosingConfirmation,
-                                                   MessageBoxButtons.YesNoCancel,
+                                                   DefaultConfirmButtons,
                                                    MessageBoxIcon.Exclamation,
                                                    DefaultConfirmButton);
 
@@ -175,7 +176,6 @@ namespace Xps2ImgUI
                 new ToolStripButtonItem(Resources.Strings.BrowseXPSFile, (s, e) => Explorer.Select(_xps2ImgModel.OptionsObject.SrcFile)),
                 new ToolStripButtonItem(),
                 new ToolStripButtonItem(Resources.Strings.CopyConvertedImagesPathToClipboard, (s, e) => copyToClipboard(ConvertedImagesFolder)),
-                new ToolStripButtonItem(),
                 new ToolStripButtonItem(),
                 (_deleteConvertedImagesToolStripButtonItem = new ToolStripButtonItem(Resources.Strings.DeleteConvertedImages, DeleteConvertedImagesToolStripButtonClick))
             );
@@ -496,7 +496,7 @@ namespace Xps2ImgUI
 
         private void DeleteConvertedImagesToolStripButtonClick(object sender, EventArgs e)
         {
-            ShowMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation, DefaultConfirmButton);
+            ShowMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation, DefaultConfirmButtons, MessageBoxIcon.Exclamation, DefaultConfirmButton);
         }       
 
         private volatile bool _conversionFailed;
