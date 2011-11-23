@@ -44,7 +44,7 @@ namespace Xps2Img.Xps2Img
 
             if (writeFile)
             {
-                using (var stream = File.Create(fullFileName))
+                using (var stream = new FileStream(fullFileName, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
                     bitmapEncoder.Frames.Add(BitmapFrame.Create(bitmapSource));
                     bitmapEncoder.Save(stream);
