@@ -115,15 +115,6 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Delete Images.
-        /// </summary>
-        internal static string DeleteConvertedImages {
-            get {
-                return ResourceManager.GetString("DeleteConvertedImages", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Would you like to delete all converted images?.
         /// </summary>
         internal static string DeleteConvertedImagesConfirmation {

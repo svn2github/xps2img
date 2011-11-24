@@ -104,6 +104,9 @@
     <Compile Include="Controls\PropertyGridEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\SplitButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\ToolStripButtonItem.cs" />
     <Compile Include="Converters\ProcessPriorityClassConverter.cs" />
     <Compile Include="Converters\ProcessorsNumberConverter.cs" />

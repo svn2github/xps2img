@@ -30,14 +30,18 @@ namespace Xps2ImgUI
     /// </summary>
     private void InitializeComponent()
     {
+            this.components = new System.ComponentModel.Container();
             this.settingsSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.settingsPropertyGrid = new Xps2ImgUI.Controls.PropertyGridEx();
             this.commandLineTextBox = new System.Windows.Forms.TextBox();
             this.progressBar = new System.Windows.Forms.ProgressBar();
-            this.convertButton = new System.Windows.Forms.Button();
-            this.settingsPropertyGrid = new Xps2ImgUI.Controls.PropertyGridEx();
+            this.convertButton = new wyDay.Controls.SplitButton();
+            this.convertContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsSplitContainer.Panel1.SuspendLayout();
             this.settingsSplitContainer.Panel2.SuspendLayout();
             this.settingsSplitContainer.SuspendLayout();
+            this.convertContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // settingsSplitContainer
@@ -62,6 +66,20 @@ namespace Xps2ImgUI
             this.settingsSplitContainer.SplitterDistance = 440;
             this.settingsSplitContainer.TabIndex = 7;
             // 
+            // settingsPropertyGrid
+            // 
+            this.settingsPropertyGrid.AllowDrop = true;
+            this.settingsPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.settingsPropertyGrid.Location = new System.Drawing.Point(0, 0);
+            this.settingsPropertyGrid.Name = "settingsPropertyGrid";
+            this.settingsPropertyGrid.PropertySort = System.Windows.Forms.PropertySort.Categorized;
+            this.settingsPropertyGrid.ReadOnly = false;
+            this.settingsPropertyGrid.Size = new System.Drawing.Size(777, 513);
+            this.settingsPropertyGrid.TabIndex = 0;
+            this.settingsPropertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.SettingsPropertyGridPropertyValueChanged);
+            this.settingsPropertyGrid.PropertySortChanged += new System.EventHandler(this.SettingsPropertyGridPropertySortChanged);
+            this.settingsPropertyGrid.SelectedObjectsChanged += new System.EventHandler(this.SettingsPropertyGridSelectedObjectsChanged);
+            // 
             // commandLineTextBox
             // 
             this.commandLineTextBox.BackColor = System.Drawing.SystemColors.Window;
@@ -85,6 +103,7 @@ namespace Xps2ImgUI
             // convertButton
             // 
             this.convertButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.convertButton.AutoSize = true;
             this.convertButton.Location = new System.Drawing.Point(711, 528);
             this.convertButton.Name = "convertButton";
             this.convertButton.Size = new System.Drawing.Size(75, 23);
@@ -92,21 +111,20 @@ namespace Xps2ImgUI
             this.convertButton.UseVisualStyleBackColor = true;
             this.convertButton.Click += new System.EventHandler(this.ConvertButtonClick);
             // 
-            // settingsPropertyGrid
+            // convertContextMenuStrip
             // 
-            this.settingsPropertyGrid.AllowDrop = true;
-            this.settingsPropertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.settingsPropertyGrid.Location = new System.Drawing.Point(0, 0);
-            this.settingsPropertyGrid.Name = "settingsPropertyGrid";
-            this.settingsPropertyGrid.PropertySort = System.Windows.Forms.PropertySort.Categorized;
-            this.settingsPropertyGrid.ReadOnly = false;
-            this.settingsPropertyGrid.Size = new System.Drawing.Size(773, 505);
-            this.settingsPropertyGrid.TabIndex = 0;
-            this.settingsPropertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.SettingsPropertyGridPropertyValueChanged);
-            this.settingsPropertyGrid.PropertySortChanged += new System.EventHandler(this.SettingsPropertyGridPropertySortChanged);
-            this.settingsPropertyGrid.SelectedObjectsChanged += new System.EventHandler(this.SettingsPropertyGridSelectedObjectsChanged);
+            this.convertContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteImagesToolStripMenuItem});
+            this.convertContextMenuStrip.Name = "convertContextMenuStrip";
+            this.convertContextMenuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.convertContextMenuStrip.Size = new System.Drawing.Size(153, 48);
+            // 
+            // deleteImagesToolStripMenuItem
+            // 
+            this.deleteImagesToolStripMenuItem.Name = "deleteImagesToolStripMenuItem";
+            this.deleteImagesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteImagesToolStripMenuItem.Text = "&Delete Images";
+            this.deleteImagesToolStripMenuItem.Click += new System.EventHandler(this.deleteImagesToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -126,7 +144,9 @@ namespace Xps2ImgUI
             this.settingsSplitContainer.Panel2.ResumeLayout(false);
             this.settingsSplitContainer.Panel2.PerformLayout();
             this.settingsSplitContainer.ResumeLayout(false);
+            this.convertContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
     }
 
@@ -135,8 +155,10 @@ namespace Xps2ImgUI
     private PropertyGridEx settingsPropertyGrid;
     private System.Windows.Forms.TextBox commandLineTextBox;
     private System.Windows.Forms.SplitContainer settingsSplitContainer;
-    private System.Windows.Forms.Button convertButton;
+    private wyDay.Controls.SplitButton convertButton;
     private System.Windows.Forms.ProgressBar progressBar;
+    private System.Windows.Forms.ContextMenuStrip convertContextMenuStrip;
+    private System.Windows.Forms.ToolStripMenuItem deleteImagesToolStripMenuItem;
   }
 }
 

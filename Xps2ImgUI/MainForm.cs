@@ -69,7 +69,9 @@ namespace Xps2ImgUI
         protected override void OnLoad(EventArgs e)
         {
             Text = Resources.Strings.WindowTitle;
+
             convertButton.Text = Resources.Strings.Launch;
+            convertButton.ContextMenuStrip = convertContextMenuStrip;
 
             MinimumSize = new Size(Size.Width, Size.Height);
 
@@ -175,9 +177,7 @@ namespace Xps2ImgUI
             settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.BrowseConvertedImages, BrowseConvertedImagesToolStripButtonClick,
                 new ToolStripButtonItem(Resources.Strings.BrowseXPSFile, (s, e) => Explorer.Select(_xps2ImgModel.OptionsObject.SrcFile)),
                 new ToolStripButtonItem(),
-                new ToolStripButtonItem(Resources.Strings.CopyConvertedImagesPathToClipboard, (s, e) => copyToClipboard(ConvertedImagesFolder)),
-                new ToolStripButtonItem(),
-                (_deleteConvertedImagesToolStripButtonItem = new ToolStripButtonItem(Resources.Strings.DeleteConvertedImages, DeleteConvertedImagesToolStripButtonClick))
+                new ToolStripButtonItem(Resources.Strings.CopyConvertedImagesPathToClipboard, (s, e) => copyToClipboard(ConvertedImagesFolder))
             );
 
             //  Help.
@@ -207,6 +207,7 @@ namespace Xps2ImgUI
             }
 
             convertButton.Text = isRunning ? Resources.Strings.Stop : Resources.Strings.Launch;
+            convertButton.ContextMenuStrip = isRunning ? null : convertContextMenuStrip;
 
             if (Windows7Taskbar.Supported)
             {
@@ -216,10 +217,7 @@ namespace Xps2ImgUI
             }
 
             settingsPropertyGrid.ReadOnly = isRunning;
-
-            _deleteConvertedImagesToolStripButtonItem.ToolStripItem.Enabled =
-                _resetToolStripButton.Enabled =
-                    _loadToolStripButton.Enabled = !isRunning;
+            _resetToolStripButton.Enabled = _loadToolStripButton.Enabled = !isRunning;
             
             progressBar.Value = 0;
 
@@ -494,10 +492,10 @@ namespace Xps2ImgUI
             Explorer.Browse(ConvertedImagesFolder);
         }
 
-        private void DeleteConvertedImagesToolStripButtonClick(object sender, EventArgs e)
+        private void deleteImagesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation, DefaultConfirmButtons, MessageBoxIcon.Exclamation, DefaultConfirmButton);
-        }       
+        }
 
         private volatile bool _conversionFailed;
 
@@ -541,7 +539,6 @@ namespace Xps2ImgUI
         private ToolStripItem _resetToolStripButton;
         private ToolStripItem _loadToolStripButton;
         private ToolStripItem _showCommandLineToolStripButton;
-        private ToolStripButtonItem _deleteConvertedImagesToolStripButtonItem;
 
         private ThumbButtonManager _thumbButtonManager;
         private ThumbButton _thumbButton;
