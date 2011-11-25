@@ -77,12 +77,14 @@ namespace Xps2ImgUI.Model
             ResetByCategory(Category.Options);
         }
 
-        public void Launch()
+        public void Launch(bool convertMode)
         {
             if (_isRunning)
             {
                 throw new InvalidOperationException("Conversion is in progress.");  
             }
+
+            _convertMode = convertMode;
 
             CancelEvent.Reset();
 
@@ -466,6 +468,8 @@ namespace Xps2ImgUI.Model
         private int _processExitCode;
 
         private ProcessPriorityClass _originalProcessPriorityClass;
+
+        private bool _convertMode;
 
         private volatile bool _isErrorReported;
         private volatile bool _isRunning;

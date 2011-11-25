@@ -121,7 +121,7 @@ namespace Xps2ImgUI
             if (m.Msg == Windows7Taskbar.WM_TaskbarButtonCreated)
             {
                 _thumbButtonManager = new ThumbButtonManager(Handle);
-                _thumbButton = _thumbButtonManager.CreateThumbButton(Resources.Icons.Play, ConvertButtonCleanText, (s, e) => ExecuteConvertion());
+                _thumbButton = _thumbButtonManager.CreateThumbButton(Resources.Icons.Play, ConvertButtonCleanText, (s, e) => ExecuteConvertion(true));
                 _thumbButtonManager.AddThumbButtons(_thumbButton);
             }
 
@@ -417,7 +417,7 @@ namespace Xps2ImgUI
         private Stopwatch _stopwatch;
 #endif
 
-        private void ExecuteConvertion()
+        private void ExecuteConvertion(bool convertMode)
         {
             EnableConvertControls(false, false);
 
@@ -452,15 +452,15 @@ namespace Xps2ImgUI
             _stopwatch = new Stopwatch();
             _stopwatch.Start();
             #endif
-                
-            _xps2ImgModel.Launch();
+
+            _xps2ImgModel.Launch(convertMode);
 
             UpdateRunningStatus(true);
         }
 
         private void ConvertButtonClick(object sender, EventArgs e)
         {
-            ExecuteConvertion();
+            ExecuteConvertion(true);
         }
 
         private void SettingsPropertyGridPropertySortChanged(object sender, EventArgs e)
@@ -495,7 +495,10 @@ namespace Xps2ImgUI
 
         private void DeleteImagesToolStripMenuItemClick(object sender, EventArgs e)
         {
-            ShowMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation, DefaultConfirmButtons, MessageBoxIcon.Exclamation, DefaultConfirmButton);
+            if (ConfirmDialogResult == ShowMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation, DefaultConfirmButtons, MessageBoxIcon.Exclamation, DefaultConfirmButton))
+            {
+                ExecuteConvertion(false);
+            }
         }
 
         private volatile bool _conversionFailed;
