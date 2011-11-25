@@ -477,11 +477,10 @@ namespace Xps2Img.CommandLine
         #endif
         public bool Test { get; set; }
 
+        #if !XPS2IMG_UI
         [global::CommandLine.Option("Clean (delete images)", global::CommandLine.ShortOptionType.None1, global::CommandLine.ArgumentExpectancy.No)]
-        #if XPS2IMG_UI
-        [Browsable(false)]
-        #endif
         public bool Clean { get; set; }
+        #endif
     }
 
     public static class OptionsValidators

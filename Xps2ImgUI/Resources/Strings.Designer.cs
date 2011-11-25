@@ -88,7 +88,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Convertion is in progress. Would you like to abort it and exit?.
+        ///   Looks up a localized string similar to Currently executed convertion will be aborted..
         /// </summary>
         internal static string ClosingConfirmation {
             get {
@@ -115,7 +115,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Would you like to delete all converted images?.
+        ///   Looks up a localized string similar to Converted images will be deleted..
         /// </summary>
         internal static string DeleteConvertedImagesConfirmation {
             get {

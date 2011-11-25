@@ -21,7 +21,8 @@ namespace Xps2ImgUI
 {
     public partial class MainForm : Form, ISettings
     {
-        private const MessageBoxButtons DefaultConfirmButtons = MessageBoxButtons.YesNo;
+        private const MessageBoxButtons DefaultConfirmButtons = MessageBoxButtons.OKCancel;
+        private const DialogResult ConfirmDialogResult = DialogResult.OK;
         private const MessageBoxDefaultButton DefaultConfirmButton = MessageBoxDefaultButton.Button2;
 
         public MainForm()
@@ -99,12 +100,12 @@ namespace Xps2ImgUI
                                                    MessageBoxIcon.Exclamation,
                                                    DefaultConfirmButton);
 
-                if (dialogResult == DialogResult.Yes)
+                e.Cancel = dialogResult != ConfirmDialogResult;
+
+                if (!e.Cancel)
                 {
                     _xps2ImgModel.Stop();
                 }
-
-                e.Cancel = dialogResult != DialogResult.Yes;
             }
 
             base.OnClosing(e);
