@@ -37,6 +37,9 @@ namespace Xps2ImgUI
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.convertButton = new wyDay.Controls.SplitButton();
             this.convertContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.convertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.deleteAndConvertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsSplitContainer.Panel1.SuspendLayout();
             this.settingsSplitContainer.Panel2.SuspendLayout();
@@ -88,7 +91,7 @@ namespace Xps2ImgUI
             this.commandLineTextBox.Multiline = true;
             this.commandLineTextBox.Name = "commandLineTextBox";
             this.commandLineTextBox.ReadOnly = true;
-            this.commandLineTextBox.Size = new System.Drawing.Size(777, 69);
+            this.commandLineTextBox.Size = new System.Drawing.Size(150, 46);
             this.commandLineTextBox.TabIndex = 0;
             // 
             // progressBar
@@ -114,17 +117,39 @@ namespace Xps2ImgUI
             // convertContextMenuStrip
             // 
             this.convertContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.convertToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.deleteAndConvertToolStripMenuItem,
             this.deleteImagesToolStripMenuItem});
             this.convertContextMenuStrip.Name = "convertContextMenuStrip";
             this.convertContextMenuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.convertContextMenuStrip.Size = new System.Drawing.Size(153, 48);
+            this.convertContextMenuStrip.Size = new System.Drawing.Size(196, 98);
+            // 
+            // convertToolStripMenuItem
+            // 
+            this.convertToolStripMenuItem.Name = "convertToolStripMenuItem";
+            this.convertToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.convertToolStripMenuItem.Text = "&Convert";
+            this.convertToolStripMenuItem.Click += new System.EventHandler(this.ConvertButtonClick);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(192, 6);
+            // 
+            // deleteAndConvertToolStripMenuItem
+            // 
+            this.deleteAndConvertToolStripMenuItem.Name = "deleteAndConvertToolStripMenuItem";
+            this.deleteAndConvertToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.deleteAndConvertToolStripMenuItem.Text = "Delete Images && Co&nvert";
+            this.deleteAndConvertToolStripMenuItem.Click += new System.EventHandler(this.DeleteImagesToolStripMenuItemClick);
             // 
             // deleteImagesToolStripMenuItem
             // 
             this.deleteImagesToolStripMenuItem.Name = "deleteImagesToolStripMenuItem";
-            this.deleteImagesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteImagesToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.deleteImagesToolStripMenuItem.Text = "&Delete Images";
-            this.deleteImagesToolStripMenuItem.Click += new System.EventHandler(this.deleteImagesToolStripMenuItem_Click);
+            this.deleteImagesToolStripMenuItem.Click += new System.EventHandler(this.DeleteImagesToolStripMenuItemClick);
             // 
             // MainForm
             // 
@@ -159,6 +184,9 @@ namespace Xps2ImgUI
     private System.Windows.Forms.ProgressBar progressBar;
     private System.Windows.Forms.ContextMenuStrip convertContextMenuStrip;
     private System.Windows.Forms.ToolStripMenuItem deleteImagesToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem convertToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem deleteAndConvertToolStripMenuItem;
+    private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
   }
 }
 

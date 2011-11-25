@@ -492,7 +492,7 @@ namespace Xps2ImgUI
             Explorer.Browse(ConvertedImagesFolder);
         }
 
-        private void deleteImagesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DeleteImagesToolStripMenuItemClick(object sender, EventArgs e)
         {
             ShowMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation, DefaultConfirmButtons, MessageBoxIcon.Exclamation, DefaultConfirmButton);
         }
