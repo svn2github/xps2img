@@ -95,7 +95,7 @@ namespace Xps2ImgUI
             {
                 Activate();
 
-                var dialogResult = ShowMessageBox(Resources.Strings.ClosingConfirmation,
+                var dialogResult = ShowMessageBox(Resources.Strings.ClosingConfirmation + Resources.Strings.PressToProceedMessage,
                                                    DefaultConfirmButtons,
                                                    MessageBoxIcon.Exclamation,
                                                    DefaultConfirmButton);
@@ -495,7 +495,7 @@ namespace Xps2ImgUI
 
         private void DeleteImagesToolStripMenuItemClick(object sender, EventArgs e)
         {
-            if (ConfirmDialogResult == ShowMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation, DefaultConfirmButtons, MessageBoxIcon.Exclamation, DefaultConfirmButton))
+            if (ConfirmDialogResult == ShowMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation + Resources.Strings.PressToProceedMessage, DefaultConfirmButtons, MessageBoxIcon.Exclamation, DefaultConfirmButton))
             {
                 ExecuteConvertion(false);
             }

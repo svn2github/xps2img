@@ -124,15 +124,6 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Processor has terminated unexpectedly..
-        /// </summary>
-        internal static string Error_ProcessorHasTerminated {
-            get {
-                return ResourceManager.GetString("Error_ProcessorHasTerminated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &amp;Help.
         /// </summary>
         internal static string Help {
@@ -174,6 +165,24 @@ namespace Xps2ImgUI.Resources {
         internal static string NoExceptionMessage {
             get {
                 return ResourceManager.GetString("NoExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Press OK to proceed..
+        /// </summary>
+        internal static string PressToProceedMessage {
+            get {
+                return ResourceManager.GetString("PressToProceedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Processor has terminated unexpectedly..
+        /// </summary>
+        internal static string ProcessorHasTerminated {
+            get {
+                return ResourceManager.GetString("ProcessorHasTerminated", resourceCulture);
             }
         }
         

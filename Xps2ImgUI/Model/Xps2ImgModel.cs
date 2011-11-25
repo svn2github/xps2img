@@ -283,7 +283,7 @@ namespace Xps2ImgUI.Model
                 Thread.Sleep(500);
                 if (checkExitCode && Interlocked.CompareExchange(ref _processExitCode, 0, 0) == 1)
                 {
-                    throw new Exception(Resources.Strings.Error_ProcessorHasTerminated);
+                    throw new Exception(Resources.Strings.ProcessorHasTerminated);
                 }
             }
         }

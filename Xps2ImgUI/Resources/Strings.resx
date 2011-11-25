@@ -192,10 +192,13 @@
   <data name="XPS2ImgFileExtension" xml:space="preserve">
     <value>.x2i</value>
   </data>
-  <data name="Error_ProcessorHasTerminated" xml:space="preserve">
+  <data name="ProcessorHasTerminated" xml:space="preserve">
     <value>Processor has terminated unexpectedly.</value>
   </data>
   <data name="DeleteConvertedImagesConfirmation" xml:space="preserve">
     <value>Converted images will be deleted.</value>
+  </data>
+  <data name="PressToProceedMessage" xml:space="preserve">
+    <value> Press OK to proceed.</value>
   </data>
 </root>
