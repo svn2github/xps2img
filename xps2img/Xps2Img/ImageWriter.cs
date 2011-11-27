@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Media.Imaging;
 
@@ -32,10 +33,25 @@ namespace Xps2Img.Xps2Img
             Write(true, fileName, imageType, imageOptions, bitmapSource, writeCallback);
         }
 
+        private static readonly Dictionary<ImageType, string> _imageTypeExtensions = new Dictionary<ImageType, string>();
+
+        public static string GetImageExtension(ImageType imageType)
+        {
+            string extension;
+
+            if (!_imageTypeExtensions.TryGetValue(imageType, out extension))
+            {
+                extension = CreateEncoder(imageType, new ImageOptions()).CodecInfo.FileExtensions.Split(new[] { ',' })[0];
+                _imageTypeExtensions[imageType] = extension;
+            }
+
+            return extension;
+        }
+
         public static void Write(bool writeFile, string fileName, ImageType imageType, ImageOptions imageOptions, BitmapSource bitmapSource, Action<string> writeCallback)
         {
             var bitmapEncoder = CreateEncoder(imageType, imageOptions);
-            var fullFileName = fileName + bitmapEncoder.CodecInfo.FileExtensions.Split(new[] { ',' })[0];
+            var fullFileName = fileName + GetImageExtension(imageType);
 
             if (writeCallback != null)
             {

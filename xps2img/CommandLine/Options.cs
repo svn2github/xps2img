@@ -308,7 +308,7 @@ namespace Xps2Img.CommandLine
         public string PrelimsPrefix { get; set; }
         #endif
 
-        private const string TestDescription = "Test mode (no files will be written)";
+        private const string TestDescription = "Test mode (no file operations will be performed)";
         private const char TestShortOption = 'e';
 
         #if !XPS2IMG_UI

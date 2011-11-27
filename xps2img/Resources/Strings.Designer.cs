@@ -88,6 +88,15 @@ namespace Xps2Img.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to [{{4,3}}%] Deleting image {0} ({1}/{{2}}) at &apos;{{3}}&apos;....
+        /// </summary>
+        internal static string Template_CleanProgress {
+            get {
+                return ResourceManager.GetString("Template_CleanProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [{{4,3}}%] Converting page {0} ({1}/{{2}}) into &apos;{{3}}&apos;....
         /// </summary>
         internal static string Template_Progress {

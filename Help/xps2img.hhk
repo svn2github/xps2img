@@ -108,6 +108,10 @@
 		<param name="Name" value="-s, --silent">
 		<param name="Local" value="Files\Options.html#silent">
 		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="--clean">
+		<param name="Local" value="Files\Options.html#clean">
+		</OBJECT>
 	</UL>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="GUI Front-end Parameters">
@@ -284,6 +288,10 @@
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-x">
 		<param name="Local" value="Files\Options.html#prelimsprefix">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="--clean">
+		<param name="Local" value="Files\Options.html#clean">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="--dpi">

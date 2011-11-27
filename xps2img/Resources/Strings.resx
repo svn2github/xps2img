@@ -126,10 +126,13 @@
   <data name="Template_Progress" xml:space="preserve">
     <value>[{{4,3}}%] Converting page {0} ({1}/{{2}}) into '{{3}}'...</value>
   </data>
-  <data name="Template_ProgressTitle">
-    <value xml:space="preserve">{0}% ({1}/{2}) [{3}] - {4} - xps2img</value>
+  <data name="Template_ProgressTitle" xml:space="preserve">
+    <value>{0}% ({1}/{2}) [{3}] - {4} - xps2img</value>
   </data>
-  <data name="Error_PagesRange">
-    <value xml:space="preserve">Pages specified are out of document pages range. {0} is the last one.</value>
+  <data name="Error_PagesRange" xml:space="preserve">
+    <value>Pages specified are out of document pages range. {0} is the last one.</value>
+  </data>
+  <data name="Template_CleanProgress" xml:space="preserve">
+    <value>[{{4,3}}%] Deleting image {0} ({1}/{{2}}) at '{{3}}'...</value>
   </data>
 </root>

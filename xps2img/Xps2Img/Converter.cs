@@ -87,6 +87,8 @@ namespace Xps2Img.Xps2Img
             public int FirstPageIndex { get; set; }
             public string PrelimsPrefix { get; set; }
 
+            public bool Clean { get; set; }
+            
             public Parameters()
             {
                 FirstPageIndex = 1;
@@ -128,10 +130,12 @@ namespace Xps2Img.Xps2Img
             }
 
             var activeDir = parameters.OutputDir;
-            if (!parameters.Test)
+            if (!parameters.Test && !parameters.Clean)
             {
                 Directory.CreateDirectory(activeDir);
             }
+
+            var directoryNotFound = false;
 
             for (var docPageNumber = parameters.StartPage; docPageNumber <= parameters.EndPage; docPageNumber++)
             {
@@ -160,13 +164,59 @@ namespace Xps2Img.Xps2Img
 
                 var fileName = Path.Combine(activeDir, parameters.BaseImageName + pageIndexFormatted);
 
-                ImageWriter.Write(
-                  !parameters.Test,
-                  fileName,
-                  parameters.ImageType,
-                  parameters.ImageOptions,
-                  GetPageBitmap(_documentPaginator, docPageNumber - 1, parameters),
-                  fullFileName => { if (OnProgress != null) { ConverterState.ActivePageIndex++; OnProgress(this, new ProgressEventArgs(fullFileName, ConverterState)); } });
+                if(parameters.Clean)
+                {
+                    var fullFileName = fileName + ImageWriter.GetImageExtension(parameters.ImageType);
+
+                    try
+                    {
+                        if (!directoryNotFound && !parameters.Test)
+                        {
+                            File.Delete(fullFileName);
+                        }
+                    }
+                    catch (DirectoryNotFoundException)
+                    {
+                        directoryNotFound = true;
+                    }
+
+                    FireOnProgress(fullFileName);
+                }
+                else
+                {
+                    ImageWriter.Write(
+                      !parameters.Test,
+                      fileName,
+                      parameters.ImageType,
+                      parameters.ImageOptions,
+                      GetPageBitmap(_documentPaginator, docPageNumber - 1, parameters),
+                      FireOnProgress
+                    );
+                }
+            }
+
+            if (parameters.Clean && !parameters.Test)
+            {
+                try
+                {
+                    File.Delete("thumbs.db");
+                    Directory.Delete(activeDir);
+                }
+                // ReSharper disable EmptyGeneralCatchClause
+                catch
+                {
+                }
+                // ReSharper restore EmptyGeneralCatchClause
+            }
+        }
+
+        private void FireOnProgress(string fileName)
+        {
+            ConverterState.ActivePageIndex++;
+
+            if (OnProgress != null)
+            {
+                OnProgress(this, new ProgressEventArgs(fileName, ConverterState));
             }
         }
 

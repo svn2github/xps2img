@@ -101,7 +101,8 @@ namespace Xps2Img
                                               options.ImageName :
                                               (options.ImageName == null ? String.Empty : null),
                             FirstPageIndex = options.FirstPageIndex,
-                            PrelimsPrefix = options.PrelimsPrefix
+                            PrelimsPrefix = options.PrelimsPrefix,
+                            Clean = options.Clean
                         }
                     )
                 );
@@ -121,7 +122,7 @@ namespace Xps2Img
                 if (_progressFormatString == null)
                 {
                     _progressFormatString = String.Format(
-                                                Resources.Strings.Template_Progress,
+                                                converter.ConverterParameters.Clean ? Resources.Strings.Template_CleanProgress : Resources.Strings.Template_Progress,
                                                 0.GetNumberFormat(args.ConverterState.LastPage, false),
                                                 1.GetNumberFormat(args.ConverterState.LastPage, false));
                 }

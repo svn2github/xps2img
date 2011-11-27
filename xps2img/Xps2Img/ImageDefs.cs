@@ -16,6 +16,11 @@ namespace Xps2Img.Xps2Img
     #if !XPS2IMG_UI
     public class ImageOptions
     {
+        public ImageOptions() :
+            this(Default.JpegQualityLevel, Default.TiffCompression)
+        {
+        }
+
         public ImageOptions(int jpegQualityLevel, TiffCompressOption tiffCompression)
         {
             JpegQualityLevel = jpegQualityLevel;
