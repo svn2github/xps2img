@@ -225,6 +225,30 @@ namespace Xps2ImgUI.Model
             }
         }
 
+        private IEnumerable<List<Interval>> GetDocumentSplittedIntervals()
+        {
+            Func<IEnumerable<List<Interval>>> getEmptyIntervals = () => new List<List<Interval>> { new List<Interval>() };
+
+            if (IsSingleProcessor)
+            {
+                return getEmptyIntervals();
+            }
+
+            BoostProcessPriority(true);
+
+            var intervals = GetDocumentIntervals();
+
+            if (intervals.Any())
+            {
+                _pagesTotal = intervals.GetTotalLength();
+                return intervals.SplitBy(_threadsCount);
+            }
+
+            _threadsCount = 1;
+
+            return getEmptyIntervals();
+        }
+
         private void Xps2ImgProcessWaitThread(Process process)
         {
             try
@@ -238,7 +262,9 @@ namespace Xps2ImgUI.Model
                 FreeProcessResources(process);
             }
             // ReSharper disable EmptyGeneralCatchClause
-            catch { }
+            catch
+            {
+            }
             // ReSharper restore EmptyGeneralCatchClause
         }
 
@@ -271,9 +297,9 @@ namespace Xps2ImgUI.Model
             }
             // ReSharper disable EmptyGeneralCatchClause
             catch
-            // ReSharper restore EmptyGeneralCatchClause
             {
             }
+            // ReSharper restore EmptyGeneralCatchClause
         }
 
         private void WaitAllProcessThreads(bool checkExitCode)
@@ -300,27 +326,9 @@ namespace Xps2ImgUI.Model
 
                 var consoleEncoding = Encoding.GetEncoding(Thread.CurrentThread.CurrentCulture.GetConsoleFallbackUICulture().TextInfo.OEMCodePage);
 
-                _threadsCount = OptionsObject.ActualProcessorsNumber;
+                _threadsCount = _convertMode ? OptionsObject.ActualProcessorsNumber : 1;
 
-                var splittedIntervals = new List<List<Interval>> { new List<Interval>() };
-
-                if (!IsSingleProcessor)
-                {
-                    BoostProcessPriority(true);
-
-                    var intervals = GetDocumentIntervals();
-
-                    if (intervals.Any())
-                    {
-                        _pagesTotal = intervals.GetTotalLength();
-                        splittedIntervals = intervals.SplitBy(_threadsCount);
-                    }
-                    else
-                    {
-                        _threadsCount = 1;
-                        splittedIntervals = new List<List<Interval>> { new List<Interval> { new Interval() } };
-                    }
-                }
+                var splittedIntervals = GetDocumentSplittedIntervals();
 
                 _appMutex = new Mutex(true, _optionsHolder.OptionsObject.ParentAppMutexName);
 
@@ -328,7 +336,7 @@ namespace Xps2ImgUI.Model
                 {
                     var process = StartProcess(
                                     IsSingleProcessor
-                                        ? FormatCommandLine(Options.ExcludedUIOptions)
+                                    	? FormatCommandLine(Options.ExcludedUIOptions) + (_convertMode ? String.Empty : Options.CleanOption)
                                         : String.Format("{0} -p \"{1}\"", FormatCommandLine(Options.ExcludedOnLaunch), IntervalUtils.ToString(t))
                                     , consoleEncoding);
                     ThreadPool.QueueUserWorkItem(_ => Xps2ImgProcessWaitThread(process));

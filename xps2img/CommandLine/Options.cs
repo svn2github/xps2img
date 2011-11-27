@@ -480,6 +480,8 @@ namespace Xps2Img.CommandLine
         #if !XPS2IMG_UI
         [global::CommandLine.Option("Clean (delete images)", global::CommandLine.ShortOptionType.None1, global::CommandLine.ArgumentExpectancy.No)]
         public bool Clean { get; set; }
+        #else
+        public const string CleanOption = " --clean";
         #endif
     }
 

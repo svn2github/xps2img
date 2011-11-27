@@ -142,7 +142,7 @@
     <value>Currently executed convertion will be aborted.</value>
   </data>
   <data name="Xps2ImgError" xml:space="preserve">
-    <value>Convertion failed.{0}{0}{1}</value>
+    <value>Operation failed.{0}{0}{1}</value>
   </data>
   <data name="SpecifyValue" xml:space="preserve">
     <value>{0} parameter is required.</value>

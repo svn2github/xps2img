@@ -13,7 +13,7 @@ namespace wyDay.Controls
         PushButtonState _state;
 
         static readonly int BorderSize = SystemInformation.Border3DSize.Width*2;
-        static readonly int SplitSectionWidth = BorderSize*3 | 1;
+        static readonly int SplitSectionWidth = BorderSize*3 + 2 | 1;
 
         bool skipNextOpen;
         Rectangle dropDownRectangle;
