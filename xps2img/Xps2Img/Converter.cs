@@ -135,8 +135,11 @@ namespace Xps2Img.Xps2Img
                 Directory.CreateDirectory(activeDir);
             }
 
-            var directoryNotFound = false;
-
+            if (parameters.Clean && !Directory.Exists(activeDir))
+            {
+                return;
+            }
+            
             for (var docPageNumber = parameters.StartPage; docPageNumber <= parameters.EndPage; docPageNumber++)
             {
                 if (IsCancelled)
@@ -168,16 +171,9 @@ namespace Xps2Img.Xps2Img
                 {
                     var fullFileName = fileName + ImageWriter.GetImageExtension(parameters.ImageType);
 
-                    try
+                    if (!parameters.Test)
                     {
-                        if (!directoryNotFound && !parameters.Test)
-                        {
-                            File.Delete(fullFileName);
-                        }
-                    }
-                    catch (DirectoryNotFoundException)
-                    {
-                        directoryNotFound = true;
+                        File.Delete(fullFileName);
                     }
 
                     FireOnProgress(fullFileName);
