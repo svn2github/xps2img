@@ -317,7 +317,7 @@ namespace Xps2ImgUI.Model
         private void Xps2ImgLaunchThread()
         {
             try
-            {               
+            {
                 _isRunning = true;
                 _isErrorReported = false;
                 _processExitCode = 0;
@@ -336,7 +336,7 @@ namespace Xps2ImgUI.Model
                 {
                     var process = StartProcess(
                                     IsSingleProcessor
-                                    	? FormatCommandLine(Options.ExcludedUIOptions) + (_convertMode ? String.Empty : Options.CleanOption)
+                                        ? FormatCommandLine(Options.ExcludedUIOptions) + (_convertMode ? String.Empty : Options.CleanOption)
                                         : String.Format("{0} -p \"{1}\"", FormatCommandLine(Options.ExcludedOnLaunch), IntervalUtils.ToString(t))
                                     , consoleEncoding);
                     ThreadPool.QueueUserWorkItem(_ => Xps2ImgProcessWaitThread(process));
@@ -349,6 +349,8 @@ namespace Xps2ImgUI.Model
                 }
 
                 WaitAllProcessThreads(true);
+
+                CanResume = false;
                 
                 if (Completed != null)
                 {
@@ -365,6 +367,8 @@ namespace Xps2ImgUI.Model
                 {
                     throw;
                 }
+
+                CanResume = true;
 
                 if (!_isErrorReported)
                 {
@@ -385,12 +389,12 @@ namespace Xps2ImgUI.Model
                 {
                     BoostProcessPriority(false);
                 }
-
-                // https://connect.microsoft.com/VisualStudio/feedback/details/430646/thread-handle-leak#tabs
-                GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
-                GC.WaitForPendingFinalizers();
             }
         }
+
+        public bool CanResume { get; set; }
+
+        private readonly object _syncObj = new object();
 
         private void OutputDataReceivedWrapper(object sender, DataReceivedEventArgs e)
         {
@@ -421,8 +425,11 @@ namespace Xps2ImgUI.Model
             }
 
             var file = match.Groups["file"].Value;
-                
-            OutputDataReceived(this, new ConvertionProgressEventArgs(percent, pages, file));
+
+            lock (_syncObj)
+            {
+                OutputDataReceived(this, new ConvertionProgressEventArgs(percent, pages, file));
+            }
         }
 
         private void ErrorDataReceivedWrapper(object sender, DataReceivedEventArgs e)

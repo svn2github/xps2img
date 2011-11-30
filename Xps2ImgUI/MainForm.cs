@@ -222,7 +222,10 @@ namespace Xps2ImgUI
             
             progressBar.Value = 0;
 
-            this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.NoProgress);
+            if (!_xps2ImgModel.IsRunning)
+            {
+                this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.NoProgress);
+            }
         }
 
         private void UpdateFailedStatus(string message)
@@ -260,6 +263,8 @@ namespace Xps2ImgUI
 
         private void UpdateCommandLine()
         {
+            _xps2ImgModel.CanResume = false;
+
             _srcFileDisplayName = Path.GetFileNameWithoutExtension(_xps2ImgModel.OptionsObject.SrcFile);
             var commandLine = _xps2ImgModel.FormatCommandLine(Options.ExcludedOnView);
             var separator = String.IsNullOrEmpty(commandLine) ? String.Empty : "\x20";
@@ -499,6 +504,11 @@ namespace Xps2ImgUI
             {
                 ExecuteConvertion(false);
             }
+        }
+
+        private void СonvertContextMenuStripOpening(object sender, CancelEventArgs e)
+        {
+            resumeToolStripMenuItem.Visible = _xps2ImgModel.CanResume;
         }
 
         private volatile bool _conversionFailed;

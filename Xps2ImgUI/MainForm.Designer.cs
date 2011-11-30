@@ -38,6 +38,7 @@ namespace Xps2ImgUI
             this.convertButton = new wyDay.Controls.SplitButton();
             this.convertContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.convertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resumeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsSplitContainer.Panel1.SuspendLayout();
@@ -117,11 +118,13 @@ namespace Xps2ImgUI
             // 
             this.convertContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.convertToolStripMenuItem,
+            this.resumeToolStripMenuItem,
             this.toolStripMenuItem2,
             this.deleteImagesToolStripMenuItem});
             this.convertContextMenuStrip.Name = "convertContextMenuStrip";
             this.convertContextMenuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.convertContextMenuStrip.Size = new System.Drawing.Size(153, 76);
+            this.convertContextMenuStrip.Size = new System.Drawing.Size(153, 98);
+            this.convertContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.СonvertContextMenuStripOpening);
             // 
             // convertToolStripMenuItem
             // 
@@ -129,6 +132,12 @@ namespace Xps2ImgUI
             this.convertToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.convertToolStripMenuItem.Text = "&Convert";
             this.convertToolStripMenuItem.Click += new System.EventHandler(this.ConvertButtonClick);
+            // 
+            // resumeToolStripMenuItem
+            // 
+            this.resumeToolStripMenuItem.Name = "resumeToolStripMenuItem";
+            this.resumeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.resumeToolStripMenuItem.Text = "&Resume";
             // 
             // toolStripMenuItem2
             // 
@@ -177,6 +186,7 @@ namespace Xps2ImgUI
     private System.Windows.Forms.ToolStripMenuItem deleteImagesToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem convertToolStripMenuItem;
     private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+    private System.Windows.Forms.ToolStripMenuItem resumeToolStripMenuItem;
   }
 }
 
