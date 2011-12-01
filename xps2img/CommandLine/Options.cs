@@ -367,12 +367,13 @@ namespace Xps2Img.CommandLine
 
         public const string AutoValue = "Auto";
 
+        private const string ProcessorsDisplayName = "Processors";
         private const string ProcessorsNameDefaultValue = AutoValue;
         private const string ProcessorsName = "processors-number";
 
         [global::CommandLine.Option("", global::CommandLine.ShortOptionType.None12, DefaultValue = ProcessorsNameDefaultValue)]
         [Option(ProcessorsName)]
-        [DisplayName("Processors")]
+        [DisplayName(ProcessorsDisplayName)]
         [TabbedDescription("Number of simultaneously running document processors\n  number of logical CPUs by default")]
         [Category(Category.Options)]
         [TypeConverter(typeof(ProcessorsNumberConverter))]
@@ -405,12 +406,13 @@ namespace Xps2Img.CommandLine
             }
         }
 
+        private const string ProcessorsPriorityDisplayName = "Processors Priority";
         private const string ProcessorsPriorityNameDefaultValue = AutoValue;
         private const string ProcessorsPriorityName = "processors-priority";
 
         [global::CommandLine.Option("", global::CommandLine.ShortOptionType.None13, DefaultValue = ProcessorsPriorityNameDefaultValue)]
         [Option(ProcessorsPriorityName)]
-        [DisplayName("Processors Priority")]
+        [DisplayName(ProcessorsPriorityDisplayName)]
         [TabbedDescription("Document processors priority\n  Normal by default")]
         [Category(Category.Options)]
         [TypeConverter(typeof(ProcessPriorityClassConverter))]
@@ -444,6 +446,8 @@ namespace Xps2Img.CommandLine
         public static readonly string[] ExcludedUIOptions = new[] { ProcessorsName, ProcessorsPriorityName };
         public static readonly string[] ExcludedOnLaunch = ExcludedUIOptions.Concat(new[] { PagesShortOption.ToString() }).ToArray();
         public static readonly string[] ExcludedOnView = ExcludedOnSave.Concat(ExcludedUIOptions).ToArray();
+
+        public static readonly string[] ExcludeOnResumeCheck = new[] { ProcessorsDisplayName, ProcessorsPriorityDisplayName };
 
         private static void ValidateProperty(object propertyValue, string validatorExpresion)
         {

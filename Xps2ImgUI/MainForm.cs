@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -64,7 +65,7 @@ namespace Xps2ImgUI
         {
             settingsPropertyGrid.SelectedObject = _xps2ImgModel.OptionsObject;
             Refresh();
-            UpdateCommandLine();
+            UpdateCommandLine(false);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -261,9 +262,9 @@ namespace Xps2ImgUI
             }
         }
 
-        private void UpdateCommandLine()
+        private void UpdateCommandLine(bool canResume)
         {
-            _xps2ImgModel.CanResume = false;
+            _xps2ImgModel.CanResume = _xps2ImgModel.CanResume && canResume;
 
             _srcFileDisplayName = Path.GetFileNameWithoutExtension(_xps2ImgModel.OptionsObject.SrcFile);
             var commandLine = _xps2ImgModel.FormatCommandLine(Options.ExcludedOnView);
@@ -330,7 +331,7 @@ namespace Xps2ImgUI
             {
                 _xps2ImgModel.OptionsObject.SrcFile = file;
                 settingsPropertyGrid.Refresh();
-                UpdateCommandLine();
+                UpdateCommandLine(false);
             }
         }
 
@@ -479,12 +480,12 @@ namespace Xps2ImgUI
 
         private void SettingsPropertyGridPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
-            UpdateCommandLine();
+            UpdateCommandLine(Options.ExcludeOnResumeCheck.Contains(e.ChangedItem.Label));
         }
 
         private void SettingsPropertyGridSelectedObjectsChanged(object sender, EventArgs e)
         {
-            UpdateCommandLine();
+            UpdateCommandLine(false);
         }
 
         private void ShowCommandLineToolStripButtonClick(object sender, EventArgs e)
