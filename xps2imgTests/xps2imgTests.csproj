@@ -45,6 +45,8 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PagesStateTrakerUnitTest.cs" />
+    <Compile Include="PagesStateTraker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IntervalUnitTest.cs" />
   </ItemGroup>
