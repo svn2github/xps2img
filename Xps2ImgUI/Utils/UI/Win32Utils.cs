@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -15,6 +16,15 @@ namespace Xps2ImgUI.Utils.UI
             {
                 ShowWindow(form.Handle, SW_RESTORE);
             }
+        }
+
+        public static bool IsForegroundWindow(this Form form)
+        {
+            var foregroundWindow = GetForegroundWindow();
+            return form.MdiChildren.Select(f => f.Handle)
+                    .Union(form.OwnedForms.Select(f => f.Handle)
+                    .Union(new[] { form.Handle }))
+                    .Contains(foregroundWindow);
         }
 
         public static bool Flash(this Form form)
@@ -151,6 +161,9 @@ namespace Xps2ImgUI.Utils.UI
 
         [DllImport("user32.dll")]
         private static extern int ShowWindow(IntPtr hWnd, uint msg);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
 
         [DllImport("user32.dll")]
         private static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);

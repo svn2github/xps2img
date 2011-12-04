@@ -1,4 +1,4 @@
-﻿//#define SHOW_ELAPSED_TIME
+﻿#define SHOW_ELAPSED_TIME
 
 using System;
 using System.ComponentModel;
@@ -204,7 +204,7 @@ namespace Xps2ImgUI
                 #if SHOW_ELAPSED_TIME
                 _stopwatch.Stop();
                 var ts = _stopwatch.Elapsed;
-                Text += String.Format(" [{0:00}:{1:00}.{2}]", ts.Minutes, ts.Seconds, ts.Milliseconds);
+                Text += String.Format(" \x25CF {0:00}:{1:00} \x25CF", ts.Minutes, ts.Seconds);
                 #endif
             }
 
@@ -281,7 +281,7 @@ namespace Xps2ImgUI
 
         private void FlashForm()
         {
-            if (ActiveForm == null)
+            if (!this.IsForegroundWindow())
             {
                 this.Flash(4);
             }
