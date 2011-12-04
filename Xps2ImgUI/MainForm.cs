@@ -200,12 +200,12 @@ namespace Xps2ImgUI
         {
             if (!isRunning)
             {
+                Text = Resources.Strings.WindowTitle;
                 #if SHOW_ELAPSED_TIME
                 _stopwatch.Stop();
                 var ts = _stopwatch.Elapsed;
-                ShowMessageBox(String.Format("{0:00}:{1:00}:{2:00}.{3}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Text += String.Format(" [{0:00}:{1:00}.{2}]", ts.Minutes, ts.Seconds, ts.Milliseconds);
                 #endif
-                Text = Resources.Strings.WindowTitle;
             }
 
             convertButton.Text = isRunning ? Resources.Strings.Stop : Resources.Strings.Launch;
