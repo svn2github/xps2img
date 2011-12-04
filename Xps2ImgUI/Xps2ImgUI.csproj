@@ -135,7 +135,7 @@
     <Compile Include="Utils\ReflectionUtils.cs" />
     <Compile Include="Utils\UI\Win32Utils.cs" />
     <Compile Include="Utils\UI\PropertyGridUtils.cs" />
-    <Compile Include="Utils\UI\WaitCursor.cs" />
+    <None Include="Utils\UI\WaitCursor.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

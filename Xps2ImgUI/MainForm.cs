@@ -29,7 +29,10 @@ namespace Xps2ImgUI
         public MainForm()
         {
             InitializeComponent();
+
             SetModel(new Xps2ImgModel());
+
+            _resumeToolStripMenuItemPosition = convertContextMenuStrip.Items.OfType<ToolStripMenuItem>().ToList().IndexOf(resumeToolStripMenuItem);
         }
 
         public void SetModel(Xps2ImgModel xps2ImgModel)
@@ -353,7 +356,7 @@ namespace Xps2ImgUI
                 return;
             }
 
-            this.InvokeIfNeeded(() => { FlashForm(); UpdateRunningStatus(false); EnableConvertControls(); });
+            this.InvokeIfNeeded(() => { UpdateRunningStatus(false); EnableConvertControls(); FlashForm(); });
         }
 
         private void Xps2ImgLaunchFailed(object sender, ThreadExceptionEventArgs e)
@@ -509,7 +512,15 @@ namespace Xps2ImgUI
 
         private void СonvertContextMenuStripOpening(object sender, CancelEventArgs e)
         {
-            resumeToolStripMenuItem.Visible = _xps2ImgModel.CanResume;
+            var menu = (ContextMenuStrip) sender;
+            if(_xps2ImgModel.CanResume)
+            {
+                menu.Items.Insert(_resumeToolStripMenuItemPosition, resumeToolStripMenuItem);
+            }
+            else
+            {
+                menu.Items.Remove(resumeToolStripMenuItem);
+            }
         }
 
         private volatile bool _conversionFailed;
@@ -544,6 +555,8 @@ namespace Xps2ImgUI
             get { return !settingsSplitContainer.Panel2Collapsed; }
             set { settingsSplitContainer.Panel2Collapsed = !value; }
         }
+
+        private readonly int _resumeToolStripMenuItemPosition;
 
         private bool _isModalWindowOpened;
 
