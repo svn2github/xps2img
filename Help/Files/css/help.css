@@ -5,6 +5,11 @@ body
 	font: 10pt Arial, Verdana;
 }
 
+img.list
+{
+	margin: 3pt;
+}
+
 h1
 {
 	font-size: 15pt;
