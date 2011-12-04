@@ -20,11 +20,15 @@ namespace Xps2ImgUI.Utils.UI
 
         public static bool IsForegroundWindow(this Form form)
         {
-            var foregroundWindow = GetForegroundWindow();
+            if (form.IsDisposed)
+            {
+                return false;
+            }
+
             return form.MdiChildren.Select(f => f.Handle)
                     .Union(form.OwnedForms.Select(f => f.Handle)
                     .Union(new[] { form.Handle }))
-                    .Contains(foregroundWindow);
+                    .Contains(GetForegroundWindow());
         }
 
         public static bool Flash(this Form form)
@@ -43,6 +47,7 @@ namespace Xps2ImgUI.Utils.UI
             {
                 return false;
             }
+
             var fi = Create_FLASHWINFO(form.Handle, flags, timeout, 0);
             return FlashWindowEx(ref fi);
         }
