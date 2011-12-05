@@ -81,10 +81,20 @@ namespace Xps2ImgUI
             MinimumSize = new Size(Size.Width, Size.Height);
 
             AdjustPropertyGrid();
+
+            ApplyPreferences();
             
             FocusFirstRequiredOption(null);
             
             base.OnLoad(e);
+        }
+
+        private void ApplyPreferences()
+        {
+            settingsPropertyGrid.ModernLook = _preferences.ModernLook;
+            convertContextMenuStrip.RenderMode = _preferences.ModernLook
+                                                     ? ToolStripRenderMode.ManagerRenderMode
+                                                     : ToolStripRenderMode.System;
         }
 
         protected override void OnActivated(EventArgs e)
@@ -99,10 +109,12 @@ namespace Xps2ImgUI
             {
                 Activate();
 
-                var dialogResult = ShowMessageBox(Resources.Strings.ClosingConfirmation + Resources.Strings.PressToProceedMessage,
-                                                   DefaultConfirmButtons,
-                                                   MessageBoxIcon.Exclamation,
-                                                   DefaultConfirmButton);
+                var dialogResult = _preferences.ConfirmOnExit
+                                        ? ShowMessageBox(Resources.Strings.ClosingConfirmation + Resources.Strings.PressToProceedMessage,
+                                            DefaultConfirmButtons,
+                                            MessageBoxIcon.Exclamation,
+                                            DefaultConfirmButton)
+                                        : ConfirmDialogResult;
 
                 e.Cancel = dialogResult != ConfirmDialogResult;
 
@@ -148,7 +160,13 @@ namespace Xps2ImgUI
             Action<string> copyToClipboard = str => Clipboard.SetDataObject(str, true);
 
             // Remove Property Pages button.
-            settingsPropertyGrid.RemoveLastToolStripButton();
+            settingsPropertyGrid.RemoveLastToolStripItem();
+
+            // Preferences button.
+            settingsPropertyGrid.AddToolStripButton("&Preferences", PreferencesToolStripButtonClick);
+
+            // Separator.
+            settingsPropertyGrid.AddToolStripSeparator();
 
             // Show Command Line button.
             _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.ShowCommandLine, ShowCommandLineToolStripButtonClick,
@@ -428,6 +446,14 @@ namespace Xps2ImgUI
 
         private void ExecuteConvertion(bool convertMode)
         {
+            // Force command line update if launched via shortcut.
+            if (!convertButton.Focused)
+            {
+                convertButton.Focus();
+                convertButton.PerformClick();
+                return;
+            }
+
             EnableConvertControls(false, false);
 
             if (_isModalWindowOpened)
@@ -491,6 +517,21 @@ namespace Xps2ImgUI
             UpdateCommandLine(false);
         }
 
+        private void PreferencesToolStripButtonClick(object sender, EventArgs e)
+        {
+            var toolStripButton = (ToolStripButton) sender;
+            toolStripButton.Checked = true;
+
+            var preferencesForm = new PreferencesForm(_preferences);
+            if(preferencesForm.ShowDialog() == DialogResult.OK)
+            {
+                _preferences = preferencesForm.Preferences;
+                ApplyPreferences();
+            }
+
+            toolStripButton.Checked = false;
+        }
+
         private void ShowCommandLineToolStripButtonClick(object sender, EventArgs e)
         {
             settingsSplitContainer.Panel2Collapsed = !settingsSplitContainer.Panel2Collapsed;
@@ -504,7 +545,7 @@ namespace Xps2ImgUI
 
         private void DeleteImagesToolStripMenuItemClick(object sender, EventArgs e)
         {
-            if (ConfirmDialogResult == ShowMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation + Resources.Strings.PressToProceedMessage, DefaultConfirmButtons, MessageBoxIcon.Exclamation, DefaultConfirmButton))
+            if (!_preferences.ConfirmOnDelete || ConfirmDialogResult == ShowMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation + Resources.Strings.PressToProceedMessage, DefaultConfirmButtons, MessageBoxIcon.Exclamation, DefaultConfirmButton))
             {
                 ExecuteConvertion(false);
             }
@@ -555,6 +596,8 @@ namespace Xps2ImgUI
             get { return !settingsSplitContainer.Panel2Collapsed; }
             set { settingsSplitContainer.Panel2Collapsed = !value; }
         }
+
+        private Preferences _preferences = new Preferences();
 
         private readonly int _resumeToolStripMenuItemPosition;
 

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Xps2ImgUI.Utils
 {
@@ -49,6 +51,19 @@ namespace Xps2ImgUI.Utils
                             : (MemberExpression) propertyExpression.Body;
 
             return body.Member.Name;
+        }
+
+        public static T DeepClone<T>(this T obj)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                var binaryFormatter = new BinaryFormatter();
+
+                binaryFormatter.Serialize(memoryStream, obj);
+                memoryStream.Position = 0;
+
+                return (T)binaryFormatter.Deserialize(memoryStream);
+            }
         }
     }
 }

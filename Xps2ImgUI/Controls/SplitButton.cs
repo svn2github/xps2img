@@ -6,6 +6,9 @@ using System.Windows.Forms.VisualStyles;
 
 //Get the latest version of SplitButton at: http://wyday.com/splitbutton/
 
+// ReSharper disable CheckNamespace
+// ReSharper disable InconsistentNaming
+
 namespace wyDay.Controls
 {
     public class SplitButton : Button

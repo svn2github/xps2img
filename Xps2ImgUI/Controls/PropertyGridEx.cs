@@ -16,6 +16,8 @@ namespace Xps2ImgUI.Controls
         {
             base.OnCreateControl();
 
+            _backColorOriginal = BackColor;
+
             var controls = Controls.OfType<Control>().ToArray();
 
             _toolStrip = (ToolStrip)controls.Where(c => c is ToolStrip).FirstOrDefault();
@@ -42,7 +44,7 @@ namespace Xps2ImgUI.Controls
             base.OnSelectedObjectsChanged(e);
         }
 
-        public void RemoveLastToolStripButton()
+        public void RemoveLastToolStripItem()
         {
             var lastIndex = _toolStrip.Items.Count - 1;
             if (lastIndex >= 0)
@@ -143,6 +145,16 @@ namespace Xps2ImgUI.Controls
             }
         }
 
+        public bool ModernLook
+        {
+            get { return DrawFlatToolbar; }
+            set
+            {
+                DrawFlatToolbar = value;
+                BackColor = _backColorOriginal;
+            }
+        }
+
         private void SetSelectedObjectReadOnly()
         {
             if (SelectedObject != null)
@@ -156,5 +168,7 @@ namespace Xps2ImgUI.Controls
         private Control _docComment;
 
         private Type _docCommentType;
+
+        private Color _backColorOriginal;
     }
 }

@@ -111,11 +111,18 @@
     <Compile Include="Converters\ProcessPriorityClassConverter.cs" />
     <Compile Include="Converters\ProcessorsNumberConverter.cs" />
     <Compile Include="Converters\YesNoConverter.cs" />
+    <Compile Include="PreferencesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PreferencesForm.Designer.cs">
+      <DependentUpon>PreferencesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.Settings.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\BaseSelectFileFolderEditor.cs" />
     <Compile Include="Model\ConvertionProgressEventArgs.cs" />
+    <Compile Include="Settings\Preferences.cs" />
     <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Model\Xps2ImgModel.cs" />
     <Compile Include="Dialogs\SelectFileEditor.cs" />
@@ -126,6 +133,7 @@
       <DependentUpon>Icons.resx</DependentUpon>
     </Compile>
     <Compile Include="Utils\AssemblyInformation.cs" />
+    <Compile Include="Utils\PropertiesComparator.cs" />
     <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="Utils\UI\Explorer.cs" />
     <Compile Include="Utils\UI\IconExtractor.cs" />

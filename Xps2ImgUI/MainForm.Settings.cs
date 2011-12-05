@@ -4,7 +4,9 @@ using System.Windows.Forms;
 using CommandLine;
 
 using Xps2Img.CommandLine;
+
 using Xps2ImgUI.Model;
+using Xps2ImgUI.Settings;
 
 namespace Xps2ImgUI
 {
@@ -16,6 +18,7 @@ namespace Xps2ImgUI
             public PropertySort PropertySort { get; set; }
             public bool ShowCommandLine { get; set; }
             public string CommandLine { get; set; }
+            public Preferences Preferences { get; set; }
         }
 
         public object GetSettings()
@@ -24,7 +27,8 @@ namespace Xps2ImgUI
             {
                 PropertySort = settingsPropertyGrid.PropertySort,
                 ShowCommandLine = IsCommandLineVisible,
-                CommandLine = _xps2ImgModel.FormatCommandLine(Options.ExcludedOnSave)
+                CommandLine = _xps2ImgModel.FormatCommandLine(Options.ExcludedOnSave),
+                Preferences = _preferences
             };
         }
 
@@ -33,6 +37,7 @@ namespace Xps2ImgUI
             var settings = (Settings)serialized;
             settingsPropertyGrid.PropertySort = settings.PropertySort;
             IsCommandLineVisible = settings.ShowCommandLine;
+            _preferences = settings.Preferences ?? new Preferences();
             if (!String.IsNullOrEmpty(settings.CommandLine))
             {
                 SetModel(new Xps2ImgModel(Parser.Parse<Options>(settings.CommandLine, true)));
