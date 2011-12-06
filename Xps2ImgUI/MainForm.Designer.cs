@@ -65,7 +65,7 @@ namespace Xps2ImgUI
             // 
             this.settingsSplitContainer.Panel2.Controls.Add(this.commandLineTextBox);
             this.settingsSplitContainer.Panel2Collapsed = true;
-            this.settingsSplitContainer.Size = new System.Drawing.Size(777, 522);
+            this.settingsSplitContainer.Size = new System.Drawing.Size(777, 508);
             this.settingsSplitContainer.SplitterDistance = 440;
             this.settingsSplitContainer.TabIndex = 7;
             // 
@@ -84,7 +84,7 @@ namespace Xps2ImgUI
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar.Location = new System.Drawing.Point(8, 528);
+            this.progressBar.Location = new System.Drawing.Point(8, 514);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(700, 23);
             this.progressBar.TabIndex = 0;
@@ -97,31 +97,31 @@ namespace Xps2ImgUI
             this.toolStripMenuItem2,
             this.deleteImagesToolStripMenuItem});
             this.convertContextMenuStrip.Name = "convertContextMenuStrip";
-            this.convertContextMenuStrip.Size = new System.Drawing.Size(153, 98);
+            this.convertContextMenuStrip.Size = new System.Drawing.Size(144, 76);
             this.convertContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.СonvertContextMenuStripOpening);
             // 
             // convertToolStripMenuItem
             // 
             this.convertToolStripMenuItem.Name = "convertToolStripMenuItem";
-            this.convertToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.convertToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.convertToolStripMenuItem.Text = "&Convert";
             this.convertToolStripMenuItem.Click += new System.EventHandler(this.ConvertButtonClick);
             // 
             // resumeToolStripMenuItem
             // 
             this.resumeToolStripMenuItem.Name = "resumeToolStripMenuItem";
-            this.resumeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.resumeToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.resumeToolStripMenuItem.Text = "&Resume";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(140, 6);
             // 
             // deleteImagesToolStripMenuItem
             // 
             this.deleteImagesToolStripMenuItem.Name = "deleteImagesToolStripMenuItem";
-            this.deleteImagesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteImagesToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.deleteImagesToolStripMenuItem.Text = "&Delete Images";
             this.deleteImagesToolStripMenuItem.Click += new System.EventHandler(this.DeleteImagesToolStripMenuItemClick);
             // 
@@ -129,7 +129,7 @@ namespace Xps2ImgUI
             // 
             this.convertButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.convertButton.AutoSize = true;
-            this.convertButton.Location = new System.Drawing.Point(711, 528);
+            this.convertButton.Location = new System.Drawing.Point(711, 514);
             this.convertButton.Name = "convertButton";
             this.convertButton.Size = new System.Drawing.Size(75, 23);
             this.convertButton.TabIndex = 1;
@@ -139,14 +139,13 @@ namespace Xps2ImgUI
             // settingsPropertyGrid
             // 
             this.settingsPropertyGrid.AllowDrop = true;
-            this.settingsPropertyGrid.BackColor = System.Drawing.SystemColors.Window;
             this.settingsPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.settingsPropertyGrid.Location = new System.Drawing.Point(0, 0);
             this.settingsPropertyGrid.ModernLook = false;
             this.settingsPropertyGrid.Name = "settingsPropertyGrid";
             this.settingsPropertyGrid.PropertySort = System.Windows.Forms.PropertySort.Categorized;
             this.settingsPropertyGrid.ReadOnly = false;
-            this.settingsPropertyGrid.Size = new System.Drawing.Size(777, 522);
+            this.settingsPropertyGrid.Size = new System.Drawing.Size(777, 508);
             this.settingsPropertyGrid.TabIndex = 0;
             this.settingsPropertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.SettingsPropertyGridPropertyValueChanged);
             this.settingsPropertyGrid.PropertySortChanged += new System.EventHandler(this.SettingsPropertyGridPropertySortChanged);
@@ -157,7 +156,7 @@ namespace Xps2ImgUI
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(793, 560);
+            this.ClientSize = new System.Drawing.Size(793, 546);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.convertButton);
             this.Controls.Add(this.settingsSplitContainer);
