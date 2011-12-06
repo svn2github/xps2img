@@ -163,7 +163,7 @@ namespace Xps2ImgUI
             settingsPropertyGrid.RemoveLastToolStripItem();
 
             // Preferences button.
-            settingsPropertyGrid.AddToolStripButton("&Preferences", PreferencesToolStripButtonClick);
+            settingsPropertyGrid.AddToolStripButton(Resources.Strings.Preferences, PreferencesToolStripButtonClick);
 
             // Separator.
             settingsPropertyGrid.AddToolStripSeparator();
@@ -205,7 +205,7 @@ namespace Xps2ImgUI
 
             //  Help.
             settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.Help, (s, e) => ShowHelp(),
-                new ToolStripButtonItem(Resources.Strings.About, (s, e) => new AboutForm().ShowDialog(this))
+                new ToolStripButtonItem(Resources.Strings.About, AboutToolStripButtonClicked)
             ).Alignment = ToolStripItemAlignment.Right;
         }
 
@@ -405,13 +405,12 @@ namespace Xps2ImgUI
 
         private void ShowOptionIsRequiredMessage(string firstRequiredOptionLabel)
         {
-            _isModalWindowOpened = true;
+            using (new ModalGuard())
+            {
+                Activate();
 
-            Activate();
-
-            ShowMessageBox(String.Format(Resources.Strings.SpecifyValue, firstRequiredOptionLabel), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-            _isModalWindowOpened = false;
+                ShowMessageBox(String.Format(Resources.Strings.SpecifyValue, firstRequiredOptionLabel), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void ShowMessageBox(string text, MessageBoxButtons buttons, MessageBoxIcon icon)
@@ -446,8 +445,14 @@ namespace Xps2ImgUI
 
         private void ExecuteConvertion(bool convertMode)
         {
+            if (_xps2ImgModel.IsRunning)
+            {
+                _xps2ImgModel.Stop();
+                return;
+            }
+
             // Force command line update if launched via shortcut.
-            if (!convertButton.Focused)
+            if (!ModalGuard.IsEntered && !convertButton.Focused)
             {
                 convertButton.Focus();
                 convertButton.PerformClick();
@@ -456,16 +461,10 @@ namespace Xps2ImgUI
 
             EnableConvertControls(false, false);
 
-            if (_isModalWindowOpened)
+            if (ModalGuard.IsEntered)
             {
                 Activate();
                 EnableConvertControls();
-                return;
-            }
-
-            if (_xps2ImgModel.IsRunning)
-            {
-                _xps2ImgModel.Stop();
                 return;
             }
 
@@ -517,19 +516,30 @@ namespace Xps2ImgUI
             UpdateCommandLine(false);
         }
 
+        private void AboutToolStripButtonClicked(object sender, EventArgs e)
+        {
+            using (new ModalGuard())
+            {
+                new AboutForm().ShowDialog(this);
+            }
+        }
+
         private void PreferencesToolStripButtonClick(object sender, EventArgs e)
         {
-            var toolStripButton = (ToolStripButton) sender;
-            toolStripButton.Checked = true;
-
-            var preferencesForm = new PreferencesForm(_preferences);
-            if(preferencesForm.ShowDialog() == DialogResult.OK)
+            using (new ModalGuard())
             {
-                _preferences = preferencesForm.Preferences;
-                ApplyPreferences();
-            }
+                var toolStripButton = (ToolStripButton) sender;
+                toolStripButton.Checked = true;
 
-            toolStripButton.Checked = false;
+                var preferencesForm = new PreferencesForm(_preferences);
+                if (preferencesForm.ShowDialog() == DialogResult.OK)
+                {
+                    _preferences = preferencesForm.Preferences;
+                    ApplyPreferences();
+                }
+
+                toolStripButton.Checked = false;
+            }
         }
 
         private void ShowCommandLineToolStripButtonClick(object sender, EventArgs e)
@@ -600,8 +610,6 @@ namespace Xps2ImgUI
         private Preferences _preferences = new Preferences();
 
         private readonly int _resumeToolStripMenuItemPosition;
-
-        private bool _isModalWindowOpened;
 
         private Xps2ImgModel _xps2ImgModel;
 

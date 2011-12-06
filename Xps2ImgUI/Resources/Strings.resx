@@ -201,4 +201,10 @@
   <data name="PressToProceedMessage" xml:space="preserve">
     <value> Press OK to proceed.</value>
   </data>
+    <data name="Preferences">
+        <value xml:space="preserve">&amp;Preferences</value>
+    </data>
+    <data name="ResetToDefault">
+        <value xml:space="preserve">Reset To &amp;Default</value>
+    </data>
 </root>

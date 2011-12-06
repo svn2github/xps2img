@@ -169,6 +169,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Preferences.
+        /// </summary>
+        internal static string Preferences {
+            get {
+                return ResourceManager.GetString("Preferences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  Press OK to proceed..
         /// </summary>
         internal static string PressToProceedMessage {
@@ -210,6 +219,15 @@ namespace Xps2ImgUI.Resources {
         internal static string ResetParameters {
             get {
                 return ResourceManager.GetString("ResetParameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset To &amp;Default.
+        /// </summary>
+        internal static string ResetToDefault {
+            get {
+                return ResourceManager.GetString("ResetToDefault", resourceCulture);
             }
         }
         

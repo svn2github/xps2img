@@ -397,11 +397,14 @@ namespace wyDay.Controls
                     ControlPaint.DrawImageDisabled(g, Image, image_rectangle.X, image_rectangle.Y, BackColor);
             }
 
+            textFormatFlags &= ~(TextFormatFlags.NoPrefix | TextFormatFlags.HidePrefix);
+
             // If we dont' use mnemonic, set formatFlag to NoPrefix as this will show ampersand.
             if (!UseMnemonic)
-                textFormatFlags = textFormatFlags | TextFormatFlags.NoPrefix;
-            else if (!ShowKeyboardCues)
-                textFormatFlags = textFormatFlags | TextFormatFlags.HidePrefix;
+                textFormatFlags |= TextFormatFlags.NoPrefix;
+            else
+            if (!ShowKeyboardCues)
+                textFormatFlags |= TextFormatFlags.HidePrefix;
 
             //draw the text
             if (!string.IsNullOrEmpty(Text))
