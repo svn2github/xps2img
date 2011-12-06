@@ -12,14 +12,14 @@ namespace Xps2ImgUI.Settings
         private const string DisplayNameConfirmations   = "Confirmations";
         private const string DisplayNameAppearance      = "Appearance";
 
-        [DisplayName(@"Confirm On Exit")]
+        [DisplayName(@"Confirm Exit")]
         [Category(DisplayNameConfirmations)]
         [Description("Asks confirmation on application exit if convertion is in progress.")]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnExit { get; set; }
 
-        [DisplayName(@"Confirm On Delete")]
+        [DisplayName(@"Confirm Delete")]
         [Category(DisplayNameConfirmations)]
         [Description("Asks confirmation on images deletion.")]
         [DefaultValue(true)]
