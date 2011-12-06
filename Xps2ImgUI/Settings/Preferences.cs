@@ -9,7 +9,8 @@ namespace Xps2ImgUI.Settings
     [Serializable]
     public class Preferences
     {
-        private const string DisplayNameConfirmations = "Confirmations";
+        private const string DisplayNameConfirmations   = "Confirmations";
+        private const string DisplayNameAppearance      = "Appearance";
 
         [DisplayName(@"Confirm On Exit")]
         [Category(DisplayNameConfirmations)]
@@ -26,8 +27,8 @@ namespace Xps2ImgUI.Settings
         public bool ConfirmOnDelete { get; set; }
 
         [DisplayName(@"Modern Look")]
-        [Category("Appearance")]
-        [Description("Modern look.")]
+        [Category(DisplayNameAppearance)]
+        [Description("Applies modern look to application.")]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ModernLook { get; set; }

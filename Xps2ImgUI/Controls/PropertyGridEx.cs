@@ -12,6 +12,8 @@ namespace Xps2ImgUI.Controls
     {
         private const bool UseAutoToolTip = false;
 
+        private const string ExtendedCategory = "Extended";
+
         protected override void OnCreateControl()
         {
             base.OnCreateControl();
@@ -135,6 +137,9 @@ namespace Xps2ImgUI.Controls
         }
 
         private bool _readOnly;
+        
+        [Category(ExtendedCategory)]
+        [DefaultValue(false)]
         public bool ReadOnly
         {
             get { return _readOnly; }
@@ -145,6 +150,8 @@ namespace Xps2ImgUI.Controls
             }
         }
 
+        [Category(ExtendedCategory)]
+        [DefaultValue(false)]
         public bool ModernLook
         {
             get { return DrawFlatToolbar; }
