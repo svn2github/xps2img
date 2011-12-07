@@ -158,6 +158,7 @@ namespace Xps2ImgUI
             settingsPropertyGrid.SetDocMonospaceFont();
 
             Action<string> copyToClipboard = str => Clipboard.SetDataObject(str, true);
+            Action<Action> modalAction = action => { using (new ModalGuard()) { action(); } };
 
             // Remove Property Pages button.
             settingsPropertyGrid.RemoveLastToolStripItem();
@@ -179,8 +180,8 @@ namespace Xps2ImgUI
             settingsPropertyGrid.AddToolStripSeparator();
 
             // Load/save settings.
-            _loadToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.LoadSettings, (s, e) => SetModel(SettingsManager.LoadSettings()),
-                new ToolStripButtonItem(Resources.Strings.SaveSettings, (s, e) => SettingsManager.SaveSettings(_xps2ImgModel))
+            _loadToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.LoadSettings, (s, e) => modalAction(() => SetModel(SettingsManager.LoadSettings())),
+                new ToolStripButtonItem(Resources.Strings.SaveSettings, (s, e) => modalAction(() => SettingsManager.SaveSettings(_xps2ImgModel)))
             );
 
             // Separator.
@@ -205,7 +206,7 @@ namespace Xps2ImgUI
 
             //  Help.
             settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.Help, (s, e) => ShowHelp(),
-                new ToolStripButtonItem(Resources.Strings.About, AboutToolStripButtonClicked)
+                new ToolStripButtonItem(Resources.Strings.About, (s, e) => modalAction(() => new AboutForm().ShowDialog(this)))
             ).Alignment = ToolStripItemAlignment.Right;
         }
 
@@ -405,12 +406,8 @@ namespace Xps2ImgUI
 
         private void ShowOptionIsRequiredMessage(string firstRequiredOptionLabel)
         {
-            using (new ModalGuard())
-            {
-                Activate();
-
-                ShowMessageBox(String.Format(Resources.Strings.SpecifyValue, firstRequiredOptionLabel), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
+            Activate();
+            ShowMessageBox(String.Format(Resources.Strings.SpecifyValue, firstRequiredOptionLabel), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
         private void ShowMessageBox(string text, MessageBoxButtons buttons, MessageBoxIcon icon)
@@ -431,7 +428,10 @@ namespace Xps2ImgUI
                 Application.DoEvents();
             }
 
-            return MessageBox.Show(this, text, Resources.Strings.WindowTitle, buttons, icon, messageBoxDefaultButton);
+            using (new ModalGuard())
+            {
+                return MessageBox.Show(this, text, Resources.Strings.WindowTitle, buttons, icon, messageBoxDefaultButton);
+            }
         }
 
         private void ShowHelp()
@@ -514,14 +514,6 @@ namespace Xps2ImgUI
         private void SettingsPropertyGridSelectedObjectsChanged(object sender, EventArgs e)
         {
             UpdateCommandLine(false);
-        }
-
-        private void AboutToolStripButtonClicked(object sender, EventArgs e)
-        {
-            using (new ModalGuard())
-            {
-                new AboutForm().ShowDialog(this);
-            }
         }
 
         private void PreferencesToolStripButtonClick(object sender, EventArgs e)
