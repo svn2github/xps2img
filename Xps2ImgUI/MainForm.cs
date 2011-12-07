@@ -422,12 +422,6 @@ namespace Xps2ImgUI
                 return DialogResult.Cancel;
             }
 
-            if (OwnedForms.Length != 0)
-            {
-                Array.ForEach(OwnedForms, f => f.Close());
-                Application.DoEvents();
-            }
-
             using (new ModalGuard())
             {
                 return MessageBox.Show(this, text, Resources.Strings.WindowTitle, buttons, icon, messageBoxDefaultButton);
@@ -447,6 +441,7 @@ namespace Xps2ImgUI
         {
             if (_xps2ImgModel.IsRunning)
             {
+                EnableConvertControls(false, false);
                 _xps2ImgModel.Stop();
                 return;
             }
