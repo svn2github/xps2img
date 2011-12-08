@@ -16,6 +16,7 @@ using Xps2Img.CommandLine;
 using Xps2ImgUI.Controls;
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Settings;
+using Xps2ImgUI.Utils;
 using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI
@@ -516,16 +517,16 @@ namespace Xps2ImgUI
             using (new ModalGuard())
             {
                 var toolStripButton = (ToolStripButton) sender;
-                toolStripButton.Checked = true;
 
-                var preferencesForm = new PreferencesForm(_preferences);
-                if (preferencesForm.ShowDialog() == DialogResult.OK)
+                using (new DisposableActions(() => toolStripButton.Checked = true, () => toolStripButton.Checked = false))
                 {
-                    _preferences = preferencesForm.Preferences;
-                    ApplyPreferences();
+                    var preferencesForm = new PreferencesForm(_preferences);
+                    if (preferencesForm.ShowDialog() == DialogResult.OK)
+                    {
+                        _preferences = preferencesForm.Preferences;
+                        ApplyPreferences();
+                    }
                 }
-
-                toolStripButton.Checked = false;
             }
         }
 

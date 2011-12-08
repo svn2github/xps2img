@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace Xps2ImgUI.Utils.UI
+﻿namespace Xps2ImgUI.Utils.UI
 {
-    public class ModalGuard : IDisposable
+    public class ModalGuard : DisposableActions
     {
         private static int _counter;
 
@@ -12,14 +10,8 @@ namespace Xps2ImgUI.Utils.UI
         }
 
         public ModalGuard()
+            : base(() => _counter++, () => { _counter--; System.Diagnostics.Debug.Assert(_counter >= 0); })
         {
-            _counter++;
-        }
-
-        void IDisposable.Dispose()
-        {
-            _counter--;
-            System.Diagnostics.Debug.Assert(_counter >= 0);
         }
     }
 }
