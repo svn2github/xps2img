@@ -18,7 +18,7 @@ namespace Xps2ImgUI.Settings
         {
             if (_loadDialog == null)
             {
-                InitFileDialog(_loadDialog = new OpenFileDialog());
+                InitFileDialog(_loadDialog = new OpenFileDialog { Title = Resources.Strings.LoadSettingsTitle });
             }
 
             return _loadDialog.ShowDialog() == DialogResult.OK
@@ -36,7 +36,7 @@ namespace Xps2ImgUI.Settings
         {
             if (_saveDialog == null)
             {
-                InitFileDialog(_saveDialog = new SaveFileDialog());
+                InitFileDialog(_saveDialog = new SaveFileDialog { Title = Resources.Strings.SaveSettingsTitle });
             }
 
             #if DEBUG

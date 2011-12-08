@@ -160,6 +160,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Load Settings.
+        /// </summary>
+        internal static string LoadSettingsTitle {
+            get {
+                return ResourceManager.GetString("LoadSettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown error.
         /// </summary>
         internal static string NoExceptionMessage {
@@ -169,7 +178,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Preferences.
+        ///   Looks up a localized string similar to &amp;Preferences....
         /// </summary>
         internal static string Preferences {
             get {
@@ -237,6 +246,15 @@ namespace Xps2ImgUI.Resources {
         internal static string SaveSettings {
             get {
                 return ResourceManager.GetString("SaveSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Settings.
+        /// </summary>
+        internal static string SaveSettingsTitle {
+            get {
+                return ResourceManager.GetString("SaveSettingsTitle", resourceCulture);
             }
         }
         

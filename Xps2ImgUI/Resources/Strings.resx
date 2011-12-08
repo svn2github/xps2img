@@ -201,10 +201,16 @@
   <data name="PressToProceedMessage" xml:space="preserve">
     <value> Press OK to proceed.</value>
   </data>
-    <data name="Preferences">
-        <value xml:space="preserve">&amp;Preferences</value>
+  <data name="Preferences" xml:space="preserve">
+    <value>&amp;Preferences...</value>
+  </data>
+  <data name="ResetToDefault" xml:space="preserve">
+    <value>Reset To &amp;Default</value>
+  </data>
+    <data name="SaveSettingsTitle">
+        <value xml:space="preserve">Save Settings</value>
     </data>
-    <data name="ResetToDefault">
-        <value xml:space="preserve">Reset To &amp;Default</value>
+    <data name="LoadSettingsTitle">
+        <value xml:space="preserve">Load Settings</value>
     </data>
 </root>
