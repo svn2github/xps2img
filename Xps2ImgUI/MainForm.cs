@@ -150,6 +150,7 @@ namespace Xps2ImgUI
             base.WndProc(ref m);
         }
 
+
         private void AdjustPropertyGrid()
         {
             settingsPropertyGrid.DragDrop += MainFormDragDrop;
@@ -158,7 +159,6 @@ namespace Xps2ImgUI
             settingsPropertyGrid.DocLines = 9;
             settingsPropertyGrid.SetDocMonospaceFont();
 
-            Action<string> copyToClipboard = str => Clipboard.SetDataObject(str, true);
             Action<Action> modalAction = action => { using (new ModalGuard()) { action(); } };
 
             // Remove Property Pages button.
@@ -172,7 +172,7 @@ namespace Xps2ImgUI
 
             // Show Command Line button.
             _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.ShowCommandLine, ShowCommandLineToolStripButtonClick,
-                new ToolStripButtonItem(Resources.Strings.CopyCommandLineToClipboard, (s, e) => copyToClipboard(commandLineTextBox.Text))
+                new ToolStripButtonItem(Resources.Strings.CopyCommandLineToClipboard, (s, e) => CopyToClipboard(commandLineTextBox.Text))
              );
 
             UpdateShowCommandLineCommand();
@@ -202,13 +202,31 @@ namespace Xps2ImgUI
             settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.BrowseConvertedImages, BrowseConvertedImagesToolStripButtonClick,
                 new ToolStripButtonItem(Resources.Strings.BrowseXPSFile, (s, e) => Explorer.Select(_xps2ImgModel.OptionsObject.SrcFile)),
                 new ToolStripButtonItem(),
-                new ToolStripButtonItem(Resources.Strings.CopyConvertedImagesPathToClipboard, (s, e) => copyToClipboard(ConvertedImagesFolder))
+                new ToolStripButtonItem(Resources.Strings.CopyConvertedImagesPathToClipboard, (s, e) => CopyToClipboard(ConvertedImagesFolder))
             );
 
             //  Help.
             settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.Help, (s, e) => ShowHelp(),
                 new ToolStripButtonItem(Resources.Strings.About, (s, e) => modalAction(() => new AboutForm().ShowDialog(this)))
             ).Alignment = ToolStripItemAlignment.Right;
+        }
+
+        private static void CopyToClipboard(string str)
+        {
+            var tries = 2;
+            while(tries-- != 0)
+            {
+                try
+                {
+                    Clipboard.SetDataObject(str, true, 2, 100);
+                    break;
+                }
+                // ReSharper disable EmptyGeneralCatchClause
+                catch (Exception)
+                // ReSharper restore EmptyGeneralCatchClause
+                {
+                }
+            }
         }
 
         private void UpdateProgress(int percent, string pages, string file)
