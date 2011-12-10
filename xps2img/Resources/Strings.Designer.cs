@@ -88,6 +88,15 @@ namespace Xps2Img.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  Make sure you have enough disk storage available..
+        /// </summary>
+        internal static string Message_DiskStorage {
+            get {
+                return ResourceManager.GetString("Message_DiskStorage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [{{4,3}}%] Deleting image {0} ({1}/{{2}}) at &apos;{{3}}&apos;....
         /// </summary>
         internal static string Template_CleanProgress {

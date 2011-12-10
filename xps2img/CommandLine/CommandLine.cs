@@ -53,7 +53,7 @@ namespace Xps2Img.CommandLine
                                                                                             #if !DEBUG
                                                                                             .Message
                                                                                             #endif
-                                    + ((ioException != null) ? " Make sure you have enough disk storage." : string.Empty)));
+                                    + ((ioException != null) ? Resources.Strings.Message_DiskStorage : string.Empty)));
             return (int)(ex is ConversionException ? (ex as ConversionException).ReturnCode : ReturnCode.Failed);
         }
 
