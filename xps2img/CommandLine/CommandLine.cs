@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 using CommandLine;
 
@@ -47,11 +48,12 @@ namespace Xps2Img.CommandLine
 
         public static int DisplayError(Exception ex)
         {
+            var ioException = (ex as IOException) ?? (ex.InnerException as IOException);
             Console.Error.WriteLine(String.Format("{0}{1}", Resources.Strings.Error_Header, ex
                                                                                             #if !DEBUG
                                                                                             .Message
                                                                                             #endif
-            ));
+                                    + ((ioException != null) ? " Make sure you have enough disk storage." : string.Empty)));
             return (int)(ex is ConversionException ? (ex as ConversionException).ReturnCode : ReturnCode.Failed);
         }
 
