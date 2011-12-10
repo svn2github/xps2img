@@ -46,14 +46,27 @@ namespace Xps2Img.CommandLine
             return false;
         }
 
+        private static string GetExceptionHint<T>(Exception ex, string message) where T: Exception
+        {
+            var ioException = (ex as T) ?? (ex.InnerException as T);
+            return ioException != null ? "\x20" + message : null;
+        }
+
+        public static string GetExceptionHint(Exception ex)
+        {
+            return
+                GetExceptionHint<IOException>(ex, Resources.Strings.Message_DiskStorage) ??
+                GetExceptionHint<UnauthorizedAccessException>(ex, Resources.Strings.Message_FileAccess) ??
+                string.Empty;
+        }
+
         public static int DisplayError(Exception ex)
         {
-            var ioException = (ex as IOException) ?? (ex.InnerException as IOException);
-            Console.Error.WriteLine(String.Format("{0}{1}", Resources.Strings.Error_Header, ex
+            Console.Error.WriteLine(String.Format("{0}{1}{2}", Resources.Strings.Error_Header, ex
                                                                                             #if !DEBUG
                                                                                             .Message
                                                                                             #endif
-                                    + ((ioException != null) ? Resources.Strings.Message_DiskStorage : string.Empty)));
+                                    , GetExceptionHint(ex)));
             return (int)(ex is ConversionException ? (ex as ConversionException).ReturnCode : ReturnCode.Failed);
         }
 

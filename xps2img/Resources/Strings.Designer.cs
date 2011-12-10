@@ -88,11 +88,20 @@ namespace Xps2Img.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Make sure you have enough disk storage available..
+        ///   Looks up a localized string similar to Make sure you have enough disk storage available..
         /// </summary>
         internal static string Message_DiskStorage {
             get {
                 return ResourceManager.GetString("Message_DiskStorage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Make sure file is accessible and not read-only..
+        /// </summary>
+        internal static string Message_FileAccess {
+            get {
+                return ResourceManager.GetString("Message_FileAccess", resourceCulture);
             }
         }
         
