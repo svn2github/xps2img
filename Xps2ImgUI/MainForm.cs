@@ -521,7 +521,7 @@ namespace Xps2ImgUI
                 using (new DisposableActions(() => toolStripButton.Checked = true, () => toolStripButton.Checked = false))
                 {
                     var preferencesForm = new PreferencesForm(_preferences);
-                    if (preferencesForm.ShowDialog() == DialogResult.OK)
+                    if (preferencesForm.ShowDialog(this) == DialogResult.OK)
                     {
                         _preferences = preferencesForm.Preferences;
                         ApplyPreferences();
