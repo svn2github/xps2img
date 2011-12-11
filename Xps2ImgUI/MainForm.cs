@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -270,6 +271,8 @@ namespace Xps2ImgUI
             }
         }
 
+        private static readonly Regex _removeErrorText = new Regex(@"^Error:\s*");
+
         private void UpdateFailedStatus(string message)
         {
             _conversionFailed = true;
@@ -278,7 +281,7 @@ namespace Xps2ImgUI
 
             FlashForm();
 
-            ShowMessageBox(String.Format(Resources.Strings.Xps2ImgError, Environment.NewLine, message), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            ShowMessageBox(String.Format(Resources.Strings.Xps2ImgError, Environment.NewLine, _removeErrorText.Replace(message, String.Empty)), MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             UpdateRunningStatus(false);
         }
