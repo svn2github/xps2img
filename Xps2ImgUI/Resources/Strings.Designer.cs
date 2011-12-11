@@ -313,15 +313,6 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Operation failed.{0}{0}{1}.
-        /// </summary>
-        internal static string Xps2ImgError {
-            get {
-                return ResourceManager.GetString("Xps2ImgError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to .x2i.
         /// </summary>
         internal static string XPS2ImgFileExtension {

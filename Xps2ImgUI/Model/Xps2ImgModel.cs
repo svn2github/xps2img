@@ -146,7 +146,7 @@ namespace Xps2ImgUI.Model
         }
 
         public event EventHandler<ConvertionProgressEventArgs> OutputDataReceived;
-        public event DataReceivedEventHandler ErrorDataReceived;
+        public event EventHandler<ConvertionErrorEventArgs> ErrorDataReceived;
         public event EventHandler Completed;
 
         public event EventHandler OptionsObjectChanged;
@@ -442,7 +442,7 @@ namespace Xps2ImgUI.Model
             if (ErrorDataReceived != null && !_isErrorReported)
             {
                 _isErrorReported = true;
-                ErrorDataReceived(this, e);
+                ErrorDataReceived(this, new ConvertionErrorEventArgs(CleanErrorMessageRegex.Replace(e.Data, String.Empty)));
             }
 
             Stop();
@@ -471,6 +471,8 @@ namespace Xps2ImgUI.Model
 
         private static readonly Regex OutputRegex = new Regex(@"^\[\s*(?<percent>\d+)%\].+\(\s*(?<pages>\d+/\d+)\)" + FileNameGroup);
         private static readonly Regex FileNameRegex = new Regex(FileNameGroup);
+
+        private static readonly Regex CleanErrorMessageRegex = new Regex(@"^Error:\s*");
 
         private OptionsHolder<Options> _optionsHolder;
 

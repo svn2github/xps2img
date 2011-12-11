@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -271,8 +270,6 @@ namespace Xps2ImgUI
             }
         }
 
-        private static readonly Regex _removeErrorText = new Regex(@"^Error:\s*");
-
         private void UpdateFailedStatus(string message)
         {
             _conversionFailed = true;
@@ -281,7 +278,7 @@ namespace Xps2ImgUI
 
             FlashForm();
 
-            ShowMessageBox(String.Format(Resources.Strings.Xps2ImgError, Environment.NewLine, _removeErrorText.Replace(message, String.Empty)), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            ShowMessageBox(message, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             UpdateRunningStatus(false);
         }
@@ -385,9 +382,9 @@ namespace Xps2ImgUI
             this.InvokeIfNeeded(() => UpdateProgress(e.Percent, e.Pages, e.File));
         }
 
-        private void Xps2ImgErrorDataReceived(object sender, DataReceivedEventArgs e)
+        private void Xps2ImgErrorDataReceived(object sender, ConvertionErrorEventArgs e)
         {
-            this.InvokeIfNeeded(() => UpdateFailedStatus(e.Data));
+            this.InvokeIfNeeded(() => UpdateFailedStatus(e.Message));
         }
 
         private void Xps2ImgCompleted(object sender, EventArgs e)

@@ -141,9 +141,6 @@
   <data name="ClosingConfirmation" xml:space="preserve">
     <value>Currently executed convertion will be aborted.</value>
   </data>
-  <data name="Xps2ImgError" xml:space="preserve">
-    <value>Operation failed.{0}{0}{1}</value>
-  </data>
   <data name="SpecifyValue" xml:space="preserve">
     <value>{0} parameter is required.</value>
   </data>
@@ -207,10 +204,10 @@
   <data name="ResetToDefault" xml:space="preserve">
     <value>Reset To &amp;Default</value>
   </data>
-    <data name="SaveSettingsTitle">
-        <value xml:space="preserve">Save Settings</value>
-    </data>
-    <data name="LoadSettingsTitle">
-        <value xml:space="preserve">Load Settings</value>
-    </data>
+  <data name="SaveSettingsTitle" xml:space="preserve">
+    <value>Save Settings</value>
+  </data>
+  <data name="LoadSettingsTitle" xml:space="preserve">
+    <value>Load Settings</value>
+  </data>
 </root>
