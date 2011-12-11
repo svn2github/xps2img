@@ -48,8 +48,7 @@ namespace Xps2Img.CommandLine
 
         private static string GetExceptionHint<T>(Exception ex, string message) where T: Exception
         {
-            var ioException = (ex as T) ?? (ex.InnerException as T);
-            return ioException != null ? "\x20" + message : null;
+            return ex is T || ex.InnerException is T ? message : null;
         }
 
         public static string GetExceptionHint(Exception ex)
@@ -57,16 +56,22 @@ namespace Xps2Img.CommandLine
             return
                 GetExceptionHint<IOException>(ex, Resources.Strings.Message_DiskStorage) ??
                 GetExceptionHint<UnauthorizedAccessException>(ex, Resources.Strings.Message_FileAccess) ??
-                string.Empty;
+                GetExceptionHint<OutOfMemoryException>(ex, Resources.Strings.Message_Memory) ??
+                String.Empty;
         }
 
         public static int DisplayError(Exception ex)
         {
-            Console.Error.WriteLine(String.Format("{0}{1}{2}", Resources.Strings.Error_Header, ex
-                                                                                            #if !DEBUG
-                                                                                            .Message
-                                                                                            #endif
-                                    , GetExceptionHint(ex)));
+            var exceptionHint = GetExceptionHint(ex);
+
+            Console.Error.WriteLine(String.Format("{0}{1}" + (String.IsNullOrEmpty(exceptionHint) ? String.Empty : " {2}"),
+                                    Resources.Strings.Error_Header,
+                                    ex
+                                    #if !DEBUG
+                                    .Message
+                                    #endif
+                                    , exceptionHint));
+
             return (int)(ex is ConversionException ? (ex as ConversionException).ReturnCode : ReturnCode.Failed);
         }
 

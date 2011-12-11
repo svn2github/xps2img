@@ -106,6 +106,15 @@ namespace Xps2Img.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Decrease DPI or image size; try to use single xps2img processor..
+        /// </summary>
+        internal static string Message_Memory {
+            get {
+                return ResourceManager.GetString("Message_Memory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [{{4,3}}%] Deleting image {0} ({1}/{{2}}) at &apos;{{3}}&apos;....
         /// </summary>
         internal static string Template_CleanProgress {
