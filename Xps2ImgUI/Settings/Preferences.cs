@@ -9,43 +9,45 @@ namespace Xps2ImgUI.Settings
     [Serializable]
     public class Preferences
     {
-        private const string DisplayNameConfirmations   = "Confirmations";
-        private const string DisplayNameApplication     = "Application";
+        private const string CategoryConfirmations  = "Confirmations";
+        private const string CategoryApplication    = "Application";
 
-        [DisplayName(@"Confirm Exit")]
-        [Category(DisplayNameConfirmations)]
-        [Description("Asks confirmation on application exit if convertion is in progress.")]
-        [DefaultValue(true)]
-        [TypeConverter(typeof(YesNoConverter))]
-        public bool ConfirmOnExit { get; set; }
+        public const string DisplayNameModernLook   = "Modern Look";
 
-        [DisplayName(@"Confirm Delete")]
-        [Category(DisplayNameConfirmations)]
-        [Description("Asks confirmation on images deletion.")]
-        [DefaultValue(true)]
-        [TypeConverter(typeof(YesNoConverter))]
-        public bool ConfirmOnDelete { get; set; }
-
-        [DisplayName(@"Modern Look")]
-        [Category(DisplayNameApplication)]
+        [DisplayName(DisplayNameModernLook)]
+        [Category(CategoryApplication)]
         [Description("Applies modern look to application.")]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ModernLook { get; set; }
 
         [DisplayName(@"Save Settings On Exit")]
-        [Category(DisplayNameApplication)]
+        [Category(CategoryApplication)]
         [Description("Saves application settings on exit.")]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool AutoSaveSettings { get; set; }
 
         [DisplayName(@"Show Elapsed Time")]
-        [Category(DisplayNameApplication)]
-        [Description("Shows time elapsed by last operation.")]
+        [Category(CategoryApplication)]
+        [Description("Shows time elapsed by last operation at application title.")]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ShowElapsedTime { get; set; }
+
+        [DisplayName(@"Confirm Delete")]
+        [Category(CategoryConfirmations)]
+        [Description("Asks confirmation on images deletion.")]
+        [DefaultValue(true)]
+        [TypeConverter(typeof(YesNoConverter))]
+        public bool ConfirmOnDelete { get; set; }
+
+        [DisplayName(@"Confirm Exit")]
+        [Category(CategoryConfirmations)]
+        [Description("Asks confirmation on application exit if convertion is in progress.")]
+        [DefaultValue(true)]
+        [TypeConverter(typeof(YesNoConverter))]
+        public bool ConfirmOnExit { get; set; }
 
         public Preferences()
         {
