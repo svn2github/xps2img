@@ -58,6 +58,11 @@ namespace Xps2ImgUI.Settings
         {
             try
             {
+                if (!settings.CanSezialize)
+                {
+                    return;
+                }
+
                 var settingFile = EnsureSettingsFile();
                 try
                 {
@@ -68,6 +73,7 @@ namespace Xps2ImgUI.Settings
                 // ReSharper restore EmptyGeneralCatchClause
                 {
                 }
+
                 using (var stream = new FileStream(settingFile, FileMode.OpenOrCreate, FileAccess.Write))
                 {
                     stream.SetLength(0);

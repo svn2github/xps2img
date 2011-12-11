@@ -124,6 +124,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  ● {0:00}:{1:00}:{2:00} ●.
+        /// </summary>
+        internal static string ElapsedTimeTextTemplate {
+            get {
+                return ResourceManager.GetString("ElapsedTimeTextTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Help.
         /// </summary>
         internal static string Help {
@@ -237,6 +246,15 @@ namespace Xps2ImgUI.Resources {
         internal static string ResetToDefault {
             get {
                 return ResourceManager.GetString("ResetToDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save &amp;Default Settings.
+        /// </summary>
+        internal static string SaveDefaultSettings {
+            get {
+                return ResourceManager.GetString("SaveDefaultSettings", resourceCulture);
             }
         }
         

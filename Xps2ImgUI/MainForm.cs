@@ -1,6 +1,4 @@
-﻿#define SHOW_ELAPSED_TIME
-
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -182,7 +180,9 @@ namespace Xps2ImgUI
 
             // Load/save settings.
             _loadToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.LoadSettings, (s, e) => modalAction(() => SetModel(SettingsManager.LoadSettings())),
-                new ToolStripButtonItem(Resources.Strings.SaveSettings, (s, e) => modalAction(() => SettingsManager.SaveSettings(_xps2ImgModel)))
+                new ToolStripButtonItem(Resources.Strings.SaveSettings, (s, e) => modalAction(() => SettingsManager.SaveSettings(_xps2ImgModel))),
+                new ToolStripButtonItem(),
+                new ToolStripButtonItem(Resources.Strings.SaveDefaultSettings, (s, e) => SettingsManager.SerializeSettings(this))
             );
 
             // Separator.
@@ -242,11 +242,15 @@ namespace Xps2ImgUI
             if (!isRunning)
             {
                 Text = Resources.Strings.WindowTitle;
-                #if SHOW_ELAPSED_TIME
-                _stopwatch.Stop();
-                var ts = _stopwatch.Elapsed;
-                Text += String.Format(" \x25CF {0:00}:{1:00} \x25CF", ts.Minutes, ts.Seconds);
-                #endif
+                if (_stopwatch != null)
+                {
+                    _stopwatch.Stop();
+                    if (_preferences.ShowElapsedTime)
+                    {
+                        var elapsed = _stopwatch.Elapsed;
+                        Text += String.Format(Resources.Strings.ElapsedTimeTextTemplate, elapsed.Hours, elapsed.Minutes, elapsed.Seconds);
+                    }
+                }
             }
 
             convertButton.Text = isRunning ? Resources.Strings.Stop : Resources.Strings.Launch;
@@ -452,10 +456,6 @@ namespace Xps2ImgUI
             Help.ShowHelp(this, "xps2img.chm", HelpNavigator.TableOfContents);
         }
 
-#if SHOW_ELAPSED_TIME
-        private Stopwatch _stopwatch;
-#endif
-
         private void ExecuteConvertion(bool convertMode)
         {
             if (_xps2ImgModel.IsRunning)
@@ -496,10 +496,17 @@ namespace Xps2ImgUI
 
             _convertedImagesFolder = null;
 
-            #if SHOW_ELAPSED_TIME
-            _stopwatch = new Stopwatch();
-            _stopwatch.Start();
-            #endif
+            if (_stopwatch != null)
+            {
+                _stopwatch.Stop();
+                _stopwatch = null;
+            }
+
+            if (_preferences.ShowElapsedTime)
+            {
+                _stopwatch = new Stopwatch();
+                _stopwatch.Start();
+            }
 
             _xps2ImgModel.Launch(convertMode);
 
@@ -612,6 +619,8 @@ namespace Xps2ImgUI
             get { return !settingsSplitContainer.Panel2Collapsed; }
             set { settingsSplitContainer.Panel2Collapsed = !value; }
         }
+
+        private Stopwatch _stopwatch;
 
         private Preferences _preferences = new Preferences();
 

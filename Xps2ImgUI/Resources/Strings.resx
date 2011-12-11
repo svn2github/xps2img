@@ -210,4 +210,10 @@
   <data name="LoadSettingsTitle" xml:space="preserve">
     <value>Load Settings</value>
   </data>
+  <data name="ElapsedTimeTextTemplate">
+    <value xml:space="preserve"> ● {0:00}:{1:00}:{2:00} ●</value>
+  </data>
+  <data name="SaveDefaultSettings">
+    <value xml:space="preserve">Save &amp;Default Settings</value>
+  </data>
 </root>
