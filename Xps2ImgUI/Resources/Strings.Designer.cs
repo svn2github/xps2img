@@ -250,11 +250,11 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save &amp;Default Settings.
+        ///   Looks up a localized string similar to Save &amp;Current Settings.
         /// </summary>
-        internal static string SaveDefaultSettings {
+        internal static string SaveCurrentSettings {
             get {
-                return ResourceManager.GetString("SaveDefaultSettings", resourceCulture);
+                return ResourceManager.GetString("SaveCurrentSettings", resourceCulture);
             }
         }
         

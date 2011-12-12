@@ -213,7 +213,7 @@
   <data name="ElapsedTimeTextTemplate">
     <value xml:space="preserve"> ● {0:00}:{1:00}:{2:00} ●</value>
   </data>
-  <data name="SaveDefaultSettings">
-    <value xml:space="preserve">Save &amp;Default Settings</value>
+  <data name="SaveCurrentSettings">
+    <value xml:space="preserve">Save &amp;Current Settings</value>
   </data>
 </root>

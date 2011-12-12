@@ -182,7 +182,7 @@ namespace Xps2ImgUI
             _loadToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.LoadSettings, (s, e) => modalAction(() => SetModel(SettingsManager.LoadSettings())),
                 new ToolStripButtonItem(Resources.Strings.SaveSettings, (s, e) => modalAction(() => SettingsManager.SaveSettings(_xps2ImgModel))),
                 new ToolStripButtonItem(),
-                new ToolStripButtonItem(Resources.Strings.SaveDefaultSettings, (s, e) => SettingsManager.SerializeSettings(this))
+                new ToolStripButtonItem(Resources.Strings.SaveCurrentSettings, (s, e) => SettingsManager.SerializeSettings(this))
             );
 
             // Separator.
