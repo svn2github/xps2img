@@ -21,10 +21,6 @@ namespace Xps2ImgUI
 {
     public partial class MainForm : Form, ISettings
     {
-        private const MessageBoxButtons DefaultConfirmButtons = MessageBoxButtons.OKCancel;
-        private const DialogResult ConfirmDialogResult = DialogResult.OK;
-        private const MessageBoxDefaultButton DefaultConfirmButton = MessageBoxDefaultButton.Button2;
-
         public MainForm()
         {
             InitializeComponent();
@@ -446,7 +442,7 @@ namespace Xps2ImgUI
 
         private bool ShowConfirmationMessageBox(string text)
         {
-            return ConfirmDialogResult == ShowMessageBox(text + Resources.Strings.PressToProceedMessage, DefaultConfirmButtons, MessageBoxIcon.Exclamation, DefaultConfirmButton);
+            return DialogResult.OK == ShowMessageBox(text + Resources.Strings.PressToProceedMessage, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
         }
 
         private void ShowHelp()
@@ -458,8 +454,11 @@ namespace Xps2ImgUI
         {
             if (_xps2ImgModel.IsRunning)
             {
-                EnableConvertControls(false, false);
-                _xps2ImgModel.Stop();
+                if (!_preferences.ConfirmOnStop || ShowConfirmationMessageBox(Resources.Strings.ConvertionStopConfirmation))
+                {
+                    EnableConvertControls(false, false);
+                    _xps2ImgModel.Stop();
+                }
                 return;
             }
 

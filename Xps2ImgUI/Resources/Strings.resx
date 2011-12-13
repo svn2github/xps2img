@@ -219,4 +219,7 @@
   <data name="SaveCurrentSettingsConfirmation">
     <value xml:space="preserve">Current settings will be overwritten.</value>
   </data>
+  <data name="ConvertionStopConfirmation">
+    <value xml:space="preserve">Convertion will be stopped.</value>
+  </data>
 </root>

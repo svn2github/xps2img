@@ -49,6 +49,13 @@ namespace Xps2ImgUI.Settings
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnSaveSettings { get; set; }
 
+        [DisplayName(@"Confirm Stop Convertion")]
+        [Category(CategoryConfirmations)]
+        [Description("Asks confirmation on convertion stop.")]
+        [DefaultValue(false)]
+        [TypeConverter(typeof(YesNoConverter))]
+        public bool ConfirmOnStop { get; set; }
+
         public Preferences()
         {
             Reset();

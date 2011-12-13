@@ -97,6 +97,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Convertion will be stopped..
+        /// </summary>
+        internal static string ConvertionStopConfirmation {
+            get {
+                return ResourceManager.GetString("ConvertionStopConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Copy Command Line To Clipboard.
         /// </summary>
         internal static string CopyCommandLineToClipboard {
