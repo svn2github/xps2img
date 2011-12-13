@@ -216,4 +216,7 @@
   <data name="SaveCurrentSettings">
     <value xml:space="preserve">Save &amp;Current Settings</value>
   </data>
+  <data name="SaveCurrentSettingsConfirmation">
+    <value xml:space="preserve">Current settings will be overwritten.</value>
+  </data>
 </root>

@@ -58,11 +58,6 @@ namespace Xps2ImgUI.Settings
         {
             try
             {
-                if (!settings.CanSezialize)
-                {
-                    return;
-                }
-
                 var settingFile = EnsureSettingsFile();
                 try
                 {

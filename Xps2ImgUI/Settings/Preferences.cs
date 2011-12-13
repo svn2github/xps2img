@@ -21,13 +21,6 @@ namespace Xps2ImgUI.Settings
         [TypeConverter(typeof(YesNoConverter))]
         public bool ModernLook { get; set; }
 
-        [DisplayName(@"Save Settings On Exit")]
-        [Category(CategoryApplication)]
-        [Description("Saves application settings on exit.")]
-        [DefaultValue(true)]
-        [TypeConverter(typeof(YesNoConverter))]
-        public bool AutoSaveSettings { get; set; }
-
         [DisplayName(@"Show Elapsed Time")]
         [Category(CategoryApplication)]
         [Description("Shows time elapsed by last operation at application title.")]
@@ -48,6 +41,13 @@ namespace Xps2ImgUI.Settings
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnExit { get; set; }
+
+        [DisplayName(@"Confirm Save Settings")]
+        [Category(CategoryConfirmations)]
+        [Description("Asks confirmation on settings save.")]
+        [DefaultValue(true)]
+        [TypeConverter(typeof(YesNoConverter))]
+        public bool ConfirmOnSaveSettings { get; set; }
 
         public Preferences()
         {

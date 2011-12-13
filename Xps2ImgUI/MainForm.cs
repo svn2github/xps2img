@@ -108,14 +108,7 @@ namespace Xps2ImgUI
             {
                 Activate();
 
-                var dialogResult = _preferences.ConfirmOnExit
-                                        ? ShowMessageBox(Resources.Strings.ClosingConfirmation + Resources.Strings.PressToProceedMessage,
-                                            DefaultConfirmButtons,
-                                            MessageBoxIcon.Exclamation,
-                                            DefaultConfirmButton)
-                                        : ConfirmDialogResult;
-
-                e.Cancel = dialogResult != ConfirmDialogResult;
+                e.Cancel = _preferences.ConfirmOnExit && !ShowConfirmationMessageBox(Resources.Strings.ClosingConfirmation);
 
                 if (!e.Cancel)
                 {
@@ -182,7 +175,7 @@ namespace Xps2ImgUI
             _loadToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.LoadSettings, (s, e) => modalAction(() => SetModel(SettingsManager.LoadSettings())),
                 new ToolStripButtonItem(Resources.Strings.SaveSettings, (s, e) => modalAction(() => SettingsManager.SaveSettings(_xps2ImgModel))),
                 new ToolStripButtonItem(),
-                new ToolStripButtonItem(Resources.Strings.SaveCurrentSettings, (s, e) => SettingsManager.SerializeSettings(this))
+                new ToolStripButtonItem(Resources.Strings.SaveCurrentSettings, SaveCurrentSettingsToolStripButtonClick)
             );
 
             // Separator.
@@ -451,6 +444,11 @@ namespace Xps2ImgUI
             }
         }
 
+        private bool ShowConfirmationMessageBox(string text)
+        {
+            return ConfirmDialogResult == ShowMessageBox(text + Resources.Strings.PressToProceedMessage, DefaultConfirmButtons, MessageBoxIcon.Exclamation, DefaultConfirmButton);
+        }
+
         private void ShowHelp()
         {
             Help.ShowHelp(this, "xps2img.chm", HelpNavigator.TableOfContents);
@@ -561,6 +559,14 @@ namespace Xps2ImgUI
             UpdateShowCommandLineCommand();
         }
 
+        private void SaveCurrentSettingsToolStripButtonClick(object sender, EventArgs e)
+        {
+            if (!_preferences.ConfirmOnSaveSettings || ShowConfirmationMessageBox(Resources.Strings.SaveCurrentSettingsConfirmation))
+            {
+                SettingsManager.SerializeSettings(this);
+            }
+        }
+
         private void BrowseConvertedImagesToolStripButtonClick(object sender, EventArgs e)
         {
             Explorer.Browse(ConvertedImagesFolder);
@@ -568,7 +574,7 @@ namespace Xps2ImgUI
 
         private void DeleteImagesToolStripMenuItemClick(object sender, EventArgs e)
         {
-            if (!_preferences.ConfirmOnDelete || ConfirmDialogResult == ShowMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation + Resources.Strings.PressToProceedMessage, DefaultConfirmButtons, MessageBoxIcon.Exclamation, DefaultConfirmButton))
+            if (!_preferences.ConfirmOnDelete || ShowConfirmationMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation))
             {
                 ExecuteConvertion(false);
             }

@@ -21,11 +21,6 @@ namespace Xps2ImgUI
             public Preferences Preferences { get; set; }
         }
 
-        public bool CanSezialize
-        {
-            get { return _preferences.AutoSaveSettings; }
-        }
-
         public object GetSettings()
         {
             return new Settings
