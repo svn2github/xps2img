@@ -31,7 +31,7 @@ namespace Xps2ImgUI
 
             EnableReset();
 
-            preferencesPropertyGrid.SelectGridItem(Preferences.DisplayNameModernLook);
+            preferencesPropertyGrid.SelectGridItem(Preferences.DefaultSelectionItem);
 
             base.OnLoad(e);
         }
