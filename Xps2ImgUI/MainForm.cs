@@ -169,9 +169,7 @@ namespace Xps2ImgUI
 
             // Load/save settings.
             _loadToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.LoadSettings, (s, e) => modalAction(() => SetModel(SettingsManager.LoadSettings())),
-                new ToolStripButtonItem(Resources.Strings.SaveSettings, (s, e) => modalAction(() => SettingsManager.SaveSettings(_xps2ImgModel))),
-                new ToolStripButtonItem(),
-                new ToolStripButtonItem(Resources.Strings.SaveCurrentSettings, SaveCurrentSettingsToolStripButtonClick)
+                new ToolStripButtonItem(Resources.Strings.SaveSettings, (s, e) => modalAction(() => SettingsManager.SaveSettings(_xps2ImgModel)))
             );
 
             // Separator.
@@ -556,14 +554,6 @@ namespace Xps2ImgUI
         {
             settingsSplitContainer.Panel2Collapsed = !settingsSplitContainer.Panel2Collapsed;
             UpdateShowCommandLineCommand();
-        }
-
-        private void SaveCurrentSettingsToolStripButtonClick(object sender, EventArgs e)
-        {
-            if (!_preferences.ConfirmOnSaveSettings || ShowConfirmationMessageBox(Resources.Strings.SaveCurrentSettingsConfirmation))
-            {
-                SettingsManager.SerializeSettings(this);
-            }
         }
 
         private void BrowseConvertedImagesToolStripButtonClick(object sender, EventArgs e)

@@ -113,8 +113,8 @@ namespace Xps2ImgUI.Settings
             Debug.Assert(rootFolder != null);
 
             DataFolder = IsPortable
-                                ? rootFolder
-                                : Path.Combine(rootFolder, Resources.Strings.WindowTitle);
+                            ? rootFolder
+                            : Path.Combine(rootFolder, Resources.Strings.WindowTitle);
         }
 
         private static string EnsureDataFolder()

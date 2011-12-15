@@ -12,17 +12,10 @@ namespace Xps2ImgUI.Settings
         private const string CategoryConfirmations  = "Confirmations";
         private const string CategoryApplication    = "Application";
 
-        private const string DisplayNameAutoSaveSettings    = "Auto Save Settings";
-        public const string DefaultSelectionItem            = DisplayNameAutoSaveSettings;
+        private const string DisplayNameModernLook  = "Modern Look";
+        public const string DefaultSelectionItem    = DisplayNameModernLook;
 
-        [DisplayName(DisplayNameAutoSaveSettings)]
-        [Category(CategoryApplication)]
-        [Description("Save settings on application exit.")]
-        [DefaultValue(true)]
-        [TypeConverter(typeof(YesNoConverter))]
-        public bool SaveSettingsOnExit { get; set; }
-
-        [DisplayName(@"Modern Look")]
+        [DisplayName(DisplayNameModernLook)]
         [Category(CategoryApplication)]
         [Description("Apply application modern look.")]
         [DefaultValue(true)]
@@ -49,13 +42,6 @@ namespace Xps2ImgUI.Settings
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnExit { get; set; }
-
-        [DisplayName(@"Confirm Save Settings")]
-        [Category(CategoryConfirmations)]
-        [Description("Ask confirmation on settings save.")]
-        [DefaultValue(true)]
-        [TypeConverter(typeof(YesNoConverter))]
-        public bool ConfirmOnSaveSettings { get; set; }
 
         [DisplayName(@"Confirm Stop Convertion")]
         [Category(CategoryConfirmations)]

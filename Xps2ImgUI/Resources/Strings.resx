@@ -210,16 +210,10 @@
   <data name="LoadSettingsTitle" xml:space="preserve">
     <value>Load Settings</value>
   </data>
-  <data name="ElapsedTimeTextTemplate">
-    <value xml:space="preserve"> ● {0:00}:{1:00}:{2:00} ●</value>
+  <data name="ElapsedTimeTextTemplate" xml:space="preserve">
+    <value> ● {0:00}:{1:00}:{2:00} ●</value>
   </data>
-  <data name="SaveCurrentSettings">
-    <value xml:space="preserve">Save &amp;Current Settings</value>
-  </data>
-  <data name="SaveCurrentSettingsConfirmation">
-    <value xml:space="preserve">Current settings will be overwritten.</value>
-  </data>
-  <data name="ConvertionStopConfirmation">
-    <value xml:space="preserve">Convertion will be stopped.</value>
+  <data name="ConvertionStopConfirmation" xml:space="preserve">
+    <value>Convertion will be stopped.</value>
   </data>
 </root>
