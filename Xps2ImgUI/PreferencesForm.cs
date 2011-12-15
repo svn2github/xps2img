@@ -22,7 +22,7 @@ namespace Xps2ImgUI
         {
             this.RemoveSystemMenuDisabledItems();
 
-            preferencesPropertyGrid.ModernLook = Preferences.ModernLook;
+            preferencesPropertyGrid.ModernLook = !Preferences.ClassicLook;
             preferencesPropertyGrid.RemoveLastToolStripItem();
 
             _resetToolStripButton = preferencesPropertyGrid.AddToolStripButton(Resources.Strings.ResetToDefault, ResetToolStripButtonClick);
@@ -31,7 +31,7 @@ namespace Xps2ImgUI
 
             EnableReset();
 
-            preferencesPropertyGrid.SelectGridItem(Preferences.DefaultSelectionItem);
+            preferencesPropertyGrid.SelectGridItem(Preferences.DefaultSelectedItem);
 
             base.OnLoad(e);
         }

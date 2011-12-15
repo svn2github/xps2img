@@ -86,10 +86,10 @@ namespace Xps2ImgUI
 
         private void ApplyPreferences()
         {
-            settingsPropertyGrid.ModernLook = _preferences.ModernLook;
-            convertContextMenuStrip.RenderMode = _preferences.ModernLook
-                                                     ? ToolStripRenderMode.ManagerRenderMode
-                                                     : ToolStripRenderMode.System;
+            settingsPropertyGrid.ModernLook = !_preferences.ClassicLook;
+            convertContextMenuStrip.RenderMode = _preferences.ClassicLook
+                                                     ? ToolStripRenderMode.System
+                                                     : ToolStripRenderMode.ManagerRenderMode;
         }
 
         protected override void OnActivated(EventArgs e)

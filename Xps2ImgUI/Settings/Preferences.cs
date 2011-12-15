@@ -12,15 +12,15 @@ namespace Xps2ImgUI.Settings
         private const string CategoryConfirmations  = "Confirmations";
         private const string CategoryApplication    = "Application";
 
-        private const string DisplayNameModernLook  = "Modern Look";
-        public const string DefaultSelectionItem    = DisplayNameModernLook;
+        private const string DisplayNameClassicLook = "Classic Look";
+        public const string DefaultSelectedItem     = DisplayNameClassicLook;
 
-        [DisplayName(DisplayNameModernLook)]
+        [DisplayName(DisplayNameClassicLook)]
         [Category(CategoryApplication)]
-        [Description("Apply application modern look.")]
-        [DefaultValue(true)]
+        [Description("Use application system look.")]
+        [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
-        public bool ModernLook { get; set; }
+        public bool ClassicLook { get; set; }
 
         [DisplayName(@"Show Elapsed Time")]
         [Category(CategoryApplication)]
