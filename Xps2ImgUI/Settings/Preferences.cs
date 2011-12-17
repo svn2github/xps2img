@@ -22,6 +22,13 @@ namespace Xps2ImgUI.Settings
         [TypeConverter(typeof(YesNoConverter))]
         public bool ClassicLook { get; set; }
 
+        [DisplayName(@"Suggest Resume")]
+        [Category(CategoryApplication)]
+        [Description("Suggest to resume last convertion if applicable instead of starting new one.")]
+        [DefaultValue(true)]
+        [TypeConverter(typeof(YesNoConverter))]
+        public bool SuggestResume { get; set; }
+        
         [DisplayName(@"Show Elapsed Time")]
         [Category(CategoryApplication)]
         [Description("Show time elapsed by last operation at application title.")]
