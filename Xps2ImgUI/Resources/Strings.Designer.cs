@@ -124,6 +124,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy &amp;UI Command Line To Clipboard.
+        /// </summary>
+        internal static string CopyUICommandLineToClipboard {
+            get {
+                return ResourceManager.GetString("CopyUICommandLineToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Converted images will be deleted..
         /// </summary>
         internal static string DeleteConvertedImagesConfirmation {

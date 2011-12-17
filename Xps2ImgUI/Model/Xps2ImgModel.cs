@@ -19,8 +19,9 @@ namespace Xps2ImgUI.Model
 {
     public class Xps2ImgModel
     {
-        public static readonly string ApplicationFolder = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-        public static readonly string Xps2ImgExecutable = Path.Combine(ApplicationFolder, "xps2img.exe");
+        public static readonly string ApplicationFolder     = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+        public static readonly string Xps2ImgExecutable     = Path.Combine(ApplicationFolder, "xps2img.exe");
+        public static readonly string Xps2ImgUIExecutable   = Path.Combine(ApplicationFolder, "xps2imgui.exe");
 
         public Xps2ImgModel()
             : this(null)

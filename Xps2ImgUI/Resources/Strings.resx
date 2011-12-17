@@ -216,4 +216,7 @@
   <data name="ConvertionStopConfirmation" xml:space="preserve">
     <value>Convertion will be stopped.</value>
   </data>
+  <data name="CopyUICommandLineToClipboard" xml:space="preserve">
+    <value>Copy &amp;UI Command Line To Clipboard</value>
+  </data>
 </root>

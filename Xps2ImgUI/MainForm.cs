@@ -159,7 +159,9 @@ namespace Xps2ImgUI
 
             // Show Command Line button.
             _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.ShowCommandLine, ShowCommandLineToolStripButtonClick,
-                new ToolStripButtonItem(Resources.Strings.CopyCommandLineToClipboard, (s, e) => CopyToClipboard(commandLineTextBox.Text))
+                new ToolStripButtonItem(Resources.Strings.CopyCommandLineToClipboard, (s, e) => CopyToClipboard(commandLineTextBox.Text)),
+                new ToolStripButtonItem(),
+                new ToolStripButtonItem(Resources.Strings.CopyUICommandLineToClipboard, (s, e) => CopyToClipboard(_uiCommandLine))
              );
 
             UpdateShowCommandLineCommand();
@@ -298,10 +300,16 @@ namespace Xps2ImgUI
         {
             _xps2ImgModel.CanResume = _xps2ImgModel.CanResume && canResume;
 
+            commandLineTextBox.Text = FormatCommandLine(false);
+            _uiCommandLine = FormatCommandLine(true);
+        }
+
+        private string FormatCommandLine(bool isUI)
+        {
             _srcFileDisplayName = Path.GetFileNameWithoutExtension(_xps2ImgModel.OptionsObject.SrcFile);
-            var commandLine = _xps2ImgModel.FormatCommandLine(Options.ExcludedOnView);
+            var commandLine = _xps2ImgModel.FormatCommandLine(isUI ? Options.ExcludedOnSave : Options.ExcludedOnView);
             var separator = String.IsNullOrEmpty(commandLine) ? String.Empty : "\x20";
-            commandLineTextBox.Text = String.Format("\"{0}\"{1}{2}", Xps2ImgModel.Xps2ImgExecutable, separator, commandLine);
+            return String.Format("\"{0}\"{1}{2}", isUI ? Xps2ImgModel.Xps2ImgUIExecutable : Xps2ImgModel.Xps2ImgExecutable, separator, commandLine);
         }
 
         private void UpdateShowCommandLineCommand()
@@ -624,6 +632,7 @@ namespace Xps2ImgUI
         private Xps2ImgModel _xps2ImgModel;
 
         private string _srcFileDisplayName;
+        private string _uiCommandLine;
 
         private ToolStripItem _resetToolStripButton;
         private ToolStripItem _loadToolStripButton;
