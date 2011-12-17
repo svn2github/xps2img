@@ -125,7 +125,7 @@ namespace Xps2ImgUI
             if (m.Msg == Windows7Taskbar.WM_TaskbarButtonCreated)
             {
                 _thumbButtonManager = new ThumbButtonManager(Handle);
-                _thumbButton = _thumbButtonManager.CreateThumbButton(Resources.Icons.Play, ConvertButtonCleanText, (s, e) => ExecuteConvertion(true));
+                _thumbButton = _thumbButtonManager.CreateThumbButton(Resources.Icons.Play, ConvertButtonCleanText, (s, e) => ExecuteConvertion(ConvertionType.Convert));
                 _thumbButtonManager.AddThumbButtons(_thumbButton);
             }
 
@@ -456,7 +456,7 @@ namespace Xps2ImgUI
             Help.ShowHelp(this, Program.HelpFile, HelpNavigator.TableOfContents);
         }
 
-        private void ExecuteConvertion(bool convertMode)
+        private void ExecuteConvertion(ConvertionType convertionType)
         {
             if (_xps2ImgModel.IsRunning)
             {
@@ -469,7 +469,7 @@ namespace Xps2ImgUI
             }
 
             // Force command line update if launched via shortcut.
-            if (!ModalGuard.IsEntered && !convertButton.Focused)
+            if (convertionType != ConvertionType.Resume && !ModalGuard.IsEntered && !convertButton.Focused)
             {
                 convertButton.Focus();
                 convertButton.PerformClick();
@@ -511,22 +511,41 @@ namespace Xps2ImgUI
                 _stopwatch.Start();
             }
 
-            _xps2ImgModel.Launch(convertMode ? ConvertionType.Convert : ConvertionType.Delete);
+            _xps2ImgModel.Launch(convertionType);
 
             UpdateRunningStatus(true);
         }
 
-        private void ConvertButtonClick(object sender, EventArgs e)
+        private void ExecuteOrResumeConversion(bool execute)
         {
-            if (_preferences.SuggestResume && !_xps2ImgModel.IsRunning && !_xps2ImgModel.CanResume)
+            var convertionType = execute ? ConvertionType.Convert : ConvertionType.Resume;
+
+            if (execute && _preferences.SuggestResume && !_xps2ImgModel.IsRunning && _xps2ImgModel.CanResume)
             {
                 var dialogResult = ShowMessageBox(Resources.Strings.ResumeLastConvertionSuggestion, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
                 if (dialogResult == DialogResult.Cancel)
                 {
                     return;
                 }
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    convertionType = ConvertionType.Resume;
+                }
             }
-            ExecuteConvertion(true);
+
+            ExecuteConvertion(convertionType);
+        }
+
+        private void ConvertButtonClick(object sender, EventArgs e)
+        {
+            ExecuteOrResumeConversion(true);
+        }
+
+        private void ResumeToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            ExecuteOrResumeConversion(false);
         }
 
         private void SettingsPropertyGridPropertySortChanged(object sender, EventArgs e)
@@ -581,7 +600,7 @@ namespace Xps2ImgUI
         {
             if (!_preferences.ConfirmOnDelete || ShowConfirmationMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation))
             {
-                ExecuteConvertion(false);
+                ExecuteConvertion(ConvertionType.Delete);
             }
         }
 

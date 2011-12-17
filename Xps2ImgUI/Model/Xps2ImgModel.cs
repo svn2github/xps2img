@@ -390,7 +390,12 @@ namespace Xps2ImgUI.Model
 
         private bool IsConvertMode
         {
-            get { return _convertionType == ConvertionType.Convert; }
+            get { return _convertionType == ConvertionType.Convert || IsResumeMode; }
+        }
+        
+        private bool IsResumeMode
+        {
+            get { return _convertionType == ConvertionType.Resume; }
         }
 
         public bool CanResume { get; set; }

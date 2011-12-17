@@ -32,6 +32,7 @@ namespace Xps2ImgUI
     {
             this.components = new System.ComponentModel.Container();
             this.settingsSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.settingsPropertyGrid = new Xps2ImgUI.Controls.PropertyGridEx();
             this.commandLineTextBox = new System.Windows.Forms.TextBox();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.convertContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -40,7 +41,6 @@ namespace Xps2ImgUI
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.convertButton = new wyDay.Controls.SplitButton();
-            this.settingsPropertyGrid = new Xps2ImgUI.Controls.PropertyGridEx();
             this.settingsSplitContainer.Panel1.SuspendLayout();
             this.settingsSplitContainer.Panel2.SuspendLayout();
             this.settingsSplitContainer.SuspendLayout();
@@ -69,6 +69,19 @@ namespace Xps2ImgUI
             this.settingsSplitContainer.SplitterDistance = 440;
             this.settingsSplitContainer.TabIndex = 7;
             // 
+            // settingsPropertyGrid
+            // 
+            this.settingsPropertyGrid.AllowDrop = true;
+            this.settingsPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.settingsPropertyGrid.Location = new System.Drawing.Point(0, 0);
+            this.settingsPropertyGrid.Name = "settingsPropertyGrid";
+            this.settingsPropertyGrid.PropertySort = System.Windows.Forms.PropertySort.Categorized;
+            this.settingsPropertyGrid.Size = new System.Drawing.Size(730, 509);
+            this.settingsPropertyGrid.TabIndex = 0;
+            this.settingsPropertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.SettingsPropertyGridPropertyValueChanged);
+            this.settingsPropertyGrid.PropertySortChanged += new System.EventHandler(this.SettingsPropertyGridPropertySortChanged);
+            this.settingsPropertyGrid.SelectedObjectsChanged += new System.EventHandler(this.SettingsPropertyGridSelectedObjectsChanged);
+            // 
             // commandLineTextBox
             // 
             this.commandLineTextBox.BackColor = System.Drawing.SystemColors.Window;
@@ -77,7 +90,7 @@ namespace Xps2ImgUI
             this.commandLineTextBox.Multiline = true;
             this.commandLineTextBox.Name = "commandLineTextBox";
             this.commandLineTextBox.ReadOnly = true;
-            this.commandLineTextBox.Size = new System.Drawing.Size(730, 65);
+            this.commandLineTextBox.Size = new System.Drawing.Size(150, 46);
             this.commandLineTextBox.TabIndex = 0;
             // 
             // progressBar
@@ -97,31 +110,32 @@ namespace Xps2ImgUI
             this.toolStripMenuItem2,
             this.deleteImagesToolStripMenuItem});
             this.convertContextMenuStrip.Name = "convertContextMenuStrip";
-            this.convertContextMenuStrip.Size = new System.Drawing.Size(144, 76);
+            this.convertContextMenuStrip.Size = new System.Drawing.Size(153, 98);
             this.convertContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.СonvertContextMenuStripOpening);
             // 
             // convertToolStripMenuItem
             // 
             this.convertToolStripMenuItem.Name = "convertToolStripMenuItem";
-            this.convertToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.convertToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.convertToolStripMenuItem.Text = "&Convert";
             this.convertToolStripMenuItem.Click += new System.EventHandler(this.ConvertButtonClick);
             // 
             // resumeToolStripMenuItem
             // 
             this.resumeToolStripMenuItem.Name = "resumeToolStripMenuItem";
-            this.resumeToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.resumeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.resumeToolStripMenuItem.Text = "&Resume";
+            this.resumeToolStripMenuItem.Click += new System.EventHandler(this.ResumeToolStripMenuItemClick);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(140, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
             // 
             // deleteImagesToolStripMenuItem
             // 
             this.deleteImagesToolStripMenuItem.Name = "deleteImagesToolStripMenuItem";
-            this.deleteImagesToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.deleteImagesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.deleteImagesToolStripMenuItem.Text = "&Delete Images";
             this.deleteImagesToolStripMenuItem.Click += new System.EventHandler(this.DeleteImagesToolStripMenuItemClick);
             // 
@@ -135,19 +149,6 @@ namespace Xps2ImgUI
             this.convertButton.TabIndex = 1;
             this.convertButton.UseVisualStyleBackColor = true;
             this.convertButton.Click += new System.EventHandler(this.ConvertButtonClick);
-            // 
-            // settingsPropertyGrid
-            // 
-            this.settingsPropertyGrid.AllowDrop = true;
-            this.settingsPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.settingsPropertyGrid.Location = new System.Drawing.Point(0, 0);
-            this.settingsPropertyGrid.Name = "settingsPropertyGrid";
-            this.settingsPropertyGrid.PropertySort = System.Windows.Forms.PropertySort.Categorized;
-            this.settingsPropertyGrid.Size = new System.Drawing.Size(730, 509);
-            this.settingsPropertyGrid.TabIndex = 0;
-            this.settingsPropertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.SettingsPropertyGridPropertyValueChanged);
-            this.settingsPropertyGrid.PropertySortChanged += new System.EventHandler(this.SettingsPropertyGridPropertySortChanged);
-            this.settingsPropertyGrid.SelectedObjectsChanged += new System.EventHandler(this.SettingsPropertyGridSelectedObjectsChanged);
             // 
             // MainForm
             // 
