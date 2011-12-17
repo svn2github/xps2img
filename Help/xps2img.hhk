@@ -113,6 +113,10 @@
 		<param name="Local" value="Files\Options.html#clean">
 		</OBJECT>
 	</UL>
+     	<LI> <OBJECT type="text/sitemap">
+     		<param name="Name" value="GUI Front-end Preferences">
+     		<param name="Local" value="Files\Preferences.html">
+     		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="GUI Front-end Parameters">
 		<param name="Local" value="Files\Options.html#srcfile">
