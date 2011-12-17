@@ -36,6 +36,11 @@ namespace Xps2ImgUI
             base.OnLoad(e);
         }
 
+        protected override void OnHelpRequested(HelpEventArgs hevent)
+        {
+            Help.ShowHelp(this, Program.HelpFile, HelpNavigator.TopicId, Program.HelpTopicPreferences);
+        }
+
         public Preferences Preferences
         {
             get { return (Preferences)preferencesPropertyGrid.SelectedObject; }

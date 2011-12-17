@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -9,12 +11,21 @@ using CommandLine;
 using Xps2Img.CommandLine;
 
 using Xps2ImgUI.Model;
+using Xps2ImgUI.Resources;
 using Xps2ImgUI.Settings;
 
 namespace Xps2ImgUI
 {
     static class Program
     {
+        public const string HelpFile = "xps2img.chm";
+
+        public const string HelpTopicPreferences = "1000";
+
+        public static readonly string ApplicationFolder   = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+        public static readonly string Xps2ImgExecutable   = Path.Combine(ApplicationFolder, "xps2img.exe");
+        public static readonly string Xps2ImgUIExecutable = Path.Combine(ApplicationFolder, "xps2imgui.exe");
+
         [STAThread]
         static void Main(string[] args)
         {
@@ -49,14 +60,14 @@ namespace Xps2ImgUI
 
         private static void HandleException(Exception ex)
         {
-            var exceptionMessage = (ex == null) ? Resources.Strings.NoExceptionMessage : ex
+            var exceptionMessage = (ex == null) ? Strings.NoExceptionMessage : ex
                                                                                          #if DEBUG
                                                                                          .ToString();
                                                                                          #else
                                                                                          .Message;
                                                                                          #endif
 
-            MessageBox.Show(Application.OpenForms.Cast<IWin32Window>().FirstOrDefault(), exceptionMessage, Resources.Strings.WindowTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(Application.OpenForms.Cast<IWin32Window>().FirstOrDefault(), exceptionMessage, Strings.WindowTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

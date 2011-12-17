@@ -309,7 +309,7 @@ namespace Xps2ImgUI
             _srcFileDisplayName = Path.GetFileNameWithoutExtension(_xps2ImgModel.OptionsObject.SrcFile);
             var commandLine = _xps2ImgModel.FormatCommandLine(isUI ? Options.ExcludedOnSave : Options.ExcludedOnView);
             var separator = String.IsNullOrEmpty(commandLine) ? String.Empty : "\x20";
-            return String.Format("\"{0}\"{1}{2}", isUI ? Xps2ImgModel.Xps2ImgUIExecutable : Xps2ImgModel.Xps2ImgExecutable, separator, commandLine);
+            return String.Format("\"{0}\"{1}{2}", isUI ? Program.Xps2ImgUIExecutable : Program.Xps2ImgExecutable, separator, commandLine);
         }
 
         private void UpdateShowCommandLineCommand()
@@ -453,7 +453,7 @@ namespace Xps2ImgUI
 
         private void ShowHelp()
         {
-            Help.ShowHelp(this, "xps2img.chm", HelpNavigator.TableOfContents);
+            Help.ShowHelp(this, Program.HelpFile, HelpNavigator.TableOfContents);
         }
 
         private void ExecuteConvertion(bool convertMode)
@@ -598,7 +598,7 @@ namespace Xps2ImgUI
         {
             get
             {
-                return _convertedImagesFolder ?? Xps2ImgModel.ApplicationFolder;
+                return _convertedImagesFolder ?? Program.ApplicationFolder;
             }
         }
 

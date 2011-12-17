@@ -14,7 +14,6 @@ Title=XPS to Images Converter Help
 [WINDOWS]
 Main=,"xps2img.hhc","xps2img.hhk","Files\About.html","Files\About.html",,,,,0x62520,,0x380e,[204,92,1159,711],0xb0000,,,,,,0
 
-
 [FILES]
 Files\About.html
 Files\Features.html
@@ -29,5 +28,9 @@ Files\Preferences.html
 Files\Hints.html
 Files\ExitCodes.html
 
-[INFOTYPES]
+[ALIAS]
+IDH_Preferences=Files\Preferences.html
+
+[MAP]
+#define IDH_Preferences 1000
 
