@@ -18,13 +18,15 @@ namespace Xps2ImgUI
 {
     static class Program
     {
-        public const string HelpFile = "xps2img.chm";
+        public const string ProductName = "xps2img";
+
+        public const string HelpFile = ProductName + ".chm";
 
         public const string HelpTopicPreferences = "1000";
 
         public static readonly string ApplicationFolder   = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-        public static readonly string Xps2ImgExecutable   = Path.Combine(ApplicationFolder, "xps2img.exe");
-        public static readonly string Xps2ImgUIExecutable = Path.Combine(ApplicationFolder, "xps2imgui.exe");
+        public static readonly string Xps2ImgExecutable   = Path.Combine(ApplicationFolder, ProductName + ".exe");
+        public static readonly string Xps2ImgUIExecutable = Path.Combine(ApplicationFolder, ProductName + "ui.exe");
 
         [STAThread]
         static void Main(string[] args)

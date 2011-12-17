@@ -145,7 +145,7 @@ namespace Xps2ImgUI.Settings
         }
 
         private const string SettingsFolder = "Settings";
-        private const string SettingsFileName = "xps2imgUI.settings";
+        private const string SettingsFileName = Program.ProductName + "UI.settings";
 
         private const string PortableSuffix = ".portable";
 
