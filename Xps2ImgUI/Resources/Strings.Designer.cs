@@ -268,6 +268,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Would you like to resume last convertion instead of starting new one?.
+        /// </summary>
+        internal static string ResumeLastConvertionSuggestion {
+            get {
+                return ResourceManager.GetString("ResumeLastConvertionSuggestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Save Settings....
         /// </summary>
         internal static string SaveSettings {

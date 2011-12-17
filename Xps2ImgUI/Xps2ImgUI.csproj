@@ -112,6 +112,7 @@
     <Compile Include="Converters\ProcessorsNumberConverter.cs" />
     <Compile Include="Converters\YesNoConverter.cs" />
     <Compile Include="Model\ConvertionErrorEventArgs.cs" />
+    <Compile Include="Model\ConvertionType.cs" />
     <Compile Include="PreferencesForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -511,13 +511,21 @@ namespace Xps2ImgUI
                 _stopwatch.Start();
             }
 
-            _xps2ImgModel.Launch(convertMode);
+            _xps2ImgModel.Launch(convertMode ? ConvertionType.Convert : ConvertionType.Delete);
 
             UpdateRunningStatus(true);
         }
 
         private void ConvertButtonClick(object sender, EventArgs e)
         {
+            if (_preferences.SuggestResume && !_xps2ImgModel.IsRunning && !_xps2ImgModel.CanResume)
+            {
+                var dialogResult = ShowMessageBox(Resources.Strings.ResumeLastConvertionSuggestion, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                if (dialogResult == DialogResult.Cancel)
+                {
+                    return;
+                }
+            }
             ExecuteConvertion(true);
         }
 

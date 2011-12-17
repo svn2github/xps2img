@@ -73,14 +73,14 @@ namespace Xps2ImgUI.Model
             ResetByCategory(Category.Options);
         }
 
-        public void Launch(bool convertMode)
+        public void Launch(ConvertionType convertionType)
         {
             if (_isRunning)
             {
                 throw new InvalidOperationException("Conversion is in progress.");  
             }
 
-            _convertMode = convertMode;
+            _convertionType = convertionType;
 
             CancelEvent.Reset();
 
@@ -322,7 +322,7 @@ namespace Xps2ImgUI.Model
 
                 var consoleEncoding = Encoding.GetEncoding(Thread.CurrentThread.CurrentCulture.GetConsoleFallbackUICulture().TextInfo.OEMCodePage);
 
-                _threadsCount = _convertMode ? OptionsObject.ActualProcessorsNumber : 1;
+                _threadsCount = IsConvertMode ? OptionsObject.ActualProcessorsNumber : 1;
 
                 var splittedIntervals = GetDocumentSplittedIntervals();
 
@@ -332,7 +332,7 @@ namespace Xps2ImgUI.Model
                 {
                     var process = StartProcess(
                                     IsSingleProcessor
-                                        ? FormatCommandLine(Options.ExcludedUIOptions) + (_convertMode ? String.Empty : Options.CleanOption)
+                                        ? FormatCommandLine(Options.ExcludedUIOptions) + (IsConvertMode ? String.Empty : Options.CleanOption)
                                         : String.Format("{0} -p \"{1}\"", FormatCommandLine(Options.ExcludedOnLaunch), IntervalUtils.ToString(t))
                                     , consoleEncoding);
                     ThreadPool.QueueUserWorkItem(_ => Xps2ImgProcessWaitThread(process));
@@ -386,6 +386,11 @@ namespace Xps2ImgUI.Model
                     BoostProcessPriority(false);
                 }
             }
+        }
+
+        private bool IsConvertMode
+        {
+            get { return _convertionType == ConvertionType.Convert; }
         }
 
         public bool CanResume { get; set; }
@@ -482,7 +487,7 @@ namespace Xps2ImgUI.Model
 
         private ProcessPriorityClass _originalProcessPriorityClass;
 
-        private bool _convertMode;
+        private ConvertionType _convertionType;
 
         private volatile bool _isErrorReported;
         private volatile bool _isRunning;

@@ -219,4 +219,7 @@
   <data name="CopyUICommandLineToClipboard" xml:space="preserve">
     <value>Copy &amp;UI Command Line To Clipboard</value>
   </data>
+  <data name="ResumeLastConvertionSuggestion">
+    <value xml:space="preserve">Would you like to resume last convertion instead of starting new one?</value>
+  </data>
 </root>
