@@ -278,19 +278,31 @@ namespace Xps2ImgUI
 
         private void EnableConvertControls()
         {
-            EnableConvertControls(true, true);
+            EnableConvertControls(ControlState.EnabledAndFocused);
         }
 
-        private void EnableConvertControls(bool enable, bool focus)
+        [Flags]
+        private enum ControlState
         {
+            Default = 0,
+            Enabled = 1 << 0,
+            Focused = 1 << 1,
+            EnabledAndFocused = Enabled | Focused
+        }
+
+        private void EnableConvertControls(ControlState controlState)
+        {
+            var enabled = (controlState & ControlState.Enabled) != 0;
+            var focused = (controlState & ControlState.Focused) != 0;
+
             if (_thumbButton != null)
             {
-                _thumbButton.Enabled = enable;
+                _thumbButton.Enabled = enabled;
             }
 
-            convertButton.Enabled = enable;
+            convertButton.Enabled = enabled;
 
-            if (enable && focus)
+            if (enabled && focused)
             {
                 convertButton.Focus();
             }
@@ -462,7 +474,7 @@ namespace Xps2ImgUI
             {
                 if (!_preferences.ConfirmOnStop || ShowConfirmationMessageBox(Resources.Strings.ConvertionStopConfirmation))
                 {
-                    EnableConvertControls(false, false);
+                    EnableConvertControls(ControlState.Default);
                     _xps2ImgModel.Stop();
                 }
                 return;
@@ -476,7 +488,7 @@ namespace Xps2ImgUI
                 return;
             }
 
-            EnableConvertControls(false, false);
+            EnableConvertControls(ControlState.Default);
 
             if (ModalGuard.IsEntered)
             {
@@ -489,7 +501,7 @@ namespace Xps2ImgUI
 
             if (FocusFirstRequiredOption(ShowOptionIsRequiredMessage))
             {
-                EnableConvertControls(true, false);
+                EnableConvertControls(ControlState.Enabled);
                 return;
             }
 
