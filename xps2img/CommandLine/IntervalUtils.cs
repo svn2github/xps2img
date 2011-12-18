@@ -50,7 +50,13 @@ namespace Xps2Img.CommandLine
             return lastInterval != null && lastInterval.LessThan(val);
         }   
 
-        private static List<Interval> GetFromBitArray(BitArray bits, ref int pageNumber, int count)
+        public static List<Interval> IntervalsFromBitArray(BitArray bits)
+        {
+            var pageNumber = 1;
+            return IntervalsFromBitArray(bits, ref pageNumber, bits.Count + 1);
+        }
+
+        public static List<Interval> IntervalsFromBitArray(BitArray bits, ref int pageNumber, int count)
         {
             var intervals = new List<Interval>();
             int? startPage = null;
@@ -93,6 +99,21 @@ namespace Xps2Img.CommandLine
             return intervals;
         }
 
+        public static BitArray ToBitArray(this List<Interval> intervals)
+        {
+            var bits = new BitArray(intervals.Last().End + 1, false);
+
+            foreach (var interval in intervals)
+            {
+                for (var i = interval.Begin; i <= interval.End; i++)
+                {
+                    bits.Set(i, true);
+                }
+            }
+
+            return bits;
+        }
+
         public static List<List<Interval>> SplitBy(this IEnumerable<Interval> intervals, int intervalsCount)
         {
             return SplitBy(intervals.ToList(), intervalsCount);
@@ -105,15 +126,7 @@ namespace Xps2Img.CommandLine
                 return new List<List<Interval>> { intervals };
             }
 
-            var bits = new BitArray(intervals.Last().End + 1, false);
-
-            foreach (var interval in intervals)
-            {
-                for (var i = interval.Begin; i <= interval.End; i++)
-                {
-                    bits.Set(i, true);
-                }
-            }
+            var bits = ToBitArray(intervals);
 
             var splittedIntervals = new List<List<Interval>>();
 
@@ -132,7 +145,7 @@ namespace Xps2Img.CommandLine
                 {
                     intervalLength = bits.Length;
                 }
-                splittedIntervals.Add(GetFromBitArray(bits, ref lastIndex, intervalLength));
+                splittedIntervals.Add(IntervalsFromBitArray(bits, ref lastIndex, intervalLength));
             }
 
             return splittedIntervals;

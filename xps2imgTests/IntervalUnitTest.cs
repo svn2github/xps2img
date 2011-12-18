@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -16,19 +17,28 @@ namespace Xps2ImgTests
             Assert.AreEqual(expectedIntervals.Count, splitted.Count);
             for (var i = 0; i < expectedIntervals.Count; i++)
             {
-                var splittedSubIntervals = splitted[i];
-                var expectedSubIntervals = expectedIntervals[i];
+                CompareIntervals(expectedIntervals[i], splitted[i]);
+            }
+        }
 
-                Assert.AreEqual(expectedSubIntervals.Count, splittedSubIntervals.Count);
+        private static void VerifyIntervalsFromBitArray(IList<Interval> expectedIntervals, bool[] boolBits)
+        {
+            var intervals = IntervalUtils.IntervalsFromBitArray(new BitArray(boolBits));
 
-                for (var j = 0; j < expectedSubIntervals.Count; j++)
-                {
-                    var expectedSubInterval = expectedSubIntervals[j];
-                    var splittedSubInterval = splittedSubIntervals[j];
+            CompareIntervals(expectedIntervals, intervals);
+        }
 
-                    Assert.AreEqual(expectedSubInterval.Begin, splittedSubInterval.Begin);
-                    Assert.AreEqual(expectedSubInterval.End, splittedSubInterval.End);
-                }
+        private static void CompareIntervals(IList<Interval> expectedIntervals, IList<Interval> intervals)
+        {
+            Assert.AreEqual(expectedIntervals.Count, intervals.Count);
+
+            for (var i = 0; i < intervals.Count; i++)
+            {
+                var interval = intervals[i];
+                var expectedInterval = expectedIntervals[i];
+
+                Assert.AreEqual(interval.Begin, expectedInterval.Begin);
+                Assert.AreEqual(interval.End, expectedInterval.End);
             }
         }
 
@@ -49,6 +59,26 @@ namespace Xps2ImgTests
             VerifySplitIntervals(new[] { new Interval(7, 9) }, 4, new List<List<Interval>> { new List<Interval> { new Interval(7) }, new List<Interval> { new Interval(8) }, new List<Interval> { new Interval(9) } });
             VerifySplitIntervals(new[] { new Interval(7) }, 4, new List<List<Interval>> { new List<Interval> { new Interval(7) } });
             VerifySplitIntervals(new[] { new Interval(1, 101) }, 0, new List<List<Interval>> { new List<Interval> { new Interval(1, 101) } });
+        }
+
+        [TestMethod]
+        public void BitArrayToIntervals()
+        {
+            VerifyIntervalsFromBitArray(new[] {new Interval(2), new Interval(8), new Interval(10, 13)},
+                                        new[] { false, false, true, false, false, false, false, false, true,
+                                                false, true,  true, true,  true});
+
+            VerifyIntervalsFromBitArray(new[] { new Interval(1, 8) },
+                                        new[] { true, true, true, true, true, true, true, true, true });
+
+            VerifyIntervalsFromBitArray(new[] { new Interval(8) },
+                                        new[] { true, false, false, false, false, false, false, false, true });
+
+            VerifyIntervalsFromBitArray(new[] { new Interval(9) },
+                                        new[] { true, false, false, false, false, false, false, false, false, true });
+
+            VerifyIntervalsFromBitArray(new Interval[0],
+                                        new[] { false, false, false, false, false, false, false, false, false });
         }
     }
 }
