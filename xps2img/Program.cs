@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
-
-using CommandLine;
 
 using Xps2Img.CommandLine;
 using Xps2Img.Xps2Img;
@@ -31,8 +28,6 @@ namespace Xps2Img
                 {
                     return (int)CommandLine.CommandLine.ReturnCode.InvalidArg;
                 }
-
-                Trace.WriteLine(Parser.ToCommandLine(options));
 
                 var launchedAsInternal = !String.IsNullOrEmpty(options.CancellationObjectIds);
 
