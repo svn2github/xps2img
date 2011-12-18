@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -223,26 +224,24 @@ namespace Xps2ImgUI.Model
 
         private IEnumerable<List<Interval>> GetDocumentSplittedIntervals()
         {
-            Func<IEnumerable<List<Interval>>> getEmptyIntervals = () => new List<List<Interval>> { new List<Interval>() };
-
-            if (IsSingleProcessor)
+            if (!IsSingleProcessor)
             {
-                return getEmptyIntervals();
+                BoostProcessPriority(true);
             }
 
-            BoostProcessPriority(true);
-
-            var intervals = GetDocumentIntervals();
+            var intervals = CanResume ? IntervalUtils.FromBitArray(_processedIntervals) : GetDocumentIntervals();
 
             if (intervals.Any())
             {
                 _pagesTotal = intervals.GetTotalLength();
+                _processedIntervals = intervals.ToBitArray();
                 return intervals.SplitBy(_threadsCount);
             }
 
             _threadsCount = 1;
+            _processedIntervals = null;
 
-            return getEmptyIntervals();
+            return new List<List<Interval>> { new List<Interval>() };
         }
 
         private void Xps2ImgProcessWaitThread(Process process)
@@ -308,12 +307,24 @@ namespace Xps2ImgUI.Model
                     throw new Exception(Resources.Strings.ProcessorHasTerminated);
                 }
             }
+
+            CanResume = IsStopPending;
         }
-        
+
         private void Xps2ImgLaunchThread()
         {
             try
             {
+                if (IsResumeMode && !CanResume)
+                {
+                    throw new InvalidOperationException("Resume is not available.");
+                }
+
+                if (!IsResumeMode)
+                {
+                    CanResume = false;
+                }
+
                 _isRunning = true;
                 _isErrorReported = false;
                 _processExitCode = 0;
@@ -322,22 +333,29 @@ namespace Xps2ImgUI.Model
 
                 var consoleEncoding = Encoding.GetEncoding(Thread.CurrentThread.CurrentCulture.GetConsoleFallbackUICulture().TextInfo.OEMCodePage);
 
-                _threadsCount = IsConvertMode ? OptionsObject.ActualProcessorsNumber : 1;
-
+                _threadsCount = IsCreationMode ? OptionsObject.ActualProcessorsNumber : 1;
+                
                 var splittedIntervals = GetDocumentSplittedIntervals();
 
                 _appMutex = new Mutex(true, _optionsHolder.OptionsObject.ParentAppMutexName);
 
+                _processLastConvertedPage = null;
+
+                var processLastConvertedPage = new List<ProcessLastPage>();
+
                 foreach (var t in splittedIntervals)
                 {
-                    var process = StartProcess(
-                                    IsSingleProcessor
-                                        ? FormatCommandLine(Options.ExcludedUIOptions) + (IsConvertMode ? String.Empty : Options.CleanOption)
-                                        : String.Format("{0} -p \"{1}\"", FormatCommandLine(Options.ExcludedOnLaunch), IntervalUtils.ToString(t))
-                                    , consoleEncoding);
+                    var processCommandLine = String.Format("{0} -p \"{1}\" {2}",
+                                                FormatCommandLine(Options.ExcludedOnLaunch),
+                                                IntervalUtils.ToString(t),
+                                                IsCreationMode ? String.Empty : Options.CleanOption);
+                    var process = StartProcess(processCommandLine, consoleEncoding);
                     ThreadPool.QueueUserWorkItem(_ => Xps2ImgProcessWaitThread(process));
                     Interlocked.Increment(ref _threadsLeft);
+                    processLastConvertedPage.Add(new ProcessLastPage(process));
                 }
+
+                _processLastConvertedPage = _processedIntervals != null ? processLastConvertedPage.ToArray() : null;
 
                 if (LaunchSucceeded != null)
                 {
@@ -346,8 +364,6 @@ namespace Xps2ImgUI.Model
 
                 WaitAllProcessThreads(true);
 
-                CanResume = false;
-                
                 if (Completed != null)
                 {
                     Completed(this, EventArgs.Empty);
@@ -363,8 +379,6 @@ namespace Xps2ImgUI.Model
                 {
                     throw;
                 }
-
-                CanResume = true;
 
                 if (!_isErrorReported)
                 {
@@ -388,9 +402,14 @@ namespace Xps2ImgUI.Model
             }
         }
 
+        private bool IsCreationMode
+        {
+            get { return IsConvertMode || IsResumeMode; }
+        }
+
         private bool IsConvertMode
         {
-            get { return _convertionType == ConvertionType.Convert || IsResumeMode; }
+            get { return _convertionType == ConvertionType.Convert; }
         }
         
         private bool IsResumeMode
@@ -398,9 +417,23 @@ namespace Xps2ImgUI.Model
             get { return _convertionType == ConvertionType.Resume; }
         }
 
-        public bool CanResume { get; set; }
-
-        private readonly object _syncObj = new object();
+        public bool CanResume
+        {
+            get
+            {
+                return 
+                    _processLastConvertedPage != null &&
+                    _processedIntervals != null;
+            }
+            set
+            {
+                if(!value)
+                {
+                    _processLastConvertedPage = null;
+                    _processedIntervals = null;
+                }
+            }
+        }
 
         private void OutputDataReceivedWrapper(object sender, DataReceivedEventArgs e)
         {
@@ -409,7 +442,7 @@ namespace Xps2ImgUI.Model
                 return;
             }
 
-            var match = (IsSingleProcessor ? OutputRegex : FileNameRegex).Match(e.Data);
+            var match = OutputRegex.Match(e.Data);
             if (!match.Success)
             {
                 return;
@@ -430,12 +463,20 @@ namespace Xps2ImgUI.Model
                 pages = String.Format("{0}/{1}", pageIndex, _pagesTotal);
             }
 
+            if (CanResume)
+            {
+                var lastConvertedPage = _processLastConvertedPage.First(p => ReferenceEquals(p.Process, sender));
+                if (lastConvertedPage.Page != 0)
+                {
+                    _processedIntervals.Set(lastConvertedPage.Page, false);
+                }
+
+                lastConvertedPage.Page = Int32.Parse(match.Groups["page"].Value);
+            }
+
             var file = match.Groups["file"].Value;
 
-            lock (_syncObj)
-            {
-                OutputDataReceived(this, new ConvertionProgressEventArgs(percent, pages, file));
-            }
+            OutputDataReceived(this, new ConvertionProgressEventArgs(percent, pages, file));
         }
 
         private void ErrorDataReceivedWrapper(object sender, DataReceivedEventArgs e)
@@ -473,12 +514,23 @@ namespace Xps2ImgUI.Model
             FireOptionsObjectChanged();
         }
 
-        private const string FileNameGroup = @".+?'(?<file>.+)'";
-
-        private static readonly Regex OutputRegex = new Regex(@"^\[\s*(?<percent>\d+)%\].+\(\s*(?<pages>\d+/\d+)\)" + FileNameGroup);
-        private static readonly Regex FileNameRegex = new Regex(FileNameGroup);
-
+        private static readonly Regex OutputRegex = new Regex(@"^\[\s*(?<percent>\d+)%\][^\d]+(?<page>\d+)\s+\(\s*(?<pages>\d+/\d+)\).+?'(?<file>.+)'");
         private static readonly Regex CleanErrorMessageRegex = new Regex(@"^Error:\s*");
+
+        private class ProcessLastPage
+        {
+            public ProcessLastPage(Process process)
+            {
+                Process = process;
+            }
+
+            public readonly Process Process;
+
+            public int Page { get; set; }
+        }
+
+        private ProcessLastPage[] _processLastConvertedPage;
+        private BitArray _processedIntervals;
 
         private OptionsHolder<Options> _optionsHolder;
 
