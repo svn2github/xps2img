@@ -23,7 +23,7 @@ namespace Xps2ImgTests
 
         private static void VerifyIntervalsFromBitArray(IList<Interval> expectedIntervals, bool[] boolBits)
         {
-            var intervals = IntervalUtils.IntervalsFromBitArray(new BitArray(boolBits));
+            var intervals = IntervalUtils.FromBitArray(new BitArray(boolBits));
 
             CompareIntervals(expectedIntervals, intervals);
         }

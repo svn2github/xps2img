@@ -50,13 +50,13 @@ namespace Xps2Img.CommandLine
             return lastInterval != null && lastInterval.LessThan(val);
         }   
 
-        public static List<Interval> IntervalsFromBitArray(BitArray bits)
+        public static List<Interval> FromBitArray(BitArray bits)
         {
             var pageNumber = 1;
-            return IntervalsFromBitArray(bits, ref pageNumber, bits.Count + 1);
+            return FromBitArray(bits, ref pageNumber, bits.Count + 1);
         }
 
-        public static List<Interval> IntervalsFromBitArray(BitArray bits, ref int pageNumber, int count)
+        public static List<Interval> FromBitArray(BitArray bits, ref int pageNumber, int count)
         {
             var intervals = new List<Interval>();
             int? startPage = null;
@@ -145,7 +145,7 @@ namespace Xps2Img.CommandLine
                 {
                     intervalLength = bits.Length;
                 }
-                splittedIntervals.Add(IntervalsFromBitArray(bits, ref lastIndex, intervalLength));
+                splittedIntervals.Add(FromBitArray(bits, ref lastIndex, intervalLength));
             }
 
             return splittedIntervals;
