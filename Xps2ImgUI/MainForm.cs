@@ -80,6 +80,8 @@ namespace Xps2ImgUI
             ApplyPreferences();
             
             FocusFirstRequiredOption(null);
+
+            Activate();
             
             base.OnLoad(e);
         }
