@@ -81,8 +81,6 @@ namespace Xps2ImgUI
             
             FocusFirstRequiredOption(null);
 
-            Activate();
-            
             base.OnLoad(e);
         }
 
