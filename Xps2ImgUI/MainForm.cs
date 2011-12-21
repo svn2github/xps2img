@@ -125,7 +125,7 @@ namespace Xps2ImgUI
             if (m.Msg == Windows7Taskbar.WM_TaskbarButtonCreated)
             {
                 _thumbButtonManager = new ThumbButtonManager(Handle);
-                _thumbButton = _thumbButtonManager.CreateThumbButton(Resources.Icons.Play, ConvertButtonCleanText, (s, e) => ExecuteConvertion(ConvertionType.Convert));
+                _thumbButton = _thumbButtonManager.CreateThumbButton(Resources.Icons.Play, ConvertButtonCleanText, (s, e) => ExecuteOrResumeConversion(true, true));
                 _thumbButtonManager.AddThumbButtons(_thumbButton);
             }
 
@@ -528,12 +528,19 @@ namespace Xps2ImgUI
             UpdateRunningStatus(true);
         }
 
-        private void ExecuteOrResumeConversion(bool execute)
+        private void ExecuteOrResumeConversion(bool execute, bool activateWindow)
         {
+            execute = execute && !(_preferences.ResumeAlways && _xps2ImgModel.CanResume);
+
             var convertionType = execute ? ConvertionType.Convert : ConvertionType.Resume;
 
-            if (execute && _preferences.SuggestResume && !_xps2ImgModel.IsRunning && _xps2ImgModel.CanResume)
+            if (execute && _preferences.SuggestResume && !_preferences.ResumeAlways && !_xps2ImgModel.IsRunning && _xps2ImgModel.CanResume)
             {
+                if (activateWindow)
+                {
+                    Activate();
+                }
+
                 var dialogResult = ShowMessageBox(Resources.Strings.ResumeLastConvertionSuggestion, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
                 if (dialogResult == DialogResult.Cancel)
@@ -552,12 +559,12 @@ namespace Xps2ImgUI
 
         private void ConvertButtonClick(object sender, EventArgs e)
         {
-            ExecuteOrResumeConversion(true);
+            ExecuteOrResumeConversion(true, false);
         }
 
         private void ResumeToolStripMenuItemClick(object sender, EventArgs e)
         {
-            ExecuteOrResumeConversion(false);
+            ExecuteOrResumeConversion(false, false);
         }
 
         private void SettingsPropertyGridPropertySortChanged(object sender, EventArgs e)

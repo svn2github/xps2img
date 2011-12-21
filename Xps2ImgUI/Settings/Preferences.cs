@@ -28,7 +28,14 @@ namespace Xps2ImgUI.Settings
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool SuggestResume { get; set; }
-        
+
+        [DisplayName(@"Resume Always")]
+        [Category(CategoryApplication)]
+        [Description("Always resume instead of convert.")]
+        [DefaultValue(false)]
+        [TypeConverter(typeof(YesNoConverter))]
+        public bool ResumeAlways { get; set; }
+
         [DisplayName(@"Show Elapsed Time")]
         [Category(CategoryApplication)]
         [Description("Show time elapsed by last operation at application title.")]
