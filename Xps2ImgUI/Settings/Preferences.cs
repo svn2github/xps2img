@@ -9,8 +9,9 @@ namespace Xps2ImgUI.Settings
     [Serializable]
     public class Preferences
     {
-        private const string CategoryConfirmations  = "Confirmations";
         private const string CategoryApplication    = "Application";
+        private const string CategoryConfirmations  = "Confirmations";
+        private const string CategoryConvertion     = "Convertion";
 
         private const string DisplayNameClassicLook = "Classic Look";
         public const string DefaultSelectedItem     = DisplayNameClassicLook;
@@ -21,20 +22,6 @@ namespace Xps2ImgUI.Settings
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ClassicLook { get; set; }
-
-        [DisplayName(@"Suggest Resume")]
-        [Category(CategoryApplication)]
-        [Description("Suggest to resume last convertion if applicable instead of starting new one.")]
-        [DefaultValue(true)]
-        [TypeConverter(typeof(YesNoConverter))]
-        public bool SuggestResume { get; set; }
-
-        [DisplayName(@"Resume Always")]
-        [Category(CategoryApplication)]
-        [Description("Always resume instead of convert.")]
-        [DefaultValue(false)]
-        [TypeConverter(typeof(YesNoConverter))]
-        public bool ResumeAlways { get; set; }
 
         [DisplayName(@"Show Elapsed Time")]
         [Category(CategoryApplication)]
@@ -63,6 +50,20 @@ namespace Xps2ImgUI.Settings
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnStop { get; set; }
+
+        [DisplayName(@"Always Resume")]
+        [Category(CategoryConvertion)]
+        [Description("Always resume last convertion if applicable instead of starting new one.")]
+        [DefaultValue(false)]
+        [TypeConverter(typeof(YesNoConverter))]
+        public bool AlwaysResume { get; set; }
+
+        [DisplayName(@"Suggest Resume")]
+        [Category(CategoryConvertion)]
+        [Description("Suggest to resume last convertion if applicable instead of starting new one.")]
+        [DefaultValue(true)]
+        [TypeConverter(typeof(YesNoConverter))]
+        public bool SuggestResume { get; set; }
 
         public Preferences()
         {

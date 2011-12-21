@@ -125,7 +125,7 @@ namespace Xps2ImgUI
             if (m.Msg == Windows7Taskbar.WM_TaskbarButtonCreated)
             {
                 _thumbButtonManager = new ThumbButtonManager(Handle);
-                _thumbButton = _thumbButtonManager.CreateThumbButton(Resources.Icons.Play, ConvertButtonCleanText, (s, e) => ExecuteOrResumeConversion(true, true));
+                _thumbButton = _thumbButtonManager.CreateThumbButton(Resources.Icons.Play, ConvertButtonCleanText, (s, e) => ExecuteConversion(ExecuteFlags.Convert | ExecuteFlags.ActivateWindow));
                 _thumbButtonManager.AddThumbButtons(_thumbButton);
             }
 
@@ -468,6 +468,14 @@ namespace Xps2ImgUI
             Help.ShowHelp(this, Program.HelpFile, HelpNavigator.TableOfContents);
         }
 
+        [Flags]
+        private enum ExecuteFlags
+        {
+            Resume          = 1 << 0,
+            Convert         = 1 << 1,
+            ActivateWindow  = 1 << 2,
+        }
+
         private void ExecuteConvertion(ConvertionType convertionType)
         {
             if (_xps2ImgModel.IsRunning)
@@ -528,15 +536,15 @@ namespace Xps2ImgUI
             UpdateRunningStatus(true);
         }
 
-        private void ExecuteOrResumeConversion(bool execute, bool activateWindow)
+        private void ExecuteConversion(ExecuteFlags executeFlags)
         {
-            execute = execute && !(_preferences.ResumeAlways && _xps2ImgModel.CanResume);
+            var execute = (executeFlags & ExecuteFlags.Convert) != 0 && !(_preferences.AlwaysResume && _xps2ImgModel.CanResume);
 
             var convertionType = execute ? ConvertionType.Convert : ConvertionType.Resume;
 
-            if (execute && _preferences.SuggestResume && !_preferences.ResumeAlways && !_xps2ImgModel.IsRunning && _xps2ImgModel.CanResume)
+            if (execute && _preferences.SuggestResume && !_preferences.AlwaysResume && !_xps2ImgModel.IsRunning && _xps2ImgModel.CanResume)
             {
-                if (activateWindow)
+                if ((executeFlags & ExecuteFlags.ActivateWindow) != 0)
                 {
                     Activate();
                 }
@@ -559,12 +567,12 @@ namespace Xps2ImgUI
 
         private void ConvertButtonClick(object sender, EventArgs e)
         {
-            ExecuteOrResumeConversion(true, false);
+            ExecuteConversion(ExecuteFlags.Convert);
         }
 
         private void ResumeToolStripMenuItemClick(object sender, EventArgs e)
         {
-            ExecuteOrResumeConversion(false, false);
+            ExecuteConversion(ExecuteFlags.Resume);
         }
 
         private void SettingsPropertyGridPropertySortChanged(object sender, EventArgs e)
