@@ -125,7 +125,7 @@ namespace Xps2ImgUI
             if (m.Msg == Windows7Taskbar.WM_TaskbarButtonCreated)
             {
                 _thumbButtonManager = new ThumbButtonManager(Handle);
-                _thumbButton = _thumbButtonManager.CreateThumbButton(Resources.Icons.Play, ConvertButtonCleanText, (s, e) => ExecuteConversion(ExecuteFlags.Convert | ExecuteFlags.ActivateWindow));
+                _thumbButton = _thumbButtonManager.CreateThumbButton(Resources.Icons.Play, ConvertButtonCleanText, (s, e) => ExecuteConversion(ExecuteFlags.Convert | ExecuteFlags.ActivateWindow | ExecuteFlags.DoNotClickButton));
                 _thumbButtonManager.AddThumbButtons(_thumbButton);
             }
 
@@ -474,9 +474,39 @@ namespace Xps2ImgUI
             Resume          = 1 << 0,
             Convert         = 1 << 1,
             ActivateWindow  = 1 << 2,
+            DoNotClickButton= 1 << 3
         }
 
-        private void ExecuteConvertion(ConvertionType convertionType)
+        private void ExecuteConversion(ExecuteFlags executeFlags)
+        {
+            var execute = (executeFlags & ExecuteFlags.Convert) != 0 && !(_preferences.AlwaysResume && _xps2ImgModel.CanResume);
+
+            var convertionType = execute ? ConvertionType.Convert : ConvertionType.Resume;
+
+            if (execute && _preferences.SuggestResume && !_preferences.AlwaysResume && !_xps2ImgModel.IsRunning && _xps2ImgModel.CanResume)
+            {
+                if ((executeFlags & ExecuteFlags.ActivateWindow) != 0)
+                {
+                    Activate();
+                }
+
+                var dialogResult = ShowMessageBox(Resources.Strings.ResumeLastConvertionSuggestion, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
+                if (dialogResult == DialogResult.Cancel)
+                {
+                    return;
+                }
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    convertionType = ConvertionType.Resume;
+                }
+            }
+
+            ExecuteConvertion(convertionType, (executeFlags & ExecuteFlags.DoNotClickButton) == 0);
+        }
+
+        private void ExecuteConvertion(ConvertionType convertionType, bool clickButton)
         {
             if (_xps2ImgModel.IsRunning)
             {
@@ -489,7 +519,7 @@ namespace Xps2ImgUI
             }
 
             // Force command line update if launched via shortcut.
-            if (convertionType == ConvertionType.Convert && !ModalGuard.IsEntered && !convertButton.Focused)
+            if (clickButton && convertionType == ConvertionType.Convert && !ModalGuard.IsEntered && !convertButton.Focused)
             {
                 convertButton.Focus();
                 convertButton.PerformClick();
@@ -534,35 +564,6 @@ namespace Xps2ImgUI
             _xps2ImgModel.Launch(convertionType);
 
             UpdateRunningStatus(true);
-        }
-
-        private void ExecuteConversion(ExecuteFlags executeFlags)
-        {
-            var execute = (executeFlags & ExecuteFlags.Convert) != 0 && !(_preferences.AlwaysResume && _xps2ImgModel.CanResume);
-
-            var convertionType = execute ? ConvertionType.Convert : ConvertionType.Resume;
-
-            if (execute && _preferences.SuggestResume && !_preferences.AlwaysResume && !_xps2ImgModel.IsRunning && _xps2ImgModel.CanResume)
-            {
-                if ((executeFlags & ExecuteFlags.ActivateWindow) != 0)
-                {
-                    Activate();
-                }
-
-                var dialogResult = ShowMessageBox(Resources.Strings.ResumeLastConvertionSuggestion, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-
-                if (dialogResult == DialogResult.Cancel)
-                {
-                    return;
-                }
-
-                if (dialogResult == DialogResult.Yes)
-                {
-                    convertionType = ConvertionType.Resume;
-                }
-            }
-
-            ExecuteConvertion(convertionType);
         }
 
         private void ConvertButtonClick(object sender, EventArgs e)
@@ -627,7 +628,7 @@ namespace Xps2ImgUI
         {
             if (!_preferences.ConfirmOnDelete || ShowConfirmationMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation))
             {
-                ExecuteConvertion(ConvertionType.Delete);
+                ExecuteConvertion(ConvertionType.Delete, true);
             }
         }
 
