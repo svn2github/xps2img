@@ -474,16 +474,18 @@ namespace Xps2ImgUI
             Resume          = 1 << 0,
             Convert         = 1 << 1,
             ActivateWindow  = 1 << 2,
-            DoNotClickButton= 1 << 3
+            DoNotClickButton= 1 << 3,
+            NoResume        = 1 << 4
         }
 
         private void ExecuteConversion(ExecuteFlags executeFlags)
         {
-            var execute = (executeFlags & ExecuteFlags.Convert) != 0 && !(_preferences.AlwaysResume && _xps2ImgModel.CanResume);
+            var noResume = (executeFlags & ExecuteFlags.NoResume) != 0;
+            var execute = (executeFlags & ExecuteFlags.Convert) != 0 && !(!noResume && _preferences.AlwaysResume && _xps2ImgModel.CanResume);
 
             var convertionType = execute ? ConvertionType.Convert : ConvertionType.Resume;
 
-            if (execute && _preferences.SuggestResume && !_preferences.AlwaysResume && !_xps2ImgModel.IsRunning && _xps2ImgModel.CanResume)
+            if (execute && !noResume && _preferences.SuggestResume && !_preferences.AlwaysResume && !_xps2ImgModel.IsRunning && _xps2ImgModel.CanResume)
             {
                 if ((executeFlags & ExecuteFlags.ActivateWindow) != 0)
                 {
@@ -568,7 +570,7 @@ namespace Xps2ImgUI
 
         private void ConvertButtonClick(object sender, EventArgs e)
         {
-            ExecuteConversion(ExecuteFlags.Convert);
+            ExecuteConversion(ExecuteFlags.Convert | (sender is Button ? 0 : ExecuteFlags.NoResume));
         }
 
         private void ResumeToolStripMenuItemClick(object sender, EventArgs e)
