@@ -480,12 +480,12 @@ namespace Xps2ImgUI
 
         private void ExecuteConversion(ExecuteFlags executeFlags)
         {
-            var noResume = (executeFlags & ExecuteFlags.NoResume) != 0;
-            var execute = (executeFlags & ExecuteFlags.Convert) != 0 && !(!noResume && _preferences.AlwaysResume && _xps2ImgModel.CanResume);
+            var canResume = (executeFlags & ExecuteFlags.NoResume) == 0 && _xps2ImgModel.CanResume;
+            var execute = (executeFlags & ExecuteFlags.Convert) != 0 && !(canResume && _preferences.AlwaysResume);
 
             var convertionType = execute ? ConvertionType.Convert : ConvertionType.Resume;
 
-            if (execute && !noResume && _preferences.SuggestResume && !_preferences.AlwaysResume && !_xps2ImgModel.IsRunning && _xps2ImgModel.CanResume)
+            if (execute && canResume && _preferences.SuggestResume && !_preferences.AlwaysResume && !_xps2ImgModel.IsRunning)
             {
                 if ((executeFlags & ExecuteFlags.ActivateWindow) != 0)
                 {
