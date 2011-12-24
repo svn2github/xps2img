@@ -199,43 +199,54 @@ namespace Xps2ImgUI.Model
             return process;
         }
 
-        private List<Interval> GetDocumentIntervals()
+        private int GetDocumentPageCount()
         {
-            var intervals = Interval.Parse(OptionsObject.Pages);
             using (var xpsDocument = new XpsDocument(OptionsObject.SrcFile, FileAccess.Read))
             {
                 var fixedDocumentSequence = xpsDocument.GetFixedDocumentSequence();
-
-                if (fixedDocumentSequence == null)
-                {
-                    return new List<Interval>();
-                }
-
-                var pageCount = fixedDocumentSequence.DocumentPaginator.PageCount;
-
-                if (!intervals.LessThan(pageCount))
-                {
-                    return new List<Interval>();
-                }
-
-                intervals.Last().SetEndValue(pageCount);
-
-                return intervals;
+                return fixedDocumentSequence == null ? 0 : fixedDocumentSequence.DocumentPaginator.PageCount;
             }
+        }
+
+        private List<Interval> GetDocumentIntervals()
+        {
+            var intervals = Interval.Parse(OptionsObject.Pages);
+
+            var pageCount = GetDocumentPageCount();
+
+            if (pageCount == 0 || !intervals.LessThan(pageCount))
+            {
+                return new List<Interval>();
+            }
+
+            intervals.Last().SetEndValue(pageCount);
+
+            return intervals;
         }
 
         private IEnumerable<List<Interval>> GetDocumentSplittedIntervals()
         {
+            _pagesProcessedDelta = 0;
+
             if (!IsSingleProcessor)
             {
                 BoostProcessPriority(true);
             }
 
-            var intervals = CanResume ? IntervalUtils.FromBitArray(_processedIntervals) : GetDocumentIntervals();
+            var totalIntervals = GetDocumentIntervals();
+            var intervals = CanResume ? IntervalUtils.FromBitArray(_processedIntervals) : totalIntervals;
 
             if (intervals.Any())
             {
-                _pagesTotal = intervals.GetTotalLength();
+                _pagesTotal = totalIntervals.GetTotalLength();
+                if (_pagesTotal <= 0) _pagesTotal = 1;
+
+                if (CanResume)
+                {
+                    _pagesProcessedDelta = totalIntervals.GetTotalLength() - intervals.GetTotalLength();
+                    if (_pagesProcessedDelta < 0) _pagesProcessedDelta = 0;
+                }
+
                 _processedIntervals = intervals.ToBitArray();
                 return intervals.SplitBy(_threadsCount);
             }
@@ -448,20 +459,9 @@ namespace Xps2ImgUI.Model
                 return;
             }
 
-            int percent;
-            string pages;
-
-            if (IsSingleProcessor)
-            {
-                percent = Convert.ToInt32(match.Groups["percent"].Value);
-                pages = match.Groups["pages"].Value;
-            }
-            else
-            {
-                var pageIndex = Interlocked.Increment(ref _pagesProcessed);
-                percent = pageIndex*100 / _pagesTotal;
-                pages = String.Format("{0}/{1}", pageIndex, _pagesTotal);
-            }
+            var pageIndex = _pagesProcessedDelta + Interlocked.Increment(ref _pagesProcessed);
+            var percent = pageIndex * 100 / _pagesTotal;
+            var pages = String.Format("{0}/{1}", pageIndex, _pagesTotal);
 
             if (CanResume)
             {
@@ -536,6 +536,7 @@ namespace Xps2ImgUI.Model
 
         private int _pagesTotal;
         private int _pagesProcessed;
+        private int _pagesProcessedDelta;
 
         private int _threadsLeft;
         private int _threadsCount;
