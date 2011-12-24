@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
 
 using Xps2Img.CommandLine;
@@ -11,6 +13,9 @@ namespace Xps2Img
     internal static class Program
     {
         private static volatile bool _isCancelled;
+
+        [DllImport("kernel32.dll")]
+        private static extern bool SetConsoleCP(int wCodePageID);
 
         [STAThread]
         private static int Main(string[] args)
@@ -33,6 +38,9 @@ namespace Xps2Img
 
                 if (launchedAsInternal)
                 {
+                    Console.OutputEncoding = Encoding.UTF8;
+                    SetConsoleCP(Console.OutputEncoding.CodePage);
+
                     ThreadPool.QueueUserWorkItem(_ => WaitForCancellationThread(options));
                 }
 

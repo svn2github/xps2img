@@ -162,7 +162,9 @@ namespace Xps2ImgUI.Model
             process.Close();
         }
 
-        private Process StartProcess(string commandLine, Encoding consoleEncoding)
+        private readonly Encoding ConsoleEncoding = Encoding.UTF8;
+
+        private Process StartProcess(string commandLine)
         {
             var processStartInfo = new ProcessStartInfo(Program.Xps2ImgExecutable, commandLine)
             {
@@ -170,8 +172,8 @@ namespace Xps2ImgUI.Model
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
-                StandardOutputEncoding = consoleEncoding,
-                StandardErrorEncoding = consoleEncoding
+                StandardOutputEncoding = ConsoleEncoding,
+                StandardErrorEncoding = ConsoleEncoding
             };
 
             var process = new Process { StartInfo = processStartInfo, EnableRaisingEvents = true };
@@ -331,8 +333,6 @@ namespace Xps2ImgUI.Model
                 _threadsLeft = 0;
                 _pagesProcessed = 0;
 
-                var consoleEncoding = Encoding.GetEncoding(Thread.CurrentThread.CurrentCulture.GetConsoleFallbackUICulture().TextInfo.OEMCodePage);
-
                 _threadsCount = IsCreationMode ? OptionsObject.ActualProcessorsNumber : 1;
                 
                 var splittedIntervals = GetDocumentSplittedIntervals();
@@ -349,7 +349,7 @@ namespace Xps2ImgUI.Model
                                                 FormatCommandLine(Options.ExcludedOnLaunch),
                                                 IntervalUtils.ToString(t),
                                                 IsCreationMode ? String.Empty : Options.CleanOption);
-                    var process = StartProcess(processCommandLine, consoleEncoding);
+                    var process = StartProcess(processCommandLine);
                     ThreadPool.QueueUserWorkItem(_ => Xps2ImgProcessWaitThread(process));
                     Interlocked.Increment(ref _threadsLeft);
                     processLastConvertedPage.Add(new ProcessLastPage(process));
