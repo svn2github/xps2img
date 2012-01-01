@@ -40,7 +40,7 @@ namespace CommandLine
             stringBuilder.AppendFormat(Strings.Format_Usage, ApplicationName);
 
             longOpts.Where(longOpt => longOpt.IsUnnamed).Aggregate(stringBuilder, (sb, longOpt) => sb.AppendFormat(" {0}", longOpt.FormatOptional(longOpt.DisplayName)));
-            if (longOpts.Where(longOpt => longOpt.IsNamed).Any())
+            if (longOpts.Any(longOpt => longOpt.IsNamed))
             {
                 stringBuilder.Append(Strings.Format_OptionalOptions);
             }

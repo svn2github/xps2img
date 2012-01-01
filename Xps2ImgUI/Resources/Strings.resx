@@ -222,4 +222,10 @@
   <data name="ResumeLastConvertionSuggestion">
     <value xml:space="preserve">Would you like to resume last convertion instead of starting new one?</value>
   </data>
+  <data name="SelectXpsFile">
+    <value xml:space="preserve">Select XPS File</value>
+  </data>
+  <data name="SpecifyImagesFolder">
+    <value xml:space="preserve">Specify folder to store images. If not set new folder named as document will be created in folder where document is.</value>
+  </data>
 </root>

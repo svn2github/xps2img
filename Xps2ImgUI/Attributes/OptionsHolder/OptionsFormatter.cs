@@ -39,7 +39,7 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
                 return null;
             }
 
-            var optionValue = typeConverter != null ? typeConverter.ConvertToInvariantString(value) : value.ToString();
+            var optionValue = typeConverter.ConvertToInvariantString(value);
             
             var formattedValue = FormatOptionValue(optionValue);
 

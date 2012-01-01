@@ -22,10 +22,10 @@ namespace Xps2ImgUI.Controls
 
             var controls = Controls.OfType<Control>().ToArray();
 
-            _toolStrip = (ToolStrip)controls.Where(c => c is ToolStrip).FirstOrDefault();
+            _toolStrip = (ToolStrip)controls.FirstOrDefault(c => c is ToolStrip);
             Debug.Assert(_toolStrip != null);
 
-            _docComment = controls.Where(c => c.GetType().Name == "DocComment").FirstOrDefault();
+            _docComment = controls.FirstOrDefault(c => c.GetType().Name == "DocComment");
             Debug.Assert(_docComment != null);
 
             _docCommentType = _docComment.GetType();

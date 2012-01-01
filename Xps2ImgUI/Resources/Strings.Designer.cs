@@ -295,11 +295,29 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select XPS File.
+        /// </summary>
+        internal static string SelectXpsFile {
+            get {
+                return ResourceManager.GetString("SelectXpsFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Co&amp;mmand Line.
         /// </summary>
         internal static string ShowCommandLine {
             get {
                 return ResourceManager.GetString("ShowCommandLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify folder to store images. If not set new folder named as document will be created in folder where document is..
+        /// </summary>
+        internal static string SpecifyImagesFolder {
+            get {
+                return ResourceManager.GetString("SpecifyImagesFolder", resourceCulture);
             }
         }
         

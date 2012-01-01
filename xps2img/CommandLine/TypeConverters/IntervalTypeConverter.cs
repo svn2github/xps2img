@@ -24,7 +24,7 @@ namespace Xps2Img.CommandLine.TypeConverters
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            return CanConvertFrom(value.GetType()) ? Interval.Parse((string)value) : null;
+            return value != null && CanConvertFrom(value.GetType()) ? Interval.Parse((string)value) : null;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace CommandLine
 
         private const int TabSize = 8;
 
-        public static StringBuilder Format(IEnumerable<string> lines)
+        public static StringBuilder Format(IList<string> lines)
         {
             if (lines == null || !lines.Any())
             {

@@ -36,7 +36,7 @@ namespace Xps2ImgUI.Settings
         {
             if (_saveDialog == null)
             {
-                InitFileDialog(_saveDialog = new SaveFileDialog { Title = Resources.Strings.SaveSettingsTitle });
+                InitFileDialog(_saveDialog = new SaveFileDialog { Title = Resources.Strings.SaveSettingsTitle, AddExtension = true });
             }
 
             #if DEBUG

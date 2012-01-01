@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 
 namespace Xps2ImgUI.Converters
@@ -26,7 +27,7 @@ namespace Xps2ImgUI.Converters
             yield return Xps2Img.CommandLine.Options.AutoValue;
             for (var i = 1; i <= ProcessorCount; i++)
             {
-                yield return i.ToString();        
+                yield return i.ToString(CultureInfo.InvariantCulture);        
             }
         }
     }

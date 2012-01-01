@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Runtime.InteropServices;
@@ -264,7 +265,7 @@ namespace TKageyu.Utils
             if (iconIndex < 0 || IconCount <= iconIndex)
             {
                 throw new ArgumentException(
-                    "iconIndex is out of range. It should be between 0 and " + (IconCount - 1).ToString() + ".");
+                    "iconIndex is out of range. It should be between 0 and " + (IconCount - 1).ToString(CultureInfo.InvariantCulture) + ".");
             }
 
             if (_iconCache[ iconIndex ] == null)

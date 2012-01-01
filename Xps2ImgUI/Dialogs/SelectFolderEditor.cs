@@ -7,6 +7,8 @@ namespace Xps2ImgUI.Dialogs
 {
     public class SelectFolderEditor : BaseSelectFileFolderEditor
     {
+        public string Description { get; set; }
+
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
         {
             return UITypeEditorEditStyle.Modal;
@@ -23,6 +25,11 @@ namespace Xps2ImgUI.Dialogs
 
             using (var dialog = new FolderBrowserDialog { SelectedPath = path })
             {
+                if (!String.IsNullOrEmpty(Description))
+                {
+                    dialog.Description = Description;
+                }
+
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     return dialog.SelectedPath;

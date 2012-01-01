@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 
 using CommandLine.Validation;
@@ -15,7 +16,7 @@ namespace CommandLine
         public static string GetLongName(string name)
         {
             var attrName = String.Empty;
-            Array.ForEach(name.ToCharArray(), c => attrName += (Char.IsUpper(c) ? (String.IsNullOrEmpty(attrName) ? "" : "-") + Char.ToLower(c).ToString() : c.ToString()));
+            Array.ForEach(name.ToCharArray(), c => attrName += (Char.IsUpper(c) ? (String.IsNullOrEmpty(attrName) ? "" : "-") + Char.ToLower(c).ToString(CultureInfo.InvariantCulture) : c.ToString(CultureInfo.InvariantCulture)));
             return attrName;
         }
 

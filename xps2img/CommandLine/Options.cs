@@ -9,6 +9,7 @@ using Xps2Img.CommandLine.TypeConverters;
 using System;
 using System.Diagnostics;
 using System.Drawing.Design;
+using System.Globalization;
 
 using CommandLine.Validation;
 
@@ -54,13 +55,13 @@ namespace Xps2Img.CommandLine
 
         private string _srcFile;
 
-        private const string OutDirDescription = "Output folder\n  current folder by default";
+        private const string OutDirDescription = "Output folder\n  new folder named as document will be created in folder where document is by default";
 
         [global::CommandLine.UnnamedOption(OutDirDescription, false)]
         #if XPS2IMG_UI
         [DisplayName("Output Folder")]
         [UnnamedOption(false)]
-        [Editor(typeof(SelectFolderEditor), typeof(UITypeEditor))]
+        [Editor(typeof(SelectXpsFolderEditor), typeof(UITypeEditor))]
         [Category(Category.Parameters)]
         [DefaultValue(null)]
         [TabbedDescription(OutDirDescription)]
@@ -387,7 +388,7 @@ namespace Xps2Img.CommandLine
                 var processesNumber = 1;
 
                 _processorsNumber =
-                    (AutoValue.CompareTo(value) != 0 && !Int32.TryParse(value, out processesNumber)) || (processesNumber <= 0 || processesNumber > ProcessorsNumberConverter.ProcessorCount)
+                    (String.CompareOrdinal(AutoValue, value) != 0 && !Int32.TryParse(value, out processesNumber)) || (processesNumber <= 0 || processesNumber > ProcessorsNumberConverter.ProcessorCount)
                     ? AutoValue
                     : value;
             }
@@ -423,7 +424,7 @@ namespace Xps2Img.CommandLine
 
             set
             {
-               _processorsPriority = (AutoValue.CompareTo(value) != 0 && !Enum.IsDefined(typeof(ProcessPriorityClass), value))
+               _processorsPriority = (String.CompareOrdinal(AutoValue, value) != 0 && !Enum.IsDefined(typeof(ProcessPriorityClass), value))
                                         ? AutoValue
                                         : value;
             }
@@ -444,7 +445,7 @@ namespace Xps2Img.CommandLine
 
         public static readonly string[] ExcludedOnSave = new[] { CancellationObjectIdName };
         public static readonly string[] ExcludedUIOptions = new[] { ProcessorsName, ProcessorsPriorityName };
-        public static readonly string[] ExcludedOnLaunch = ExcludedUIOptions.Concat(new[] { PagesShortOption.ToString() }).ToArray();
+        public static readonly string[] ExcludedOnLaunch = ExcludedUIOptions.Concat(new[] { PagesShortOption.ToString(CultureInfo.InvariantCulture) }).ToArray();
         public static readonly string[] ExcludedOnView = ExcludedOnSave.Concat(ExcludedUIOptions).ToArray();
 
         public static readonly string[] ExcludeOnResumeCheck = new[] { ProcessorsDisplayName, ProcessorsPriorityDisplayName };

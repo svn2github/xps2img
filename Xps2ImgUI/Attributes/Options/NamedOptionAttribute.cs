@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Xps2ImgUI.Attributes.Options
 {
@@ -16,7 +17,7 @@ namespace Xps2ImgUI.Attributes.Options
         }
 
         public OptionAttribute(char name) :
-            this(name.ToString())
+            this(name.ToString(CultureInfo.InvariantCulture))
         {
         }
     }

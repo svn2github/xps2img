@@ -21,7 +21,7 @@ namespace CommandLine.Validation
                 return null;
             }
 
-            var result = Validators.Select(creator => creator(validationExpression)).Where(validator => validator != null).FirstOrDefault();
+            var result = Validators.Select(creator => creator(validationExpression)).FirstOrDefault(validator => validator != null);
 
             if (result == null)
             {

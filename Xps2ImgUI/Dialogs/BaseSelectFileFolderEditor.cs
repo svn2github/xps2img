@@ -4,6 +4,8 @@ namespace Xps2ImgUI.Dialogs
 {
     public class BaseSelectFileFolderEditor : UITypeEditor
     {
+        public string Title { get; set; }
+
         public string DefaultFolder
         {
 #if DEBUG

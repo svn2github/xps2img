@@ -47,6 +47,11 @@ namespace Xps2ImgUI.Dialogs
 
             using (var dialog = new OpenFileDialog { Filter = Filter, InitialDirectory = InitialDirectory, FileName = fileName })
             {
+                if(!String.IsNullOrEmpty(Title))
+                {
+                    dialog.Title = Title;
+                }
+
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     return dialog.FileName;

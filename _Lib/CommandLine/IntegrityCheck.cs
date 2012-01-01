@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
@@ -13,7 +14,7 @@ namespace CommandLine
         {
             Func<LongOptEx, string> formatLOE = longOptEx =>
               String.Format(longOptEx.IsUnnamed ? "{{ BoundPropertyName: \"{2}\" }}" : "{{ Name: \"{0}\", Val: '{1}', BoundPropertyName: \"{2}\" }}",
-                            longOptEx.Name, longOptEx.Val >= ' ' ? ((char)longOptEx.Val).ToString() : String.Format("0x{0,02:X}", longOptEx.Val), longOptEx.BoundPropertyName);
+                            longOptEx.Name, longOptEx.Val >= ' ' ? ((char)longOptEx.Val).ToString(CultureInfo.InvariantCulture) : String.Format("0x{0,02:X}", longOptEx.Val), longOptEx.BoundPropertyName);
 
             var errors = new List<string>();
 
