@@ -30,6 +30,13 @@ namespace Xps2ImgUI.Settings
         [TypeConverter(typeof(YesNoConverter))]
         public bool ShowElapsedTime { get; set; }
 
+        [DisplayName(@"Flash When Completed")]
+        [Category(CategoryApplication)]
+        [Description("Flash application window when convertion is completed.")]
+        [DefaultValue(true)]
+        [TypeConverter(typeof(YesNoConverter))]
+        public bool FlashWhenCompleted { get; set; }
+
         [DisplayName(@"Confirm Delete")]
         [Category(CategoryConfirmations)]
         [Description("Ask confirmation on images deletion.")]

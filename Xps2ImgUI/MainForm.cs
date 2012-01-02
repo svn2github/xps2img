@@ -333,7 +333,7 @@ namespace Xps2ImgUI
 
         private void FlashForm()
         {
-            if (!this.IsForegroundWindow())
+            if (_preferences.FlashWhenCompleted && !this.IsForegroundWindow())
             {
                 this.Flash(4);
             }
