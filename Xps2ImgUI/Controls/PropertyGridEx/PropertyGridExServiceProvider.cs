@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
 namespace Xps2ImgUI.Controls.PropertyGridEx
@@ -8,7 +7,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
     {
         private readonly PropertyGridExUIService _service;
 
-        public PropertyGridExServiceProvider(PropertyGrid grid)
+        public PropertyGridExServiceProvider(PropertyGridEx grid)
         {
             _service = new PropertyGridExUIService(grid);
         }

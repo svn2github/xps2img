@@ -521,10 +521,17 @@ namespace Xps2ImgUI
             }
 
             // Force command line update if launched via shortcut.
-            if (clickButton && convertionType == ConvertionType.Convert && !ModalGuard.IsEntered && !convertButton.Focused)
+            if (clickButton && !ModalGuard.IsEntered && !convertButton.Focused)
             {
                 convertButton.Focus();
-                convertButton.PerformClick();
+                if (settingsPropertyGrid.HasErrors)
+                {
+                    settingsPropertyGrid.Focus();
+                }
+                else
+                {
+                    convertButton.PerformClick();
+                }
                 return;
             }
 

@@ -11,9 +11,9 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
     // http://social.msdn.microsoft.com/Forums/da-DK/winforms/thread/fa180d07-9c1f-4125-981b-b4ea783cd451
     public class PropertyGridExUIService : IUIService
     {
-        private readonly PropertyGrid _propertyGrid;
+        private readonly PropertyGridEx _propertyGrid;
 
-        internal PropertyGridExUIService(PropertyGrid grid)
+        public PropertyGridExUIService(PropertyGridEx grid)
         {
             _propertyGrid = grid;
         }
@@ -28,11 +28,15 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
             using (new ModalGuard())
             {
-                return MessageBox.Show(_propertyGrid,
-                        String.Format("{0}{1}{2}", detailsTextBox.Text, detailsTextBox.Text.EndsWith(".") ? String.Empty : ".", Resources.Strings.CancelToUsePreviousValidValue.Replace(@"\n", Environment.NewLine)),
-                        propertyDescriptor.DisplayName,
-                        MessageBoxButtons.OKCancel,
-                        MessageBoxIcon.Warning);
+                 var dialogResult = MessageBox.Show(_propertyGrid,
+                                        String.Format("{0}{1}{2}", detailsTextBox.Text, detailsTextBox.Text.EndsWith(".") ? String.Empty : ".", Resources.Strings.CancelToUsePreviousValidValue.Replace(@"\n", Environment.NewLine)),
+                                        propertyDescriptor.DisplayName,
+                                        MessageBoxButtons.OKCancel,
+                                        MessageBoxIcon.Warning);
+
+                _propertyGrid.HasErrors = dialogResult == DialogResult.OK;
+
+                return dialogResult;
             }
         }
 

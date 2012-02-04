@@ -187,6 +187,28 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             }
         }
 
+        public new object SelectedObject
+        {
+            get { return base.SelectedObject; }
+            set
+            {
+                HasErrors = false;
+                base.SelectedObject = value;
+            }
+        }
+
+        public new object[] SelectedObjects
+        {
+            get { return base.SelectedObjects; }
+            set
+            {
+                HasErrors = false;
+                base.SelectedObjects = value;
+            }
+        }
+
+        public bool HasErrors { get; set; }
+
         private ToolStrip _toolStrip;
         private Control _docComment;
 
