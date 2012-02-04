@@ -219,13 +219,16 @@
   <data name="CopyUICommandLineToClipboard" xml:space="preserve">
     <value>Copy &amp;UI Command Line To Clipboard</value>
   </data>
-  <data name="ResumeLastConvertionSuggestion">
-    <value xml:space="preserve">Would you like to resume last convertion instead of starting new one?</value>
+  <data name="ResumeLastConvertionSuggestion" xml:space="preserve">
+    <value>Would you like to resume last convertion instead of starting new one?</value>
   </data>
-  <data name="SelectXpsFile">
-    <value xml:space="preserve">Select XPS File</value>
+  <data name="SelectXpsFile" xml:space="preserve">
+    <value>Select XPS File</value>
   </data>
-  <data name="SpecifyImagesFolder">
-    <value xml:space="preserve">Specify folder to store images. If not set new folder named as document will be created in folder where document is.</value>
+  <data name="SpecifyImagesFolder" xml:space="preserve">
+    <value>Specify folder to store images. If not set new folder named as document will be created in folder where document is.</value>
+  </data>
+  <data name="CancelToUsePreviousValidValue" xml:space="preserve">
+    <value>\n\n• Cancel or Esc reverts to previous valid value.\n• OK returns to value editing.</value>
   </data>
 </root>

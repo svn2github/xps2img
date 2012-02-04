@@ -5,7 +5,7 @@
 #define OutputBaseFilename      "Xps2ImgSetup"
 
 #define AppName                 "XPS to Images Converter"
-#define AppVersion              "3.6.1.0"
+#define AppVersion              "3.7.0.0"
 
 #define AppExe                  "{app}\xps2imgUI.exe"
 

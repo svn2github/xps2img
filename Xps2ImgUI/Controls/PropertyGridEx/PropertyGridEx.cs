@@ -2,11 +2,12 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace Xps2ImgUI.Controls
+namespace Xps2ImgUI.Controls.PropertyGridEx
 {
     public class PropertyGridEx : PropertyGrid
     {
@@ -37,6 +38,21 @@ namespace Xps2ImgUI.Controls
             if (docUserSizedField != null)
             {
                 docUserSizedField.SetValue(_docComment, true);
+            }
+
+            foreach (Control control in Controls)
+            {
+                if (String.Compare(control.GetType().FullName, "System.Windows.Forms.PropertyGridInternal.PropertyGridView", true, CultureInfo.InvariantCulture) != 0)
+                {
+                    continue;
+                }
+
+                // Add a custom service provider to give us control over the property value error dialog shown to the user.
+                var errorDialogField = control.GetType().GetField("serviceProvider", BindingFlags.Instance | BindingFlags.NonPublic);
+                if (errorDialogField != null)
+                {
+                    errorDialogField.SetValue(control, new PropertyGridExServiceProvider(this));
+                }
             }
         }
 

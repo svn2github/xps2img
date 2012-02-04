@@ -30,7 +30,7 @@
         {
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
-            this.preferencesPropertyGrid = new Xps2ImgUI.Controls.PropertyGridEx();
+            this.preferencesPropertyGrid = new Xps2ImgUI.Controls.PropertyGridEx.PropertyGridEx();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -92,6 +92,6 @@
 
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button okButton;
-        private Controls.PropertyGridEx preferencesPropertyGrid;
+        private Controls.PropertyGridEx.PropertyGridEx preferencesPropertyGrid;
     }
 }

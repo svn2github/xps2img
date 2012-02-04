@@ -256,6 +256,7 @@ namespace Xps2Img.Xps2Img
                 catch (OutOfMemoryException)
                 {
                     GC.Collect();
+                    GC.WaitForPendingFinalizers();
                     bitmap.Render(page.Visual);
                 }
 

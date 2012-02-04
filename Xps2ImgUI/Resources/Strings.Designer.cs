@@ -88,6 +88,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to \n\n• Cancel or Esc reverts to previous valid value.\n• OK returns to value editing..
+        /// </summary>
+        internal static string CancelToUsePreviousValidValue {
+            get {
+                return ResourceManager.GetString("CancelToUsePreviousValidValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Currently executed convertion will be aborted..
         /// </summary>
         internal static string ClosingConfirmation {

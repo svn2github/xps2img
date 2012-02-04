@@ -32,7 +32,7 @@ namespace Xps2ImgUI
     {
             this.components = new System.ComponentModel.Container();
             this.settingsSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.settingsPropertyGrid = new Xps2ImgUI.Controls.PropertyGridEx();
+            this.settingsPropertyGrid = new Xps2ImgUI.Controls.PropertyGridEx.PropertyGridEx();
             this.commandLineTextBox = new System.Windows.Forms.TextBox();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.convertContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -176,7 +176,7 @@ namespace Xps2ImgUI
 
     #endregion
 
-    private PropertyGridEx settingsPropertyGrid;
+    private Controls.PropertyGridEx.PropertyGridEx settingsPropertyGrid;
     private System.Windows.Forms.TextBox commandLineTextBox;
     private System.Windows.Forms.SplitContainer settingsSplitContainer;
     private wyDay.Controls.SplitButton convertButton;
