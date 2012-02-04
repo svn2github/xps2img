@@ -13,6 +13,7 @@ using Xps2Img.CommandLine;
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Resources;
 using Xps2ImgUI.Settings;
+using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI
 {
@@ -69,7 +70,10 @@ namespace Xps2ImgUI
                                                                                          .Message;
                                                                                          #endif
 
-            MessageBox.Show(Application.OpenForms.Cast<IWin32Window>().FirstOrDefault(), exceptionMessage, Strings.WindowTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            using (new ModalGuard())
+            {
+                MessageBox.Show(Application.OpenForms.Cast<IWin32Window>().FirstOrDefault(), exceptionMessage, Strings.WindowTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

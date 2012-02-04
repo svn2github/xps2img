@@ -92,6 +92,12 @@ namespace Xps2ImgUI
                                                      : ToolStripRenderMode.ManagerRenderMode;
         }
 
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            SizeGripStyle = WindowState == FormWindowState.Maximized ? SizeGripStyle.Hide : SizeGripStyle.Show;
+            base.OnSizeChanged(e);
+        }
+
         protected override void OnActivated(EventArgs e)
         {
             this.StopFlashing();
