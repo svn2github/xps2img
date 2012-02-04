@@ -7,7 +7,9 @@
 #define AppName                 "XPS to Images Converter"
 #define AppVersion              "3.7.0.0"
 
-#define AppExe                  "{app}\xps2imgUI.exe"
+#define AppNamePart             "{app}\xps2img"
+#define AppExe                  AppNamePart + "UI.exe"
+#define AppChm                  AppNamePart + ".chm"
 
 #define UrlOfficialSite         "http://xps2img.sf.net"
 
@@ -48,6 +50,7 @@
 
 <CustomMessage("en.Help",               AppName + " Help")>
 <CustomMessage("en.License",            AppName + " License")>
+<CustomMessage("en.ViewHelp",           "View " + AppName + " Help")>
 <CustomMessage("en.Group_Uninstall",    "Uninstall")>
 <CustomMessage("en.Menu_WebSite",       "%1 Web Site")>
 
@@ -76,6 +79,7 @@
 <IconRun("{group}\{cm:Help}", AppReadmeFile)>
 
 <Run(filename=AppExe, flags=Common_RunFlags, description=Utils_CmFormat("LaunchProgram", AppName))>
+<Run(filename=AppChm, flags=Common_RunFlags+RunFlag_ShellExec, description=Utils_CmFormat("ViewHelp", AppName))>
 
 <Reg("HKCR\.x2i", ":string", AppName, RegFlag_UninsDeleteKey)>
 <Reg("HKCR\" + AppName, ":string", X2IFileDescription, RegFlag_UninsDeleteKey)>
