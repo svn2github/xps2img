@@ -44,7 +44,7 @@
 
 #include ISM_RootDir + "/Include/IncludeAll.isi"
 
-#define Common_RunFlags     RunFlag_NoWait + RunFlag_PostInstall + RunFlag_SkipIfSilent + RunFlag_Unchecked
+#define Common_RunFlags     RunFlag_NoWait + RunFlag_PostInstall + RunFlag_SkipIfSilent
 
 <Language("en", "compiler:Default.isl")>
 
@@ -79,7 +79,7 @@
 <IconRun("{group}\{cm:Help}", AppReadmeFile)>
 
 <Run(filename=AppExe, flags=Common_RunFlags, description=Utils_CmFormat("LaunchProgram", AppName))>
-<Run(filename=AppChm, flags=Common_RunFlags+RunFlag_ShellExec, description=Utils_CmFormat("ViewHelp", AppName))>
+<Run(filename=AppChm, flags=Common_RunFlags + RunFlag_ShellExec + RunFlag_Unchecked, description=Utils_CmFormat("ViewHelp", AppName))>
 
 <Reg("HKCR\.x2i", ":string", AppName, RegFlag_UninsDeleteKey)>
 <Reg("HKCR\" + AppName, ":string", X2IFileDescription, RegFlag_UninsDeleteKey)>
