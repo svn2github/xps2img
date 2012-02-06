@@ -130,14 +130,15 @@ namespace Xps2Img.CommandLine
         public List<Interval> Pages { get; set; }
         #endif
 
+        #if XPS2IMG_UI
+        public const string FileTypeDisplayName = "Image Type";
+        #endif
+
         private const string FileTypeDescription = "Image type";
         private const char FileTypeShortOption = 'f';
 
         [global::CommandLine.Option(FileTypeDescription, FileTypeShortOption, DefaultValue = "png")]
         #if XPS2IMG_UI
-
-        public const string FileTypeDisplayName = "Image Type";
-
         [DisplayName(FileTypeDisplayName)]
         [TabbedDescription(FileTypeDescription)]
         [Option(FileTypeShortOption)]
