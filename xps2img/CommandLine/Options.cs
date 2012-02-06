@@ -135,7 +135,10 @@ namespace Xps2Img.CommandLine
 
         [global::CommandLine.Option(FileTypeDescription, FileTypeShortOption, DefaultValue = "png")]
         #if XPS2IMG_UI
-        [DisplayName("Image Type")]
+
+        public const string FileTypeDisplayName = "Image Type";
+
+        [DisplayName(FileTypeDisplayName)]
         [TabbedDescription(FileTypeDescription)]
         [Option(FileTypeShortOption)]
         [Category(Category.Options)]

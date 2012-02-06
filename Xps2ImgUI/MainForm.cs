@@ -603,7 +603,10 @@ namespace Xps2ImgUI
         private void SettingsPropertyGridPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
             UpdateCommandLine(Options.ExcludeOnResumeCheck.Contains(e.ChangedItem.Label));
-            settingsPropertyGrid.Refresh();
+            if (e.ChangedItem.Label == Options.FileTypeDisplayName)
+            {
+                settingsPropertyGrid.Refresh();
+            }
         }
 
         private void SettingsPropertyGridSelectedObjectsChanged(object sender, EventArgs e)
