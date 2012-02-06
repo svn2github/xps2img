@@ -115,8 +115,8 @@
     <Compile Include="Converters\ProcessorsNumberConverter.cs" />
     <Compile Include="Converters\YesNoConverter.cs" />
     <Compile Include="Dialogs\SelectXpsFolderEditor.cs" />
-    <Compile Include="Model\ConvertionErrorEventArgs.cs" />
-    <Compile Include="Model\ConvertionType.cs" />
+    <Compile Include="Model\ConversionErrorEventArgs.cs" />
+    <Compile Include="Model\ConversionType.cs" />
     <Compile Include="PreferencesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,7 +127,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\BaseSelectFileFolderEditor.cs" />
-    <Compile Include="Model\ConvertionProgressEventArgs.cs" />
+    <Compile Include="Model\ConversionProgressEventArgs.cs" />
     <Compile Include="Settings\Preferences.cs" />
     <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Model\Xps2ImgModel.cs" />

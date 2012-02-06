@@ -393,13 +393,13 @@ namespace Xps2ImgUI
             }
         }
 
-        private void Xps2ImgOutputDataReceived(object sender, ConvertionProgressEventArgs e)
+        private void Xps2ImgOutputDataReceived(object sender, ConversionProgressEventArgs e)
         {
             SetConvertedImagesFolder(e.File);
             this.InvokeIfNeeded(() => UpdateProgress(e.Percent, e.Pages, e.File));
         }
 
-        private void Xps2ImgErrorDataReceived(object sender, ConvertionErrorEventArgs e)
+        private void Xps2ImgErrorDataReceived(object sender, ConversionErrorEventArgs e)
         {
             this.InvokeIfNeeded(() => UpdateFailedStatus(e.Message));
         }
@@ -489,7 +489,7 @@ namespace Xps2ImgUI
             var canResume = (executeFlags & ExecuteFlags.NoResume) == 0 && _xps2ImgModel.CanResume;
             var execute = (executeFlags & ExecuteFlags.Convert) != 0 && !(canResume && _preferences.AlwaysResume);
 
-            var convertionType = execute ? ConvertionType.Convert : ConvertionType.Resume;
+            var conversionType = execute ? ConversionType.Convert : ConversionType.Resume;
 
             if (execute && canResume && _preferences.SuggestResume && !_preferences.AlwaysResume && !_xps2ImgModel.IsRunning)
             {
@@ -498,7 +498,7 @@ namespace Xps2ImgUI
                     Activate();
                 }
 
-                var dialogResult = ShowMessageBox(Resources.Strings.ResumeLastConvertionSuggestion, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                var dialogResult = ShowMessageBox(Resources.Strings.ResumeLastConversionSuggestion, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
                 if (dialogResult == DialogResult.Cancel)
                 {
@@ -507,18 +507,18 @@ namespace Xps2ImgUI
 
                 if (dialogResult == DialogResult.Yes)
                 {
-                    convertionType = ConvertionType.Resume;
+                    conversionType = ConversionType.Resume;
                 }
             }
 
-            ExecuteConvertion(convertionType, (executeFlags & ExecuteFlags.DoNotClickButton) == 0);
+            ExecuteConversion(conversionType, (executeFlags & ExecuteFlags.DoNotClickButton) == 0);
         }
 
-        private void ExecuteConvertion(ConvertionType convertionType, bool clickButton)
+        private void ExecuteConversion(ConversionType conversionType, bool clickButton)
         {
             if (_xps2ImgModel.IsRunning)
             {
-                if (!_preferences.ConfirmOnStop || ShowConfirmationMessageBox(Resources.Strings.ConvertionStopConfirmation))
+                if (!_preferences.ConfirmOnStop || ShowConfirmationMessageBox(Resources.Strings.ConversionStopConfirmation))
                 {
                     EnableConvertControls(ControlState.Default);
                     _xps2ImgModel.Stop();
@@ -576,7 +576,7 @@ namespace Xps2ImgUI
                 _stopwatch.Start();
             }
 
-            _xps2ImgModel.Launch(convertionType);
+            _xps2ImgModel.Launch(conversionType);
 
             UpdateRunningStatus(true);
         }
@@ -644,7 +644,7 @@ namespace Xps2ImgUI
         {
             if (!_preferences.ConfirmOnDelete || ShowConfirmationMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation))
             {
-                ExecuteConvertion(ConvertionType.Delete, true);
+                ExecuteConversion(ConversionType.Delete, true);
             }
         }
 

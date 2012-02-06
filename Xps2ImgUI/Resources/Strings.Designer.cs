@@ -97,7 +97,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Currently executed convertion will be aborted..
+        ///   Looks up a localized string similar to Currently executed conversion will be aborted..
         /// </summary>
         internal static string ClosingConfirmation {
             get {
@@ -106,11 +106,11 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Convertion will be stopped..
+        ///   Looks up a localized string similar to Conversion will be stopped..
         /// </summary>
-        internal static string ConvertionStopConfirmation {
+        internal static string ConversionStopConfirmation {
             get {
-                return ResourceManager.GetString("ConvertionStopConfirmation", resourceCulture);
+                return ResourceManager.GetString("ConversionStopConfirmation", resourceCulture);
             }
         }
         
@@ -277,11 +277,11 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Would you like to resume last convertion instead of starting new one?.
+        ///   Looks up a localized string similar to Would you like to resume last conversion instead of starting new one?.
         /// </summary>
-        internal static string ResumeLastConvertionSuggestion {
+        internal static string ResumeLastConversionSuggestion {
             get {
-                return ResourceManager.GetString("ResumeLastConvertionSuggestion", resourceCulture);
+                return ResourceManager.GetString("ResumeLastConversionSuggestion", resourceCulture);
             }
         }
         

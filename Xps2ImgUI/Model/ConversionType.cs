@@ -1,6 +1,6 @@
 ﻿namespace Xps2ImgUI.Model
 {
-    public enum ConvertionType
+    public enum ConversionType
     {
         Convert,
         Resume,

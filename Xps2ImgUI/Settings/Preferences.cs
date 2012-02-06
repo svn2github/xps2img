@@ -11,7 +11,7 @@ namespace Xps2ImgUI.Settings
     {
         private const string CategoryApplication    = "Application";
         private const string CategoryConfirmations  = "Confirmations";
-        private const string CategoryConvertion     = "Convertion";
+        private const string CategoryConversion     = "Conversion";
 
         private const string DisplayNameClassicLook = "Classic Look";
         public const string DefaultSelectedItem     = DisplayNameClassicLook;
@@ -32,7 +32,7 @@ namespace Xps2ImgUI.Settings
 
         [DisplayName(@"Flash When Completed")]
         [Category(CategoryApplication)]
-        [Description("Flash application window when convertion is completed.")]
+        [Description("Flash application window when conversion is completed.")]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool FlashWhenCompleted { get; set; }
@@ -46,28 +46,28 @@ namespace Xps2ImgUI.Settings
 
         [DisplayName(@"Confirm Exit")]
         [Category(CategoryConfirmations)]
-        [Description("Ask confirmation on application exit if convertion is in progress.")]
+        [Description("Ask confirmation on application exit if conversion is in progress.")]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnExit { get; set; }
 
-        [DisplayName(@"Confirm Stop Convertion")]
+        [DisplayName(@"Confirm Stop Conversion")]
         [Category(CategoryConfirmations)]
-        [Description("Ask confirmation on convertion stop.")]
+        [Description("Ask confirmation on conversion stop.")]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnStop { get; set; }
 
         [DisplayName(@"Always Resume")]
-        [Category(CategoryConvertion)]
-        [Description("Always resume last convertion if applicable instead of starting new one.")]
+        [Category(CategoryConversion)]
+        [Description("Always resume last conversion if applicable instead of starting new one.")]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool AlwaysResume { get; set; }
 
         [DisplayName(@"Suggest Resume")]
-        [Category(CategoryConvertion)]
-        [Description("Suggest to resume last convertion if applicable instead of starting new one.")]
+        [Category(CategoryConversion)]
+        [Description("Suggest to resume last conversion if applicable instead of starting new one.")]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool SuggestResume { get; set; }

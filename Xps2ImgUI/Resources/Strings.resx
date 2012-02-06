@@ -139,7 +139,7 @@
     <value>{1}% ({2}) [{3}] - {4} - {0}</value>
   </data>
   <data name="ClosingConfirmation" xml:space="preserve">
-    <value>Currently executed convertion will be aborted.</value>
+    <value>Currently executed conversion will be aborted.</value>
   </data>
   <data name="SpecifyValue" xml:space="preserve">
     <value>{0} parameter is required.</value>
@@ -213,14 +213,14 @@
   <data name="ElapsedTimeTextTemplate" xml:space="preserve">
     <value> ● {0:00}:{1:00}:{2:00} ●</value>
   </data>
-  <data name="ConvertionStopConfirmation" xml:space="preserve">
-    <value>Convertion will be stopped.</value>
+  <data name="ConversionStopConfirmation" xml:space="preserve">
+    <value>Conversion will be stopped.</value>
   </data>
   <data name="CopyUICommandLineToClipboard" xml:space="preserve">
     <value>Copy &amp;UI Command Line To Clipboard</value>
   </data>
-  <data name="ResumeLastConvertionSuggestion" xml:space="preserve">
-    <value>Would you like to resume last convertion instead of starting new one?</value>
+  <data name="ResumeLastConversionSuggestion" xml:space="preserve">
+    <value>Would you like to resume last conversion instead of starting new one?</value>
   </data>
   <data name="SelectXpsFile" xml:space="preserve">
     <value>Select XPS File</value>

@@ -72,9 +72,9 @@ namespace Xps2Img
             _isCancelled = true;
         }
 
-        private static void Convert(Options options, Func<bool> cancelConvertionFunc)
+        private static void Convert(Options options, Func<bool> cancelConversionFunc)
         {
-            using (var xps2Img = Converter.Create(options.SrcFile, cancelConvertionFunc))
+            using (var xps2Img = Converter.Create(options.SrcFile, cancelConversionFunc))
             {
                 xps2Img.OnProgress += OnProgress;
 

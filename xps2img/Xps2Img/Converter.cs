@@ -19,17 +19,17 @@ namespace Xps2Img.Xps2Img
         public ConverterState ConverterState { get; private set; }
         public Parameters ConverterParameters { get; private set; }
 
-        private readonly Func<bool> _cancelConvertionFunc;
+        private readonly Func<bool> _cancelConversionFunc;
 
         private bool IsCancelled
         {
-            get { return _cancelConvertionFunc != null && _cancelConvertionFunc(); }
+            get { return _cancelConversionFunc != null && _cancelConversionFunc(); }
         }
 
-        private Converter(string xpsFileName, Func<bool> cancelConvertionFunc)
+        private Converter(string xpsFileName, Func<bool> cancelConversionFunc)
         {
             XpsFileName = xpsFileName;
-            _cancelConvertionFunc = cancelConvertionFunc;
+            _cancelConversionFunc = cancelConversionFunc;
 
             _xpsDocument = new XpsDocument(xpsFileName, FileAccess.Read);
             // ReSharper disable PossibleNullReferenceException
@@ -41,9 +41,9 @@ namespace Xps2Img.Xps2Img
 
         public int PageCount { get { return _documentPaginator.PageCount; } }
 
-        public static Converter Create(string xpsFileName, Func<bool> cancelConvertionFunc)
+        public static Converter Create(string xpsFileName, Func<bool> cancelConversionFunc)
         {
-            return new Converter(xpsFileName, cancelConvertionFunc);
+            return new Converter(xpsFileName, cancelConversionFunc);
         }
 
         public static Converter Create(string xpsFileName)

@@ -2,11 +2,11 @@
 
 namespace Xps2ImgUI.Model
 {
-    public class ConvertionErrorEventArgs: EventArgs
+    public class ConversionErrorEventArgs: EventArgs
     {
         public readonly string Message;
 
-        public ConvertionErrorEventArgs(string message)
+        public ConversionErrorEventArgs(string message)
         {
             Message = message;
         }

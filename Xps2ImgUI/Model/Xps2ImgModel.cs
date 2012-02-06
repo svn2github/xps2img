@@ -74,14 +74,14 @@ namespace Xps2ImgUI.Model
             ResetByCategory(Category.Options);
         }
 
-        public void Launch(ConvertionType convertionType)
+        public void Launch(ConversionType conversionType)
         {
             if (_isRunning)
             {
                 throw new InvalidOperationException("Conversion is in progress.");  
             }
 
-            _convertionType = convertionType;
+            _conversionType = conversionType;
 
             CancelEvent.Reset();
 
@@ -142,8 +142,8 @@ namespace Xps2ImgUI.Model
             get { return _threadsCount == 1; }
         }
 
-        public event EventHandler<ConvertionProgressEventArgs> OutputDataReceived;
-        public event EventHandler<ConvertionErrorEventArgs> ErrorDataReceived;
+        public event EventHandler<ConversionProgressEventArgs> OutputDataReceived;
+        public event EventHandler<ConversionErrorEventArgs> ErrorDataReceived;
         public event EventHandler Completed;
 
         public event EventHandler OptionsObjectChanged;
@@ -420,12 +420,12 @@ namespace Xps2ImgUI.Model
 
         private bool IsConvertMode
         {
-            get { return _convertionType == ConvertionType.Convert; }
+            get { return _conversionType == ConversionType.Convert; }
         }
         
         private bool IsResumeMode
         {
-            get { return _convertionType == ConvertionType.Resume; }
+            get { return _conversionType == ConversionType.Resume; }
         }
 
         public bool CanResume
@@ -476,7 +476,7 @@ namespace Xps2ImgUI.Model
 
             var file = match.Groups["file"].Value;
 
-            OutputDataReceived(this, new ConvertionProgressEventArgs(percent, pages, file));
+            OutputDataReceived(this, new ConversionProgressEventArgs(percent, pages, file));
         }
 
         private void ErrorDataReceivedWrapper(object sender, DataReceivedEventArgs e)
@@ -489,7 +489,7 @@ namespace Xps2ImgUI.Model
             if (ErrorDataReceived != null && !_isErrorReported)
             {
                 _isErrorReported = true;
-                ErrorDataReceived(this, new ConvertionErrorEventArgs(CleanErrorMessageRegex.Replace(e.Data, String.Empty)));
+                ErrorDataReceived(this, new ConversionErrorEventArgs(CleanErrorMessageRegex.Replace(e.Data, String.Empty)));
             }
 
             Stop();
@@ -545,7 +545,7 @@ namespace Xps2ImgUI.Model
 
         private ProcessPriorityClass _originalProcessPriorityClass;
 
-        private ConvertionType _convertionType;
+        private ConversionType _conversionType;
 
         private volatile bool _isErrorReported;
         private volatile bool _isRunning;
