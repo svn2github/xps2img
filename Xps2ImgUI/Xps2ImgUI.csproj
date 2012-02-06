@@ -95,12 +95,13 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Attributes\Options\OptionsBase.cs" />
     <Compile Include="Attributes\Options\BaseOptionAttribute.cs" />
     <Compile Include="Attributes\Options\NamedOptionAttribute.cs" />
     <Compile Include="Attributes\Options\UnnamedOptionAttribute.cs" />
     <Compile Include="Attributes\OptionsHolder\OptionsFormatter.cs" />
     <Compile Include="Attributes\OptionsHolder\OptionsHolder.cs" />
+    <Compile Include="Controls\PropertyGridEx\DynamicPropertyFilterAttribute.cs" />
+    <Compile Include="Controls\PropertyGridEx\FilterablePropertyBase.cs" />
     <Compile Include="Controls\PropertyGridEx\PropertyGridExUIService.cs" />
     <Compile Include="Controls\PropertyGridEx\PropertyGridExServiceProvider.cs" />
     <Compile Include="Controls\PropertyGridEx\PropertyGridEx.cs">

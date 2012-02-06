@@ -14,6 +14,7 @@ using System.Globalization;
 using CommandLine.Validation;
 
 using Xps2ImgUI.Attributes.Options;
+using Xps2ImgUI.Controls.PropertyGridEx;
 using Xps2ImgUI.Converters;
 using Xps2ImgUI.Dialogs;
 using Xps2ImgUI.Utils;
@@ -33,9 +34,16 @@ namespace Xps2Img.CommandLine
     #endif
     public class Options
     #if XPS2IMG_UI
-        : OptionsBase
-    #endif
+        : FilterablePropertyBase
     {
+        public Options()
+        {
+            ReflectionUtils.SetDefaultValues(this);
+        }
+    #else
+    {
+    #endif
+
         private const string SrcFileDescription = "XPS file to process";
 
         [global::CommandLine.UnnamedOption(SrcFileDescription)]
@@ -135,7 +143,47 @@ namespace Xps2Img.CommandLine
         #endif
         public ImageType FileType { get; set; }
 
-        private const string RequiredSizeDescription = "Desired image size\n  DPI will be ignored if specified \nSyntax:\n  width only:\t2000\n  height only:\tx1000\n  both:\t\t2000x1000\n\t\twidth for landscape orientation\n\t\theight for portrait orientation";
+        private const string JpegQualityDescription = "JPEG quality level (10-100)";
+        private const char JpegQualityShortOption = 'q';
+        private const string JpegQualityValidationExpression = "10-100";
+
+        [global::CommandLine.Option(JpegQualityDescription, JpegQualityShortOption, DefaultValue = "85", ValidationExpression = JpegQualityValidationExpression)]
+        #if XPS2IMG_UI
+        [DisplayName("JPEG Quality")]
+        [TabbedDescription(JpegQualityDescription)]
+        [Option(JpegQualityShortOption)]
+        [Category(Category.Options)]
+        [DefaultValue(85)]
+        [DynamicPropertyFilter("FileType", "Jpeg")]
+        public int? JpegQuality
+        {
+            get { return _jpegQuality; }
+            set
+            {
+                ValidateProperty(value, JpegQualityValidationExpression);
+                _jpegQuality = value;
+            }
+        }
+        private int? _jpegQuality;
+        #else
+        public int JpegQuality { get; set; }
+        #endif
+
+        private const string TiffCompressionDescription = "TIFF compression method";
+        private const char TiffCompressionShortOption = 't';
+
+        [global::CommandLine.Option(TiffCompressionDescription, TiffCompressionShortOption, DefaultValue = "zip")]
+        #if XPS2IMG_UI
+        [DisplayName("TIFF Compression")]
+        [TabbedDescription(TiffCompressionDescription)]
+        [Option(TiffCompressionShortOption)]
+        [Category(Category.Options)]
+        [DefaultValue(TiffCompressOption.Zip)]
+        [DynamicPropertyFilter("FileType", "Tiff")]
+        #endif
+        public TiffCompressOption TiffCompression { get; set; }
+
+        private const string RequiredSizeDescription = "Desired image size\n  DPI will be ignored if image size is specified \nSyntax:\n  width only:\t2000\n  height only:\tx1000\n  both:\t\t2000x1000\n\t\twidth for landscape orientation\n\t\theight for portrait orientation";
         private const char RequiredSizeOption = 'r';
         private const string RequiredSizeValidationExpression = "/" + RegexMatchEmptyString + RequiredSizeTypeConverter.ValidationRegex + "/";
 
@@ -167,7 +215,7 @@ namespace Xps2Img.CommandLine
         public Size? RequiredSize { get; set; }
         #endif
 
-        private const string DpiDescription = "Image DPI (16-2350)";
+        private const string DpiDescription = "Image DPI (16-2350)\n  DPI will be ignored if image size is specified";
         private const char DpiShortOption = 'd';
         private const string DpiValidationExpression = "16-2350";
 
@@ -219,44 +267,6 @@ namespace Xps2Img.CommandLine
         #else
         public string ImageName { get; set; }
         #endif
-
-        private const string JpegQualityDescription = "JPEG quality level (10-100)";
-        private const char JpegQualityShortOption = 'q';
-        private const string JpegQualityValidationExpression = "10-100";
-
-        [global::CommandLine.Option(JpegQualityDescription, JpegQualityShortOption, DefaultValue = "85", ValidationExpression = JpegQualityValidationExpression)]
-        #if XPS2IMG_UI
-        [DisplayName("JPEG Quality")]
-        [TabbedDescription(JpegQualityDescription)]
-        [Option(JpegQualityShortOption)]
-        [Category(Category.Options)]
-        [DefaultValue(85)]
-        public int? JpegQuality
-        {
-            get { return _jpegQuality; }
-            set
-            {
-                ValidateProperty(value, JpegQualityValidationExpression);
-                _jpegQuality = value;
-            }
-        }
-        private int? _jpegQuality;
-        #else
-        public int JpegQuality { get; set; }
-        #endif
-
-        private const string TiffCompressionDescription = "TIFF compression method";
-        private const char TiffCompressionShortOption = 't';
-
-        [global::CommandLine.Option(TiffCompressionDescription, TiffCompressionShortOption, DefaultValue = "zip")]
-        #if XPS2IMG_UI
-        [DisplayName("TIFF Compression")]
-        [TabbedDescription(TiffCompressionDescription)]
-        [Option(TiffCompressionShortOption)]
-        [Category(Category.Options)]
-        [DefaultValue(TiffCompressOption.Zip)]
-        #endif
-        public TiffCompressOption TiffCompression { get; set; }
 
         private const string FirstPageIndexDescription = "Document body first page index";
         private const char FirstPageIndexShortOption = 'a';

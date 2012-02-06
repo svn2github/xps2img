@@ -2,8 +2,8 @@
 {
     public static class Category
     {
-        public const string Parameters = "1 - Parameters";
-        public const string Options = "2 - Options";
+        public const string Parameters  = "\tParameters";
+        public const string Options     = "Options";
     }
 
     public static class Filter
