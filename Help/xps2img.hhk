@@ -73,6 +73,14 @@
 		<param name="Local" value="Files\Options.html#filetype">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="-q, --jpeg-quality">
+		<param name="Local" value="Files\Options.html#jpegquality">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="-t, --tiff-compression">
+		<param name="Local" value="Files\Options.html#tiffcompression">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-r, --required-size">
 		<param name="Local" value="Files\Options.html#requiredsize">
 		</OBJECT>
@@ -83,14 +91,6 @@
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-i, --image-name">
 		<param name="Local" value="Files\Options.html#imagename">
-		</OBJECT>
-	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="-q, --jpeg-quality">
-		<param name="Local" value="Files\Options.html#jpegquality">
-		</OBJECT>
-	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="-t, --tiff-compression">
-		<param name="Local" value="Files\Options.html#tiffcompression">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-a, --first-page-index">
@@ -145,6 +145,14 @@
 		<param name="Local" value="Files\Options.html#filetype">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Quality / JPEG Quality">
+		<param name="Local" value="Files\Options.html#jpegquality">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Compression / TIFF Compression">
+		<param name="Local" value="Files\Options.html#tiffcompression">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Image Size">
 		<param name="Local" value="Files\Options.html#requiredsize">
 		</OBJECT>
@@ -155,14 +163,6 @@
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Image Prefix">
 		<param name="Local" value="Files\Options.html#imagename">
-		</OBJECT>
-	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="JPEG Quality">
-		<param name="Local" value="Files\Options.html#jpegquality">
-		</OBJECT>
-	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="TIFF Compression">
-		<param name="Local" value="Files\Options.html#tiffcompression">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="First Page Index">
@@ -194,6 +194,10 @@
 		<param name="Local" value="Files\Options.html#outdir">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Compression / TIFF Compression">
+		<param name="Local" value="Files\Options.html#tiffcompression">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="First Page Index">
 		<param name="Local" value="Files\Options.html#firstpageindex">
 		</OBJECT>
@@ -214,10 +218,6 @@
 		<param name="Local" value="Files\Options.html#filetype">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="JPEG Quality">
-		<param name="Local" value="Files\Options.html#jpegquality">
-		</OBJECT>
-	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Page Number(s)">
 		<param name="Local" value="Files\Options.html#pages">
 		</OBJECT>
@@ -234,12 +234,12 @@
 		<param name="Local" value="Files\OptionsGUI.html#processorspriority">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="Test Mode">
-		<param name="Local" value="Files\Options.html#test">
+		<param name="Name" value="Quality / JPEG Quality">
+		<param name="Local" value="Files\Options.html#jpegquality">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="TIFF Compression">
-		<param name="Local" value="Files\Options.html#tiffcompression">
+		<param name="Name" value="Test Mode">
+		<param name="Local" value="Files\Options.html#test">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="src-file">

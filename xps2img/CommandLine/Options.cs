@@ -149,7 +149,7 @@ namespace Xps2Img.CommandLine
 
         [global::CommandLine.Option(JpegQualityDescription, JpegQualityShortOption, DefaultValue = "85", ValidationExpression = JpegQualityValidationExpression)]
         #if XPS2IMG_UI
-        [DisplayName("JPEG Quality")]
+        [DisplayName("Quality")]
         [TabbedDescription(JpegQualityDescription)]
         [Option(JpegQualityShortOption)]
         [Category(Category.Options)]
@@ -174,7 +174,7 @@ namespace Xps2Img.CommandLine
 
         [global::CommandLine.Option(TiffCompressionDescription, TiffCompressionShortOption, DefaultValue = "zip")]
         #if XPS2IMG_UI
-        [DisplayName("TIFF Compression")]
+        [DisplayName("Compression")]
         [TabbedDescription(TiffCompressionDescription)]
         [Option(TiffCompressionShortOption)]
         [Category(Category.Options)]
