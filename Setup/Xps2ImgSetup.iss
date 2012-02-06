@@ -1,11 +1,11 @@
 ;#define ISM_OnViewCleanTranslation
 
-#define ISM_RootDir		        AddBackslash(CompilerPath) + "Include/ISM"
+#define ISM_RootDir             AddBackslash(CompilerPath) + "Include/ISM"
 
-#define OutputBaseFilename      "Xps2ImgSetup"
+#define OutputBaseFilename	"Xps2ImgSetup"
 
 #define AppName                 "XPS to Images Converter"
-#define AppVersion              "3.7.0.0"
+#define AppVersion              "3.8.0.0"
 
 #define AppNamePart             "{app}\xps2img"
 #define AppExe                  AppNamePart + "UI.exe"
@@ -17,7 +17,7 @@
 
 #define LicenseFile             "Docs\license.rtf"
 
-#define OutputDir		        "_Output"
+#define OutputDir               "_Output"
 
 #define VersionInfoCopyright	"Copyright © 2010-2012, Ivan Ivon"
 #define VersionInfoCompany      "ivan.ivon@gmail.com"
