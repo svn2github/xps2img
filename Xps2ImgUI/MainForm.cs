@@ -73,7 +73,10 @@ namespace Xps2ImgUI
             convertButton.Text = Resources.Strings.Launch;
             convertButton.ContextMenuStrip = convertContextMenuStrip;
 
+            var isCommandLineVisible = IsCommandLineVisible;
+            IsCommandLineVisible = false;
             MinimumSize = new Size(Size.Width, Size.Height);
+            IsCommandLineVisible = isCommandLineVisible;
 
             AdjustPropertyGrid();
 
@@ -634,7 +637,7 @@ namespace Xps2ImgUI
 
         private void ShowCommandLineToolStripButtonClick(object sender, EventArgs e)
         {
-            settingsSplitContainer.Panel2Collapsed = !settingsSplitContainer.Panel2Collapsed;
+            IsCommandLineVisible = !IsCommandLineVisible;
             UpdateShowCommandLineCommand();
         }
 
@@ -694,7 +697,14 @@ namespace Xps2ImgUI
         private bool IsCommandLineVisible
         {
             get { return !settingsSplitContainer.Panel2Collapsed; }
-            set { settingsSplitContainer.Panel2Collapsed = !value; }
+            set
+            {
+                if (settingsSplitContainer.Panel2Collapsed == value)
+                {
+                    settingsSplitContainer.Panel2Collapsed = !value;
+                    Height += (commandLineTextBox.Height + settingsSplitContainer.SplitterWidth) * (value ? 1 : -1);
+                }
+            }
         }
 
         private Stopwatch _stopwatch;
