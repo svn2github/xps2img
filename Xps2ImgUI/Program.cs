@@ -13,6 +13,7 @@ using Xps2Img.CommandLine;
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Resources;
 using Xps2ImgUI.Settings;
+using Xps2ImgUI.Utils;
 using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI
@@ -51,14 +52,19 @@ namespace Xps2ImgUI
 
             if (options != null)
             {
-                mainForm.SetModel(SettingsManager.IsSettingFile(options.SrcFile)
+                mainForm.Model = SettingsManager.IsSettingFile(options.SrcFile)
                                     ? SettingsManager.LoadSettings(options.SrcFile)
-                                    : new Xps2ImgModel(options));
+                                    : new Xps2ImgModel(options);
             }
 
             Application.Run(mainForm);
 
             SettingsManager.SerializeSettings(mainForm);
+
+            if (mainForm.Model.ShutdownRequested)
+            {
+                SystemManagement.Shutdown(ShutdownType.ForcedShutdown);
+            }
         }
 
         private static void HandleException(Exception ex)

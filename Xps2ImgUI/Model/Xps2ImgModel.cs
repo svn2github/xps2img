@@ -446,6 +446,8 @@ namespace Xps2ImgUI.Model
             }
         }
 
+        public bool ShutdownRequested { get; set; }
+
         private void OutputDataReceivedWrapper(object sender, DataReceivedEventArgs e)
         {
             if (String.IsNullOrEmpty(e.Data) || OutputDataReceived == null)

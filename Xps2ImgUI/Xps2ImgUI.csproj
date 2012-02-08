@@ -63,6 +63,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
@@ -139,6 +140,7 @@
       <DependentUpon>Icons.resx</DependentUpon>
     </Compile>
     <Compile Include="Utils\AssemblyInformation.cs" />
+    <Compile Include="Utils\SystemManagement.cs" />
     <Compile Include="Utils\DisposableActions.cs" />
     <Compile Include="Utils\PropertiesComparator.cs" />
     <Compile Include="Utils\StringUtils.cs" />

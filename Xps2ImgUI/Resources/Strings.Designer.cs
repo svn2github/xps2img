@@ -322,6 +322,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S&amp;hutdown When Completed.
+        /// </summary>
+        internal static string ShutdownWhenCompleted {
+            get {
+                return ResourceManager.GetString("ShutdownWhenCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Specify folder to store images. If not set new folder named as document will be created in folder where document is..
         /// </summary>
         internal static string SpecifyImagesFolder {

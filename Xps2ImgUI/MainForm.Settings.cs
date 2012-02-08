@@ -27,7 +27,7 @@ namespace Xps2ImgUI
             {
                 PropertySort = settingsPropertyGrid.PropertySort,
                 ShowCommandLine = IsCommandLineVisible,
-                CommandLine = _xps2ImgModel.FormatCommandLine(Options.ExcludedOnSave),
+                CommandLine = _model.FormatCommandLine(Options.ExcludedOnSave),
                 Preferences = _preferences
             };
         }
@@ -40,7 +40,7 @@ namespace Xps2ImgUI
             _preferences = settings.Preferences ?? new Preferences();
             if (!String.IsNullOrEmpty(settings.CommandLine))
             {
-                SetModel(new Xps2ImgModel(Parser.Parse<Options>(settings.CommandLine, true)));
+                Model = new Xps2ImgModel(Parser.Parse<Options>(settings.CommandLine, true));
             }
         }
 

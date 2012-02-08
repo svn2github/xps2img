@@ -82,11 +82,11 @@ namespace Xps2Img.CommandLine
 
         private string _outDir;
 
-        private static readonly char[] _fileNameTrimCharacters = "\"\x20\t\r\n".ToCharArray();
+        private static readonly char[] FileNameTrimCharacters = "\"\x20\t\r\n".ToCharArray();
 
         private static string TrimFileName(string val)
         {
-            return val == null ? null : val.Trim(_fileNameTrimCharacters);
+            return val == null ? null : val.Trim(FileNameTrimCharacters);
         }
 
         private const string RegexMatchEmptyString = 
@@ -153,7 +153,7 @@ namespace Xps2Img.CommandLine
 
         [global::CommandLine.Option(JpegQualityDescription, JpegQualityShortOption, DefaultValue = "85", ValidationExpression = JpegQualityValidationExpression)]
         #if XPS2IMG_UI
-        [DisplayName("Quality")]
+        [DisplayName("JPEG Quality")]
         [TabbedDescription(JpegQualityDescription)]
         [Option(JpegQualityShortOption)]
         [Category(Category.Options)]
@@ -178,7 +178,7 @@ namespace Xps2Img.CommandLine
 
         [global::CommandLine.Option(TiffCompressionDescription, TiffCompressionShortOption, DefaultValue = "zip")]
         #if XPS2IMG_UI
-        [DisplayName("Compression")]
+        [DisplayName("TIFF Compression")]
         [TabbedDescription(TiffCompressionDescription)]
         [Option(TiffCompressionShortOption)]
         [Category(Category.Options)]
@@ -360,9 +360,9 @@ namespace Xps2Img.CommandLine
             // ReSharper restore ValueParameterNotUsed
         }
 
-        private static readonly Func<string> getGuidNamePart = () => Guid.NewGuid().ToString().Substring(0, 8);
+        private static readonly Func<string> GetGuidNamePart = () => Guid.NewGuid().ToString().Substring(0, 8);
 
-        private static readonly string CancellationObjectIdStatic = String.Format("{0}-{1}", getGuidNamePart(), getGuidNamePart());
+        private static readonly string CancellationObjectIdStatic = String.Format("{0}-{1}", GetGuidNamePart(), GetGuidNamePart());
 
         #endif
 
