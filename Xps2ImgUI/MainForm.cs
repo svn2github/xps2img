@@ -259,7 +259,7 @@ namespace Xps2ImgUI
             this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.Error);
 
             FlashForm();
-
+            
             ShowMessageBox(message, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             UpdateRunningStatus(false);
