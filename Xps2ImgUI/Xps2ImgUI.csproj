@@ -142,7 +142,7 @@
     <Compile Include="Utils\AssemblyInformation.cs" />
     <Compile Include="Utils\SystemManagement.cs" />
     <Compile Include="Utils\DisposableActions.cs" />
-    <Compile Include="Utils\PropertiesComparator.cs" />
+    <None Include="Utils\PropertiesComparator.cs" />
     <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="Utils\UI\Explorer.cs" />
     <Compile Include="Utils\UI\IconExtractor.cs" />

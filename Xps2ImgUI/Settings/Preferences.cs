@@ -7,7 +7,7 @@ using Xps2ImgUI.Utils;
 namespace Xps2ImgUI.Settings
 {
     [Serializable]
-    public class Preferences
+    public class Preferences : IEquatable<Preferences>
     {
         private const string CategoryApplication    = "Application";
         private const string CategoryConfirmations  = "Confirmations";
@@ -80,6 +80,58 @@ namespace Xps2ImgUI.Settings
         public void Reset()
         {
             ReflectionUtils.SetDefaultValues(this);
+        }
+
+        public bool Equals(Preferences preferences)
+        {
+            return preferences != null && GetHashCode() == preferences.GetHashCode();
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 0;
+
+            if(ClassicLook)
+            {
+                hashCode |= 1 << 0;
+            }
+
+            if(ShowElapsedTime)
+            {
+                hashCode |= 1 << 1;
+            }
+
+            if(FlashWhenCompleted)
+            {
+                hashCode |= 1 << 2;
+            }
+
+            if(ConfirmOnDelete)
+            {
+                hashCode |= 1 << 3;
+            }
+
+            if(ConfirmOnExit)
+            {
+                hashCode |= 1 << 4;
+            }
+
+            if(ConfirmOnStop)
+            {
+                hashCode |= 1 << 5;
+            }
+
+            if(AlwaysResume)
+            {
+                hashCode |= 1 << 6;
+            }
+
+            if (SuggestResume)
+            {
+                hashCode |= 1 << 7;
+            }
+
+            return hashCode;
         }
 
         public static readonly Preferences Default = new Preferences();

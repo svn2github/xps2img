@@ -322,7 +322,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to S&amp;hutdown When Completed.
+        ///   Looks up a localized string similar to S&amp;hutdown When Conversion Completed.
         /// </summary>
         internal static string ShutdownWhenCompleted {
             get {

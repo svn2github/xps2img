@@ -232,6 +232,6 @@
     <value>\n\n• Cancel or Esc reverts to previous valid value.\n• OK returns to value editing.</value>
   </data>
   <data name="ShutdownWhenCompleted">
-    <value xml:space="preserve">S&amp;hutdown When Completed</value>
+    <value xml:space="preserve">S&amp;hutdown When Conversion Completed</value>
   </data>
 </root>
