@@ -302,7 +302,7 @@ namespace wyDay.Controls
 
                 if (ClientRectangle.Contains(mevent.Location) && !dropDownRectangle.Contains(mevent.Location))
                 {
-                    OnClick(new EventArgs());
+                    OnClick(EventArgs.Empty);
                 }
             }
         }
