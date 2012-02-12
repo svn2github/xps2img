@@ -70,11 +70,11 @@ namespace Xps2ImgUI
         private static void HandleException(Exception ex)
         {
             var exceptionMessage = (ex == null) ? Strings.NoExceptionMessage : ex
-                                                                                         #if DEBUG
-                                                                                         .ToString();
-                                                                                         #else
-                                                                                         .Message;
-                                                                                         #endif
+                                                                                #if DEBUG
+                                                                                .ToString();
+                                                                                #else
+                                                                                .Message;
+                                                                                #endif
 
             using (new ModalGuard())
             {
