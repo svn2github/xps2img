@@ -127,6 +127,16 @@ namespace Xps2ImgUI.Model
             get { return _isRunning; }
         }
 
+        public bool IsConversionFailed
+        {
+            get { return _isErrorReported; }
+        }
+
+        public bool IsProgressStarted
+        {
+            get { return _progressStarted; }
+        }
+
         public bool IsStopPending
         {
             get { return CancelEvent.WaitOne(0); }
@@ -162,7 +172,7 @@ namespace Xps2ImgUI.Model
             process.Close();
         }
 
-        private readonly Encoding ConsoleEncoding = Encoding.UTF8;
+        private readonly Encoding _consoleEncoding = Encoding.UTF8;
 
         private Process StartProcess(string commandLine)
         {
@@ -172,8 +182,8 @@ namespace Xps2ImgUI.Model
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
-                StandardOutputEncoding = ConsoleEncoding,
-                StandardErrorEncoding = ConsoleEncoding
+                StandardOutputEncoding = _consoleEncoding,
+                StandardErrorEncoding = _consoleEncoding
             };
 
             var process = new Process { StartInfo = processStartInfo, EnableRaisingEvents = true };
@@ -340,6 +350,8 @@ namespace Xps2ImgUI.Model
 
                 _isRunning = true;
                 _isErrorReported = false;
+                _progressStarted = false;
+
                 _processExitCode = 0;
                 _threadsLeft = 0;
                 _pagesProcessed = 0;
@@ -478,6 +490,8 @@ namespace Xps2ImgUI.Model
 
             var file = match.Groups["file"].Value;
 
+            _progressStarted = true;
+
             OutputDataReceived(this, new ConversionProgressEventArgs(percent, pages, file));
         }
 
@@ -551,6 +565,7 @@ namespace Xps2ImgUI.Model
 
         private volatile bool _isErrorReported;
         private volatile bool _isRunning;
+        private volatile bool _progressStarted;
 
         private EventWaitHandle _cancelEvent;
         private Mutex _appMutex;

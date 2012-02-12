@@ -31,7 +31,7 @@ namespace Xps2ImgUI
 
         private void OptionsObjectChanged(object sender, EventArgs e)
         {
-            settingsPropertyGrid.SelectedObject = _model.OptionsObject;
+            settingsPropertyGrid.SelectedObject = Model.OptionsObject;
             Refresh();
             UpdateCommandLine(false);
         }
@@ -79,7 +79,7 @@ namespace Xps2ImgUI
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            if (_model.IsRunning && !_model.IsStopPending)
+            if (Model.IsRunning && !Model.IsStopPending)
             {
                 Activate();
 
@@ -87,7 +87,7 @@ namespace Xps2ImgUI
 
                 if (!e.Cancel)
                 {
-                    _model.Stop();
+                    Model.Stop();
                 }
             }
 
@@ -161,10 +161,10 @@ namespace Xps2ImgUI
             settingsPropertyGrid.AddToolStripSeparator();
 
             // Reset Settings button.
-            _resetToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.ResetOptions, (s, e) => _model.ResetOptions(),
-                new ToolStripButtonItem(Resources.Strings.ResetParameters, (s, e) => _model.ResetParameters()),
+            _resetToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.ResetOptions, (s, e) => Model.ResetOptions(),
+                new ToolStripButtonItem(Resources.Strings.ResetParameters, (s, e) => Model.ResetParameters()),
                 new ToolStripButtonItem(),
-                new ToolStripButtonItem(Resources.Strings.Reset, (s, e) => _model.Reset())
+                new ToolStripButtonItem(Resources.Strings.Reset, (s, e) => Model.Reset())
              );
 
             // Separator.
@@ -172,7 +172,7 @@ namespace Xps2ImgUI
 
             // Explorer browse.
             settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.BrowseConvertedImages, BrowseConvertedImagesToolStripButtonClick,
-                new ToolStripButtonItem(Resources.Strings.BrowseXPSFile, (s, e) => Explorer.Select(_model.OptionsObject.SrcFile)),
+                new ToolStripButtonItem(Resources.Strings.BrowseXPSFile, (s, e) => Explorer.Select(Model.OptionsObject.SrcFile)),
                 new ToolStripButtonItem(),
                 new ToolStripButtonItem(Resources.Strings.CopyConvertedImagesPathToClipboard, (s, e) => CopyToClipboard(ConvertedImagesFolder))
             );
@@ -240,13 +240,13 @@ namespace Xps2ImgUI
             
             progressBar.Value = 0;
 
-            if (!_model.IsRunning)
+            if (!Model.IsRunning)
             {
                 this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.NoProgress);
 
-                if (ShutdownWhenCompleted)
+                if (ShutdownWhenCompleted && !Model.IsConversionFailed && Model.IsProgressStarted)
                 {
-                    _model.ShutdownRequested = true;
+                    Model.ShutdownRequested = true;
                     Close();
                 }
             }
@@ -259,7 +259,7 @@ namespace Xps2ImgUI
             this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.Error);
 
             FlashForm();
-            
+
             ShowMessageBox(message, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             UpdateRunningStatus(false);
@@ -299,7 +299,7 @@ namespace Xps2ImgUI
 
         private void UpdateCommandLine(bool canResume)
         {
-            _model.CanResume = _model.CanResume && canResume;
+            Model.CanResume = Model.CanResume && canResume;
 
             commandLineTextBox.Text = FormatCommandLine(false);
             _uiCommandLine = FormatCommandLine(true);
@@ -307,8 +307,8 @@ namespace Xps2ImgUI
 
         private string FormatCommandLine(bool isUI)
         {
-            _srcFileDisplayName = Path.GetFileNameWithoutExtension(_model.OptionsObject.SrcFile);
-            var commandLine = _model.FormatCommandLine(isUI ? Options.ExcludedOnSave : Options.ExcludedOnView);
+            _srcFileDisplayName = Path.GetFileNameWithoutExtension(Model.OptionsObject.SrcFile);
+            var commandLine = Model.FormatCommandLine(isUI ? Options.ExcludedOnSave : Options.ExcludedOnView);
             var separator = String.IsNullOrEmpty(commandLine) ? String.Empty : "\x20";
             return String.Format("\"{0}\"{1}{2}", isUI ? Program.Xps2ImgUIExecutable : Program.Xps2ImgExecutable, separator, commandLine);
         }
@@ -330,7 +330,7 @@ namespace Xps2ImgUI
 
         private bool FocusFirstRequiredOption(Action<string> action)
         {
-            var firstRequiredOptionLabel = _model.FirstRequiredOptionLabel;
+            var firstRequiredOptionLabel = Model.FirstRequiredOptionLabel;
             if (!String.IsNullOrEmpty(firstRequiredOptionLabel))
             {
                 if (action != null)
@@ -359,7 +359,7 @@ namespace Xps2ImgUI
 
         private void MainFormDragEnter(object sender, DragEventArgs e)
         {
-            e.Effect = _model.IsRunning || String.IsNullOrEmpty(GetDragFile(e.Data))
+            e.Effect = Model.IsRunning || String.IsNullOrEmpty(GetDragFile(e.Data))
                         ? DragDropEffects.None
                         : DragDropEffects.Copy;
         }
@@ -370,7 +370,7 @@ namespace Xps2ImgUI
 
             if (!String.IsNullOrEmpty(file))
             {
-                _model.OptionsObject.SrcFile = file;
+                Model.OptionsObject.SrcFile = file;
                 settingsPropertyGrid.Refresh();
                 UpdateCommandLine(false);
             }
@@ -436,7 +436,7 @@ namespace Xps2ImgUI
 
         private DialogResult ShowMessageBox(string text, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton messageBoxDefaultButton)
         {
-            if (ShutdownWhenCompleted || IsDisposed)
+            if ((Model.IsProgressStarted && ShutdownWhenCompleted) || IsDisposed)
             {
                 return DialogResult.Cancel;
             }
@@ -469,12 +469,12 @@ namespace Xps2ImgUI
 
         private void ExecuteConversion(ExecuteFlags executeFlags)
         {
-            var canResume = (executeFlags & ExecuteFlags.NoResume) == 0 && _model.CanResume;
+            var canResume = (executeFlags & ExecuteFlags.NoResume) == 0 && Model.CanResume;
             var execute = (executeFlags & ExecuteFlags.Convert) != 0 && !(canResume && _preferences.AlwaysResume);
 
             var conversionType = execute ? ConversionType.Convert : ConversionType.Resume;
 
-            if (execute && canResume && _preferences.SuggestResume && !_preferences.AlwaysResume && !_model.IsRunning)
+            if (execute && canResume && _preferences.SuggestResume && !_preferences.AlwaysResume && !Model.IsRunning)
             {
                 if ((executeFlags & ExecuteFlags.ActivateWindow) != 0)
                 {
@@ -499,12 +499,12 @@ namespace Xps2ImgUI
 
         private void ExecuteConversion(ConversionType conversionType, bool clickButton)
         {
-            if (_model.IsRunning)
+            if (Model.IsRunning)
             {
                 if (!_preferences.ConfirmOnStop || ShowConfirmationMessageBox(Resources.Strings.ConversionStopConfirmation))
                 {
                     EnableConvertControls(ControlState.Default);
-                    _model.Stop();
+                    Model.Stop();
                 }
                 return;
             }
@@ -559,7 +559,7 @@ namespace Xps2ImgUI
                 _stopwatch.Start();
             }
 
-            _model.Launch(conversionType);
+            Model.Launch(conversionType);
 
             UpdateRunningStatus(true);
         }
@@ -632,7 +632,7 @@ namespace Xps2ImgUI
         private void СonvertContextMenuStripOpening(object sender, CancelEventArgs e)
         {
             var menu = (ContextMenuStrip) sender;
-            if(_model.CanResume)
+            if(Model.CanResume)
             {
                 menu.Items.Insert(_resumeToolStripMenuItemPosition, resumeToolStripMenuItem);
             }
@@ -706,24 +706,24 @@ namespace Xps2ImgUI
 
                 if (_model != null)
                 {
-                    _model.OutputDataReceived -= OutputDataReceived;
-                    _model.ErrorDataReceived -= ErrorDataReceived;
-                    _model.Completed -= Completed;
-                    _model.LaunchFailed -= LaunchFailed;
-                    _model.LaunchSucceeded -= LaunchSucceeded;
-                    _model.OptionsObjectChanged -= OptionsObjectChanged;
+                    Model.OutputDataReceived -= OutputDataReceived;
+                    Model.ErrorDataReceived -= ErrorDataReceived;
+                    Model.Completed -= Completed;
+                    Model.LaunchFailed -= LaunchFailed;
+                    Model.LaunchSucceeded -= LaunchSucceeded;
+                    Model.OptionsObjectChanged -= OptionsObjectChanged;
                 }
 
                 _model = value;
 
-                _model.OutputDataReceived += OutputDataReceived;
-                _model.ErrorDataReceived += ErrorDataReceived;
-                _model.Completed += Completed;
-                _model.LaunchFailed += LaunchFailed;
-                _model.LaunchSucceeded += LaunchSucceeded;
-                _model.OptionsObjectChanged += OptionsObjectChanged;
+                Model.OutputDataReceived += OutputDataReceived;
+                Model.ErrorDataReceived += ErrorDataReceived;
+                Model.Completed += Completed;
+                Model.LaunchFailed += LaunchFailed;
+                Model.LaunchSucceeded += LaunchSucceeded;
+                Model.OptionsObjectChanged += OptionsObjectChanged;
 
-                _model.Init();
+                Model.Init();
             }
             get
             {
