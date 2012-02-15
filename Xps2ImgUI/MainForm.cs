@@ -244,7 +244,7 @@ namespace Xps2ImgUI
             {
                 this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.NoProgress);
 
-                if (ShutdownWhenCompleted && !Model.IsConversionFailed && Model.IsProgressStarted)
+                if (ShutdownWhenCompleted && !Model.IsConversionFailed && Model.IsProgressStarted && !Model.CanResume)
                 {
                     Model.ShutdownRequested = true;
                     Close();

@@ -13,7 +13,6 @@ using Xps2Img.CommandLine;
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Resources;
 using Xps2ImgUI.Settings;
-using Xps2ImgUI.Utils;
 using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI
@@ -63,7 +62,9 @@ namespace Xps2ImgUI
 
             if (mainForm.Model.ShutdownRequested)
             {
-                SystemManagement.Shutdown(ShutdownType.ForcedShutdown);
+                #if !DEBUG
+                Utils.SystemManagement.Shutdown(Utils.ShutdownType.ForcedShutdown);
+                #endif
             }
         }
 
