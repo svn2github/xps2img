@@ -463,12 +463,16 @@ namespace Xps2ImgUI.Model
             }
         }
 
-        public bool CanShutdown
-        {
-            get { return IsProgressStarted && !IsConversionFailed && !CanResume && !IsDeleteMode; }
-        }
+        private bool _shutdownRequested;
 
-        public bool ShutdownRequested { get; set; }
+        public bool ShutdownRequested
+        {
+            get { return _shutdownRequested; }
+            set
+            {
+                _shutdownRequested = value && IsProgressStarted && !IsConversionFailed && !CanResume && !IsDeleteMode;
+            }
+        }
 
         private void OutputDataReceivedWrapper(object sender, DataReceivedEventArgs e)
         {
