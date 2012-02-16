@@ -440,6 +440,11 @@ namespace Xps2ImgUI.Model
             get { return _conversionType == ConversionType.Resume; }
         }
 
+        public bool IsDeleteMode
+        {
+            get { return _conversionType == ConversionType.Delete; }
+        }
+
         public bool CanResume
         {
             get
