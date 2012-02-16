@@ -440,7 +440,7 @@ namespace Xps2ImgUI.Model
             get { return _conversionType == ConversionType.Resume; }
         }
 
-        public bool IsDeleteMode
+        private bool IsDeleteMode
         {
             get { return _conversionType == ConversionType.Delete; }
         }
@@ -461,6 +461,11 @@ namespace Xps2ImgUI.Model
                     _processedIntervals = null;
                 }
             }
+        }
+
+        public bool CanShutdown
+        {
+            get { return IsProgressStarted && !IsConversionFailed && !CanResume && !IsDeleteMode; }
         }
 
         public bool ShutdownRequested { get; set; }
