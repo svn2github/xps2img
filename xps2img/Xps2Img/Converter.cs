@@ -249,23 +249,28 @@ namespace Xps2Img.Xps2Img
                 var bitmap = new RenderTargetBitmap((int)Math.Round(page.Size.Width * ratio),
                                                     (int)Math.Round(page.Size.Height * ratio), dpi, dpi, PixelFormats.Pbgra32);
 
-                try
-                {
-                    bitmap.Render(page.Visual);
-                }
-                catch (OutOfMemoryException)
-                {
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
-                    bitmap.Render(page.Visual);
-                }
-
-                // Memory leak fix.
-                // http://social.msdn.microsoft.com/Forums/en/wpf/thread/c6511918-17f6-42be-ac4c-459eeac676fd
-                ((FixedPage)page.Visual).UpdateLayout();
-
-                return bitmap;
+                return RenderPageToBitmap(page, bitmap);
             }
+        }
+
+        private static RenderTargetBitmap RenderPageToBitmap(DocumentPage page, RenderTargetBitmap bitmap)
+        {
+            try
+            {
+                bitmap.Render(page.Visual);
+            }
+            catch (OutOfMemoryException)
+            {
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                bitmap.Render(page.Visual);
+            }
+
+            // Memory leak fix.
+            // http://social.msdn.microsoft.com/Forums/en/wpf/thread/c6511918-17f6-42be-ac4c-459eeac676fd
+            ((FixedPage)page.Visual).UpdateLayout();
+
+            return bitmap;
         }
 
         public void Dispose()
