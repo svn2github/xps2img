@@ -157,6 +157,12 @@ namespace Xps2ImgUI
                 new ToolStripButtonItem(Resources.Strings.SaveSettings, (s, e) => modalAction(() => SettingsManager.SaveSettings(_model)))
             );
 
+            var autoSaveSettingsToolStripMenuItem = new ToolStripMenuItem(Resources.Strings.AutoSaveSettings) { CheckOnClick = true, Checked = _preferences.AutoSaveSettings };
+            autoSaveSettingsToolStripMenuItem.CheckedChanged += (s, e) => _preferences.AutoSaveSettings = autoSaveSettingsToolStripMenuItem.Checked;
+
+            _loadToolStripButton.DropDownItems.AddRange(new ToolStripItem[] { new ToolStripSeparator(), autoSaveSettingsToolStripMenuItem });
+            _loadToolStripButton.DropDownOpening += (s, e) => autoSaveSettingsToolStripMenuItem.Checked = _preferences.AutoSaveSettings;
+
             // Separator.
             settingsPropertyGrid.AddToolStripSeparator();
 
@@ -735,7 +741,7 @@ namespace Xps2ImgUI
         private string _uiCommandLine;
 
         private ToolStripItem _resetToolStripButton;
-        private ToolStripItem _loadToolStripButton;
+        private ToolStripSplitButton _loadToolStripButton;
         private ToolStripItem _showCommandLineToolStripButton;
         private ToolStripMenuItem _shutdownWhenCompletedToolStripMenuItem;
 

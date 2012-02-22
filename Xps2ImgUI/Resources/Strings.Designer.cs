@@ -70,6 +70,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A&amp;uto Save Settings.
+        /// </summary>
+        internal static string AutoSaveSettings {
+            get {
+                return ResourceManager.GetString("AutoSaveSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bro&amp;wse Images.
         /// </summary>
         internal static string BrowseConvertedImages {

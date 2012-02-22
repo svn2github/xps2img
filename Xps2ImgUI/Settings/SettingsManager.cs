@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
@@ -58,10 +59,13 @@ namespace Xps2ImgUI.Settings
         {
             try
             {
+                var readBytes = new byte[0];
+
                 var settingFile = EnsureSettingsFile();
                 try
                 {
                     File.SetAttributes(settingFile, File.GetAttributes(settingFile) & ~FileAttributes.ReadOnly);
+                    readBytes = File.ReadAllBytes(settingFile);
                 }
                 // ReSharper disable EmptyGeneralCatchClause
                 catch
@@ -69,11 +73,23 @@ namespace Xps2ImgUI.Settings
                 {
                 }
 
-                using (var stream = new FileStream(settingFile, FileMode.OpenOrCreate, FileAccess.Write))
+                using (var memoryStream = new MemoryStream())
                 {
-                    stream.SetLength(0);
                     var serializer = new XmlSerializer(settings.GetSettingsType());
-                    serializer.Serialize(stream, settings.GetSettings());
+                    serializer.Serialize(memoryStream, settings.GetSettings());
+
+                    var writtenBytes = memoryStream.ToArray();
+
+                    if (writtenBytes.SequenceEqual(readBytes))
+                    {
+                        return;
+                    }
+
+                    using (var stream = new FileStream(settingFile, FileMode.OpenOrCreate, FileAccess.Write))
+                    {
+                        stream.SetLength(0);
+                        stream.Write(writtenBytes, 0, writtenBytes.Length);
+                    }
                 }
             }
             // ReSharper disable EmptyGeneralCatchClause

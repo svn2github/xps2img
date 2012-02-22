@@ -13,59 +13,65 @@ namespace Xps2ImgUI.Settings
         private const string CategoryConfirmations  = "Confirmations";
         private const string CategoryConversion     = "Conversion";
 
-        private const string DisplayNameClassicLook = "Classic Look";
-        public const string DefaultSelectedItem     = DisplayNameClassicLook;
+        public const string DefaultSelectedItem     = "Auto Save Settings";
 
-        [DisplayName(DisplayNameClassicLook)]
+        [DisplayName(DefaultSelectedItem)]
+        [Category(CategoryApplication)]
+        [Description("Auto save settings on exit. If not set default settings will be used next time.")]
+        [DefaultValue(true)]
+        [TypeConverter(typeof(YesNoConverter))]
+        public bool AutoSaveSettings { get; set; }
+
+        [DisplayName("Classic Look")]
         [Category(CategoryApplication)]
         [Description("Use application system look.")]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ClassicLook { get; set; }
 
-        [DisplayName(@"Show Elapsed Time")]
+        [DisplayName("Show Elapsed Time")]
         [Category(CategoryApplication)]
         [Description("Show time elapsed by last operation at application title.")]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ShowElapsedTime { get; set; }
 
-        [DisplayName(@"Flash When Completed")]
+        [DisplayName("Flash When Completed")]
         [Category(CategoryApplication)]
         [Description("Flash application window when conversion is completed.")]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool FlashWhenCompleted { get; set; }
 
-        [DisplayName(@"Confirm Delete")]
+        [DisplayName("Confirm Delete")]
         [Category(CategoryConfirmations)]
         [Description("Ask confirmation on images deletion.")]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnDelete { get; set; }
 
-        [DisplayName(@"Confirm Exit")]
+        [DisplayName("Confirm Exit")]
         [Category(CategoryConfirmations)]
         [Description("Ask confirmation on application exit if conversion is in progress.")]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnExit { get; set; }
 
-        [DisplayName(@"Confirm Stop Conversion")]
+        [DisplayName("Confirm Stop Conversion")]
         [Category(CategoryConfirmations)]
         [Description("Ask confirmation on conversion stop.")]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnStop { get; set; }
 
-        [DisplayName(@"Always Resume")]
+        [DisplayName("Always Resume")]
         [Category(CategoryConversion)]
         [Description("Always resume last conversion if applicable instead of starting new one.")]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool AlwaysResume { get; set; }
 
-        [DisplayName(@"Suggest Resume")]
+        [DisplayName("Suggest Resume")]
         [Category(CategoryConversion)]
         [Description("Suggest to resume last conversion if applicable instead of starting new one.")]
         [DefaultValue(true)]
@@ -91,45 +97,17 @@ namespace Xps2ImgUI.Settings
         {
             var hashCode = 0;
 
-            if(ClassicLook)
-            {
-                hashCode |= 1 << 0;
-            }
+            Action<int> addFlag = p => hashCode |= 1 << p;
 
-            if(ShowElapsedTime)
-            {
-                hashCode |= 1 << 1;
-            }
-
-            if(FlashWhenCompleted)
-            {
-                hashCode |= 1 << 2;
-            }
-
-            if(ConfirmOnDelete)
-            {
-                hashCode |= 1 << 3;
-            }
-
-            if(ConfirmOnExit)
-            {
-                hashCode |= 1 << 4;
-            }
-
-            if(ConfirmOnStop)
-            {
-                hashCode |= 1 << 5;
-            }
-
-            if(AlwaysResume)
-            {
-                hashCode |= 1 << 6;
-            }
-
-            if (SuggestResume)
-            {
-                hashCode |= 1 << 7;
-            }
+            if(AutoSaveSettings)   addFlag(0);
+            if(ClassicLook)        addFlag(1);
+            if(ShowElapsedTime)    addFlag(2);
+            if(FlashWhenCompleted) addFlag(3);
+            if(ConfirmOnDelete)    addFlag(4);
+            if(ConfirmOnExit)      addFlag(5);
+            if(ConfirmOnStop)      addFlag(6);
+            if(AlwaysResume)       addFlag(7);
+            if(SuggestResume)      addFlag(8);
 
             return hashCode;
         }

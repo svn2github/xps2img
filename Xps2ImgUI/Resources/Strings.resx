@@ -234,4 +234,7 @@
   <data name="ShutdownWhenCompleted">
     <value xml:space="preserve">S&amp;hutdown When Conversion Completed</value>
   </data>
+  <data name="AutoSaveSettings">
+    <value xml:space="preserve">A&amp;uto Save Settings</value>
+  </data>
 </root>
