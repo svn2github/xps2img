@@ -142,6 +142,6 @@
     <value>Make sure file is accessible and not read-only.</value>
   </data>
   <data name="Message_Memory" xml:space="preserve">
-    <value>Decrease DPI or image size; try to use single xps2img processor.</value>
+    <value>Please decrease one of the following: Image DPI | Image Size | Processors.</value>
   </data>
 </root>

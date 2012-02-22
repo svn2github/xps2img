@@ -106,7 +106,7 @@ namespace Xps2Img.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Decrease DPI or image size; try to use single xps2img processor..
+        ///   Looks up a localized string similar to Please decrease one of the following: Image DPI | Image Size | Processors..
         /// </summary>
         internal static string Message_Memory {
             get {
