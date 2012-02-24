@@ -22,7 +22,7 @@
 #define OutputDir               "_Output"
 
 #define VersionInfoCopyright	"Copyright © 2010-2012, Ivan Ivon"
-#define VersionInfoCompany      "ivan.ivon@gmail.com"
+#define VersionInfoCompany      UrlOfficialSite
 #define VersionInfoDescription  AppName + " Setup"
 
 #define AppComments             "XPS (XML Paper Specification) document to set of images conversion utility."
@@ -49,6 +49,8 @@
 #define Common_RunFlags     RunFlag_NoWait + RunFlag_PostInstall + RunFlag_SkipIfSilent
 
 <Language("en", "compiler:Default.isl")>
+
+<Message("en.BeveledLabel", VersionInfoCompany)>
 
 <CustomMessage("en.Help",               AppName + " Help")>
 <CustomMessage("en.License",            AppName + " License")>
