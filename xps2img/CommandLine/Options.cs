@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Windows.Media.Imaging;
 
 using Xps2Img.CommandLine.TypeConverters;
@@ -43,6 +44,10 @@ namespace Xps2Img.CommandLine
     #else
     {
     #endif
+
+        #pragma warning disable 169
+        private static readonly Mutex ApplicationMutex = new Mutex(true, "Xps2ImgInnoSetupGuard");
+        #pragma warning restore 169
 
         private const string SrcFileDescription = "XPS file to process";
 

@@ -2,7 +2,9 @@
 
 #define ISM_RootDir             AddBackslash(CompilerPath) + "Include/ISM"
 
-#define OutputBaseFilename	"Xps2ImgSetup"
+#define OutputBaseFilename      "Xps2ImgSetup"
+
+#define AppMutex                "Xps2ImgInnoSetupGuard"
 
 #define AppName                 "XPS to Images Converter"
 #define AppVersion              "3.10.0.0"
