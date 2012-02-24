@@ -135,7 +135,14 @@ namespace Xps2ImgUI
 
             _shutdownWhenCompletedToolStripMenuItem = new ToolStripMenuItem(Resources.Strings.ShutdownWhenCompleted) { CheckOnClick = true };
 
+            var autoSaveSettingsToolStripMenuItem = new ToolStripMenuItem(Resources.Strings.AutoSaveSettings) { CheckOnClick = true, Checked = _preferences.AutoSaveSettings };
+            autoSaveSettingsToolStripMenuItem.CheckedChanged += (s, e) => _preferences.AutoSaveSettings = autoSaveSettingsToolStripMenuItem.Checked;
+
             preferencesToolStripSplitButton.DropDownItems.Add(_shutdownWhenCompletedToolStripMenuItem);
+            preferencesToolStripSplitButton.DropDownItems.Add(new ToolStripSeparator());
+            preferencesToolStripSplitButton.DropDownItems.Add(autoSaveSettingsToolStripMenuItem);
+
+            preferencesToolStripSplitButton.DropDownOpening += (s, e) => autoSaveSettingsToolStripMenuItem.Checked = _preferences.AutoSaveSettings;
 
             // Separator.
             settingsPropertyGrid.AddToolStripSeparator();
@@ -156,12 +163,6 @@ namespace Xps2ImgUI
             _loadToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.LoadSettings, (s, e) => modalAction(() => Model = SettingsManager.LoadSettings()),
                 new ToolStripButtonItem(Resources.Strings.SaveSettings, (s, e) => modalAction(() => SettingsManager.SaveSettings(_model)))
             );
-
-            var autoSaveSettingsToolStripMenuItem = new ToolStripMenuItem(Resources.Strings.AutoSaveSettings) { CheckOnClick = true, Checked = _preferences.AutoSaveSettings };
-            autoSaveSettingsToolStripMenuItem.CheckedChanged += (s, e) => _preferences.AutoSaveSettings = autoSaveSettingsToolStripMenuItem.Checked;
-
-            _loadToolStripButton.DropDownItems.AddRange(new ToolStripItem[] { new ToolStripSeparator(), autoSaveSettingsToolStripMenuItem });
-            _loadToolStripButton.DropDownOpening += (s, e) => autoSaveSettingsToolStripMenuItem.Checked = _preferences.AutoSaveSettings;
 
             // Separator.
             settingsPropertyGrid.AddToolStripSeparator();
