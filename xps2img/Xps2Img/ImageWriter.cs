@@ -33,16 +33,16 @@ namespace Xps2Img.Xps2Img
             Write(true, fileName, imageType, imageOptions, bitmapSource, writeCallback);
         }
 
-        private static readonly Dictionary<ImageType, string> _imageTypeExtensions = new Dictionary<ImageType, string>();
+        private static readonly Dictionary<ImageType, string> ImageTypeExtensions = new Dictionary<ImageType, string>();
 
         public static string GetImageExtension(ImageType imageType)
         {
             string extension;
 
-            if (!_imageTypeExtensions.TryGetValue(imageType, out extension))
+            if (!ImageTypeExtensions.TryGetValue(imageType, out extension))
             {
                 extension = CreateEncoder(imageType, new ImageOptions()).CodecInfo.FileExtensions.Split(new[] { ',' })[0];
-                _imageTypeExtensions[imageType] = extension;
+                ImageTypeExtensions[imageType] = extension;
             }
 
             return extension;
@@ -52,6 +52,11 @@ namespace Xps2Img.Xps2Img
         {
             var bitmapEncoder = CreateEncoder(imageType, imageOptions);
             var fullFileName = fileName + GetImageExtension(imageType);
+
+            if (bitmapSource == null)
+            {
+                return;
+            }
 
             if (writeCallback != null)
             {

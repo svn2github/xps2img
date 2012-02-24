@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -216,7 +217,7 @@ namespace Xps2Img.Xps2Img
             }
         }
 
-        private static RenderTargetBitmap GetPageBitmap(DocumentPaginator documentPaginator, int pageNumber, Parameters parameters)
+        private RenderTargetBitmap GetPageBitmap(DocumentPaginator documentPaginator, int pageNumber, Parameters parameters)
         {
             const double dpiConst = 96.0;
 
@@ -253,24 +254,53 @@ namespace Xps2Img.Xps2Img
             }
         }
 
-        private static RenderTargetBitmap RenderPageToBitmap(DocumentPage page, RenderTargetBitmap bitmap)
+        private bool _convertionStarted;
+
+        private RenderTargetBitmap RenderPageToBitmap(DocumentPage page, RenderTargetBitmap bitmap)
         {
-            try
-            {
-                bitmap.Render(page.Visual);
-            }
-            catch (OutOfMemoryException)
-            {
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-                bitmap.Render(page.Visual);
-            }
+            const int triesSleepInterval = 1000;
+            const int triesTotal = 30;
+            const int maxTries = triesTotal * 10;
 
-            // Memory leak fix.
-            // http://social.msdn.microsoft.com/Forums/en/wpf/thread/c6511918-17f6-42be-ac4c-459eeac676fd
-            ((FixedPage)page.Visual).UpdateLayout();
+            var triesCount = triesTotal;
 
-            return bitmap;
+            while (true)
+            {
+                try
+                {
+                    bitmap.Render(page.Visual);
+
+                    // Memory leak fix.
+                    // http://social.msdn.microsoft.com/Forums/en/wpf/thread/c6511918-17f6-42be-ac4c-459eeac676fd
+                    ((FixedPage)page.Visual).UpdateLayout();
+
+                    _convertionStarted = true;
+
+                    return bitmap;
+                }
+                catch (OutOfMemoryException)
+                {
+                    if (IsCancelled)
+                    {
+                        return null;
+                    }
+
+                    if (--triesCount < 0 && (!_convertionStarted || -triesCount > maxTries))
+                    {
+                        throw;
+                    }
+
+                    Thread.Sleep(triesSleepInterval);
+
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+
+                    Thread.Sleep(0);
+
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                }
+            }
         }
 
         public void Dispose()
