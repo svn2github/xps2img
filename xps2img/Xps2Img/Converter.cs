@@ -290,15 +290,10 @@ namespace Xps2Img.Xps2Img
                         throw;
                     }
 
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+
                     Thread.Sleep(triesSleepInterval);
-
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
-
-                    Thread.Sleep(0);
-
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
                 }
             }
         }
