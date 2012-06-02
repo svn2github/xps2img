@@ -45,7 +45,7 @@ namespace Xps2ImgUI.Dialogs
                 }
             }
 
-            using (var dialog = new OpenFileDialog { Filter = Filter, InitialDirectory = InitialDirectory, FileName = fileName })
+            using (var dialog = new OpenFileDialog { Filter = Filter, InitialDirectory = InitialDirectory, FileName = Path.GetFileName(fileName) })
             {
                 if(!String.IsNullOrEmpty(Title))
                 {
