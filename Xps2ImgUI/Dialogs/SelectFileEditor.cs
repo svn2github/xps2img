@@ -52,9 +52,22 @@ namespace Xps2ImgUI.Dialogs
                     dialog.Title = Title;
                 }
 
-                if (dialog.ShowDialog() == DialogResult.OK)
+                var tryCount = 2;
+
+                while (tryCount-- > 0)
                 {
-                    return dialog.FileName;
+                    try
+                    {
+                        if (dialog.ShowDialog() == DialogResult.OK)
+                        {
+                            return dialog.FileName;
+                        }
+                        break;
+                    }
+                    catch
+                    {
+                        dialog.FileName = String.Empty;
+                    }
                 }
             }
 
