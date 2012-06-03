@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -11,16 +12,26 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 {
     public class PropertyGridEx : PropertyGrid
     {
+        public class EditAutoComplete
+        {
+            public EditAutoComplete(string label, AutoCompleteSource autoCompleteSource, AutoCompleteMode autoCompleteMode = AutoCompleteMode.Suggest)
+            {
+                Label = label;
+                AutoCompleteMode = autoCompleteMode;
+                AutoCompleteSource = autoCompleteSource;
+            }
+
+            public readonly string Label;
+            public readonly AutoCompleteMode AutoCompleteMode;
+            public readonly AutoCompleteSource AutoCompleteSource;
+        }
+
         private const bool UseAutoToolTip = false;
 
         private const string ExtendedCategory = "Extended";
 
-        protected override void OnCreateControl()
+        public PropertyGridEx()
         {
-            base.OnCreateControl();
-
-            _backColorOriginal = BackColor;
-
             var controls = Controls.OfType<Control>().ToArray();
 
             _toolStrip = (ToolStrip)controls.FirstOrDefault(c => c is ToolStrip);
@@ -47,8 +58,14 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                     continue;
                 }
 
+                _propertyGridView = control;
+                var propertyGridViewType = _propertyGridView.GetType();
+
+                _propertyGridViewEdit = (TextBox)propertyGridViewType.GetProperty("Edit", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(_propertyGridView, null);
+                Debug.Assert(_propertyGridViewEdit != null);
+
                 // Add a custom service provider to give us control over the property value error dialog shown to the user.
-                var errorDialogField = control.GetType().GetField("serviceProvider", BindingFlags.Instance | BindingFlags.NonPublic);
+                var errorDialogField = propertyGridViewType.GetField("serviceProvider", BindingFlags.Instance | BindingFlags.NonPublic);
                 if (errorDialogField != null)
                 {
                     errorDialogField.SetValue(control, new PropertyGridExServiceProvider(this));
@@ -56,10 +73,33 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             }
         }
 
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+            _backColorOriginal = BackColor;
+        }
+
         protected override void OnSelectedObjectsChanged(EventArgs e)
         {
             SetSelectedObjectReadOnly();
             base.OnSelectedObjectsChanged(e);
+        }
+
+        protected override void OnSelectedGridItemChanged(SelectedGridItemChangedEventArgs e)
+        {
+            _propertyGridViewEdit.AutoCompleteMode = AutoCompleteMode.None;
+            _propertyGridViewEdit.AutoCompleteSource = AutoCompleteSource.None;
+
+            if (EditAutoCompletes != null)
+            {
+                foreach (var editAutoComplete in EditAutoCompletes.Where(editAutoComplete => e.NewSelection.Label == editAutoComplete.Label))
+                {
+                    _propertyGridViewEdit.AutoCompleteMode = editAutoComplete.AutoCompleteMode;
+                    _propertyGridViewEdit.AutoCompleteSource = editAutoComplete.AutoCompleteSource;
+                }
+            }
+
+            base.OnSelectedGridItemChanged(e);
         }
 
         public void RemoveLastToolStripItem()
@@ -113,12 +153,12 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         public void SetDocMonospaceFont()
         {
             var fonts = new[]
-                        {
-                            new { Name = "Consolas", Scale = 1.006 },
-                            new { Name = "Lucida Sans Typewriter", Scale = 0.995 },
-                            new { Name = "Courier New", Scale = 1.005 },
-                            new { Name = "Lucida Console", Scale = 1.001 }
-                        };
+            {
+                new { Name = "Consolas", Scale = 1.006 },
+                new { Name = "Lucida Sans Typewriter", Scale = 0.995 },
+                new { Name = "Courier New", Scale = 1.005 },
+                new { Name = "Lucida Console", Scale = 1.001 }
+            };
 
             foreach (var font in fonts)
             {
@@ -132,7 +172,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             }
         }
 
-        private PropertyInfo _docLinesPropertyInfo;
+        private readonly PropertyInfo _docLinesPropertyInfo;
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -142,7 +182,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             set { _docLinesPropertyInfo.SetValue(_docComment, value, null); }
         }
 
-        private PropertyInfo _docFontPropertyInfo;
+        private readonly PropertyInfo _docFontPropertyInfo;
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -207,12 +247,21 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             }
         }
 
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool HasErrors { get; set; }
 
-        private ToolStrip _toolStrip;
-        private Control _docComment;
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public IEnumerable<EditAutoComplete> EditAutoCompletes { get; set; }
 
-        private Type _docCommentType;
+        private readonly ToolStrip _toolStrip;
+        private readonly Control _docComment;
+
+        private readonly Control _propertyGridView;
+        private readonly TextBox _propertyGridViewEdit;
+
+        private readonly Type _docCommentType;
 
         private Color _backColorOriginal;
     }

@@ -51,9 +51,13 @@ namespace Xps2Img.CommandLine
 
         private const string SrcFileDescription = "XPS file to process";
 
+        #if XPS2IMG_UI
+        public const string XPSFileDisplayName = "XPS File";
+        #endif
+
         [global::CommandLine.UnnamedOption(SrcFileDescription)]
         #if XPS2IMG_UI
-        [DisplayName("XPS File")]
+        [DisplayName(XPSFileDisplayName)]
         [UnnamedOption]
         [Category(Category.Parameters)]
         [Editor(typeof(SelectXpsFileEditor), typeof(UITypeEditor))]
@@ -70,9 +74,13 @@ namespace Xps2Img.CommandLine
 
         private const string OutDirDescription = "Output folder\n  new folder named as document will be created in folder where document is by default";
 
+        #if XPS2IMG_UI
+        public const string OutputFolderDisplayName = "Output Folder";
+        #endif
+
         [global::CommandLine.UnnamedOption(OutDirDescription, false)]
         #if XPS2IMG_UI
-        [DisplayName("Output Folder")]
+        [DisplayName(OutputFolderDisplayName)]
         [UnnamedOption(false)]
         [Editor(typeof(SelectXpsFolderEditor), typeof(UITypeEditor))]
         [Category(Category.Parameters)]

@@ -12,6 +12,7 @@ using Windows7.DesktopIntegration;
 using Xps2Img.CommandLine;
 
 using Xps2ImgUI.Controls;
+using Xps2ImgUI.Controls.PropertyGridEx;
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils.UI;
@@ -27,6 +28,12 @@ namespace Xps2ImgUI
             Model = new Xps2ImgModel();
 
             _resumeToolStripMenuItemPosition = convertContextMenuStrip.Items.OfType<ToolStripMenuItem>().ToList().IndexOf(resumeToolStripMenuItem);
+
+            settingsPropertyGrid.EditAutoCompletes = new[]
+            {
+                new PropertyGridEx.EditAutoComplete(Options.XPSFileDisplayName, AutoCompleteSource.FileSystem),
+                new PropertyGridEx.EditAutoComplete(Options.OutputFolderDisplayName, AutoCompleteSource.FileSystemDirectories)
+            };
         }
 
         private void OptionsObjectChanged(object sender, EventArgs e)
