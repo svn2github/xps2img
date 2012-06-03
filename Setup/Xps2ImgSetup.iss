@@ -7,7 +7,7 @@
 #define AppMutex                "Xps2ImgInnoSetupGuard"
 
 #define AppName                 "XPS to Images Converter"
-#define AppVersion              "3.10.0.0"
+#define AppVersion              "3.11.0.0"
 
 #define AppNamePart             "{app}\xps2img"
 #define AppExe                  AppNamePart + "UI.exe"
@@ -75,7 +75,7 @@
 <AppUrlGeneric("{app}")>
 #define Active_Check "not WizardNoIcons"
     <AppUrlGeneric("{group}")>
-#undef Active_Check 
+#undef Active_Check
 
 <Icon(AddBackslash("{group}\{cm:Group_Uninstall}") + Utils_CmFormat("UninstallProgram", AppName), "{uninstallexe}")>
 <Icon("{group}\{cm:License}", AddBackslash("{app}") + ExtractFileName(LicenseFile))>
