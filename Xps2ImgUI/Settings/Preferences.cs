@@ -17,7 +17,7 @@ namespace Xps2ImgUI.Settings
 
         [DisplayName(DefaultSelectedItem)]
         [Category(CategoryApplication)]
-        [Description("Auto complete filenames where appropriate.")]
+        [Description("Auto complete filenames in edit boxes.")]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool AutoCompleteFilenames { get; set; }
