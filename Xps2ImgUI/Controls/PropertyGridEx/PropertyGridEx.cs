@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -51,25 +50,19 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                 docUserSizedField.SetValue(_docComment, true);
             }
 
-            foreach (Control control in Controls)
+            _propertyGridView = controls.FirstOrDefault(c => c.GetType().Name == "PropertyGridView");
+            Debug.Assert(_propertyGridView != null);
+
+            var propertyGridViewType = _propertyGridView.GetType();
+
+            _propertyGridViewEdit = (TextBox)propertyGridViewType.GetProperty("Edit", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(_propertyGridView, null);
+            Debug.Assert(_propertyGridViewEdit != null);
+
+            // Add a custom service provider to give us control over the property value error dialog shown to the user.
+            var errorDialogField = propertyGridViewType.GetField("serviceProvider", BindingFlags.Instance | BindingFlags.NonPublic);
+            if (errorDialogField != null)
             {
-                if (String.Compare(control.GetType().FullName, "System.Windows.Forms.PropertyGridInternal.PropertyGridView", true, CultureInfo.InvariantCulture) != 0)
-                {
-                    continue;
-                }
-
-                _propertyGridView = control;
-                var propertyGridViewType = _propertyGridView.GetType();
-
-                _propertyGridViewEdit = (TextBox)propertyGridViewType.GetProperty("Edit", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(_propertyGridView, null);
-                Debug.Assert(_propertyGridViewEdit != null);
-
-                // Add a custom service provider to give us control over the property value error dialog shown to the user.
-                var errorDialogField = propertyGridViewType.GetField("serviceProvider", BindingFlags.Instance | BindingFlags.NonPublic);
-                if (errorDialogField != null)
-                {
-                    errorDialogField.SetValue(control, new PropertyGridExServiceProvider(this));
-                }
+                errorDialogField.SetValue(_propertyGridView, new PropertyGridExServiceProvider(this));
             }
         }
 
