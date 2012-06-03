@@ -106,15 +106,16 @@ namespace Xps2ImgUI.Settings
 
             Action<int> addFlag = p => hashCode |= 1 << p;
 
-            if(AutoSaveSettings)   addFlag(0);
-            if(ClassicLook)        addFlag(1);
-            if(ShowElapsedTime)    addFlag(2);
-            if(FlashWhenCompleted) addFlag(3);
-            if(ConfirmOnDelete)    addFlag(4);
-            if(ConfirmOnExit)      addFlag(5);
-            if(ConfirmOnStop)      addFlag(6);
-            if(AlwaysResume)       addFlag(7);
-            if(SuggestResume)      addFlag(8);
+            if(AutoSaveSettings)        addFlag(0);
+            if(ClassicLook)             addFlag(1);
+            if(ShowElapsedTime)         addFlag(2);
+            if(FlashWhenCompleted)      addFlag(3);
+            if(ConfirmOnDelete)         addFlag(4);
+            if(ConfirmOnExit)           addFlag(5);
+            if(ConfirmOnStop)           addFlag(6);
+            if(AlwaysResume)            addFlag(7);
+            if(SuggestResume)           addFlag(8);
+            if (AutoCompleteFilenames)  addFlag(9);
 
             return hashCode;
         }

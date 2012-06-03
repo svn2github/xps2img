@@ -96,11 +96,11 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
             if (AllowAutoComplete && AutoCompleteSettings != null)
             {
-                foreach (var autoCompleteSettings in AutoCompleteSettings.Where(editAutoComplete => _selectedItemLabel == editAutoComplete.Label))
+                var autoCompleteSettings = AutoCompleteSettings.FirstOrDefault(editAutoComplete => _selectedItemLabel == editAutoComplete.Label);
+                if (autoCompleteSettings != null)
                 {
                     _propertyGridViewEdit.AutoCompleteMode = autoCompleteSettings.AutoCompleteMode;
                     _propertyGridViewEdit.AutoCompleteSource = autoCompleteSettings.AutoCompleteSource;
-                    return;
                 }
             }
 
