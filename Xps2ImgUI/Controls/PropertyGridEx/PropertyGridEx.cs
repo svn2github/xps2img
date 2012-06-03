@@ -85,21 +85,32 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             base.OnSelectedObjectsChanged(e);
         }
 
+        private string _selectedItemLabel;
+
         protected override void OnSelectedGridItemChanged(SelectedGridItemChangedEventArgs e)
+        {
+            _selectedItemLabel = e.NewSelection.Label;
+
+            UpdateAutoComplete();
+
+            base.OnSelectedGridItemChanged(e);
+        }
+
+        private void UpdateAutoComplete()
         {
             _propertyGridViewEdit.AutoCompleteMode = AutoCompleteMode.None;
             _propertyGridViewEdit.AutoCompleteSource = AutoCompleteSource.None;
 
-            if (EditAutoCompletes != null)
+            if (AllowAutoComplete && AutoCompleteSettings != null)
             {
-                foreach (var editAutoComplete in EditAutoCompletes.Where(editAutoComplete => e.NewSelection.Label == editAutoComplete.Label))
+                foreach (var autoCompleteSettings in AutoCompleteSettings.Where(editAutoComplete => _selectedItemLabel == editAutoComplete.Label))
                 {
-                    _propertyGridViewEdit.AutoCompleteMode = editAutoComplete.AutoCompleteMode;
-                    _propertyGridViewEdit.AutoCompleteSource = editAutoComplete.AutoCompleteSource;
+                    _propertyGridViewEdit.AutoCompleteMode = autoCompleteSettings.AutoCompleteMode;
+                    _propertyGridViewEdit.AutoCompleteSource = autoCompleteSettings.AutoCompleteSource;
+                    return;
                 }
             }
 
-            base.OnSelectedGridItemChanged(e);
         }
 
         public void RemoveLastToolStripItem()
@@ -251,9 +262,33 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool HasErrors { get; set; }
 
+        private bool _allowAutoComplete;
+
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public IEnumerable<EditAutoComplete> EditAutoCompletes { get; set; }
+        public bool AllowAutoComplete
+        {
+            get { return _allowAutoComplete; }
+            set
+            {
+                _allowAutoComplete = value;
+                UpdateAutoComplete();
+            }
+        }
+
+        private IEnumerable<EditAutoComplete> _autoCompleteSettings;
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public IEnumerable<EditAutoComplete> AutoCompleteSettings
+        {
+            get { return _autoCompleteSettings; }
+            set
+            {
+                _autoCompleteSettings = value;
+                UpdateAutoComplete();
+            }
+        }
 
         private readonly ToolStrip _toolStrip;
         private readonly Control _docComment;

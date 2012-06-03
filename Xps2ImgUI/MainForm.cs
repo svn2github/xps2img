@@ -28,12 +28,6 @@ namespace Xps2ImgUI
             Model = new Xps2ImgModel();
 
             _resumeToolStripMenuItemPosition = convertContextMenuStrip.Items.OfType<ToolStripMenuItem>().ToList().IndexOf(resumeToolStripMenuItem);
-
-            settingsPropertyGrid.EditAutoCompletes = new[]
-            {
-                new PropertyGridEx.EditAutoComplete(Options.XPSFileDisplayName, AutoCompleteSource.FileSystem),
-                new PropertyGridEx.EditAutoComplete(Options.OutputFolderDisplayName, AutoCompleteSource.FileSystemDirectories)
-            };
         }
 
         private void OptionsObjectChanged(object sender, EventArgs e)
@@ -67,6 +61,7 @@ namespace Xps2ImgUI
         private void ApplyPreferences()
         {
             settingsPropertyGrid.ModernLook = !_preferences.ClassicLook;
+            settingsPropertyGrid.AllowAutoComplete = _preferences.AutoCompleteFilenames;
             convertContextMenuStrip.RenderMode = _preferences.ClassicLook
                                                      ? ToolStripRenderMode.System
                                                      : ToolStripRenderMode.ManagerRenderMode;
@@ -126,6 +121,12 @@ namespace Xps2ImgUI
 
         private void AdjustPropertyGrid()
         {
+            settingsPropertyGrid.AutoCompleteSettings = new[]
+            {
+                new PropertyGridEx.EditAutoComplete(Options.XPSFileDisplayName, AutoCompleteSource.FileSystem),
+                new PropertyGridEx.EditAutoComplete(Options.OutputFolderDisplayName, AutoCompleteSource.FileSystemDirectories)
+            };
+
             settingsPropertyGrid.DragDrop += MainFormDragDrop;
             settingsPropertyGrid.DragEnter += MainFormDragEnter;
 

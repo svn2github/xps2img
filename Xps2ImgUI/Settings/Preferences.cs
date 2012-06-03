@@ -13,9 +13,16 @@ namespace Xps2ImgUI.Settings
         private const string CategoryConfirmations  = "Confirmations";
         private const string CategoryConversion     = "Conversion";
 
-        public const string DefaultSelectedItem     = "Auto Save Settings";
+        public const string DefaultSelectedItem     = "Auto Complete Filenames";
 
         [DisplayName(DefaultSelectedItem)]
+        [Category(CategoryApplication)]
+        [Description("Auto complete filenames where appropriate.")]
+        [DefaultValue(false)]
+        [TypeConverter(typeof(YesNoConverter))]
+        public bool AutoCompleteFilenames { get; set; }
+
+        [DisplayName("Auto Save Settings")]
         [Category(CategoryApplication)]
         [Description("Auto save settings on exit. If not set default settings will be used next time.")]
         [DefaultValue(true)]
