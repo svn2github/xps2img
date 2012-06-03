@@ -115,7 +115,7 @@ namespace Xps2ImgUI.Settings
             if(ConfirmOnStop)           addFlag(6);
             if(AlwaysResume)            addFlag(7);
             if(SuggestResume)           addFlag(8);
-            if (AutoCompleteFilenames)  addFlag(9);
+            if(AutoCompleteFilenames)   addFlag(9);
 
             return hashCode;
         }
