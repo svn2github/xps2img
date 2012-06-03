@@ -103,7 +103,6 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                     _propertyGridViewEdit.AutoCompleteSource = autoCompleteSettings.AutoCompleteSource;
                 }
             }
-
         }
 
         public void RemoveLastToolStripItem()
