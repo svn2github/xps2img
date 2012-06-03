@@ -13,7 +13,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
     {
         public class EditAutoComplete
         {
-            public EditAutoComplete(string label, AutoCompleteSource autoCompleteSource, AutoCompleteMode autoCompleteMode = AutoCompleteMode.Suggest)
+            public EditAutoComplete(string label, AutoCompleteSource autoCompleteSource, AutoCompleteMode autoCompleteMode = AutoCompleteMode.SuggestAppend)
             {
                 Label = label;
                 AutoCompleteMode = autoCompleteMode;
