@@ -28,6 +28,7 @@ namespace Xps2ImgUI
             _resetToolStripButton = preferencesPropertyGrid.AddToolStripButton(Resources.Strings.ResetToDefault, ResetToolStripButtonClick);
 
             preferencesPropertyGrid.DocLines = 5;
+            preferencesPropertyGrid.MoveSplitterByPercent(50);
 
             EnableReset();
 

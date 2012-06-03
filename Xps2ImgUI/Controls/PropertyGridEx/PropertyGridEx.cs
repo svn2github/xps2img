@@ -161,6 +161,18 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             _toolStrip.Items.Add(new ToolStripSeparator());
         }
 
+        protected void MoveSplitterTo(int x)
+        {
+            _propertyGridView.GetType()
+                .GetMethod("MoveSplitterTo", BindingFlags.NonPublic | BindingFlags.Instance)
+                .Invoke(_propertyGridView, new object[] { x });
+        }
+
+        public void MoveSplitterByPercent(int percent)
+        {
+            MoveSplitterTo(_propertyGridView.Width * percent / 100);
+        }
+
         public void SetDocMonospaceFont()
         {
             var fonts = new[]
