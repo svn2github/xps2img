@@ -33,6 +33,7 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.siteLinkLabel = new System.Windows.Forms.LinkLabel();
             this.labelAbout = new System.Windows.Forms.Label();
+            this.historyButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -40,7 +41,7 @@
             // 
             this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.closeButton.Location = new System.Drawing.Point(253, 105);
+            this.closeButton.Location = new System.Drawing.Point(260, 105);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(75, 23);
             this.closeButton.TabIndex = 0;
@@ -61,7 +62,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelCopyright.AutoSize = true;
             this.labelCopyright.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.labelCopyright.Location = new System.Drawing.Point(9, 112);
+            this.labelCopyright.Location = new System.Drawing.Point(9, 110);
             this.labelCopyright.Name = "labelCopyright";
             this.labelCopyright.Size = new System.Drawing.Size(73, 13);
             this.labelCopyright.TabIndex = 3;
@@ -84,9 +85,20 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelAbout.Location = new System.Drawing.Point(76, 12);
             this.labelAbout.Name = "labelAbout";
-            this.labelAbout.Size = new System.Drawing.Size(252, 35);
+            this.labelAbout.Size = new System.Drawing.Size(259, 35);
             this.labelAbout.TabIndex = 2;
             this.labelAbout.Text = "labelAbout                                                             line2";
+            // 
+            // historyButton
+            // 
+            this.historyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.historyButton.Location = new System.Drawing.Point(183, 105);
+            this.historyButton.Name = "historyButton";
+            this.historyButton.Size = new System.Drawing.Size(75, 23);
+            this.historyButton.TabIndex = 2;
+            this.historyButton.Text = "&History...";
+            this.historyButton.UseVisualStyleBackColor = true;
+            this.historyButton.Click += new System.EventHandler(this.HistoryButtonClick);
             // 
             // AboutForm
             // 
@@ -94,19 +106,22 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.closeButton;
-            this.ClientSize = new System.Drawing.Size(340, 140);
+            this.ClientSize = new System.Drawing.Size(347, 140);
             this.Controls.Add(this.siteLinkLabel);
             this.Controls.Add(this.labelAbout);
             this.Controls.Add(this.labelCopyright);
             this.Controls.Add(this.iconPictureBox);
+            this.Controls.Add(this.historyButton);
             this.Controls.Add(this.closeButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.HelpButton = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About {0} {1}";
+            this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.AboutFormHelpButtonClicked);
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -120,5 +135,6 @@
         private System.Windows.Forms.Label labelCopyright;
         private System.Windows.Forms.LinkLabel siteLinkLabel;
         private System.Windows.Forms.Label labelAbout;
+        private System.Windows.Forms.Button historyButton;
     }
 }

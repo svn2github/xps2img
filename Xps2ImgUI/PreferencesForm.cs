@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 using Xps2ImgUI.Settings;
@@ -9,8 +10,6 @@ namespace Xps2ImgUI
 {
     public partial class PreferencesForm : Form
     {
-        private ToolStripButton _resetToolStripButton;
-
         public PreferencesForm(Preferences preferences)
         {
             InitializeComponent();
@@ -39,7 +38,27 @@ namespace Xps2ImgUI
 
         protected override void OnHelpRequested(HelpEventArgs hevent)
         {
-            Help.ShowHelp(this, Program.HelpFile, HelpNavigator.TopicId, Program.HelpTopicPreferences);
+            ShowHelp();
+        }
+
+        private void ResetToolStripButtonClick(object sender, EventArgs e)
+        {
+            Preferences.Reset();
+
+            preferencesPropertyGrid.Refresh();
+
+            ((ToolStripButton)sender).Enabled = false;
+        }
+
+        private void PreferencesPropertyGridPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            EnableReset();
+        }
+
+        private void PreferencesFormHelpButtonClicked(object sender, CancelEventArgs e)
+        {
+            e.Cancel = true;
+            ShowHelp();
         }
 
         public Preferences Preferences
@@ -60,18 +79,11 @@ namespace Xps2ImgUI
             }
         }
 
-        private void ResetToolStripButtonClick(object sender, EventArgs e)
+        private void ShowHelp()
         {
-            Preferences.Reset();
-
-            preferencesPropertyGrid.Refresh();
-
-            ((ToolStripButton)sender).Enabled = false;
+            Help.ShowHelp(this, Program.HelpFile, HelpNavigator.TopicId, Program.HelpTopicPreferences);           
         }
 
-        private void PreferencesPropertyGridPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
-        {
-            EnableReset();
-        }
+        private ToolStripButton _resetToolStripButton;
     }
 }

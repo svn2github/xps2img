@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 using TKageyu.Utils;
@@ -32,10 +33,31 @@ namespace Xps2ImgUI
             base.OnLoad(e);
         }
 
+        protected override void OnHelpRequested(HelpEventArgs hevent)
+        {
+            ShowHelp();
+        }
+
         private void SiteLinkLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Explorer.ShellExecute(((Control)sender).Text);
             Close();
+        }
+
+        private void HistoryButtonClick(object sender, EventArgs e)
+        {
+            ShowHelp();
+        }
+
+        private void AboutFormHelpButtonClicked(object sender, CancelEventArgs e)
+        {
+            e.Cancel = true;
+            ShowHelp();
+        }
+
+        private void ShowHelp()
+        {
+            Help.ShowHelp(this, Program.HelpFile, HelpNavigator.TopicId, Program.HelpTopicHistory);
         }
     }
 }

@@ -78,12 +78,14 @@
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.cancelButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.HelpButton = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "PreferencesForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Preferences";
+            this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.PreferencesFormHelpButtonClicked);
             this.ResumeLayout(false);
 
         }
