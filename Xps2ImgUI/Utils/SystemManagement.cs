@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Management;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace Xps2ImgUI.Utils
 {
@@ -12,12 +14,13 @@ namespace Xps2ImgUI.Utils
         Shutdown        = 1,
         Reboot          = 2,
         Hibernate       = 8,
-        Suspend         = 16,
+        Sleep           = 16,
         ForcedLogOff    = LogOff    | Forced,
         ForcedShutdown  = Shutdown  | Forced,
         ForcedReboot    = Reboot    | Forced,
         ForcedHibernate = Hibernate | Forced,
-        ForcedSuspend   = Suspend   | Forced
+        ForcedSleep     = Sleep     | Forced,
+        Exit            = 32
     };
 
     public static partial class SystemManagement
@@ -37,6 +40,18 @@ namespace Xps2ImgUI.Utils
             get { return GetPwrCapabilities().PowerButtonPresent; }
         }
 
+        public static bool CanLogOff
+        {
+            get
+            {
+                using (var subKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer"))
+                {
+                    var value = subKey != null ? subKey.GetValue("NoLogOff") ?? 0 : 0;
+                    return value is byte[] ? ((byte[]) value).All(b => b == 0) : value is int && Convert.ToInt32(value) == 0;
+                }
+            }
+        }
+
         public static void Shutdown(ShutdownType shutdownType, bool disableWakeEvent = false)
         {
             var isForced = ((int)shutdownType & (int)ShutdownType.Forced) != 0;
@@ -47,10 +62,16 @@ namespace Xps2ImgUI.Utils
                 return;		
             }
             
-            if ((ShutdownType.Suspend & shutdownType) != 0)
+            if ((ShutdownType.Sleep & shutdownType) != 0)
             {
                 Application.SetSuspendState(PowerState.Suspend, isForced, disableWakeEvent);
                 return;		
+            }
+
+            if (shutdownType == ShutdownType.Exit)
+            {
+                Application.Exit();
+                return;
             }
 
             using (var operatingSystem = new ManagementClass("Win32_OperatingSystem"))

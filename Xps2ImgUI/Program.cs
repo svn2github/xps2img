@@ -15,6 +15,11 @@ using Xps2ImgUI.Resources;
 using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils.UI;
 
+#if !DEBUG
+using Xps2ImgUI.Converters;
+using Xps2ImgUI.Utils;
+#endif
+
 namespace Xps2ImgUI
 {
     static class Program
@@ -24,6 +29,7 @@ namespace Xps2ImgUI
         public const string HelpFile = ProductName + ".chm";
 
         public const string HelpTopicPreferences = "1000";
+        public const string HelpTopicHistory     = "1100";
 
         public static readonly string ApplicationFolder   = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         public static readonly string Xps2ImgExecutable   = Path.Combine(ApplicationFolder, ProductName + ".exe");
@@ -63,19 +69,42 @@ namespace Xps2ImgUI
             if (mainForm.Model.ShutdownRequested)
             {
                 #if !DEBUG
-                Utils.SystemManagement.Shutdown(Utils.ShutdownType.ForcedShutdown);
+                SystemManagement.Shutdown(PostActionToShutdownType(mainForm.Model.ShutdownType));
                 #endif
             }
         }
 
+        #if !DEBUG
+        private static ShutdownType PostActionToShutdownType(string shutdownType)
+        {
+            switch(shutdownType)
+            {
+                case PostActionConverter.Exit:      return ShutdownType.Exit;
+                case PostActionConverter.Hibernate: return ShutdownType.ForcedHibernate;
+                case PostActionConverter.LogOff:    return ShutdownType.ForcedLogOff;
+                case PostActionConverter.Reboot:    return ShutdownType.ForcedReboot;
+                case PostActionConverter.Shutdown:  return ShutdownType.ForcedShutdown;
+                case PostActionConverter.Sleep:     return ShutdownType.ForcedSleep;
+            }
+            throw new InvalidOperationException();
+        }
+        #endif
+
         private static void HandleException(Exception ex)
         {
+            #if !DEBUG
+            if (ModalGuard.IsEntered)
+            {
+                return;
+            }
+            #endif
+
             var exceptionMessage = (ex == null) ? Strings.NoExceptionMessage : ex
-                                                                                #if DEBUG
-                                                                                .ToString();
-                                                                                #else
-                                                                                .Message;
-                                                                                #endif
+                                                                               #if DEBUG
+                                                                               .ToString();
+                                                                               #else
+                                                                               .Message;
+                                                                               #endif
 
             using (new ModalGuard())
             {

@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.Windows.Forms;
 
+using Xps2ImgUI.Utils.UI;
+
 namespace Xps2ImgUI.Dialogs
 {
     public class SelectFolderEditor : BaseSelectFileFolderEditor
@@ -23,16 +25,19 @@ namespace Xps2ImgUI.Dialogs
                 path = DefaultFolder;
             }
 
-            using (var dialog = new FolderBrowserDialog { SelectedPath = path })
+            using (new ModalGuard())
             {
-                if (!String.IsNullOrEmpty(Description))
+                using (var dialog = new FolderBrowserDialog {SelectedPath = path})
                 {
-                    dialog.Description = Description;
-                }
+                    if (!String.IsNullOrEmpty(Description))
+                    {
+                        dialog.Description = Description;
+                    }
 
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    return dialog.SelectedPath;
+                    if (dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        return dialog.SelectedPath;
+                    }
                 }
             }
 

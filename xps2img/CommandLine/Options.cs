@@ -27,6 +27,7 @@ using System.Drawing;
 using Xps2Img.Xps2Img;
 
 // ReSharper disable LocalizableElement
+// ReSharper disable InconsistentNaming
 
 namespace Xps2Img.CommandLine
 {
@@ -94,6 +95,50 @@ namespace Xps2Img.CommandLine
         }
 
         private string _outDir;
+
+        #if XPS2IMG_UI
+
+        public const string PostActionDisplayName   = "After Conversion";
+        private const string PostActionDescription  = "Action to execute after conversion completed.";
+
+        [DisplayName(PostActionDisplayName)]
+        [Category(Category.Parameters)]
+        //[TypeConverter(typeof(PostActionConverterWithUserApplication))]
+        [TypeConverter(typeof(PostActionConverter))]
+        [DefaultValue(PostActionConverter.Default)]
+        [TabbedDescription(PostActionDescription)]
+        public string PostAction
+        {
+            get; set;
+        }
+
+        public const string UserApplicationDisplayName  = "Program";
+        private const string UserApplicationDescription = "Program to execute after conversion completed.";
+
+        [DisplayName(UserApplicationDisplayName)]
+        [Category(Category.Parameters)]
+        [DefaultValue(null)]
+        [TabbedDescription(UserApplicationDescription)]
+        [DynamicPropertyFilter("PostAction", PostActionConverterWithUserApplication.UserApplication)]
+        public string UserApplication
+        {
+            get; set;
+        }
+
+        public const string UserApplicationPostActionDisplayName = "After Program";
+        private const string UserApplicationPostActionDescription = "Action to execute after program completed.";
+
+        [DisplayName(UserApplicationPostActionDisplayName)]
+        [Category(Category.Parameters)]
+        [DefaultValue(PostActionConverter.Default)]
+        [TypeConverter(typeof(PostActionConverter))]
+        [TabbedDescription(UserApplicationPostActionDescription)]
+        [DynamicPropertyFilter("PostAction", PostActionConverterWithUserApplication.UserApplication)]
+        public string UserApplicationPostAction
+        {
+            get; set;
+        }
+        #endif
 
         private static readonly char[] FileNameTrimCharacters = "\"\x20\t\r\n".ToCharArray();
 
@@ -514,7 +559,7 @@ namespace Xps2Img.CommandLine
         public bool Clean { get; set; }
         #else
         public const string CleanOption = " --clean";
-        #endif
+#endif
     }
 
     public static class OptionsValidators

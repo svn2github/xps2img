@@ -1,23 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 
 namespace Xps2ImgUI.Converters
 {
-    public class ProcessorsNumberConverter : TypeConverter
+    public class ProcessorsNumberConverter : StandardValuesTypeConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
-        {
-            return true;
-        }
-        
-        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
-        {
-            return new StandardValuesCollection(Processors);
-        }
-
         public  static readonly int ProcessorCount = Environment.ProcessorCount;
 
         private static readonly string[] Processors = EnumProcessors().ToArray();
@@ -29,6 +18,11 @@ namespace Xps2ImgUI.Converters
             {
                 yield return i.ToString(CultureInfo.InvariantCulture);        
             }
+        }
+
+        public override string[] Values
+        {
+            get { return Processors; }
         }
     }
 }

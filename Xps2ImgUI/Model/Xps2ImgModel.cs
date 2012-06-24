@@ -13,6 +13,7 @@ using System.Windows.Xps.Packaging;
 using Xps2Img.CommandLine;
 
 using Xps2ImgUI.Attributes.OptionsHolder;
+using Xps2ImgUI.Converters;
 using Xps2ImgUI.Utils;
 
 namespace Xps2ImgUI.Model
@@ -463,15 +464,14 @@ namespace Xps2ImgUI.Model
             }
         }
 
-        private bool _shutdownRequested;
+        public string ShutdownType
+        {
+            get { return OptionsObject.PostAction; }
+        }
 
         public bool ShutdownRequested
         {
-            get { return _shutdownRequested; }
-            set
-            {
-                _shutdownRequested = value && IsProgressStarted && !IsConversionFailed && !CanResume && !IsDeleteMode;
-            }
+            get { return ShutdownType != PostActionConverter.Default && IsProgressStarted && !IsConversionFailed && !CanResume && !IsDeleteMode; }
         }
 
         private void OutputDataReceivedWrapper(object sender, DataReceivedEventArgs e)

@@ -130,6 +130,10 @@
 		<param name="Name" value="Output Folder">
 		<param name="Local" value="Files\Options.html#outdir">
 		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="After Conversion">
+		<param name="Local" value="Files\Options.html#afterconversion">
+		</OBJECT>
 	</UL>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="GUI Front-end Options">
@@ -192,6 +196,10 @@
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Output Folder">
 		<param name="Local" value="Files\Options.html#outdir">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="After Conversion">
+		<param name="Local" value="Files\Options.html#afterconversion">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="First Page Index">

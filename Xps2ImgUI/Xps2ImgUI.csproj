@@ -112,6 +112,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ToolStripButtonItem.cs" />
+    <Compile Include="Converters\StandardValuesTypeConverter.cs" />
+    <Compile Include="Converters\PostActionConverterWithUserApplication.cs" />
+    <Compile Include="Converters\PostActionConverter.cs" />
     <Compile Include="Converters\ProcessPriorityClassConverter.cs" />
     <Compile Include="Converters\ProcessorsNumberConverter.cs" />
     <Compile Include="Converters\YesNoConverter.cs" />
@@ -140,6 +143,7 @@
       <DependentUpon>Icons.resx</DependentUpon>
     </Compile>
     <Compile Include="Utils\AssemblyInformation.cs" />
+    <Compile Include="Utils\SystemManagement.Native.cs" />
     <Compile Include="Utils\SystemManagement.cs" />
     <Compile Include="Utils\DisposableActions.cs" />
     <None Include="Utils\PropertiesComparator.cs" />

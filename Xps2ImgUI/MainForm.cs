@@ -118,7 +118,6 @@ namespace Xps2ImgUI
             base.WndProc(ref m);
         }
 
-
         private void AdjustPropertyGrid()
         {
             settingsPropertyGrid.AutoCompleteSettings = new[]
@@ -141,13 +140,9 @@ namespace Xps2ImgUI
             // Preferences button.
             var preferencesToolStripSplitButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.Preferences, PreferencesToolStripButtonClick);
 
-            _shutdownWhenCompletedToolStripMenuItem = new ToolStripMenuItem(Resources.Strings.ShutdownWhenCompleted) { CheckOnClick = true };
-
             var autoSaveSettingsToolStripMenuItem = new ToolStripMenuItem(Resources.Strings.AutoSaveSettings) { CheckOnClick = true, Checked = _preferences.AutoSaveSettings };
             autoSaveSettingsToolStripMenuItem.CheckedChanged += (s, e) => _preferences.AutoSaveSettings = autoSaveSettingsToolStripMenuItem.Checked;
 
-            preferencesToolStripSplitButton.DropDownItems.Add(_shutdownWhenCompletedToolStripMenuItem);
-            preferencesToolStripSplitButton.DropDownItems.Add(new ToolStripSeparator());
             preferencesToolStripSplitButton.DropDownItems.Add(autoSaveSettingsToolStripMenuItem);
 
             preferencesToolStripSplitButton.DropDownOpening += (s, e) => autoSaveSettingsToolStripMenuItem.Checked = _preferences.AutoSaveSettings;
@@ -259,7 +254,6 @@ namespace Xps2ImgUI
             {
                 this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.NoProgress);
 
-                Model.ShutdownRequested = ShutdownWhenCompleted;
                 if (Model.ShutdownRequested)
                 {
                     Close();
@@ -330,9 +324,7 @@ namespace Xps2ImgUI
 
         private void UpdateShowCommandLineCommand()
         {
-            _showCommandLineToolStripButton.Text = IsCommandLineVisible
-                                                        ? Resources.Strings.HideCommandLine
-                                                        : Resources.Strings.ShowCommandLine;
+            _showCommandLineToolStripButton.Text = IsCommandLineVisible ? Resources.Strings.HideCommandLine : Resources.Strings.ShowCommandLine;
         }
 
         private void FlashForm()
@@ -469,7 +461,10 @@ namespace Xps2ImgUI
 
         private void ShowHelp()
         {
-            Help.ShowHelp(this, Program.HelpFile, HelpNavigator.TableOfContents);
+            if (!ModalGuard.IsEntered)
+            {
+                Help.ShowHelp(this, Program.HelpFile, HelpNavigator.TableOfContents);
+            }
         }
 
         [Flags]
@@ -601,7 +596,7 @@ namespace Xps2ImgUI
         private void SettingsPropertyGridPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
             UpdateCommandLine(Options.ExcludeOnResumeCheck.Contains(e.ChangedItem.Label));
-            if (e.ChangedItem.Label == Options.FileTypeDisplayName)
+            if (e.ChangedItem.Label == Options.FileTypeDisplayName || e.ChangedItem.Label == Options.PostActionDisplayName)
             {
                 settingsPropertyGrid.Refresh();
             }
@@ -686,7 +681,7 @@ namespace Xps2ImgUI
 
         private bool ShutdownWhenCompleted
         {
-            get { return _shutdownWhenCompletedToolStripMenuItem.Checked; }
+            get { return Model.ShutdownRequested; }
         }
 
         private bool IsCommandLineVisible
@@ -752,7 +747,6 @@ namespace Xps2ImgUI
         private ToolStripItem _resetToolStripButton;
         private ToolStripSplitButton _loadToolStripButton;
         private ToolStripItem _showCommandLineToolStripButton;
-        private ToolStripMenuItem _shutdownWhenCompletedToolStripMenuItem;
 
         private ThumbButtonManager _thumbButtonManager;
         private ThumbButton _thumbButton;

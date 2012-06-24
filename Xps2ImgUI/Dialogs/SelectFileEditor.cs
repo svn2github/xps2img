@@ -4,6 +4,8 @@ using System.Drawing.Design;
 using System.IO;
 using System.Windows.Forms;
 
+using Xps2ImgUI.Utils.UI;
+
 namespace Xps2ImgUI.Dialogs
 {
     public class SelectFileEditor : BaseSelectFileFolderEditor
@@ -45,28 +47,31 @@ namespace Xps2ImgUI.Dialogs
                 }
             }
 
-            using (var dialog = new OpenFileDialog { Filter = Filter, InitialDirectory = InitialDirectory, FileName = Path.GetFileName(fileName) })
+            using (new ModalGuard())
             {
-                if(!String.IsNullOrEmpty(Title))
+                using (var dialog = new OpenFileDialog { Filter = Filter, InitialDirectory = InitialDirectory, FileName = Path.GetFileName(fileName) })
                 {
-                    dialog.Title = Title;
-                }
-
-                var tryCount = 2;
-
-                while (tryCount-- > 0)
-                {
-                    try
+                    if (!String.IsNullOrEmpty(Title))
                     {
-                        if (dialog.ShowDialog() == DialogResult.OK)
-                        {
-                            return dialog.FileName;
-                        }
-                        break;
+                        dialog.Title = Title;
                     }
-                    catch
+
+                    var tryCount = 2;
+
+                    while (tryCount-- > 0)
                     {
-                        dialog.FileName = String.Empty;
+                        try
+                        {
+                            if (dialog.ShowDialog() == DialogResult.OK)
+                            {
+                                return dialog.FileName;
+                            }
+                            break;
+                        }
+                        catch
+                        {
+                            dialog.FileName = String.Empty;
+                        }
                     }
                 }
             }

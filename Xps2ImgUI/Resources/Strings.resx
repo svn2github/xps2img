@@ -231,10 +231,7 @@
   <data name="CancelToUsePreviousValidValue" xml:space="preserve">
     <value>\n\n• Cancel or Esc reverts to previous valid value.\n• OK returns to value editing.</value>
   </data>
-  <data name="ShutdownWhenCompleted">
-    <value xml:space="preserve">S&amp;hutdown When Conversion Completed</value>
-  </data>
-  <data name="AutoSaveSettings">
-    <value xml:space="preserve">A&amp;uto Save Settings</value>
+  <data name="AutoSaveSettings" xml:space="preserve">
+    <value>A&amp;uto Save Settings</value>
   </data>
 </root>

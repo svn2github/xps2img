@@ -30,7 +30,8 @@ Files\ExitCodes.html
 
 [ALIAS]
 IDH_Preferences=Files\Preferences.html
+IDH_History=Files\History.html
 
 [MAP]
-#define IDH_Preferences 1000
-
+#define IDH_Preferences	1000
+#define IDH_History	1100
