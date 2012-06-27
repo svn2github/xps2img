@@ -4,6 +4,10 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
+using Microsoft.WindowsAPICodePack.Dialogs;
+
+using Windows7.Dialogs;
+
 using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI.Controls.PropertyGridEx
@@ -20,19 +24,39 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         public DialogResult ShowDialog(Form form)
         {
-            var propertyDescriptor = _propertyGrid.SelectedGridItem.PropertyDescriptor;
-
-            // Extract the error details from the GridErrorDlg instance.
-            var detailsField = form.GetType().GetField("details", BindingFlags.NonPublic | BindingFlags.Instance);
-            var detailsTextBox = (TextBox)detailsField.GetValue(form);
-
             using (new ModalGuard())
             {
-                 var dialogResult = MessageBox.Show(_propertyGrid,
-                                        String.Format("{0}{1}{2}", detailsTextBox.Text, detailsTextBox.Text.EndsWith(".") ? String.Empty : ".", Resources.Strings.CancelToUsePreviousValidValue.Replace(@"\n", Environment.NewLine)),
-                                        propertyDescriptor.DisplayName,
-                                        MessageBoxButtons.OKCancel,
-                                        MessageBoxIcon.Warning);
+                var propertyDescriptor = _propertyGrid.SelectedGridItem.PropertyDescriptor;
+
+                // Extract the error details from the GridErrorDlg instance.
+                var detailsField = form.GetType().GetField("details", BindingFlags.NonPublic | BindingFlags.Instance);
+                var detailsTextBox = (TextBox)detailsField.GetValue(form);
+                var displayName = propertyDescriptor.DisplayName;
+
+                var title = String.Format(Resources.Strings.ValidationError, displayName);
+                var message = detailsTextBox.Text;
+                if (!message.EndsWith("."))
+                {
+                    message += ".";
+                }
+
+                var dialogResult = TaskDialogUtils.Show(
+                                    _propertyGrid.Handle,
+                                    title,
+                                    displayName,
+                                    message,
+                                    TaskDialogStandardIcon.Error,
+                                    new TaskDialogCommandInfo(TaskDialogResult.Ok, Resources.Strings.ValueEdit), 
+                                    new TaskDialogCommandInfo(TaskDialogResult.Cancel, Resources.Strings.ValueRevert));
+
+                if (dialogResult == DialogResult.None)
+                {
+                    dialogResult = MessageBox.Show(_propertyGrid,
+                                    String.Format("{0}{1}", message, Resources.Strings.CancelToUsePreviousValidValue.Replace(@"\n", Environment.NewLine)),
+                                    title,
+                                    MessageBoxButtons.OKCancel,
+                                    MessageBoxIcon.Error);
+                }
 
                 _propertyGrid.HasErrors = dialogResult == DialogResult.OK;
 

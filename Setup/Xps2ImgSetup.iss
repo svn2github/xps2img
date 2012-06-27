@@ -62,6 +62,7 @@
 <File(BinariesPath + "xps2imgUI.exe")>
 <File(BinariesPath + "CommandLine.dll")>
 <File(BinariesPath + "Gnu.Getopt.dll")>
+<File(BinariesPath + "Microsoft.WindowsAPICodePack.dll")>
 <File(BinariesPath + "xps2img.chm")>
 <File(LicenseFile)>
 

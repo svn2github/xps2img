@@ -358,6 +358,33 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Validation Error.
+        /// </summary>
+        internal static string ValidationError {
+            get {
+                return ResourceManager.GetString("ValidationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit value.
+        /// </summary>
+        internal static string ValueEdit {
+            get {
+                return ResourceManager.GetString("ValueEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revert value.
+        /// </summary>
+        internal static string ValueRevert {
+            get {
+                return ResourceManager.GetString("ValueRevert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to XPS to Images Converter.
         /// </summary>
         internal static string WindowTitle {

@@ -7,7 +7,10 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
+using Microsoft.WindowsAPICodePack.Dialogs;
+
 using Windows7.DesktopIntegration;
+using Windows7.Dialogs;
 
 using Xps2Img.CommandLine;
 
@@ -85,7 +88,7 @@ namespace Xps2ImgUI
             {
                 Activate();
 
-                e.Cancel = _preferences.ConfirmOnExit && !ShowConfirmationMessageBox(Resources.Strings.ClosingConfirmation);
+                e.Cancel = _preferences.ConfirmOnExit && !ShowConfirmationMessageBox(Resources.Strings.ClosingConfirmation, "Close", "Return");
 
                 if (!e.Cancel)
                 {
@@ -454,9 +457,18 @@ namespace Xps2ImgUI
             }
         }
 
-        private bool ShowConfirmationMessageBox(string text)
+        private bool ShowConfirmationMessageBox(string text, string okCommand, string cancelCommand)
         {
-            return DialogResult.OK == ShowMessageBox(text + Resources.Strings.PressToProceedMessage, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+            var dialogResult = TaskDialogUtils.Show(
+                                    Handle,
+                                    Resources.Strings.WindowTitle,
+                                    text,
+                                    text,
+                                    TaskDialogStandardIcon.Warning,
+                                    new TaskDialogCommandInfo(TaskDialogResult.Ok, okCommand),
+                                    new TaskDialogCommandInfo(TaskDialogResult.Cancel, cancelCommand));
+
+            return DialogResult.OK == (dialogResult != DialogResult.None ? dialogResult : ShowMessageBox(text + Resources.Strings.PressToProceedMessage, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2));
         }
 
         private void ShowHelp()
@@ -491,6 +503,7 @@ namespace Xps2ImgUI
                     Activate();
                 }
 
+                // TODO: Select.
                 var dialogResult = ShowMessageBox(Resources.Strings.ResumeLastConversionSuggestion, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
                 if (dialogResult == DialogResult.Cancel)
@@ -511,7 +524,7 @@ namespace Xps2ImgUI
         {
             if (Model.IsRunning)
             {
-                if (!_preferences.ConfirmOnStop || ShowConfirmationMessageBox(Resources.Strings.ConversionStopConfirmation))
+                if (!_preferences.ConfirmOnStop || ShowConfirmationMessageBox(Resources.Strings.ConversionStopConfirmation, "Stop", "Continue"))
                 {
                     EnableConvertControls(ControlState.Default);
                     Model.Stop();
@@ -633,7 +646,7 @@ namespace Xps2ImgUI
 
         private void DeleteImagesToolStripMenuItemClick(object sender, EventArgs e)
         {
-            if (!_preferences.ConfirmOnDelete || ShowConfirmationMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation))
+            if (!_preferences.ConfirmOnDelete || ShowConfirmationMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation, "Delete", "Cancel"))
             {
                 ExecuteConversion(ConversionType.Delete, true);
             }

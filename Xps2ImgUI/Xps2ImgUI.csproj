@@ -55,6 +55,9 @@
     <ApplicationIcon>Resources\Ico\Application.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.WindowsAPICodePack">
+      <HintPath>..\_Lib\_Bin\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="ReachFramework" />
@@ -166,6 +169,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Utils\UI\Windows7\COMTypes.cs" />
+    <Compile Include="Utils\UI\Windows7\TaskDialogUtils.cs" />
     <Compile Include="Utils\UI\Windows7\Interop.cs" />
     <Compile Include="Utils\UI\Windows7\ThumbButton.cs" />
     <Compile Include="Utils\UI\Windows7\ThumbButtonManager.cs" />

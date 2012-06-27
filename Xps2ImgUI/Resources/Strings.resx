@@ -234,4 +234,13 @@
   <data name="AutoSaveSettings" xml:space="preserve">
     <value>A&amp;uto Save Settings</value>
   </data>
+  <data name="ValidationError" xml:space="preserve">
+    <value>{0} Validation Error</value>
+  </data>
+  <data name="ValueEdit" xml:space="preserve">
+    <value>Edit value</value>
+  </data>
+  <data name="ValueRevert" xml:space="preserve">
+    <value>Revert value</value>
+  </data>
 </root>
