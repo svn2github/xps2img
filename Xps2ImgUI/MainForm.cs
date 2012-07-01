@@ -509,7 +509,7 @@ namespace Xps2ImgUI
         {
             if (Model.IsRunning)
             {
-                if (!_preferences.ConfirmOnStop || ShowConfirmationMessageBox(Resources.Strings.ConversionStopConfirmation))
+                if ((!_preferences.ConfirmOnStop || ShowConfirmationMessageBox(Resources.Strings.ConversionStopConfirmation)) && Model.IsRunning)
                 {
                     EnableConvertControls(ControlState.Default);
                     Model.Stop();
