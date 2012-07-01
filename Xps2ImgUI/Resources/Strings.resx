@@ -312,4 +312,7 @@
   <data name="NoExceptionDetailsPresent">
     <value xml:space="preserve">No exception details present.</value>
   </data>
+  <data name="RememberChoiceAndDoNotAskAgain">
+    <value xml:space="preserve">&amp;Remember choice and do not ask again</value>
+  </data>
 </root>

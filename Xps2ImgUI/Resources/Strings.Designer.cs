@@ -331,6 +331,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Remember choice and do not ask again.
+        /// </summary>
+        internal static string RememberChoiceAndDoNotAskAgain {
+            get {
+                return ResourceManager.GetString("RememberChoiceAndDoNotAskAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset &amp;Settings.
         /// </summary>
         internal static string Reset {

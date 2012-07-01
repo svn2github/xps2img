@@ -476,7 +476,7 @@ namespace Xps2ImgUI
                                         Resources.Strings.ResumeConversionConfirmation,
                                         Resources.Strings.ResumeLastConversionSuggestion,
                                         TaskDialogStandardIcon.Warning,
-                                        Resources.Strings.AlwaysConfirmAndDoNotAskAgain,
+                                        Resources.Strings.RememberChoiceAndDoNotAskAgain,
                                         out footerCheckBoxChecked,
                                         null,
                                         new TaskDialogCommandInfo(TaskDialogResult.Yes,     Resources.Strings.YesResumeConversion),
@@ -493,13 +493,12 @@ namespace Xps2ImgUI
                     return;
                 }
 
+                _preferences.SuggestResume = !footerCheckBoxChecked;
+
                 if (dialogResult == DialogResult.Yes)
                 {
                     conversionType = ConversionType.Resume;
-                    if (footerCheckBoxChecked)
-                    {
-                        _preferences.AlwaysResume = true;
-                    }
+                    _preferences.AlwaysResume = footerCheckBoxChecked;
                 }
             }
 
