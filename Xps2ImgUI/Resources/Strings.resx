@@ -250,7 +250,7 @@
     <value>&amp;Yes, Delete Images</value>
   </data>
   <data name="NoBackToApplication" xml:space="preserve">
-    <value>&amp;No, Back to Application</value>
+    <value>&amp;No, Go Back to Application</value>
   </data>
   <data name="StopConversionConfirmation" xml:space="preserve">
     <value>Stop Conversion Confirmation</value>
@@ -283,7 +283,7 @@
     <value>Conversion Failed</value>
   </data>
   <data name="BackToApplication" xml:space="preserve">
-    <value>&amp;Back to Application</value>
+    <value>Go &amp;Back to Application</value>
   </data>
   <data name="ResumeConversionConfirmation" xml:space="preserve">
     <value>Resume Conversion Confirmation</value>
