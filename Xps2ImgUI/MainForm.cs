@@ -6,12 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-
 using Microsoft.WindowsAPICodePack.Dialogs;
-
 using Windows7.DesktopIntegration;
 using Windows7.Dialogs;
-
 using Xps2Img.CommandLine;
 
 using Xps2ImgUI.Controls;
@@ -88,7 +85,7 @@ namespace Xps2ImgUI
             {
                 Activate();
 
-                e.Cancel = _preferences.ConfirmOnExit && !ShowConfirmationMessageBox(Resources.Strings.ClosingConfirmation, "Close", "Return");
+                e.Cancel = _preferences.ConfirmOnExit && !ShowConfirmationMessageBox(Resources.Strings.ClosingConfirmation);
 
                 if (!e.Cancel)
                 {
@@ -272,7 +269,7 @@ namespace Xps2ImgUI
 
             FlashForm();
 
-            ShowMessageBox(message, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            ShowErrorMessageBox(message, true, Resources.Strings.ConversionFailed, message, Resources.Strings.BackToApplication);
 
             UpdateRunningStatus(false);
         }
@@ -317,12 +314,12 @@ namespace Xps2ImgUI
             _uiCommandLine = FormatCommandLine(true);
         }
 
-        private string FormatCommandLine(bool isUI)
+        private string FormatCommandLine(bool isUi)
         {
             _srcFileDisplayName = Path.GetFileNameWithoutExtension(Model.OptionsObject.SrcFile);
-            var commandLine = Model.FormatCommandLine(isUI ? Options.ExcludedOnSave : Options.ExcludedOnView);
+            var commandLine = Model.FormatCommandLine(isUi ? Options.ExcludedOnSave : Options.ExcludedOnView);
             var separator = String.IsNullOrEmpty(commandLine) ? String.Empty : "\x20";
-            return String.Format("\"{0}\"{1}{2}", isUI ? Program.Xps2ImgUIExecutable : Program.Xps2ImgExecutable, separator, commandLine);
+            return String.Format("\"{0}\"{1}{2}", isUi ? Program.Xps2ImgUIExecutable : Program.Xps2ImgExecutable, separator, commandLine);
         }
 
         private void UpdateShowCommandLineCommand()
@@ -436,39 +433,7 @@ namespace Xps2ImgUI
         private void ShowOptionIsRequiredMessage(string firstRequiredOptionLabel)
         {
             Activate();
-            ShowMessageBox(String.Format(Resources.Strings.SpecifyValue, firstRequiredOptionLabel), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-        }
-
-        private void ShowMessageBox(string text, MessageBoxButtons buttons, MessageBoxIcon icon)
-        {
-            ShowMessageBox(text, buttons, icon, MessageBoxDefaultButton.Button1);
-        }
-
-        private DialogResult ShowMessageBox(string text, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton messageBoxDefaultButton)
-        {
-            if ((Model.IsProgressStarted && ShutdownWhenCompleted) || IsDisposed)
-            {
-                return DialogResult.Cancel;
-            }
-
-            using (new ModalGuard())
-            {
-                return MessageBox.Show(this, text, Resources.Strings.WindowTitle, buttons, icon, messageBoxDefaultButton);
-            }
-        }
-
-        private bool ShowConfirmationMessageBox(string text, string okCommand, string cancelCommand)
-        {
-            var dialogResult = TaskDialogUtils.Show(
-                                    Handle,
-                                    Resources.Strings.WindowTitle,
-                                    text,
-                                    text,
-                                    TaskDialogStandardIcon.Warning,
-                                    new TaskDialogCommandInfo(TaskDialogResult.Ok, okCommand),
-                                    new TaskDialogCommandInfo(TaskDialogResult.Cancel, cancelCommand));
-
-            return DialogResult.OK == (dialogResult != DialogResult.None ? dialogResult : ShowMessageBox(text + Resources.Strings.PressToProceedMessage, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2));
+            ShowErrorMessageBox(String.Format(Resources.Strings.SpecifyValue, firstRequiredOptionLabel), false, firstRequiredOptionLabel, Resources.Strings.ParameterIsRequired, Resources.Strings.EditParameter);
         }
 
         private void ShowHelp()
@@ -503,8 +468,24 @@ namespace Xps2ImgUI
                     Activate();
                 }
 
-                // TODO: Select.
-                var dialogResult = ShowMessageBox(Resources.Strings.ResumeLastConversionSuggestion, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                bool footerCheckBoxChecked;
+
+                var dialogResult = TaskDialogUtils.Show(
+                                        Handle,
+                                        Resources.Strings.WindowTitle,
+                                        Resources.Strings.ResumeConversionConfirmation,
+                                        Resources.Strings.ResumeLastConversionSuggestion,
+                                        TaskDialogStandardIcon.Warning,
+                                        Resources.Strings.AlwaysConfirmAndDoNotAskAgain,
+                                        out footerCheckBoxChecked,
+                                        new TaskDialogCommandInfo(TaskDialogResult.Yes,     Resources.Strings.YesResumeConversion),
+                                        new TaskDialogCommandInfo(TaskDialogResult.No,      Resources.Strings.NoStartConversionOver),
+                                        new TaskDialogCommandInfo(TaskDialogResult.Cancel,  Resources.Strings.BackToApplication));
+
+                if (dialogResult == TaskDialogUtils.NotSupported)
+                {
+                    dialogResult = ShowMessageBox(Resources.Strings.ResumeLastConversionSuggestion, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                }
 
                 if (dialogResult == DialogResult.Cancel)
                 {
@@ -514,6 +495,10 @@ namespace Xps2ImgUI
                 if (dialogResult == DialogResult.Yes)
                 {
                     conversionType = ConversionType.Resume;
+                    if (footerCheckBoxChecked)
+                    {
+                        _preferences.AlwaysResume = true;
+                    }
                 }
             }
 
@@ -524,7 +509,7 @@ namespace Xps2ImgUI
         {
             if (Model.IsRunning)
             {
-                if (!_preferences.ConfirmOnStop || ShowConfirmationMessageBox(Resources.Strings.ConversionStopConfirmation, "Stop", "Continue"))
+                if (!_preferences.ConfirmOnStop || ShowConfirmationMessageBox(Resources.Strings.ConversionStopConfirmation))
                 {
                     EnableConvertControls(ControlState.Default);
                     Model.Stop();
@@ -646,7 +631,7 @@ namespace Xps2ImgUI
 
         private void DeleteImagesToolStripMenuItemClick(object sender, EventArgs e)
         {
-            if (!_preferences.ConfirmOnDelete || ShowConfirmationMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation, "Delete", "Cancel"))
+            if (!_preferences.ConfirmOnDelete || ShowConfirmationMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation))
             {
                 ExecuteConversion(ConversionType.Delete, true);
             }

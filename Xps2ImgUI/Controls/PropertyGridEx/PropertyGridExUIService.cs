@@ -49,7 +49,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                                     new TaskDialogCommandInfo(TaskDialogResult.Ok, Resources.Strings.ValueEdit), 
                                     new TaskDialogCommandInfo(TaskDialogResult.Cancel, Resources.Strings.ValueRevert));
 
-                if (dialogResult == DialogResult.None)
+                if (dialogResult == TaskDialogUtils.NotSupported)
                 {
                     dialogResult = MessageBox.Show(_propertyGrid,
                                     String.Format("{0}{1}", message, Resources.Strings.CancelToUsePreviousValidValue.Replace(@"\n", Environment.NewLine)),

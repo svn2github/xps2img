@@ -238,9 +238,69 @@
     <value>{0} Validation Error</value>
   </data>
   <data name="ValueEdit" xml:space="preserve">
-    <value>Edit value</value>
+    <value>&amp;Edit Value</value>
   </data>
   <data name="ValueRevert" xml:space="preserve">
-    <value>Revert value</value>
+    <value>&amp;Revert Value</value>
+  </data>
+  <data name="DeleteImagesConfirmation" xml:space="preserve">
+    <value>Delete Images Confirmation</value>
+  </data>
+  <data name="WouldYouLikeToDeleteImages" xml:space="preserve">
+    <value>Would you like to delete images?</value>
+  </data>
+  <data name="YesDeleteImages" xml:space="preserve">
+    <value>&amp;Yes, Delete Images</value>
+  </data>
+  <data name="NoBackToApplication" xml:space="preserve">
+    <value>&amp;No, Back to Application</value>
+  </data>
+  <data name="StopConversionConfirmation" xml:space="preserve">
+    <value>Stop Conversion Confirmation</value>
+  </data>
+  <data name="WouldYouLikeToStopConversion" xml:space="preserve">
+    <value>Would you like to stop conversion?</value>
+  </data>
+  <data name="YesStopConversion" xml:space="preserve">
+    <value>&amp;Yes, Stop Conversion</value>
+  </data>
+  <data name="CloseApplicationConfirmation" xml:space="preserve">
+    <value>Close Application Confirmation</value>
+  </data>
+  <data name="WouldYouLikeToAbortConversionAndCloseApplication" xml:space="preserve">
+    <value>Would you like to abort conversion and close application?</value>
+  </data>
+  <data name="YesAbortAndClose" xml:space="preserve">
+    <value>&amp;Yes, Abort and Close</value>
+  </data>
+  <data name="AlwaysConfirmAndDoNotAskAgain" xml:space="preserve">
+    <value>Al&amp;ways confirm and do not ask again</value>
+  </data>
+  <data name="EditParameter" xml:space="preserve">
+    <value>&amp;Edit Parameter</value>
+  </data>
+  <data name="ParameterIsRequired" xml:space="preserve">
+    <value>This parameter is required and could not be empty.</value>
+  </data>
+  <data name="ConversionFailed" xml:space="preserve">
+    <value>Conversion Failed</value>
+  </data>
+  <data name="BackToApplication" xml:space="preserve">
+    <value>&amp;Back to Application</value>
+  </data>
+  <data name="ResumeConversionConfirmation" xml:space="preserve">
+    <value>Resume Conversion Confirmation</value>
+  </data>
+  <data name="YesResumeConversion" xml:space="preserve">
+    <value>Yes, &amp;Resume Conversion</value>
+  </data>
+  <data name="NoStartConversionOver" xml:space="preserve">
+    <value>No, &amp;Start Conversion Over</value>
+  </data>
+  <data name="UnexpectedResumeIsNotAvailable">
+    <value xml:space="preserve">Unexpected: Resume is not available.</value>
+  </data>
+  <data name="UnexpectedConversionIsInProgress">
+    <value xml:space="preserve">Unexpected: Conversion is in progress.</value>
   </data>
 </root>

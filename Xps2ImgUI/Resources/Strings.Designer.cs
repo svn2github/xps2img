@@ -70,11 +70,29 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Al&amp;ways confirm and do not ask again.
+        /// </summary>
+        internal static string AlwaysConfirmAndDoNotAskAgain {
+            get {
+                return ResourceManager.GetString("AlwaysConfirmAndDoNotAskAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A&amp;uto Save Settings.
         /// </summary>
         internal static string AutoSaveSettings {
             get {
                 return ResourceManager.GetString("AutoSaveSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Back to Application.
+        /// </summary>
+        internal static string BackToApplication {
+            get {
+                return ResourceManager.GetString("BackToApplication", resourceCulture);
             }
         }
         
@@ -106,11 +124,29 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close Application Confirmation.
+        /// </summary>
+        internal static string CloseApplicationConfirmation {
+            get {
+                return ResourceManager.GetString("CloseApplicationConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Currently executed conversion will be aborted..
         /// </summary>
         internal static string ClosingConfirmation {
             get {
                 return ResourceManager.GetString("ClosingConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conversion Failed.
+        /// </summary>
+        internal static string ConversionFailed {
+            get {
+                return ResourceManager.GetString("ConversionFailed", resourceCulture);
             }
         }
         
@@ -156,6 +192,24 @@ namespace Xps2ImgUI.Resources {
         internal static string DeleteConvertedImagesConfirmation {
             get {
                 return ResourceManager.GetString("DeleteConvertedImagesConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Images Confirmation.
+        /// </summary>
+        internal static string DeleteImagesConfirmation {
+            get {
+                return ResourceManager.GetString("DeleteImagesConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Edit Parameter.
+        /// </summary>
+        internal static string EditParameter {
+            get {
+                return ResourceManager.GetString("EditParameter", resourceCulture);
             }
         }
         
@@ -214,11 +268,38 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;No, Back to Application.
+        /// </summary>
+        internal static string NoBackToApplication {
+            get {
+                return ResourceManager.GetString("NoBackToApplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown error.
         /// </summary>
         internal static string NoExceptionMessage {
             get {
                 return ResourceManager.GetString("NoExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No, &amp;Start Conversion Over.
+        /// </summary>
+        internal static string NoStartConversionOver {
+            get {
+                return ResourceManager.GetString("NoStartConversionOver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This parameter is required and could not be empty..
+        /// </summary>
+        internal static string ParameterIsRequired {
+            get {
+                return ResourceManager.GetString("ParameterIsRequired", resourceCulture);
             }
         }
         
@@ -282,6 +363,15 @@ namespace Xps2ImgUI.Resources {
         internal static string ResetToDefault {
             get {
                 return ResourceManager.GetString("ResetToDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resume Conversion Confirmation.
+        /// </summary>
+        internal static string ResumeConversionConfirmation {
+            get {
+                return ResourceManager.GetString("ResumeConversionConfirmation", resourceCulture);
             }
         }
         
@@ -358,6 +448,33 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stop Conversion Confirmation.
+        /// </summary>
+        internal static string StopConversionConfirmation {
+            get {
+                return ResourceManager.GetString("StopConversionConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected: Conversion is in progress..
+        /// </summary>
+        internal static string UnexpectedConversionIsInProgress {
+            get {
+                return ResourceManager.GetString("UnexpectedConversionIsInProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected: Resume is not available..
+        /// </summary>
+        internal static string UnexpectedResumeIsNotAvailable {
+            get {
+                return ResourceManager.GetString("UnexpectedResumeIsNotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Validation Error.
         /// </summary>
         internal static string ValidationError {
@@ -367,7 +484,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit value.
+        ///   Looks up a localized string similar to &amp;Edit Value.
         /// </summary>
         internal static string ValueEdit {
             get {
@@ -376,7 +493,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Revert value.
+        ///   Looks up a localized string similar to &amp;Revert Value.
         /// </summary>
         internal static string ValueRevert {
             get {
@@ -412,6 +529,33 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Would you like to abort conversion and close application?.
+        /// </summary>
+        internal static string WouldYouLikeToAbortConversionAndCloseApplication {
+            get {
+                return ResourceManager.GetString("WouldYouLikeToAbortConversionAndCloseApplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to delete images?.
+        /// </summary>
+        internal static string WouldYouLikeToDeleteImages {
+            get {
+                return ResourceManager.GetString("WouldYouLikeToDeleteImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to stop conversion?.
+        /// </summary>
+        internal static string WouldYouLikeToStopConversion {
+            get {
+                return ResourceManager.GetString("WouldYouLikeToStopConversion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .x2i.
         /// </summary>
         internal static string XPS2ImgFileExtension {
@@ -435,6 +579,42 @@ namespace Xps2ImgUI.Resources {
         internal static string Xps2ImgNotFount {
             get {
                 return ResourceManager.GetString("Xps2ImgNotFount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Yes, Abort and Close.
+        /// </summary>
+        internal static string YesAbortAndClose {
+            get {
+                return ResourceManager.GetString("YesAbortAndClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Yes, Delete Images.
+        /// </summary>
+        internal static string YesDeleteImages {
+            get {
+                return ResourceManager.GetString("YesDeleteImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes, &amp;Resume Conversion.
+        /// </summary>
+        internal static string YesResumeConversion {
+            get {
+                return ResourceManager.GetString("YesResumeConversion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Yes, Stop Conversion.
+        /// </summary>
+        internal static string YesStopConversion {
+            get {
+                return ResourceManager.GetString("YesStopConversion", resourceCulture);
             }
         }
     }

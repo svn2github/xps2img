@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 using Microsoft.WindowsAPICodePack.Dialogs;
+
+using Xps2ImgUI.Utils.UI;
 
 // ReSharper disable CheckNamespace
 
@@ -24,39 +27,68 @@ namespace Windows7.Dialogs
 
     public static class TaskDialogUtils
     {
+        public const DialogResult NotSupported = DialogResult.None;
+
         public static DialogResult Show(IntPtr ownerWindowHandle, string caption, string instructionText, string text, TaskDialogStandardIcon icon, params TaskDialogCommandInfo[] taskDialogCommandInfos)
         {
-            if (!TaskDialog.IsPlatformSupported)
-            {
-                return DialogResult.None;
-            }
+            bool footerCheckBoxChecked;
+            return Show(ownerWindowHandle, caption, instructionText, text, icon, null, out footerCheckBoxChecked, taskDialogCommandInfos);
+        }
 
-            using (var taskDialog = new TaskDialog
+        public static DialogResult Show(IntPtr ownerWindowHandle, string caption, string instructionText, string text, TaskDialogStandardIcon icon, string footerCheckBoxText, out bool footerCheckBoxChecked, params TaskDialogCommandInfo[] taskDialogCommandInfos)
+        {
+            using (new ModalGuard())
             {
-                OwnerWindowHandle = ownerWindowHandle,
-                Caption = caption,
-                InstructionText = instructionText,
-                Text = text,
-                Cancelable = true,
-                Icon = icon
-            })
-            {
-                var taskDialogCommandLinks = new List<TaskDialogCommandLink>();
-                foreach (var taskDialogCommandInfo in taskDialogCommandInfos)
+                if (!TaskDialog.IsPlatformSupported)
                 {
-                    var taskDialogCommandLink = new TaskDialogCommandLink(taskDialogCommandInfo.TaskDialogResult.ToString(), taskDialogCommandInfo.Text, taskDialogCommandInfo.Instruction);
-                    taskDialogCommandLink.Click += CommandLinkClicked;
-                    taskDialog.Controls.Add(taskDialogCommandLink);
+                    footerCheckBoxChecked = false;
+                    return NotSupported;
                 }
 
-                var taskDialogResult = taskDialog.Show();
-
-                foreach (var taskDialogCommandLink in taskDialogCommandLinks)
+                using (var taskDialog = new TaskDialog
                 {
-                    taskDialogCommandLink.Click -= CommandLinkClicked;
-                }
+                    OwnerWindowHandle = ownerWindowHandle,
+                    Caption = caption,
+                    InstructionText = instructionText,
+                    Text = text,
+                    Cancelable = true,
+                    Icon = icon,
+                    FooterCheckBoxText = footerCheckBoxText
+                })
+                {
+                    var taskDialogCommandLinks = new List<TaskDialogCommandLink>();
+                    foreach (var taskDialogCommandLink in taskDialogCommandInfos.Select(taskDialogCommandInfo => new TaskDialogCommandLink(taskDialogCommandInfo.TaskDialogResult.ToString(), taskDialogCommandInfo.Text, taskDialogCommandInfo.Instruction)))
+                    {
+                        taskDialogCommandLink.Click += CommandLinkClicked;
+                        taskDialog.Controls.Add(taskDialogCommandLink);
+                    }
 
-                return taskDialogResult == TaskDialogResult.Cancel ? DialogResult.Cancel : DialogResult.OK;
+                    var taskDialogResult = taskDialog.Show();
+
+                    foreach (var taskDialogCommandLink in taskDialogCommandLinks)
+                    {
+                        taskDialogCommandLink.Click -= CommandLinkClicked;
+                    }
+
+                    footerCheckBoxChecked = taskDialog.FooterCheckBoxChecked ?? false;
+
+                    switch(taskDialogResult)
+                    {
+                        case TaskDialogResult.None:     return DialogResult.None;
+                        case TaskDialogResult.Yes:      return DialogResult.Yes;
+                        case TaskDialogResult.No:       return DialogResult.No;
+                        case TaskDialogResult.Ok:       return DialogResult.OK;
+                        case TaskDialogResult.Cancel:   return DialogResult.Cancel;
+                        case TaskDialogResult.Close:    return DialogResult.Cancel;
+                        case TaskDialogResult.Retry:    return DialogResult.Retry;
+                    }
+
+                    #if DEBUG
+                        throw new InvalidOperationException("Unknown code: " + taskDialogResult);
+                    #else
+                        return NotSupported;
+                    #endif
+                }
             }
         }
 

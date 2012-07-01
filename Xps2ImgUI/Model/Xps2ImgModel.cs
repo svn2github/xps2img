@@ -79,7 +79,7 @@ namespace Xps2ImgUI.Model
         {
             if (_isRunning)
             {
-                throw new InvalidOperationException("Conversion is in progress.");  
+                throw new InvalidOperationException(Resources.Strings.UnexpectedConversionIsInProgress);  
             }
 
             _conversionType = conversionType;
@@ -341,7 +341,7 @@ namespace Xps2ImgUI.Model
             {
                 if (IsResumeMode && !CanResume)
                 {
-                    throw new InvalidOperationException("Resume is not available.");
+                    throw new InvalidOperationException(Resources.Strings.UnexpectedResumeIsNotAvailable);
                 }
 
                 if (!IsResumeMode)
