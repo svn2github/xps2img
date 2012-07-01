@@ -19,6 +19,7 @@ namespace Xps2ImgUI
                                     taskInstruction,
                                     taskText,
                                     error ? TaskDialogStandardIcon.Error : TaskDialogStandardIcon.Warning,
+                                    null,
                                     new TaskDialogCommandInfo(TaskDialogResult.Close, closeText));
 
             if(dialogResult == TaskDialogUtils.NotSupported)
@@ -91,6 +92,7 @@ namespace Xps2ImgUI
                                     TaskDialogStandardIcon.Warning,
                                     Resources.Strings.AlwaysConfirmAndDoNotAskAgain,
                                     out footerCheckBoxChecked,
+                                    null,
                                     new TaskDialogCommandInfo(TaskDialogResult.Ok,      okCommand),
                                     new TaskDialogCommandInfo(TaskDialogResult.Cancel,  Resources.Strings.NoBackToApplication));
 

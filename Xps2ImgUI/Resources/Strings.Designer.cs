@@ -277,11 +277,11 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unknown error.
+        ///   Looks up a localized string similar to No exception details present..
         /// </summary>
-        internal static string NoExceptionMessage {
+        internal static string NoExceptionDetailsPresent {
             get {
-                return ResourceManager.GetString("NoExceptionMessage", resourceCulture);
+                return ResourceManager.GetString("NoExceptionDetailsPresent", resourceCulture);
             }
         }
         
@@ -421,6 +421,24 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Show Less.
+        /// </summary>
+        internal static string ShowLess {
+            get {
+                return ResourceManager.GetString("ShowLess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Show More.
+        /// </summary>
+        internal static string ShowMore {
+            get {
+                return ResourceManager.GetString("ShowMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Specify folder to store images. If not set new folder named as document will be created in folder where document is..
         /// </summary>
         internal static string SpecifyImagesFolder {
@@ -462,6 +480,15 @@ namespace Xps2ImgUI.Resources {
         internal static string UnexpectedConversionIsInProgress {
             get {
                 return ResourceManager.GetString("UnexpectedConversionIsInProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected Error Occured.
+        /// </summary>
+        internal static string UnexpectedErrorOccured {
+            get {
+                return ResourceManager.GetString("UnexpectedErrorOccured", resourceCulture);
             }
         }
         

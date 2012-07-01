@@ -478,6 +478,7 @@ namespace Xps2ImgUI
                                         TaskDialogStandardIcon.Warning,
                                         Resources.Strings.AlwaysConfirmAndDoNotAskAgain,
                                         out footerCheckBoxChecked,
+                                        null,
                                         new TaskDialogCommandInfo(TaskDialogResult.Yes,     Resources.Strings.YesResumeConversion),
                                         new TaskDialogCommandInfo(TaskDialogResult.No,      Resources.Strings.NoStartConversionOver),
                                         new TaskDialogCommandInfo(TaskDialogResult.Cancel,  Resources.Strings.BackToApplication));

@@ -3,15 +3,19 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 
+using Microsoft.WindowsAPICodePack.Dialogs;
+
 using CommandLine;
+
+using Windows7.Dialogs;
 
 using Xps2Img.CommandLine;
 
 using Xps2ImgUI.Model;
-using Xps2ImgUI.Resources;
 using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils.UI;
 
@@ -90,6 +94,9 @@ namespace Xps2ImgUI
         }
         #endif
 
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetActiveWindow();
+
         private static void HandleException(Exception ex)
         {
             #if !DEBUG
@@ -99,16 +106,60 @@ namespace Xps2ImgUI
             }
             #endif
 
-            var exceptionMessage = (ex == null) ? Strings.NoExceptionMessage : ex
-                                                                               #if DEBUG
-                                                                               .ToString();
-                                                                               #else
-                                                                               .Message;
-                                                                               #endif
+            var hasException = ex != null;
+
+            var exceptionMessage = !hasException
+                                    ? Resources.Strings.NoExceptionDetailsPresent
+                                    : ex
+                                    #if DEBUG
+                                    .ToString();
+                                    #else
+                                    .Message;
+                                    #endif
+
+            // ReSharper disable EmptyGeneralCatchClause
 
             using (new ModalGuard())
             {
-                MessageBox.Show(Application.OpenForms.Cast<IWin32Window>().FirstOrDefault(), exceptionMessage, Strings.WindowTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var form = Application.OpenForms.Cast<IWin32Window>().FirstOrDefault();
+
+                var handle = IntPtr.Zero;
+                try
+                {
+                    handle = GetActiveWindow();
+                    if (form != null)
+                    {
+                        handle = form.Handle;
+                    }
+                }
+                catch
+                {
+                }
+
+                var dialogResult = TaskDialogUtils.NotSupported;
+                try
+                {
+                    Action<TaskDialog> beforeShow = taskDialog =>
+                    {
+                        if (hasException)
+                        {
+                            taskDialog.ExpansionMode = TaskDialogExpandedDetailsLocation.ExpandFooter;
+                            taskDialog.DetailsExpandedLabel = Resources.Strings.ShowLess;
+                            taskDialog.DetailsCollapsedLabel = Resources.Strings.ShowMore;
+                            taskDialog.DetailsExpandedText = ex.ToString();
+                        }
+                    };
+
+                    dialogResult = TaskDialogUtils.Show(handle, Resources.Strings.WindowTitle, Resources.Strings.UnexpectedErrorOccured, hasException ? ex.Message : exceptionMessage, TaskDialogStandardIcon.Error, beforeShow, new TaskDialogCommandInfo(TaskDialogResult.Close, Resources.Strings.BackToApplication));
+                }
+                catch
+                {
+                }
+
+                if(dialogResult == TaskDialogUtils.NotSupported)
+                {
+                    MessageBox.Show(form, exceptionMessage, Resources.Strings.WindowTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

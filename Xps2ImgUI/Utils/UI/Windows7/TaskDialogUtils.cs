@@ -29,13 +29,13 @@ namespace Windows7.Dialogs
     {
         public const DialogResult NotSupported = DialogResult.None;
 
-        public static DialogResult Show(IntPtr ownerWindowHandle, string caption, string instructionText, string text, TaskDialogStandardIcon icon, params TaskDialogCommandInfo[] taskDialogCommandInfos)
+        public static DialogResult Show(IntPtr ownerWindowHandle, string caption, string instructionText, string text, TaskDialogStandardIcon icon, Action<TaskDialog> beforeShow, params TaskDialogCommandInfo[] taskDialogCommandInfos)
         {
             bool footerCheckBoxChecked;
-            return Show(ownerWindowHandle, caption, instructionText, text, icon, null, out footerCheckBoxChecked, taskDialogCommandInfos);
+            return Show(ownerWindowHandle, caption, instructionText, text, icon, null, out footerCheckBoxChecked, beforeShow, taskDialogCommandInfos);
         }
 
-        public static DialogResult Show(IntPtr ownerWindowHandle, string caption, string instructionText, string text, TaskDialogStandardIcon icon, string footerCheckBoxText, out bool footerCheckBoxChecked, params TaskDialogCommandInfo[] taskDialogCommandInfos)
+        public static DialogResult Show(IntPtr ownerWindowHandle, string caption, string instructionText, string text, TaskDialogStandardIcon icon, string footerCheckBoxText, out bool footerCheckBoxChecked, Action<TaskDialog> beforeShow, params TaskDialogCommandInfo[] taskDialogCommandInfos)
         {
             using (new ModalGuard())
             {
@@ -61,6 +61,11 @@ namespace Windows7.Dialogs
                     {
                         taskDialogCommandLink.Click += CommandLinkClicked;
                         taskDialog.Controls.Add(taskDialogCommandLink);
+                    }
+
+                    if (beforeShow != null)
+                    {
+                        beforeShow(taskDialog);
                     }
 
                     var taskDialogResult = taskDialog.Show();

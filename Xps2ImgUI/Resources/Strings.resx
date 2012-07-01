@@ -144,9 +144,6 @@
   <data name="SpecifyValue" xml:space="preserve">
     <value>{0} parameter is required.</value>
   </data>
-  <data name="NoExceptionMessage" xml:space="preserve">
-    <value>Unknown error</value>
-  </data>
   <data name="Xps2ImgNotFount" xml:space="preserve">
     <value>{1}{0}{0}Make sure that xps2img.exe utility is present in application folder.</value>
   </data>
@@ -302,5 +299,17 @@
   </data>
   <data name="UnexpectedConversionIsInProgress">
     <value xml:space="preserve">Unexpected: Conversion is in progress.</value>
+  </data>
+  <data name="UnexpectedErrorOccured">
+    <value xml:space="preserve">Unexpected Error Occured</value>
+  </data>
+  <data name="ShowLess">
+    <value xml:space="preserve">&amp;Show Less</value>
+  </data>
+  <data name="ShowMore">
+    <value xml:space="preserve">&amp;Show More</value>
+  </data>
+  <data name="NoExceptionDetailsPresent">
+    <value xml:space="preserve">No exception details present.</value>
   </data>
 </root>

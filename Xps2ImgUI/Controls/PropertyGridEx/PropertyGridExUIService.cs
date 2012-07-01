@@ -46,6 +46,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                                     displayName,
                                     message,
                                     TaskDialogStandardIcon.Error,
+                                    null,
                                     new TaskDialogCommandInfo(TaskDialogResult.Ok, Resources.Strings.ValueEdit), 
                                     new TaskDialogCommandInfo(TaskDialogResult.Cancel, Resources.Strings.ValueRevert));
 
