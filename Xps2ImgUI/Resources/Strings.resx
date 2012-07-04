@@ -315,4 +315,7 @@
   <data name="RememberChoiceAndDoNotAskAgain">
     <value xml:space="preserve">&amp;Remember choice and do not ask again</value>
   </data>
+  <data name="CheckForUpdates">
+    <value xml:space="preserve">Check for Updates</value>
+  </data>
 </root>

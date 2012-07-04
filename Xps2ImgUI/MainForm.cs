@@ -15,6 +15,7 @@ using Xps2ImgUI.Controls;
 using Xps2ImgUI.Controls.PropertyGridEx;
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Settings;
+using Xps2ImgUI.Utils;
 using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI
@@ -189,6 +190,8 @@ namespace Xps2ImgUI
 
             //  Help.
             settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.Help, (s, e) => ShowHelp(),
+                new ToolStripButtonItem(Resources.Strings.CheckForUpdates, (s, e) => modalAction(() => (new HttpUpdateManager()).Check())),
+                new ToolStripButtonItem(),
                 new ToolStripButtonItem(Resources.Strings.About, (s, e) => modalAction(() => new AboutForm().ShowDialog(this)))
             ).Alignment = ToolStripItemAlignment.Right;
         }
