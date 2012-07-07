@@ -51,6 +51,11 @@ namespace Xps2ImgUI.Utils.UI
                 return;
             }
 
+            if (gridItem.Parent != null)
+            {
+                gridItem.Parent.Expanded = true;
+            }
+
             propertyGrid.SelectedGridItem = gridItem;
 
             if (focus)
