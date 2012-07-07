@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-
+using System.Linq;
 using Xps2ImgUI.Converters;
 using Xps2ImgUI.Utils;
 
@@ -12,6 +13,7 @@ namespace Xps2ImgUI.Settings
         private const string CategoryApplication    = "Application";
         private const string CategoryConfirmations  = "Confirmations";
         private const string CategoryConversion     = "Conversion";
+        private const string CategoryUpdates        = "Updates";
 
         public const string DefaultSelectedItem     = "Auto Complete Filenames";
 
@@ -85,6 +87,22 @@ namespace Xps2ImgUI.Settings
         [TypeConverter(typeof(YesNoConverter))]
         public bool SuggestResume { get; set; }
 
+        public enum CheckInterval
+        {
+            Never,
+            Weekly,
+            Monthly
+        }
+
+        [DisplayName("Check for Updates")]
+        [Category(CategoryUpdates)]
+        [Description("Check for updates interval.")]
+        [DefaultValue(CheckInterval.Monthly)]
+        public CheckInterval CheckForUpdates { get; set; }
+
+        [Browsable(false)]
+        public DateTime LastCheckedForUpdates { get; set; }
+
         public Preferences()
         {
             Reset();
@@ -100,24 +118,30 @@ namespace Xps2ImgUI.Settings
             return preferences != null && GetHashCode() == preferences.GetHashCode();
         }
 
+        private IEnumerable<bool> Fields
+        {
+            get
+            {
+                yield return AutoSaveSettings;
+                yield return ClassicLook;
+                yield return ShowElapsedTime;
+                yield return FlashWhenCompleted;
+                yield return ConfirmOnDelete;
+                yield return ConfirmOnExit;
+                yield return ConfirmOnStop;
+                yield return AlwaysResume;
+                yield return SuggestResume;
+                yield return AutoCompleteFilenames;
+                yield return CheckForUpdates == CheckInterval.Never;
+                yield return CheckForUpdates == CheckInterval.Weekly;
+                yield return CheckForUpdates == CheckInterval.Monthly;
+            }
+        }
+
         public override int GetHashCode()
         {
-            var hashCode = 0;
-
-            Action<int> addFlag = p => hashCode |= 1 << p;
-
-            if(AutoSaveSettings)        addFlag(0);
-            if(ClassicLook)             addFlag(1);
-            if(ShowElapsedTime)         addFlag(2);
-            if(FlashWhenCompleted)      addFlag(3);
-            if(ConfirmOnDelete)         addFlag(4);
-            if(ConfirmOnExit)           addFlag(5);
-            if(ConfirmOnStop)           addFlag(6);
-            if(AlwaysResume)            addFlag(7);
-            if(SuggestResume)           addFlag(8);
-            if(AutoCompleteFilenames)   addFlag(9);
-
-            return hashCode;
+            var position = 0;
+            return Fields.Aggregate(0, (current, field) => current | (field ? 1 : 0) << position++);
         }
 
         public static readonly Preferences Default = new Preferences();
