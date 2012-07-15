@@ -35,6 +35,9 @@
             this.labelAbout = new System.Windows.Forms.Label();
             this.checkForUpdatesLinkLabel = new System.Windows.Forms.LinkLabel();
             this.historyLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,7 +75,7 @@
             // siteLinkLabel
             // 
             this.siteLinkLabel.AutoSize = true;
-            this.siteLinkLabel.Location = new System.Drawing.Point(76, 65);
+            this.siteLinkLabel.Location = new System.Drawing.Point(100, 48);
             this.siteLinkLabel.Name = "siteLinkLabel";
             this.siteLinkLabel.Size = new System.Drawing.Size(73, 13);
             this.siteLinkLabel.TabIndex = 1;
@@ -94,26 +97,51 @@
             // checkForUpdatesLinkLabel
             // 
             this.checkForUpdatesLinkLabel.AutoSize = true;
-            this.checkForUpdatesLinkLabel.Location = new System.Drawing.Point(241, 65);
+            this.checkForUpdatesLinkLabel.Location = new System.Drawing.Point(100, 82);
             this.checkForUpdatesLinkLabel.Name = "checkForUpdatesLinkLabel";
             this.checkForUpdatesLinkLabel.Size = new System.Drawing.Size(96, 13);
             this.checkForUpdatesLinkLabel.TabIndex = 5;
             this.checkForUpdatesLinkLabel.TabStop = true;
             this.checkForUpdatesLinkLabel.Text = "Check for Updates";
-            this.checkForUpdatesLinkLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.checkForUpdatesLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.CheckForUpdatesLinkLabelLinkClicked);
             // 
             // historyLinkLabel
             // 
             this.historyLinkLabel.AutoSize = true;
-            this.historyLinkLabel.Location = new System.Drawing.Point(164, 65);
+            this.historyLinkLabel.Location = new System.Drawing.Point(100, 65);
             this.historyLinkLabel.Name = "historyLinkLabel";
-            this.historyLinkLabel.Size = new System.Drawing.Size(65, 13);
+            this.historyLinkLabel.Size = new System.Drawing.Size(109, 13);
             this.historyLinkLabel.TabIndex = 4;
             this.historyLinkLabel.TabStop = true;
-            this.historyLinkLabel.Text = "View History";
-            this.historyLinkLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.historyLinkLabel.Text = "View Revision History";
             this.historyLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.HistoryLinkLabelLinkClicked);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(87, 48);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(14, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "●";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(87, 65);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(14, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "●";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(87, 82);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(14, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "●";
             // 
             // AboutForm
             // 
@@ -122,6 +150,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.closeButton;
             this.ClientSize = new System.Drawing.Size(347, 140);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.checkForUpdatesLinkLabel);
             this.Controls.Add(this.historyLinkLabel);
             this.Controls.Add(this.siteLinkLabel);
@@ -153,5 +184,8 @@
         private System.Windows.Forms.Label labelAbout;
         private System.Windows.Forms.LinkLabel checkForUpdatesLinkLabel;
         private System.Windows.Forms.LinkLabel historyLinkLabel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
