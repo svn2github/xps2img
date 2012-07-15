@@ -6,9 +6,12 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+
 using Microsoft.WindowsAPICodePack.Dialogs;
+
 using Windows7.DesktopIntegration;
 using Windows7.Dialogs;
+
 using Xps2Img.CommandLine;
 
 using Xps2ImgUI.Controls;
@@ -29,6 +32,9 @@ namespace Xps2ImgUI
             Model = new Xps2ImgModel();
 
             _resumeToolStripMenuItemPosition = convertContextMenuStrip.Items.OfType<ToolStripMenuItem>().ToList().IndexOf(resumeToolStripMenuItem);
+
+            _updateManager.CheckCompleted += (s, e) => this.InvokeIfNeeded(() => RegisterIdleHandler(UpdateCheckCompleted));
+            _updateManager.DownloadCompleted += (s, e) => this.InvokeIfNeeded(() => RegisterIdleHandler(UpdateDownloadCompleted));
         }
 
         private void OptionsObjectChanged(object sender, EventArgs e)
@@ -189,11 +195,18 @@ namespace Xps2ImgUI
             );
 
             //  Help.
-            settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.Help, (s, e) => ShowHelp(),
-                new ToolStripButtonItem(Resources.Strings.CheckForUpdates, (s, e) => modalAction(() => (new HttpUpdateManager()).Check())),
+            _updatesToolStripButtonItem = new ToolStripButtonItem(Resources.Strings.CheckForUpdates, (s, e) => CheckForUpdates(false));
+
+            settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.Help, (s, e) => ShowHelp(), _updatesToolStripButtonItem,
                 new ToolStripButtonItem(),
                 new ToolStripButtonItem(Resources.Strings.About, (s, e) => modalAction(() => new AboutForm().ShowDialog(this)))
             ).Alignment = ToolStripItemAlignment.Right;
+        }
+
+        private void CheckForUpdates(bool silent)
+        {
+            EnableUpdateCheck(false);
+            _updateManager.CheckAsync(AssemblyInfo.FileVersion, silent);
         }
 
         private static void CopyToClipboard(string str)
@@ -488,7 +501,7 @@ namespace Xps2ImgUI
 
                 if (dialogResult == TaskDialogUtils.NotSupported)
                 {
-                    dialogResult = ShowMessageBox(Resources.Strings.ResumeLastConversionSuggestion, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                    dialogResult = ShowMessageBox(Resources.Strings.ResumeLastConversionSuggestion, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 }
 
                 if (dialogResult == DialogResult.Cancel)
@@ -746,10 +759,13 @@ namespace Xps2ImgUI
         private string _uiCommandLine;
 
         private ToolStripItem _resetToolStripButton;
+        private ToolStripButtonItem _updatesToolStripButtonItem;
         private ToolStripSplitButton _loadToolStripButton;
         private ToolStripItem _showCommandLineToolStripButton;
 
         private ThumbButtonManager _thumbButtonManager;
         private ThumbButton _thumbButton;
+
+        private readonly UpdateManager _updateManager = new UpdateManager();
     }
 }

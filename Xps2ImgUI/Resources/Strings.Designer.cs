@@ -124,7 +124,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check for Updates.
+        ///   Looks up a localized string similar to Check for &amp;Updates.
         /// </summary>
         internal static string CheckForUpdates {
             get {
@@ -214,6 +214,24 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Download Failed.
+        /// </summary>
+        internal static string DownloadFailed {
+            get {
+                return ResourceManager.GetString("DownloadFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download failed. Application Web site will be opened..
+        /// </summary>
+        internal static string DownloadFailedWarning {
+            get {
+                return ResourceManager.GetString("DownloadFailedWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Edit Parameter.
         /// </summary>
         internal static string EditParameter {
@@ -277,6 +295,24 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Update Available.
+        /// </summary>
+        internal static string NewUpdateAvailable {
+            get {
+                return ResourceManager.GetString("NewUpdateAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New update is available and will be downloaded and installed..
+        /// </summary>
+        internal static string NewUpdateIsAvailable {
+            get {
+                return ResourceManager.GetString("NewUpdateIsAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;No, Go Back to Application.
         /// </summary>
         internal static string NoBackToApplication {
@@ -295,7 +331,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No, &amp;Start Conversion Over.
+        ///   Looks up a localized string similar to &amp;No, Start Conversion Over.
         /// </summary>
         internal static string NoStartConversionOver {
             get {
@@ -520,6 +556,33 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is no new version available at this time..
+        /// </summary>
+        internal static string UpdateNoNewVersionAvailable {
+            get {
+                return ResourceManager.GetString("UpdateNoNewVersionAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updates Check Failed.
+        /// </summary>
+        internal static string UpdatesCheckFailed {
+            get {
+                return ResourceManager.GetString("UpdatesCheckFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check for updates failed. Application Web site will be opened..
+        /// </summary>
+        internal static string UpdatesCheckFailedWarning {
+            get {
+                return ResourceManager.GetString("UpdatesCheckFailedWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Validation Error.
         /// </summary>
         internal static string ValidationError {
@@ -583,11 +646,38 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Would you like to check for updates manually?.
+        /// </summary>
+        internal static string WouldYouLikeToCheckForUpdatesManually {
+            get {
+                return ResourceManager.GetString("WouldYouLikeToCheckForUpdatesManually", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Would you like to delete images?.
         /// </summary>
         internal static string WouldYouLikeToDeleteImages {
             get {
                 return ResourceManager.GetString("WouldYouLikeToDeleteImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to download and install it?.
+        /// </summary>
+        internal static string WouldYouLikeToDownloadAndInstall {
+            get {
+                return ResourceManager.GetString("WouldYouLikeToDownloadAndInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to download update manually?.
+        /// </summary>
+        internal static string WouldYouLikeToDownloadUpdateManually {
+            get {
+                return ResourceManager.GetString("WouldYouLikeToDownloadUpdateManually", resourceCulture);
             }
         }
         
@@ -637,6 +727,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Yes, Check for Updates Manually.
+        /// </summary>
+        internal static string YesCheckForUpdatesManually {
+            get {
+                return ResourceManager.GetString("YesCheckForUpdatesManually", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Yes, Delete Images.
         /// </summary>
         internal static string YesDeleteImages {
@@ -646,7 +745,25 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Yes, &amp;Resume Conversion.
+        ///   Looks up a localized string similar to &amp;Yes, Download and Install.
+        /// </summary>
+        internal static string YesDownloadAndInstall {
+            get {
+                return ResourceManager.GetString("YesDownloadAndInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Yes, Download Update Manually.
+        /// </summary>
+        internal static string YesDownloadManually {
+            get {
+                return ResourceManager.GetString("YesDownloadManually", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Yes, Resume Conversion.
         /// </summary>
         internal static string YesResumeConversion {
             get {

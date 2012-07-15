@@ -24,11 +24,11 @@ namespace Xps2ImgUI
 
             if(dialogResult == TaskDialogUtils.NotSupported)
             {
-                ShowMessageBox(text, MessageBoxButtons.OK, error ? MessageBoxIcon.Error : MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                ShowMessageBox(text, MessageBoxButtons.OK, error ? MessageBoxIcon.Error : MessageBoxIcon.Warning);
             }
         }
 
-        private DialogResult ShowMessageBox(string text, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton messageBoxDefaultButton)
+        private DialogResult ShowMessageBox(string text, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton messageBoxDefaultButton = MessageBoxDefaultButton.Button1)
         {
             if ((Model.IsProgressStarted && ShutdownWhenCompleted) || IsDisposed)
             {
@@ -41,19 +41,21 @@ namespace Xps2ImgUI
             }
         }
 
-        private bool ShowConfirmationMessageBox(string text)
+        private bool ShowConfirmationMessageBox(string text, MessageBoxIcon messageBoxIcon = MessageBoxIcon.Exclamation)
         {
+            var taskDialogStandardIcon = TaskDialogStandardIcon.Warning;
+
             Action noConfirmation  = null;
 
             var footerCheckBoxChecked = false;
 
             string taskText = null;
-            string taskIntruction = null;
+            string taskInstruction = null;
             string okCommand = null;
 
             if(text == Resources.Strings.DeleteConvertedImagesConfirmation)
             {
-                taskIntruction  = Resources.Strings.DeleteImagesConfirmation;
+                taskInstruction = Resources.Strings.DeleteImagesConfirmation;
                 taskText        = Resources.Strings.WouldYouLikeToDeleteImages;
                 okCommand       = Resources.Strings.YesDeleteImages;
                 noConfirmation  = () => _preferences.ConfirmOnDelete = false;
@@ -61,7 +63,7 @@ namespace Xps2ImgUI
             else
             if(text == Resources.Strings.ConversionStopConfirmation)
             {
-                taskIntruction  = Resources.Strings.StopConversionConfirmation;
+                taskInstruction = Resources.Strings.StopConversionConfirmation;
                 taskText        = Resources.Strings.WouldYouLikeToStopConversion;
                 okCommand       = Resources.Strings.YesStopConversion;
                 noConfirmation  = () => _preferences.ConfirmOnStop = false;
@@ -69,12 +71,34 @@ namespace Xps2ImgUI
             else
             if(text == Resources.Strings.ClosingConfirmation)
             {
-                taskIntruction  = Resources.Strings.CloseApplicationConfirmation;
+                taskInstruction = Resources.Strings.CloseApplicationConfirmation;
                 taskText        = Resources.Strings.WouldYouLikeToAbortConversionAndCloseApplication;
                 okCommand       = Resources.Strings.YesAbortAndClose;
                 noConfirmation  = () => _preferences.ConfirmOnExit = false;
             }
-
+            else
+            if (text == Resources.Strings.UpdatesCheckFailedWarning)
+            {
+                taskInstruction = Resources.Strings.UpdatesCheckFailed;
+                taskText        = Resources.Strings.WouldYouLikeToCheckForUpdatesManually;
+                okCommand       = Resources.Strings.YesCheckForUpdatesManually;
+            }
+            else
+            if (text == Resources.Strings.DownloadFailedWarning)
+            {
+                taskInstruction = Resources.Strings.DownloadFailed;
+                taskText        = Resources.Strings.WouldYouLikeToDownloadUpdateManually;
+                okCommand       = Resources.Strings.YesDownloadManually;
+            }
+            else
+            if (text == Resources.Strings.NewUpdateIsAvailable)
+            {
+                taskInstruction = Resources.Strings.NewUpdateAvailable;
+                taskText        = Resources.Strings.WouldYouLikeToDownloadAndInstall;
+                okCommand       = Resources.Strings.YesDownloadAndInstall;
+                taskDialogStandardIcon = TaskDialogStandardIcon.Information;
+            }
+            
             #if DEBUG
             if (String.IsNullOrEmpty(taskText))
             {
@@ -87,20 +111,24 @@ namespace Xps2ImgUI
                                 : TaskDialogUtils.Show(
                                     Handle,
                                     Resources.Strings.WindowTitle,
-                                    taskIntruction,
+                                    taskInstruction,
                                     taskText,
-                                    TaskDialogStandardIcon.Warning,
-                                    Resources.Strings.AlwaysConfirmAndDoNotAskAgain,
+                                    taskDialogStandardIcon,
+                                    noConfirmation == null ? null : Resources.Strings.AlwaysConfirmAndDoNotAskAgain,
                                     out footerCheckBoxChecked,
                                     null,
                                     new TaskDialogCommandInfo(TaskDialogResult.Ok,      okCommand),
                                     new TaskDialogCommandInfo(TaskDialogResult.Cancel,  Resources.Strings.NoBackToApplication));
 
-            var result = DialogResult.OK == (dialogResult != TaskDialogUtils.NotSupported ? dialogResult : ShowMessageBox(text + Resources.Strings.PressToProceedMessage, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2));
+            var result = DialogResult.OK == (
+                dialogResult != TaskDialogUtils.NotSupported
+                    ? dialogResult
+                    : ShowMessageBox(text + Resources.Strings.PressToProceedMessage, MessageBoxButtons.OKCancel, messageBoxIcon, MessageBoxDefaultButton.Button2)
+            );
 
-            if (result && footerCheckBoxChecked)
+            if (result && footerCheckBoxChecked && noConfirmation != null)
             {
-                noConfirmation ();
+                noConfirmation();
             }
 
             return result;

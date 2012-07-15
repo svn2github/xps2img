@@ -47,6 +47,7 @@ namespace Xps2ImgUI
         private void HistoryButtonClick(object sender, EventArgs e)
         {
             ShowHelp();
+            Close();
         }
 
         private void AboutFormHelpButtonClicked(object sender, CancelEventArgs e)
