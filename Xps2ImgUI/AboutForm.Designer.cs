@@ -33,7 +33,8 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.siteLinkLabel = new System.Windows.Forms.LinkLabel();
             this.labelAbout = new System.Windows.Forms.Label();
-            this.historyButton = new System.Windows.Forms.Button();
+            this.checkForUpdatesLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.historyLinkLabel = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -89,16 +90,29 @@
             this.labelAbout.TabIndex = 2;
             this.labelAbout.Text = "labelAbout                                                             line2";
             // 
-            // historyButton
+            // checkForUpdatesLinkLabel
             // 
-            this.historyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.historyButton.Location = new System.Drawing.Point(183, 105);
-            this.historyButton.Name = "historyButton";
-            this.historyButton.Size = new System.Drawing.Size(75, 23);
-            this.historyButton.TabIndex = 2;
-            this.historyButton.Text = "&History...";
-            this.historyButton.UseVisualStyleBackColor = true;
-            this.historyButton.Click += new System.EventHandler(this.HistoryButtonClick);
+            this.checkForUpdatesLinkLabel.AutoSize = true;
+            this.checkForUpdatesLinkLabel.Location = new System.Drawing.Point(241, 65);
+            this.checkForUpdatesLinkLabel.Name = "checkForUpdatesLinkLabel";
+            this.checkForUpdatesLinkLabel.Size = new System.Drawing.Size(96, 13);
+            this.checkForUpdatesLinkLabel.TabIndex = 5;
+            this.checkForUpdatesLinkLabel.TabStop = true;
+            this.checkForUpdatesLinkLabel.Text = "Check for Updates";
+            this.checkForUpdatesLinkLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.checkForUpdatesLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.CheckForUpdatesLinkLabelLinkClicked);
+            // 
+            // historyLinkLabel
+            // 
+            this.historyLinkLabel.AutoSize = true;
+            this.historyLinkLabel.Location = new System.Drawing.Point(192, 65);
+            this.historyLinkLabel.Name = "historyLinkLabel";
+            this.historyLinkLabel.Size = new System.Drawing.Size(39, 13);
+            this.historyLinkLabel.TabIndex = 4;
+            this.historyLinkLabel.TabStop = true;
+            this.historyLinkLabel.Text = "History";
+            this.historyLinkLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.historyLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.HistoryLinkLabelLinkClicked);
             // 
             // AboutForm
             // 
@@ -107,11 +121,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.closeButton;
             this.ClientSize = new System.Drawing.Size(347, 140);
+            this.Controls.Add(this.checkForUpdatesLinkLabel);
+            this.Controls.Add(this.historyLinkLabel);
             this.Controls.Add(this.siteLinkLabel);
             this.Controls.Add(this.labelAbout);
             this.Controls.Add(this.labelCopyright);
             this.Controls.Add(this.iconPictureBox);
-            this.Controls.Add(this.historyButton);
             this.Controls.Add(this.closeButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.HelpButton = true;
@@ -135,6 +150,7 @@
         private System.Windows.Forms.Label labelCopyright;
         private System.Windows.Forms.LinkLabel siteLinkLabel;
         private System.Windows.Forms.Label labelAbout;
-        private System.Windows.Forms.Button historyButton;
+        private System.Windows.Forms.LinkLabel checkForUpdatesLinkLabel;
+        private System.Windows.Forms.LinkLabel historyLinkLabel;
     }
 }

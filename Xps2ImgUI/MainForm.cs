@@ -195,17 +195,27 @@ namespace Xps2ImgUI
             );
 
             //  Help.
-            _updatesToolStripButtonItem = new ToolStripButtonItem(Resources.Strings.CheckForUpdates, (s, e) => CheckForUpdates(false));
+            _updatesToolStripButtonItem = new ToolStripButtonItem(Resources.Strings.CheckForUpdates, (s, e) => CheckForUpdates());
 
             settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.Help, (s, e) => ShowHelp(), _updatesToolStripButtonItem,
                 new ToolStripButtonItem(),
-                new ToolStripButtonItem(Resources.Strings.About, (s, e) => modalAction(() => new AboutForm().ShowDialog(this)))
-            ).Alignment = ToolStripItemAlignment.Right;
+                new ToolStripButtonItem(Resources.Strings.About,
+                (s, e) => modalAction(() =>
+                {
+                    var aboutForm = new AboutForm();
+                    aboutForm.CheckForUpdatesEnabled = CheckForUpdatesEnabled;
+                    aboutForm.ShowDialog(this);
+                    if (aboutForm.CheckForUpdates)
+                    {
+                        CheckForUpdates();
+                    }
+                }
+            ))).Alignment = ToolStripItemAlignment.Right;
         }
 
-        private void CheckForUpdates(bool silent)
+        private void CheckForUpdates(bool silent = false)
         {
-            EnableUpdateCheck(false);
+            CheckForUpdatesEnabled = false;
             _updateManager.CheckAsync(AssemblyInfo.FileVersion, silent);
         }
 

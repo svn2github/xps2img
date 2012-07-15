@@ -30,6 +30,8 @@ namespace Xps2ImgUI
 
             Text = String.Format(Text, Resources.Strings.WindowTitle, AssemblyInfo.AssemblyVersion);
 
+            checkForUpdatesLinkLabel.Enabled = CheckForUpdatesEnabled;
+
             base.OnLoad(e);
         }
 
@@ -44,12 +46,6 @@ namespace Xps2ImgUI
             Close();
         }
 
-        private void HistoryButtonClick(object sender, EventArgs e)
-        {
-            ShowHelp();
-            Close();
-        }
-
         private void AboutFormHelpButtonClicked(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
@@ -60,5 +56,20 @@ namespace Xps2ImgUI
         {
             Help.ShowHelp(this, Program.HelpFile, HelpNavigator.TopicId, Program.HelpTopicHistory);
         }
+
+        private void HistoryLinkLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ShowHelp();
+            Close();
+        }
+
+        private void CheckForUpdatesLinkLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            CheckForUpdates = true;
+            Close();
+        }
+
+        public bool CheckForUpdatesEnabled { get; set; }
+        public bool CheckForUpdates { get; private set; }
     }
 }

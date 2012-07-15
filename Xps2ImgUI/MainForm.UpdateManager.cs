@@ -8,9 +8,10 @@ namespace Xps2ImgUI
 {
     public partial class MainForm
     {
-        private void EnableUpdateCheck(bool enabled)
+        private bool CheckForUpdatesEnabled
         {
-            _updatesToolStripButtonItem.ToolStripItem.Enabled = enabled;
+            set { _updatesToolStripButtonItem.ToolStripItem.Enabled = value; }
+            get { return _updatesToolStripButtonItem.ToolStripItem.Enabled; }
         }
 
         private void UpdateCheckCompleted(object sender, EventArgs e)
@@ -23,7 +24,7 @@ namespace Xps2ImgUI
             var enableUpdateCheck = true;
 
             // ReSharper disable AccessToModifiedClosure
-            using (new DisposableActions(() => EnableUpdateCheck(enableUpdateCheck)))
+            using (new DisposableActions(() => CheckForUpdatesEnabled = enableUpdateCheck))
             // ReSharper restore AccessToModifiedClosure
             {
                 if (_updateManager.Failed)
@@ -59,7 +60,7 @@ namespace Xps2ImgUI
                 return;
             }
 
-            using (new DisposableActions(() => EnableUpdateCheck(true)))
+            using (new DisposableActions(() => CheckForUpdatesEnabled = true))
             {
                 if (_updateManager.Failed)
                 {
