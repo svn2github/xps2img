@@ -55,12 +55,12 @@ namespace Xps2ImgUI
         private void ShowHelp()
         {
             Help.ShowHelp(this, Program.HelpFile, HelpNavigator.TopicId, Program.HelpTopicHistory);
+            Close();
         }
 
         private void HistoryLinkLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ShowHelp();
-            Close();
         }
 
         private void CheckForUpdatesLinkLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
