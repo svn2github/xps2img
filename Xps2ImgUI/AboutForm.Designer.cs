@@ -74,10 +74,11 @@
             this.siteLinkLabel.AutoSize = true;
             this.siteLinkLabel.Location = new System.Drawing.Point(76, 65);
             this.siteLinkLabel.Name = "siteLinkLabel";
-            this.siteLinkLabel.Size = new System.Drawing.Size(105, 13);
+            this.siteLinkLabel.Size = new System.Drawing.Size(73, 13);
             this.siteLinkLabel.TabIndex = 1;
             this.siteLinkLabel.TabStop = true;
-            this.siteLinkLabel.Text = "http://xps2img.sf.net";
+            this.siteLinkLabel.Tag = "";
+            this.siteLinkLabel.Text = "Visit Web Site";
             this.siteLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.SiteLinkLabelLinkClicked);
             // 
             // labelAbout
@@ -105,12 +106,12 @@
             // historyLinkLabel
             // 
             this.historyLinkLabel.AutoSize = true;
-            this.historyLinkLabel.Location = new System.Drawing.Point(192, 65);
+            this.historyLinkLabel.Location = new System.Drawing.Point(164, 65);
             this.historyLinkLabel.Name = "historyLinkLabel";
-            this.historyLinkLabel.Size = new System.Drawing.Size(39, 13);
+            this.historyLinkLabel.Size = new System.Drawing.Size(65, 13);
             this.historyLinkLabel.TabIndex = 4;
             this.historyLinkLabel.TabStop = true;
-            this.historyLinkLabel.Text = "History";
+            this.historyLinkLabel.Text = "View History";
             this.historyLinkLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.historyLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.HistoryLinkLabelLinkClicked);
             // 

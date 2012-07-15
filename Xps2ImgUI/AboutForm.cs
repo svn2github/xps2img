@@ -42,7 +42,7 @@ namespace Xps2ImgUI
 
         private void SiteLinkLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Explorer.ShellExecute(((Control)sender).Text);
+            Explorer.ShellExecute(AssemblyInfo.Company);
             Close();
         }
 
