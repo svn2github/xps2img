@@ -77,11 +77,6 @@ namespace Xps2ImgUI.Utils
 
         private void Check(string version, bool useProxy)
         {
-            if (HasUpdate)
-            {
-                return;
-            }
-
             _hasUpdate = false;
             _downloadUrl = null;
             _exception = null;
