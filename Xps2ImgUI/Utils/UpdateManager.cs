@@ -26,7 +26,7 @@ namespace Xps2ImgUI.Utils
         public bool HasUpdate
         {
             set { _hasUpdate = value; }
-            get { return _hasUpdate && !Failed; }
+            get { return _hasUpdate; }
         }
 
         public bool Failed
@@ -169,7 +169,6 @@ namespace Xps2ImgUI.Utils
                 // ReSharper restore EmptyGeneralCatchClause
                 {
                 }
-                _downloadedFile = null;
                 _exception = ex;
             }
         }
