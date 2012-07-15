@@ -97,6 +97,18 @@ namespace Windows7.Dialogs
             }
         }
 
+        public static void AddExceptionDetails(TaskDialog taskDialog, Exception ex, string showLess, string showMore)
+        {
+            if (ex == null)
+            {
+                return;
+            }
+            taskDialog.ExpansionMode = TaskDialogExpandedDetailsLocation.ExpandFooter;
+            taskDialog.DetailsExpandedLabel = showLess;
+            taskDialog.DetailsCollapsedLabel = showMore;
+            taskDialog.DetailsExpandedText = ex.ToString();
+        }
+        
         private static void CommandLinkClicked(object sender, EventArgs e)
         {
             var taskDialogCommandLink = (TaskDialogCommandLink) sender;

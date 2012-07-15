@@ -28,7 +28,7 @@ namespace Xps2ImgUI
             {
                 if (_updateManager.Failed)
                 {
-                    if (!_updateManager.Silent && ShowConfirmationMessageBox(Resources.Strings.UpdatesCheckFailedWarning))
+                    if (!_updateManager.Silent && ShowConfirmationMessageBox(Resources.Strings.UpdatesCheckFailedWarning, _updateManager.Exception))
                     {
                         Explorer.ShellExecute(UpdateManager.ManualCheckUrl);
                     }
@@ -37,7 +37,7 @@ namespace Xps2ImgUI
 
                 if (_updateManager.HasUpdate)
                 {
-                    if (ShowConfirmationMessageBox(Resources.Strings.NewUpdateIsAvailable, MessageBoxIcon.Information))
+                    if (ShowConfirmationMessageBox(Resources.Strings.NewUpdateIsAvailable, null, MessageBoxIcon.Information))
                     {
                         enableUpdateCheck = false;
                         _updateManager.DownloadAsync();
@@ -63,7 +63,7 @@ namespace Xps2ImgUI
             {
                 if (_updateManager.Failed)
                 {
-                    if (ShowConfirmationMessageBox(Resources.Strings.DownloadFailedWarning))
+                    if (ShowConfirmationMessageBox(Resources.Strings.DownloadFailedWarning, _updateManager.Exception))
                     {
                         Explorer.ShellExecute(UpdateManager.ManualDownloadUrl);
                     }

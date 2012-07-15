@@ -106,9 +106,7 @@ namespace Xps2ImgUI
             }
             #endif
 
-            var hasException = ex != null;
-
-            var exceptionMessage = !hasException
+            var exceptionMessage = ex == null
                                     ? Resources.Strings.NoExceptionDetailsPresent
                                     : ex
                                     #if DEBUG
@@ -139,18 +137,13 @@ namespace Xps2ImgUI
                 var dialogResult = TaskDialogUtils.NotSupported;
                 try
                 {
-                    Action<TaskDialog> beforeShow = taskDialog =>
-                    {
-                        if (hasException)
-                        {
-                            taskDialog.ExpansionMode = TaskDialogExpandedDetailsLocation.ExpandFooter;
-                            taskDialog.DetailsExpandedLabel = Resources.Strings.ShowLess;
-                            taskDialog.DetailsCollapsedLabel = Resources.Strings.ShowMore;
-                            taskDialog.DetailsExpandedText = ex.ToString();
-                        }
-                    };
-
-                    dialogResult = TaskDialogUtils.Show(handle, Resources.Strings.WindowTitle, Resources.Strings.UnexpectedErrorOccured, hasException ? ex.Message : exceptionMessage, TaskDialogStandardIcon.Error, beforeShow, new TaskDialogCommandInfo(TaskDialogResult.Close, Resources.Strings.BackToApplication));
+                    dialogResult = TaskDialogUtils.Show(handle,
+                        Resources.Strings.WindowTitle,
+                        Resources.Strings.UnexpectedErrorOccured,
+                        ex != null ? ex.Message : exceptionMessage,
+                        TaskDialogStandardIcon.Error,
+                        t => MainForm.AddExceptionDetails(t, ex),
+                        new TaskDialogCommandInfo(TaskDialogResult.Close, Resources.Strings.BackToApplication));
                 }
                 catch
                 {

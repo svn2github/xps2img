@@ -41,7 +41,7 @@ namespace Xps2ImgUI
             }
         }
 
-        private bool ShowConfirmationMessageBox(string text, MessageBoxIcon messageBoxIcon = MessageBoxIcon.Exclamation)
+        private bool ShowConfirmationMessageBox(string text, Exception ex = null, MessageBoxIcon messageBoxIcon = MessageBoxIcon.Exclamation)
         {
             var taskDialogStandardIcon = TaskDialogStandardIcon.Warning;
 
@@ -116,7 +116,7 @@ namespace Xps2ImgUI
                                     taskDialogStandardIcon,
                                     noConfirmation == null ? null : Resources.Strings.AlwaysConfirmAndDoNotAskAgain,
                                     out footerCheckBoxChecked,
-                                    null,
+                                    t => AddExceptionDetails(t, ex),
                                     new TaskDialogCommandInfo(TaskDialogResult.Ok,      okCommand),
                                     new TaskDialogCommandInfo(TaskDialogResult.Cancel,  Resources.Strings.NoBackToApplication));
 
@@ -132,6 +132,11 @@ namespace Xps2ImgUI
             }
 
             return result;
+        }
+
+        public static void AddExceptionDetails(TaskDialog taskDialog, Exception ex)
+        {
+            TaskDialogUtils.AddExceptionDetails(taskDialog, ex, Resources.Strings.ShowLess, Resources.Strings.ShowMore);
         }
     }
 }

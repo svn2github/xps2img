@@ -21,6 +21,8 @@ namespace Xps2ImgUI.Utils
         private const string VersionGroup       = "version";
         private const string VersionCheck       = @"/Releases/xps2img[^-]*-(?<version>(\.?\d+){4})";
 
+        private readonly string _downloadFolder = String.Format("xps2img-update-{0}", Guid.NewGuid().ToString().Split("-".ToCharArray()).First());
+
         public bool HasUpdate
         {
             set { _hasUpdate = value; }
@@ -63,6 +65,7 @@ namespace Xps2ImgUI.Utils
             Check(version, true);
             if (Failed)
             {
+                Sleep();
                 Check(version, false);
             }
 
@@ -125,6 +128,7 @@ namespace Xps2ImgUI.Utils
             Download(true);
             if (Failed)
             {
+                Sleep();
                 Download(false);
             }
             if (DownloadCompleted != null)
@@ -148,7 +152,14 @@ namespace Xps2ImgUI.Utils
                     {
                         webClient.Proxy = GetProxy();
                     }
-                    _downloadedFile = Path.GetTempFileName();
+
+                    var downloadFolder = Path.Combine(Path.GetTempPath(), _downloadFolder);
+                    Directory.CreateDirectory(downloadFolder);
+
+                    // ReSharper disable AssignNullToNotNullAttribute
+                    _downloadedFile = Path.Combine(downloadFolder, Path.GetFileName(_downloadUrl));
+                    // ReSharper restore AssignNullToNotNullAttribute
+
                     webClient.DownloadFile(_downloadUrl, _downloadedFile);
                 }
             }
@@ -205,6 +216,11 @@ namespace Xps2ImgUI.Utils
             var proxy = WebRequest.GetSystemWebProxy();
             proxy.Credentials = CredentialCache.DefaultCredentials;
             return proxy;
+        }
+
+        private static void Sleep()
+        {
+            Thread.Sleep(1000);
         }
 
         private volatile bool _hasUpdate;

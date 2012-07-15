@@ -346,10 +346,10 @@
     <value xml:space="preserve">&amp;Yes, Download Update Manually</value>
   </data>
   <data name="NewUpdateIsAvailable">
-    <value xml:space="preserve">New update is available and will be downloaded and installed.</value>
+    <value xml:space="preserve">New version is available and will be downloaded and installed.</value>
   </data>
   <data name="NewUpdateAvailable">
-    <value xml:space="preserve">New Update Available</value>
+    <value xml:space="preserve">New Version Available</value>
   </data>
   <data name="WouldYouLikeToDownloadAndInstall">
     <value xml:space="preserve">Would you like to download and install it?</value>
