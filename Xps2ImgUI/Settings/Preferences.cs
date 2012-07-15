@@ -101,7 +101,27 @@ namespace Xps2ImgUI.Settings
         public CheckInterval CheckForUpdates { get; set; }
 
         [Browsable(false)]
-        public DateTime LastCheckedForUpdates { get; set; }
+        [DefaultValue(null)]
+        public DateTime? LastCheckedForUpdates { get; set; }
+
+        [Browsable(false)]
+        public bool ShouldCheckForUpdates
+        {
+            get
+            {
+                return (CheckForUpdates != CheckInterval.Never) &&
+                       (
+                           !LastCheckedForUpdates.HasValue ||
+                           (
+                               (
+                                   CheckForUpdates == CheckInterval.Weekly
+                                       ? LastCheckedForUpdates.Value.AddDays(7)
+                                       : LastCheckedForUpdates.Value.AddMonths(1)
+                               ) <= DateTime.UtcNow
+                           )
+                       );
+            }
+        }
 
         public Preferences()
         {
@@ -110,7 +130,9 @@ namespace Xps2ImgUI.Settings
 
         public void Reset()
         {
+            var lastCheckedForUpdates = LastCheckedForUpdates;
             ReflectionUtils.SetDefaultValues(this);
+            LastCheckedForUpdates = lastCheckedForUpdates;
         }
 
         public bool Equals(Preferences preferences)

@@ -14,6 +14,19 @@ namespace Xps2ImgUI
             get { return _updatesToolStripButtonItem.ToolStripItem.Enabled; }
         }
 
+        private void CheckForUpdates(bool periodicUpdatesCheck = false)
+        {
+            if (periodicUpdatesCheck && !_preferences.ShouldCheckForUpdates)
+            {
+                return;
+            }
+
+            CheckForUpdatesEnabled = false;
+
+            _preferences.LastCheckedForUpdates = DateTime.UtcNow;
+            _updateManager.CheckAsync(AssemblyInfo.FileVersion, periodicUpdatesCheck);
+        }
+
         private void UpdateCheckCompleted(object sender, EventArgs e)
         {
             if (WaitIdle(UpdateCheckCompleted))

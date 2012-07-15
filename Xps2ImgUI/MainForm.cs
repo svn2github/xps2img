@@ -62,6 +62,8 @@ namespace Xps2ImgUI
             
             FocusFirstRequiredOption(null);
 
+            CheckForUpdates(true);
+
             base.OnLoad(e);
         }
 
@@ -202,8 +204,7 @@ namespace Xps2ImgUI
                 new ToolStripButtonItem(Resources.Strings.About,
                 (s, e) => modalAction(() =>
                 {
-                    var aboutForm = new AboutForm();
-                    aboutForm.CheckForUpdatesEnabled = CheckForUpdatesEnabled;
+                    var aboutForm = new AboutForm { CheckForUpdatesEnabled = CheckForUpdatesEnabled };
                     aboutForm.ShowDialog(this);
                     if (aboutForm.CheckForUpdates)
                     {
@@ -211,12 +212,6 @@ namespace Xps2ImgUI
                     }
                 }
             ))).Alignment = ToolStripItemAlignment.Right;
-        }
-
-        private void CheckForUpdates(bool silent = false)
-        {
-            CheckForUpdatesEnabled = false;
-            _updateManager.CheckAsync(AssemblyInfo.FileVersion, silent);
         }
 
         private static void CopyToClipboard(string str)
