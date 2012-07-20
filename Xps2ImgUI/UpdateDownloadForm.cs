@@ -2,6 +2,7 @@
 using System.Net;
 using System.Windows.Forms;
 using System.ComponentModel;
+
 using Xps2ImgUI.Utils;
 using Xps2ImgUI.Utils.UI;
 
@@ -60,7 +61,7 @@ namespace Xps2ImgUI
             Text = String.Format(_textFormat, percent);
         }
 
-        private bool _stopDownload { get; set; }
+        private bool _stopDownload;
 
         protected override void OnClosing(CancelEventArgs e)
         {

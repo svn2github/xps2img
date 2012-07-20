@@ -38,14 +38,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.downloadProgressBar.Location = new System.Drawing.Point(9, 9);
             this.downloadProgressBar.Name = "downloadProgressBar";
-            this.downloadProgressBar.Size = new System.Drawing.Size(366, 21);
+            this.downloadProgressBar.Size = new System.Drawing.Size(417, 21);
             this.downloadProgressBar.TabIndex = 1;
             // 
             // cancelButton
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(301, 36);
+            this.cancelButton.Location = new System.Drawing.Point(352, 36);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 0;
@@ -57,7 +57,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(383, 67);
+            this.ClientSize = new System.Drawing.Size(434, 67);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.downloadProgressBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

@@ -63,15 +63,15 @@ namespace Xps2ImgUI.Utils
             ThreadPool.QueueUserWorkItem(x => Install());
         }
 
-        private bool _useProxy;
-
         private void Check(string version)
         {
             _useProxy = true;
             CheckInternal(version);
+
             if (Failed)
             {
                 Sleep();
+
                 _useProxy = false;
                 CheckInternal(version);
             }
@@ -132,6 +132,11 @@ namespace Xps2ImgUI.Utils
 
         private void DownloadAsyncInternal()
         {
+            var webClient = new WebClient();
+
+            webClient.DownloadFileCompleted += WebClientDownloadFileCompleted;
+            webClient.DownloadProgressChanged += WebClientDownloadProgressChanged;
+
             try
             {
                 if (!HasUpdate || String.IsNullOrEmpty(_downloadUrl))
@@ -139,9 +144,6 @@ namespace Xps2ImgUI.Utils
                     throw new InvalidOperationException("DownloadUrl is not set.");
                 }
 
-                var webClient = new WebClient();
-
-                webClient.Dispose();
                 if (_useProxy)
                 {
                     webClient.Proxy = GetProxy();
@@ -154,13 +156,13 @@ namespace Xps2ImgUI.Utils
                 _downloadedFile = Path.Combine(downloadFolder, Path.GetFileName(_downloadUrl));
                 // ReSharper restore AssignNullToNotNullAttribute
 
-                webClient.DownloadFileCompleted += WebClientDownloadFileCompleted;
-                webClient.DownloadProgressChanged += WebClientDownloadProgressChanged;
-
                 webClient.DownloadFileAsync(new Uri(_downloadUrl), _downloadedFile);
             }
             catch (Exception ex)
             {
+                webClient.DownloadFileCompleted -= WebClientDownloadFileCompleted;
+                webClient.DownloadProgressChanged -= WebClientDownloadProgressChanged;
+
                 try
                 {
                     File.Delete(_downloadedFile);
@@ -176,6 +178,11 @@ namespace Xps2ImgUI.Utils
 
         private void WebClientDownloadFileCompleted(object sender, AsyncCompletedEventArgs args)
         {
+            var webClient = (WebClient) sender;
+
+            webClient.DownloadFileCompleted -= WebClientDownloadFileCompleted;
+            webClient.DownloadProgressChanged -= WebClientDownloadProgressChanged;
+
             _exception = args.Error;
             if (DownloadFileCompleted != null)
             {
@@ -236,9 +243,12 @@ namespace Xps2ImgUI.Utils
             Thread.Sleep(1000);
         }
 
+        private volatile bool _useProxy;
         private volatile bool _hasUpdate;
+
+        private volatile Exception _exception;
+
         private volatile string _downloadUrl;
         private volatile string _downloadedFile;
-        private volatile Exception _exception;
     }
 }
