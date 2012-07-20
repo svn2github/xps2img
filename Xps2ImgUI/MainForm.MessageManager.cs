@@ -41,7 +41,7 @@ namespace Xps2ImgUI
             }
         }
 
-        private bool ShowConfirmationMessageBox(string text, Exception ex = null, MessageBoxIcon messageBoxIcon = MessageBoxIcon.Exclamation)
+        private bool ShowConfirmationMessageBox(string text, MessageBoxDefaultButton messageBoxDefaultButton = MessageBoxDefaultButton.Button2, MessageBoxIcon messageBoxIcon = MessageBoxIcon.Exclamation, Exception exception = null)
         {
             var taskDialogStandardIcon = TaskDialogStandardIcon.Warning;
 
@@ -116,14 +116,14 @@ namespace Xps2ImgUI
                                     taskDialogStandardIcon,
                                     noConfirmation == null ? null : Resources.Strings.AlwaysConfirmAndDoNotAskAgain,
                                     out footerCheckBoxChecked,
-                                    t => AddExceptionDetails(t, ex),
+                                    t => AddExceptionDetails(t, exception),
                                     new TaskDialogCommandInfo(TaskDialogResult.Ok,      okCommand),
                                     new TaskDialogCommandInfo(TaskDialogResult.Cancel,  Resources.Strings.NoBackToApplication));
 
             var result = DialogResult.OK == (
                 dialogResult != TaskDialogUtils.NotSupported
                     ? dialogResult
-                    : ShowMessageBox(text + Resources.Strings.PressToProceedMessage, MessageBoxButtons.OKCancel, messageBoxIcon, MessageBoxDefaultButton.Button2)
+                    : ShowMessageBox(text + Resources.Strings.PressToProceedMessage, MessageBoxButtons.OKCancel, messageBoxIcon, messageBoxDefaultButton)
             );
 
             if (result && footerCheckBoxChecked && noConfirmation != null)
