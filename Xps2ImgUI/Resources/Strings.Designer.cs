@@ -295,7 +295,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New Update Available.
+        ///   Looks up a localized string similar to New Version Available.
         /// </summary>
         internal static string NewUpdateAvailable {
             get {
@@ -304,7 +304,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New update is available and will be downloaded and installed..
+        ///   Looks up a localized string similar to New version is available. Application will be updated..
         /// </summary>
         internal static string NewUpdateIsAvailable {
             get {

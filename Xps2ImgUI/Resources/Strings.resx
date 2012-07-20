@@ -294,67 +294,67 @@
   <data name="NoStartConversionOver" xml:space="preserve">
     <value>&amp;No, Start Conversion Over</value>
   </data>
-  <data name="UnexpectedResumeIsNotAvailable">
-    <value xml:space="preserve">Unexpected: Resume is not available.</value>
+  <data name="UnexpectedResumeIsNotAvailable" xml:space="preserve">
+    <value>Unexpected: Resume is not available.</value>
   </data>
-  <data name="UnexpectedConversionIsInProgress">
-    <value xml:space="preserve">Unexpected: Conversion is in progress.</value>
+  <data name="UnexpectedConversionIsInProgress" xml:space="preserve">
+    <value>Unexpected: Conversion is in progress.</value>
   </data>
-  <data name="UnexpectedErrorOccured">
-    <value xml:space="preserve">Unexpected Error Occured</value>
+  <data name="UnexpectedErrorOccured" xml:space="preserve">
+    <value>Unexpected Error Occured</value>
   </data>
-  <data name="ShowLess">
-    <value xml:space="preserve">&amp;Show Less</value>
+  <data name="ShowLess" xml:space="preserve">
+    <value>&amp;Show Less</value>
   </data>
-  <data name="ShowMore">
-    <value xml:space="preserve">&amp;Show More</value>
+  <data name="ShowMore" xml:space="preserve">
+    <value>&amp;Show More</value>
   </data>
-  <data name="NoExceptionDetailsPresent">
-    <value xml:space="preserve">No exception details present.</value>
+  <data name="NoExceptionDetailsPresent" xml:space="preserve">
+    <value>No exception details present.</value>
   </data>
-  <data name="RememberChoiceAndDoNotAskAgain">
-    <value xml:space="preserve">&amp;Remember choice and do not ask again</value>
+  <data name="RememberChoiceAndDoNotAskAgain" xml:space="preserve">
+    <value>&amp;Remember choice and do not ask again</value>
   </data>
-  <data name="CheckForUpdates">
-    <value xml:space="preserve">Check for &amp;Updates</value>
+  <data name="CheckForUpdates" xml:space="preserve">
+    <value>Check for &amp;Updates</value>
   </data>
-  <data name="UpdateNoNewVersionAvailable">
-    <value xml:space="preserve">There is no new version available at this time.</value>
+  <data name="UpdateNoNewVersionAvailable" xml:space="preserve">
+    <value>There is no new version available at this time.</value>
   </data>
-  <data name="UpdatesCheckFailedWarning">
-    <value xml:space="preserve">Check for updates failed. Application Web site will be opened.</value>
+  <data name="UpdatesCheckFailedWarning" xml:space="preserve">
+    <value>Check for updates failed. Application Web site will be opened.</value>
   </data>
-  <data name="UpdatesCheckFailed">
-    <value xml:space="preserve">Updates Check Failed</value>
+  <data name="UpdatesCheckFailed" xml:space="preserve">
+    <value>Updates Check Failed</value>
   </data>
-  <data name="WouldYouLikeToCheckForUpdatesManually">
-    <value xml:space="preserve">Would you like to check for updates manually?</value>
+  <data name="WouldYouLikeToCheckForUpdatesManually" xml:space="preserve">
+    <value>Would you like to check for updates manually?</value>
   </data>
-  <data name="YesCheckForUpdatesManually">
-    <value xml:space="preserve">&amp;Yes, Check for Updates Manually</value>
+  <data name="YesCheckForUpdatesManually" xml:space="preserve">
+    <value>&amp;Yes, Check for Updates Manually</value>
   </data>
-  <data name="DownloadFailedWarning">
-    <value xml:space="preserve">Download failed. Application Web site will be opened.</value>
+  <data name="DownloadFailedWarning" xml:space="preserve">
+    <value>Download failed. Application Web site will be opened.</value>
   </data>
-  <data name="DownloadFailed">
-    <value xml:space="preserve">Download Failed</value>
+  <data name="DownloadFailed" xml:space="preserve">
+    <value>Download Failed</value>
   </data>
-  <data name="WouldYouLikeToDownloadUpdateManually">
-    <value xml:space="preserve">Would you like to download update manually?</value>
+  <data name="WouldYouLikeToDownloadUpdateManually" xml:space="preserve">
+    <value>Would you like to download update manually?</value>
   </data>
-  <data name="YesDownloadManually">
-    <value xml:space="preserve">&amp;Yes, Download Update Manually</value>
+  <data name="YesDownloadManually" xml:space="preserve">
+    <value>&amp;Yes, Download Update Manually</value>
   </data>
-  <data name="NewUpdateIsAvailable">
-    <value xml:space="preserve">New version is available and will be downloaded and installed.</value>
+  <data name="NewUpdateIsAvailable" xml:space="preserve">
+    <value>New version is available. Application will be updated.</value>
   </data>
-  <data name="NewUpdateAvailable">
-    <value xml:space="preserve">New Version Available</value>
+  <data name="NewUpdateAvailable" xml:space="preserve">
+    <value>New Version Available</value>
   </data>
-  <data name="WouldYouLikeToDownloadAndInstall">
-    <value xml:space="preserve">Would you like to download and install it?</value>
+  <data name="WouldYouLikeToDownloadAndInstall" xml:space="preserve">
+    <value>Would you like to download and install it?</value>
   </data>
-  <data name="YesDownloadAndInstall">
-    <value xml:space="preserve">&amp;Yes, Download and Install</value>
+  <data name="YesDownloadAndInstall" xml:space="preserve">
+    <value>&amp;Yes, Download and Install</value>
   </data>
 </root>
