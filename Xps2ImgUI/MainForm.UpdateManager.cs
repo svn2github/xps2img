@@ -34,11 +34,7 @@ namespace Xps2ImgUI
                 return;
             }
 
-            var enableUpdateCheck = true;
-
-            // ReSharper disable AccessToModifiedClosure
-            using (new DisposableActions(() => CheckForUpdatesEnabled = enableUpdateCheck))
-            // ReSharper restore AccessToModifiedClosure
+            using (new DisposableActions(() => CheckForUpdatesEnabled = true))
             {
                 if (_updateManager.Failed)
                 {
@@ -53,8 +49,30 @@ namespace Xps2ImgUI
                 {
                     if (ShowConfirmationMessageBox(Resources.Strings.NewUpdateIsAvailable, null, MessageBoxIcon.Information))
                     {
-                        enableUpdateCheck = false;
-                        _updateManager.DownloadAsync();
+                        DialogResult dialogResult;
+
+                        using (new ModalGuard())
+                        {
+                            using (var updateDownloadForm = new UpdateDownloadForm(_updateManager))
+                            {
+                                dialogResult = updateDownloadForm.ShowDialog();
+                                if (dialogResult == DialogResult.OK)
+                                {
+                                    SetupGuard.Leave();
+                                    _updateManager.InstallAsync();
+                                    return;
+                                }
+                            }
+                        }
+
+                        if (dialogResult == DialogResult.None && _updateManager.Failed)
+                        {
+                            if (ShowConfirmationMessageBox(Resources.Strings.DownloadFailedWarning, _updateManager.Exception))
+                            {
+                                Explorer.ShellExecute(UpdateManager.ManualDownloadUrl);
+                            }
+                            return;
+                        }
                     }
                     return;
                 }
@@ -63,28 +81,6 @@ namespace Xps2ImgUI
                 {
                     ShowMessageBox(Resources.Strings.UpdateNoNewVersionAvailable, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-            }
-        }
-
-        private void UpdateDownloadCompleted(object sender, EventArgs e)
-        {
-            if (WaitIdle(UpdateDownloadCompleted))
-            {
-                return;
-            }
-
-            using (new DisposableActions(() => CheckForUpdatesEnabled = true))
-            {
-                if (_updateManager.Failed)
-                {
-                    if (ShowConfirmationMessageBox(Resources.Strings.DownloadFailedWarning, _updateManager.Exception))
-                    {
-                        Explorer.ShellExecute(UpdateManager.ManualDownloadUrl);
-                    }
-                    return;
-                }
-
-                _updateManager.InstallAsync();
             }
         }
 

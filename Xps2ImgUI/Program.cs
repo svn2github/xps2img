@@ -17,11 +17,11 @@ using Xps2Img.CommandLine;
 
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Settings;
+using Xps2ImgUI.Utils;
 using Xps2ImgUI.Utils.UI;
 
 #if !DEBUG
 using Xps2ImgUI.Converters;
-using Xps2ImgUI.Utils;
 #endif
 
 namespace Xps2ImgUI
@@ -42,6 +42,8 @@ namespace Xps2ImgUI
         [STAThread]
         static void Main(string[] args)
         {
+            SetupGuard.Enter();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

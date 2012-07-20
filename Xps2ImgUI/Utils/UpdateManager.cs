@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Windows.Forms;
 
 using Xps2ImgUI.Utils.UI;
 
@@ -42,7 +44,8 @@ namespace Xps2ImgUI.Utils
         }
 
         public event EventHandler CheckCompleted;
-        public event EventHandler DownloadCompleted;
+        public event AsyncCompletedEventHandler DownloadFileCompleted;
+        public event DownloadProgressChangedEventHandler DownloadProgressChanged;
 
         public void CheckAsync(string version, bool silent = false)
         {
@@ -52,7 +55,7 @@ namespace Xps2ImgUI.Utils
 
         public void DownloadAsync()
         {
-            ThreadPool.QueueUserWorkItem(x => Download());
+            ThreadPool.QueueUserWorkItem(x => DownloadAsyncInternal());
         }
 
         public void InstallAsync()
@@ -60,13 +63,22 @@ namespace Xps2ImgUI.Utils
             ThreadPool.QueueUserWorkItem(x => Install());
         }
 
+        private bool _useProxy;
+
         private void Check(string version)
         {
-            Check(version, true);
+            _useProxy = true;
+            CheckInternal(version);
             if (Failed)
             {
                 Sleep();
-                Check(version, false);
+                _useProxy = false;
+                CheckInternal(version);
+            }
+
+            if (Failed)
+            {
+                _useProxy = false;
             }
 
             if (CheckCompleted != null)
@@ -75,7 +87,7 @@ namespace Xps2ImgUI.Utils
             }
         }
 
-        private void Check(string version, bool useProxy)
+        private void CheckInternal(string version)
         {
             _hasUpdate = false;
             _downloadUrl = null;
@@ -85,7 +97,7 @@ namespace Xps2ImgUI.Utils
             {
                 var webRequest = WebRequest.Create(UpdateUrl);
 
-                if (useProxy)
+                if (_useProxy)
                 {
                     webRequest.Proxy = GetProxy();
                 }
@@ -118,21 +130,7 @@ namespace Xps2ImgUI.Utils
             }
         }
 
-        private void Download()
-        {
-            Download(true);
-            if (Failed)
-            {
-                Sleep();
-                Download(false);
-            }
-            if (DownloadCompleted != null)
-            {
-                DownloadCompleted(this, EventArgs.Empty);
-            }
-        }
-
-        private void Download(bool useProxy)
+        private void DownloadAsyncInternal()
         {
             try
             {
@@ -141,22 +139,25 @@ namespace Xps2ImgUI.Utils
                     throw new InvalidOperationException("DownloadUrl is not set.");
                 }
 
-                using (var webClient = new WebClient())
+                var webClient = new WebClient();
+
+                webClient.Dispose();
+                if (_useProxy)
                 {
-                    if (useProxy)
-                    {
-                        webClient.Proxy = GetProxy();
-                    }
-
-                    var downloadFolder = Path.Combine(Path.GetTempPath(), _downloadFolder);
-                    Directory.CreateDirectory(downloadFolder);
-
-                    // ReSharper disable AssignNullToNotNullAttribute
-                    _downloadedFile = Path.Combine(downloadFolder, Path.GetFileName(_downloadUrl));
-                    // ReSharper restore AssignNullToNotNullAttribute
-
-                    webClient.DownloadFile(_downloadUrl, _downloadedFile);
+                    webClient.Proxy = GetProxy();
                 }
+
+                var downloadFolder = Path.Combine(Path.GetTempPath(), _downloadFolder);
+                Directory.CreateDirectory(downloadFolder);
+
+                // ReSharper disable AssignNullToNotNullAttribute
+                _downloadedFile = Path.Combine(downloadFolder, Path.GetFileName(_downloadUrl));
+                // ReSharper restore AssignNullToNotNullAttribute
+
+                webClient.DownloadFileCompleted += WebClientDownloadFileCompleted;
+                webClient.DownloadProgressChanged += WebClientDownloadProgressChanged;
+
+                webClient.DownloadFileAsync(new Uri(_downloadUrl), _downloadedFile);
             }
             catch (Exception ex)
             {
@@ -173,6 +174,23 @@ namespace Xps2ImgUI.Utils
             }
         }
 
+        private void WebClientDownloadFileCompleted(object sender, AsyncCompletedEventArgs args)
+        {
+            _exception = args.Error;
+            if (DownloadFileCompleted != null)
+            {
+                DownloadFileCompleted(sender, args);
+            }
+        }
+
+        private void WebClientDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs args)
+        {
+            if (DownloadProgressChanged != null)
+            {
+                DownloadProgressChanged(sender, args);
+            }
+        }
+
         private void Install()
         {
             try
@@ -183,6 +201,7 @@ namespace Xps2ImgUI.Utils
                 }
 
                 Explorer.ShellExecute(_downloadedFile, false);
+                Application.Exit();
             }
             catch (Exception ex)
             {
@@ -190,12 +209,12 @@ namespace Xps2ImgUI.Utils
             }
         }
 
+        private static readonly char[] VersionSeparator = new[] { '.' };
+
         private static int CompareVersions(string version, string newVersion)
         {
-            var separator = new [] {'.'};
-
-            var v1 = version.Split(separator);
-            var v2 = newVersion.Split(separator);
+            var v1 = version.Split(VersionSeparator);
+            var v2 = newVersion.Split(VersionSeparator);
 
             if (v1.Length != v2.Length)
             {

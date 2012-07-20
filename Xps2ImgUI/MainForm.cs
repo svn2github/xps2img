@@ -34,7 +34,6 @@ namespace Xps2ImgUI
             _resumeToolStripMenuItemPosition = convertContextMenuStrip.Items.OfType<ToolStripMenuItem>().ToList().IndexOf(resumeToolStripMenuItem);
 
             _updateManager.CheckCompleted += (s, e) => this.InvokeIfNeeded(() => RegisterIdleHandler(UpdateCheckCompleted));
-            _updateManager.DownloadCompleted += (s, e) => this.InvokeIfNeeded(() => RegisterIdleHandler(UpdateDownloadCompleted));
         }
 
         private void OptionsObjectChanged(object sender, EventArgs e)
@@ -204,11 +203,13 @@ namespace Xps2ImgUI
                 new ToolStripButtonItem(Resources.Strings.About,
                 (s, e) => modalAction(() =>
                 {
-                    var aboutForm = new AboutForm { CheckForUpdatesEnabled = CheckForUpdatesEnabled };
-                    aboutForm.ShowDialog(this);
-                    if (aboutForm.CheckForUpdates)
+                    using (var aboutForm = new AboutForm { CheckForUpdatesEnabled = CheckForUpdatesEnabled })
                     {
-                        CheckForUpdates();
+                        aboutForm.ShowDialog(this);
+                        if (aboutForm.CheckForUpdates)
+                        {
+                            CheckForUpdates();
+                        }
                     }
                 }
             ))).Alignment = ToolStripItemAlignment.Right;
@@ -630,11 +631,13 @@ namespace Xps2ImgUI
         {
             using (new ModalGuard())
             {
-                var preferencesForm = new PreferencesForm(_preferences);
-                if (preferencesForm.ShowDialog(this) == DialogResult.OK)
+                using (var preferencesForm = new PreferencesForm(_preferences))
                 {
-                    _preferences = preferencesForm.Preferences;
-                    ApplyPreferences();
+                    if (preferencesForm.ShowDialog(this) == DialogResult.OK)
+                    {
+                        _preferences = preferencesForm.Preferences;
+                        ApplyPreferences();
+                    }
                 }
             }
         }

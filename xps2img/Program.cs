@@ -8,6 +8,8 @@ using System.Threading;
 using Xps2Img.CommandLine;
 using Xps2Img.Xps2Img;
 
+using Xps2ImgUI.Utils;
+
 namespace Xps2Img
 {
     internal static class Program
@@ -20,6 +22,8 @@ namespace Xps2Img
         [STAThread]
         private static int Main(string[] args)
         {
+            SetupGuard.Enter();
+
             try
             {
                 if (CommandLine.CommandLine.IsUsageDisplayed<Options>(args))

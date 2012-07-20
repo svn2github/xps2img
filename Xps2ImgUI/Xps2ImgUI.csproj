@@ -121,6 +121,12 @@
     <Compile Include="Converters\ProcessPriorityClassConverter.cs" />
     <Compile Include="Converters\ProcessorsNumberConverter.cs" />
     <Compile Include="Converters\YesNoConverter.cs" />
+    <Compile Include="UpdateDownloadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateDownloadForm.Designer.cs">
+      <DependentUpon>UpdateDownloadForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.UpdateManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,6 +161,7 @@
       <DependentUpon>Icons.resx</DependentUpon>
     </Compile>
     <Compile Include="Utils\AssemblyInformation.cs" />
+    <Compile Include="Utils\SetupGuard.cs" />
     <Compile Include="Utils\UpdateManager.cs" />
     <Compile Include="Utils\SystemManagement.Native.cs" />
     <Compile Include="Utils\SystemManagement.cs" />

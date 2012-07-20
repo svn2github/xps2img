@@ -84,6 +84,9 @@
     <Compile Include="..\Xps2ImgUI\Utils\AssemblyInformation.cs">
       <Link>Shared\AssemblyInformation.cs</Link>
     </Compile>
+    <Compile Include="..\Xps2ImgUI\Utils\SetupGuard.cs">
+      <Link>Shared\SetupGuard.cs</Link>
+    </Compile>
     <Compile Include="CommandLine\CommandLine.cs" />
     <Compile Include="CommandLine\ConversionException.cs" />
     <Compile Include="CommandLine\Interval.cs" />
