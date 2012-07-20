@@ -39,12 +39,6 @@ namespace Xps2ImgUI
         {
             this.InvokeIfNeeded(() =>
             {
-                if (_stopDownload)
-                {
-                    ((WebClient)sender).CancelAsync();
-                    Close();
-                    return;
-                }
                 var progressPercentage = e.ProgressPercentage;
                 SetTitle(progressPercentage);
                 downloadProgressBar.Value = progressPercentage;
@@ -53,7 +47,7 @@ namespace Xps2ImgUI
 
         private void DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            this.InvokeIfNeeded(() => DialogResult = _stopDownload ? DialogResult.Cancel : e.Error != null ? DialogResult.None : DialogResult.OK);
+            DialogResult = e.Error == null ? DialogResult.OK : DialogResult.None;
         }
 
         private void SetTitle(int percent)
@@ -61,12 +55,12 @@ namespace Xps2ImgUI
             Text = String.Format(_textFormat, percent);
         }
 
-        private bool _stopDownload;
-
         protected override void OnClosing(CancelEventArgs e)
         {
-            _stopDownload = true;
-            e.Cancel = DialogResult == DialogResult.None;
+            if (DialogResult == DialogResult.Cancel)
+            {
+                _updateManager.CancelDownload();
+            }
             base.OnClosing(e);
         }
 
@@ -74,6 +68,7 @@ namespace Xps2ImgUI
         {
             _updateManager.DownloadFileCompleted -= DownloadFileCompleted;
             _updateManager.DownloadProgressChanged -= DownloadProgressChanged;
+
             base.OnClosed(e);
         }
     }

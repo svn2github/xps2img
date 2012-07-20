@@ -43,6 +43,12 @@ namespace Xps2ImgUI.Utils
             get { return _exception; }
         }
 
+        public bool IsDownloadCancelled
+        {
+            get { return _isDownloadCancelled; }
+            private set { _isDownloadCancelled = value; }
+        }
+
         public event EventHandler CheckCompleted;
         public event AsyncCompletedEventHandler DownloadFileCompleted;
         public event DownloadProgressChangedEventHandler DownloadProgressChanged;
@@ -56,6 +62,11 @@ namespace Xps2ImgUI.Utils
         public void DownloadAsync()
         {
             ThreadPool.QueueUserWorkItem(x => DownloadAsyncInternal());
+        }
+
+        public void CancelDownload()
+        {
+            IsDownloadCancelled = true;
         }
 
         public void InstallAsync()
@@ -156,6 +167,8 @@ namespace Xps2ImgUI.Utils
                 _downloadedFile = Path.Combine(downloadFolder, Path.GetFileName(_downloadUrl));
                 // ReSharper restore AssignNullToNotNullAttribute
 
+                IsDownloadCancelled = false;
+
                 webClient.DownloadFileAsync(new Uri(_downloadUrl), _downloadedFile);
             }
             catch (Exception ex)
@@ -186,15 +199,21 @@ namespace Xps2ImgUI.Utils
             _exception = args.Error;
             if (DownloadFileCompleted != null)
             {
-                DownloadFileCompleted(sender, args);
+                DownloadFileCompleted(this, args);
             }
         }
 
         private void WebClientDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs args)
         {
+            if (IsDownloadCancelled)
+            {
+                ((WebClient)sender).CancelAsync();
+                return;
+            }
+
             if (DownloadProgressChanged != null)
             {
-                DownloadProgressChanged(sender, args);
+                DownloadProgressChanged(this, args);
             }
         }
 
@@ -245,6 +264,7 @@ namespace Xps2ImgUI.Utils
 
         private volatile bool _useProxy;
         private volatile bool _hasUpdate;
+        private volatile bool _isDownloadCancelled;
 
         private volatile Exception _exception;
 
