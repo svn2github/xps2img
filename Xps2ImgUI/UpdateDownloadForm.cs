@@ -21,11 +21,11 @@ namespace Xps2ImgUI
 
         protected override void OnLoad(EventArgs e)
         {
+            this.RemoveSystemMenuDisabledItems();
+
             _textFormat = Text;
 
             SetTitle(0);
-
-            this.RemoveSystemMenuDisabledItems();
 
             _updateManager.DownloadFileCompleted += DownloadFileCompleted;
             _updateManager.DownloadProgressChanged += DownloadProgressChanged;
@@ -47,7 +47,10 @@ namespace Xps2ImgUI
 
         private void DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
+            this.EnableSysClose(false);
+            cancelButton.Enabled = false;
             DialogResult = e.Error == null ? DialogResult.OK : DialogResult.None;
+            Close();
         }
 
         private void SetTitle(int percent)

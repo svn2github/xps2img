@@ -76,10 +76,10 @@ namespace Xps2ImgUI.Utils.UI
             }
 
             var menuItemInfo =  new MENUITEMINFO
-                                {
-                                    cbSize = (uint)Marshal.SizeOf(typeof(MENUITEMINFO)),
-                                    fMask = MIIM_STATE
-                                };
+            {
+                cbSize = (uint)Marshal.SizeOf(typeof(MENUITEMINFO)),
+                fMask = MIIM_STATE
+            };
 
             for (var itemPosition = 0; itemPosition < GetMenuItemCount(hMenu);)
             {
@@ -90,6 +90,11 @@ namespace Xps2ImgUI.Utils.UI
                 }
                 itemPosition++;
             }
+        }
+
+        public static void EnableSysClose(this Form form, bool enable)
+        {
+            EnableMenuItem(GetSystemMenu(form.Handle, false), SC_CLOSE, enable ? MF_ENABLED : MF_GRAYED);
         }
 
         /// <summary>
@@ -174,6 +179,8 @@ namespace Xps2ImgUI.Utils.UI
         private static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
 
         private const uint MF_BYPOSITION = 0x00000400;
+        private const uint MF_ENABLED    = 0x00000000;
+        private const uint MF_GRAYED     = 0x00000001;
 
         [DllImport("user32.dll")]
         private static extern bool RemoveMenu(IntPtr hMenu, uint uPosition, uint uFlags);
@@ -183,6 +190,11 @@ namespace Xps2ImgUI.Utils.UI
 
         [DllImport("user32.dll")]
         private static extern bool GetMenuItemInfo(IntPtr hMenu, uint uItem, bool fByPosition, ref MENUITEMINFO lpmii);
+
+        private const int SC_CLOSE = 0xF060;
+
+        [DllImport("user32.dll")]
+        private static extern int EnableMenuItem(IntPtr hMenu, int wIDEnableItem, uint wEnable);
 
         private const uint MIIM_STATE   = 0x00000001;
         private const uint MFS_DISABLED = 0x00000003;
