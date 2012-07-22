@@ -6,6 +6,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
 
+using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI.Utils
@@ -22,7 +23,8 @@ namespace Xps2ImgUI.Utils
         private const string VersionGroup       = "version";
         private const string VersionCheck       = @"/Releases/xps2img[^-]*-(?<version>(\.?\d+){4})";
 
-        private readonly string _downloadFolder = String.Format("xps2img-update-{0}", Guid.NewGuid().ToString().Split("-".ToCharArray()).First());
+        private static readonly string DownloadFolder = String.Format("xps2img-update-{0}", Guid.NewGuid().ToString().Split("-".ToCharArray()).First());
+        private static readonly string SetupCommandLineArguments = String.Format("/update {0}", SettingsManager.IsPortable ? "/portable" : String.Empty);      
 
         public bool HasUpdate
         {
@@ -160,7 +162,7 @@ namespace Xps2ImgUI.Utils
                     webClient.Proxy = GetProxy();
                 }
 
-                var downloadFolder = Path.Combine(Path.GetTempPath(), _downloadFolder);
+                var downloadFolder = Path.Combine(Path.GetTempPath(), DownloadFolder);
                 Directory.CreateDirectory(downloadFolder);
 
                 // ReSharper disable AssignNullToNotNullAttribute
@@ -197,6 +199,7 @@ namespace Xps2ImgUI.Utils
             webClient.DownloadProgressChanged -= WebClientDownloadProgressChanged;
 
             _exception = args.Error;
+
             if (DownloadFileCompleted != null)
             {
                 DownloadFileCompleted(this, args);
@@ -226,7 +229,7 @@ namespace Xps2ImgUI.Utils
                     throw new InvalidOperationException("DownloadedFile is not set.");
                 }
 
-                Explorer.ShellExecute(_downloadedFile, false);
+                Explorer.ShellExecute(_downloadedFile, false, SetupCommandLineArguments);
             }
             catch (Exception ex)
             {
