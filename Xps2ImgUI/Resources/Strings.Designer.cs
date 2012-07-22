@@ -664,7 +664,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Would you like to download and install it?.
+        ///   Looks up a localized string similar to Would you like to download it and update application?.
         /// </summary>
         internal static string WouldYouLikeToDownloadAndInstall {
             get {
@@ -745,7 +745,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Yes, Download and Install.
+        ///   Looks up a localized string similar to &amp;Yes, Download and Update.
         /// </summary>
         internal static string YesDownloadAndInstall {
             get {

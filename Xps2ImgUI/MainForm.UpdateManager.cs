@@ -49,13 +49,11 @@ namespace Xps2ImgUI
                 {
                     if (ShowConfirmationMessageBox(Resources.Strings.NewUpdateIsAvailable, MessageBoxDefaultButton.Button1, MessageBoxIcon.Information))
                     {
-                        DialogResult dialogResult;
-
                         using (new ModalGuard())
                         {
                             using (var updateDownloadForm = new UpdateDownloadForm(_updateManager))
                             {
-                                dialogResult = updateDownloadForm.ShowDialog();
+                                var dialogResult = updateDownloadForm.ShowDialog();
                                 if (dialogResult == DialogResult.OK)
                                 {
                                     SetupGuard.Leave();
@@ -65,7 +63,7 @@ namespace Xps2ImgUI
                             }
                         }
 
-                        if (dialogResult == DialogResult.None && _updateManager.Failed)
+                        if (_updateManager.Failed)
                         {
                             if (ShowConfirmationMessageBox(Resources.Strings.DownloadFailedWarning, exception: _updateManager.Exception))
                             {

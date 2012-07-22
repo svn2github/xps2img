@@ -352,9 +352,9 @@
     <value>New Version Available</value>
   </data>
   <data name="WouldYouLikeToDownloadAndInstall" xml:space="preserve">
-    <value>Would you like to download and install it?</value>
+    <value>Would you like to download it and update application?</value>
   </data>
   <data name="YesDownloadAndInstall" xml:space="preserve">
-    <value>&amp;Yes, Download and Install</value>
+    <value>&amp;Yes, Download and Update</value>
   </data>
 </root>

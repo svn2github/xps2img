@@ -47,10 +47,12 @@ namespace Xps2ImgUI
 
         private void DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            this.EnableSysClose(false);
-            cancelButton.Enabled = false;
-            DialogResult = e.Error == null ? DialogResult.OK : DialogResult.None;
-            Close();
+            this.InvokeIfNeeded(() =>
+            {
+                this.EnableSysClose(false);
+                cancelButton.Enabled = false;
+                DialogResult = e.Error == null ? DialogResult.OK : DialogResult.Cancel;
+            });
         }
 
         private void SetTitle(int percent)
