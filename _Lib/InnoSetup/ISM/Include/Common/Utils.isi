@@ -31,6 +31,8 @@
 #define Utils_CmFormat(str cm, str cm1)		"{cm:" + cm + "," + cm1 + "}"
 
 #define Utils_FlagSet(str flag, str flags)	Pos(LowerCase(flag), LowerCase(flags))
+#define Utils_AddFlag(str flag, str flags)	flags + flag
+#define Utils_RemoveFlag(str flag, str flags)	Str_Remove(flags, flag)
 
 #define Utils_NotDefinedInt(int val)		val == Const_UndefinedIntValue
 #define Utils_DefinedInt(int val)			!Utils_NotDefinedInt(val)

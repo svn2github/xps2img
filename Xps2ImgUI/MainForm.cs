@@ -683,7 +683,7 @@ namespace Xps2ImgUI
         {
             get
             {
-                return _convertedImagesFolder ?? Program.ApplicationFolder;
+                return _convertedImagesFolder ?? AssemblyInfo.ApplicationFolder;
             }
         }
 

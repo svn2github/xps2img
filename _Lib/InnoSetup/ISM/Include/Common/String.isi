@@ -59,7 +59,7 @@
     Local[1] = Len(S), \
     _Str_Reverse(Local[0], S, Local[1])
 
-// Replace string.
+// Replace/remove string.
 
 #define _Str_Replace(str *Result, str *S, str find, str replace) \
     !Pos(find, S) ? Result + S : \
@@ -72,6 +72,9 @@
 #define Str_Replace(str S, str find, str replace) \
     Local[0] = "", \
     _Str_Replace(Local[0], S, find, replace)
+
+#define Str_Remove(str S, str find) \
+    Str_Replace(S, find, "")
 
 // Emptyness check.
 

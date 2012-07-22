@@ -42,7 +42,11 @@
 
 #define X2IFileDescription      AppName + " Settings"
 
-#include "Code.iss"
+#include "Params.iss"
+#include "Events.iss"
+
+#define Uninstallable           "IsInstallable"
+#define CreateUninstallRegKey   "IsInstallable"
 
 #include ISM_RootDir + "/Include/IncludeAll.isi"
 
@@ -58,12 +62,17 @@
 <CustomMessage("en.Group_Uninstall",    "Uninstall")>
 <CustomMessage("en.Menu_WebSite",       "%1 Web Site")>
 
-<File(BinariesPath + "xps2img.exe")>
-<File(BinariesPath + "xps2imgUI.exe")>
-<File(BinariesPath + "CommandLine.dll")>
-<File(BinariesPath + "Gnu.Getopt.dll")>
-<File(BinariesPath + "Microsoft.WindowsAPICodePack.dll")>
-<File(BinariesPath + "xps2img.chm")>
+#define ApplicationFile(f)  File(BinariesPath + f)
+
+<ApplicationFile("xps2img.exe")>
+<ApplicationFile("xps2imgUI.exe")>
+<ApplicationFile("CommandLine.dll")>
+<ApplicationFile("Gnu.Getopt.dll")>
+<ApplicationFile("Microsoft.WindowsAPICodePack.dll")>
+<ApplicationFile("xps2img.chm")>
+#define Active_Check    "IsPortable"
+    <ApplicationFile("xps2imgUI.exe.portable")>
+<Reset_ActiveCheck>
 <File(LicenseFile)>
 
 #define Active_Tasks    "desktopicon"
@@ -74,21 +83,26 @@
 #define AppUrlGeneric(folder) Local[0]=AddBackslash(folder) + Utils_CmFormat("Menu_WebSite", AppName), Url(Local[0], Local[0], UrlOfficialSite)
 
 <AppUrlGeneric("{app}")>
-#define Active_Check "not WizardNoIcons"
+
+#define Active_Check    "not WizardNoIcons and IsInstallable"
     <AppUrlGeneric("{group}")>
-#undef Active_Check
+<Reset_ActiveCheck>
 
-<Icon(AddBackslash("{group}\{cm:Group_Uninstall}") + Utils_CmFormat("UninstallProgram", AppName), "{uninstallexe}")>
-<Icon("{group}\{cm:License}", AddBackslash("{app}") + ExtractFileName(LicenseFile))>
-<IconRun(AddBackslash("{group}") + AppName, AppExe)>
-<IconRun("{group}\{cm:Help}", AppReadmeFile)>
+#define Active_Check    "IsInstallable"
+    <Icon(AddBackslash("{group}\{cm:Group_Uninstall}") + Utils_CmFormat("UninstallProgram", AppName), "{uninstallexe}")>
+    <Icon("{group}\{cm:License}", AddBackslash("{app}") + ExtractFileName(LicenseFile))>
+    <IconRun(AddBackslash("{group}") + AppName, AppExe)>
+    <IconRun("{group}\{cm:Help}", AppReadmeFile)>
+<Reset_ActiveCheck>
 
-<Run(filename=AppExe, flags=Common_RunFlags, description=Utils_CmFormat("LaunchProgram", AppName))>
+<Run(filename=AppExe, flags=Utils_RemoveFlag(RunFlag_SkipIfSilent, Common_RunFlags), description=Utils_CmFormat("LaunchProgram", AppName))>
 <Run(filename=AppChm, flags=Common_RunFlags + RunFlag_ShellExec + RunFlag_Unchecked, description=Utils_CmFormat("ViewHelp", AppName))>
 
-<Reg("HKCR\.x2i", ":string", AppName, RegFlag_UninsDeleteKey)>
-<Reg("HKCR\" + AppName, ":string", X2IFileDescription, RegFlag_UninsDeleteKey)>
-<Reg("HKCR\" + AppName + "\DefaultIcon", ":string", AppExe+",0")>
-<Reg("HKCR\" + AppName + "\shell\open\command", ":string", Str_Quote(AppExe) + " " + Str_Quote("%1"))>
+#define Active_Check    "IsInstallable"
+    <Reg("HKCR\.x2i", ":string", AppName, RegFlag_UninsDeleteKey)>
+    <Reg("HKCR\" + AppName, ":string", X2IFileDescription, RegFlag_UninsDeleteKey)>
+    <Reg("HKCR\" + AppName + "\DefaultIcon", ":string", AppExe+",0")>
+    <Reg("HKCR\" + AppName + "\shell\open\command", ":string", Str_Quote(AppExe) + " " + Str_Quote("%1"))>
+<Reset_ActiveCheck>
 
 <Debug_ViewTranslation>

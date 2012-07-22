@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -76,6 +77,8 @@ namespace Xps2ImgUI.Utils
                 return VersionInfo.FileName;
             }
         }
+
+        public static readonly string ApplicationFolder = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
         private static T GetCustomAttribute<T>() where T : Attribute
         {

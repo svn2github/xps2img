@@ -4,6 +4,8 @@ en.Msg_KeepSettings=Would you like to keep saved settings?
 
 [Code]
 
+// .NET support.
+
 // Check for the .Net 3.5 framework
 function InitializeSetup: Boolean;
 var
@@ -24,6 +26,14 @@ begin
         Result := False;
     end;
 end;
+
+(*
+function ShouldSkipPage(PageID: Integer): Boolean;
+begin
+    Result :=   (IsPortable and (PageID = wpSelectProgramGroup)) or 
+                (IsUpdate and ((PageID = wpSelectDir) or (PageID = wpWelcome)));
+end;
+*)
 
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 var

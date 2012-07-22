@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -35,9 +34,8 @@ namespace Xps2ImgUI
         public const string HelpTopicPreferences = "1000";
         public const string HelpTopicHistory     = "1100";
 
-        public static readonly string ApplicationFolder   = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-        public static readonly string Xps2ImgExecutable   = Path.Combine(ApplicationFolder, ProductName + ".exe");
-        public static readonly string Xps2ImgUIExecutable = Path.Combine(ApplicationFolder, ProductName + "ui.exe");
+        public static readonly string Xps2ImgExecutable   = Path.Combine(AssemblyInfo.ApplicationFolder, ProductName + ".exe");
+        public static readonly string Xps2ImgUIExecutable = Path.Combine(AssemblyInfo.ApplicationFolder, ProductName + "ui.exe");
 
         [STAThread]
         static void Main(string[] args)
