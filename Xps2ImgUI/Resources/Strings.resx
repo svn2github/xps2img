@@ -344,6 +344,18 @@
   </data>
   <data name="YesDownloadManually" xml:space="preserve">
     <value>&amp;Yes, Download Update Manually</value>
+  </data> 
+  <data name="UpdateFailedWarning" xml:space="preserve">
+    <value>Update failed. Application Web site will be opened.</value>
+  </data>
+  <data name="UpdateFailed" xml:space="preserve">
+    <value>Update Failed</value>
+  </data>
+  <data name="WouldYouLikeToDownloadAndUpdateManually" xml:space="preserve">
+    <value>Would you like to download and update manually?</value>
+  </data>
+  <data name="YesDownloadAndUpdateManually" xml:space="preserve">
+    <value>&amp;Yes, Download and Update Manually</value>
   </data>
   <data name="NewUpdateIsAvailable" xml:space="preserve">
     <value>New version is available. Application will be updated.</value>
@@ -351,10 +363,10 @@
   <data name="NewUpdateAvailable" xml:space="preserve">
     <value>New Version Available</value>
   </data>
-  <data name="WouldYouLikeToDownloadAndInstall" xml:space="preserve">
+  <data name="WouldYouLikeToDownloadItAndUpdateApplication" xml:space="preserve">
     <value>Would you like to download it and update application?</value>
   </data>
-  <data name="YesDownloadAndInstall" xml:space="preserve">
+  <data name="YesDownloadAndUpdate" xml:space="preserve">
     <value>&amp;Yes, Download and Update</value>
   </data>
 </root>

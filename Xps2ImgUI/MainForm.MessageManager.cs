@@ -90,12 +90,18 @@ namespace Xps2ImgUI
                 taskText        = Resources.Strings.WouldYouLikeToDownloadUpdateManually;
                 okCommand       = Resources.Strings.YesDownloadManually;
             }
+            if (text == Resources.Strings.UpdateFailedWarning)
+            {
+                taskInstruction = Resources.Strings.UpdateFailed;
+                taskText = Resources.Strings.WouldYouLikeToDownloadAndUpdateManually;
+                okCommand = Resources.Strings.YesDownloadAndUpdateManually;
+            }
             else
             if (text == Resources.Strings.NewUpdateIsAvailable)
             {
                 taskInstruction = Resources.Strings.NewUpdateAvailable;
-                taskText        = Resources.Strings.WouldYouLikeToDownloadAndInstall;
-                okCommand       = Resources.Strings.YesDownloadAndInstall;
+                taskText        = Resources.Strings.WouldYouLikeToDownloadItAndUpdateApplication;
+                okCommand       = Resources.Strings.YesDownloadAndUpdate;
                 taskDialogStandardIcon = TaskDialogStandardIcon.Information;
             }
             

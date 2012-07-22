@@ -63,12 +63,8 @@ namespace Xps2ImgUI
                             }
                         }
 
-                        if (_updateManager.Failed)
+                        if (OpenSiteOnError(Resources.Strings.DownloadFailedWarning))
                         {
-                            if (ShowConfirmationMessageBox(Resources.Strings.DownloadFailedWarning, exception: _updateManager.Exception))
-                            {
-                                Explorer.ShellExecute(UpdateManager.ManualDownloadUrl);
-                            }
                             return;
                         }
                     }
@@ -80,6 +76,41 @@ namespace Xps2ImgUI
                     ShowMessageBox(Resources.Strings.UpdateNoNewVersionAvailable, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+        }
+
+        private void UpdateInstallationLaunched(object sender, EventArgs eventArgs)
+        {
+            if (WaitIdle(UpdateInstallationLaunched))
+            {
+                return;
+            }
+
+            if (OpenSiteOnError(Resources.Strings.UpdateFailedWarning, SetupGuard.Enter))
+            {
+                return;
+            }
+
+            Application.Exit();
+        }
+
+        private bool OpenSiteOnError(string message, Action beforeAction = null)
+        {
+            if (!_updateManager.Failed)
+            {
+                return false;
+            }
+
+            if (beforeAction != null)
+            {
+                beforeAction();
+            }
+
+            if (ShowConfirmationMessageBox(message, exception: _updateManager.Exception))
+            {
+                Explorer.ShellExecute(UpdateManager.ManualDownloadUrl);
+            }
+
+            return true;
         }
 
         private bool WaitIdle(EventHandler eventHandler)

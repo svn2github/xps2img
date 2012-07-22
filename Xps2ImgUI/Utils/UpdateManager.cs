@@ -5,7 +5,6 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Windows.Forms;
 
 using Xps2ImgUI.Utils.UI;
 
@@ -50,6 +49,7 @@ namespace Xps2ImgUI.Utils
         }
 
         public event EventHandler CheckCompleted;
+        public event EventHandler InstallationLaunched;
         public event AsyncCompletedEventHandler DownloadFileCompleted;
         public event DownloadProgressChangedEventHandler DownloadProgressChanged;
 
@@ -227,11 +227,15 @@ namespace Xps2ImgUI.Utils
                 }
 
                 Explorer.ShellExecute(_downloadedFile, false);
-                Application.Exit();
             }
             catch (Exception ex)
             {
                 _exception = ex;
+            }
+
+            if (InstallationLaunched != null)
+            {
+                InstallationLaunched(this, EventArgs.Empty);
             }
         }
 
