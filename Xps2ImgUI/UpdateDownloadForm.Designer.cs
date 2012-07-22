@@ -36,9 +36,9 @@
             // 
             this.downloadProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.downloadProgressBar.Location = new System.Drawing.Point(8, 8);
+            this.downloadProgressBar.Location = new System.Drawing.Point(9, 8);
             this.downloadProgressBar.Name = "downloadProgressBar";
-            this.downloadProgressBar.Size = new System.Drawing.Size(415, 21);
+            this.downloadProgressBar.Size = new System.Drawing.Size(414, 21);
             this.downloadProgressBar.TabIndex = 1;
             // 
             // cancelButton
