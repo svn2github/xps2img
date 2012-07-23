@@ -21,9 +21,12 @@ begin
     Result := HasParam('update');
 end;
 
+var
+  IsUserPortable: Boolean;
+
 function IsPortable : Boolean;
 begin
-    Result := HasParam('portable');
+    Result := IsUserPortable or HasParam('portable');
 end;
 
 function IsInstallable : Boolean;

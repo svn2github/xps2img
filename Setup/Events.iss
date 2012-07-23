@@ -1,52 +1,142 @@
-[CustomMessages]
-en.Msg_DotNetIsMissing=This application requires Microsoft.NET 3.5 which is not installed.%n%nWould you like to download it now?
-en.Msg_KeepSettings=Would you like to keep saved settings?
-
 [Code]
-
-// .NET support.
-
-// Check for the .Net 3.5 framework
+ 
 function InitializeSetup: Boolean;
 var
-    errorCode: Integer;
-    isInstalled: Cardinal;
+  errorCode: Integer;
+  isInstalled: Cardinal;
 begin
-    Result := True;
-    isInstalled := 0;
-    if (not RegQueryDWordValue(HKLM, 'SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5', 'Install', isInstalled)) or (isInstalled <> 1) then
+  Result := True;
+  // Check for the .Net 3.5 framework
+  isInstalled := 0;
+  if (not RegQueryDWordValue(HKLM, 'SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5', 'Install', isInstalled)) or (isInstalled <> 1) then
+  begin
+    if MsgBox(ExpandConstant('{cm:Msg_DotNetIsMissing}'), mbConfirmation, MB_YESNO) = idYes then
     begin
-        if MsgBox(ExpandConstant('{cm:Msg_DotNetIsMissing}'), mbConfirmation, MB_YESNO) = idYes then
-        begin
-            ShellExec(
-            'open',
-            'http://www.microsoft.com/downloads/details.aspx?FamilyID=AB99342F-5D1A-413D-8319-81DA479AB0D7',
-            '', '', SW_SHOWNORMAL, ewNoWait, errorCode);
-        end;
-        Result := False;
+      ShellExec(
+        'open',
+        'http://www.microsoft.com/downloads/details.aspx?FamilyID=AB99342F-5D1A-413D-8319-81DA479AB0D7',
+        '', '', SW_SHOWNORMAL, ewNoWait, errorCode);
     end;
+    Result := False;
+  end;
 end;
 
-(*
+var
+  SetupModePage: TInputOptionWizardPage;
+  TaskValues: array [0..1] of Boolean;
+  TaskValuesInit: Boolean;
+
+function TaskValueIndex: Integer;
+begin
+  Result := WizardForm.TasksList.Items.IndexOf(ExpandConstant('{cm:CreateDesktopIcon}'));
+end;
+
+procedure UpdateTaskValues(IsInstallableBoolean: Boolean);
+begin
+  TaskValues[BooleanToInteger(IsInstallableBoolean)] := WizardForm.TasksList.Checked[TaskValueIndex];
+end;
+
+procedure InitializeWizard;
+begin
+  SetupModePage := CreateInputOptionPage(wpWelcome,
+    ExpandConstant('{cm:Msg_SetupMode}'),
+    ExpandConstant('{cm:Msg_SetupModeQuestion}'),
+    ExpandConstant('{cm:Msg_SetupModeGroupTitle}'),
+    True, False);
+  SetupModePage.Add(ExpandConstant('{cm:Msg_SetupModeInstall}'));
+  SetupModePage.Add(ExpandConstant('{cm:Msg_SetupModePortable}'));
+
+  SetupModePage.SelectedValueIndex := BooleanToInteger(IsPortable);
+end;
+
+procedure CurPageChanged(CurPageID: Integer);
+begin
+  if CurPageID = wpSelectTasks then
+  begin
+    if not TaskValuesInit then
+    begin
+      UpdateTaskValues(True);
+      TaskValuesInit := True;
+    end;
+    WizardForm.TasksList.Checked[TaskValueIndex] := TaskValues[BooleanToInteger(IsInstallable)];
+  end;
+end;
+
 function ShouldSkipPage(PageID: Integer): Boolean;
 begin
-    Result :=   (IsPortable and (PageID = wpSelectProgramGroup)) or 
-                (IsUpdate and ((PageID = wpSelectDir) or (PageID = wpWelcome)));
+    Result := IsPortable and (PageID = wpSelectProgramGroup);
 end;
-*)
 
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 var
-    appDataDir: String;
+  appDataDir: String;
 begin
-    if (CurUninstallStep <> usUninstall) then Exit;
+  if (CurUninstallStep <> usUninstall) then Exit;
     
-    appDataDir := ExpandConstant(AddBackslash('{userappdata}') + '{#AppName}');
+  appDataDir := ExpandConstant(AddBackslash('{userappdata}') + '{#AppName}');
     
-    if DirExists(appDataDir) and (UninstallSilent or (MsgBox(ExpandConstant('{cm:Msg_KeepSettings}'), mbConfirmation, MB_YESNO) = idNo)) then
-    begin
-        DelTree(appDataDir, True, True, True);
-    end;
+  if DirExists(appDataDir) and (UninstallSilent or (MsgBox(ExpandConstant('{cm:Msg_KeepSettings}'), mbConfirmation, MB_YESNO) = idNo)) then
+  begin
+    DelTree(appDataDir, True, True, True);
+  end;
+end;
+
+function BackButtonClick(CurPageID: Integer): Boolean;
+begin
+  if CurPageID = wpSelectTasks then
+  begin
+    UpdateTaskValues(IsInstallable);
+  end;
+
+  Result := True;
+end;
+
+function NextButtonClick(CurPageID: Integer): Boolean;
+begin
+  Result := True;
+  
+  if CurPageID = SetupModePage.ID then
+  begin
+    IsUserPortable := SetupModePage.SelectedValueIndex <> 0;
+    Exit;
+  end;
+  
+  if CurPageID = wpSelectTasks then
+  begin
+    UpdateTaskValues(IsInstallable);
+    Exit;
+  end;
+end;
+
+function UpdateReadyMemo(Space, NewLine, MemoUserInfoInfo, MemoDirInfo, MemoTypeInfo, MemoComponentsInfo, MemoGroupInfo, MemoTasksInfo: String): String;
+var
+  S: String;
+  CR: String;
+begin
+  CR := NewLine + NewLine;
+  
+  S := ExpandConstant('{cm:Msg_SetupMode}') + ':' + NewLine + Space;
+
+  case IsPortable of
+    True:   S := S + ExpandConstant('{cm:Msg_SetupModePortable}');
+    False:  S := S + ExpandConstant('{cm:Msg_SetupModeInstall}');
+  end;
+  
+  StringChangeEx(S, '&', '', True);
+  
+  S := S + CR + MemoDirInfo;
+  
+  if IsInstallable and (MemoGroupInfo <> '') then
+  begin
+    S := S + CR + MemoGroupInfo;
+  end;
+  
+  if MemoTasksInfo <> '' then
+  begin
+    S := S + CR + MemoTasksInfo;
+  end;
+ 
+  Result := S;
 end;
 
 [/Code]

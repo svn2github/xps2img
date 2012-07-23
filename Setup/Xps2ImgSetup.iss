@@ -42,7 +42,9 @@
 
 #define X2IFileDescription      AppName + " Settings"
 
+#include "Utils.iss"
 #include "Params.iss"
+#include "CodeMessages.iss"
 #include "Events.iss"
 
 #define Uninstallable           "IsInstallable"
