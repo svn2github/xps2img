@@ -4,6 +4,8 @@
 
 #define OutputBaseFilename      "Xps2ImgSetup"
 
+#define PrivilegesRequired      "none"
+
 #define AppMutex                "Xps2ImgInnoSetupGuard"
 
 #define AppName                 "XPS to Images Converter"

@@ -12,10 +12,7 @@ begin
   begin
     if MsgBox(ExpandConstant('{cm:Msg_DotNetIsMissing}'), mbConfirmation, MB_YESNO) = idYes then
     begin
-      ShellExec(
-        'open',
-        'http://www.microsoft.com/downloads/details.aspx?FamilyID=AB99342F-5D1A-413D-8319-81DA479AB0D7',
-        '', '', SW_SHOWNORMAL, ewNoWait, errorCode);
+      ShellExec('open', 'http://www.microsoft.com/downloads/details.aspx?FamilyID=AB99342F-5D1A-413D-8319-81DA479AB0D7', '', '', SW_SHOWNORMAL, ewNoWait, errorCode);
     end;
     Result := False;
   end;
@@ -24,7 +21,13 @@ end;
 var
   SetupModePage: TInputOptionWizardPage;
   TaskValues: array [0..1] of Boolean;
+  DirValues: array [0..1] of String;
   TaskValuesInit: Boolean;
+
+function ApplicationData: String;
+begin
+    Result := ExpandConstant(AddBackslash('{userappdata}') + '{#AppName}');
+end;
 
 function TaskValueIndex: Integer;
 begin
@@ -47,10 +50,19 @@ begin
   SetupModePage.Add(ExpandConstant('{cm:Msg_SetupModePortable}'));
 
   SetupModePage.SelectedValueIndex := BooleanToInteger(IsPortable);
+  
+  DirValues[0] := ApplicationData;
+  DirValues[1] := WizardForm.DirEdit.Text;
 end;
 
 procedure CurPageChanged(CurPageID: Integer);
 begin
+  if CurPageID = wpSelectDir then
+  begin
+    WizardForm.DirEdit.Text := DirValues[BooleanToInteger(IsInstallable)];
+    Exit;
+  end;
+
   if CurPageID = wpSelectTasks then
   begin
     if not TaskValuesInit then
@@ -59,7 +71,8 @@ begin
       TaskValuesInit := True;
     end;
     WizardForm.TasksList.Checked[TaskValueIndex] := TaskValues[BooleanToInteger(IsInstallable)];
-  end;
+    Exit;
+  end; 
 end;
 
 function ShouldSkipPage(PageID: Integer): Boolean;
@@ -68,27 +81,30 @@ begin
 end;
 
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
-var
-  appDataDir: String;
 begin
   if (CurUninstallStep <> usUninstall) then Exit;
     
-  appDataDir := ExpandConstant(AddBackslash('{userappdata}') + '{#AppName}');
-    
-  if DirExists(appDataDir) and (UninstallSilent or (MsgBox(ExpandConstant('{cm:Msg_KeepSettings}'), mbConfirmation, MB_YESNO) = idNo)) then
+  if DirExists(ApplicationData) and (UninstallSilent or (MsgBox(ExpandConstant('{cm:Msg_KeepSettings}'), mbConfirmation, MB_YESNO) = idNo)) then
   begin
-    DelTree(appDataDir, True, True, True);
+    DelTree(ApplicationData, True, True, True);
   end;
 end;
 
 function BackButtonClick(CurPageID: Integer): Boolean;
 begin
+  Result := True;
+  
+  if CurPageID = wpSelectDir then
+  begin
+    DirValues[BooleanToInteger(IsInstallable)] := WizardForm.DirEdit.Text;
+    Exit;
+  end;
+   
   if CurPageID = wpSelectTasks then
   begin
     UpdateTaskValues(IsInstallable);
+    Exit;
   end;
-
-  Result := True;
 end;
 
 function NextButtonClick(CurPageID: Integer): Boolean;
