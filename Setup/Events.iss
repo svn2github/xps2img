@@ -90,10 +90,8 @@ begin
   end;
 end;
 
-function BackButtonClick(CurPageID: Integer): Boolean;
+procedure UpdateSetupTypeData(CurPageID: Integer);
 begin
-  Result := True;
-  
   if CurPageID = wpSelectDir then
   begin
     DirValues[BooleanToInteger(IsInstallable)] := WizardForm.DirEdit.Text;
@@ -107,6 +105,12 @@ begin
   end;
 end;
 
+function BackButtonClick(CurPageID: Integer): Boolean;
+begin
+  Result := True;
+  UpdateSetupTypeData(CurPageID);
+end;
+
 function NextButtonClick(CurPageID: Integer): Boolean;
 begin
   Result := True;
@@ -117,11 +121,7 @@ begin
     Exit;
   end;
   
-  if CurPageID = wpSelectTasks then
-  begin
-    UpdateTaskValues(IsInstallable);
-    Exit;
-  end;
+  UpdateSetupTypeData(CurPageID);
 end;
 
 function UpdateReadyMemo(Space, NewLine, MemoUserInfoInfo, MemoDirInfo, MemoTypeInfo, MemoComponentsInfo, MemoGroupInfo, MemoTasksInfo: String): String;

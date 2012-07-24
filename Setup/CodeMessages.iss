@@ -6,6 +6,6 @@ en.Msg_KeepSettings=Would you like to keep saved settings?
 en.Msg_SetupMode=Setup Mode
 en.Msg_SetupModeQuestion=Would you like to install application or setup as portable?
 en.Msg_SetupModeGroupTitle=Please specify setup mode:
-en.Msg_SetupModeInstall=I&nstallation
+en.Msg_SetupModeInstall=&Normal
 en.Msg_SetupModePortable=P&ortable
 [/CustomMessages]
