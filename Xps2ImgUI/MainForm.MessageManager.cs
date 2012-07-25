@@ -11,7 +11,7 @@ namespace Xps2ImgUI
 {
     public partial class MainForm
     {
-        private void ShowErrorMessageBox(string text, bool error = true, string taskInstruction = null, string taskText = null, string closeText = null)
+        private void ShowErrorMessageBox(string text, Exception exception = null, bool error = true, string taskInstruction = null, string taskText = null, string closeText = null)
         {
             var dialogResult = TaskDialogUtils.Show(
                                     Handle,
@@ -19,7 +19,7 @@ namespace Xps2ImgUI
                                     taskInstruction,
                                     taskText,
                                     error ? TaskDialogStandardIcon.Error : TaskDialogStandardIcon.Warning,
-                                    null,
+                                    t => AddExceptionDetails(t, exception),
                                     new TaskDialogCommandInfo(TaskDialogResult.Close, closeText));
 
             if(dialogResult == TaskDialogUtils.NotSupported)

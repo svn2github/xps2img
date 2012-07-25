@@ -145,7 +145,7 @@
     <value>{0} parameter is required.</value>
   </data>
   <data name="Xps2ImgNotFount" xml:space="preserve">
-    <value>{1}{0}{0}Make sure that xps2img.exe utility is present in application folder.</value>
+    <value>{1}{0}{0}Please make sure that xps2img.exe utility is present into the application folder.</value>
   </data>
   <data name="BrowseConvertedImages" xml:space="preserve">
     <value>Bro&amp;wse Images</value>

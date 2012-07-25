@@ -284,7 +284,7 @@ namespace Xps2ImgUI
             }
         }
 
-        private void UpdateFailedStatus(string message)
+        private void UpdateFailedStatus(string message, Exception exception = null)
         {
             _conversionFailed = true;
 
@@ -292,7 +292,7 @@ namespace Xps2ImgUI
 
             FlashForm();
 
-            ShowErrorMessageBox(message, true, Resources.Strings.ConversionFailed, message, Resources.Strings.BackToApplication);
+            ShowErrorMessageBox(message, exception, true, Resources.Strings.ConversionFailed, message, Resources.Strings.BackToApplication);
 
             UpdateRunningStatus(false);
         }
@@ -433,7 +433,12 @@ namespace Xps2ImgUI
                             ? String.Format(Resources.Strings.Xps2ImgNotFount, Environment.NewLine, e.Exception.Message)
                             : e.Exception.Message;
 
-            this.InvokeIfNeeded(() => { UpdateFailedStatus(message); EnableConvertControls(); });
+            if (!message.EndsWith("."))
+            {
+                message += ".";
+            }
+
+            this.InvokeIfNeeded(() => { UpdateFailedStatus(message, e.Exception); EnableConvertControls(); });
         }
 
         private void LaunchSucceeded(object sender, EventArgs e)
@@ -456,7 +461,7 @@ namespace Xps2ImgUI
         private void ShowOptionIsRequiredMessage(string firstRequiredOptionLabel)
         {
             Activate();
-            ShowErrorMessageBox(String.Format(Resources.Strings.SpecifyValue, firstRequiredOptionLabel), false, firstRequiredOptionLabel, Resources.Strings.ParameterIsRequired, Resources.Strings.EditParameter);
+            ShowErrorMessageBox(String.Format(Resources.Strings.SpecifyValue, firstRequiredOptionLabel), null, false, firstRequiredOptionLabel, Resources.Strings.ParameterIsRequired, Resources.Strings.EditParameter);
         }
 
         private void ShowHelp()

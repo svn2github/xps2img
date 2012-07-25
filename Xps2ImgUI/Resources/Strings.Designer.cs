@@ -736,7 +736,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {1}{0}{0}Make sure that xps2img.exe utility is present in application folder..
+        ///   Looks up a localized string similar to {1}{0}{0}Please make sure that xps2img.exe utility is present into application folder..
         /// </summary>
         internal static string Xps2ImgNotFount {
             get {
