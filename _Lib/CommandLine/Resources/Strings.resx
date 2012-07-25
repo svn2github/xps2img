@@ -153,7 +153,7 @@ One of:
     <value>  </value>
   </data>
   <data name="Validation_EnumValidator" xml:space="preserve">
-    <value>value is not in list (see help)</value>
+    <value>value is not in list</value>
   </data>
   <data name="Validation_IntValidator" xml:space="preserve">
     <value>value should be between {0} and {1}</value>
@@ -162,7 +162,7 @@ One of:
     <value>UNEXPECTED: No validator found for validation expression</value>
   </data>
   <data name="Validation_RegexValidator" xml:space="preserve">
-    <value>value format is incorrect (see help)</value>
+    <value>value is not valid. Please refer help for details</value>
   </data>
 	<data name="Format_ShortOptionalAndLongOpt">
 		<value xml:space="preserve">{0}{2}, {1}</value>
