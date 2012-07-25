@@ -48,10 +48,11 @@
 
 #define X2IFileDescription      AppName + " Settings"
 
-#include "Utils.iss"
-#include "Params.iss"
-#include "CodeMessages.iss"
-#include "Events.iss"
+#include "Messages.iss"
+
+#include "Code/Utils.iss"
+#include "Code/Params.iss"
+#include "Code/Events.iss"
 
 #define Uninstallable           "IsInstallable"
 #define CreateUninstallRegKey   "IsInstallable"

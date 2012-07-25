@@ -23,6 +23,7 @@ var
   TaskValues: array [0..1] of Boolean;
   DirValues: array [0..1] of String;
   TaskValuesInit: Boolean;
+  InstallModeCM: String;
 
 function ApplicationData: String;
 begin
@@ -40,19 +41,30 @@ begin
 end;
 
 procedure InitializeWizard;
-begin
+begin 
+  DirValues[0] := ApplicationData;
+  case IsAdminLoggedOn of
+    True:
+    begin
+      InstallModeCM := '{cm:Msg_SetupModeInstall}';
+      DirValues[1] := WizardForm.DirEdit.Text;
+    end;
+    False:
+    begin
+      InstallModeCM := '{cm:Msg_SetupModeInstallUserOnly}';
+      DirValues[1] := DirValues[0];
+    end;
+  end;
+  
   SetupModePage := CreateInputOptionPage(wpWelcome,
     ExpandConstant('{cm:Msg_SetupMode}'),
     ExpandConstant('{cm:Msg_SetupModeQuestion}'),
     ExpandConstant('{cm:Msg_SetupModeGroupTitle}'),
     True, False);
-  SetupModePage.Add(ExpandConstant('{cm:Msg_SetupModeInstall}'));
+  SetupModePage.Add(ExpandConstant(InstallModeCM));
   SetupModePage.Add(ExpandConstant('{cm:Msg_SetupModePortable}'));
 
   SetupModePage.SelectedValueIndex := BooleanToInteger(IsPortable);
-  
-  DirValues[0] := ApplicationData;
-  DirValues[1] := WizardForm.DirEdit.Text;
 end;
 
 procedure CurPageChanged(CurPageID: Integer);
@@ -135,7 +147,7 @@ begin
 
   case IsPortable of
     True:   S := S + ExpandConstant('{cm:Msg_SetupModePortable}');
-    False:  S := S + ExpandConstant('{cm:Msg_SetupModeInstall}');
+    False:  S := S + ExpandConstant(InstallModeCM);
   end;
   
   StringChangeEx(S, '&', '', True);
