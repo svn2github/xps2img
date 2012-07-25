@@ -2,6 +2,10 @@
 
 #define ISM_RootDir             AddBackslash(CompilerPath) + "Include/ISM"
 
+#include ISM_RootDir + "/Include/WinVer.isi"
+
+#define MinVersion              WindowsXP
+
 #define OutputBaseFilename      "Xps2ImgSetup"
 
 #define PrivilegesRequired      "none"
@@ -102,11 +106,18 @@
 <Run(filename=AppExe, flags=Utils_RemoveFlag(RunFlag_SkipIfSilent, Common_RunFlags), description=Utils_CmFormat("LaunchProgram", AppName))>
 <Run(filename=AppChm, flags=Common_RunFlags + RunFlag_ShellExec + RunFlag_Unchecked, description=Utils_CmFormat("ViewHelp", AppName))>
 
+#define RegisterDocumentExtension(str root) \
+    Reg(AddBackslash(root) + ".x2i",  ":string", AppName,            RegFlag_UninsDeleteKey) + \
+    Reg(AddBackslash(root) + AppName, ":string", X2IFileDescription, RegFlag_UninsDeleteKey) + \
+    Reg(AddBackslash(root) + AppName + "\DefaultIcon",        ":string", AppExe + ",0") + \
+    Reg(AddBackslash(root) + AppName + "\shell\open\command", ":string", Str_Quote(AppExe) + " " + Str_Quote("%1"))
+
+#define Active_Check    "IsInstallable and IsAdminLoggedOn"
+    <RegisterDocumentExtension("HKCR")>
+<Reset_ActiveCheck>
+
 #define Active_Check    "IsInstallable"
-    <Reg("HKCR\.x2i", ":string", AppName, RegFlag_UninsDeleteKey)>
-    <Reg("HKCR\" + AppName, ":string", X2IFileDescription, RegFlag_UninsDeleteKey)>
-    <Reg("HKCR\" + AppName + "\DefaultIcon", ":string", AppExe+",0")>
-    <Reg("HKCR\" + AppName + "\shell\open\command", ":string", Str_Quote(AppExe) + " " + Str_Quote("%1"))>
+    <RegisterDocumentExtension("HKCU\Software\Classes")>
 <Reset_ActiveCheck>
 
 <Debug_ViewTranslation>
