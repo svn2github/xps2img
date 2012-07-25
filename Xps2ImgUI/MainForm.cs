@@ -429,15 +429,18 @@ namespace Xps2ImgUI
 
         private void LaunchFailed(object sender, ThreadExceptionEventArgs e)
         {
-            var message = e.Exception is Win32Exception
-                            ? String.Format(Resources.Strings.Xps2ImgNotFount, Environment.NewLine, e.Exception.Message)
-                            : e.Exception.Message;
+            var message = e.Exception.Message.TrimEnd();
 
             if (!message.EndsWith("."))
             {
                 message += ".";
             }
 
+            if (e.Exception is Win32Exception)
+            {
+                message = String.Format(Resources.Strings.Xps2ImgNotFount, Environment.NewLine, message);
+            }
+            
             this.InvokeIfNeeded(() => { UpdateFailedStatus(message, e.Exception); EnableConvertControls(); });
         }
 

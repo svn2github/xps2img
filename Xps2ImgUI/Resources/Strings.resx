@@ -187,7 +187,7 @@
     <value>.x2i</value>
   </data>
   <data name="ProcessorHasTerminated" xml:space="preserve">
-    <value>Processor has terminated unexpectedly.</value>
+    <value>xps2img.exe processor application has terminated unexpectedly.</value>
   </data>
   <data name="DeleteConvertedImagesConfirmation" xml:space="preserve">
     <value>Converted images will be deleted.</value>

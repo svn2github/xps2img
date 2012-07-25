@@ -367,7 +367,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Processor has terminated unexpectedly..
+        ///   Looks up a localized string similar to xps2img.exe processor application has terminated unexpectedly..
         /// </summary>
         internal static string ProcessorHasTerminated {
             get {
@@ -736,7 +736,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {1}{0}{0}Please make sure that xps2img.exe utility is present into application folder..
+        ///   Looks up a localized string similar to {1}{0}{0}Please make sure that xps2img.exe utility is present into the application folder..
         /// </summary>
         internal static string Xps2ImgNotFount {
             get {
