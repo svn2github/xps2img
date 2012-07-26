@@ -303,11 +303,11 @@
   <data name="UnexpectedErrorOccured" xml:space="preserve">
     <value>Unexpected Error Occured</value>
   </data>
-  <data name="ShowLess" xml:space="preserve">
-    <value>&amp;Show Less</value>
+  <data name="HideDetails" xml:space="preserve">
+    <value>Hide &amp;Details</value>
   </data>
-  <data name="ShowMore" xml:space="preserve">
-    <value>&amp;Show More</value>
+  <data name="ShowDetails" xml:space="preserve">
+    <value>Show &amp;Details</value>
   </data>
   <data name="NoExceptionDetailsPresent" xml:space="preserve">
     <value>No exception details present.</value>

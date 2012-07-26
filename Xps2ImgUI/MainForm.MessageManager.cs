@@ -142,7 +142,7 @@ namespace Xps2ImgUI
 
         public static void AddExceptionDetails(TaskDialog taskDialog, Exception ex)
         {
-            TaskDialogUtils.AddExceptionDetails(taskDialog, ex, Resources.Strings.ShowLess, Resources.Strings.ShowMore);
+            TaskDialogUtils.AddExceptionDetails(taskDialog, ex, Resources.Strings.HideDetails, Resources.Strings.ShowDetails);
         }
     }
 }

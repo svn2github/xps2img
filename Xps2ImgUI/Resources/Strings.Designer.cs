@@ -268,6 +268,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Hide Details.
+        /// </summary>
+        internal static string HideDetails {
+            get {
+                return ResourceManager.GetString("HideDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Convert.
         /// </summary>
         internal static string Launch {
@@ -475,20 +484,11 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Show Less.
+        ///   Looks up a localized string similar to &amp;Show Details.
         /// </summary>
-        internal static string ShowLess {
+        internal static string ShowDetails {
             get {
-                return ResourceManager.GetString("ShowLess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &amp;Show More.
-        /// </summary>
-        internal static string ShowMore {
-            get {
-                return ResourceManager.GetString("ShowMore", resourceCulture);
+                return ResourceManager.GetString("ShowDetails", resourceCulture);
             }
         }
         
