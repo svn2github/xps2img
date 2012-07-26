@@ -1,22 +1,4 @@
 [Code]
- 
-function InitializeSetup: Boolean;
-var
-  errorCode: Integer;
-  isInstalled: Cardinal;
-begin
-  Result := True;
-  // Check for the .Net 3.5 framework
-  isInstalled := 0;
-  if (not RegQueryDWordValue(HKLM, 'SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5', 'Install', isInstalled)) or (isInstalled <> 1) then
-  begin
-    if MsgBox(ExpandConstant('{cm:Msg_DotNetIsMissing}'), mbConfirmation, MB_YESNO) = idYes then
-    begin
-      ShellExec('open', 'http://www.microsoft.com/downloads/details.aspx?FamilyID=AB99342F-5D1A-413D-8319-81DA479AB0D7', '', '', SW_SHOWNORMAL, ewNoWait, errorCode);
-    end;
-    Result := False;
-  end;
-end;
 
 var
   SetupModePage: TInputOptionWizardPage;
@@ -39,21 +21,49 @@ procedure UpdateTaskValues(IsInstallableBoolean: Boolean);
 begin
   TaskValues[BooleanToInteger(IsInstallableBoolean)] := WizardForm.TasksList.Checked[TaskValueIndex];
 end;
+ 
+function InitializeSetup: Boolean;
+var
+  errorCode: Integer;
+  isInstalled: Cardinal;
+begin
+  Result := True;
+  // Check for the .Net 3.5 framework
+  isInstalled := 0;
+  if (not RegQueryDWordValue(HKLM, 'SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5', 'Install', isInstalled)) or (isInstalled <> 1) then
+  begin
+    if MsgBox(ExpandConstant('{cm:Msg_DotNetIsMissing}'), mbConfirmation, MB_YESNO) = idYes then
+    begin
+      ShellExec('open', 'http://www.microsoft.com/downloads/details.aspx?FamilyID=AB99342F-5D1A-413D-8319-81DA479AB0D7', '', '', SW_SHOWNORMAL, ewNoWait, errorCode);
+    end;
+    Result := False;
+  end;
+end;
 
+const
+  IndexOfPortable = 0;
+  IndexOfInstall  = 1;
+  
 procedure InitializeWizard;
 begin 
-  DirValues[0] := ApplicationData;
+  DirValues[IndexOfPortable] := ApplicationData;
   case IsAdminLoggedOn of
     True:
     begin
       InstallModeCM := '{cm:Msg_SetupModeInstall}';
-      DirValues[1] := WizardForm.DirEdit.Text;
+      DirValues[IndexOfInstall] := WizardForm.DirEdit.Text;
     end;
     False:
     begin
       InstallModeCM := '{cm:Msg_SetupModeInstallUserOnly}';
-      DirValues[1] := DirValues[0];
+      DirValues[IndexOfInstall] := DirValues[IndexOfPortable];
     end;
+  end;
+  
+  if IsUpdate then
+  begin
+    DirValues[IndexOfPortable] := WizardForm.DirEdit.Text;
+    DirValues[IndexOfInstall]  := DirValues[IndexOfPortable];
   end;
   
   SetupModePage := CreateInputOptionPage(wpWelcome,
