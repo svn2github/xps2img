@@ -153,7 +153,7 @@ var
 begin
   CR := NewLine + NewLine;
   
-  S := ExpandConstant('{cm:Msg_SetupMode}') + ':' + NewLine + Space;
+  S := ExpandConstant('{cm:Msg_SetupModeReadyPage}') + NewLine + Space;
 
   case IsPortable of
     True:   S := S + ExpandConstant('{cm:Msg_SetupModePortable}');

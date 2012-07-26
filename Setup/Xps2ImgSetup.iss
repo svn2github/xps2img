@@ -73,6 +73,8 @@
 
 #define ApplicationFile(f)  File(BinariesPath + f)
 
+#define PortableMarkFile    "xps2imgUI.exe.portable"
+
 <ApplicationFile("xps2img.exe")>
 <ApplicationFile("xps2imgUI.exe")>
 <ApplicationFile("CommandLine.dll")>
@@ -80,9 +82,11 @@
 <ApplicationFile("Microsoft.WindowsAPICodePack.dll")>
 <ApplicationFile("xps2img.chm")>
 #define Active_Check    "IsPortable"
-    <ApplicationFile("xps2imgUI.exe.portable")>
+    <ApplicationFile(PortableMarkFile)>
 <Reset_ActiveCheck>
 <File(LicenseFile)>
+
+<UninstallDelete(AddBackslash("{app}") + PortableMarkFile)>
 
 #define Active_Tasks    "desktopicon"
     <Task(Active_Tasks, "{cm:CreateDesktopIcon}", "{cm:AdditionalIcons}")>
