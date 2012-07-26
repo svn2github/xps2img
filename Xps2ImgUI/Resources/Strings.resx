@@ -369,4 +369,7 @@
   <data name="YesDownloadAndUpdate" xml:space="preserve">
     <value>&amp;Yes, Download and Update</value>
   </data>
+  <data name="ValueIsNotValidIntegerNumber">
+    <value xml:space="preserve">Value is not valid integer number</value>
+  </data>
 </root>

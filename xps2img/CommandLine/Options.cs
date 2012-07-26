@@ -212,6 +212,7 @@ namespace Xps2Img.CommandLine
         [Category(Category.Options)]
         [DefaultValue(85)]
         [DynamicPropertyFilter("FileType", "Jpeg")]
+        [TypeConverter(typeof(NullableIntTypeConverter))]
         public int? JpegQuality
         {
             get { return _jpegQuality; }
@@ -283,6 +284,7 @@ namespace Xps2Img.CommandLine
         [Option(DpiShortOption)]
         [Category(Category.Options)]
         [DefaultValue(120)]
+        [TypeConverter(typeof(NullableIntTypeConverter))]
         public int? Dpi
         {
             get { return _dpi; }
@@ -336,6 +338,7 @@ namespace Xps2Img.CommandLine
         [Option(FirstPageIndexShortOption)]
         [Category(Category.Options)]
         [DefaultValue(1)]
+        [TypeConverter(typeof(NullableIntTypeConverter))]
         public int? FirstPageIndex
         {
             get { return _firstPageIndex; }

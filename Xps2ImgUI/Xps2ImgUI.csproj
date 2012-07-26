@@ -115,6 +115,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ToolStripButtonItem.cs" />
+    <Compile Include="Converters\NullableIntTypeConverter.cs" />
+    <Compile Include="Converters\ErrorReporterTypeConverter.cs" />
     <Compile Include="Converters\StandardValuesTypeConverter.cs" />
     <Compile Include="Converters\PostActionConverterWithUserApplication.cs" />
     <Compile Include="Converters\PostActionConverter.cs" />

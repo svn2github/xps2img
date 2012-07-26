@@ -268,7 +268,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Hide Details.
+        ///   Looks up a localized string similar to Hide &amp;Details.
         /// </summary>
         internal static string HideDetails {
             get {
@@ -484,7 +484,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Show Details.
+        ///   Looks up a localized string similar to Show &amp;Details.
         /// </summary>
         internal static string ShowDetails {
             get {
@@ -615,6 +615,15 @@ namespace Xps2ImgUI.Resources {
         internal static string ValueEdit {
             get {
                 return ResourceManager.GetString("ValueEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value is not valid integer number.
+        /// </summary>
+        internal static string ValueIsNotValidIntegerNumber {
+            get {
+                return ResourceManager.GetString("ValueIsNotValidIntegerNumber", resourceCulture);
             }
         }
         
