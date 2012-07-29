@@ -139,7 +139,7 @@
     <value>{1}% ({2}) [{3}] - {4} - {0}</value>
   </data>
   <data name="ClosingConfirmation" xml:space="preserve">
-    <value>Currently executed conversion will be aborted.</value>
+    <value>Currently executing conversion will be aborted.</value>
   </data>
   <data name="SpecifyValue" xml:space="preserve">
     <value>{0} parameter is required.</value>
