@@ -163,6 +163,8 @@
       <DependentUpon>Icons.resx</DependentUpon>
     </Compile>
     <Compile Include="Utils\AssemblyInformation.cs" />
+    <Compile Include="Utils\Stubs\UpdateManager.cs" />
+    <Compile Include="Utils\Interfaces\IUpdateManager.cs" />
     <Compile Include="Utils\SetupGuard.cs" />
     <Compile Include="Utils\UpdateManager.cs" />
     <Compile Include="Utils\SystemManagement.Native.cs" />

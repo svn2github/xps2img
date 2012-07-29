@@ -783,6 +783,6 @@ namespace Xps2ImgUI
         private ThumbButtonManager _thumbButtonManager;
         private ThumbButton _thumbButton;
 
-        private readonly UpdateManager _updateManager = new UpdateManager();
+        private readonly IUpdateManager _updateManager = UpdateManager.Create();
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define STUB_UPDATEMANAGER
+
+using System;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -12,7 +14,7 @@ using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI.Utils
 {
-    public class UpdateManager
+    public class UpdateManager : IUpdateManager
     {
         public const string ManualCheckUrl      = DownloadRootUrl;
         public const string ManualDownloadUrl   = DownloadRootUrl;
@@ -34,7 +36,6 @@ namespace Xps2ImgUI.Utils
 
         public bool HasUpdate
         {
-            set { _hasUpdate = value; }
             get { return _hasUpdate; }
         }
 
@@ -59,7 +60,21 @@ namespace Xps2ImgUI.Utils
         public event EventHandler CheckCompleted;
         public event EventHandler InstallationLaunched;
         public event AsyncCompletedEventHandler DownloadFileCompleted;
-        public event DownloadProgressChangedEventHandler DownloadProgressChanged;
+        public event ProgressChangedEventHandler DownloadProgressChanged;
+
+        public static IUpdateManager Create()
+        {
+            #if STUB_UPDATEMANAGER
+               #warning *** STUB USED *** Stubs.UpdateManager
+               return new Stubs.UpdateManager();
+            #else
+                return new UpdateManager();
+            #endif
+        }
+
+        private UpdateManager()
+        {
+        }
 
         public void CheckAsync(string version, bool silent = false)
         {
@@ -235,9 +250,7 @@ namespace Xps2ImgUI.Utils
                     throw new InvalidOperationException("DownloadedFile is not set.");
                 }
 
-                var requireAdmin = !IsDirectoryWritableForCurrentUser(AssemblyInfo.ApplicationFolder);
-
-                Explorer.ShellExecute(_downloadedFile, SetupCommandLineArguments, requireAdmin ? "runas" : null);
+                CheckAccessAndInstall(_downloadedFile);
             }
             catch (Exception ex)
             {
@@ -248,6 +261,12 @@ namespace Xps2ImgUI.Utils
             {
                 InstallationLaunched(this, EventArgs.Empty);
             }
+        }
+
+        internal static void CheckAccessAndInstall(string setup)
+        {
+            var requireAdmin = !IsDirectoryWritableForCurrentUser(AssemblyInfo.ApplicationFolder);
+            Explorer.ShellExecute(setup, SetupCommandLineArguments, requireAdmin ? "runas" : null);
         }
 
         private static readonly char[] VersionSeparator = new[] { '.' };

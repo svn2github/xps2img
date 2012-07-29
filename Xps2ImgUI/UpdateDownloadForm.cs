@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 using System.Windows.Forms;
 using System.ComponentModel;
 
@@ -11,9 +10,9 @@ namespace Xps2ImgUI
     public partial class UpdateDownloadForm : Form
     {
         private string _textFormat;
-        private readonly UpdateManager _updateManager;
+        private readonly IUpdateManager _updateManager;
 
-        public UpdateDownloadForm(UpdateManager updateManager)
+        public UpdateDownloadForm(IUpdateManager updateManager)
         {
             InitializeComponent();
             _updateManager = updateManager;
@@ -35,7 +34,7 @@ namespace Xps2ImgUI
             base.OnLoad(e);
         }
 
-        private void DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        private void DownloadProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             this.InvokeIfNeeded(() =>
             {
@@ -51,7 +50,7 @@ namespace Xps2ImgUI
             {
                 this.EnableSysClose(false);
                 cancelButton.Enabled = false;
-                DialogResult = e.Error == null ? DialogResult.OK : DialogResult.Cancel;
+                DialogResult = e.Error != null || e.Cancelled ? DialogResult.Cancel : DialogResult.OK;
             });
         }
 
