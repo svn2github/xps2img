@@ -121,7 +121,7 @@
     <RegisterDocumentExtension("HKCR")>
 <Reset_ActiveCheck>
 
-#define Active_Check    "IsInstallable"
+#define Active_Check    "IsInstallable and not IsAdminLoggedOn"
     <RegisterDocumentExtension("HKCU\Software\Classes")>
 <Reset_ActiveCheck>
 
