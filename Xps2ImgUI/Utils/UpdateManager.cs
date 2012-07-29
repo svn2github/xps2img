@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.AccessControl;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -234,6 +235,11 @@ namespace Xps2ImgUI.Utils
                     throw new InvalidOperationException("DownloadedFile is not set.");
                 }
 
+                if (!IsDirectorWritableForUser(AssemblyInfo.ApplicationFolder))
+                {
+                    throw new AccessViolationException(String.Format("Could not write into directory '{0}'", AssemblyInfo.ApplicationFolder));
+                }
+
                 Explorer.ShellExecute(_downloadedFile, false, SetupCommandLineArguments);
             }
             catch (Exception ex)
@@ -260,6 +266,29 @@ namespace Xps2ImgUI.Utils
             }
 
             return v1.Select((t, i) => Convert.ToInt32(t) - Convert.ToInt32(v2[i])).FirstOrDefault(diff => diff != 0);
+        }
+
+        private static bool IsDirectorWritableForUser(string path)
+        {
+            var writeAllow = false;
+            var writeDeny = false;
+
+            var accessRules = Directory.GetAccessControl(path).GetAccessRules(true, true, typeof(System.Security.Principal.NTAccount));
+
+            foreach (var rule in accessRules.Cast<FileSystemAccessRule>().Where(rule => (FileSystemRights.Write & rule.FileSystemRights) == FileSystemRights.Write))
+            {
+                switch (rule.AccessControlType)
+                {
+                    case AccessControlType.Allow:
+                        writeAllow = true;
+                        break;
+                    case AccessControlType.Deny:
+                        writeDeny = true;
+                        break;
+                }
+            }
+
+            return writeAllow && !writeDeny;
         }
 
         private static IWebProxy GetProxy()
