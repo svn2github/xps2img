@@ -266,7 +266,7 @@ namespace Xps2ImgUI.Utils
         internal static void CheckAccessAndInstall(string setup)
         {
             var requireAdmin = !IsDirectoryWritableForCurrentUser(AssemblyInfo.ApplicationFolder);
-            Explorer.ShellExecute(setup, SetupCommandLineArguments, requireAdmin ? "runas" : null);
+            Explorer.ShellExecute(setup, requireAdmin, SetupCommandLineArguments, requireAdmin ? "runas" : null);
         }
 
         private static readonly char[] VersionSeparator = new[] { '.' };

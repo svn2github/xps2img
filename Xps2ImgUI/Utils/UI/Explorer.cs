@@ -28,12 +28,12 @@ namespace Xps2ImgUI.Utils.UI
             }
         }
 
-        public static void ShellExecute(string command, string arguments = null, string verb = null)
+        public static void ShellExecute(string command, bool useShellExecute = true, string arguments = null, string verb = null)
         {
             Process.Start(new ProcessStartInfo
             {
                 FileName = command,
-                UseShellExecute = true,
+                UseShellExecute = useShellExecute || !String.IsNullOrEmpty(verb),
                 Verb = verb,
                 Arguments = arguments ?? String.Empty
             });

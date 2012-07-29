@@ -353,7 +353,7 @@ namespace Xps2Img.CommandLine
         public int FirstPageIndex { get; set; }
         #endif
 
-        private const string PrelimsPrefixDescription = "Preliminaries prefix";
+        private const string PrelimsPrefixDescription = "Preliminaries prefix." + OptionsValidators.FileNameCharactersNotAllowed;
         private const char PrelimsPrefixShortOption = 'x';
         private const string PrelimsPrefixDefaultValue = "$";
         private const string PrelimsPrefixValidationExpression = OptionsValidators.FileNameValidationRegex;
@@ -562,6 +562,7 @@ namespace Xps2Img.CommandLine
 
     public static class OptionsValidators
     {
-        public const string FileNameValidationRegex = @"/^([^<>:""/\\|?*])*$/";
+        public const string FileNameCharactersNotAllowed = " <>:\"/\\|?* characters are not allowed.";
+        public const string FileNameValidationRegex      = @"/^([^\x00-\x1F<>:""/\\|?*])*$/";
     }
 }
