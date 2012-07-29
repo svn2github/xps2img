@@ -36,8 +36,19 @@
     #define ISM_ScriptCleaningOptions    ' /s:Languages,Setup,INI,Icons,CustomMessages,Messages'
 #endif
 
+#ifndef ISM_CleanScriptViewOptions
+    #ifdef ISM_CleanTranslationOnly
+        #ifndef ISM_OnViewCleanTranslation
+            #define ISM_OnViewCleanTranslation
+        #endif
+        #define ISM_CleanScriptViewOptions ''
+    #else
+        #define ISM_CleanScriptViewOptions ' /v '
+    #endif
+#endif
+
 #ifndef ISM_ScriptCleaningCommandLine
-    #define ISM_ScriptCleaningCommandLine ISM_ClearScriptFiles + ' /v ' + ISM_ScriptCleaningOptions + ISM_CleanScriptCompileOptions
+    #define ISM_ScriptCleaningCommandLine ISM_ClearScriptFiles + ISM_CleanScriptViewOptions + ISM_ScriptCleaningOptions + ISM_CleanScriptCompileOptions
 #endif
 
 #sub Debug_ViewTranslation

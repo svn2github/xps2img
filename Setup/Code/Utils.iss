@@ -2,10 +2,9 @@
 
 function BooleanToInteger(b: Boolean): Integer;
 begin
-  Result := 0;
-  if b then
-  begin
-    Result := 1;
+  case b of
+    True:  Result := 1;
+    False: Result := 0;
   end;
 end;
 

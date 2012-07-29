@@ -1,4 +1,4 @@
-;#define ISM_OnViewCleanTranslation
+#define ISM_CleanTranslationOnly
 
 #define ISM_RootDir             AddBackslash(CompilerPath) + "Include/ISM"
 

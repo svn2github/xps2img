@@ -39,7 +39,8 @@ Cleans script 'translation.iss', sorts [Setup], [Types] sections content ascendi
 </example>
 </runtime>
 <!-- Resources. -->
-<resource id="logo">Inno Setup Meta generated script cleaning tool.
+<resource id="logo">
+Inno Setup Meta generated script cleaning tool.
 </resource>
 <resource id="allOK">
 All OK</resource>

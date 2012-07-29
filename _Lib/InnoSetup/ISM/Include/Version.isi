@@ -11,11 +11,11 @@
 
 #define private __ISM_VersionWarning__(str app, str version) "[ISM] " + app + " " + version + " or higher is required"
 
-#if ISM_Version < Ver
+#if ISM_Version > Ver
 	#pragma warning __ISM_VersionWarning__("Inno Setup", ISM_VersionString)
 #endif
 
-#if ISM_PreprocVer < PREPROCVER
+#if ISM_PreprocVer > PREPROCVER
 	#pragma warning __ISM_VersionWarning__("Inno Setup Preprocessor", ISM_PreprocVerString)
 #endif
 

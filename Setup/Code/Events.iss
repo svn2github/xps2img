@@ -150,15 +150,18 @@ function UpdateReadyMemo(Space, NewLine, MemoUserInfoInfo, MemoDirInfo, MemoType
 var
   S: String;
   CR: String;
+  InstallMode: String;
 begin
   CR := NewLine + NewLine;
   
   S := ExpandConstant('{cm:Msg_SetupModeReadyPage}') + NewLine + Space;
 
   case IsPortable of
-    True:   S := S + ExpandConstant('{cm:Msg_SetupModePortable}');
-    False:  S := S + ExpandConstant(InstallModeCM);
+    True:   InstallMode := '{cm:Msg_SetupModePortable}';
+    False:  InstallMode := InstallModeCM;
   end;
+  
+  S := S + ExpandConstant(InstallMode);
   
   StringChangeEx(S, '&', '', True);
   
