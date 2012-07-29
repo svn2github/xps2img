@@ -99,13 +99,6 @@ namespace Xps2ImgUI
 
         private static void HandleException(Exception ex)
         {
-            #if !DEBUG
-            if (ModalGuard.IsEntered)
-            {
-                return;
-            }
-            #endif
-
             var exceptionMessage = ex == null
                                     ? Resources.Strings.NoExceptionDetailsPresent
                                     : ex
@@ -140,10 +133,13 @@ namespace Xps2ImgUI
                     dialogResult = TaskDialogUtils.Show(handle,
                         Resources.Strings.WindowTitle,
                         Resources.Strings.UnexpectedErrorOccured,
-                        ex != null ? ex.Message : exceptionMessage,
+                        (ex != null ? ex.Message : exceptionMessage).AppendDot(),
                         TaskDialogStandardIcon.Error,
-                        t => MainForm.AddExceptionDetails(t, ex),
-                        new TaskDialogCommandInfo(TaskDialogResult.Close, Resources.Strings.BackToApplication));
+                        t => 
+                        {
+                            MainForm.AddExceptionDetails(t, ex);
+                            t.StandardButtons = TaskDialogStandardButtons.Close;
+                        });
                 }
                 catch
                 {
@@ -151,7 +147,7 @@ namespace Xps2ImgUI
 
                 if(dialogResult == TaskDialogUtils.NotSupported)
                 {
-                    MessageBox.Show(form, exceptionMessage, Resources.Strings.WindowTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(form, exceptionMessage.AppendDot(), Resources.Strings.WindowTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

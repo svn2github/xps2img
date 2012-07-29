@@ -36,6 +36,10 @@ namespace Xps2ImgUI.Utils.Stubs
         public event AsyncCompletedEventHandler DownloadFileCompleted;
         public event ProgressChangedEventHandler DownloadProgressChanged;
 
+        internal UpdateManager()
+        {
+        }
+
         public void CheckAsync(string version, bool silent = false)
         {
             CheckCompleted(this, EventArgs.Empty);

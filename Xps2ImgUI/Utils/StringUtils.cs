@@ -21,5 +21,11 @@ namespace Xps2ImgUI.Utils
 
             return stringBuilder.ToString();
         }
+
+        public static string AppendDot(this string message)
+        {
+            message = message.TrimEnd();
+            return message.EndsWith(".") ? message : message + ".";
+        }
     }
 }

@@ -43,68 +43,15 @@ namespace Xps2ImgUI
 
         private bool ShowConfirmationMessageBox(string text, MessageBoxDefaultButton messageBoxDefaultButton = MessageBoxDefaultButton.Button2, MessageBoxIcon messageBoxIcon = MessageBoxIcon.Exclamation, Exception exception = null)
         {
-            var taskDialogStandardIcon = TaskDialogStandardIcon.Warning;
+            string taskInstruction;
+            string taskText;
+            TaskDialogStandardIcon taskDialogStandardIcon;
+            bool footerCheckBoxChecked;
+            Action noConfirmation;
+            string okCommand;
 
-            Action noConfirmation  = null;
+            GetTaskDialogMessageParams(text, out taskInstruction, out taskText, out taskDialogStandardIcon, out footerCheckBoxChecked, out noConfirmation, out okCommand);
 
-            var footerCheckBoxChecked = false;
-
-            string taskText = null;
-            string taskInstruction = null;
-            string okCommand = null;
-
-            if(text == Resources.Strings.DeleteConvertedImagesConfirmation)
-            {
-                taskInstruction = Resources.Strings.DeleteImagesConfirmation;
-                taskText        = Resources.Strings.WouldYouLikeToDeleteImages;
-                okCommand       = Resources.Strings.YesDeleteImages;
-                noConfirmation  = () => _preferences.ConfirmOnDelete = false;
-            }
-            else
-            if(text == Resources.Strings.ConversionStopConfirmation)
-            {
-                taskInstruction = Resources.Strings.StopConversionConfirmation;
-                taskText        = Resources.Strings.WouldYouLikeToStopConversion;
-                okCommand       = Resources.Strings.YesStopConversion;
-                noConfirmation  = () => _preferences.ConfirmOnStop = false;
-            }
-            else
-            if(text == Resources.Strings.ClosingConfirmation)
-            {
-                taskInstruction = Resources.Strings.CloseApplicationConfirmation;
-                taskText        = Resources.Strings.WouldYouLikeToAbortConversionAndCloseApplication;
-                okCommand       = Resources.Strings.YesAbortAndClose;
-                noConfirmation  = () => _preferences.ConfirmOnExit = false;
-            }
-            else
-            if (text == Resources.Strings.UpdatesCheckFailedWarning)
-            {
-                taskInstruction = Resources.Strings.UpdatesCheckFailed;
-                taskText        = Resources.Strings.WouldYouLikeToCheckForUpdatesManually;
-                okCommand       = Resources.Strings.YesCheckForUpdatesManually;
-            }
-            else
-            if (text == Resources.Strings.DownloadFailedWarning)
-            {
-                taskInstruction = Resources.Strings.DownloadFailed;
-                taskText        = Resources.Strings.WouldYouLikeToDownloadUpdateManually;
-                okCommand       = Resources.Strings.YesDownloadManually;
-            }
-            if (text == Resources.Strings.UpdateFailedWarning)
-            {
-                taskInstruction = Resources.Strings.UpdateFailed;
-                taskText = Resources.Strings.WouldYouLikeToDownloadAndUpdateManually;
-                okCommand = Resources.Strings.YesDownloadAndUpdateManually;
-            }
-            else
-            if (text == Resources.Strings.NewUpdateIsAvailable)
-            {
-                taskInstruction = Resources.Strings.NewUpdateAvailable;
-                taskText        = Resources.Strings.WouldYouLikeToDownloadItAndUpdateApplication;
-                okCommand       = Resources.Strings.YesDownloadAndUpdate;
-                taskDialogStandardIcon = TaskDialogStandardIcon.Information;
-            }
-            
             #if DEBUG
             if (String.IsNullOrEmpty(taskText))
             {
@@ -138,6 +85,66 @@ namespace Xps2ImgUI
             }
 
             return result;
+        }
+
+        private void GetTaskDialogMessageParams(string message, out string taskInstruction, out string taskText, out TaskDialogStandardIcon taskDialogStandardIcon, out bool footerCheckBoxChecked, out Action noConfirmation, out string okCommand)
+        {
+            taskDialogStandardIcon = TaskDialogStandardIcon.Warning;
+
+            noConfirmation = null;
+
+            footerCheckBoxChecked = false;
+
+            taskText = null;
+            taskInstruction = null;
+            okCommand = null;
+
+            if (message == Resources.Strings.DeleteConvertedImagesConfirmation)
+            {
+                taskInstruction = Resources.Strings.DeleteImagesConfirmation;
+                taskText = Resources.Strings.WouldYouLikeToDeleteImages;
+                okCommand = Resources.Strings.YesDeleteImages;
+                noConfirmation = () => _preferences.ConfirmOnDelete = false;
+            }
+            else if (message == Resources.Strings.ConversionStopConfirmation)
+            {
+                taskInstruction = Resources.Strings.StopConversionConfirmation;
+                taskText = Resources.Strings.WouldYouLikeToStopConversion;
+                okCommand = Resources.Strings.YesStopConversion;
+                noConfirmation = () => _preferences.ConfirmOnStop = false;
+            }
+            else if (message == Resources.Strings.ClosingConfirmation)
+            {
+                taskInstruction = Resources.Strings.CloseApplicationConfirmation;
+                taskText = Resources.Strings.WouldYouLikeToAbortConversionAndCloseApplication;
+                okCommand = Resources.Strings.YesAbortAndClose;
+                noConfirmation = () => _preferences.ConfirmOnExit = false;
+            }
+            else if (message == Resources.Strings.UpdatesCheckFailedWarning)
+            {
+                taskInstruction = Resources.Strings.UpdatesCheckFailed;
+                taskText = Resources.Strings.WouldYouLikeToCheckForUpdatesManually;
+                okCommand = Resources.Strings.YesCheckForUpdatesManually;
+            }
+            else if (message == Resources.Strings.DownloadFailedWarning)
+            {
+                taskInstruction = Resources.Strings.DownloadFailed;
+                taskText = Resources.Strings.WouldYouLikeToDownloadUpdateManually;
+                okCommand = Resources.Strings.YesDownloadManually;
+            }
+            if (message == Resources.Strings.UpdateFailedWarning)
+            {
+                taskInstruction = Resources.Strings.UpdateFailed;
+                taskText = Resources.Strings.WouldYouLikeToDownloadAndUpdateManually;
+                okCommand = Resources.Strings.YesDownloadAndUpdateManually;
+            }
+            else if (message == Resources.Strings.NewUpdateIsAvailable)
+            {
+                taskInstruction = Resources.Strings.NewUpdateAvailable;
+                taskText = Resources.Strings.WouldYouLikeToDownloadItAndUpdateApplication;
+                okCommand = Resources.Strings.YesDownloadAndUpdate;
+                taskDialogStandardIcon = TaskDialogStandardIcon.Information;
+            }
         }
 
         public static void AddExceptionDetails(TaskDialog taskDialog, Exception ex)

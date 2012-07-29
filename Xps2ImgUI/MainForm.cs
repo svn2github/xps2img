@@ -429,12 +429,7 @@ namespace Xps2ImgUI
 
         private void LaunchFailed(object sender, ThreadExceptionEventArgs e)
         {
-            var message = e.Exception.Message.TrimEnd();
-
-            if (!message.EndsWith("."))
-            {
-                message += ".";
-            }
+            var message = e.Exception.Message.AppendDot();
 
             if (e.Exception is Win32Exception)
             {

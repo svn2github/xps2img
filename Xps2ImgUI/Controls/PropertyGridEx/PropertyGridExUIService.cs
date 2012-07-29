@@ -8,6 +8,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 
 using Windows7.Dialogs;
 
+using Xps2ImgUI.Utils;
 using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI.Controls.PropertyGridEx
@@ -34,11 +35,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                 var displayName = propertyDescriptor.DisplayName;
 
                 var title = String.Format(Resources.Strings.ValidationError, displayName);
-                var message = detailsTextBox.Text;
-                if (!message.EndsWith("."))
-                {
-                    message += ".";
-                }
+                var message = detailsTextBox.Text.AppendDot();
 
                 var dialogResult = TaskDialogUtils.Show(
                                     _propertyGrid.Handle,
