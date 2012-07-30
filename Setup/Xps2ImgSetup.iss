@@ -48,7 +48,8 @@
 
 #define X2IFileDescription      AppName + " Settings"
 
-#include ISM_RootDir + "/Include/Extra/SingleSetupInstance.iss"
+#include ISM_RootDir + "/Include/Extra/SingleSetupInstance.isi"
+#include ISM_RootDir + "/Include/Extra/WindowsFirewall.isi"
 
 #include "Messages.iss"
 
