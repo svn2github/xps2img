@@ -142,7 +142,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Currently executed conversion will be aborted..
+        ///   Looks up a localized string similar to Currently executing conversion will be aborted..
         /// </summary>
         internal static string ClosingConfirmation {
             get {
