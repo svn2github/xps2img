@@ -88,10 +88,10 @@ begin
     if(INVALID_HANDLE_VALUE = _SingleSetupInstance_hLockFile) then
     begin
       // File is still locked, i.e. the first instance is still running.
-      Result := true;
+      Result := True;
       Exit;
     end;
-    Result := false;
+    Result := False;
 end;
 
 function _SingleSetupInstance_MakePreviousInstanceActive: Boolean;
@@ -109,7 +109,7 @@ begin
       0);
     if(INVALID_HANDLE_VALUE = _SingleSetupInstance_hLockFile) then
     begin // The file's disappeared, i.e. we should start up normally.
-      Result := false;
+      Result := False;
       Exit;
     end;
     // Expand the returned string from ReadFile  to avoid an access violation.
@@ -122,7 +122,7 @@ begin
     begin
       ShowWindow(hPrevWnd, SW_RESTORE);
       BringWindowToTop(hPrevWnd);
-      Result := true;
+      Result := True;
       Exit;
     end;
 end;
@@ -146,13 +146,13 @@ end;
 
 function SingleSetupInstance_InitializeSetup: Boolean;
 begin
-    Result := true;
+    Result := True;
     if _SingleSetupInstance_IsPreviousInstanceRunning  then
     begin
       if _SingleSetupInstance_MakePreviousInstanceActive  then
       begin
         _SingleSetupInstance_RemoveLockFile;
-        Result := false;
+        Result := False;
         Exit;
       end;
     end;
@@ -167,6 +167,8 @@ procedure SingleSetupInstance_DeinitializeSetup;
 begin
   _SingleSetupInstance_RemoveLockFile;
 end;
+
+[/Code]
 
 #undef _SingleSetupInstance_LockFile
 

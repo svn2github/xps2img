@@ -1,0 +1,49 @@
+; Add/remove programs from the windows firewall rules.
+; http://www.vincenzo.net/isxkb/index.php?title=Adding_a_rule_to_the_Windows_firewall
+; http://news.jrsoftware.org/news/innosetup/msg43799.html
+
+#ifndef __WindowsFirewall__
+#define __WindowsFirewall__
+
+[Code]
+
+const
+  NET_FW_SCOPE_ALL      = 0;
+  NET_FW_IP_VERSION_ANY = 2;
+
+procedure WindowsFirewall_AddException(AppName, FileName:String);
+var
+  FirewallObject: Variant;
+  FirewallManager: Variant;
+  FirewallProfile: Variant;
+begin
+  try
+    FirewallObject := CreateOleObject('HNetCfg.FwAuthorizedApplication');
+    FirewallObject.ProcessImageFileName := FileName;
+    FirewallObject.Name := AppName;
+    FirewallObject.Scope := NET_FW_SCOPE_ALL;
+    FirewallObject.IpVersion := NET_FW_IP_VERSION_ANY;
+    FirewallObject.Enabled := True;
+    FirewallManager := CreateOleObject('HNetCfg.FwMgr');
+    FirewallProfile := FirewallManager.LocalPolicy.CurrentProfile;
+    FirewallProfile.AuthorizedApplications.Add(FirewallObject);
+  except
+  end;
+end;
+
+procedure WindowsFirewall_RemoveException(FileName: String);
+var
+  FirewallManager: Variant;
+  FirewallProfile: Variant;
+begin
+  try
+    FirewallManager := CreateOleObject('HNetCfg.FwMgr');
+    FirewallProfile := FirewallManager.LocalPolicy.CurrentProfile;
+    FireWallProfile.AuthorizedApplications.Remove(FileName);
+  except
+  end;
+end;
+
+[/Code]
+
+#endif
