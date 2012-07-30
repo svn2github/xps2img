@@ -1,0 +1,173 @@
+; Only one installer instance
+; http://www.vincenzo.net/isxkb/index.php?title=Only_one_installer_instance
+
+#ifndef __SingleSetupInstance__
+#define __SingleSetupInstance__
+
+; Make this somehow unique, but don't use {tmp}. The second instance would have a different {tmp}.
+#define _SingleSetupInstance_LockFile AddBackslash("{userappdata}") + AppName + " Installer.lockfile"
+
+[Code]
+const
+    // The constants for CreateFile.
+    GENERIC_READ        = $80000000;
+    GENERIC_WRITE       = $40000000;
+    GENERIC_EXECUTE     = $20000000;
+    GENERIC_ALL         = $10000000;
+    FILE_SHARE_READ     = 1;
+    FILE_SHARE_WRITE    = 2;
+    FILE_SHARE_DELETE   = 4;
+    CREATE_NEW          = 1;
+    CREATE_ALWAYS       = 2;
+    OPEN_EXISTING       = 3;
+    OPEN_ALWAYS         = 4;
+    TRUNCATE_EXISTING   = 5;
+
+    // General Win32.
+    INVALID_HANDLE_VALUE= -1;
+
+    // User32.
+    SW_RESTORE          = 9;
+
+var
+    _SingleSetupInstance_LockFileName: String;
+    _SingleSetupInstance_hLockFile   : THandle;
+
+function CreateFile(
+    lpFileName: String;
+    dwDesiredAccess: Cardinal;
+    dwShareMode: Cardinal;
+    lpSecurityAttributes: Cardinal;
+    dwCreationDisposition: Cardinal;
+    dwFlagsAndAttributes: Cardinal;
+    hTemplateFile:Integer
+): Integer;
+external 'CreateFileA@kernel32.dll stdcall';
+
+function WriteFile(
+    hFile: THandle;
+    lpBuffer: String;
+    nNumberOfBytesToWrite: LongInt;
+    var lpNumberOfbytesWritten: LongInt;
+    lpOverlapped: LongInt
+): Boolean;
+external 'WriteFile@kernel32.dll stdcall';
+
+function ReadFile(
+    hFile: THandle;
+    lpBuffer: String;
+    nNumberOfBytesToRead: LongInt;
+    var lpNumberOfbytesRead: LongInt;
+    lpOverlapped: LongInt
+): Boolean;
+external 'ReadFile@kernel32.dll stdcall';
+
+function CloseHandle(hHandle: INTEGER): INTEGER;
+external 'CloseHandle@kernel32.dll stdcall';
+
+function IsWindow(hWnd: THandle): Boolean;
+external 'IsWindow@User32.dll stdcall';
+
+function ShowWindow(hWnd: THandle; nCmdShow: Integer): Boolean;
+external 'ShowWindow@User32.dll stdcall';
+
+function BringWindowToTop(hWnd: THandle): Boolean;
+external 'BringWindowToTop@User32.dll stdcall';
+
+// Returns true, if the previous instance is running; false otherwise.
+function _SingleSetupInstance_IsPreviousInstanceRunning: Boolean;
+begin
+    _SingleSetupInstance_LockFileName := ExpandConstant('{#_SingleSetupInstance_LockFile}');
+    _SingleSetupInstance_hLockFile := CreateFile(_SingleSetupInstance_LockFileName,
+      GENERIC_WRITE,
+      FILE_SHARE_READ,
+      0,
+      CREATE_ALWAYS,
+      FILE_ATTRIBUTE_TEMPORARY,
+      0);
+    if(INVALID_HANDLE_VALUE = _SingleSetupInstance_hLockFile) then
+    begin
+      // File is still locked, i.e. the first instance is still running.
+      Result := true;
+      Exit;
+    end;
+    Result := false;
+end;
+
+function _SingleSetupInstance_MakePreviousInstanceActive: Boolean;
+var
+    stringWnd: String;
+    bytesRead: LongInt;
+    hPrevWnd: THandle;
+begin
+    _SingleSetupInstance_hLockFile := CreateFile(_SingleSetupInstance_LockFileName,
+      GENERIC_READ,
+      FILE_SHARE_READ + FILE_SHARE_WRITE,
+      0,
+      OPEN_EXISTING,
+      FILE_ATTRIBUTE_TEMPORARY,
+      0);
+    if(INVALID_HANDLE_VALUE = _SingleSetupInstance_hLockFile) then
+    begin // The file's disappeared, i.e. we should start up normally.
+      Result := false;
+      Exit;
+    end;
+    // Expand the returned string from ReadFile  to avoid an access violation.
+    stringWnd := StringOfChar('#', 101);
+    ReadFile(_SingleSetupInstance_hLockFile, stringWnd, 100, bytesRead, 0);
+    stringWnd := Copy(stringWnd, 0, bytesRead);
+    CloseHandle(_SingleSetupInstance_hLockFile);
+    hPrevWnd := StrToInt(stringWnd);
+    if IsWindow(hPrevWnd) then
+    begin
+      ShowWindow(hPrevWnd, SW_RESTORE);
+      BringWindowToTop(hPrevWnd);
+      Result := true;
+      Exit;
+    end;
+end;
+
+procedure _SingleSetupInstance_RemoveLockFile;
+begin
+    CloseHandle(_SingleSetupInstance_hLockFile);
+    DeleteFile(_SingleSetupInstance_LockFileName);
+end;
+
+procedure _SingleSetupInstance_WriteWizardWindowHandle;
+var
+    hMainWnd: THandle;
+    stringWnd: String;
+    bytesWritten: LongInt;
+begin
+    hMainWnd := WizardForm.Handle;
+    stringWnd := IntToStr(hMainWnd);
+    WriteFile(_SingleSetupInstance_hLockFile, stringWnd, length(stringWnd), bytesWritten, 0);
+end;
+
+function SingleSetupInstance_InitializeSetup: Boolean;
+begin
+    Result := true;
+    if _SingleSetupInstance_IsPreviousInstanceRunning  then
+    begin
+      if _SingleSetupInstance_MakePreviousInstanceActive  then
+      begin
+        _SingleSetupInstance_RemoveLockFile;
+        Result := false;
+        Exit;
+      end;
+    end;
+end;
+
+procedure SingleSetupInstance_InitializeWizard;
+begin
+  _SingleSetupInstance_WriteWizardWindowHandle;
+end;
+
+procedure SingleSetupInstance_DeinitializeSetup;
+begin
+  _SingleSetupInstance_RemoveLockFile;
+end;
+
+#undef _SingleSetupInstance_LockFile
+
+#endif

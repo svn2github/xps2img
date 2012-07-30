@@ -48,6 +48,8 @@
 
 #define X2IFileDescription      AppName + " Settings"
 
+#include ISM_RootDir + "/Include/Extra/SingleSetupInstance.iss"
+
 #include "Messages.iss"
 
 #include "Code/Utils.iss"

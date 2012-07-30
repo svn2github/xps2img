@@ -27,7 +27,10 @@ var
   errorCode: Integer;
   isInstalled: Cardinal;
 begin
-  Result := True;
+  
+  Result := SingleSetupInstance_InitializeSetup;
+  if not Result then Exit;
+  
   // Check for the .Net 3.5 framework
   isInstalled := 0;
   if (not RegQueryDWordValue(HKLM, 'SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5', 'Install', isInstalled)) or (isInstalled <> 1) then
@@ -46,6 +49,8 @@ const
   
 procedure InitializeWizard;
 begin 
+  SingleSetupInstance_InitializeWizard;
+
   DirValues[IndexOfPortable] := ApplicationData;
   case IsAdminLoggedOn of
     True:
@@ -75,6 +80,11 @@ begin
   SetupModePage.Add(ExpandConstant('{cm:Msg_SetupModePortable}'));
 
   SetupModePage.SelectedValueIndex := BooleanToInteger(IsPortable);
+end;
+
+procedure DeinitializeSetup;
+begin
+    SingleSetupInstance_DeinitializeSetup;
 end;
 
 procedure CurPageChanged(CurPageID: Integer);
