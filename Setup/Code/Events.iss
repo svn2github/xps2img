@@ -112,14 +112,23 @@ begin
     Result := IsPortable and (PageID = wpSelectProgramGroup);
 end;
 
+#define FirewallProcessImageFileName  "ExpandConstant('" + AppExe + "')"
+
+procedure CurStepChanged(CurStep: TSetupStep);
+begin
+  if CurStep = ssPostInstall then
+     WindowsFirewall_AddException('{#AppName}', {#FirewallProcessImageFileName}, '{#FirewallGroup}');
+end;
+
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 begin
-  if (CurUninstallStep <> usUninstall) then Exit;
+  if CurUninstallStep = usPostUninstall then
+    WindowsFirewall_RemoveException('{#AppName}', {#FirewallProcessImageFileName});
+
+  if CurUninstallStep <> usUninstall then Exit;
     
   if DirExists(ApplicationData) and (UninstallSilent or (MsgBox(ExpandConstant('{cm:Msg_KeepSettings}'), mbConfirmation, MB_YESNO) = idNo)) then
-  begin
     DelTree(ApplicationData, True, True, True);
-  end;
 end;
 
 procedure UpdateSetupTypeData(CurPageID: Integer);

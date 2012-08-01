@@ -1,0 +1,16 @@
+#ifndef __ISM_EXTRA_REGISTER_DOCUMENT_EXTENSION_ISI__
+#define __ISM_EXTRA_REGISTER_DOCUMENT_EXTENSION_ISI__
+
+#ifndef __ISM_SECTIONS_ISI__
+	#error "Sections.isi" must be included first
+#endif
+
+#define RegisterDocumentExtension(int forAll, str extension, str description, str appName=AppName, str appExe=AppExe) \
+    Local[0] = AddBackslash(forAll ? "HKCR" : "HKCU\Software\Classes"), \
+    Local[1] = Local[0] + appName, \
+    Reg(Local[0] + "." + extension, ":string", appName, RegFlag_UninsDeleteKey) + \
+    Reg(Local[1], ":string", description, RegFlag_UninsDeleteKey) + \
+    Reg(Local[1] + "\DefaultIcon", ":string", appExe + ",0") + \
+    Reg(Local[1] + "\shell\open\command", ":string", Str_Quote(appExe) + " " + Str_Quote("%1"))
+
+#endif

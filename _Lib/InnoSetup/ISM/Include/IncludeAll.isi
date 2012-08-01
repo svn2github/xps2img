@@ -16,6 +16,7 @@
 #include "Extra/ShellLink.isi"
 #include "Extra/FileStub.isi"
 #include "Extra/IconRun.isi"
+#include "Extra/RegisterDocumentExtension.isi"
 
 #include "PrepMessages.isi"
 

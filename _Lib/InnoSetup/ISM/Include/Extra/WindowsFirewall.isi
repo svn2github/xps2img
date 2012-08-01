@@ -2,16 +2,19 @@
 ; http://www.vincenzo.net/isxkb/index.php?title=Adding_a_rule_to_the_Windows_firewall
 ; http://news.jrsoftware.org/news/innosetup/msg43799.html
 
-#ifndef __WindowsFirewall__
-#define __WindowsFirewall__
+#ifndef __ISM_EXTRA_WINDOWS_FIREWALL__
+#define __ISM_EXTRA_WINDOWS_FIREWALL__
 
 [Code]
 
 const
   NET_FW_SCOPE_ALL      = 0;
+  NET_FW_ACTION_ALLOW   = 1;
   NET_FW_IP_VERSION_ANY = 2;
+  NET_FW_RULE_DIR_IN    = 1;
+  NET_FW_RULE_DIR_OUT   = 2;
 
-procedure WindowsFirewall_AddException(AppName, FileName:String);
+procedure _WindowsFirewall_AddExceptionXP(AppName, FileName: String);
 var
   FirewallObject: Variant;
   FirewallManager: Variant;
@@ -31,17 +34,73 @@ begin
   end;
 end;
 
-procedure WindowsFirewall_RemoveException(FileName: String);
+function _WindowsFirewall_GetFwRuleForVista(AppName, FileName, Grouping: String; IsInbound: Boolean): Variant;
 var
-  FirewallManager: Variant;
-  FirewallProfile: Variant;
+  firewallRule: Variant;
 begin
-  try
-    FirewallManager := CreateOleObject('HNetCfg.FwMgr');
-    FirewallProfile := FirewallManager.LocalPolicy.CurrentProfile;
-    FireWallProfile.AuthorizedApplications.Remove(FileName);
-  except
+    firewallRule := CreateOleObject('HNetCfg.FWRule');
+    firewallRule.Action := NET_FW_ACTION_ALLOW;
+    firewallRule.Description := AppName;
+    firewallRule.ApplicationName := FileName;
+    firewallRule.Grouping := Grouping;
+    firewallRule.Enabled := True;
+    firewallRule.InterfaceTypes := 'All';
+    firewallRule.Name := AppName;
+    case IsInbound of
+      True:   firewallRule.Direction := NET_FW_RULE_DIR_IN;
+      False:  firewallRule.Direction := NET_FW_RULE_DIR_OUT;
+    end;
+    Result := firewallRule;
+end;
+
+procedure _WindowsFirewall_AddExceptionVista(AppName, FileName, Grouping: String);
+var
+  firewallPolicy: Variant;
+begin
+try
+  firewallPolicy := CreateOleObject('HNetCfg.FwPolicy2');   
+
+  firewallPolicy.Rules.Add(_WindowsFirewall_GetFwRuleForVista(AppName, FileName, Grouping, True));
+  firewallPolicy.Rules.Add(_WindowsFirewall_GetFwRuleForVista(AppName, FileName, Grouping, False));
+except
+end;
+end;
+
+procedure WindowsFirewall_RemoveException(AppName, FileName: String);
+var
+  windVer: TWindowsVersion;
+  firewallManager: Variant;
+  firewallProfile: Variant;
+  firewallPolicy: Variant;
+begin
+try
+  GetWindowsVersionEx(WindVer);
+  if WindVer.NTPlatform and (WindVer.Major >= 6) then
+  begin
+    firewallPolicy := CreateOleObject('HNetCfg.FwPolicy2');
+    firewallPolicy.Rules.Remove(AppName);
+    firewallPolicy.Rules.Remove(AppName);
+  end
+  else
+  begin
+    firewallManager := CreateOleObject('HNetCfg.FwMgr');
+    firewallProfile := firewallManager.LocalPolicy.CurrentProfile;
+    fireWallProfile.AuthorizedApplications.Remove(FileName);
   end;
+except
+end;
+end;
+
+procedure WindowsFirewall_AddException(AppName, FileName, Grouping : String);
+var
+  windVer: TWindowsVersion;
+begin
+  GetWindowsVersionEx(WindVer);
+  WindowsFirewall_RemoveException(AppName, FileName);
+  if windVer.NTPlatform and (WindVer.Major >= 6) then
+    _WindowsFirewall_AddExceptionVista(AppName, FileName, Grouping)
+  else
+    _WindowsFirewall_AddExceptionXP(AppName, FileName);
 end;
 
 [/Code]

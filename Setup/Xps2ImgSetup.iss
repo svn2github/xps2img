@@ -27,7 +27,7 @@
 
 #define OutputDir               "_Output"
 
-#define VersionInfoCopyright	"Copyright © 2010-2012, Ivan Ivon"
+#define VersionInfoCopyright    "Copyright © 2010-2012, Ivan Ivon"
 #define VersionInfoCompany      UrlOfficialSite
 #define VersionInfoDescription  AppName + " Setup"
 
@@ -46,7 +46,10 @@
 
 #define BinariesPath            "..\_bin\Release\"
 
+#define X2IFileExtension        "x2i"
 #define X2IFileDescription      AppName + " Settings"
+
+#define FirewallGroup           "i2van"
 
 #include ISM_RootDir + "/Include/Extra/SingleSetupInstance.isi"
 #include ISM_RootDir + "/Include/Extra/WindowsFirewall.isi"
@@ -114,18 +117,14 @@
 <Run(filename=AppExe, flags=Utils_RemoveFlag(RunFlag_SkipIfSilent, Common_RunFlags), description=Utils_CmFormat("LaunchProgram", AppName))>
 <Run(filename=AppChm, flags=Common_RunFlags + RunFlag_ShellExec + RunFlag_Unchecked, description=Utils_CmFormat("ViewHelp", AppName))>
 
-#define RegisterDocumentExtension(str root) \
-    Reg(AddBackslash(root) + ".x2i",  ":string", AppName,            RegFlag_UninsDeleteKey) + \
-    Reg(AddBackslash(root) + AppName, ":string", X2IFileDescription, RegFlag_UninsDeleteKey) + \
-    Reg(AddBackslash(root) + AppName + "\DefaultIcon",        ":string", AppExe + ",0") + \
-    Reg(AddBackslash(root) + AppName + "\shell\open\command", ":string", Str_Quote(AppExe) + " " + Str_Quote("%1"))
+#define RegisterX2IExtension(int forAll) RegisterDocumentExtension(forAll, X2IFileExtension, X2IFileDescription)
 
 #define Active_Check    "IsInstallable and IsAdminLoggedOn"
-    <RegisterDocumentExtension("HKCR")>
+    <RegisterX2IExtension(true)>
 <Reset_ActiveCheck>
 
 #define Active_Check    "IsInstallable and not IsAdminLoggedOn"
-    <RegisterDocumentExtension("HKCU\Software\Classes")>
+    <RegisterX2IExtension(false)>
 <Reset_ActiveCheck>
 
 <Debug_ViewTranslation>
