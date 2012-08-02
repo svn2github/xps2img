@@ -13,7 +13,7 @@
 #define AppMutex                "Xps2ImgInnoSetupGuard"
 
 #define AppName                 "XPS to Images Converter"
-#define AppVersion              "3.12.0.0"
+#define AppVersion              "3.13.0.0"
 
 #define AppNamePart             "{app}\xps2img"
 #define AppExe                  AppNamePart + "UI.exe"
@@ -51,6 +51,9 @@
 
 #define FirewallGroup           "i2van"
 
+#define Task_RegisterExtension  "registerextension"
+#define Task_AddWFRule          "addfwrule"
+
 #include ISM_RootDir + "/Include/Extra/SingleSetupInstance.isi"
 #include ISM_RootDir + "/Include/Extra/WindowsFirewall.isi"
 
@@ -77,6 +80,10 @@
 <CustomMessage("en.Group_Uninstall",    "Uninstall")>
 <CustomMessage("en.Menu_WebSite",       "%1 Web Site")>
 
+<CustomMessage("en.Task_RegisterSettingsExtension",     "Register &settings extension")>
+<CustomMessage("en.Task_AddWindowsFirewallException",   "Add Windows Firewall e&xception")>
+<CustomMessage("en.Task_SystemIntegrationTitle",        "System integration:")>
+
 #define ApplicationFile(f)  File(BinariesPath + f)
 
 #define PortableMarkFile    "xps2imgUI.exe.portable"
@@ -99,6 +106,22 @@
     <IconRun(AddBackslash("{commondesktop}") + AppName, AppExe)>
 <Reset_ActiveTasks>
 
+#define RegisterX2IExtension(int forAll) RegisterDocumentExtension(forAll, X2IFileExtension, X2IFileDescription)
+
+#define Active_Tasks    Task_RegisterExtension
+    <Task(Active_Tasks, "{cm:Task_RegisterSettingsExtension}", "{cm:Task_SystemIntegrationTitle}")>
+
+    #define Active_Check    "IsInstallable and IsAdminLoggedOn"
+        <RegisterX2IExtension(true)>
+    <Reset_ActiveCheck>
+
+    #define Active_Check    "IsInstallable and not IsAdminLoggedOn"
+        <RegisterX2IExtension(false)>
+    <Reset_ActiveCheck>
+<Reset_ActiveTasks>
+
+<Task(Task_AddWFRule, "{cm:Task_AddWindowsFirewallException}", "{cm:Task_SystemIntegrationTitle}")>
+
 #define AppUrlGeneric(folder) Local[0]=AddBackslash(folder) + Utils_CmFormat("Menu_WebSite", AppName), Url(Local[0], Local[0], UrlOfficialSite)
 
 <AppUrlGeneric("{app}")>
@@ -116,15 +139,5 @@
 
 <Run(filename=AppExe, flags=Utils_RemoveFlag(RunFlag_SkipIfSilent, Common_RunFlags), description=Utils_CmFormat("LaunchProgram", AppName))>
 <Run(filename=AppChm, flags=Common_RunFlags + RunFlag_ShellExec + RunFlag_Unchecked, description=Utils_CmFormat("ViewHelp", AppName))>
-
-#define RegisterX2IExtension(int forAll) RegisterDocumentExtension(forAll, X2IFileExtension, X2IFileDescription)
-
-#define Active_Check    "IsInstallable and IsAdminLoggedOn"
-    <RegisterX2IExtension(true)>
-<Reset_ActiveCheck>
-
-#define Active_Check    "IsInstallable and not IsAdminLoggedOn"
-    <RegisterX2IExtension(false)>
-<Reset_ActiveCheck>
 
 <Debug_ViewTranslation>

@@ -2,7 +2,9 @@
 
 var
   SetupModePage: TInputOptionWizardPage;
-  TaskValues: array [0..1] of Boolean;
+  TaskDesktopValues: array [0..1] of Boolean;
+  TaskExtensionValues: array [0..1] of Boolean;
+  TaskFirewallValues: array [0..1] of Boolean;
   DirValues: array [0..1] of String;
   TaskValuesInit: Boolean;
   InstallModeCM: String;
@@ -12,14 +14,27 @@ begin
     Result := ExpandConstant(AddBackslash('{userappdata}') + '{#AppName}');
 end;
 
-function TaskValueIndex: Integer;
+function TaskDesktopIndex: Integer;
 begin
   Result := WizardForm.TasksList.Items.IndexOf(ExpandConstant('{cm:CreateDesktopIcon}'));
 end;
 
+function TaskExtensionIndex: Integer;
+begin
+  Result := WizardForm.TasksList.Items.IndexOf(ExpandConstant('{cm:Task_RegisterSettingsExtension}'));
+end;
+
+function TaskFirewallIndex: Integer;
+begin
+  Result := WizardForm.TasksList.Items.IndexOf(ExpandConstant('{cm:Task_AddWindowsFirewallException}'));
+  WizardForm.TasksList.ItemEnabled[Result] := IsAdminLoggedOn;
+end;
+
 procedure UpdateTaskValues(IsInstallableBoolean: Boolean);
 begin
-  TaskValues[BooleanToInteger(IsInstallableBoolean)] := WizardForm.TasksList.Checked[TaskValueIndex];
+  TaskDesktopValues[BooleanToInteger(IsInstallableBoolean)]   := WizardForm.TasksList.Checked[TaskDesktopIndex];
+  TaskExtensionValues[BooleanToInteger(IsInstallableBoolean)] := WizardForm.TasksList.Checked[TaskExtensionIndex];
+  TaskFirewallValues[BooleanToInteger(IsInstallableBoolean)]  := WizardForm.TasksList.Checked[TaskFirewallIndex] and WizardForm.TasksList.ItemEnabled[TaskFirewallIndex];
 end;
  
 function InitializeSetup: Boolean;
@@ -89,21 +104,20 @@ end;
 
 procedure CurPageChanged(CurPageID: Integer);
 begin
-  if CurPageID = wpSelectDir then
-  begin
-    WizardForm.DirEdit.Text := DirValues[BooleanToInteger(IsInstallable)];
-    Exit;
-  end;
-
-  if CurPageID = wpSelectTasks then
-  begin
-    if not TaskValuesInit then
-    begin
-      UpdateTaskValues(True);
-      TaskValuesInit := True;
-    end;
-    WizardForm.TasksList.Checked[TaskValueIndex] := TaskValues[BooleanToInteger(IsInstallable)];
-    Exit;
+  case CurPageID of
+    wpSelectDir:
+      WizardForm.DirEdit.Text := DirValues[BooleanToInteger(IsInstallable)];
+    wpSelectTasks:
+      begin
+        if not TaskValuesInit then
+        begin
+          UpdateTaskValues(True);
+          TaskValuesInit := True;
+        end;
+        WizardForm.TasksList.Checked[TaskDesktopIndex]   := TaskDesktopValues[BooleanToInteger(IsInstallable)];
+        WizardForm.TasksList.Checked[TaskExtensionIndex] := TaskExtensionValues[BooleanToInteger(IsInstallable)];
+        WizardForm.TasksList.Checked[TaskFirewallIndex]  := TaskFirewallValues[BooleanToInteger(IsInstallable)];
+      end;
   end; 
 end;
 
@@ -116,33 +130,31 @@ end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
 begin
-  if CurStep = ssPostInstall then
-     WindowsFirewall_AddException('{#AppName}', {#FirewallProcessImageFileName}, '{#FirewallGroup}');
+  case CurStep of
+    ssPostInstall:
+      if IsTaskSelected('{#Task_RegisterExtension}') then
+        WindowsFirewall_AddException('{#AppName}', {#FirewallProcessImageFileName}, '{#FirewallGroup}');
+  end;
 end;
 
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 begin
-  if CurUninstallStep = usPostUninstall then
-    WindowsFirewall_RemoveException('{#AppName}', {#FirewallProcessImageFileName});
-
-  if CurUninstallStep <> usUninstall then Exit;
-    
-  if DirExists(ApplicationData) and (UninstallSilent or (MsgBox(ExpandConstant('{cm:Msg_KeepSettings}'), mbConfirmation, MB_YESNO) = idNo)) then
-    DelTree(ApplicationData, True, True, True);
+  case CurUninstallStep of
+    usPostUninstall:
+      WindowsFirewall_RemoveException('{#AppName}', {#FirewallProcessImageFileName});
+    usUninstall:
+      if DirExists(ApplicationData) and (UninstallSilent or (MsgBox(ExpandConstant('{cm:Msg_KeepSettings}'), mbConfirmation, MB_YESNO) = idNo)) then
+        DelTree(ApplicationData, True, True, True);
+   end;
 end;
 
 procedure UpdateSetupTypeData(CurPageID: Integer);
 begin
-  if CurPageID = wpSelectDir then
-  begin
-    DirValues[BooleanToInteger(IsInstallable)] := WizardForm.DirEdit.Text;
-    Exit;
-  end;
-   
-  if CurPageID = wpSelectTasks then
-  begin
-    UpdateTaskValues(IsInstallable);
-    Exit;
+  case CurPageID of
+    wpSelectDir:
+      DirValues[BooleanToInteger(IsInstallable)] := WizardForm.DirEdit.Text;
+    wpSelectTasks:
+      UpdateTaskValues(IsInstallable);
   end;
 end;
 
