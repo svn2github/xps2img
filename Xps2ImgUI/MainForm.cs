@@ -247,14 +247,11 @@ namespace Xps2ImgUI
             if (!isRunning)
             {
                 Text = Resources.Strings.WindowTitle;
-                if (_stopwatch != null)
+                _stopwatch.Stop();
+                if (_preferences.ShowElapsedTime)
                 {
-                    _stopwatch.Stop();
-                    if (_preferences.ShowElapsedTime)
-                    {
-                        var elapsed = _stopwatch.Elapsed;
-                        Text += String.Format(Resources.Strings.ElapsedTimeTextTemplate, elapsed.Hours, elapsed.Minutes, elapsed.Seconds);
-                    }
+                    var elapsed = _stopwatch.Elapsed;
+                    Text += String.Format(Resources.Strings.ElapsedTimeTextTemplate, elapsed.Hours, elapsed.Minutes, elapsed.Seconds);
                 }
             }
 
@@ -581,17 +578,8 @@ namespace Xps2ImgUI
 
             _convertedImagesFolder = null;
 
-            if (_stopwatch != null)
-            {
-                _stopwatch.Stop();
-                _stopwatch = null;
-            }
-
-            if (_preferences.ShowElapsedTime)
-            {
-                _stopwatch = new Stopwatch();
-                _stopwatch.Start();
-            }
+            _stopwatch.Reset();
+            _stopwatch.Start();
 
             Model.Launch(conversionType);
 
@@ -723,7 +711,7 @@ namespace Xps2ImgUI
             }
         }
 
-        private Stopwatch _stopwatch;
+        private readonly Stopwatch _stopwatch = new Stopwatch();
 
         private Preferences _preferences = new Preferences();
 
