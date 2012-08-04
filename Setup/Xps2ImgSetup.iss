@@ -80,8 +80,8 @@
 <CustomMessage("en.Group_Uninstall",    "Uninstall")>
 <CustomMessage("en.Menu_WebSite",       "%1 Web Site")>
 
-<CustomMessage("en.Task_RegisterSettingsExtension",     "Register &settings extension")>
-<CustomMessage("en.Task_AddWindowsFirewallException",   "Add Windows Firewall e&xception")>
+<CustomMessage("en.Task_RegisterSettingsExtension",     "&Register .x2i file extension")>
+<CustomMessage("en.Task_AddWindowsFirewallException",   "Add &Windows Firewall exception")>
 <CustomMessage("en.Task_SystemIntegrationTitle",        "System integration:")>
 
 #define ApplicationFile(f)  File(BinariesPath + f)
