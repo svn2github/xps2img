@@ -2,11 +2,14 @@
 
 var
   SetupModePage: TInputOptionWizardPage;
+  NoIconsCheckValues: array [0..1] of Boolean;
+  GroupEditValues: array [0..1] of String;
   TaskDesktopValues: array [0..1] of Boolean;
   TaskExtensionValues: array [0..1] of Boolean;
   TaskFirewallValues: array [0..1] of Boolean;
   DirValues: array [0..1] of String;
   TaskValuesInit: Boolean;
+  NoIconsCheckValuesInit: Boolean;
   InstallModeCM: String;
 
 function ApplicationData: String;
@@ -30,13 +33,18 @@ begin
   WizardForm.TasksList.ItemEnabled[Result] := IsAdminLoggedOn;
 end;
 
+function IsInstallableIndex: Integer;
+begin
+  Result := BooleanToInteger(IsInstallable);
+end;
+
 procedure UpdateTaskValues(IsInstallableBoolean: Boolean);
 begin
   TaskDesktopValues[BooleanToInteger(IsInstallableBoolean)]   := WizardForm.TasksList.Checked[TaskDesktopIndex];
   TaskExtensionValues[BooleanToInteger(IsInstallableBoolean)] := WizardForm.TasksList.Checked[TaskExtensionIndex];
   TaskFirewallValues[BooleanToInteger(IsInstallableBoolean)]  := WizardForm.TasksList.Checked[TaskFirewallIndex] and WizardForm.TasksList.ItemEnabled[TaskFirewallIndex];
 end;
- 
+
 function InitializeSetup: Boolean;
 var
   errorCode: Integer;
@@ -51,9 +59,7 @@ begin
   if (not RegQueryDWordValue(HKLM, 'SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5', 'Install', isInstalled)) or (isInstalled <> 1) then
   begin
     if MsgBox(ExpandConstant('{cm:Msg_DotNetIsMissing}'), mbConfirmation, MB_YESNO) = idYes then
-    begin
       ShellExec('open', 'http://www.microsoft.com/downloads/details.aspx?FamilyID=AB99342F-5D1A-413D-8319-81DA479AB0D7', '', '', SW_SHOWNORMAL, ewNoWait, errorCode);
-    end;
     Result := False;
   end;
 end;
@@ -106,24 +112,32 @@ procedure CurPageChanged(CurPageID: Integer);
 begin
   case CurPageID of
     wpSelectDir:
-      WizardForm.DirEdit.Text := DirValues[BooleanToInteger(IsInstallable)];
+      WizardForm.DirEdit.Text := DirValues[IsInstallableIndex];
     wpSelectTasks:
+    begin
+      if not TaskValuesInit then
       begin
-        if not TaskValuesInit then
-        begin
-          UpdateTaskValues(True);
-          TaskValuesInit := True;
-        end;
-        WizardForm.TasksList.Checked[TaskDesktopIndex]   := TaskDesktopValues[BooleanToInteger(IsInstallable)];
-        WizardForm.TasksList.Checked[TaskExtensionIndex] := TaskExtensionValues[BooleanToInteger(IsInstallable)];
-        WizardForm.TasksList.Checked[TaskFirewallIndex]  := TaskFirewallValues[BooleanToInteger(IsInstallable)];
+        UpdateTaskValues(True);
+        TaskValuesInit := True;
       end;
+      WizardForm.TasksList.Checked[TaskDesktopIndex]   := TaskDesktopValues[IsInstallableIndex];
+      WizardForm.TasksList.Checked[TaskExtensionIndex] := TaskExtensionValues[IsInstallableIndex];
+      WizardForm.TasksList.Checked[TaskFirewallIndex]  := TaskFirewallValues[IsInstallableIndex];
+    end;
+    wpSelectProgramGroup:
+    begin
+      if not NoIconsCheckValuesInit then
+      begin
+        NoIconsCheckValues[IndexOfPortable] := true;
+        NoIconsCheckValues[IndexOfInstall]  := WizardForm.NoIconsCheck.Checked;
+        GroupEditValues[IndexOfPortable]    := WizardForm.GroupEdit.Text;
+        GroupEditValues[IndexOfInstall]     := WizardForm.GroupEdit.Text;
+        NoIconsCheckValuesInit:= true;
+      end;
+      WizardForm.NoIconsCheck.Checked := NoIconsCheckValues[IsInstallableIndex];
+      WizardForm.GroupEdit.Text := GroupEditValues[IsInstallableIndex];
+    end;
   end; 
-end;
-
-function ShouldSkipPage(PageID: Integer): Boolean;
-begin
-    Result := IsPortable and (PageID = wpSelectProgramGroup);
 end;
 
 #define FirewallProcessImageFileName  "ExpandConstant('" + AppExe + "')"
@@ -152,9 +166,14 @@ procedure UpdateSetupTypeData(CurPageID: Integer);
 begin
   case CurPageID of
     wpSelectDir:
-      DirValues[BooleanToInteger(IsInstallable)] := WizardForm.DirEdit.Text;
+      DirValues[IsInstallableIndex] := WizardForm.DirEdit.Text;
     wpSelectTasks:
       UpdateTaskValues(IsInstallable);
+    wpSelectProgramGroup:
+    begin
+      NoIconsCheckValues[IsInstallableIndex] := WizardForm.NoIconsCheck.Checked;
+      GroupEditValues[IsInstallableIndex] := WizardForm.GroupEdit.Text;
+    end;
   end;
 end;
 
@@ -198,15 +217,8 @@ begin
   
   S := S + CR + MemoDirInfo;
   
-  if IsInstallable and (MemoGroupInfo <> '') then
-  begin
-    S := S + CR + MemoGroupInfo;
-  end;
-  
-  if MemoTasksInfo <> '' then
-  begin
-    S := S + CR + MemoTasksInfo;
-  end;
+  if MemoGroupInfo <> '' then S := S + CR + MemoGroupInfo;
+  if MemoTasksInfo <> '' then S := S + CR + MemoTasksInfo;
  
   Result := S;
 end;

@@ -111,11 +111,11 @@
 #define Active_Tasks    Task_RegisterExtension
     <Task(Active_Tasks, "{cm:Task_RegisterSettingsExtension}", "{cm:Task_SystemIntegrationTitle}")>
 
-    #define Active_Check    "IsInstallable and IsAdminLoggedOn"
+    #define Active_Check    "IsAdminLoggedOn"
         <RegisterX2IExtension(true)>
     <Reset_ActiveCheck>
 
-    #define Active_Check    "IsInstallable and not IsAdminLoggedOn"
+    #define Active_Check    "not IsAdminLoggedOn"
         <RegisterX2IExtension(false)>
     <Reset_ActiveCheck>
 <Reset_ActiveTasks>
@@ -126,16 +126,17 @@
 
 <AppUrlGeneric("{app}")>
 
-#define Active_Check    "not WizardNoIcons and IsInstallable"
+#define Active_Check    "not WizardNoIcons"
     <AppUrlGeneric("{group}")>
 <Reset_ActiveCheck>
 
 #define Active_Check    "IsInstallable"
     <Icon(AddBackslash("{group}\{cm:Group_Uninstall}") + Utils_CmFormat("UninstallProgram", AppName), "{uninstallexe}")>
-    <Icon("{group}\{cm:License}", AddBackslash("{app}") + ExtractFileName(LicenseFile))>
-    <IconRun(AddBackslash("{group}") + AppName, AppExe)>
-    <IconRun("{group}\{cm:Help}", AppReadmeFile)>
 <Reset_ActiveCheck>
+
+<Icon("{group}\{cm:License}", AddBackslash("{app}") + ExtractFileName(LicenseFile))>
+<IconRun(AddBackslash("{group}") + AppName, AppExe)>
+<IconRun("{group}\{cm:Help}", AppReadmeFile)>
 
 <Run(filename=AppExe, flags=Utils_RemoveFlag(RunFlag_SkipIfSilent, Common_RunFlags), description=Utils_CmFormat("LaunchProgram", AppName))>
 <Run(filename=AppChm, flags=Common_RunFlags + RunFlag_ShellExec + RunFlag_Unchecked, description=Utils_CmFormat("ViewHelp", AppName))>
