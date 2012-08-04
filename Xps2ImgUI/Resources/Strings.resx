@@ -180,7 +180,7 @@
   <data name="SaveSettings" xml:space="preserve">
     <value>&amp;Save Settings...</value>
   </data>
-  <data name="XPS2ImgFilesFilter" xml:space="preserve">
+  <data name="FilterXPS2ImgFiles" xml:space="preserve">
     <value>XPS2Img Files (*.x2i)|*.x2i|</value>
   </data>
   <data name="XPS2ImgFileExtension" xml:space="preserve">
@@ -371,5 +371,11 @@
   </data>
   <data name="ValueIsNotValidIntegerNumber">
     <value xml:space="preserve">Value is not valid integer number</value>
+  </data>
+  <data name="FilterAllFiles">
+    <value xml:space="preserve">All Files (*.*)|*.*</value>
+  </data>
+  <data name="FilterXPSFiles">
+    <value xml:space="preserve">XPS Files (*.xps)|*.xps|</value>
   </data>
 </root>

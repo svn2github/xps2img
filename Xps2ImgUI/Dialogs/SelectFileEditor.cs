@@ -25,7 +25,7 @@ namespace Xps2ImgUI.Dialogs
 
         public SelectFileEditor(string filter, string initialDirectory)
         {
-            Filter = String.IsNullOrEmpty(filter) ? Utils.Filter.AllFiles : filter;
+            Filter = String.IsNullOrEmpty(filter) ? Resources.Strings.FilterAllFiles : filter;
             InitialDirectory = String.IsNullOrEmpty(initialDirectory) ? DefaultFolder : initialDirectory;
         }
 

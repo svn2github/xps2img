@@ -155,7 +155,7 @@ namespace Xps2ImgUI.Settings
 
         private static void InitFileDialog(FileDialog fileDialog)
         {
-            fileDialog.Filter = Resources.Strings.XPS2ImgFilesFilter + Utils.Filter.AllFiles;
+            fileDialog.Filter = Resources.Strings.FilterXPS2ImgFiles + Resources.Strings.FilterAllFiles;
             fileDialog.InitialDirectory = EnsureSettingsFolder();
             fileDialog.RestoreDirectory = true;
         }

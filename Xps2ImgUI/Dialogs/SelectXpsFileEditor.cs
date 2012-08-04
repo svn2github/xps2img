@@ -3,7 +3,7 @@
     public class SelectXpsFileEditor : SelectFileEditor
     {
         public SelectXpsFileEditor() :
-            base("XPS Files (*.xps)|*.xps|" + Utils.Filter.AllFiles)
+            base(Resources.Strings.FilterXPSFiles + Resources.Strings.FilterAllFiles)
         {
             Title = Resources.Strings.SelectXpsFile;
         }

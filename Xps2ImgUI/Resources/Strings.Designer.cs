@@ -250,6 +250,33 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Files (*.*)|*.*.
+        /// </summary>
+        internal static string FilterAllFiles {
+            get {
+                return ResourceManager.GetString("FilterAllFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to XPS2Img Files (*.x2i)|*.x2i|.
+        /// </summary>
+        internal static string FilterXPS2ImgFiles {
+            get {
+                return ResourceManager.GetString("FilterXPS2ImgFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to XPS Files (*.xps)|*.xps|.
+        /// </summary>
+        internal static string FilterXPSFiles {
+            get {
+                return ResourceManager.GetString("FilterXPSFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Help.
         /// </summary>
         internal static string Help {
@@ -732,15 +759,6 @@ namespace Xps2ImgUI.Resources {
         internal static string XPS2ImgFileExtension {
             get {
                 return ResourceManager.GetString("XPS2ImgFileExtension", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to XPS2Img Files (*.x2i)|*.x2i|.
-        /// </summary>
-        internal static string XPS2ImgFilesFilter {
-            get {
-                return ResourceManager.GetString("XPS2ImgFilesFilter", resourceCulture);
             }
         }
         

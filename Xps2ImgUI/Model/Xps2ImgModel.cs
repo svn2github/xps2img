@@ -33,7 +33,7 @@ namespace Xps2ImgUI.Model
 
             if (OptionsObject.ImageName == String.Empty)
             {
-                OptionsObject.ImageName = Option.Empty;
+                OptionsObject.ImageName = Options.EmptyOption;
             }
         }
 
@@ -67,12 +67,12 @@ namespace Xps2ImgUI.Model
 
         public void ResetParameters()
         {
-            ResetByCategory(Category.Parameters);
+            ResetByCategory(Options.CategoryParameters);
         }
 
         public void ResetOptions()
         {
-            ResetByCategory(Category.Options);
+            ResetByCategory(Options.CategoryOptions);
         }
 
         public void Launch(ConversionType conversionType)

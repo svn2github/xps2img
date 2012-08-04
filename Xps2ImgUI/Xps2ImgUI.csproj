@@ -176,7 +176,6 @@
     <Compile Include="Utils\UI\IconExtractor.cs" />
     <Compile Include="Utils\UI\TabbedDescriptionAttribute.cs" />
     <Compile Include="Utils\UI\ControlUtils.cs" />
-    <Compile Include="Utils\Strings.cs" />
     <Compile Include="Utils\ReflectionUtils.cs" />
     <Compile Include="Utils\UI\Win32Utils.cs" />
     <Compile Include="Utils\UI\PropertyGridUtils.cs" />
