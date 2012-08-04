@@ -117,7 +117,8 @@ begin
     ReadFile(_SingleSetupInstance_hLockFile, stringWnd, 100, bytesRead, 0);
     stringWnd := Copy(stringWnd, 0, bytesRead);
     CloseHandle(_SingleSetupInstance_hLockFile);
-    hPrevWnd := StrToInt(stringWnd);
+    hPrevWnd := StrToIntDef(stringWnd, 0);
+    Result := hPrevWnd = 0;
     if IsWindow(hPrevWnd) then
     begin
       ShowWindow(hPrevWnd, SW_RESTORE);
