@@ -38,9 +38,9 @@ namespace Xps2ImgUI.Settings
         [TypeConverter(typeof(YesNoConverter))]
         public bool ClassicLook { get; set; }
 
-        [DisplayName("Show Elapsed Time")]
+        [DisplayName("Show Elapsed Time and Statistics")]
         [Category(CategoryApplication)]
-        [Description("Show time elapsed by last operation at application title.")]
+        [Description("Show time elapsed by last operation and conversion statistics at application title.")]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ShowElapsedTime { get; set; }

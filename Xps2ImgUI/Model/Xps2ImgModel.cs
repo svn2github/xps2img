@@ -564,6 +564,21 @@ namespace Xps2ImgUI.Model
 
         private OptionsHolder<Options> _optionsHolder;
 
+        public int PagesProcessedTotal
+        {
+            get { return _pagesProcessedDelta + _pagesProcessed; }
+        }
+
+        public int PagesProcessed
+        {
+            get { return _pagesProcessed; }
+        }
+
+        public int PagesTotal
+        {
+            get { return _pagesTotal; }
+        }
+
         private int _pagesTotal;
         private int _pagesProcessed;
         private int _pagesProcessedDelta;

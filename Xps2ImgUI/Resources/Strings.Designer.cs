@@ -61,6 +61,51 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to hr.
+        /// </summary>
+        internal static string AbbrevHours {
+            get {
+                return ResourceManager.GetString("AbbrevHours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to min.
+        /// </summary>
+        internal static string AbbrevMinutes {
+            get {
+                return ResourceManager.GetString("AbbrevMinutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to p.
+        /// </summary>
+        internal static string AbbrevPage {
+            get {
+                return ResourceManager.GetString("AbbrevPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pp.
+        /// </summary>
+        internal static string AbbrevPages {
+            get {
+                return ResourceManager.GetString("AbbrevPages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to sec.
+        /// </summary>
+        internal static string AbbrevSeconds {
+            get {
+                return ResourceManager.GetString("AbbrevSeconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;About....
         /// </summary>
         internal static string About {
@@ -241,7 +286,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  ● {0:00}:{1:00}:{2:00} ●.
+        ///   Looks up a localized string similar to  ● {0:00}:{1:00}:{2:00} ∴ {6}/{7} ≡ {3}{4}/{5}.
         /// </summary>
         internal static string ElapsedTimeTextTemplate {
             get {

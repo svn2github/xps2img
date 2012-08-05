@@ -255,11 +255,7 @@ namespace Xps2ImgUI
             {
                 Text = Resources.Strings.WindowTitle;
                 _stopwatch.Stop();
-                if (_preferences.ShowElapsedTime)
-                {
-                    var elapsed = _stopwatch.Elapsed;
-                    Text += String.Format(Resources.Strings.ElapsedTimeTextTemplate, elapsed.Hours, elapsed.Minutes, elapsed.Seconds);
-                }
+                UpdateElapsedTime();
             }
 
             convertButton.Text = isRunning ? Resources.Strings.Stop : Resources.Strings.Launch;
@@ -286,6 +282,52 @@ namespace Xps2ImgUI
                     Close();
                 }
             }
+        }
+
+        private void UpdateElapsedTime()
+        {
+            if (!_preferences.ShowElapsedTime)
+            {
+                return;
+            }
+
+            var elapsed = _stopwatch.Elapsed;
+
+            var timeAbbrev = Resources.Strings.AbbrevSeconds;
+
+            var pagesProcessed = _model.PagesProcessed;
+
+            Func<double, double> par = e => (e > 0.001) ? pagesProcessed*1.0/e : pagesProcessed;
+
+            var pp = par(elapsed.TotalSeconds);
+            var ppMinute = par(elapsed.TotalMinutes);
+            var ppHour = par(elapsed.TotalHours);
+
+            if (pp < 1.0 && elapsed.TotalHours >= 1)
+            {
+                pp = ppHour;
+                timeAbbrev = Resources.Strings.AbbrevHours;
+            }
+            else
+            if (pp < 1.0 && elapsed.TotalMinutes >= 1)
+            {
+                pp = ppMinute;
+                timeAbbrev = Resources.Strings.AbbrevMinutes;
+            }
+
+            if (pp < 1.0)
+            {
+                pp = pagesProcessed;
+            }
+
+            var ppInt = (int)Math.Round(pp);
+
+            Func<int, string> getPagesString = p => p == 1 ? Resources.Strings.AbbrevPage : Resources.Strings.AbbrevPages;
+
+            Text += String.Format(Resources.Strings.ElapsedTimeTextTemplate,
+                                  elapsed.Hours, elapsed.Minutes, elapsed.Seconds,
+                                  ppInt, getPagesString(ppInt), timeAbbrev,
+                                  _model.PagesProcessedTotal, _model.PagesTotal);
         }
 
         private void UpdateFailedStatus(string message, Exception exception = null)

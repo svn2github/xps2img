@@ -104,8 +104,8 @@ namespace Xps2Img.CommandLine
 
         [DisplayName(PostActionDisplayName)]
         [Category(CategoryParameters)]
-        [TypeConverter(typeof(PostActionConverterWithUserApplication))]
-        //[TypeConverter(typeof(PostActionConverter))]
+        //[TypeConverter(typeof(PostActionConverterWithUserApplication))]
+        [TypeConverter(typeof(PostActionConverter))]
         [DefaultValue(PostActionConverter.Default)]
         [TabbedDescription(PostActionDescription)]
         public string PostAction

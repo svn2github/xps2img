@@ -208,7 +208,7 @@
     <value>Load Settings</value>
   </data>
   <data name="ElapsedTimeTextTemplate" xml:space="preserve">
-    <value> ● {0:00}:{1:00}:{2:00} ●</value>
+    <value> ● {0:00}:{1:00}:{2:00} ∴ {6}/{7} ≡ {3}{4}/{5}</value>
   </data>
   <data name="ConversionStopConfirmation" xml:space="preserve">
     <value>Conversion will be stopped.</value>
@@ -383,5 +383,20 @@
   </data>
   <data name="FilterExeFiles">
     <value xml:space="preserve">Executable Files (*.exe)|*.exe|</value>
+  </data>
+  <data name="AbbrevSeconds">
+    <value xml:space="preserve">sec</value>
+  </data>
+  <data name="AbbrevMinutes">
+    <value xml:space="preserve">min</value>
+  </data>
+  <data name="AbbrevHours">
+    <value xml:space="preserve">hr</value>
+  </data>
+  <data name="AbbrevPages">
+    <value xml:space="preserve">pp</value>
+  </data>
+  <data name="AbbrevPage">
+    <value xml:space="preserve">p</value>
   </data>
 </root>
