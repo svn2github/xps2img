@@ -19,6 +19,8 @@ namespace Xps2ImgUI.Utils
         public const string ManualCheckUrl      = DownloadRootUrl;
         public const string ManualDownloadUrl   = DownloadRootUrl;
 
+        private const string UserAgent          = @"Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/5.0; yie8)";
+
         private const string UpdateUrl          = "http://sourceforge.net/projects/xps2img/";
         private const string DownloadRootUrl    = "http://downloads.sourceforge.net/project/xps2img/Releases/";
         private const string SetupDownload      = "Xps2ImgSetup-{0}.exe";
@@ -129,12 +131,10 @@ namespace Xps2ImgUI.Utils
 
             try
             {
-                var webRequest = WebRequest.Create(UpdateUrl);
+                var webRequest = (HttpWebRequest)WebRequest.Create(UpdateUrl + "?nocache=" + Environment.TickCount);
 
-                if (_useProxy)
-                {
-                    webRequest.Proxy = GetProxy();
-                }
+                webRequest.UserAgent = UserAgent;
+                webRequest.Proxy = _useProxy ? GetProxy() : null;
 
                 var responseStream = webRequest.GetResponse().GetResponseStream();
 
@@ -178,10 +178,7 @@ namespace Xps2ImgUI.Utils
                     throw new InvalidOperationException("DownloadUrl is not set.");
                 }
 
-                if (_useProxy)
-                {
-                    webClient.Proxy = GetProxy();
-                }
+                webClient.Proxy = _useProxy ? GetProxy() : null;
 
                 var downloadFolder = Path.Combine(Path.GetTempPath(), DownloadFolder);
                 Directory.CreateDirectory(downloadFolder);
@@ -211,13 +208,15 @@ namespace Xps2ImgUI.Utils
                 _exception = ex;
             }
         }
-
+        
         private void WebClientDownloadFileCompleted(object sender, AsyncCompletedEventArgs args)
         {
             var webClient = (WebClient) sender;
 
             webClient.DownloadFileCompleted -= WebClientDownloadFileCompleted;
             webClient.DownloadProgressChanged -= WebClientDownloadProgressChanged;
+
+            webClient.Dispose();
 
             _exception = args.Error;
 
