@@ -120,6 +120,7 @@ namespace Xps2Img.CommandLine
         [Category(CategoryParameters)]
         [DefaultValue(null)]
         [TabbedDescription(UserApplicationDescription)]
+        [Editor(typeof(SelectExecutableFileEditor), typeof(UITypeEditor))]
         [DynamicPropertyFilter("PostAction", PostActionConverterWithUserApplication.UserApplication)]
         public string UserApplication
         {

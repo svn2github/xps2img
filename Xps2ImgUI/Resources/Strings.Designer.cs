@@ -259,6 +259,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Executable Files (*.exe)|*.exe|.
+        /// </summary>
+        internal static string FilterExeFiles {
+            get {
+                return ResourceManager.GetString("FilterExeFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to XPS2Img Files (*.x2i)|*.x2i|.
         /// </summary>
         internal static string FilterXPS2ImgFiles {
@@ -489,6 +498,15 @@ namespace Xps2ImgUI.Resources {
         internal static string SaveSettingsTitle {
             get {
                 return ResourceManager.GetString("SaveSettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Executable File.
+        /// </summary>
+        internal static string SelectExecutableFile {
+            get {
+                return ResourceManager.GetString("SelectExecutableFile", resourceCulture);
             }
         }
         

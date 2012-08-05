@@ -123,6 +123,7 @@
     <Compile Include="Converters\ProcessPriorityClassConverter.cs" />
     <Compile Include="Converters\ProcessorsNumberConverter.cs" />
     <Compile Include="Converters\YesNoConverter.cs" />
+    <Compile Include="Dialogs\SelectExecutableFileEditor.cs" />
     <Compile Include="UpdateDownloadForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -222,6 +222,9 @@
   <data name="SelectXpsFile" xml:space="preserve">
     <value>Select XPS File</value>
   </data>
+  <data name="SelectExecutableFile" xml:space="preserve">
+    <value>Select Executable File</value>
+  </data>
   <data name="SpecifyImagesFolder" xml:space="preserve">
     <value>Specify folder to store images. If not set new folder named as document will be created in folder where document is.</value>
   </data>
@@ -377,5 +380,8 @@
   </data>
   <data name="FilterXPSFiles">
     <value xml:space="preserve">XPS Files (*.xps)|*.xps|</value>
+  </data>
+  <data name="FilterExeFiles">
+    <value xml:space="preserve">Executable Files (*.exe)|*.exe|</value>
   </data>
 </root>
