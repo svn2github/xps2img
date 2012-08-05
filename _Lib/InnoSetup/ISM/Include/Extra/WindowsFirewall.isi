@@ -66,16 +66,29 @@ except
 end;
 end;
 
-procedure WindowsFirewall_RemoveException(AppName, FileName: String);
+function _WindowsFirewall_IsVistaAndAbove: Boolean;
 var
   windVer: TWindowsVersion;
+begin
+  GetWindowsVersionEx(windVer);
+  Result := windVer.NTPlatform and (windVer.Major >= 6);
+end;
+
+function WindowsFirewall_IsConfigurable: Boolean;
+begin
+  Result := IsAdminLoggedOn;
+end;
+
+procedure WindowsFirewall_RemoveException(AppName, FileName: String);
+var
   firewallManager: Variant;
   firewallProfile: Variant;
   firewallPolicy: Variant;
 begin
 try
-  GetWindowsVersionEx(WindVer);
-  if WindVer.NTPlatform and (WindVer.Major >= 6) then
+  if not WindowsFirewall_IsConfigurable then Exit;
+  
+  if _WindowsFirewall_IsVistaAndAbove then
   begin
     firewallPolicy := CreateOleObject('HNetCfg.FwPolicy2');
     firewallPolicy.Rules.Remove(AppName);
@@ -92,12 +105,12 @@ end;
 end;
 
 procedure WindowsFirewall_AddException(AppName, FileName, Grouping : String);
-var
-  windVer: TWindowsVersion;
 begin
-  GetWindowsVersionEx(WindVer);
+  if not WindowsFirewall_IsConfigurable then Exit;
+  
   WindowsFirewall_RemoveException(AppName, FileName);
-  if windVer.NTPlatform and (WindVer.Major >= 6) then
+
+  if _WindowsFirewall_IsVistaAndAbove then
     _WindowsFirewall_AddExceptionVista(AppName, FileName, Grouping)
   else
     _WindowsFirewall_AddExceptionXP(AppName, FileName);

@@ -30,7 +30,7 @@ end;
 function TaskFirewallIndex: Integer;
 begin
   Result := WizardForm.TasksList.Items.IndexOf(ExpandConstant('{cm:Task_AddWindowsFirewallException}'));
-  WizardForm.TasksList.ItemEnabled[Result] := IsAdminLoggedOn;
+  WizardForm.TasksList.ItemEnabled[Result] := WindowsFirewall_IsConfigurable;
 end;
 
 function IsInstallableIndex: Integer;
