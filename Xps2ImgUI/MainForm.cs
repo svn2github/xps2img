@@ -286,7 +286,7 @@ namespace Xps2ImgUI
 
         private void UpdateElapsedTime()
         {
-            if (!_preferences.ShowElapsedTime)
+            if (!_preferences.ShowElapsedTimeAndStatistics)
             {
                 return;
             }

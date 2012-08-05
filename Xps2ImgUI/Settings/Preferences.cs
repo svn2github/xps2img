@@ -43,7 +43,7 @@ namespace Xps2ImgUI.Settings
         [Description("Show time elapsed by last operation and conversion statistics at application title.")]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
-        public bool ShowElapsedTime { get; set; }
+        public bool ShowElapsedTimeAndStatistics { get; set; }
 
         [DisplayName("Flash When Completed")]
         [Category(CategoryApplication)]
@@ -146,7 +146,7 @@ namespace Xps2ImgUI.Settings
             {
                 yield return AutoSaveSettings;
                 yield return ClassicLook;
-                yield return ShowElapsedTime;
+                yield return ShowElapsedTimeAndStatistics;
                 yield return FlashWhenCompleted;
                 yield return ConfirmOnDelete;
                 yield return ConfirmOnExit;
