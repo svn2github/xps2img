@@ -41,7 +41,7 @@ namespace Xps2ImgUI.Settings
         [DisplayName("Show Elapsed Time and Statistics")]
         [Category(CategoryApplication)]
         [Description("Show time elapsed by last operation and conversion statistics at application title.")]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ShowElapsedTime { get; set; }
 
