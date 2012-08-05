@@ -124,7 +124,14 @@ namespace Xps2ImgUI
                 _thumbButtonManager.DispatchMessage(ref m);
             }
 
-            base.WndProc(ref m);
+            try
+            {
+                base.WndProc(ref m);
+            }
+            catch(NullReferenceException)
+            {
+                // Weird error under Vista+ when pressing F1 in editors of file open dialog.
+            }
         }
 
         private void AdjustPropertyGrid()
