@@ -6,6 +6,7 @@ namespace Xps2ImgUI.Utils
     public interface IUpdateManager
     {
         bool HasUpdate { get; }
+        string WhatsNew { get; }
         bool Failed { get; }
         bool Silent { get; }
 

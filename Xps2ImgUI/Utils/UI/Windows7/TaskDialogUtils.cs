@@ -97,22 +97,56 @@ namespace Windows7.Dialogs
             }
         }
 
-        public static void AddExceptionDetails(TaskDialog taskDialog, Exception ex, string showLess, string showMore)
+        public static void AddFooterText(TaskDialog taskDialog, string footerText)
         {
-            if (ex == null)
+            if (String.IsNullOrEmpty(footerText))
+            {
+                return;
+            }
+
+            taskDialog.HyperlinksEnabled = true;
+            taskDialog.FooterText = footerText;
+            taskDialog.Closing += TaskDialogClosing;
+            taskDialog.HyperlinkClick += TaskDialogHyperlinkClick;
+        }
+
+        public static void AddDetails(TaskDialog taskDialog, string message, string showLess, string showMore)
+        {
+            if (String.IsNullOrEmpty(message))
             {
                 return;
             }
             taskDialog.ExpansionMode = TaskDialogExpandedDetailsLocation.ExpandFooter;
             taskDialog.DetailsExpandedLabel = showLess;
             taskDialog.DetailsCollapsedLabel = showMore;
-            taskDialog.DetailsExpandedText = ex.ToString();
+            taskDialog.DetailsExpandedText = message.Trim();
         }
-        
+
+        public static void AddExceptionDetails(TaskDialog taskDialog, Exception ex, string showLess, string showMore)
+        {
+            if (ex == null)
+            {
+                return;
+            }
+            AddDetails(taskDialog, ex.ToString(), showLess, showMore);
+        }
+
         private static void CommandLinkClicked(object sender, EventArgs e)
         {
             var taskDialogCommandLink = (TaskDialogCommandLink) sender;
             ((TaskDialog)taskDialogCommandLink.HostingDialog).Close((TaskDialogResult)Enum.Parse(typeof(TaskDialogResult), taskDialogCommandLink.Name));
+        }
+
+        private static void TaskDialogClosing(object sender, TaskDialogClosingEventArgs args)
+        {
+            var taskDialog = ((TaskDialog)sender);
+            taskDialog.Closing -= TaskDialogClosing;
+            taskDialog.HyperlinkClick -= TaskDialogHyperlinkClick;
+        }
+
+        private static void TaskDialogHyperlinkClick(object sender, TaskDialogHyperlinkClickedEventArgs args)
+        {
+            Explorer.ShellExecute(args.LinkText);
         }
     }
 }

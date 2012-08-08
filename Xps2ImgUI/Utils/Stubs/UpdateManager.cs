@@ -11,6 +11,11 @@ namespace Xps2ImgUI.Utils.Stubs
             get { return true; }
         }
 
+        public string WhatsNew
+        {
+            get { return "New update is here!"; }
+        }
+        
         public bool Failed
         {
             get { return false; }

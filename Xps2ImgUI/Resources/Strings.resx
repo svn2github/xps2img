@@ -193,7 +193,7 @@
     <value>Converted images will be deleted.</value>
   </data>
   <data name="PressToProceedMessage" xml:space="preserve">
-    <value> Press OK to proceed.</value>
+    <value>Press OK to proceed.</value>
   </data>
   <data name="Preferences" xml:space="preserve">
     <value>&amp;Preferences...</value>
@@ -347,7 +347,7 @@
   </data>
   <data name="YesDownloadManually" xml:space="preserve">
     <value>&amp;Yes, Download Update Manually</value>
-  </data> 
+  </data>
   <data name="UpdateFailedWarning" xml:space="preserve">
     <value>Update failed. Application Web site will be opened.</value>
   </data>
@@ -372,34 +372,58 @@
   <data name="YesDownloadAndUpdate" xml:space="preserve">
     <value>&amp;Yes, Download and Update</value>
   </data>
-  <data name="ValueIsNotValidIntegerNumber">
-    <value xml:space="preserve">Value is not valid integer number</value>
+  <data name="ValueIsNotValidIntegerNumber" xml:space="preserve">
+    <value>Value is not valid integer number</value>
   </data>
-  <data name="FilterAllFiles">
-    <value xml:space="preserve">All Files (*.*)|*.*</value>
+  <data name="FilterAllFiles" xml:space="preserve">
+    <value>All Files (*.*)|*.*</value>
   </data>
-  <data name="FilterXPSFiles">
-    <value xml:space="preserve">XPS Files (*.xps)|*.xps|</value>
+  <data name="FilterXPSFiles" xml:space="preserve">
+    <value>XPS Files (*.xps)|*.xps|</value>
   </data>
-  <data name="FilterExeFiles">
-    <value xml:space="preserve">Executable Files (*.exe)|*.exe|</value>
+  <data name="FilterExeFiles" xml:space="preserve">
+    <value>Executable Files (*.exe)|*.exe|</value>
   </data>
-  <data name="AbbrevSeconds">
-    <value xml:space="preserve">sec</value>
+  <data name="AbbrevSeconds" xml:space="preserve">
+    <value>sec</value>
   </data>
-  <data name="AbbrevMinutes">
-    <value xml:space="preserve">min</value>
+  <data name="AbbrevMinutes" xml:space="preserve">
+    <value>min</value>
   </data>
-  <data name="AbbrevHours">
-    <value xml:space="preserve">hr</value>
+  <data name="AbbrevHours" xml:space="preserve">
+    <value>hr</value>
   </data>
-  <data name="AbbrevPages">
-    <value xml:space="preserve">pp</value>
+  <data name="AbbrevPages" xml:space="preserve">
+    <value>pp</value>
   </data>
-  <data name="AbbrevPage">
-    <value xml:space="preserve">p</value>
+  <data name="AbbrevPage" xml:space="preserve">
+    <value>p</value>
   </data>
-  <data name="ViewChanges">
-    <value xml:space="preserve">&lt;a href="http://sourceforge.net/projects/xps2img/files/"&gt;What's new?&lt;/a&gt;</value>
+  <data name="VisitDownloadPage" xml:space="preserve">
+    <value>&lt;a href="http://sourceforge.net/projects/xps2img/files/"&gt;Visit download page&lt;/a&gt;</value>
+  </data>
+  <data name="WhatsNew" xml:space="preserve">
+    <value>
+
+What's new:
+
+{0}
+
+</value>
+  </data>
+  <data name="WhatsNewDateFormat" xml:space="preserve">
+    <value>  d MMMM yyyy</value>
+  </data>
+  <data name="WhatsNewAdded" xml:space="preserve">
+    <value>Added:     </value>
+  </data>
+  <data name="WhatsNewRemoved" xml:space="preserve">
+    <value>Removed: </value>
+  </data>
+  <data name="WhatsNewChanged" xml:space="preserve">
+    <value>Changed: </value>
+  </data>
+  <data name="WhatsNewNew" xml:space="preserve">
+    <value>New:         </value>
   </data>
 </root>

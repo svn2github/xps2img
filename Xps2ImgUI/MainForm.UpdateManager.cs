@@ -47,7 +47,7 @@ namespace Xps2ImgUI
 
                 if (_updateManager.HasUpdate)
                 {
-                    if (ShowConfirmationMessageBox(Resources.Strings.NewUpdateIsAvailable, MessageBoxDefaultButton.Button1, MessageBoxIcon.Information))
+                    if (ShowConfirmationMessageBox(Resources.Strings.NewUpdateIsAvailable, String.Format(Resources.Strings.WhatsNew, _updateManager.WhatsNew), MessageBoxDefaultButton.Button1, MessageBoxIcon.Information))
                     {
                         using (new ModalGuard())
                         {

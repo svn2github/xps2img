@@ -448,7 +448,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Press OK to proceed..
+        ///   Looks up a localized string similar to Press OK to proceed..
         /// </summary>
         internal static string PressToProceedMessage {
             get {
@@ -727,11 +727,71 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;a href=&quot;http://sourceforge.net/projects/xps2img/files/&quot;&gt;What&apos;s new?&lt;/a&gt;.
+        ///   Looks up a localized string similar to &lt;a href=&quot;http://sourceforge.net/projects/xps2img/files/&quot;&gt;Visit download page&lt;/a&gt;.
         /// </summary>
-        internal static string ViewChanges {
+        internal static string VisitDownloadPage {
             get {
-                return ResourceManager.GetString("ViewChanges", resourceCulture);
+                return ResourceManager.GetString("VisitDownloadPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///
+        ///What&apos;s new:
+        ///
+        ///{0}
+        ///
+        ///.
+        /// </summary>
+        internal static string WhatsNew {
+            get {
+                return ResourceManager.GetString("WhatsNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Added:     .
+        /// </summary>
+        internal static string WhatsNewAdded {
+            get {
+                return ResourceManager.GetString("WhatsNewAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changed: .
+        /// </summary>
+        internal static string WhatsNewChanged {
+            get {
+                return ResourceManager.GetString("WhatsNewChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to   d MMMM yyyy.
+        /// </summary>
+        internal static string WhatsNewDateFormat {
+            get {
+                return ResourceManager.GetString("WhatsNewDateFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New:         .
+        /// </summary>
+        internal static string WhatsNewNew {
+            get {
+                return ResourceManager.GetString("WhatsNewNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removed: .
+        /// </summary>
+        internal static string WhatsNewRemoved {
+            get {
+                return ResourceManager.GetString("WhatsNewRemoved", resourceCulture);
             }
         }
         

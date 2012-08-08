@@ -41,7 +41,7 @@ namespace Xps2ImgUI
             }
         }
 
-        private bool ShowConfirmationMessageBox(string text, MessageBoxDefaultButton messageBoxDefaultButton = MessageBoxDefaultButton.Button2, MessageBoxIcon messageBoxIcon = MessageBoxIcon.Exclamation, Exception exception = null)
+        private bool ShowConfirmationMessageBox(string text, string messageToAppend = null, MessageBoxDefaultButton messageBoxDefaultButton = MessageBoxDefaultButton.Button2, MessageBoxIcon messageBoxIcon = MessageBoxIcon.Exclamation, Exception exception = null)
         {
             string taskInstruction;
             string taskText;
@@ -52,6 +52,11 @@ namespace Xps2ImgUI
             string footerText;
 
             GetTaskDialogMessageParams(text, out taskInstruction, out taskText, out taskDialogStandardIcon, out footerCheckBoxChecked, out noConfirmation, out footerText, out okCommand);
+
+            if (!String.IsNullOrEmpty(messageToAppend))
+            {
+                text += messageToAppend;
+            }
 
             #if DEBUG
             if (String.IsNullOrEmpty(taskText))
@@ -72,17 +77,17 @@ namespace Xps2ImgUI
                                     out footerCheckBoxChecked,
                                     t =>
                                     {
+                                        AddDetails(t, messageToAppend);
                                         AddExceptionDetails(t, exception);
-                                        if (!String.IsNullOrEmpty(footerText))
-                                        {
-                                            t.HyperlinksEnabled = true;
-                                            t.FooterText = footerText;
-                                            t.Closing += TaskDialogClosing;
-                                            t.HyperlinkClick += TaskDialogHyperlinkClick;
-                                        }
+                                        TaskDialogUtils.AddFooterText(t, footerText);
                                     },
                                     new TaskDialogCommandInfo(TaskDialogResult.Ok,      okCommand),
                                     new TaskDialogCommandInfo(TaskDialogResult.Cancel,  Resources.Strings.NoBackToApplication));
+
+            if (!text.EndsWith("\n"))
+            {
+                text += "\x20";
+            }
 
             var result = DialogResult.OK == (
                 dialogResult != TaskDialogUtils.NotSupported
@@ -155,27 +160,20 @@ namespace Xps2ImgUI
             {
                 taskInstruction = Resources.Strings.NewUpdateAvailable;
                 taskText = Resources.Strings.WouldYouLikeToDownloadItAndUpdateApplication;
-                footerText = Resources.Strings.ViewChanges;
+                footerText = Resources.Strings.VisitDownloadPage;
                 okCommand = Resources.Strings.YesDownloadAndUpdate;
                 taskDialogStandardIcon = TaskDialogStandardIcon.Information;
             }
         }
 
+        private static void AddDetails(TaskDialog taskDialog, string message)
+        {
+            TaskDialogUtils.AddDetails(taskDialog, message, Resources.Strings.HideDetails, Resources.Strings.ShowDetails);
+        }
+
         public static void AddExceptionDetails(TaskDialog taskDialog, Exception ex)
         {
             TaskDialogUtils.AddExceptionDetails(taskDialog, ex, Resources.Strings.HideDetails, Resources.Strings.ShowDetails);
-        }
-
-        private static void TaskDialogClosing(object sender, TaskDialogClosingEventArgs args)
-        {
-            var taskDialog = ((TaskDialog)sender);
-            taskDialog.Closing -= TaskDialogClosing;
-            taskDialog.HyperlinkClick -= TaskDialogHyperlinkClick;
-        }
-
-        private static void TaskDialogHyperlinkClick(object sender, TaskDialogHyperlinkClickedEventArgs args)
-        {
-            Explorer.ShellExecute(args.LinkText);
         }
     }
 }

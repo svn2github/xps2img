@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.AccessControl;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -23,6 +24,7 @@ namespace Xps2ImgUI.Utils
 
         private const string UpdateUrl          = "http://sourceforge.net/projects/xps2img/";
         private const string DownloadRootUrl    = "http://downloads.sourceforge.net/project/xps2img/Releases/";
+        private const string ReadmeUrl          = UpdateUrl + "files/readme.txt/download";
         private const string SetupDownload      = "Xps2ImgSetup-{0}.exe";
 
         private const string VersionGroup       = "version";
@@ -41,6 +43,11 @@ namespace Xps2ImgUI.Utils
             get { return _hasUpdate; }
         }
 
+        public string WhatsNew
+        {
+            get { return _whatsNew; }
+        }
+        
         public bool Failed
         {
             get { return _exception != null; }
@@ -128,13 +135,14 @@ namespace Xps2ImgUI.Utils
             _hasUpdate = false;
             _downloadUrl = null;
             _exception = null;
+            _whatsNew = null;
 
             try
             {
                 var webRequest = (HttpWebRequest)WebRequest.Create(UpdateUrl + "?nocache=" + Environment.TickCount);
 
                 webRequest.UserAgent = UserAgent;
-                webRequest.Proxy = _useProxy ? GetProxy() : null;
+                webRequest.Proxy = GetProxy();
 
                 var responseStream = webRequest.GetResponse().GetResponseStream();
 
@@ -156,11 +164,50 @@ namespace Xps2ImgUI.Utils
                         _hasUpdate = true;
                         _downloadUrl = DownloadRootUrl + String.Format(SetupDownload, newVersion);
                     }
+                    _whatsNew = GetWhatsNew();
                 }
             }
             catch (Exception ex)
             {
                 _exception = ex;
+            }
+        }
+
+        private string GetWhatsNew()
+        {
+            try
+            {
+                var webClient = new WebClient { Proxy = GetProxy() };
+                var readme = Encoding.UTF8.GetString(webClient.DownloadData(ReadmeUrl));
+
+                var match = new Regex(@"([\s\S]+?)(\r?\n){2}(\d+\.){3}").Match(readme);
+
+                if (!match.Success)
+                {
+                    return String.Empty;
+                }
+
+                var whatsNew = new Regex(@"\[([+*!-])\]").Replace(match.Groups[1].Value, m =>
+                {
+                    switch (m.Groups[1].Value[0])
+                    {
+                        case '+': return Resources.Strings.WhatsNewAdded;
+                        case '-': return Resources.Strings.WhatsNewRemoved;
+                        case '*': return Resources.Strings.WhatsNewChanged;
+                        case '!': return Resources.Strings.WhatsNewNew;
+                    }
+                    return m.ToString();
+                });
+
+                return new Regex(@"(.+?)(\d{4}/\d{2}/\d{2})").Replace(whatsNew, m =>
+                {
+                    var dd = DateTime.ParseExact(m.Groups[2].Value, "yyyy'/'MM'/'dd", null);
+                    return m.Groups[1].Value + dd.ToString(Resources.Strings.WhatsNewDateFormat);
+                });
+            }
+            catch
+            {
+                return String.Empty;
             }
         }
 
@@ -178,7 +225,7 @@ namespace Xps2ImgUI.Utils
                     throw new InvalidOperationException("DownloadUrl is not set.");
                 }
 
-                webClient.Proxy = _useProxy ? GetProxy() : null;
+                webClient.Proxy = GetProxy();
 
                 var downloadFolder = Path.Combine(Path.GetTempPath(), DownloadFolder);
                 Directory.CreateDirectory(downloadFolder);
@@ -313,8 +360,13 @@ namespace Xps2ImgUI.Utils
             }
         }
 
-        private static IWebProxy GetProxy()
+        private IWebProxy GetProxy()
         {
+            if (!_useProxy)
+            {
+                return null;
+            }
+
             var proxy = WebRequest.GetSystemWebProxy();
             proxy.Credentials = CredentialCache.DefaultCredentials;
             return proxy;
@@ -333,5 +385,7 @@ namespace Xps2ImgUI.Utils
 
         private volatile string _downloadUrl;
         private volatile string _downloadedFile;
+
+        private volatile string _whatsNew;
     }
 }
