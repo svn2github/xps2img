@@ -49,8 +49,9 @@ namespace Xps2ImgUI
             bool footerCheckBoxChecked;
             Action noConfirmation;
             string okCommand;
+            string footerText;
 
-            GetTaskDialogMessageParams(text, out taskInstruction, out taskText, out taskDialogStandardIcon, out footerCheckBoxChecked, out noConfirmation, out okCommand);
+            GetTaskDialogMessageParams(text, out taskInstruction, out taskText, out taskDialogStandardIcon, out footerCheckBoxChecked, out noConfirmation, out footerText, out okCommand);
 
             #if DEBUG
             if (String.IsNullOrEmpty(taskText))
@@ -69,7 +70,17 @@ namespace Xps2ImgUI
                                     taskDialogStandardIcon,
                                     noConfirmation == null ? null : Resources.Strings.AlwaysConfirmAndDoNotAskAgain,
                                     out footerCheckBoxChecked,
-                                    t => AddExceptionDetails(t, exception),
+                                    t =>
+                                    {
+                                        AddExceptionDetails(t, exception);
+                                        if (!String.IsNullOrEmpty(footerText))
+                                        {
+                                            t.HyperlinksEnabled = true;
+                                            t.FooterText = footerText;
+                                            t.Closing += TaskDialogClosing;
+                                            t.HyperlinkClick += TaskDialogHyperlinkClick;
+                                        }
+                                    },
                                     new TaskDialogCommandInfo(TaskDialogResult.Ok,      okCommand),
                                     new TaskDialogCommandInfo(TaskDialogResult.Cancel,  Resources.Strings.NoBackToApplication));
 
@@ -87,8 +98,10 @@ namespace Xps2ImgUI
             return result;
         }
 
-        private void GetTaskDialogMessageParams(string message, out string taskInstruction, out string taskText, out TaskDialogStandardIcon taskDialogStandardIcon, out bool footerCheckBoxChecked, out Action noConfirmation, out string okCommand)
+        private void GetTaskDialogMessageParams(string message, out string taskInstruction, out string taskText, out TaskDialogStandardIcon taskDialogStandardIcon, out bool footerCheckBoxChecked, out Action noConfirmation, out string footerText, out string okCommand)
         {
+            footerText = null;
+
             taskDialogStandardIcon = TaskDialogStandardIcon.Warning;
 
             noConfirmation = null;
@@ -142,6 +155,7 @@ namespace Xps2ImgUI
             {
                 taskInstruction = Resources.Strings.NewUpdateAvailable;
                 taskText = Resources.Strings.WouldYouLikeToDownloadItAndUpdateApplication;
+                footerText = Resources.Strings.ViewChanges;
                 okCommand = Resources.Strings.YesDownloadAndUpdate;
                 taskDialogStandardIcon = TaskDialogStandardIcon.Information;
             }
@@ -150,6 +164,18 @@ namespace Xps2ImgUI
         public static void AddExceptionDetails(TaskDialog taskDialog, Exception ex)
         {
             TaskDialogUtils.AddExceptionDetails(taskDialog, ex, Resources.Strings.HideDetails, Resources.Strings.ShowDetails);
+        }
+
+        private static void TaskDialogClosing(object sender, TaskDialogClosingEventArgs args)
+        {
+            var taskDialog = ((TaskDialog)sender);
+            taskDialog.Closing -= TaskDialogClosing;
+            taskDialog.HyperlinkClick -= TaskDialogHyperlinkClick;
+        }
+
+        private static void TaskDialogHyperlinkClick(object sender, TaskDialogHyperlinkClickedEventArgs args)
+        {
+            Explorer.ShellExecute(args.LinkText);
         }
     }
 }

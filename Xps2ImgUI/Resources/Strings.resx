@@ -399,4 +399,7 @@
   <data name="AbbrevPage">
     <value xml:space="preserve">p</value>
   </data>
+  <data name="ViewChanges">
+    <value xml:space="preserve">&lt;a href="http://sourceforge.net/projects/xps2img/files/"&gt;What's new?&lt;/a&gt;</value>
+  </data>
 </root>

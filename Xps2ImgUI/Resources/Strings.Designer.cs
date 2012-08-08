@@ -727,6 +727,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;a href=&quot;http://sourceforge.net/projects/xps2img/files/&quot;&gt;What&apos;s new?&lt;/a&gt;.
+        /// </summary>
+        internal static string ViewChanges {
+            get {
+                return ResourceManager.GetString("ViewChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to XPS to Images Converter.
         /// </summary>
         internal static string WindowTitle {
