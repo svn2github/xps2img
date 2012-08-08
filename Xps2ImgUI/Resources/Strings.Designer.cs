@@ -769,7 +769,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to   d MMMM yyyy.
+        ///   Looks up a localized string similar to    d MMMM yyyy.
         /// </summary>
         internal static string WhatsNewDateFormat {
             get {

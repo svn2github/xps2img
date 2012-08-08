@@ -199,7 +199,7 @@ namespace Xps2ImgUI.Utils
                     return m.ToString();
                 });
 
-                return new Regex(@"(.+?)(\d{4}/\d{2}/\d{2})").Replace(whatsNew, m =>
+                return new Regex(@"(\S+)\s+(\d{4}/\d{2}/\d{2})").Replace(whatsNew, m =>
                 {
                     var dd = DateTime.ParseExact(m.Groups[2].Value, "yyyy'/'MM'/'dd", null);
                     return m.Groups[1].Value + dd.ToString(Resources.Strings.WhatsNewDateFormat);
