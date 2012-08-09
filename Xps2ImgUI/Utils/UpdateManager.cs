@@ -200,10 +200,8 @@ namespace Xps2ImgUI.Utils
                 });
 
                 return new Regex(@"(\S+)\s+(\d{4}/\d{2}/\d{2})").Replace(whatsNew, m =>
-                {
-                    var dd = DateTime.ParseExact(m.Groups[2].Value, "yyyy'/'MM'/'dd", null);
-                    return m.Groups[1].Value + dd.ToString(Resources.Strings.WhatsNewDateFormat);
-                });
+                    String.Format(Resources.Strings.WhatsNewDateFormat, m.Groups[1].Value, DateTime.ParseExact(m.Groups[2].Value, "yyyy'/'MM'/'dd", null))
+                );
             }
             catch
             {

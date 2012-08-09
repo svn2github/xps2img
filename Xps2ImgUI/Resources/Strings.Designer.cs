@@ -736,21 +736,6 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 
-        ///
-        ///What&apos;s new:
-        ///
-        ///{0}
-        ///
-        ///.
-        /// </summary>
-        internal static string WhatsNew {
-            get {
-                return ResourceManager.GetString("WhatsNew", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Added:     .
         /// </summary>
         internal static string WhatsNewAdded {
@@ -769,7 +754,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to    d MMMM yyyy.
+        ///   Looks up a localized string similar to {0} {1:&apos;(&apos;d MMMM yyyy&apos;)&apos;}.
         /// </summary>
         internal static string WhatsNewDateFormat {
             get {
@@ -778,7 +763,20 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New:         .
+        ///   Looks up a localized string similar to 
+        ///
+        ///What&apos;s new in version {0}:
+        ///
+        ///.
+        /// </summary>
+        internal static string WhatsNewFormat {
+            get {
+                return ResourceManager.GetString("WhatsNewFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New:        .
         /// </summary>
         internal static string WhatsNewNew {
             get {
@@ -787,7 +785,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removed: .
+        ///   Looks up a localized string similar to Removed:.
         /// </summary>
         internal static string WhatsNewRemoved {
             get {
