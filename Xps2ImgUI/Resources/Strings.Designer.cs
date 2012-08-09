@@ -754,7 +754,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} {1:&apos;(&apos;d MMMM yyyy&apos;)&apos;}.
+        ///   Looks up a localized string similar to {0} {1:&apos;(&apos;d MMMM yyyy&apos;):&apos;}.
         /// </summary>
         internal static string WhatsNewDateFormat {
             get {
@@ -765,7 +765,7 @@ namespace Xps2ImgUI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to 
         ///
-        ///What&apos;s new in version {0}:
+        ///What&apos;s new in version {0}
         ///
         ///.
         /// </summary>
