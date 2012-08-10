@@ -160,7 +160,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \n\n• Cancel or Esc reverts to previous valid value.\n• OK returns to value editing..
+        ///   Looks up a localized string similar to \n\n● Cancel or Esc reverts to previous valid value.\n● OK returns to value editing..
         /// </summary>
         internal static string CancelToUsePreviousValidValue {
             get {
@@ -286,7 +286,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  ● {0:00}:{1:00}:{2:00} ∴ {6}/{7} ≡ {3}{4}/{5}.
+        ///   Looks up a localized string similar to  ● {0:00}:{1:00}:{2:00} ● {6}/{7} ● {3}{4}/{5} ●.
         /// </summary>
         internal static string ElapsedTimeTextTemplate {
             get {
@@ -736,20 +736,11 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Added:     .
+        ///   Looks up a localized string similar to ● .
         /// </summary>
-        internal static string WhatsNewAdded {
+        internal static string WhatsNewBullet {
             get {
-                return ResourceManager.GetString("WhatsNewAdded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Changed: .
-        /// </summary>
-        internal static string WhatsNewChanged {
-            get {
-                return ResourceManager.GetString("WhatsNewChanged", resourceCulture);
+                return ResourceManager.GetString("WhatsNewBullet", resourceCulture);
             }
         }
         
@@ -772,24 +763,6 @@ namespace Xps2ImgUI.Resources {
         internal static string WhatsNewFormat {
             get {
                 return ResourceManager.GetString("WhatsNewFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to New:        .
-        /// </summary>
-        internal static string WhatsNewNew {
-            get {
-                return ResourceManager.GetString("WhatsNewNew", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Removed:.
-        /// </summary>
-        internal static string WhatsNewRemoved {
-            get {
-                return ResourceManager.GetString("WhatsNewRemoved", resourceCulture);
             }
         }
         

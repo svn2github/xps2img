@@ -187,20 +187,9 @@ namespace Xps2ImgUI.Utils
                     return String.Empty;
                 }
 
-                var whatsNew = new Regex(@"\[([+*!-])\]").Replace(match.Groups[1].Value, m =>
-                {
-                    switch (m.Groups[1].Value[0])
-                    {
-                        case '+': return Resources.Strings.WhatsNewAdded;
-                        case '-': return Resources.Strings.WhatsNewRemoved;
-                        case '*': return Resources.Strings.WhatsNewChanged;
-                        case '!': return Resources.Strings.WhatsNewNew;
-                    }
-                    return m.ToString();
-                });
-
-                return new Regex(@"(\S+)\s+(\d{4}/\d{2}/\d{2})").Replace(whatsNew, m =>
-                    String.Format(Resources.Strings.WhatsNewDateFormat, m.Groups[1].Value, DateTime.ParseExact(m.Groups[2].Value, "yyyy'/'MM'/'dd", null))
+                return new Regex(@"(\S+)\s+(\d{4}/\d{2}/\d{2})").Replace(
+                    new Regex(@"\[([+*!-])\]\s*").Replace(match.Groups[1].Value, Resources.Strings.WhatsNewBullet),
+                    m =>String.Format(Resources.Strings.WhatsNewDateFormat, m.Groups[1].Value, DateTime.ParseExact(m.Groups[2].Value, "yyyy'/'MM'/'dd", null))
                 );
             }
             catch

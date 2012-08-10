@@ -208,7 +208,7 @@
     <value>Load Settings</value>
   </data>
   <data name="ElapsedTimeTextTemplate" xml:space="preserve">
-    <value> ● {0:00}:{1:00}:{2:00} ∴ {6}/{7} ≡ {3}{4}/{5}</value>
+    <value> ● {0:00}:{1:00}:{2:00} ● {6}/{7} ● {3}{4}/{5} ●</value>
   </data>
   <data name="ConversionStopConfirmation" xml:space="preserve">
     <value>Conversion will be stopped.</value>
@@ -229,7 +229,7 @@
     <value>Specify folder to store images. If not set new folder named as document will be created in folder where document is.</value>
   </data>
   <data name="CancelToUsePreviousValidValue" xml:space="preserve">
-    <value>\n\n• Cancel or Esc reverts to previous valid value.\n• OK returns to value editing.</value>
+    <value>\n\n● Cancel or Esc reverts to previous valid value.\n● OK returns to value editing.</value>
   </data>
   <data name="AutoSaveSettings" xml:space="preserve">
     <value>A&amp;uto Save Settings</value>
@@ -412,16 +412,7 @@ What's new in version {0}
   <data name="WhatsNewDateFormat" xml:space="preserve">
     <value>{0} {1:'('d MMMM yyyy'):'}</value>
   </data>
-  <data name="WhatsNewAdded" xml:space="preserve">
-    <value>Added:     </value>
-  </data>
-  <data name="WhatsNewRemoved" xml:space="preserve">
-    <value>Removed:</value>
-  </data>
-  <data name="WhatsNewChanged" xml:space="preserve">
-    <value>Changed: </value>
-  </data>
-  <data name="WhatsNewNew" xml:space="preserve">
-    <value>New:        </value>
+  <data name="WhatsNewBullet" xml:space="preserve">
+    <value>● </value>
   </data>
 </root>
