@@ -5,16 +5,16 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("XPS (XML Paper Specification) document to images converter"
+[assembly: AssemblyTitle("XPS to Images Converter"
 #if XPS2IMG_UI
-    + " GUI front-end"
+    + " Frontend"
 #endif
-+ ".")]
-[assembly: AssemblyDescription("XPS (XML Paper Specification) document to images converter"
+)]
+[assembly: AssemblyDescription("XPS to Images Converter"
 #if XPS2IMG_UI
-    + " GUI front-end"
+    + " Frontend"
 #endif
-+ ".")]
+)]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("http://xps2img.sf.net")]
 [assembly: AssemblyProduct("Xps2Img")]
@@ -43,5 +43,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly : AssemblyVersion    ("3.13.0.0")]
-[assembly : AssemblyFileVersion("3.13.0.0")]
+[assembly : AssemblyVersion    ("3.14.0.0")]
+[assembly : AssemblyFileVersion("3.14.0.0")]

@@ -25,7 +25,7 @@
 		<param name="Local" value="Files\Options.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="GUI Front-end">
+		<param name="Name" value="GUI Frontend">
 		<param name="Local" value="Files\GUI.html">
 		</OBJECT>
 	<UL>
