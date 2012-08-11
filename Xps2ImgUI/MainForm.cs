@@ -303,16 +303,16 @@ namespace Xps2ImgUI
             var ppMinute = par(elapsed.TotalMinutes);
             var ppHour = par(elapsed.TotalHours);
 
-            if (pp < 1.0 && elapsed.TotalHours >= 1)
-            {
-                pp = ppHour;
-                timeAbbrev = Resources.Strings.AbbrevHours;
-            }
-            else
-            if (pp < 1.0 && elapsed.TotalMinutes >= 1)
+            if (pp < 1.0)
             {
                 pp = ppMinute;
                 timeAbbrev = Resources.Strings.AbbrevMinutes;
+            }
+
+            if (pp < 1.0)
+            {
+                pp = ppHour;
+                timeAbbrev = Resources.Strings.AbbrevHours;
             }
 
             if (pp < 1.0)
