@@ -26,7 +26,7 @@ namespace Xps2ImgUI
             }
 
             labelCopyright.Text = AssemblyInfo.Copyright;
-            labelAbout.Text = AssemblyInfo.Description;
+            labelAbout.Text = AssemblyInfo.Description.AppendDot();
 
             Text = String.Format(Text, Resources.Strings.WindowTitle, AssemblyInfo.AssemblyVersion);
 
