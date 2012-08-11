@@ -318,6 +318,7 @@ namespace Xps2ImgUI
             if (pp < 1.0)
             {
                 pp = pagesProcessed;
+                timeAbbrev = Resources.Strings.AbbrevDays;
             }
 
             var ppInt = (int)Math.Round(pp);

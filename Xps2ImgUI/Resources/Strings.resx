@@ -393,6 +393,9 @@
   <data name="AbbrevHours" xml:space="preserve">
     <value>hr</value>
   </data>
+  <data name="AbbrevDays" xml:space="preserve">
+    <value>d</value>
+  </data>
   <data name="AbbrevPages" xml:space="preserve">
     <value>pp</value>
   </data>

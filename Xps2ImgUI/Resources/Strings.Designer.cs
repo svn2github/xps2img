@@ -61,6 +61,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to d.
+        /// </summary>
+        internal static string AbbrevDays {
+            get {
+                return ResourceManager.GetString("AbbrevDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to hr.
         /// </summary>
         internal static string AbbrevHours {
