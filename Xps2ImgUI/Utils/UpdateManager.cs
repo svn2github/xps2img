@@ -186,7 +186,7 @@ namespace Xps2ImgUI.Utils
 
                 return new Regex(@"(\S+)\s+(\d{4}/\d{2}/\d{2})").Replace(
                     new Regex(@"\[.\]\s*").Replace(match.Groups[1].Value, Resources.Strings.WhatsNewBullet),
-                    m =>String.Format(Resources.Strings.WhatsNewDateFormat, m.Groups[1].Value, DateTime.ParseExact(m.Groups[2].Value, "yyyy'/'MM'/'dd", null))
+                    m => String.Format(Resources.Strings.WhatsNewDateFormat, m.Groups[1].Value, DateTime.ParseExact(m.Groups[2].Value, "yyyy'/'MM'/'dd", null))
                 );
             }
             catch
