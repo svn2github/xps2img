@@ -20,8 +20,6 @@ namespace Xps2ImgUI.Utils
         public const string ManualCheckUrl      = DownloadRootUrl;
         public const string ManualDownloadUrl   = DownloadRootUrl;
 
-        private const string UserAgent          = @"Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/5.0; yie8)";
-
         private const string UpdateUrl          = "http://sourceforge.net/projects/xps2img/";
         private const string DownloadRootUrl    = "http://downloads.sourceforge.net/project/xps2img/Releases/";
         private const string ReadmeUrl          = UpdateUrl + "files/readme.txt/download";
@@ -141,7 +139,6 @@ namespace Xps2ImgUI.Utils
             {
                 var webRequest = (HttpWebRequest)WebRequest.Create(UpdateUrl + "?nocache=" + Environment.TickCount);
 
-                webRequest.UserAgent = UserAgent;
                 webRequest.Proxy = GetProxy();
 
                 var responseStream = webRequest.GetResponse().GetResponseStream();
@@ -188,7 +185,7 @@ namespace Xps2ImgUI.Utils
                 }
 
                 return new Regex(@"(\S+)\s+(\d{4}/\d{2}/\d{2})").Replace(
-                    new Regex(@"\[([+*!-])\]\s*").Replace(match.Groups[1].Value, Resources.Strings.WhatsNewBullet),
+                    new Regex(@"\[.\]\s*").Replace(match.Groups[1].Value, Resources.Strings.WhatsNewBullet),
                     m =>String.Format(Resources.Strings.WhatsNewDateFormat, m.Groups[1].Value, DateTime.ParseExact(m.Groups[2].Value, "yyyy'/'MM'/'dd", null))
                 );
             }
