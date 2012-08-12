@@ -1,0 +1,13 @@
+#ifndef __ISM_EXTRA_REGISTER_APPLICATION_ISI__
+#define __ISM_EXTRA_REGISTER_APPLICATION_ISI__
+
+#ifndef __ISM_SECTIONS_ISI__
+	#error "Sections.isi" must be included first
+#endif
+
+#define RegisterApplication(str appExe=AppExe) \
+    Local[0] = "HKCR\Applications\" + ExtractFileName(appExe), \
+    Reg(key=Local[0], flags=RegFlag_UninsDeleteKey) + \
+    Reg(Local[0] + "\shell\open\command", ":string", Str_Quote(appExe) + " " + Str_Quote("%1"))
+
+#endif

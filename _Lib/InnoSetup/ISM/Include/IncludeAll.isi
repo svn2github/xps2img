@@ -17,6 +17,7 @@
 #include "Extra/FileStub.isi"
 #include "Extra/IconRun.isi"
 #include "Extra/RegisterDocumentExtension.isi"
+#include "Extra/RegisterApplication.isi"
 
 #include "PrepMessages.isi"
 

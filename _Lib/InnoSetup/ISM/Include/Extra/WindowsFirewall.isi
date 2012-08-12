@@ -14,7 +14,7 @@ const
   NET_FW_RULE_DIR_IN    = 1;
   NET_FW_RULE_DIR_OUT   = 2;
 
-procedure _WindowsFirewall_AddExceptionXP(AppName, FileName: String);
+procedure _WindowsFirewall_AddExceptionXP(const AppName, FileName: String);
 var
   FirewallObject: Variant;
   FirewallManager: Variant;
@@ -34,7 +34,7 @@ begin
   end;
 end;
 
-function _WindowsFirewall_GetFwRuleForVista(AppName, FileName, Grouping: String; IsInbound: Boolean): Variant;
+function _WindowsFirewall_GetFwRuleForVista(const AppName, FileName, Grouping: String; IsInbound: Boolean): Variant;
 var
   firewallRule: Variant;
 begin
@@ -53,7 +53,7 @@ begin
     Result := firewallRule;
 end;
 
-procedure _WindowsFirewall_AddExceptionVista(AppName, FileName, Grouping: String);
+procedure _WindowsFirewall_AddExceptionVista(const AppName, FileName, Grouping: String);
 var
   firewallPolicy: Variant;
 begin
@@ -79,7 +79,7 @@ begin
   Result := IsAdminLoggedOn;
 end;
 
-procedure WindowsFirewall_RemoveException(AppName, FileName: String);
+procedure WindowsFirewall_RemoveException(const AppName, FileName: String);
 var
   firewallManager: Variant;
   firewallProfile: Variant;
@@ -104,7 +104,7 @@ except
 end;
 end;
 
-procedure WindowsFirewall_AddException(AppName, FileName, Grouping : String);
+procedure WindowsFirewall_AddException(const AppName, FileName, Grouping : String);
 begin
   if not WindowsFirewall_IsConfigurable then Exit;
   

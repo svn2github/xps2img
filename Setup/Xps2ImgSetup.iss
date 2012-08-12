@@ -56,10 +56,10 @@
 
 #include ISM_RootDir + "/Include/Extra/SingleSetupInstance.isi"
 #include ISM_RootDir + "/Include/Extra/WindowsFirewall.isi"
+#include ISM_RootDir + "/Include/Extra/Utils.isi"
 
 #include "Messages.iss"
 
-#include "Code/Utils.iss"
 #include "Code/Params.iss"
 #include "Code/Events.iss"
 
@@ -113,6 +113,7 @@
 
     #define Active_Check    "IsAdminLoggedOn"
         <RegisterX2IExtension(true)>
+        <RegisterApplication()>
     <Reset_ActiveCheck>
 
     #define Active_Check    "not IsAdminLoggedOn"
