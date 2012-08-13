@@ -54,7 +54,7 @@ exit /b 0
 @echo off
 echo.
 echo.
-echo IMPORTANT: Execute clean-ism.bat first!
+echo IMPORTANT: Execute setup-ism.bat first!
 
 :ERROR
 @echo off

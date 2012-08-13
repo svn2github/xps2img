@@ -1,7 +1,7 @@
 [CustomMessages]
 ; .NET check.
 en.Msg_DotNetIsMissing=This application requires Microsoft.NET 3.5 which is not installed.%n%nWould you like to download it now?
-en.Msg_KeepSettings=Would you like to keep saved settings?
+en.Msg_KeepSettings=Would you like to keep saved application settings?
 ; Setup mode.
 en.Msg_SetupMode=Setup Mode
 en.Msg_SetupModeReadyPage=Setup mode:

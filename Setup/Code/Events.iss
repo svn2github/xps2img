@@ -24,7 +24,7 @@ end;
 
 function TaskExtensionIndex: Integer;
 begin
-  Result := WizardForm.TasksList.Items.IndexOf(ExpandConstant('{cm:Task_RegisterSettingsExtension}'));
+  Result := WizardForm.TasksList.Items.IndexOf(ExpandConstant('{cm:Task_RegisterFileAssociations}'));
 end;
 
 function TaskFirewallIndex: Integer;
@@ -146,8 +146,12 @@ procedure CurStepChanged(CurStep: TSetupStep);
 begin
   case CurStep of
     ssPostInstall:
-      if IsTaskSelected('{#Task_RegisterExtension}') then
+    begin
+      if IsTaskSelected('{#Task_AddWFRule}') then
         WindowsFirewall_AddException('{#AppName}', {#FirewallProcessImageFileName}, '{#FirewallGroup}');
+      if IsTaskSelected('{#Task_RegisterExtension}') then
+        MRU_Append('{#XPSFileExtension}', '{#AppExe}');
+    end;
   end;
 end;
 
@@ -155,7 +159,10 @@ procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 begin
   case CurUninstallStep of
     usPostUninstall:
+    begin
       WindowsFirewall_RemoveException('{#AppName}', {#FirewallProcessImageFileName});
+      MRU_Remove('{#XPSFileExtension}', '{#AppExe}');
+    end;
     usUninstall:
       if DirExists(ApplicationData) and (UninstallSilent or (MsgBox(ExpandConstant('{cm:Msg_KeepSettings}'), mbConfirmation, MB_YESNO) = idNo)) then
         DelTree(ApplicationData, True, True, True);

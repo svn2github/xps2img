@@ -47,6 +47,7 @@
 #define BinariesPath            "..\_bin\Release\"
 
 #define X2IFileExtension        "x2i"
+#define XPSFileExtension        "xps"
 #define X2IFileDescription      AppName + " Settings"
 
 #define FirewallGroup           "i2van"
@@ -55,6 +56,7 @@
 #define Task_AddWFRule          "addfwrule"
 
 #include ISM_RootDir + "/Include/Extra/SingleSetupInstance.isi"
+#include ISM_RootDir + "/Include/Extra/RegisterOpenWith.isi"
 #include ISM_RootDir + "/Include/Extra/WindowsFirewall.isi"
 #include ISM_RootDir + "/Include/Extra/Utils.isi"
 
@@ -80,7 +82,7 @@
 <CustomMessage("en.Group_Uninstall",    "Uninstall")>
 <CustomMessage("en.Menu_WebSite",       "%1 Web Site")>
 
-<CustomMessage("en.Task_RegisterSettingsExtension",     "&Register .x2i file extension")>
+<CustomMessage("en.Task_RegisterFileAssociations",     "&Register file associations")>
 <CustomMessage("en.Task_AddWindowsFirewallException",   "Add &Windows Firewall exception")>
 <CustomMessage("en.Task_SystemIntegrationTitle",        "System integration:")>
 
@@ -109,7 +111,7 @@
 #define RegisterX2IExtension(int forAll) RegisterDocumentExtension(forAll, X2IFileExtension, X2IFileDescription)
 
 #define Active_Tasks    Task_RegisterExtension
-    <Task(Active_Tasks, "{cm:Task_RegisterSettingsExtension}", "{cm:Task_SystemIntegrationTitle}")>
+    <Task(Active_Tasks, "{cm:Task_RegisterFileAssociations}", "{cm:Task_SystemIntegrationTitle}")>
 
     #define Active_Check    "IsAdminLoggedOn"
         <RegisterX2IExtension(true)>

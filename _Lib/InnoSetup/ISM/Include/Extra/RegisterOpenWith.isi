@@ -1,0 +1,83 @@
+#ifndef __ISM_EXTRA_REGISTER_OPEN_WITH_ISI__
+#define __ISM_EXTRA_REGISTER_OPEN_WITH_ISI__
+
+[Code]
+
+const
+  MRU_OpenWithList  = 'Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.%s\OpenWithList';
+  MRU_RootKey       = HKEY_CURRENT_USER;
+  MRU_MRUList       = 'MRUList';
+
+procedure _MRU_Manage(add: Boolean; const ext, exe: String; insertFirst: Boolean);
+var
+  names: TArrayOfString;
+  i: Integer;
+  key, name, value: String;
+  fileName, lowerFileName: String;
+  selectedName, mruList: String;
+
+begin
+  key := Format(MRU_OpenWithList, [ext]);
+
+  fileName := ExtractFileName(exe);
+  lowerFileName := AnsiLowercase(fileName);
+  mruList := '';
+  selectedName := '';
+  
+  if RegGetValueNames(MRU_RootKey, key, names) then
+  begin
+    for i := 0 to GetArrayLength(names)-1 do
+    begin
+      name := names[i];
+      value := '';
+      RegQueryStringValue(MRU_RootKey, key, name, value);
+      if name = MRU_MRUList then mruList := value;
+      if AnsiLowercase(value) = lowerFileName then selectedName := name;
+    end;
+    
+    StringChange(mruList, selectedName, '');
+    
+    if selectedName = '' then
+      for i:= 1 to Length(mruList) do
+        if selectedName <= mruList[i] then selectedName := Chr(Ord(mruList[i])+1);
+    
+    if (selectedName > 'z') or (selectedName = '') then Exit;
+    
+    if add then
+      if insertFirst then
+        mruList := selectedName + mruList
+      else
+        mruList := mruList + selectedName;
+        
+    if RegWriteStringValue(MRU_RootKey, key, MRU_MRUList, mruList) then
+      if add then
+        RegWriteStringValue(MRU_RootKey, key, selectedName, fileName)
+      else
+        RegDeleteValue(MRU_RootKey, key, selectedName);
+
+  end;
+end;
+
+procedure MRU_Add(const ext, exe: String; insertFirst: Boolean);
+begin
+  _MRU_Manage(True, ext, exe, insertFirst);
+end;
+
+procedure MRU_Remove(const ext, exe: String);
+begin
+  _MRU_Manage(False, ext, exe, False);
+end;
+
+procedure MRU_Append(const ext, exe: String);
+begin
+  MRU_Add(ext, exe, False);
+end;
+
+procedure MRU_Insert(const ext, exe: String);
+begin
+  MRU_Add(ext, exe, True);
+end;
+
+[/Code]
+
+#endif
