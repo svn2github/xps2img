@@ -19,7 +19,9 @@
 #define AppExe                  AppNamePart + "UI.exe"
 #define AppChm                  AppNamePart + ".chm"
 
-#define UrlOfficialSite         "http://xps2img.sf.net"
+#define AppPublisherURL         "http://xps2img.sf.net"
+#define AppUpdatesURL           "http://sourceforge.net/projects/xps2img/files/Releases/"
+#define AppSupportURL           "http://sourceforge.net/projects/xps2img/support"
 
 #define ArchitecturesInstallIn64BitMode "x64"
 
@@ -28,15 +30,12 @@
 #define OutputDir               "_Output"
 
 #define VersionInfoCopyright    "Copyright © 2010-2012, Ivan Ivon"
-#define VersionInfoCompany      UrlOfficialSite
+#define VersionInfoCompany      AppPublisherURL
 #define VersionInfoDescription  AppName + " Setup"
 
 #define AppComments             "XPS (XML Paper Specification) document to set of images conversion utility."
 #define AppContact              VersionInfoCompany
 #define AppPublisher            "Ivan Ivon (" + VersionInfoCompany + ")"
-#define AppPublisherURL         UrlOfficialSite
-#define AppUpdatesURL           "http://sourceforge.net/projects/xps2img/files/Releases/"
-#define AppSupportURL           "http://sourceforge.net/projects/xps2img/support"
 #define AppReadmeFile           "{app}\xps2img.chm"
 
 #define AllowNoIcons            "yes"
@@ -127,7 +126,7 @@
 
 <Task(Task_AddWFRule, "{cm:Task_AddWindowsFirewallException}", "{cm:Task_SystemIntegrationTitle}")>
 
-#define AppUrlGeneric(folder) Local[0]=AddBackslash(folder) + Utils_CmFormat("Menu_WebSite", AppName), Url(Local[0], Local[0], UrlOfficialSite)
+#define AppUrlGeneric(folder) Local[0]=AddBackslash(folder) + Utils_CmFormat("Menu_WebSite", AppName), Url(Local[0], Local[0], AppPublisherURL)
 
 <AppUrlGeneric("{app}")>
 
