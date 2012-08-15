@@ -1,11 +1,11 @@
 ; Only one installer instance
 ; http://www.vincenzo.net/isxkb/index.php?title=Only_one_installer_instance
 
-#ifndef __ISM_EXTRA_SINGLE_SETUP_INSTANCE__
-#define __ISM_EXTRA_SINGLE_SETUP_INSTANCE__
+#ifndef __ISM_EXTRA_CODE_SINGLE_SETUP_INSTANCE__
+#define __ISM_EXTRA_CODE_SINGLE_SETUP_INSTANCE__
 
 ; Make this somehow unique, but don't use {tmp}. The second instance would have a different {tmp}.
-#define _SingleSetupInstance_LockFile AddBackslash("{userappdata}") + AppName + " Installer.lockfile"
+#define private _SingleSetupInstance_LockFile AddBackslash("{userappdata}") + AppName + " Installer.lockfile"
 
 [Code]
 const
@@ -170,7 +170,5 @@ begin
 end;
 
 [/Code]
-
-#undef _SingleSetupInstance_LockFile
 
 #endif

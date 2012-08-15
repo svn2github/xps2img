@@ -57,10 +57,10 @@
 #define Task_RegisterExtension  "registerextension"
 #define Task_AddWFRule          "addfwrule"
 
-#include ISM_RootDir + "/Include/Extra/SingleSetupInstance.isi"
-#include ISM_RootDir + "/Include/Extra/RegisterOpenWith.isi"
-#include ISM_RootDir + "/Include/Extra/WindowsFirewall.isi"
-#include ISM_RootDir + "/Include/Extra/Utils.isi"
+#include ISM_RootDir + "/Include/Extra/Code/SingleSetupInstance.isi"
+#include ISM_RootDir + "/Include/Extra/Code/RegisterOpenWith.isi"
+#include ISM_RootDir + "/Include/Extra/Code/WindowsFirewall.isi"
+#include ISM_RootDir + "/Include/Extra/Code/Utils.isi"
 
 #include "Messages.iss"
 

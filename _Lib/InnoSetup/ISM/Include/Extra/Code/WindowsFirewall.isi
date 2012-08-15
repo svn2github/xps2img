@@ -2,8 +2,8 @@
 ; http://www.vincenzo.net/isxkb/index.php?title=Adding_a_rule_to_the_Windows_firewall
 ; http://news.jrsoftware.org/news/innosetup/msg43799.html
 
-#ifndef __ISM_EXTRA_WINDOWS_FIREWALL__
-#define __ISM_EXTRA_WINDOWS_FIREWALL__
+#ifndef __ISM_EXTRA_CODE_WINDOWS_FIREWALL__
+#define __ISM_EXTRA_CODE_WINDOWS_FIREWALL__
 
 [Code]
 
