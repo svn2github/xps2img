@@ -4,8 +4,8 @@
 [Code]
 
 const
-  MRU_OpenWithList  = 'Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.%s\OpenWithList';
   MRU_RootKey       = HKEY_CURRENT_USER;
+  MRU_OpenWithList  = 'Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.%s\OpenWithList';
   MRU_MRUList       = 'MRUList';
 
 procedure _MRU_Manage(add: Boolean; const ext, exe: String; insertFirst: Boolean);
@@ -38,10 +38,14 @@ begin
     StringChange(mruList, selectedName, '');
     
     if selectedName = '' then
-      for i:= 1 to Length(mruList) do
-        if selectedName <= mruList[i] then selectedName := Chr(Ord(mruList[i])+1);
+      for i := Ord('a') to Ord('z') do
+        if Pos(Chr(i), mruList) = 0 then
+        begin
+          selectedName := Chr(i);
+          break;
+        end;
     
-    if (selectedName > 'z') or (selectedName = '') then Exit;
+    if selectedName = '' then Exit;
     
     if add then
       if insertFirst then

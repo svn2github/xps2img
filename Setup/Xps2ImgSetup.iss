@@ -35,6 +35,8 @@
 #define AppContact              VersionInfoCompany
 #define AppPublisher            "Ivan Ivon (" + VersionInfoCompany + ")"
 #define AppPublisherURL         UrlOfficialSite
+#define AppUpdatesURL           "http://sourceforge.net/projects/xps2img/files/Releases/"
+#define AppSupportURL           "http://sourceforge.net/projects/xps2img/support"
 #define AppReadmeFile           "{app}\xps2img.chm"
 
 #define AllowNoIcons            "yes"
