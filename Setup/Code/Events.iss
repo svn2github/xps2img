@@ -105,7 +105,7 @@ end;
 
 procedure DeinitializeSetup;
 begin
-    SingleSetupInstance_DeinitializeSetup;
+  SingleSetupInstance_DeinitializeSetup;
 end;
 
 procedure CurPageChanged(CurPageID: Integer);
