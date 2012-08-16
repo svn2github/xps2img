@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text;
 
 namespace Xps2ImgUI.Utils
@@ -24,8 +25,14 @@ namespace Xps2ImgUI.Utils
 
         public static string AppendDot(this string message)
         {
+            if (String.IsNullOrEmpty(message))
+            {
+                return String.Empty;
+            }
+
             message = message.TrimEnd();
-            return message.EndsWith(".") ? message : message + ".";
+
+            return ",.?!-:*&`~$\'\")]".Contains(message.Last()) ? message : message + ".";
         }
     }
 }
