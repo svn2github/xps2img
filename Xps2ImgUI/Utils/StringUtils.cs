@@ -34,5 +34,13 @@ namespace Xps2ImgUI.Utils
 
             return ",.?!-:*&`~$\'\")]".Contains(message.Last()) ? message : message + ".";
         }
+
+        public static string RemoveSpaces(this string str)
+        {
+            return str.Replace(SpaceString, String.Empty);
+        }
+
+        public const char   SpaceChar   = '\x20';
+        public const string SpaceString = "\x20";
     }
 }

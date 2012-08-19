@@ -10,6 +10,7 @@ using CommandLine;
 using Xps2Img.CommandLine;
 
 using Xps2ImgUI.Model;
+using Xps2ImgUI.Utils;
 
 namespace Xps2ImgUI.Settings
 {
@@ -29,7 +30,7 @@ namespace Xps2ImgUI.Settings
 
         public static Xps2ImgModel LoadSettings(string file)
         {
-            var commandLine = String.Join("\x20", File.ReadAllLines(file));
+            var commandLine = String.Join(StringUtils.SpaceString, File.ReadAllLines(file));
             return new Xps2ImgModel(Parser.Parse<Options>(commandLine, true));
         }
 

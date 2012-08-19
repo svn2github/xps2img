@@ -6,9 +6,9 @@
         {
             Xps2Img.CommandLine.Options.AutoValue,
             "Idle",
-            "BelowNormal",
+            "Below Normal",
             "Normal",
-            "AboveNormal",
+            "Above Normal",
             "High"
         };
 

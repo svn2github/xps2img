@@ -501,7 +501,7 @@ namespace Xps2Img.CommandLine
 
             set
             {
-               _processorsPriority = (String.CompareOrdinal(AutoValue, value) != 0 && !Enum.IsDefined(typeof(ProcessPriorityClass), value))
+                _processorsPriority = (String.CompareOrdinal(AutoValue, value) != 0 && !Enum.IsDefined(typeof(ProcessPriorityClass), value.RemoveSpaces()))
                                         ? AutoValue
                                         : value;
             }
@@ -514,8 +514,9 @@ namespace Xps2Img.CommandLine
         {
             get
             {
-                return Enum.IsDefined(typeof(ProcessPriorityClass), _processorsPriority)
-                        ? (ProcessPriorityClass)Enum.Parse(typeof(ProcessPriorityClass), _processorsPriority)
+                var processorsPriority = _processorsPriority.RemoveSpaces();
+                return Enum.IsDefined(typeof(ProcessPriorityClass), processorsPriority)
+                        ? (ProcessPriorityClass)Enum.Parse(typeof(ProcessPriorityClass), processorsPriority)
                         : ProcessPriorityClass.Normal;
             }
         }

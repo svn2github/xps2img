@@ -3,6 +3,7 @@ using System.Windows.Forms;
 
 using Microsoft.WindowsAPICodePack.Dialogs;
 
+using Xps2ImgUI.Utils;
 using Xps2ImgUI.Utils.UI;
 
 using Windows7.Dialogs;
@@ -86,7 +87,7 @@ namespace Xps2ImgUI
 
             if (!text.EndsWith("\n"))
             {
-                text += "\x20";
+                text += StringUtils.SpaceString;
             }
 
             var result = DialogResult.OK == (

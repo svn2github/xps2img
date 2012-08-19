@@ -61,7 +61,7 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
         }
 
         private static readonly char[] TrimSymbols = { '"', '\\', '/' };
-        private static readonly char[] EscapeSymbols = new [] { '\x20', '\'' };
+        private static readonly char[] EscapeSymbols = new [] { StringUtils.SpaceChar, '\t', '\'' };
         
         private static string FormatOptionValue(string optionValue)
         {

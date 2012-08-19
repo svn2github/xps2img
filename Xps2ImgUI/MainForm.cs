@@ -388,7 +388,7 @@ namespace Xps2ImgUI
         {
             _srcFileDisplayName = Path.GetFileNameWithoutExtension(Model.OptionsObject.SrcFile);
             var commandLine = Model.FormatCommandLine(isUi ? Options.ExcludedOnSave : Options.ExcludedOnView);
-            var separator = String.IsNullOrEmpty(commandLine) ? String.Empty : "\x20";
+            var separator = String.IsNullOrEmpty(commandLine) ? String.Empty : StringUtils.SpaceString;
             return String.Format("\"{0}\"{1}{2}", isUi ? Program.Xps2ImgUIExecutable : Program.Xps2ImgExecutable, separator, commandLine);
         }
 
