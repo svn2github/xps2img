@@ -43,7 +43,6 @@ namespace Xps2ImgUI
         private void SiteLinkLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Explorer.ShellExecute(AssemblyInfo.Company);
-            Close();
         }
 
         private void AboutFormHelpButtonClicked(object sender, CancelEventArgs e)
@@ -55,7 +54,6 @@ namespace Xps2ImgUI
         private void ShowHelp()
         {
             Help.ShowHelp(this, Program.HelpFile, HelpNavigator.TopicId, Program.HelpTopicHistory);
-            Close();
         }
 
         private void HistoryLinkLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
