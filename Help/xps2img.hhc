@@ -34,10 +34,6 @@
 			<param name="Local" value="Files\GUI.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Screenshots">
-			<param name="Local" value="Files\GUI.html#screenshots">
-			</OBJECT>
-		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Preferences">
 			<param name="Local" value="Files\Preferences.html">
 			</OBJECT>
