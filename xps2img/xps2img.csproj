@@ -92,6 +92,7 @@
     <Compile Include="CommandLine\Interval.cs" />
     <Compile Include="CommandLine\IntervalUtils.cs" />
     <Compile Include="CommandLine\Options.cs" />
+    <Compile Include="CommandLine\ReturnCode.cs" />
     <Compile Include="CommandLine\TypeConverters\IntervalTypeConverter.cs" />
     <Compile Include="CommandLine\TypeConverters\RequiredSizeTypeConverter.cs" />
     <Compile Include="Resources\Strings.Designer.cs">

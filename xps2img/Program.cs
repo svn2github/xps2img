@@ -10,6 +10,8 @@ using Xps2Img.Xps2Img;
 
 using Xps2ImgUI.Utils;
 
+using ReturnCode = Xps2Img.CommandLine.CommandLine.ReturnCode;
+
 namespace Xps2Img
 {
     internal static class Program
@@ -28,14 +30,14 @@ namespace Xps2Img
             {
                 if (CommandLine.CommandLine.IsUsageDisplayed<Options>(args))
                 {
-                    return (int)CommandLine.CommandLine.ReturnCode.NoArgs;
+                    return (int)ReturnCode.NoArgs;
                 }
 
                 var options = CommandLine.CommandLine.Parse(args);
 
                 if (options == null)
                 {
-                    return (int)CommandLine.CommandLine.ReturnCode.InvalidArg;
+                    return (int)ReturnCode.InvalidArg;
                 }
 
                 var launchedAsInternal = !String.IsNullOrEmpty(options.CancellationObjectIds);
@@ -50,7 +52,7 @@ namespace Xps2Img
 
                 Convert(options, () => _isCancelled);
 
-                return (int)(launchedAsInternal ? CommandLine.CommandLine.ReturnCode.InternalOK : CommandLine.CommandLine.ReturnCode.OK);
+                return (int)(launchedAsInternal ? ReturnCode.InternalOK : ReturnCode.OK);
             }
             catch (Exception ex)
             {
@@ -84,7 +86,7 @@ namespace Xps2Img
 
                 if (!options.Pages.LessThan(xps2Img.PageCount))
                 {
-                    throw new ConversionException(String.Format(Resources.Strings.Error_PagesRange, xps2Img.PageCount), CommandLine.CommandLine.ReturnCode.InvalidPages);
+                    throw new ConversionException(String.Format(Resources.Strings.Error_PagesRange, xps2Img.PageCount), ReturnCode.InvalidPages);
                 }
 
                 options.Pages.SetEndValue(xps2Img.PageCount);

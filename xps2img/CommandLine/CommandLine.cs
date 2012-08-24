@@ -7,24 +7,8 @@ using Xps2ImgUI.Utils;
 
 namespace Xps2Img.CommandLine
 {
-    public static class CommandLine
+    public static partial class CommandLine
     {
-        #region Enums
-
-        public enum ReturnCode
-        {
-            // OK.
-            OK = 0,
-            // Errors.
-            InvalidArg = 1,
-            NoArgs = 2,
-            Failed = 3,
-            InvalidPages = 4,
-            InternalOK = -1
-        }
-
-        #endregion
-
         #region Methods.
 
         public static Options Parse(string[] args)
