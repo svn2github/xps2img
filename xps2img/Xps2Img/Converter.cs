@@ -77,6 +77,7 @@ namespace Xps2Img.Xps2Img
             public int EndPage { get; set; }
 
             public ImageType ImageType { get; set; }
+            public bool ShortenExtension { get; set; }
             public ImageOptions ImageOptions { get; set; }
 
             public Size? RequiredSize { get; set; }
@@ -170,7 +171,7 @@ namespace Xps2Img.Xps2Img
 
                 if(parameters.Clean)
                 {
-                    var fullFileName = fileName + ImageWriter.GetImageExtension(parameters.ImageType);
+                    var fullFileName = fileName + ImageWriter.GetImageExtension(parameters.ImageType, parameters.ShortenExtension);
 
                     if (!parameters.Test)
                     {
@@ -185,6 +186,7 @@ namespace Xps2Img.Xps2Img
                       !parameters.Test,
                       fileName,
                       parameters.ImageType,
+                      parameters.ShortenExtension,
                       parameters.ImageOptions,
                       GetPageBitmap(_documentPaginator, docPageNumber - 1, parameters),
                       FireOnProgress

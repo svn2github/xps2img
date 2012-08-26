@@ -30,14 +30,14 @@ namespace Xps2Img
             {
                 if (CommandLine.CommandLine.IsUsageDisplayed<Options>(args))
                 {
-                    return (int)ReturnCode.NoArgs;
+                    return ReturnCode.NoArgs;
                 }
 
                 var options = CommandLine.CommandLine.Parse(args);
 
                 if (options == null)
                 {
-                    return (int)ReturnCode.InvalidArg;
+                    return ReturnCode.InvalidArg;
                 }
 
                 var launchedAsInternal = !String.IsNullOrEmpty(options.CancellationObjectIds);
@@ -50,9 +50,15 @@ namespace Xps2Img
                     ThreadPool.QueueUserWorkItem(_ => WaitForCancellationThread(options));
                 }
 
+                Win32.SetConsoleCtrlHandler(_ => _isCancelled = true, true);
+
                 Convert(options, () => _isCancelled);
 
-                return (int)(launchedAsInternal ? ReturnCode.InternalOK : ReturnCode.OK);
+                return _isCancelled
+                            ? ReturnCode.UserCancelled
+                            : launchedAsInternal
+                                ? ReturnCode.InternalOK
+                                : ReturnCode.OK;
             }
             catch (Exception ex)
             {
@@ -102,6 +108,7 @@ namespace Xps2Img
                             StartPage = interval.Begin,
                             EndPage = interval.End,
                             ImageType = options.FileType,
+                            ShortenExtension = options.ShortenExtension,
                             ImageOptions = new ImageOptions(options.JpegQuality, options.TiffCompression),
                             RequiredSize = options.RequiredSize,
                             Dpi = options.Dpi,

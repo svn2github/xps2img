@@ -14,13 +14,17 @@ using System.Drawing.Design;
 using System.Globalization;
 
 using CommandLine.Validation;
-using Parser = CommandLine.Validation.Parser;
 
 using Xps2ImgUI.Controls.PropertyGridEx;
 using Xps2ImgUI.Converters;
 using Xps2ImgUI.Dialogs;
 using Xps2ImgUI.Utils;
 using Xps2ImgUI.Utils.UI;
+
+using Parser = CommandLine.Validation.Parser;
+
+using UIOption = Xps2ImgUI.Attributes.Options.OptionAttribute;
+using UIUnnamedOption = Xps2ImgUI.Attributes.Options.UnnamedOptionAttribute;
 #else
 using System.Drawing;
 #endif
@@ -60,7 +64,7 @@ namespace Xps2Img.CommandLine
         [UnnamedOption(SrcFileDescription)]
         #if XPS2IMG_UI
         [DisplayName(XPSFileDisplayName)]
-        [Xps2ImgUI.Attributes.Options.UnnamedOption]
+        [UIUnnamedOption]
         [Category(CategoryParameters)]
         [Editor(typeof(SelectXpsFileEditor), typeof(UITypeEditor))]
         [DefaultValue(null)]
@@ -83,7 +87,7 @@ namespace Xps2Img.CommandLine
         [UnnamedOption(OutDirDescription, false)]
         #if XPS2IMG_UI
         [DisplayName(OutputFolderDisplayName)]
-        [Xps2ImgUI.Attributes.Options.UnnamedOption(false)]
+        [UIUnnamedOption(false)]
         [Editor(typeof(SelectXpsFolderEditor), typeof(UITypeEditor))]
         [Category(CategoryParameters)]
         [DefaultValue(null)]
@@ -104,39 +108,10 @@ namespace Xps2Img.CommandLine
 
         [DisplayName(PostActionDisplayName)]
         [Category(CategoryParameters)]
-        //[TypeConverter(typeof(PostActionConverterWithUserApplication))]
         [TypeConverter(typeof(PostActionConverter))]
         [DefaultValue(PostActionConverter.Default)]
         [TabbedDescription(PostActionDescription)]
         public string PostAction
-        {
-            get; set;
-        }
-
-        public const string UserApplicationDisplayName  = "Program";
-        private const string UserApplicationDescription = "Program to execute after conversion completed.";
-
-        [DisplayName(UserApplicationDisplayName)]
-        [Category(CategoryParameters)]
-        [DefaultValue(null)]
-        [TabbedDescription(UserApplicationDescription)]
-        [Editor(typeof(SelectExecutableFileEditor), typeof(UITypeEditor))]
-        [DynamicPropertyFilter("PostAction", PostActionConverterWithUserApplication.UserApplication)]
-        public string UserApplication
-        {
-            get; set;
-        }
-
-        public const string UserApplicationPostActionDisplayName = "After Program";
-        private const string UserApplicationPostActionDescription = "Action to execute after program completed.";
-
-        [DisplayName(UserApplicationPostActionDisplayName)]
-        [Category(CategoryParameters)]
-        [DefaultValue(PostActionConverter.Default)]
-        [TypeConverter(typeof(PostActionConverter))]
-        [TabbedDescription(UserApplicationPostActionDescription)]
-        [DynamicPropertyFilter("PostAction", PostActionConverterWithUserApplication.UserApplication)]
-        public string UserApplicationPostAction
         {
             get; set;
         }
@@ -174,7 +149,7 @@ namespace Xps2Img.CommandLine
         [DisplayName("Page Number(s)")]
         [TabbedDescription(PagesDescription)]
         [Category(CategoryOptions)]
-        [Xps2ImgUI.Attributes.Options.Option(PagesShortOption)]
+        [UIOption(PagesShortOption)]
         [DefaultValue(null)]
         public string Pages
         {
@@ -201,7 +176,7 @@ namespace Xps2Img.CommandLine
         #if XPS2IMG_UI
         [DisplayName(FileTypeDisplayName)]
         [TabbedDescription(FileTypeDescription)]
-        [Xps2ImgUI.Attributes.Options.Option(FileTypeShortOption)]
+        [UIOption(FileTypeShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(ImageType.Png)]
         #endif
@@ -215,7 +190,7 @@ namespace Xps2Img.CommandLine
         #if XPS2IMG_UI
         [DisplayName("JPEG Quality")]
         [TabbedDescription(JpegQualityDescription)]
-        [Xps2ImgUI.Attributes.Options.Option(JpegQualityShortOption)]
+        [UIOption(JpegQualityShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(85)]
         [DynamicPropertyFilter("FileType", "Jpeg")]
@@ -241,7 +216,7 @@ namespace Xps2Img.CommandLine
         #if XPS2IMG_UI
         [DisplayName("TIFF Compression")]
         [TabbedDescription(TiffCompressionDescription)]
-        [Xps2ImgUI.Attributes.Options.Option(TiffCompressionShortOption)]
+        [UIOption(TiffCompressionShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(TiffCompressOption.Zip)]
         [DynamicPropertyFilter("FileType", "Tiff")]
@@ -263,7 +238,7 @@ namespace Xps2Img.CommandLine
         #if XPS2IMG_UI
         [DisplayName("Image Size")]
         [TabbedDescription(RequiredSizeDescription)]
-        [Xps2ImgUI.Attributes.Options.Option(RequiredSizeOption)]
+        [UIOption(RequiredSizeOption)]
         [Category(CategoryOptions)]
         [DefaultValue(null)]
         public string RequiredSize
@@ -288,7 +263,7 @@ namespace Xps2Img.CommandLine
         #if XPS2IMG_UI
         [DisplayName("Image DPI")]
         [TabbedDescription(DpiDescription)]
-        [Xps2ImgUI.Attributes.Options.Option(DpiShortOption)]
+        [UIOption(DpiShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(120)]
         [TypeConverter(typeof(NullableIntTypeConverter))]
@@ -314,7 +289,7 @@ namespace Xps2Img.CommandLine
         #if XPS2IMG_UI
         [DisplayName("Image Prefix")]
         [TabbedDescription(ImageNameDescription)]
-        [Xps2ImgUI.Attributes.Options.Option(ImageNameShortOption)]
+        [UIOption(ImageNameShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(null)]
         public string ImageName
@@ -342,7 +317,7 @@ namespace Xps2Img.CommandLine
         #if XPS2IMG_UI
         [DisplayName("First Page Index")]
         [TabbedDescription(FirstPageIndexDescription)]
-        [Xps2ImgUI.Attributes.Options.Option(FirstPageIndexShortOption)]
+        [UIOption(FirstPageIndexShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(1)]
         [TypeConverter(typeof(NullableIntTypeConverter))]
@@ -369,7 +344,7 @@ namespace Xps2Img.CommandLine
         #if XPS2IMG_UI
         [DisplayName("Preliminaries Prefix")]
         [TabbedDescription(PrelimsPrefixDescription)]
-        [Xps2ImgUI.Attributes.Options.Option(PrelimsPrefixShortOption)]
+        [UIOption(PrelimsPrefixShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(PrelimsPrefixDefaultValue)]
         public string PrelimsPrefix
@@ -386,8 +361,15 @@ namespace Xps2Img.CommandLine
         public string PrelimsPrefix { get; set; }
         #endif
 
-        private const string TestDescription = "Test mode (no file operations will be performed)";
-        private const char TestShortOption = 'e';
+        private const string ShortenExtensionDescription = "Shorten image extension down to three characters";
+        private const char ShortenExtensionOption = 'n';
+
+        [Option(ShortenExtensionDescription, ShortenExtensionOption, ArgumentExpectancy.No)]
+        #if XPS2IMG_UI
+        [Browsable(false)]
+        [UIOption(ShortenExtensionOption)]
+        #endif
+        public bool ShortenExtension { get; set; }
 
         #if !XPS2IMG_UI
         private const string SilentModeDescription = "Silent mode (no progress will be shown)";
@@ -413,7 +395,7 @@ namespace Xps2Img.CommandLine
 
         private const string CancellationObjectIdName = "cancellation-object-ids";
 
-        [Xps2ImgUI.Attributes.Options.Option(CancellationObjectIdName)]
+        [UIOption(CancellationObjectIdName)]
         [Browsable(false)]
         public string CancellationObjectIds
         {
@@ -450,7 +432,7 @@ namespace Xps2Img.CommandLine
         private const string ProcessorsName = "processors-number";
 
         [Option("", ShortOptionType.None12, DefaultValue = ProcessorsNameDefaultValue)]
-        [Xps2ImgUI.Attributes.Options.Option(ProcessorsName)]
+        [UIOption(ProcessorsName)]
         [DisplayName(ProcessorsDisplayName)]
         [TabbedDescription("Number of simultaneously running document processors\n  number of logical CPUs by default")]
         [Category(CategoryOptions)]
@@ -489,7 +471,7 @@ namespace Xps2Img.CommandLine
         private const string ProcessorsPriorityName = "processors-priority";
 
         [Option("", ShortOptionType.None13, DefaultValue = ProcessorsPriorityNameDefaultValue)]
-        [Xps2ImgUI.Attributes.Options.Option(ProcessorsPriorityName)]
+        [UIOption(ProcessorsPriorityName)]
         [DisplayName(ProcessorsPriorityDisplayName)]
         [TabbedDescription("Document processors priority\n  Normal by default")]
         [Category(CategoryOptions)]
@@ -521,8 +503,8 @@ namespace Xps2Img.CommandLine
             }
         }
 
-        public static readonly string[] ExcludedOnSave = new[] { CancellationObjectIdName };
-        public static readonly string[] ExcludedUIOptions = new[] { ProcessorsName, ProcessorsPriorityName };
+        public static readonly string[] ExcludedOnSave = new[] { CancellationObjectIdName, BatchName };
+        public static readonly string[] ExcludedUIOptions = new[] { ProcessorsName, ProcessorsPriorityName, BatchName };
         public static readonly string[] ExcludedOnLaunch = ExcludedUIOptions.Concat(new[] { PagesShortOption.ToString(CultureInfo.InvariantCulture) }).ToArray();
         public static readonly string[] ExcludedOnView = ExcludedOnSave.Concat(ExcludedUIOptions).ToArray();
 
@@ -547,13 +529,39 @@ namespace Xps2Img.CommandLine
                 throw new ValidationException(new string(message));
             }
         }
+
+        private const string BatchName = "batch";
+        private const char BatchShortOption = 'b';
+
+        private bool _batch;
+
+        [Browsable(false)]
+        [Option("", BatchShortOption, ArgumentExpectancy.No)]
+        [UIOption(BatchName)]
+        [DefaultValue(false)]
+        public bool Batch
+        {
+            get { return _batch; }
+            set
+            {
+                _batch = value;
+                if (_batch)
+                {
+                    PostAction = PostActionConverter.ChooseAction(PostAction, PostActionConverter.Exit);
+                }
+            }
+        }
+
         #endif
+
+        private const string TestDescription = "Test mode (no file operations will be performed)";
+        private const char TestShortOption = 'e';
 
         [Option(TestDescription, TestShortOption, ArgumentExpectancy.No)]
         #if XPS2IMG_UI
         [DisplayName("Test Mode")]
         [TabbedDescription(TestDescription)]
-        [Xps2ImgUI.Attributes.Options.Option(TestShortOption)]
+        [UIOption(TestShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
@@ -570,7 +578,7 @@ namespace Xps2Img.CommandLine
 
     public static class OptionsValidators
     {
-        public const string FileNameCharactersNotAllowed = " <>:\"/\\|?* characters are not allowed.";
+        public const string FileNameCharactersNotAllowed = " <>:\"/\\|?* characters are not allowed";
         public const string FileNameValidationRegex      = @"/^([^\x00-\x1F<>:""/\\|?*])*$/";
     }
 }

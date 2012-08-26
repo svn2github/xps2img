@@ -4,9 +4,9 @@ namespace Xps2Img.CommandLine
 {
     public class ConversionException: Exception
     {
-        public readonly CommandLine.ReturnCode ReturnCode;
+        public readonly int ReturnCode;
 
-        public ConversionException(string message, CommandLine.ReturnCode returnCode) :
+        public ConversionException(string message, int returnCode) :
             base(message)
         {
             ReturnCode = returnCode;

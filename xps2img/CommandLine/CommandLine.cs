@@ -56,7 +56,7 @@ namespace Xps2Img.CommandLine
                                     #endif
                                     , exceptionHint));
 
-            return (int)(ex is ConversionException ? (ex as ConversionException).ReturnCode : ReturnCode.Failed);
+            return ex is ConversionException ? (ex as ConversionException).ReturnCode : ReturnCode.Failed;
         }
 
         #endregion

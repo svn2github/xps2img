@@ -28,30 +28,34 @@ namespace Xps2Img.Xps2Img
             }
         }
 
-        public static void Write(string fileName, ImageType imageType, ImageOptions imageOptions, BitmapSource bitmapSource, Action<string> writeCallback)
+        public static void Write(string fileName, ImageType imageType, bool shortenExtension, ImageOptions imageOptions, BitmapSource bitmapSource, Action<string> writeCallback)
         {
-            Write(true, fileName, imageType, imageOptions, bitmapSource, writeCallback);
+            Write(true, fileName, imageType, shortenExtension, imageOptions, bitmapSource, writeCallback);
         }
 
         private static readonly Dictionary<ImageType, string> ImageTypeExtensions = new Dictionary<ImageType, string>();
 
-        public static string GetImageExtension(ImageType imageType)
+        public static string GetImageExtension(ImageType imageType, bool shortenExtension)
         {
             string extension;
 
             if (!ImageTypeExtensions.TryGetValue(imageType, out extension))
             {
                 extension = CreateEncoder(imageType, new ImageOptions()).CodecInfo.FileExtensions.Split(new[] { ',' })[0];
+                if (shortenExtension && extension.Length > 4)
+                {
+                    extension = extension.Remove(extension.Length - 2, 1);
+                }
                 ImageTypeExtensions[imageType] = extension;
             }
 
             return extension;
         }
 
-        public static void Write(bool writeFile, string fileName, ImageType imageType, ImageOptions imageOptions, BitmapSource bitmapSource, Action<string> writeCallback)
+        public static void Write(bool writeFile, string fileName, ImageType imageType, bool shortenExtension, ImageOptions imageOptions, BitmapSource bitmapSource, Action<string> writeCallback)
         {
             var bitmapEncoder = CreateEncoder(imageType, imageOptions);
-            var fullFileName = fileName + GetImageExtension(imageType);
+            var fullFileName = fileName + GetImageExtension(imageType, shortenExtension);
 
             if (bitmapSource == null)
             {

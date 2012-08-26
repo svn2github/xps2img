@@ -1,17 +1,19 @@
 namespace Xps2Img.CommandLine
 {
+    // ReSharper disable PartialTypeWithSinglePart
     public static partial class CommandLine
     {
-        public enum ReturnCode
+        public class ReturnCode
         {
             // OK.
-            OK = 0,
+            public const int OK             = 0;
             // Errors.
-            InvalidArg = 1,
-            NoArgs = 2,
-            Failed = 3,
-            InvalidPages = 4,
-            InternalOK = -1
+            public const int InvalidArg     = 1;
+            public const int NoArgs         = 2;
+            public const int Failed         = 3;
+            public const int InvalidPages   = 4;
+            public const int UserCancelled  = 5;
+            public const int InternalOK     = -1;
         }
     }
 }
