@@ -19,9 +19,7 @@ using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils;
 using Xps2ImgUI.Utils.UI;
 
-#if !DEBUG
 using Xps2ImgUI.Converters;
-#endif
 
 namespace Xps2ImgUI
 {
@@ -36,6 +34,8 @@ namespace Xps2ImgUI
 
         public static readonly string Xps2ImgExecutable   = Path.Combine(AssemblyInfo.ApplicationFolder, ProductName + ".exe");
         public static readonly string Xps2ImgUIExecutable = Path.Combine(AssemblyInfo.ApplicationFolder, ProductName + "ui.exe");
+
+        private static bool _isBatchMode;
 
         [STAThread]
         static void Main(string[] args)
@@ -55,7 +55,7 @@ namespace Xps2ImgUI
 
             var options = Parser.IsUsageRequiested(args) ? null : Parser.Parse<Options>(args, true);
 
-            var mainForm =  new MainForm { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) };
+            var mainForm = new MainForm { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) };
 
             SettingsManager.DeserializeSettings(mainForm);
 
@@ -64,21 +64,35 @@ namespace Xps2ImgUI
                 mainForm.Model = SettingsManager.IsSettingFile(options.SrcFile)
                                     ? SettingsManager.LoadSettings(options.SrcFile)
                                     : new Xps2ImgModel(options);
+
+                _isBatchMode = options.Batch;
+
+                if (_isBatchMode)
+                {
+                    mainForm.WindowState = FormWindowState.Minimized;   
+                }
             }
 
             Application.Run(mainForm);
 
-            SettingsManager.SerializeSettings(mainForm);
+            var model = mainForm.Model;
 
-            if (mainForm.Model.ShutdownRequested)
+            if (!model.IsBatchMode)
             {
-                #if !DEBUG
-                SystemManagement.Shutdown(PostActionToShutdownType(mainForm.Model.ShutdownType));
+                SettingsManager.SerializeSettings(mainForm);
+            }
+
+            Environment.ExitCode = model.ExitCode;
+
+            if (model.ShutdownRequested)
+            {
+                #if DEBUG
+                if(PostActionToShutdownType(model.ShutdownType) == ShutdownType.Exit)
                 #endif
+                SystemManagement.Shutdown(PostActionToShutdownType(model.ShutdownType));
             }
         }
 
-        #if !DEBUG
         private static ShutdownType PostActionToShutdownType(string shutdownType)
         {
             switch(shutdownType)
@@ -92,7 +106,6 @@ namespace Xps2ImgUI
             }
             throw new InvalidOperationException();
         }
-        #endif
 
         [DllImport("user32.dll")]
         private static extern IntPtr GetActiveWindow();
@@ -102,7 +115,7 @@ namespace Xps2ImgUI
             var exceptionMessage = ex == null
                                     ? Resources.Strings.NoExceptionDetailsPresent
                                     : ex
-                                    #if DEBUG
+                                    #if USE_SHUTDOWN
                                     .ToString();
                                     #else
                                     .Message;
@@ -130,6 +143,11 @@ namespace Xps2ImgUI
                 var dialogResult = TaskDialogUtils.NotSupported;
                 try
                 {
+                    if (_isBatchMode)
+                    {
+                        return;
+                    }
+
                     dialogResult = TaskDialogUtils.Show(handle,
                         Resources.Strings.WindowTitle,
                         Resources.Strings.UnexpectedErrorOccured,

@@ -241,6 +241,24 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy UI &amp;Batch Command Line To Clipboard.
+        /// </summary>
+        internal static string CopyUIBatchCommandLineToClipboard {
+            get {
+                return ResourceManager.GetString("CopyUIBatchCommandLineToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy UI Batch Command Line Without &amp;Error Handling To Clipboard.
+        /// </summary>
+        internal static string CopyUIBatchCommandLineWithoutErrorHandlingToClipboard {
+            get {
+                return ResourceManager.GetString("CopyUIBatchCommandLineWithoutErrorHandlingToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy &amp;UI Command Line To Clipboard.
         /// </summary>
         internal static string CopyUICommandLineToClipboard {
@@ -574,6 +592,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S&amp;horten Image Extension.
+        /// </summary>
+        internal static string ShortenImageExtension {
+            get {
+                return ResourceManager.GetString("ShortenImageExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Co&amp;mmand Line.
         /// </summary>
         internal static string ShowCommandLine {
@@ -624,6 +651,24 @@ namespace Xps2ImgUI.Resources {
         internal static string StopConversionConfirmation {
             get {
                 return ResourceManager.GetString("StopConversionConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to start/wait &quot;&quot; {0} -b.
+        /// </summary>
+        internal static string UIBatchCommandLine {
+            get {
+                return ResourceManager.GetString("UIBatchCommandLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  &amp; if errorlevel 1 exit /b.
+        /// </summary>
+        internal static string UIBatchCommandLineErrorHandling {
+            get {
+                return ResourceManager.GetString("UIBatchCommandLineErrorHandling", resourceCulture);
             }
         }
         

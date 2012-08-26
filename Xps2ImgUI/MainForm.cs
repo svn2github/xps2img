@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -41,7 +40,7 @@ namespace Xps2ImgUI
         {
             settingsPropertyGrid.SelectedObject = Model.OptionsObject;
             Refresh();
-            UpdateCommandLine(false);
+            UpdateCommandLine();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -53,14 +52,13 @@ namespace Xps2ImgUI
 
             var isCommandLineVisible = IsCommandLineVisible;
             IsCommandLineVisible = false;
-            MinimumSize = new Size(Size.Width, Size.Height);
             IsCommandLineVisible = isCommandLineVisible;
 
             AdjustPropertyGrid();
 
             ApplyPreferences();
             
-            FocusFirstRequiredOption(null);
+            FocusFirstRequiredOption(false);
 
             CheckForUpdates(true);
 
@@ -74,16 +72,37 @@ namespace Xps2ImgUI
             convertContextMenuStrip.RenderMode = _preferences.ClassicLook
                                                      ? ToolStripRenderMode.System
                                                      : ToolStripRenderMode.ManagerRenderMode;
+            if (Model.IsBatchMode)
+            {
+                _preferences.ShortenExtension = Model.OptionsObject.ShortenExtension;
+            }
+            else
+            {
+                Model.OptionsObject.ShortenExtension = _preferences.ShortenExtension;
+            }
+
+            UpdateCommandLine();
         }
 
         protected override void OnSizeChanged(EventArgs e)
         {
+            if (MinimumSize.IsEmpty)
+            {
+                MinimumSize = Size;
+            }
             SizeGripStyle = WindowState == FormWindowState.Maximized ? SizeGripStyle.Hide : SizeGripStyle.Show;
             base.OnSizeChanged(e);
         }
 
+        private bool _minimizedChecked;
+
         protected override void OnActivated(EventArgs e)
         {
+            if (WindowState != FormWindowState.Normal && !_minimizedChecked)
+            {
+                settingsPropertyGrid.UpdateLayout();
+                _minimizedChecked = true;
+            }
             this.StopFlashing();
             base.OnActivated(e);
         }
@@ -98,7 +117,7 @@ namespace Xps2ImgUI
 
                 if (!e.Cancel)
                 {
-                    Model.Stop();
+                    Model.Cancel();
                 }
             }
 
@@ -108,6 +127,21 @@ namespace Xps2ImgUI
         protected override void OnHelpRequested(HelpEventArgs hevent)
         {
             ShowHelp();
+        }
+
+        protected override void OnShown(EventArgs e)
+        {
+            if (_model.IsBatchMode)
+            {
+                RegisterIdleHandler(OnImmediateLaunch);
+            }
+            base.OnShown(e);
+        }
+
+        private void OnImmediateLaunch(object sender, EventArgs eventArgs)
+        {
+            UnregisterIdleHandler(OnImmediateLaunch);
+            ExecuteConversion(ConversionType.Convert, false);
         }
 
         protected override void WndProc(ref Message m)
@@ -159,18 +193,39 @@ namespace Xps2ImgUI
             var autoSaveSettingsToolStripMenuItem = new ToolStripMenuItem(Resources.Strings.AutoSaveSettings) { CheckOnClick = true, Checked = _preferences.AutoSaveSettings };
             autoSaveSettingsToolStripMenuItem.CheckedChanged += (s, e) => _preferences.AutoSaveSettings = autoSaveSettingsToolStripMenuItem.Checked;
 
+            var shortenExtensionToolStripMenuItem = new ToolStripMenuItem(Resources.Strings.ShortenImageExtension) { CheckOnClick = true, Checked = _preferences.ShortenExtension };
+            shortenExtensionToolStripMenuItem.CheckedChanged += (s, e) =>
+            {
+                _preferences.ShortenExtension = shortenExtensionToolStripMenuItem.Checked;
+                _model.OptionsObject.ShortenExtension = _preferences.ShortenExtension;
+                UpdateCommandLine();
+            };
+
+            preferencesToolStripSplitButton.DropDownItems.Add(shortenExtensionToolStripMenuItem);
+            preferencesToolStripSplitButton.DropDownItems.Add(new ToolStripSeparator());
             preferencesToolStripSplitButton.DropDownItems.Add(autoSaveSettingsToolStripMenuItem);
 
-            preferencesToolStripSplitButton.DropDownOpening += (s, e) => autoSaveSettingsToolStripMenuItem.Checked = _preferences.AutoSaveSettings;
+            preferencesToolStripSplitButton.DropDownOpening += (s, e) =>
+            {
+                autoSaveSettingsToolStripMenuItem.Checked = _preferences.AutoSaveSettings;
+                shortenExtensionToolStripMenuItem.Checked = _preferences.ShortenExtension;
+            };
+
+            preferencesToolStripSplitButton.Enabled = Model.IsUserMode;
 
             // Separator.
             settingsPropertyGrid.AddToolStripSeparator();
+
+            Func<bool, string> copyBatch = eh => String.Format(Resources.Strings.UIBatchCommandLine + (eh ? Resources.Strings.UIBatchCommandLineErrorHandling : String.Empty), _uiCommandLine);
 
             // Show Command Line button.
             _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.ShowCommandLine, ShowCommandLineToolStripButtonClick,
                 new ToolStripButtonItem(Resources.Strings.CopyCommandLineToClipboard, (s, e) => CopyToClipboard(commandLineTextBox.Text)),
                 new ToolStripButtonItem(),
-                new ToolStripButtonItem(Resources.Strings.CopyUICommandLineToClipboard, (s, e) => CopyToClipboard(_uiCommandLine))
+                new ToolStripButtonItem(Resources.Strings.CopyUICommandLineToClipboard, (s, e) => CopyToClipboard(_uiCommandLine)),
+                new ToolStripButtonItem(),
+                new ToolStripButtonItem(Resources.Strings.CopyUIBatchCommandLineToClipboard, (s, e) => CopyToClipboard(() => copyBatch(true))),
+                new ToolStripButtonItem(Resources.Strings.CopyUIBatchCommandLineWithoutErrorHandlingToClipboard, (s, e) => CopyToClipboard(() => copyBatch(false)))
              );
 
             UpdateShowCommandLineCommand();
@@ -198,7 +253,7 @@ namespace Xps2ImgUI
 
             // Explorer browse.
             settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.BrowseConvertedImages, BrowseConvertedImagesToolStripButtonClick,
-                new ToolStripButtonItem(Resources.Strings.BrowseXPSFile, (s, e) => Explorer.Select(Model.OptionsObject.SrcFile)),
+                new ToolStripButtonItem(Resources.Strings.BrowseXPSFile, (s, e) => Explorer.Select(Model.SrcFile)),
                 new ToolStripButtonItem(),
                 new ToolStripButtonItem(Resources.Strings.CopyConvertedImagesPathToClipboard, (s, e) => CopyToClipboard(ConvertedImagesFolder))
             );
@@ -221,6 +276,13 @@ namespace Xps2ImgUI
                     }
                 }
             ))).Alignment = ToolStripItemAlignment.Right;
+
+            CheckForUpdatesEnabled = Model.IsUserMode;
+        }
+
+        private static void CopyToClipboard(Func<string> messageFunc)
+        {
+            CopyToClipboard(messageFunc());
         }
 
         private static void CopyToClipboard(string str)
@@ -273,15 +335,27 @@ namespace Xps2ImgUI
             
             progressBar.Value = 0;
 
-            if (!Model.IsRunning)
+            if (!Model.IsRunning || !isRunning)
             {
                 this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.NoProgress);
 
                 if (Model.ShutdownRequested)
                 {
-                    Close();
+                    UnregisterIdleHandler(CloseFormHandler);
+                    RegisterIdleHandler(CloseFormHandler);
                 }
             }
+        }
+
+        private void CloseFormHandler(object sender, EventArgs e)
+        {
+            if (Model.IsRunning)
+            {
+                return;
+            }
+
+            UnregisterIdleHandler(CloseFormHandler);
+            Close();
         }
 
         private void UpdateElapsedTime()
@@ -376,7 +450,7 @@ namespace Xps2ImgUI
             }
         }
 
-        private void UpdateCommandLine(bool canResume)
+        private void UpdateCommandLine(bool canResume = false)
         {
             Model.CanResume = Model.CanResume && canResume;
 
@@ -386,7 +460,7 @@ namespace Xps2ImgUI
 
         private string FormatCommandLine(bool isUi)
         {
-            _srcFileDisplayName = Path.GetFileNameWithoutExtension(Model.OptionsObject.SrcFile);
+            _srcFileDisplayName = Path.GetFileNameWithoutExtension(Model.SrcFile);
             var commandLine = Model.FormatCommandLine(isUi ? Options.ExcludedOnSave : Options.ExcludedOnView);
             var separator = String.IsNullOrEmpty(commandLine) ? String.Empty : StringUtils.SpaceString;
             return String.Format("\"{0}\"{1}{2}", isUi ? Program.Xps2ImgUIExecutable : Program.Xps2ImgExecutable, separator, commandLine);
@@ -399,20 +473,28 @@ namespace Xps2ImgUI
 
         private void FlashForm()
         {
-            if (_preferences.FlashWhenCompleted && !this.IsForegroundWindow())
+            if (Model.IsUserMode && _preferences.FlashWhenCompleted && !this.IsForegroundWindow())
             {
                 this.Flash(4);
             }
         }
 
-        private bool FocusFirstRequiredOption(Action<string> action)
+        private bool FocusFirstRequiredOption(bool showMessage = true)
         {
             var firstRequiredOptionLabel = Model.FirstRequiredOptionLabel;
             if (!String.IsNullOrEmpty(firstRequiredOptionLabel))
             {
-                if (action != null)
+                if (showMessage)
                 {
-                    action(firstRequiredOptionLabel);
+                    Activate();
+                    ShowErrorMessageBox(String.Format(Resources.Strings.SpecifyValue, firstRequiredOptionLabel), null, false, firstRequiredOptionLabel, Resources.Strings.ParameterIsRequired, Resources.Strings.EditParameter);
+
+                    Model.ExitCode = Xps2Img.CommandLine.CommandLine.ReturnCode.NoArgs;
+
+                    if (Model.IsBatchMode)
+                    {
+                        return true;
+                    }
                 }
                 settingsPropertyGrid.SelectGridItem(firstRequiredOptionLabel, gi => (gi.Label ?? String.Empty).StartsWith(firstRequiredOptionLabel), true);
                 return true;
@@ -447,9 +529,9 @@ namespace Xps2ImgUI
 
             if (!String.IsNullOrEmpty(file))
             {
-                Model.OptionsObject.SrcFile = file;
+                Model.SrcFile = file;
                 settingsPropertyGrid.Refresh();
-                UpdateCommandLine(false);
+                UpdateCommandLine();
             }
         }
 
@@ -493,6 +575,11 @@ namespace Xps2ImgUI
 
         private new void Activate()
         {
+            if (Model.IsBatchMode)
+            {
+                return;
+            }
+
             if (WindowState == FormWindowState.Minimized)
             {
                 this.Restore();
@@ -501,12 +588,6 @@ namespace Xps2ImgUI
             {
                 base.Activate();
             }
-        }
-
-        private void ShowOptionIsRequiredMessage(string firstRequiredOptionLabel)
-        {
-            Activate();
-            ShowErrorMessageBox(String.Format(Resources.Strings.SpecifyValue, firstRequiredOptionLabel), null, false, firstRequiredOptionLabel, Resources.Strings.ParameterIsRequired, Resources.Strings.EditParameter);
         }
 
         private void ShowHelp()
@@ -585,7 +666,7 @@ namespace Xps2ImgUI
                 if ((!_preferences.ConfirmOnStop || ShowConfirmationMessageBox(Resources.Strings.ConversionStopConfirmation)) && Model.IsRunning)
                 {
                     EnableConvertControls(ControlState.Default);
-                    Model.Stop();
+                    Model.Cancel();
                 }
                 return;
             }
@@ -616,7 +697,7 @@ namespace Xps2ImgUI
 
             _conversionFailed = false;
 
-            if (FocusFirstRequiredOption(ShowOptionIsRequiredMessage))
+            if (FocusFirstRequiredOption())
             {
                 EnableConvertControls(ControlState.Enabled);
                 return;
@@ -666,7 +747,7 @@ namespace Xps2ImgUI
 
         private void SettingsPropertyGridSelectedObjectsChanged(object sender, EventArgs e)
         {
-            UpdateCommandLine(false);
+            UpdateCommandLine();
         }
 
         private void PreferencesToolStripButtonClick(object sender, EventArgs e)
@@ -741,11 +822,6 @@ namespace Xps2ImgUI
         private string ConvertButtonCleanText
         {
             get { return convertButton.Text.Replace("&", String.Empty); }
-        }
-
-        private bool ShutdownWhenCompleted
-        {
-            get { return Model.ShutdownRequested; }
         }
 
         private bool IsCommandLineVisible

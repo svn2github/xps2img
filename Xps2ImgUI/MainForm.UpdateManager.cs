@@ -16,7 +16,7 @@ namespace Xps2ImgUI
 
         private void CheckForUpdates(bool periodicUpdatesCheck = false)
         {
-            if (periodicUpdatesCheck && !_preferences.ShouldCheckForUpdates)
+            if (Model.IsBatchMode || (periodicUpdatesCheck && !_preferences.ShouldCheckForUpdates))
             {
                 return;
             }

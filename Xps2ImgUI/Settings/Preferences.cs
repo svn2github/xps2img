@@ -87,6 +87,13 @@ namespace Xps2ImgUI.Settings
         [TypeConverter(typeof(YesNoConverter))]
         public bool SuggestResume { get; set; }
 
+        [DisplayName("Shorten Image Extension")]
+        [Category(CategoryConversion)]
+        [Description("Shortens image extension down to three characters.")]
+        [DefaultValue(false)]
+        [TypeConverter(typeof(YesNoConverter))]
+        public bool ShortenExtension { get; set; }
+
         public enum CheckInterval
         {
             Never,
@@ -153,6 +160,7 @@ namespace Xps2ImgUI.Settings
                 yield return ConfirmOnStop;
                 yield return AlwaysResume;
                 yield return SuggestResume;
+                yield return ShortenExtension;
                 yield return AutoCompleteFilenames;
                 yield return CheckForUpdates == CheckInterval.Never;
                 yield return CheckForUpdates == CheckInterval.Weekly;

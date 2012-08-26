@@ -216,6 +216,12 @@
   <data name="CopyUICommandLineToClipboard" xml:space="preserve">
     <value>Copy &amp;UI Command Line To Clipboard</value>
   </data>
+  <data name="CopyUIBatchCommandLineToClipboard" xml:space="preserve">
+    <value>Copy UI &amp;Batch Command Line To Clipboard</value>
+  </data>
+  <data name="CopyUIBatchCommandLineWithoutErrorHandlingToClipboard" xml:space="preserve">
+    <value>Copy UI Batch Command Line Without &amp;Error Handling To Clipboard</value>
+  </data>
   <data name="ResumeLastConversionSuggestion" xml:space="preserve">
     <value>Would you like to resume last conversion instead of starting new one?</value>
   </data>
@@ -417,5 +423,14 @@ What's new in version {0}
   </data>
   <data name="WhatsNewBullet" xml:space="preserve">
     <value>● </value>
+  </data>
+  <data name="UIBatchCommandLine">
+    <value xml:space="preserve">start/wait "" {0} -b</value>
+  </data>
+  <data name="UIBatchCommandLineErrorHandling">
+    <value xml:space="preserve"> &amp; if errorlevel 1 exit /b</value>
+  </data>
+  <data name="ShortenImageExtension">
+    <value xml:space="preserve">S&amp;horten Image Extension</value>
   </data>
 </root>

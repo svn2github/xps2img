@@ -189,6 +189,11 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         private readonly PropertyInfo _docLinesPropertyInfo;
 
+        public void UpdateLayout()
+        {
+            OnResize(EventArgs.Empty);
+        }
+
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int DocLines

@@ -16,6 +16,8 @@ using Xps2ImgUI.Attributes.OptionsHolder;
 using Xps2ImgUI.Converters;
 using Xps2ImgUI.Utils;
 
+using ReturnCode = Xps2Img.CommandLine.CommandLine.ReturnCode;
+
 namespace Xps2ImgUI.Model
 {
     public class Xps2ImgModel
@@ -92,6 +94,12 @@ namespace Xps2ImgUI.Model
             xps2ImgLaunchThread.Start();
         }
 
+        public void Cancel()
+        {
+            ExitCode = ReturnCode.UserCancelled;
+            Stop();
+        }
+
         public void Stop()
         {
             if (!_isRunning)
@@ -116,6 +124,22 @@ namespace Xps2ImgUI.Model
         public Options OptionsObject
         {
             get { return _optionsHolder.OptionsObject; }
+        }
+
+        public bool IsBatchMode
+        {
+            get { return OptionsObject.Batch; }
+        }
+
+        public bool IsUserMode
+        {
+            get { return !IsBatchMode; }
+        }
+
+        public string SrcFile
+        {
+            get { return OptionsObject.SrcFile; }
+            set { OptionsObject.SrcFile = value; }
         }
 
         public string FirstRequiredOptionLabel
@@ -275,7 +299,7 @@ namespace Xps2ImgUI.Model
                 process.WaitForExit();
                 if(process.ExitCode >= 0)
                 {
-                    Interlocked.CompareExchange(ref _processExitCode, 1, 0);
+                    ExitCode = process.ExitCode;
                 }
                 Interlocked.Decrement(ref _threadsLeft);
                 FreeProcessResources(process);
@@ -326,7 +350,7 @@ namespace Xps2ImgUI.Model
             while (Interlocked.CompareExchange(ref _threadsLeft, 0, 0) != 0)
             {
                 Thread.Sleep(500);
-                if (checkExitCode && Interlocked.CompareExchange(ref _processExitCode, 0, 0) == 1)
+                if (checkExitCode && ExitCode != 0)
                 {
                     throw new Exception(Resources.Strings.ProcessorHasTerminated);
                 }
@@ -404,6 +428,8 @@ namespace Xps2ImgUI.Model
                     throw;
                 }
 
+                ExitCode = ReturnCode.Failed;
+
                 if (!_isErrorReported)
                 {
                     LaunchFailed(this, new ThreadExceptionEventArgs(ex));
@@ -471,7 +497,17 @@ namespace Xps2ImgUI.Model
 
         public bool ShutdownRequested
         {
-            get { return ShutdownType != PostActionConverter.Default && IsProgressStarted && !IsConversionFailed && !CanResume && !IsDeleteMode; }
+            get
+            {
+                return  ShutdownType != PostActionConverter.Default
+                        &&
+                        (
+                            IsBatchMode
+                            || (IsProgressStarted
+                                && !IsConversionFailed
+                                && !CanResume && !IsDeleteMode)
+                        );
+            }
         }
 
         private void OutputDataReceivedWrapper(object sender, DataReceivedEventArgs e)
@@ -577,6 +613,12 @@ namespace Xps2ImgUI.Model
         public int PagesTotal
         {
             get { return _pagesTotal; }
+        }
+
+        public int ExitCode
+        {
+            get { return Interlocked.CompareExchange(ref _processExitCode, 0, 0); }
+            set { Interlocked.CompareExchange(ref _processExitCode, value, 0); }
         }
 
         private int _pagesTotal;

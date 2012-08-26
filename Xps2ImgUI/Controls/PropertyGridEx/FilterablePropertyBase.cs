@@ -8,10 +8,10 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
     {
         protected PropertyDescriptorCollection GetFilteredProperties(Attribute[] attributes)
         {
-            var pdc = TypeDescriptor.GetProperties(this, attributes, true);
+            var propertyDescriptorCollection = TypeDescriptor.GetProperties(this, attributes, true);
             var finalProps = new PropertyDescriptorCollection(new PropertyDescriptor[0]);
 
-            foreach (PropertyDescriptor pd in pdc)
+            foreach (PropertyDescriptor pd in propertyDescriptorCollection)
             {
                 var include = false;
                 var dynamic = false;
@@ -20,9 +20,14 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                 {
                     dynamic = true;
 
-                    var temp = pdc[dpf.PropertyName];
+                    if (String.IsNullOrEmpty(dpf.PropertyName))
+                    {
+                        break;
+                    }
 
-                    if (dpf.ShowOn.IndexOf((temp.GetValue(this) ?? String.Empty).ToString(), StringComparison.InvariantCulture) > -1)
+                    var propertyDescriptor = propertyDescriptorCollection[dpf.PropertyName];
+
+                    if (propertyDescriptor != null && dpf.ShowOn.IndexOf((propertyDescriptor.GetValue(this) ?? String.Empty).ToString(), StringComparison.InvariantCulture) > -1)
                     {
                         include = true;
                     }

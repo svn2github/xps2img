@@ -29,6 +29,11 @@ namespace Xps2ImgUI.Converters
             }
         }
 
+        public static string ChooseAction(string currentAction, string userAction)
+        {
+            return currentAction != Default ? currentAction : userAction;
+        }
+
         public override string[] Values
         {
             get { return Actions.ToArray(); }

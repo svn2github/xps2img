@@ -81,6 +81,9 @@
     <Compile Include="..\xps2img\CommandLine\Options.cs">
       <Link>Shared\Options.cs</Link>
     </Compile>
+    <Compile Include="..\xps2img\CommandLine\ReturnCode.cs">
+      <Link>Shared\ReturnCode.cs</Link>
+    </Compile>
     <Compile Include="..\xps2img\CommandLine\TypeConverters\IntervalTypeConverter.cs">
       <Link>Shared\TypeConverters\IntervalTypeConverter.cs</Link>
     </Compile>
@@ -118,7 +121,6 @@
     <Compile Include="Converters\NullableIntTypeConverter.cs" />
     <Compile Include="Converters\ErrorReporterTypeConverter.cs" />
     <Compile Include="Converters\StandardValuesTypeConverter.cs" />
-    <Compile Include="Converters\PostActionConverterWithUserApplication.cs" />
     <Compile Include="Converters\PostActionConverter.cs" />
     <Compile Include="Converters\ProcessPriorityClassConverter.cs" />
     <Compile Include="Converters\ProcessorsNumberConverter.cs" />
@@ -164,7 +166,7 @@
       <DependentUpon>Icons.resx</DependentUpon>
     </Compile>
     <Compile Include="Utils\AssemblyInformation.cs" />
-    <Compile Include="Utils\Stubs\UpdateManager.cs" />
+    <None Include="Utils\Stubs\UpdateManager.cs" />
     <Compile Include="Utils\Interfaces\IUpdateManager.cs" />
     <Compile Include="Utils\SetupGuard.cs" />
     <Compile Include="Utils\UpdateManager.cs" />

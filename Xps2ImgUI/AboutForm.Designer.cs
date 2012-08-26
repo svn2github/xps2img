@@ -75,7 +75,7 @@
             // siteLinkLabel
             // 
             this.siteLinkLabel.AutoSize = true;
-            this.siteLinkLabel.Location = new System.Drawing.Point(88, 41);
+            this.siteLinkLabel.Location = new System.Drawing.Point(90, 41);
             this.siteLinkLabel.Name = "siteLinkLabel";
             this.siteLinkLabel.Size = new System.Drawing.Size(73, 13);
             this.siteLinkLabel.TabIndex = 1;
@@ -98,7 +98,7 @@
             // checkForUpdatesLinkLabel
             // 
             this.checkForUpdatesLinkLabel.AutoSize = true;
-            this.checkForUpdatesLinkLabel.Location = new System.Drawing.Point(88, 75);
+            this.checkForUpdatesLinkLabel.Location = new System.Drawing.Point(90, 75);
             this.checkForUpdatesLinkLabel.Name = "checkForUpdatesLinkLabel";
             this.checkForUpdatesLinkLabel.Size = new System.Drawing.Size(96, 13);
             this.checkForUpdatesLinkLabel.TabIndex = 5;
@@ -109,7 +109,7 @@
             // historyLinkLabel
             // 
             this.historyLinkLabel.AutoSize = true;
-            this.historyLinkLabel.Location = new System.Drawing.Point(88, 58);
+            this.historyLinkLabel.Location = new System.Drawing.Point(90, 58);
             this.historyLinkLabel.Name = "historyLinkLabel";
             this.historyLinkLabel.Size = new System.Drawing.Size(109, 13);
             this.historyLinkLabel.TabIndex = 4;
@@ -119,30 +119,30 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(75, 41);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(14, 13);
+            this.label1.Size = new System.Drawing.Size(10, 13);
             this.label1.TabIndex = 6;
             this.label1.Text = "●";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(75, 58);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(14, 13);
+            this.label2.Size = new System.Drawing.Size(10, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "●";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(75, 75);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(14, 13);
+            this.label3.Size = new System.Drawing.Size(10, 13);
             this.label3.TabIndex = 6;
             this.label3.Text = "●";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // AboutForm
             // 

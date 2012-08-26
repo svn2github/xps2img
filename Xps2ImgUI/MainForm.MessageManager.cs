@@ -14,24 +14,29 @@ namespace Xps2ImgUI
     {
         private void ShowErrorMessageBox(string text, Exception exception = null, bool error = true, string taskInstruction = null, string taskText = null, string closeText = null)
         {
+            if (Model.IsBatchMode)
+            {
+                return;
+            }
+
             var dialogResult = TaskDialogUtils.Show(
                                     Handle,
                                     Resources.Strings.WindowTitle,
                                     taskInstruction,
-                                    taskText,
+                                    taskText.AppendDot(),
                                     error ? TaskDialogStandardIcon.Error : TaskDialogStandardIcon.Warning,
                                     t => AddExceptionDetails(t, exception),
                                     new TaskDialogCommandInfo(TaskDialogResult.Close, closeText));
 
             if(dialogResult == TaskDialogUtils.NotSupported)
             {
-                ShowMessageBox(text, MessageBoxButtons.OK, error ? MessageBoxIcon.Error : MessageBoxIcon.Warning);
+                ShowMessageBox(text.AppendDot(), MessageBoxButtons.OK, error ? MessageBoxIcon.Error : MessageBoxIcon.Warning);
             }
         }
 
         private DialogResult ShowMessageBox(string text, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton messageBoxDefaultButton = MessageBoxDefaultButton.Button1)
         {
-            if ((Model.IsProgressStarted && ShutdownWhenCompleted) || IsDisposed)
+            if (IsDisposed)
             {
                 return DialogResult.Cancel;
             }
