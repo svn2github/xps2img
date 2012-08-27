@@ -344,6 +344,10 @@ namespace Xps2ImgUI
                 if (Model.ShutdownRequested)
                 {
                     RegisterIdleHandler(CloseFormHandler, true);
+                    if (Model.IsBatchMode)
+                    {
+                        base.Activate();
+                    }
                 }
             }
         }
