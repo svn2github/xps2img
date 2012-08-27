@@ -17,6 +17,7 @@ namespace Xps2Img
     internal static class Program
     {
         private static volatile bool _isCancelled;
+        private static volatile bool _isUserCancelled;
 
         [DllImport("kernel32.dll")]
         private static extern bool SetConsoleCP(int wCodePageID);
@@ -50,11 +51,11 @@ namespace Xps2Img
                     ThreadPool.QueueUserWorkItem(_ => WaitForCancellationThread(options));
                 }
 
-                Win32.SetConsoleCtrlHandler(_ => _isCancelled = true, true);
+                Win32.SetConsoleCtrlHandler(_ => _isUserCancelled = _isCancelled = true, true);
 
                 Convert(options, () => _isCancelled);
 
-                return _isCancelled
+                return _isUserCancelled
                             ? ReturnCode.UserCancelled
                             : launchedAsInternal
                                 ? ReturnCode.InternalOK

@@ -96,7 +96,7 @@ namespace Xps2ImgUI.Model
 
         public void Cancel()
         {
-            ExitCode = ReturnCode.UserCancelled;
+            _userCancelled = true;
             Stop();
         }
 
@@ -376,6 +376,7 @@ namespace Xps2ImgUI.Model
                 _isRunning = true;
                 _isErrorReported = false;
                 _progressStarted = false;
+                _userCancelled = false;
 
                 _processExitCode = 0;
                 _threadsLeft = 0;
@@ -448,6 +449,11 @@ namespace Xps2ImgUI.Model
                 if (!IsSingleProcessor)
                 {
                     BoostProcessPriority(false);
+                }
+
+                if(_userCancelled)
+                {
+                    ExitCode = ReturnCode.UserCancelled;
                 }
             }
         }
@@ -637,6 +643,7 @@ namespace Xps2ImgUI.Model
         private volatile bool _isErrorReported;
         private volatile bool _isRunning;
         private volatile bool _progressStarted;
+        private volatile bool _userCancelled;
 
         private EventWaitHandle _cancelEvent;
         private Mutex _appMutex;

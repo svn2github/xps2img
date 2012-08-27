@@ -118,6 +118,8 @@ namespace Xps2ImgUI
                 if (!e.Cancel)
                 {
                     Model.Cancel();
+                    RegisterIdleHandler(CloseFormHandler, true);
+                    e.Cancel = true;
                 }
             }
 
@@ -341,8 +343,7 @@ namespace Xps2ImgUI
 
                 if (Model.ShutdownRequested)
                 {
-                    UnregisterIdleHandler(CloseFormHandler);
-                    RegisterIdleHandler(CloseFormHandler);
+                    RegisterIdleHandler(CloseFormHandler, true);
                 }
             }
         }
@@ -355,6 +356,7 @@ namespace Xps2ImgUI
             }
 
             UnregisterIdleHandler(CloseFormHandler);
+
             Close();
         }
 

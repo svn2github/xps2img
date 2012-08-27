@@ -125,14 +125,18 @@ namespace Xps2ImgUI
             return false;
         }
 
-        private static void RegisterIdleHandler(EventHandler eventHandler)
+        private void RegisterIdleHandler(EventHandler eventHandler, bool unregisterFirst = false)
         {
-            Application.Idle += eventHandler;
+            if (unregisterFirst)
+            {
+                UnregisterIdleHandler(eventHandler);
+            }
+            this.InvokeIfNeeded(() => Application.Idle += eventHandler);
         }
 
-        private static void UnregisterIdleHandler(EventHandler eventHandler)
+        private void UnregisterIdleHandler(EventHandler eventHandler)
         {
-            Application.Idle -= eventHandler;
+            this.InvokeIfNeeded(() => Application.Idle -= eventHandler);
         }
     }
 }
