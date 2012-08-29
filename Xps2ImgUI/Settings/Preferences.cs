@@ -87,6 +87,7 @@ namespace Xps2ImgUI.Settings
         [TypeConverter(typeof(YesNoConverter))]
         public bool SuggestResume { get; set; }
 
+        [ReadOnly(false)]
         [DisplayName("Shorten Image Extension")]
         [Category(CategoryConversion)]
         [Description("Shortens image extension down to three characters.")]

@@ -192,25 +192,25 @@ namespace Xps2ImgUI
             // Preferences button.
             var preferencesToolStripSplitButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.Preferences, PreferencesToolStripButtonClick);
 
-            var autoSaveSettingsToolStripMenuItem = new ToolStripMenuItem(Resources.Strings.AutoSaveSettings) { CheckOnClick = true, Checked = _preferences.AutoSaveSettings };
-            autoSaveSettingsToolStripMenuItem.CheckedChanged += (s, e) => _preferences.AutoSaveSettings = autoSaveSettingsToolStripMenuItem.Checked;
-
-            var shortenExtensionToolStripMenuItem = new ToolStripMenuItem(Resources.Strings.ShortenImageExtension) { CheckOnClick = true, Checked = _preferences.ShortenExtension };
-            shortenExtensionToolStripMenuItem.CheckedChanged += (s, e) =>
+            _shortenExtensionToolStripMenuItem = new ToolStripMenuItem(Resources.Strings.ShortenImageExtension) { CheckOnClick = true, Checked = _preferences.ShortenExtension };
+            _shortenExtensionToolStripMenuItem.CheckedChanged += (s, e) =>
             {
-                _preferences.ShortenExtension = shortenExtensionToolStripMenuItem.Checked;
+                _preferences.ShortenExtension = _shortenExtensionToolStripMenuItem.Checked;
                 _model.OptionsObject.ShortenExtension = _preferences.ShortenExtension;
                 UpdateCommandLine();
             };
 
-            preferencesToolStripSplitButton.DropDownItems.Add(shortenExtensionToolStripMenuItem);
+            var autoSaveSettingsToolStripMenuItem = new ToolStripMenuItem(Resources.Strings.AutoSaveSettings) { CheckOnClick = true, Checked = _preferences.AutoSaveSettings };
+            autoSaveSettingsToolStripMenuItem.CheckedChanged += (s, e) => _preferences.AutoSaveSettings = autoSaveSettingsToolStripMenuItem.Checked;
+
+            preferencesToolStripSplitButton.DropDownItems.Add(_shortenExtensionToolStripMenuItem);
             preferencesToolStripSplitButton.DropDownItems.Add(new ToolStripSeparator());
             preferencesToolStripSplitButton.DropDownItems.Add(autoSaveSettingsToolStripMenuItem);
 
             preferencesToolStripSplitButton.DropDownOpening += (s, e) =>
             {
                 autoSaveSettingsToolStripMenuItem.Checked = _preferences.AutoSaveSettings;
-                shortenExtensionToolStripMenuItem.Checked = _preferences.ShortenExtension;
+                _shortenExtensionToolStripMenuItem.Checked = _preferences.ShortenExtension;
             };
 
             preferencesToolStripSplitButton.Enabled = Model.IsUserMode;
@@ -333,7 +333,10 @@ namespace Xps2ImgUI
             }
 
             settingsPropertyGrid.ReadOnly = isRunning;
-            _resetToolStripButton.Enabled = _loadToolStripButton.Enabled = !isRunning;
+
+            _shortenExtensionToolStripMenuItem.Enabled =
+                _resetToolStripButton.Enabled =
+                    _loadToolStripButton.Enabled = !isRunning;
             
             progressBar.Value = 0;
 
@@ -760,7 +763,7 @@ namespace Xps2ImgUI
         {
             using (new ModalGuard())
             {
-                using (var preferencesForm = new PreferencesForm(_preferences))
+                using (var preferencesForm = new PreferencesForm(_preferences, Model.IsRunning))
                 {
                     if (preferencesForm.ShowDialog(this) == DialogResult.OK)
                     {
@@ -894,6 +897,7 @@ namespace Xps2ImgUI
         private ToolStripButtonItem _updatesToolStripButtonItem;
         private ToolStripSplitButton _loadToolStripButton;
         private ToolStripItem _showCommandLineToolStripButton;
+        private ToolStripMenuItem _shortenExtensionToolStripMenuItem;
 
         private ThumbButtonManager _thumbButtonManager;
         private ThumbButton _thumbButton;

@@ -65,5 +65,31 @@ namespace Xps2ImgUI.Utils
                 return (T)binaryFormatter.Deserialize(memoryStream);
             }
         }
+
+        public static void SetReadOnly<T>(bool readOnly, Expression<Func<object>> propertyExpression)
+        {
+            SetReadOnly<T>(readOnly, GetPropertyName(propertyExpression));
+        }
+
+        public static void SetReadOnly<T>(bool readOnly, string propertyName)
+        {
+            var descriptor = TypeDescriptor.GetProperties(typeof(T))[propertyName];
+            if (descriptor == null)
+            {
+                return;
+            }
+
+            var readOnlyAttribute = descriptor.Attributes[typeof(ReadOnlyAttribute)] as ReadOnlyAttribute;
+            if (readOnlyAttribute == null)
+            {
+                return;
+            }
+
+            var fieldToChange = readOnlyAttribute.GetType().GetField("isReadOnly", BindingFlags.NonPublic | BindingFlags.Instance);
+            if (fieldToChange != null)
+            {
+                fieldToChange.SetValue(readOnlyAttribute, readOnly);
+            }
+        }
     }
 }

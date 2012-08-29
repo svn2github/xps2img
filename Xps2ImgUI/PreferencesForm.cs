@@ -10,9 +10,13 @@ namespace Xps2ImgUI
 {
     public partial class PreferencesForm : Form
     {
-        public PreferencesForm(Preferences preferences)
+        private readonly bool _isRunning;
+
+        public PreferencesForm(Preferences preferences, bool isRunning)
         {
             InitializeComponent();
+
+            _isRunning = isRunning;
 
             Preferences = preferences;
         }
@@ -33,6 +37,8 @@ namespace Xps2ImgUI
 
             preferencesPropertyGrid.SelectGridItem(Preferences.DefaultSelectedItem);
 
+            ReflectionUtils.SetReadOnly<Preferences>(_isRunning, () => Preferences.ShortenExtension);
+
             base.OnLoad(e);
         }
 
@@ -43,7 +49,14 @@ namespace Xps2ImgUI
 
         private void ResetToolStripButtonClick(object sender, EventArgs e)
         {
+            var shortenExtension = Preferences.ShortenExtension;
+
             Preferences.Reset();
+
+            if (_isRunning)
+            {
+                Preferences.ShortenExtension = shortenExtension;
+            }
 
             preferencesPropertyGrid.Refresh();
 
