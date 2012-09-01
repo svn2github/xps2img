@@ -20,6 +20,8 @@ using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils;
 using Xps2ImgUI.Utils.UI;
 
+using ReturnCode = Xps2Img.CommandLine.CommandLine.ReturnCode;
+
 namespace Xps2ImgUI
 {
     public partial class MainForm : Form, ISettings
@@ -364,6 +366,11 @@ namespace Xps2ImgUI
 
             UnregisterIdleHandler(CloseFormHandler);
 
+            if (Model.IsBatchMode && Model.ExitCode == ReturnCode.UserCancelled)
+            {
+                ShowErrorMessageBox(Resources.Strings.ConversionWasAbortedByUser);
+            }
+
             Close();
         }
 
@@ -498,7 +505,7 @@ namespace Xps2ImgUI
                     Activate();
                     ShowErrorMessageBox(String.Format(Resources.Strings.SpecifyValue, firstRequiredOptionLabel), null, false, firstRequiredOptionLabel, Resources.Strings.ParameterIsRequired, Resources.Strings.EditParameter);
 
-                    Model.ExitCode = Xps2Img.CommandLine.CommandLine.ReturnCode.NoArgs;
+                    Model.ExitCode = ReturnCode.NoArgs;
 
                     if (Model.IsBatchMode)
                     {

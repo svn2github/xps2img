@@ -14,8 +14,15 @@ namespace Xps2ImgUI
     {
         private void ShowErrorMessageBox(string text, Exception exception = null, bool error = true, string taskInstruction = null, string taskText = null, string closeText = null)
         {
+            var message = text.AppendDot();
+
             if (Model.IsBatchMode)
             {
+                if (Win32Utils.AttachConsole())
+                {
+                    Console.WriteLine(message);
+                    Win32Utils.FreeConsole();
+                }
                 return;
             }
 
@@ -30,7 +37,7 @@ namespace Xps2ImgUI
 
             if(dialogResult == TaskDialogUtils.NotSupported)
             {
-                ShowMessageBox(text.AppendDot(), MessageBoxButtons.OK, error ? MessageBoxIcon.Error : MessageBoxIcon.Warning);
+                ShowMessageBox(message, MessageBoxButtons.OK, error ? MessageBoxIcon.Error : MessageBoxIcon.Warning);
             }
         }
 

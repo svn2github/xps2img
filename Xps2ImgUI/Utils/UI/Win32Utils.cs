@@ -33,7 +33,7 @@ namespace Xps2ImgUI.Utils.UI
 
         public static bool Flash(this Form form)
         {
-            return Flash(form, FLASHW_ALL | FLASHW_TIMERNOFG, uint.MaxValue);
+            return Flash(form, FLASHW_ALL | FLASHW_TIMERNOFG, UInt32.MaxValue);
         }
 
         public static bool Flash(this Form form, uint count)
@@ -54,12 +54,12 @@ namespace Xps2ImgUI.Utils.UI
 
         public static bool StartFlashing(this Form form)
         {
-            return Flash(form, uint.MaxValue);
+            return Flash(form, UInt32.MaxValue);
         }
 
         public static bool StopFlashing(this Form form)
         {
-            return Flash(form, FLASHW_STOP, uint.MaxValue);
+            return Flash(form, FLASHW_STOP, UInt32.MaxValue);
         }
 
         public static void RemoveSystemMenuDisabledItems(this Form form)
@@ -217,7 +217,21 @@ namespace Xps2ImgUI.Utils.UI
             public uint cch;
             public IntPtr hbmpItem;
         }
+
+        private const uint ATTACH_PARENT_PROCESS = 0x0ffffffff;
+
         // ReSharper restore MemberCanBePrivate.Local
         // ReSharper restore FieldCanBeMadeReadOnly.Local
+
+        [DllImport("kernel32.dll")]
+        private static extern bool AttachConsole(uint dwProcessId);
+
+        [DllImport("kernel32.dll")]
+        public static extern bool FreeConsole();
+
+        public static bool AttachConsole()
+        {
+            return AttachConsole(ATTACH_PARENT_PROCESS);
+        }
     }
 }

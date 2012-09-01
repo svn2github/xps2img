@@ -223,6 +223,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Conversion was aborted by user..
+        /// </summary>
+        internal static string ConversionWasAbortedByUser {
+            get {
+                return ResourceManager.GetString("ConversionWasAbortedByUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Copy Command Line To Clipboard.
         /// </summary>
         internal static string CopyCommandLineToClipboard {
