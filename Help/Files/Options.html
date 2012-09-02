@@ -10,9 +10,12 @@
 <body>
     <h1>Command-line Options</h1>
 
+    <h2>Usage</h2>
+	<pre><span class="kwd">xps2img</span> <span class="str">src-file</span> <span class="sym">[</span><span class="var">out-dir</span><span class="sym">]</span> <span class="sym">[</span><span class="var">options</span><span class="sym">]</span></pre>	
+
     <p>Mandatory arguments to long options are mandatory for short options too.</p>
 
-    <p>See also <a href="ExitCodes.html">xps2img exit codes</a>.</p>
+    <p>See also <a href="ExitCodes.html">exit codes</a>.</p>
 
     <a class="anchor" name="srcfile" /><h2>XPS File</h2>
     <h3>src-file</h3>
@@ -49,7 +52,7 @@
         <dt>1,3-5,7-9,15-</dt><dd>combined</dd>
     </dl>
 
-    <a class="anchor" name="filetype" /><h2>Image Type</h2>
+    <a class="anchor" name="filetype"></a><h2>Image Type</h2>
     <h3>-f, --file-type=type</h3>
     <p>Image type.</p>
     <p class="default">png by default.</p>
@@ -61,6 +64,8 @@
         <li>bmp</li>
         <li>gif</li>
     </ul>
+	
+	<p class="note">Specify <a href="#shortenextension">this option</a> to shorten image extension down to three characters.</p>
 
     <a class="anchor" name="jpegquality" /><h2>JPEG Quality</h2>
     <h3>-q, --jpeg-quality=quality</h3>
@@ -125,16 +130,24 @@
     <p>Preliminaries prefix. &lt;&gt;:"/\|?* characters are not allowed.</p>
     <p class="default">$ by default.</p>
 
-    <a class="anchor" name="test" /><h2>Test Mode</h2>
-    <h3>-e, --test</h3>
-    <p>Test mode (no file operations will be performed).</p>
+    <a class="anchor" name="shortenextension" /><h2>Shorten Image Extension</h2>
+    <h3>-n, --shorten-extension</h3>
+    <p>Shorten image extension down to three characters.</p>
 
     <a class="anchor" name="silent" /><h2>Silent</h2>
     <h3>-s, --silent</h3>
     <p>Silent mode (no progress will be shown).</p>
 
+    <a class="anchor" name="test" /><h2>Test Mode</h2>
+    <h3>-e, --test</h3>
+    <p>Test mode (no file operations will be performed).</p>
+
     <a class="anchor" name="clean" /><h2>Clean</h2>
     <h3>--clean</h3>
     <p>Clean (delete images).</p>
+	
+    <h1>See Also</h1>
+    <div><a href="OptionsGUI.html">GUI Options</a></div>
+    <div><a href="ExitCodes.html">Exit Codes</a></div>
 </body>
 </html>

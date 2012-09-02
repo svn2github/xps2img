@@ -4,11 +4,18 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=8" />
-    <title>xps2img Exit Codes</title>
+    <title>Exit Codes</title>
     <link rel="stylesheet" type="text/css" href="css/help.css" media="all" />
+    <script type="text/javascript" src="js/help.js">
+	</script>
 </head>
 <body>
-    <h1>xps2img Exit Codes</h1>
+    <h1>Exit Codes</h1>
+
+	<p>
+	Returned by both <a href="Options.html">CLI</a> and <a href="GUI.html">GUI Frontend</a>.
+	</p>
+
     <table>
     <tr>
 	<th>Code</th>
@@ -39,5 +46,25 @@
     	<td>Conversion was aborted by user.</td>
     </tr>
     </table>
+
+	<a class="anchor" name="exitCodesBatch" /><h1>Batch Script Usage Example</h1>
+	
+	<p>
+	Prints exit code corresponding message.
+	</p>
+
+	<pre id="code">
+<span class="sym">@</span><span class="kwd">echo off</span>
+<span class="kwd">if</span> <span class="var">%errorlevel%</span> <span class="kwd">lss</span> <span class="num">0</span> <span class="kwd">echo</span> <span class="str">Unknown exit code.</span>
+<span class="kwd">if</span> <span class="var">%errorlevel%</span> <span class="kwd">equ</span> <span class="num">0</span> <span class="kwd">echo</span> <span class="str">Conversion succeeded.</span>
+<span class="kwd">if</span> <span class="var">%errorlevel%</span> <span class="kwd">equ</span> <span class="num">1</span> <span class="kwd">echo</span> <span class="str">Invalid command-line arguments.</span>
+<span class="kwd">if</span> <span class="var">%errorlevel%</span> <span class="kwd">equ</span> <span class="num">2</span> <span class="kwd">echo</span> <span class="str">No command-line arguments were specified. Help is displayed.</span>
+<span class="kwd">if</span> <span class="var">%errorlevel%</span> <span class="kwd">equ</span> <span class="num">3</span> <span class="kwd">echo</span> <span class="str">Conversion failed.</span>
+<span class="kwd">if</span> <span class="var">%errorlevel%</span> <span class="kwd">equ</span> <span class="num">4</span> <span class="kwd">echo</span> <span class="str">Pages specified are out of document pages range.</span>
+<span class="kwd">if</span> <span class="var">%errorlevel%</span> <span class="kwd">equ</span> <span class="num">5</span> <span class="kwd">echo</span> <span class="str">Conversion was aborted by user.</span>
+<span class="kwd">if</span> <span class="var">%errorlevel%</span> <span class="kwd">geq</span> <span class="num">6</span> <span class="kwd">echo</span> <span class="str">Unknown exit code.</span>
+</pre>
+
+	<input type="button" value="Copy Script to Clipboard" onclick="return Scripts.clipboardCopy('code')" />
 </body>
 </html>

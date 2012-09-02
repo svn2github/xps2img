@@ -10,6 +10,17 @@
 <body>
     <h1>GUI Command-line Options</h1>
 
+    <a class="anchor" name="batch"></a><h2>Batch Mode</h2>
+    <h3>-b, --batch</h3>
+    <p>Starts GUI Frontend in batch mode.</p>
+    <p>Features:</p>
+    <ul>
+        <li>Application is started minimized.</li>
+		<li>All <a href="Options.html">CLI options</a> are supported.</li>
+        <li><a href="ExitCodes.html#exitCodesBatch">Error messages</a> are printed to parent process console if any.</li>
+        <li>On success, error or cancel/close application returns corresponding <a href="ExitCodes.html">exit code</a>.</li>
+    </ul>
+
     <a class="anchor" name="processors" /><h2>Processors</h2>
     <h3>--processors-number=number</h3>
     <p>Number of simultaneously running document processors.</p>

@@ -77,6 +77,47 @@ th
 	text-align: center;
 }
 
+pre
+{
+	font-family: Consolas, Lucida Sans Typewriter, Courier New, Lucida Console;
+	background-color: rgb(249, 249, 249);
+	padding: 12px;
+	border: 1px dashed rgb(47, 111, 171);
+}
+
+span.kwd
+{
+	color: #800000;
+	font-weight: bold;
+}
+
+span.sym
+{
+	color: #808030;
+}
+
+span.var
+{
+	color: #797997;
+}
+
+span.num
+{
+	color: #008c00;
+}
+
+span.str
+{
+	color: #0000e6;
+}
+
+input[type="button"]
+{
+	border: 1px solid rgb(160, 160, 160);
+	background-color: rgb(240, 240, 240);
+	padding: 4px 6px;
+}
+
 a.anchor:link, a.anchor:visited, a.anchor:hover, a.anchor:active
 {
 	color: black;

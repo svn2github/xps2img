@@ -36,7 +36,7 @@
 		</OBJECT>
 	</UL>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="xps2img Exit Codes">
+		<param name="Name" value="Exit Codes">
 		<param name="Local" value="Files\ExitCodes.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
@@ -101,22 +101,26 @@
 		<param name="Local" value="Files\Options.html#prelimsprefix">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="-e, --test">
-		<param name="Local" value="Files\Options.html#test">
+		<param name="Name" value="-n, --shorten-extension">
+		<param name="Local" value="Files\Options.html#shortenextension">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-s, --silent">
 		<param name="Local" value="Files\Options.html#silent">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="-e, --test">
+		<param name="Local" value="Files\Options.html#test">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="--clean">
 		<param name="Local" value="Files\Options.html#clean">
 		</OBJECT>
 	</UL>
-     	<LI> <OBJECT type="text/sitemap">
-     		<param name="Name" value="GUI Frontend Preferences">
-     		<param name="Local" value="Files\Preferences.html">
-     		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="GUI Frontend Preferences">
+		<param name="Local" value="Files\Preferences.html">
+		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="GUI Frontend Parameters">
 		<param name="Local" value="Files\Options.html#srcfile">
@@ -141,6 +145,10 @@
 		</OBJECT>
 	<UL>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Batch Mode">
+		<param name="Local" value="Files\OptionsGUI.html#batch">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Page Number(s)">
 		<param name="Local" value="Files\Options.html#pages">
 		</OBJECT>
@@ -185,10 +193,18 @@
 		<param name="Local" value="Files\OptionsGUI.html#processorspriority">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Shorten Image Extension">
+		<param name="Local" value="Files\Options.html#shortenextension">
+		</OBJECT>	
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Test Mode">
 		<param name="Local" value="Files\Options.html#test">
 		</OBJECT>
 	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Batch Mode">
+		<param name="Local" value="Files\OptionsGUI.html#batch">
+		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="XPS File">
 		<param name="Local" value="Files\Options.html#srcfile">
@@ -242,6 +258,10 @@
 		<param name="Local" value="Files\OptionsGUI.html#processorspriority">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Shorten Image Extension">
+		<param name="Local" value="Files\Options.html#shortenextension">
+		</OBJECT>	
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Test Mode">
 		<param name="Local" value="Files\Options.html#test">
 		</OBJECT>
@@ -262,6 +282,10 @@
 		<param name="Local" value="Files\Options.html#firstpageindex">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="-b">
+		<param name="Local" value="Files\OptionsGUI.html#batch">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-d">
 		<param name="Local" value="Files\Options.html#dpi">
 		</OBJECT>
@@ -276,6 +300,10 @@
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-i">
 		<param name="Local" value="Files\Options.html#imagename">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="-n">
+		<param name="Local" value="Files\Options.html#shortenextension">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-p">
@@ -300,6 +328,10 @@
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-x">
 		<param name="Local" value="Files\Options.html#prelimsprefix">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="--batch">
+		<param name="Local" value="Files\OptionsGUI.html#batch">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="--clean">
@@ -344,6 +376,10 @@
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="--required-size">
 		<param name="Local" value="Files\Options.html#requiredsize">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="--shorten-extension">
+		<param name="Local" value="Files\Options.html#shortenextension">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="--silent">
