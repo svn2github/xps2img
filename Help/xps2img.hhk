@@ -10,6 +10,10 @@
 		<param name="Local" value="Files\About.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="What's New?">
+		<param name="Local" value="Files\About.html#whatsNew">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Features">
 		<param name="Local" value="Files\Features.html">
 		</OBJECT>
