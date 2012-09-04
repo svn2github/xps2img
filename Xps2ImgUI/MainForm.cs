@@ -135,17 +135,24 @@ namespace Xps2ImgUI
 
         protected override void OnShown(EventArgs e)
         {
-            if (_model.IsBatchMode)
+            if (Model.IsBatchMode)
             {
-                RegisterIdleHandler(OnImmediateLaunch);
+                RegisterIdleHandler(OnBatchLaunch);
             }
             base.OnShown(e);
         }
 
-        private void OnImmediateLaunch(object sender, EventArgs eventArgs)
+        private void OnBatchLaunch(object sender, EventArgs eventArgs)
         {
-            UnregisterIdleHandler(OnImmediateLaunch);
-            ExecuteConversion(ConversionType.Convert, false);
+            UnregisterIdleHandler(OnBatchLaunch);
+            if (Model.OptionsObject.Clean)
+            {
+                ExecuteDeleteImages();
+            }
+            else
+            {
+                ExecuteConversion(ConversionType.Convert);
+            }
         }
 
         protected override void WndProc(ref Message m)
@@ -198,7 +205,7 @@ namespace Xps2ImgUI
             _shortenExtensionToolStripMenuItem.CheckedChanged += (s, e) =>
             {
                 _preferences.ShortenExtension = _shortenExtensionToolStripMenuItem.Checked;
-                _model.OptionsObject.ShortenExtension = _preferences.ShortenExtension;
+                Model.OptionsObject.ShortenExtension = _preferences.ShortenExtension;
                 UpdateCommandLine();
             };
 
@@ -239,7 +246,7 @@ namespace Xps2ImgUI
 
             // Load/save settings.
             _loadToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.LoadSettings, (s, e) => modalAction(() => Model = SettingsManager.LoadSettings()),
-                new ToolStripButtonItem(Resources.Strings.SaveSettings, (s, e) => modalAction(() => SettingsManager.SaveSettings(_model)))
+                new ToolStripButtonItem(Resources.Strings.SaveSettings, (s, e) => modalAction(() => SettingsManager.SaveSettings(Model)))
             );
 
             // Separator.
@@ -385,7 +392,7 @@ namespace Xps2ImgUI
 
             var timeAbbrev = Resources.Strings.AbbrevSeconds;
 
-            var pagesProcessed = _model.PagesProcessed;
+            var pagesProcessed = Model.PagesProcessed;
 
             Func<double, double> par = e => (e > 0.001) ? pagesProcessed*1.0/e : pagesProcessed;
 
@@ -418,7 +425,7 @@ namespace Xps2ImgUI
             Text += String.Format(Resources.Strings.ElapsedTimeTextTemplate,
                                   elapsed.Hours, elapsed.Minutes, elapsed.Seconds,
                                   ppInt, getPagesString(ppInt), timeAbbrev,
-                                  _model.PagesProcessedTotal, _model.PagesTotal);
+                                  Model.PagesProcessedTotal, Model.PagesTotal);
         }
 
         private void UpdateFailedStatus(string message, Exception exception = null)
@@ -675,7 +682,7 @@ namespace Xps2ImgUI
             ExecuteConversion(conversionType, (executeFlags & ExecuteFlags.DoNotClickButton) == 0);
         }
 
-        private void ExecuteConversion(ConversionType conversionType, bool clickButton)
+        private void ExecuteConversion(ConversionType conversionType, bool clickButton = false)
         {
             if (Model.IsRunning)
             {
@@ -794,9 +801,14 @@ namespace Xps2ImgUI
 
         private void DeleteImagesToolStripMenuItemClick(object sender, EventArgs e)
         {
-            if (!_preferences.ConfirmOnDelete || ShowConfirmationMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation))
+            ExecuteDeleteImages(true);
+        }
+
+        private void ExecuteDeleteImages(bool clickButton = false)
+        {
+            if (Model.IsBatchMode || !_preferences.ConfirmOnDelete || ShowConfirmationMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation))
             {
-                ExecuteConversion(ConversionType.Delete, true);
+                ExecuteConversion(ConversionType.Delete, clickButton);
             }
         }
 

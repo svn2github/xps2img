@@ -568,12 +568,13 @@ namespace Xps2Img.CommandLine
         #endif
         public bool Test { get; set; }
 
-        #if !XPS2IMG_UI
         [Option("Clean (delete images)", ShortOptionType.None1, ArgumentExpectancy.No)]
-        public bool Clean { get; set; }
-        #else
-        public const string CleanOption = " --clean";
+        #if XPS2IMG_UI
+        [Browsable(false)]
         #endif
+        public bool Clean { get; set; }
+
+        public const string CleanOption = " --clean";
     }
 
     public static class OptionsValidators
