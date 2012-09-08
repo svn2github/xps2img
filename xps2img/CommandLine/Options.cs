@@ -508,7 +508,7 @@ namespace Xps2Img.CommandLine
         public static readonly string[] ExcludedOnLaunch = ExcludedUIOptions.Concat(new[] { PagesShortOption.ToString(CultureInfo.InvariantCulture) }).ToArray();
         public static readonly string[] ExcludedOnView = ExcludedOnSave.Concat(ExcludedUIOptions).ToArray();
 
-        public static readonly string[] ExcludeOnResumeCheck = new[] { ProcessorsDisplayName, ProcessorsPriorityDisplayName };
+        public static readonly string[] ExcludeOnResumeCheck = new[] { ProcessorsDisplayName, ProcessorsPriorityDisplayName, PostActionDisplayName };
 
         private static void ValidateProperty(object propertyValue, string validatorExpresion)
         {
