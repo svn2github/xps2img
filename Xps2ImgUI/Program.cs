@@ -87,10 +87,17 @@ namespace Xps2ImgUI
             if (model.ShutdownRequested)
             {
                 #if DEBUG
+                System.Diagnostics.Debug.WriteLine("SHUTDOWN TYPE: " + model.ShutdownType);
                 if(PostActionToShutdownType(model.ShutdownType) == ShutdownType.Exit)
                 #endif
                 SystemManagement.Shutdown(PostActionToShutdownType(model.ShutdownType));
             }
+            #if DEBUG
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("NO SHUTDOWN PENDING");
+            }
+            #endif
         }
 
         private static ShutdownType PostActionToShutdownType(string shutdownType)
