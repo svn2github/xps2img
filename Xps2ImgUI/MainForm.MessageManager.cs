@@ -26,6 +26,11 @@ namespace Xps2ImgUI
                 return;
             }
 
+            if (Model.ShutdownRequested)
+            {
+                return;
+            }
+
             var dialogResult = TaskDialogUtils.Show(
                                     Handle,
                                     Resources.Strings.WindowTitle,

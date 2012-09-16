@@ -36,6 +36,11 @@ namespace Xps2ImgUI
 
             using (new DisposableActions(() => CheckForUpdatesEnabled = true))
             {
+                if (Model.ShutdownRequested)
+                {
+                    return;
+                }
+
                 if (_updateManager.Failed)
                 {
                     if (!_updateManager.Silent && ShowConfirmationMessageBox(Resources.Strings.UpdatesCheckFailedWarning, exception: _updateManager.Exception))

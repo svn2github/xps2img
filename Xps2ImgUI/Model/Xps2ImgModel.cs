@@ -506,13 +506,8 @@ namespace Xps2ImgUI.Model
             get
             {
                 return  ShutdownType != PostActionConverter.Default
-                        &&
-                        (
-                            IsBatchMode
-                            || (IsProgressStarted
-                                && !IsConversionFailed
-                                && !CanResume && !IsDeleteMode)
-                        );
+                        && !IsDeleteMode
+                        && (IsBatchMode || (IsProgressStarted && !_userCancelled));
             }
         }
 
