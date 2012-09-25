@@ -266,7 +266,7 @@ namespace Xps2Img.CommandLine
         [UIOption(DpiShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(120)]
-        [TypeConverter(typeof(NullableIntTypeConverter))]
+        [TypeConverter(typeof(DpiTypeConverter))]
         public int? Dpi
         {
             get { return _dpi; }

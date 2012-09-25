@@ -118,6 +118,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ToolStripButtonItem.cs" />
+    <Compile Include="Converters\DpiTypeConverter.cs" />
     <Compile Include="Converters\NullableIntTypeConverter.cs" />
     <Compile Include="Converters\ErrorReporterTypeConverter.cs" />
     <Compile Include="Converters\StandardValuesTypeConverter.cs" />
