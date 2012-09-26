@@ -242,7 +242,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         {
             if (SelectedObject != null)
             {
-                TypeDescriptor.AddAttributes(SelectedObject, new [] { new ReadOnlyAttribute(_readOnly) });
+                TypeDescriptor.AddAttributes(SelectedObject, new Attribute[] { new ReadOnlyAttribute(_readOnly) });
                 Refresh();
             }
         }
