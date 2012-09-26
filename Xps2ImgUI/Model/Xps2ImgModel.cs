@@ -473,7 +473,7 @@ namespace Xps2ImgUI.Model
             get { return _conversionType == ConversionType.Resume; }
         }
 
-        private bool IsDeleteMode
+        public bool IsDeleteMode
         {
             get { return _conversionType == ConversionType.Delete; }
         }

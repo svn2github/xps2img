@@ -64,6 +64,8 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             {
                 errorDialogField.SetValue(_propertyGridView, new PropertyGridExServiceProvider(this));
             }
+
+            InitContextMenuStrip();
         }
 
         protected override void OnHandleCreated(EventArgs e)
@@ -244,6 +246,50 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             {
                 TypeDescriptor.AddAttributes(SelectedObject, new Attribute[] { new ReadOnlyAttribute(_readOnly) });
                 Refresh();
+            }
+        }
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public override ContextMenuStrip ContextMenuStrip
+        {
+            get { return base.ContextMenuStrip; }
+            set { throw new InvalidOperationException("Control uses its on menu."); }
+        }
+
+        private void InitContextMenuStrip()
+        {
+            if (base.ContextMenuStrip != null)
+            {
+                return;
+            }
+
+            var contextMenuStrip = new ContextMenuStrip();
+            contextMenuStrip.Opening += ContextStripMenuOpening;
+            var resetMenuItem = contextMenuStrip.Items.Add("&Reset");
+            resetMenuItem.Click += ResetMenuItemClick;
+
+            base.ContextMenuStrip = contextMenuStrip;
+        }
+
+        private bool CanResetGridItemValue(GridItem gridItem)
+        {
+            return gridItem.PropertyDescriptor != null && gridItem.PropertyDescriptor.CanResetValue(SelectedObject);
+        }
+
+        private void ContextStripMenuOpening(object sender, CancelEventArgs e)
+        {
+            ContextMenuStrip.Enabled = CanResetGridItemValue(SelectedGridItem);
+        }
+
+        private void ResetMenuItemClick(object sender, EventArgs e)
+        {
+            var selectedGridItem = SelectedGridItem;
+            if (selectedGridItem.PropertyDescriptor != null && CanResetGridItemValue(selectedGridItem))
+            {
+                var oldValue = selectedGridItem.PropertyDescriptor.GetValue(SelectedObject);
+                ResetSelectedProperty();
+                OnPropertyValueChanged(new PropertyValueChangedEventArgs(selectedGridItem, oldValue));
             }
         }
 
