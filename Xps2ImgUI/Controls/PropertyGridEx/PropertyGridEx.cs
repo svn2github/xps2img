@@ -257,6 +257,10 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             set { throw new InvalidOperationException("Control uses its on menu."); }
         }
 
+        private const string ResetItemText = "&Reset {0}";
+        private const string CloseItemText = "&Close";
+        private const string ResetItemName = "reset";
+
         private void InitContextMenuStrip()
         {
             if (base.ContextMenuStrip != null)
@@ -266,30 +270,41 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
             var contextMenuStrip = new ContextMenuStrip();
             contextMenuStrip.Opening += ContextStripMenuOpening;
-            var resetMenuItem = contextMenuStrip.Items.Add("&Reset");
+
+            var resetMenuItem = contextMenuStrip.Items.Add(ResetItemText);
+            resetMenuItem.Name = ResetItemName;
             resetMenuItem.Click += ResetMenuItemClick;
+
+            contextMenuStrip.Items.Add("-");
+            contextMenuStrip.Items.Add(CloseItemText);
 
             base.ContextMenuStrip = contextMenuStrip;
         }
 
-        private bool CanResetGridItemValue(GridItem gridItem)
+        private bool CanResetSelectedGridItemValue
         {
-            return gridItem.PropertyDescriptor != null && gridItem.PropertyDescriptor.CanResetValue(SelectedObject);
+            get
+            {
+                return SelectedGridItem.PropertyDescriptor != null &&
+                       SelectedGridItem.PropertyDescriptor.CanResetValue(SelectedObject);
+            }
         }
 
         private void ContextStripMenuOpening(object sender, CancelEventArgs e)
         {
-            ContextMenuStrip.Enabled = CanResetGridItemValue(SelectedGridItem);
+            var resetMenuItem = ContextMenuStrip.Items[ResetItemName];
+
+            resetMenuItem.Text = String.Format(ResetItemText, SelectedGridItem.Label);
+            resetMenuItem.Enabled = CanResetSelectedGridItemValue;
         }
 
         private void ResetMenuItemClick(object sender, EventArgs e)
         {
-            var selectedGridItem = SelectedGridItem;
-            if (selectedGridItem.PropertyDescriptor != null && CanResetGridItemValue(selectedGridItem))
+            if (SelectedGridItem.PropertyDescriptor != null && CanResetSelectedGridItemValue)
             {
-                var oldValue = selectedGridItem.PropertyDescriptor.GetValue(SelectedObject);
+                var oldValue = SelectedGridItem.PropertyDescriptor.GetValue(SelectedObject);
                 ResetSelectedProperty();
-                OnPropertyValueChanged(new PropertyValueChangedEventArgs(selectedGridItem, oldValue));
+                OnPropertyValueChanged(new PropertyValueChangedEventArgs(SelectedGridItem, oldValue));
             }
         }
 
