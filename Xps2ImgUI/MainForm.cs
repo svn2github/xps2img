@@ -36,6 +36,33 @@ namespace Xps2ImgUI
 
             _updateManager.CheckCompleted += (s, e) => this.InvokeIfNeeded(() => RegisterIdleHandler(UpdateCheckCompleted));
             _updateManager.InstallationLaunched += (s, e) => this.InvokeIfNeeded(() => RegisterIdleHandler(UpdateInstallationLaunched));
+
+            settingsPropertyGrid.ResetGroupCallback = PropertyGridResetGroupCallback;
+        }
+
+        private bool PropertyGridResetGroupCallback(string label, bool check)
+        {
+            if (label != Options.CategoryParameters && label != Options.CategoryOptions)
+            {
+                return false;
+            }
+
+            if (check)
+            {
+                return true;
+            }
+
+            switch (label)
+            {
+                case Options.CategoryParameters:
+                    Model.ResetParameters();
+                    break;
+                case Options.CategoryOptions:
+                    Model.ResetOptions();
+                    break;
+            }
+
+            return true;
         }
 
         private void OptionsObjectChanged(object sender, EventArgs e)

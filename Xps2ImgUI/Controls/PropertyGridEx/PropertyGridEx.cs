@@ -257,6 +257,10 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             set { throw new InvalidOperationException("Control uses its on menu."); }
         }
 
+        // string label - property label
+        // bool check   - check requested if true; otherwise reset should be executed
+        public Func<string, bool, bool> ResetGroupCallback { get; set; }
+
         private const string ResetItemText = "&Reset {0}";
         private const string CloseItemText = "&Close";
         private const string ResetItemName = "reset";
@@ -284,16 +288,26 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         private void ContextStripMenuOpening(object sender, CancelEventArgs e)
         {
             var resetMenuItem = ContextMenuStrip.Items[ResetItemName];
+            var label = SelectedGridItem.Label;
 
-            resetMenuItem.Text = String.Format(ResetItemText, SelectedGridItem.Label);
-            resetMenuItem.Enabled = SelectedGridItem.PropertyDescriptor != null &&
-                                    SelectedGridItem.PropertyDescriptor.CanResetValue(SelectedObject);
+            var hasPropertyDescriptor = SelectedGridItem.PropertyDescriptor != null;
+
+            resetMenuItem.Text = String.Format(ResetItemText, label);
+            resetMenuItem.Enabled = !ReadOnly &&
+                                    (
+                                        (!hasPropertyDescriptor && ResetGroupCallback != null && ResetGroupCallback(label, true)) ||
+                                        (hasPropertyDescriptor && SelectedGridItem.PropertyDescriptor.CanResetValue(SelectedObject))
+                                    );
         }
 
         private void ResetMenuItemClick(object sender, EventArgs e)
         {
             if (SelectedGridItem.PropertyDescriptor == null)
             {
+                if (ResetGroupCallback != null)
+                {
+                    ResetGroupCallback(SelectedGridItem.Label, false);
+                }
                 return;
             }
 
