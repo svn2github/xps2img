@@ -593,6 +593,11 @@ namespace Xps2ImgUI
 
         private void LaunchSucceeded(object sender, EventArgs e)
         {
+            if (Model.IsDeleteMode)
+            {
+                return;
+            }
+
             this.InvokeIfNeeded(EnableConvertControls);
         }
 
