@@ -281,31 +281,27 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             base.ContextMenuStrip = contextMenuStrip;
         }
 
-        private bool CanResetSelectedGridItemValue
-        {
-            get
-            {
-                return SelectedGridItem.PropertyDescriptor != null &&
-                       SelectedGridItem.PropertyDescriptor.CanResetValue(SelectedObject);
-            }
-        }
-
         private void ContextStripMenuOpening(object sender, CancelEventArgs e)
         {
             var resetMenuItem = ContextMenuStrip.Items[ResetItemName];
 
             resetMenuItem.Text = String.Format(ResetItemText, SelectedGridItem.Label);
-            resetMenuItem.Enabled = CanResetSelectedGridItemValue;
+            resetMenuItem.Enabled = SelectedGridItem.PropertyDescriptor != null &&
+                                    SelectedGridItem.PropertyDescriptor.CanResetValue(SelectedObject);
         }
 
         private void ResetMenuItemClick(object sender, EventArgs e)
         {
-            if (SelectedGridItem.PropertyDescriptor != null && CanResetSelectedGridItemValue)
+            if (SelectedGridItem.PropertyDescriptor == null)
             {
-                var oldValue = SelectedGridItem.PropertyDescriptor.GetValue(SelectedObject);
-                ResetSelectedProperty();
-                OnPropertyValueChanged(new PropertyValueChangedEventArgs(SelectedGridItem, oldValue));
+                return;
             }
+
+            var oldValue = SelectedGridItem.PropertyDescriptor.GetValue(SelectedObject);
+
+            ResetSelectedProperty();
+
+            OnPropertyValueChanged(new PropertyValueChangedEventArgs(SelectedGridItem, oldValue));
         }
 
         public new object SelectedObject
