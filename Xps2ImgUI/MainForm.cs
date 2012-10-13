@@ -892,7 +892,10 @@ namespace Xps2ImgUI
                 if (settingsSplitContainer.Panel2Collapsed == value)
                 {
                     settingsSplitContainer.Panel2Collapsed = !value;
-                    Height += (commandLineTextBox.Height + settingsSplitContainer.SplitterWidth) * (value ? 1 : -1);
+                    if (WindowState == FormWindowState.Normal)
+                    {
+                        Height += (commandLineTextBox.Height + settingsSplitContainer.SplitterWidth)*(value ? 1 : -1);
+                    }
                 }
             }
         }
