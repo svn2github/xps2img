@@ -18,13 +18,21 @@ namespace Xps2ImgUI.Utils.UI
 
         public static void Select(string pathOrFile)
         {
-            if (File.Exists(pathOrFile))
+            if (File.Exists(pathOrFile) || Directory.Exists(pathOrFile))
             {
                 Execute("select", pathOrFile);
             }
             else
             {
-                Browse(Path.GetDirectoryName(pathOrFile));
+                try
+                {
+                    Browse(Path.GetDirectoryName(pathOrFile));
+                }
+                // ReSharper disable EmptyGeneralCatchClause
+                catch
+                // ReSharper restore EmptyGeneralCatchClause
+                {
+                }
             }
         }
 

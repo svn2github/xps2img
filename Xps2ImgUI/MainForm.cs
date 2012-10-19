@@ -290,10 +290,11 @@ namespace Xps2ImgUI
             settingsPropertyGrid.AddToolStripSeparator();
 
             // Explorer browse.
-            settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.BrowseConvertedImages, BrowseConvertedImagesToolStripButtonClick,
+            settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.BrowseImages, BrowseConvertedImagesToolStripButtonClick,
+                new ToolStripButtonItem(Resources.Strings.BrowseImagesFolder, (s, e) => Explorer.Select(ConvertedImagesFolder)),
                 new ToolStripButtonItem(Resources.Strings.BrowseXPSFile, (s, e) => Explorer.Select(Model.SrcFile)),
                 new ToolStripButtonItem(),
-                new ToolStripButtonItem(Resources.Strings.CopyConvertedImagesPathToClipboard, (s, e) => CopyToClipboard(ConvertedImagesFolder))
+                new ToolStripButtonItem(Resources.Strings.CopyImagesFolderPathToClipboard, (s, e) => CopyToClipboard(ConvertedImagesFolder))
             );
 
             //  Help.
@@ -587,7 +588,7 @@ namespace Xps2ImgUI
 
         private void OutputDataReceived(object sender, ConversionProgressEventArgs e)
         {
-            SetConvertedImagesFolder(e.File);
+            ConvertedImagesFolder = e.File;
             this.InvokeIfNeeded(() => UpdateProgress(e.Percent, e.Pages, e.File));
         }
 
@@ -859,24 +860,12 @@ namespace Xps2ImgUI
 
         private volatile bool _conversionFailed;
 
-        private volatile string _convertedImagesFolder;
+        private string _convertedImagesFolder;
 
         private string ConvertedImagesFolder
         {
-            get
-            {
-                return _convertedImagesFolder ?? AssemblyInfo.ApplicationFolder;
-            }
-        }
-
-        public void SetConvertedImagesFolder(string fileName)
-        {
-            if (_convertedImagesFolder != null)
-            {
-                return;
-            }
-
-            _convertedImagesFolder = Path.GetDirectoryName(fileName);
+            set { Interlocked.CompareExchange(ref _convertedImagesFolder, Path.GetDirectoryName(value), null); }
+            get { return Interlocked.CompareExchange(ref _convertedImagesFolder, null, null) ?? AssemblyInfo.ApplicationFolder; }
         }
 
         private string ConvertButtonCleanText

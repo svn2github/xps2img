@@ -147,7 +147,7 @@
   <data name="Xps2ImgNotFount" xml:space="preserve">
     <value>{1}{0}{0}Please make sure that xps2img.exe utility is present into the application folder.</value>
   </data>
-  <data name="BrowseConvertedImages" xml:space="preserve">
+  <data name="BrowseImages" xml:space="preserve">
     <value>Bro&amp;wse Images</value>
   </data>
   <data name="BrowseXPSFile" xml:space="preserve">
@@ -165,8 +165,8 @@
   <data name="CopyCommandLineToClipboard" xml:space="preserve">
     <value>&amp;Copy Command Line To Clipboard</value>
   </data>
-  <data name="CopyConvertedImagesPathToClipboard" xml:space="preserve">
-    <value>&amp;Copy Images Path To Clipboard</value>
+  <data name="CopyImagesFolderPathToClipboard" xml:space="preserve">
+    <value>&amp;Copy Images Folder Path To Clipboard</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>&amp;Help</value>
@@ -435,5 +435,8 @@ What's new in version {0}
   </data>
   <data name="ConversionWasAbortedByUser">
     <value xml:space="preserve">Conversion was aborted by user.</value>
+  </data>
+  <data name="BrowseImagesFolder">
+    <value xml:space="preserve">Browse I&amp;mages Folder</value>
   </data>
 </root>

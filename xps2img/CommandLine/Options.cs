@@ -281,7 +281,7 @@ namespace Xps2Img.CommandLine
         public int Dpi { get; set; }
         #endif
 
-        private const string ImageNameDescription = "Image prefix\n  numeric if ommited: 01.png\n  name of src file if empty (-i \"\"): src_file-01.png";
+        private const string ImageNameDescription = "Image prefix\n  numeric if omitted: 01.png\n  name of src file if empty (-i \"\"): src_file-01.png";
         private const char ImageNameShortOption = 'i';
         private const string ImageNameValidationExpression = OptionsValidators.FileNameValidationRegex;
 

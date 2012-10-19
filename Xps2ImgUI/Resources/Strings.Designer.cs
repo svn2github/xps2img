@@ -153,9 +153,18 @@ namespace Xps2ImgUI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Bro&amp;wse Images.
         /// </summary>
-        internal static string BrowseConvertedImages {
+        internal static string BrowseImages {
             get {
-                return ResourceManager.GetString("BrowseConvertedImages", resourceCulture);
+                return ResourceManager.GetString("BrowseImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse I&amp;mages Folder.
+        /// </summary>
+        internal static string BrowseImagesFolder {
+            get {
+                return ResourceManager.GetString("BrowseImagesFolder", resourceCulture);
             }
         }
         
@@ -241,11 +250,11 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Copy Images Path To Clipboard.
+        ///   Looks up a localized string similar to &amp;Copy Images Folder Path To Clipboard.
         /// </summary>
-        internal static string CopyConvertedImagesPathToClipboard {
+        internal static string CopyImagesFolderPathToClipboard {
             get {
-                return ResourceManager.GetString("CopyConvertedImagesPathToClipboard", resourceCulture);
+                return ResourceManager.GetString("CopyImagesFolderPathToClipboard", resourceCulture);
             }
         }
         
