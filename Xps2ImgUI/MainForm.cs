@@ -290,13 +290,15 @@ namespace Xps2ImgUI
             settingsPropertyGrid.AddToolStripSeparator();
 
             // Explorer browse.
+
+            ToolStripButtonItem xpsCopyButton, xpsBrowseButton;
             settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.BrowseImages, BrowseConvertedImagesToolStripButtonClick,
                 new ToolStripButtonItem(Resources.Strings.BrowseImagesFolder, (s, e) => Explorer.Select(ConvertedImagesFolder)),
-                new ToolStripButtonItem(Resources.Strings.BrowseXPSFile, (s, e) => Explorer.Select(Model.SrcFile)),
+                xpsBrowseButton = new ToolStripButtonItem(Resources.Strings.BrowseXPSFile, (s, e) => Explorer.Select(Model.SrcFile)),
                 new ToolStripButtonItem(),
                 new ToolStripButtonItem(Resources.Strings.CopyImagesFolderPathToClipboard, (s, e) => CopyToClipboard(ConvertedImagesFolder)),
-                new ToolStripButtonItem(Resources.Strings.CopyXPSFilePathToClipboard, (s, e) => CopyToClipboard(Model.SrcFile))
-            );
+                xpsCopyButton = new ToolStripButtonItem(Resources.Strings.CopyXPSFilePathToClipboard, (s, e) => CopyToClipboard(Model.SrcFile))
+            ).DropDownOpening += (s, a) => xpsCopyButton.ToolStripItem.Enabled = xpsBrowseButton.ToolStripItem.Enabled = !String.IsNullOrEmpty(Model.SrcFile);
 
             //  Help.
             _updatesToolStripButtonItem = new ToolStripButtonItem(Resources.Strings.CheckForUpdates, (s, e) => CheckForUpdates());
