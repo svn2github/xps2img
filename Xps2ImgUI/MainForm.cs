@@ -294,7 +294,8 @@ namespace Xps2ImgUI
                 new ToolStripButtonItem(Resources.Strings.BrowseImagesFolder, (s, e) => Explorer.Select(ConvertedImagesFolder)),
                 new ToolStripButtonItem(Resources.Strings.BrowseXPSFile, (s, e) => Explorer.Select(Model.SrcFile)),
                 new ToolStripButtonItem(),
-                new ToolStripButtonItem(Resources.Strings.CopyImagesFolderPathToClipboard, (s, e) => CopyToClipboard(ConvertedImagesFolder))
+                new ToolStripButtonItem(Resources.Strings.CopyImagesFolderPathToClipboard, (s, e) => CopyToClipboard(ConvertedImagesFolder)),
+                new ToolStripButtonItem(Resources.Strings.CopyXPSFilePathToClipboard, (s, e) => CopyToClipboard(Model.SrcFile))
             );
 
             //  Help.
@@ -326,6 +327,11 @@ namespace Xps2ImgUI
 
         private static void CopyToClipboard(string str)
         {
+            if (String.IsNullOrEmpty(str))
+            {
+                return;
+            }
+
             var tries = 2;
             while(tries-- != 0)
             {

@@ -286,6 +286,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy XP&amp;S File Path To Clipboard.
+        /// </summary>
+        internal static string CopyXPSFilePathToClipboard {
+            get {
+                return ResourceManager.GetString("CopyXPSFilePathToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Converted images will be deleted..
         /// </summary>
         internal static string DeleteConvertedImagesConfirmation {

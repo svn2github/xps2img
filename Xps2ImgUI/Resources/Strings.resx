@@ -165,6 +165,9 @@
   <data name="CopyCommandLineToClipboard" xml:space="preserve">
     <value>&amp;Copy Command Line To Clipboard</value>
   </data>
+  <data name="CopyXPSFilePathToClipboard" xml:space="preserve">
+    <value>Copy XP&amp;S File Path To Clipboard</value>
+  </data>
   <data name="CopyImagesFolderPathToClipboard" xml:space="preserve">
     <value>&amp;Copy Images Folder Path To Clipboard</value>
   </data>
