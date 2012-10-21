@@ -873,7 +873,7 @@ namespace Xps2ImgUI
         private string ConvertedImagesFolder
         {
             set { Interlocked.CompareExchange(ref _convertedImagesFolder, Path.GetDirectoryName(value), null); }
-            get { return Interlocked.CompareExchange(ref _convertedImagesFolder, null, null) ?? AssemblyInfo.ApplicationFolder; }
+            get { return Interlocked.CompareExchange(ref _convertedImagesFolder, null, null) ?? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); }
         }
 
         private string ConvertButtonCleanText
