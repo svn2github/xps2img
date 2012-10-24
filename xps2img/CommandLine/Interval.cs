@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -30,31 +31,32 @@ namespace Xps2Img.CommandLine
         public Interval(string intervalString)
         {
             var set = intervalString.Split(new[] { '-' });
+            Func<string, int> toInt = s => int.Parse(s, CultureInfo.InvariantCulture);
 
             if (set.Length == 1)
             {
                 // X
-                Begin = End = Convert.ToInt32(set[0]);
+                Begin = End = toInt(set[0]);
             }
             else
                 if (String.IsNullOrEmpty(set[0]))
                 {
                     // -X
                     Begin = MinValue;
-                    End = Convert.ToInt32(set[1]);
+                    End = toInt(set[1]);
                 }
                 else
                     if (String.IsNullOrEmpty(set[1]))
                     {
                         // X-
-                        Begin = Convert.ToInt32(set[0]);
+                        Begin = toInt(set[0]);
                         End = MaxValue;
                     }
                     else
                     {
                         // X-Y
-                        Begin = Convert.ToInt32(set[0]);
-                        End = Convert.ToInt32(set[1]);
+                        Begin = toInt(set[0]);
+                        End = toInt(set[1]);
                     }
 
             Normalize();

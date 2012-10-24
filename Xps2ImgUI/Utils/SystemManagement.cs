@@ -47,7 +47,7 @@ namespace Xps2ImgUI.Utils
                 using (var subKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer"))
                 {
                     var value = subKey != null ? subKey.GetValue("NoLogOff") ?? 0 : 0;
-                    return value is byte[] ? ((byte[]) value).All(b => b == 0) : value is int && Convert.ToInt32(value) == 0;
+                    return value is byte[] ? ((byte[]) value).All(b => b == 0) : value is int && (int)value == 0;
                 }
             }
         }

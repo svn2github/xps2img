@@ -62,7 +62,7 @@ namespace Xps2Img.CommandLine.TypeConverters
             Func<string, int> convertToInt = group =>
             {
                 var strVal = match.Groups[group].Value;
-                return String.IsNullOrEmpty(strVal) ? 0 : Convert.ToInt32(strVal);
+                return String.IsNullOrEmpty(strVal) ? 0 : int.Parse(strVal, CultureInfo.InvariantCulture);
             };
 
             return new Size(convertToInt("width"), convertToInt("height"));

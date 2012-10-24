@@ -259,7 +259,6 @@ namespace Xps2ImgUI
             // Show Command Line button.
             _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.ShowCommandLine, ShowCommandLineToolStripButtonClick,
                 new ToolStripButtonItem(Resources.Strings.CopyCommandLineToClipboard, (s, e) => CopyToClipboard(commandLineTextBox.Text)),
-                new ToolStripButtonItem(),
                 new ToolStripButtonItem(Resources.Strings.CopyUICommandLineToClipboard, (s, e) => CopyToClipboard(_uiCommandLine)),
                 new ToolStripButtonItem(),
                 new ToolStripButtonItem(Resources.Strings.CopyUIBatchCommandLineToClipboard, (s, e) => CopyToClipboard(() => copyBatch(true))),
