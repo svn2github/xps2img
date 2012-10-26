@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -219,6 +220,7 @@ namespace TKageyu.Utils
 
         ~IconExtractor()
         {
+            Debug.Assert(false, "DO NOT RELY ON FINALIZER! Use using(new IconExtractor(...)) instead!");
             Dispose();
         }
 
@@ -243,6 +245,8 @@ namespace TKageyu.Utils
 
                 _iconCache = null;
             }
+
+            GC.SuppressFinalize(this);
         }
 
         #endregion
@@ -337,7 +341,7 @@ namespace TKageyu.Utils
 
         #region Private Methods
 
-        private bool EnumResNameCallBack(IntPtr hModule, int lpszType, IntPtr lpszName, IconResInfo lParam)
+        private static bool EnumResNameCallBack(IntPtr hModule, int lpszType, IntPtr lpszName, IconResInfo lParam)
         {
             // Callback function for EnumResourceNames().
 
@@ -386,7 +390,7 @@ namespace TKageyu.Utils
             }
         }
 
-        private byte[] GetResourceData(IntPtr hModule, IntPtr lpName, int lpType)
+        private static byte[] GetResourceData(IntPtr hModule, IntPtr lpName, int lpType)
         {
             // Get binary image of the specified resource.
 
@@ -420,7 +424,7 @@ namespace TKageyu.Utils
             return buf;
         }
 
-        private byte[] GetResourceData(IntPtr hModule, ResourceName name, int lpType)
+        private static byte[] GetResourceData(IntPtr hModule, ResourceName name, int lpType)
         {
             try
             {

@@ -27,6 +27,16 @@ namespace Xps2ImgUI.Utils
             {
                 _leaveAction();
             }
+            #if DEBUG
+            GC.SuppressFinalize(this);
+            #endif
         }
+
+        #if DEBUG
+        ~DisposableActions()
+        {
+            System.Diagnostics.Debug.Fail("Use using(new DisposableActions(...))!");
+        }
+        #endif
     }
 }
