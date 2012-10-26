@@ -457,7 +457,7 @@ namespace Xps2ImgUI
 
             Func<int, string> getPagesString = p => p == 1 ? Resources.Strings.AbbrevPage : Resources.Strings.AbbrevPages;
 
-            Text += String.Format(Resources.Strings.ElapsedTimeTextTemplate,
+            Text += String.Format(Model.IsDeleteMode || pagesProcessed == 0 ? Resources.Strings.ElapsedTimeTextTemplateShort : Resources.Strings.ElapsedTimeTextTemplate,
                                   elapsed.Hours, elapsed.Minutes, elapsed.Seconds,
                                   ppInt, getPagesString(ppInt), timeAbbrev,
                                   Model.PagesProcessedTotal, Model.PagesTotal);

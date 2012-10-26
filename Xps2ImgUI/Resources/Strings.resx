@@ -213,6 +213,9 @@
   <data name="ElapsedTimeTextTemplate" xml:space="preserve">
     <value> ● {0:00}:{1:00}:{2:00} ● {6}/{7} ● {3}{4}/{5} ●</value>
   </data>
+  <data name="ElapsedTimeTextTemplateShort" xml:space="preserve">
+    <value> ● {0:00}:{1:00}:{2:00} ● {6}/{7} ●</value>
+  </data>
   <data name="ConversionStopConfirmation" xml:space="preserve">
     <value>Conversion will be stopped.</value>
   </data>

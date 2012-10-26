@@ -349,6 +349,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  ● {0:00}:{1:00}:{2:00} ● {6}/{7} ●.
+        /// </summary>
+        internal static string ElapsedTimeTextTemplateShort {
+            get {
+                return ResourceManager.GetString("ElapsedTimeTextTemplateShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Files (*.*)|*.*.
         /// </summary>
         internal static string FilterAllFiles {
