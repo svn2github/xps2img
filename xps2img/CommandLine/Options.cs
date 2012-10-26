@@ -104,7 +104,7 @@ namespace Xps2Img.CommandLine
         #if XPS2IMG_UI
 
         public const string PostActionDisplayName   = "After Conversion";
-        private const string PostActionDescription  = "Action to execute after conversion completed.";
+        private const string PostActionDescription  = "Action to execute after conversion completed";
 
         [DisplayName(PostActionDisplayName)]
         [Category(CategoryParameters)]
