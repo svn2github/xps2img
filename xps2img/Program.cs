@@ -144,12 +144,12 @@ namespace Xps2Img
                                                 1.GetNumberFormat(args.ConverterState.LastPage, false));
                 }
 
-                Console.WriteLine(String.Format(_progressFormatString,
+                Console.WriteLine(_progressFormatString,
                                     args.ConverterState.ActivePage,
                                     args.ConverterState.ActivePageIndex,
                                     args.ConverterState.TotalPages,
                                     args.FullFileName,
-                                    (int)args.ConverterState.Percent));
+                                    (int)args.ConverterState.Percent);
             }
 
             Console.Title = String.Format(Resources.Strings.Template_ProgressTitle,

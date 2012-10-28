@@ -429,7 +429,7 @@ namespace Xps2ImgUI
 
             var pagesProcessed = Model.PagesProcessed;
 
-            Func<double, double> par = e => (e > 0.001) ? pagesProcessed*1.0/e : pagesProcessed;
+            Func<double, double> par = e => (e > 0.001) ? pagesProcessed/e : pagesProcessed;
 
             var pp = par(elapsed.TotalSeconds);
             var ppMinute = par(elapsed.TotalMinutes);
