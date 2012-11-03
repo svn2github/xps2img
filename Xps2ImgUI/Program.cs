@@ -69,7 +69,7 @@ namespace Xps2ImgUI
 
                 if (_isBatchMode)
                 {
-                    mainForm.WindowState = FormWindowState.Minimized;   
+                    mainForm.WindowState = FormWindowState.Minimized;
                 }
             }
 
