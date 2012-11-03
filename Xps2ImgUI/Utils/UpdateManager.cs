@@ -160,8 +160,8 @@ namespace Xps2ImgUI.Utils
                     {
                         _hasUpdate = true;
                         _downloadUrl = DownloadRootUrl + String.Format(SetupDownload, newVersion);
+                        _whatsNew = GetWhatsNew();
                     }
-                    _whatsNew = GetWhatsNew();
                 }
             }
             catch (Exception ex)
