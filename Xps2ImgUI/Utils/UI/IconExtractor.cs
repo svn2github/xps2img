@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Security;
 using System.Text;
 using System.Runtime.InteropServices;
 
@@ -16,6 +17,7 @@ using System.Runtime.InteropServices;
 
 namespace TKageyu.Utils
 {
+    [SuppressUnmanagedCodeSecurity]
     public class IconExtractor : IDisposable
     {
         #region Win32 interop.

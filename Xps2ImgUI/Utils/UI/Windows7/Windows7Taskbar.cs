@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using System.Security;
 using System.Windows.Forms;
 
 using Windows7.DesktopIntegration.Interop;
@@ -9,6 +10,7 @@ using Windows7.DesktopIntegration.Interop;
 
 namespace Windows7.DesktopIntegration
 {
+    [SuppressUnmanagedCodeSecurity]
     public static class Windows7Taskbar
     {
         #region Infrastructure

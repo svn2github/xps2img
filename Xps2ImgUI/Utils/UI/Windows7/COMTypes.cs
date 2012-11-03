@@ -1,11 +1,13 @@
 using System;
 using System.Runtime.InteropServices;
+using System.Security;
 
 // ReSharper disable CheckNamespace
 // ReSharper disable InconsistentNaming
 
 namespace Windows7.DesktopIntegration.Interop
 {
+    [SuppressUnmanagedCodeSecurity]
     [ComImportAttribute]
     [GuidAttribute("ea1afb91-9e28-4b86-90e9-9e9f8a5eefaf")]
     [InterfaceTypeAttribute(ComInterfaceType.InterfaceIsIUnknown)]
@@ -46,9 +48,9 @@ namespace Windows7.DesktopIntegration.Interop
             [MarshalAs(UnmanagedType.LPArray)] THUMBBUTTON[] pButtons);
         void ThumbBarSetImageList(IntPtr hwnd, IntPtr himl);
         void SetOverlayIcon(
-          IntPtr hwnd,
-          IntPtr hIcon,
-          [MarshalAs(UnmanagedType.LPWStr)] string pszDescription);
+            IntPtr hwnd,
+            IntPtr hIcon,
+            [MarshalAs(UnmanagedType.LPWStr)] string pszDescription);
         void SetThumbnailTooltip(
             IntPtr hwnd,
             [MarshalAs(UnmanagedType.LPWStr)] string pszTip);
@@ -57,6 +59,7 @@ namespace Windows7.DesktopIntegration.Interop
             /*[MarshalAs(UnmanagedType.LPStruct)]*/ ref RECT prcClip);
     }
 
+    [SuppressUnmanagedCodeSecurity]
     [GuidAttribute("56FDF344-FD6D-11d0-958A-006097C9A090")]
     [ClassInterfaceAttribute(ClassInterfaceType.None)]
     [ComImportAttribute]

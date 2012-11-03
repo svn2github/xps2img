@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using System.Security;
 
 namespace Xps2ImgUI.Utils
 {
@@ -6,6 +7,7 @@ namespace Xps2ImgUI.Utils
     // ReSharper disable MemberCanBePrivate.Local
     // ReSharper disable FieldCanBeMadeReadOnly.Local
     // ReSharper disable InconsistentNaming
+    [SuppressUnmanagedCodeSecurity]
     public static partial class SystemManagement
     {
         [DllImport("powrprof.dll")]

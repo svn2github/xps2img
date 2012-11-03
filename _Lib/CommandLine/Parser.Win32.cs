@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Security;
 using System.Text;
 
 namespace CommandLine
 {
+    [SuppressUnmanagedCodeSecurity]
     public static partial class Parser
     {
         // http://www.pinvoke.net/default.aspx/shell32/commandlinetoargvw.html
