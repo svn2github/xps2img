@@ -394,7 +394,7 @@ namespace Xps2ImgUI.Model
 
                 foreach (var t in splittedIntervals)
                 {
-                    var processCommandLine = String.Format("{0} -p \"{1}\" {2}",
+                    var processCommandLine = String.Format("{0} -" + Options.PagesShortOption + " \"{1}\" {2}",
                                                 FormatCommandLine(Options.ExcludedOnLaunch),
                                                 IntervalUtils.ToString(t),
                                                 IsCreationMode ? String.Empty : Options.CleanOption);
