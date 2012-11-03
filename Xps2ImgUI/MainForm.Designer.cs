@@ -37,7 +37,7 @@ namespace Xps2ImgUI
             this.convertContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.convertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resumeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.deleteImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.convertButton = new wyDay.Controls.SplitButton();
             this.settingsPropertyGrid = new Xps2ImgUI.Controls.PropertyGridEx.PropertyGridEx();
@@ -95,7 +95,7 @@ namespace Xps2ImgUI
             this.convertContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.convertToolStripMenuItem,
             this.resumeToolStripMenuItem,
-            this.toolStripMenuItem2,
+            this.toolStripSeparator,
             this.deleteImagesToolStripMenuItem});
             this.convertContextMenuStrip.Name = "convertContextMenuStrip";
             this.convertContextMenuStrip.Size = new System.Drawing.Size(144, 76);
@@ -115,10 +115,10 @@ namespace Xps2ImgUI
             this.resumeToolStripMenuItem.Text = "&Resume";
             this.resumeToolStripMenuItem.Click += new System.EventHandler(this.ResumeToolStripMenuItemClick);
             // 
-            // toolStripMenuItem2
+            // toolStripSeparator
             // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(140, 6);
+            this.toolStripSeparator.Name = "toolStripSeparator";
+            this.toolStripSeparator.Size = new System.Drawing.Size(140, 6);
             // 
             // deleteImagesToolStripMenuItem
             // 
@@ -185,7 +185,7 @@ namespace Xps2ImgUI
     private System.Windows.Forms.ContextMenuStrip convertContextMenuStrip;
     private System.Windows.Forms.ToolStripMenuItem deleteImagesToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem convertToolStripMenuItem;
-    private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+    private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
     private System.Windows.Forms.ToolStripMenuItem resumeToolStripMenuItem;
   }
 }
