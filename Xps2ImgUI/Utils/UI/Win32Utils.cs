@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security;
 using System.Windows.Forms;
 
 // ReSharper disable InconsistentNaming
 
 namespace Xps2ImgUI.Utils.UI
 {
-    // http://pietschsoft.com/post/2009/01/26/CSharp-Flash-Window-in-Taskbar-via-Win32-FlashWindowEx.aspx
+    [SuppressUnmanagedCodeSecurity]
     public static class Win32Utils
     {
         public static void Restore(this Form form)
@@ -31,6 +32,7 @@ namespace Xps2ImgUI.Utils.UI
                     .Contains(GetForegroundWindow());
         }
 
+        // http://pietschsoft.com/post/2009/01/26/CSharp-Flash-Window-in-Taskbar-via-Win32-FlashWindowEx.aspx
         public static bool Flash(this Form form)
         {
             return Flash(form, FLASHW_ALL | FLASHW_TIMERNOFG, UInt32.MaxValue);
