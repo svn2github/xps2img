@@ -133,7 +133,7 @@ namespace Xps2Img.CommandLine
             return String.Format("{0}-{1}", Begin, End);
         }
 
-        public const string ValidationRegex = @"^((\d{1,5})|(\d{1,5}-\d{1,5})|(\d{1,5}-)|(-\d{1,5}))(,((\d{1,5})|(\d{1,5}-\d{1,5})|(\d{1,5}-)|(-\d{1,5})))*$";
+        public const string ValidationRegex = @"^(([1-9](\d{1,4})*)|([1-9](\d{1,4})*-[1-9](\d{1,4})*)|([1-9](\d{1,4})*-)|(-[1-9](\d{1,4})*))(,(([1-9](\d{1,4})*)|([1-9](\d{1,4})*-[1-9](\d{1,4})*)|([1-9](\d{1,4})*-)|(-[1-9](\d{1,4})*)))*$";
         private static readonly Regex RegexValidation = new Regex(ValidationRegex);
 
         public static List<Interval> Parse(string intervalString)
