@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Xps2Img.CommandLine
 {
     public class Interval
     {
+        public const string ValidationRegex  = @"(^\s*$)|(^(\s*,)*\s*((\s*[1-9](\d{1,4})*\s*)|(\s*-\s*[1-9](\d{1,4})*\s*)|(\s*[1-9](\d{1,4})*\s*-\s*[1-9](\d{1,4})*\s*)|(\s*[1-9](\d{1,4})*\s*-\s*))(\s*(\s*,\s*)+\s*((\s*[1-9](\d{1,4})*\s*)|(\s*-\s*[1-9](\d{1,4})*\s*)|(\s*[1-9](\d{1,4})*\s*-\s*[1-9](\d{1,4})*\s*)|(\s*[1-9](\d{1,4})*\s*-\s*)))*(\s*,)*\s*$)";
+        public const string ValidationRegex0 = @"(^\s*$)|(^(\s*,)*\s*((\s*[0-9](\d{1,4})*\s*)|(\s*-\s*[0-9](\d{1,4})*\s*)|(\s*[0-9](\d{1,4})*\s*-\s*[0-9](\d{1,4})*\s*)|(\s*[0-9](\d{1,4})*\s*-\s*))(\s*(\s*,\s*)+\s*((\s*[0-9](\d{1,4})*\s*)|(\s*-\s*[0-9](\d{1,4})*\s*)|(\s*[0-9](\d{1,4})*\s*-\s*[0-9](\d{1,4})*\s*)|(\s*[0-9](\d{1,4})*\s*-\s*)))*(\s*,)*\s*$)";
+
         public Interval()
             : this(MinValue, MaxValue)
         {
@@ -30,8 +32,14 @@ namespace Xps2Img.CommandLine
 
         public Interval(string intervalString)
         {
-            var set = intervalString.Split(new[] { '-' });
             Func<string, int> toInt = s => int.Parse(s, CultureInfo.InvariantCulture);
+
+            var set = intervalString.Split(new[] { '-' }).Select(s => s.Trim()).ToArray();
+
+            if (set.Length == 0 || set.Length > 2)
+            {
+                throw new FormatException();
+            }
 
             if (set.Length == 1)
             {
@@ -39,25 +47,25 @@ namespace Xps2Img.CommandLine
                 Begin = End = toInt(set[0]);
             }
             else
-                if (String.IsNullOrEmpty(set[0]))
-                {
-                    // -X
-                    Begin = MinValue;
-                    End = toInt(set[1]);
-                }
-                else
-                    if (String.IsNullOrEmpty(set[1]))
-                    {
-                        // X-
-                        Begin = toInt(set[0]);
-                        End = MaxValue;
-                    }
-                    else
-                    {
-                        // X-Y
-                        Begin = toInt(set[0]);
-                        End = toInt(set[1]);
-                    }
+            if (String.IsNullOrEmpty(set[0]))
+            {
+                // -X
+                Begin = MinValue;
+                End = toInt(set[1]);
+            }
+            else
+            if (String.IsNullOrEmpty(set[1]))
+            {
+                // X-
+                Begin = toInt(set[0]);
+                End = MaxValue;
+            }
+            else
+            {
+                // X-Y
+                Begin = toInt(set[0]);
+                End = toInt(set[1]);
+            }
 
             Normalize();
         }
@@ -76,13 +84,14 @@ namespace Xps2Img.CommandLine
         public const int MinValue = 1;
         public const int MaxValue = int.MaxValue - 2;
 
-        public int Begin { get; set; }
-        public int End { get; set; }
+        public int Begin { get; private set; }
+        public int End { get; private set; }
 
         public bool HasOneValue { get { return Begin == End; } }
         public bool HasMinValue { get { return Begin == MinValue; } }
         public bool HasMaxValue { get { return End == MaxValue; } }
-
+        public bool HasSequentialValues { get { return Begin == End - 1; } }
+        
         public int Length
         {
             get
@@ -125,30 +134,21 @@ namespace Xps2Img.CommandLine
                 return String.Format("{0}-", Begin);
             }
 
-            if (HasMinValue)
-            {
-                return String.Format("-{0}", End);
-            }
-
-            return String.Format("{0}-{1}", Begin, End);
+            return HasMinValue
+                    ? String.Format("-{0}", End)
+                    : String.Format(HasSequentialValues ? "{0},{1}" : "{0}-{1}", Begin, End);
         }
-
-        public const string ValidationRegex = @"^(([1-9](\d{1,4})*)|([1-9](\d{1,4})*-[1-9](\d{1,4})*)|([1-9](\d{1,4})*-)|(-[1-9](\d{1,4})*))(,(([1-9](\d{1,4})*)|([1-9](\d{1,4})*-[1-9](\d{1,4})*)|([1-9](\d{1,4})*-)|(-[1-9](\d{1,4})*)))*$";
-        private static readonly Regex RegexValidation = new Regex(ValidationRegex);
 
         public static List<Interval> Parse(string intervalString)
         {
-            if (String.IsNullOrEmpty(intervalString))
+            if (intervalString == null || String.IsNullOrEmpty(intervalString.Trim()))
             {
                 return new List<Interval> { new Interval() };
             }
 
-            if (!RegexValidation.IsMatch(intervalString))
-            {
-                throw new ArgumentException(@"UNEXPECTED: Interval format is invalid", "intervalString");
-            }
-
-            return Optimize(intervalString.Split(new[] { ',' }).Select(interval => new Interval(interval)).ToList());
+            return Optimize(intervalString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Where(s => !String.IsNullOrEmpty(s.Trim()))
+                    .Select(interval => new Interval(interval)).ToList());
         }
 
         private static List<Interval> Optimize(IList<Interval> intervals)

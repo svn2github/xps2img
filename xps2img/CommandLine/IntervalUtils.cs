@@ -7,7 +7,7 @@ namespace Xps2Img.CommandLine
 {
     public static class IntervalUtils
     {
-        public static string ToString(this IEnumerable<Interval> intervals)
+        public static string ToString(this IEnumerable<Interval> intervals, int minValue = 1)
         {
             var sb = new StringBuilder(16);
             var first = true;
@@ -20,7 +20,8 @@ namespace Xps2Img.CommandLine
                 sb.Append(interval);
                 first = false;
             }
-            return sb.ToString();
+            var result = sb.ToString();
+            return result == (minValue + "-") ? "" : result;
         }
 
         public static int GetTotalLength(this IEnumerable<Interval> intervals)

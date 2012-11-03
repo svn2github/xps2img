@@ -18,6 +18,7 @@ using CommandLine.Validation;
 using Xps2ImgUI.Controls.PropertyGridEx;
 using Xps2ImgUI.Converters;
 using Xps2ImgUI.Dialogs;
+using Xps2ImgUI.TypeEditors;
 using Xps2ImgUI.Utils;
 using Xps2ImgUI.Utils.UI;
 
@@ -133,16 +134,16 @@ namespace Xps2Img.CommandLine
         ;
 
         private const string PagesDescription = "Page number(s)\n  all pages by default\nSyntax:\n  all:\t\t1-\n  single:\t1\n  set:\t\t1,3\n  range:\t1-10 or -10 or 10-\n  combined:\t1,3-5,7-9,15-";
-        private const char PagesShortOption = 'p';
-        private const string PagesValidationExpression = "/" + RegexMatchEmptyString + Interval.ValidationRegex + "/";
+        public  const char PagesShortOption = 'p';
+        private const string PagesValidationExpression = "/" + Interval.ValidationRegex + "/";
 
         [Option(
             PagesDescription,
             PagesShortOption,
-        	#if !XPS2IMG_UI
+            #if !XPS2IMG_UI
             DefaultValue = "",
             ConverterType = typeof(IntervalTypeConverter),
-        	#endif
+            #endif
             ValidationExpression = PagesValidationExpression
         )]
         #if XPS2IMG_UI
@@ -157,7 +158,7 @@ namespace Xps2Img.CommandLine
             set
             {
                 ValidateProperty(value, PagesValidationExpression);
-                _pages = value;
+                _pages = IntervalUtils.ToString(Interval.Parse(value));
             }
         }
         private string _pages;
@@ -372,23 +373,6 @@ namespace Xps2Img.CommandLine
         public bool ShortenExtension { get; set; }
 
         #if !XPS2IMG_UI
-        private const string SilentModeDescription = "Silent mode (no progress will be shown)";
-        private const char SilentModeShortOption = 's';
-
-        [Option(SilentModeDescription, SilentModeShortOption, ArgumentExpectancy.No)]
-        public bool Silent { get; set; }
-        #else
-        [Browsable(false)]
-        public bool Silent
-        {
-            get { return false; }
-            // ReSharper disable ValueParameterNotUsed
-            set { }
-            // ReSharper restore ValueParameterNotUsed
-        }
-        #endif
-
-        #if !XPS2IMG_UI
         [Option("", ShortOptionType.None10, Flags = OptionFlags.Internal)]
         public string CancellationObjectIds { get; set; }
         #else
@@ -552,6 +536,40 @@ namespace Xps2Img.CommandLine
             }
         }
 
+        #endif
+
+        private const string CpuAffinityDescription = "CPU(s) processors will be executed on\n  all by default\nSyntax:\n  all:\t\t0-\n  single:\t0\n  set:\t\t0,2\n  range:\t0-2 or -2 or 2-\n  combined:\t0,2-";
+        private const char CpuAffinityShortOption = 'y';
+
+        [Option(CpuAffinityDescription, CpuAffinityShortOption)]
+        #if XPS2IMG_UI
+        [DisplayName("Processors Affinity")]
+        [TabbedDescription(CpuAffinityDescription)]
+        [UIOption(CpuAffinityShortOption)]
+        [Category(CategoryOptions)]
+        [DefaultValue(AutoValue)]
+        [EditorAttribute(typeof(CpuAffinityUITypeEditor), typeof(UITypeEditor))]
+        #endif
+        public string CpuAffinity
+        {
+            get; set;
+        }
+
+        #if !XPS2IMG_UI
+        private const string SilentModeDescription = "Silent mode (no progress will be shown)";
+        private const char SilentModeShortOption = 's';
+
+        [Option(SilentModeDescription, SilentModeShortOption, ArgumentExpectancy.No)]
+        public bool Silent { get; set; }
+        #else
+        [Browsable(false)]
+        public bool Silent
+        {
+            get { return false; }
+            // ReSharper disable ValueParameterNotUsed
+            set { }
+            // ReSharper restore ValueParameterNotUsed
+        }
         #endif
 
         private const string TestDescription = "Test mode (no file operations will be performed)";
