@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -39,6 +40,11 @@ namespace Xps2Img
                 if (options == null)
                 {
                     return ReturnCode.InvalidArg;
+                }
+
+                if (options.ActualCpuAffinity != IntPtr.Zero)
+                {
+                    Process.GetCurrentProcess().ProcessorAffinity = options.ActualCpuAffinity;
                 }
 
                 var launchedAsInternal = !String.IsNullOrEmpty(options.CancellationObjectIds);

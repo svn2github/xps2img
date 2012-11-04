@@ -118,6 +118,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ToolStripButtonItem.cs" />
+    <Compile Include="TypeEditors\CheckedListBoxUITypeEditor.cs" />
+    <Compile Include="TypeEditors\CpuAffinityUITypeEditor.cs" />
     <Compile Include="Converters\DpiTypeConverter.cs" />
     <Compile Include="Converters\NullableIntTypeConverter.cs" />
     <Compile Include="Converters\ErrorReporterTypeConverter.cs" />
@@ -127,6 +129,9 @@
     <Compile Include="Converters\ProcessorsNumberConverter.cs" />
     <Compile Include="Converters\YesNoConverter.cs" />
     <Compile Include="Dialogs\SelectExecutableFileEditor.cs" />
+    <Compile Include="Controls\CustomCheckedListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UpdateDownloadForm.cs">
       <SubType>Form</SubType>
     </Compile>

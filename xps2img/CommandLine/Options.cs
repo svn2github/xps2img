@@ -27,6 +27,7 @@ using Parser = CommandLine.Validation.Parser;
 using UIOption = Xps2ImgUI.Attributes.Options.OptionAttribute;
 using UIUnnamedOption = Xps2ImgUI.Attributes.Options.UnnamedOptionAttribute;
 #else
+using System;
 using System.Drawing;
 #endif
 
@@ -407,9 +408,9 @@ namespace Xps2Img.CommandLine
         #endif
         public string ParentAppMutexName { get { return SyncObjectsNames.Last(); } }
 
-        #if XPS2IMG_UI
-
         public const string AutoValue = "Auto";
+
+        #if XPS2IMG_UI
 
         private const string ProcessorsDisplayName = "Processors";
         private const string ProcessorsNameDefaultValue = AutoValue;
@@ -541,7 +542,10 @@ namespace Xps2Img.CommandLine
         private const string CpuAffinityDescription = "CPU(s) processors will be executed on\n  all by default\nSyntax:\n  all:\t\t0-\n  single:\t0\n  set:\t\t0,2\n  range:\t0-2 or -2 or 2-\n  combined:\t0,2-";
         private const char CpuAffinityShortOption = 'y';
 
-        [Option(CpuAffinityDescription, CpuAffinityShortOption)]
+        private const string AutoValueValidationRegex = @"(^\s*" + AutoValue + @"\s*$)";
+        private const string CpuAffinityValidationExpression = "/" + AutoValueValidationRegex + "|" + Interval.ValidationRegex0 + "/i";
+
+        [Option(CpuAffinityDescription, CpuAffinityShortOption, ValidationExpression = CpuAffinityValidationExpression)]
         #if XPS2IMG_UI
         [DisplayName("Processors Affinity")]
         [TabbedDescription(CpuAffinityDescription)]
@@ -549,13 +553,43 @@ namespace Xps2Img.CommandLine
         [Category(CategoryOptions)]
         [DefaultValue(AutoValue)]
         [EditorAttribute(typeof(CpuAffinityUITypeEditor), typeof(UITypeEditor))]
-        #endif
         public string CpuAffinity
         {
-            get; set;
+            get { return _cpuAffinity; }
+            set
+            {
+                ValidateProperty(value, CpuAffinityValidationExpression);
+                value = value.Trim();
+                _cpuAffinity = String.IsNullOrEmpty(value) || String.Compare(value, AutoValue, StringComparison.InvariantCultureIgnoreCase) == 0
+                                    ? AutoValue
+                                    : IntervalUtils.ToString(Interval.Parse(value));
+            }
         }
+        private string _cpuAffinity;
+        #else
+        public string CpuAffinity { get; set; }
+        #endif
 
         #if !XPS2IMG_UI
+
+        public IntPtr ActualCpuAffinity
+        {
+            get
+            {
+                if(String.IsNullOrEmpty(CpuAffinity) || CpuAffinity == AutoValue)
+                {
+                    return IntPtr.Zero;
+                }
+
+                var bitArray = Interval.Parse(CpuAffinity).ToBitArray();
+
+                var bitIndex = 0;
+                var affinityMask = bitArray.Cast<bool>().Aggregate(0L, (_, bit) => _ | ((bit ? 1L : 0L) << bitIndex++));
+
+                return new IntPtr(affinityMask & ((1 << Environment.ProcessorCount) - 1));
+            }
+        }
+
         private const string SilentModeDescription = "Silent mode (no progress will be shown)";
         private const char SilentModeShortOption = 's';
 

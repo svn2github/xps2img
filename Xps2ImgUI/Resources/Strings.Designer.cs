@@ -493,6 +493,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}/{1}.
+        /// </summary>
+        internal static string PageOfPages {
+            get {
+                return ResourceManager.GetString("PageOfPages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This parameter is required and could not be empty..
         /// </summary>
         internal static string ParameterIsRequired {

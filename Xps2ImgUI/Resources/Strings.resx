@@ -445,4 +445,7 @@ What's new in version {0}
   <data name="BrowseImagesFolder">
     <value xml:space="preserve">Browse I&amp;mages Folder</value>
   </data>
+  <data name="PageOfPages">
+    <value xml:space="preserve">{0}/{1}</value>
+  </data>
 </root>

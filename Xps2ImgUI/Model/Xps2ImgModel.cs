@@ -526,7 +526,7 @@ namespace Xps2ImgUI.Model
 
             var pageIndex = _pagesProcessedDelta + Interlocked.Increment(ref _pagesProcessed);
             var percent = pageIndex * 100 / _pagesTotal;
-            var pages = String.Format("{0}/{1}", pageIndex, _pagesTotal);
+            var pages = String.Format(Resources.Strings.PageOfPages, pageIndex, _pagesTotal);
 
             if (CanResume)
             {

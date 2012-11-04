@@ -7,9 +7,8 @@ namespace Xps2ImgUI.Converters
 {
     public class ProcessorsNumberConverter : StandardValuesTypeConverter
     {
-        public  static readonly int ProcessorCount = Environment.ProcessorCount;
-
-        private static readonly string[] Processors = EnumProcessors().ToArray();
+        public static readonly int ProcessorCount = Environment.ProcessorCount;
+        public static readonly string[] Processors = EnumProcessors().ToArray();
 
         private static IEnumerable<string> EnumProcessors()
         {
