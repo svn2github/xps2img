@@ -137,11 +137,13 @@ namespace Xps2ImgUI.Utils
 
             try
             {
-                var webRequest = (HttpWebRequest)WebRequest.Create(UpdateUrl + "?nocache=" + Environment.TickCount);
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(UpdateUrl + "?nocache=" + Environment.TickCount);
 
-                webRequest.Proxy = GetProxy();
+                AddCompressionSupport(httpWebRequest);
 
-                var responseStream = webRequest.GetResponse().GetResponseStream();
+                httpWebRequest.Proxy = GetProxy();
+
+                var responseStream = httpWebRequest.GetResponse().GetResponseStream();
 
                 // ReSharper disable AssignNullToNotNullAttribute
                 using (var streamReader = new StreamReader(responseStream))
@@ -174,7 +176,7 @@ namespace Xps2ImgUI.Utils
         {
             try
             {
-                var webClient = new WebClient { Proxy = GetProxy() };
+                var webClient = new GZipWebClient { Proxy = GetProxy() };
                 var readme = Encoding.UTF8.GetString(webClient.DownloadData(ReadmeUrl));
 
                 var match = new Regex(@"([\s\S]+?)(\r?\n){2}(\d+\.){3}").Match(readme);
@@ -192,6 +194,27 @@ namespace Xps2ImgUI.Utils
             catch
             {
                 return String.Empty;
+            }
+        }
+
+        private static HttpWebRequest AddCompressionSupport(HttpWebRequest httpWebRequest)
+        {
+            if (httpWebRequest == null)
+            {
+                return null;
+            }
+
+            httpWebRequest.Headers.Add(HttpRequestHeader.AcceptEncoding, "gzip,deflate");
+            httpWebRequest.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+
+            return httpWebRequest;
+        }
+
+        private class GZipWebClient : WebClient
+        {
+            protected override WebRequest GetWebRequest(Uri address)
+            {
+                return AddCompressionSupport((HttpWebRequest)base.GetWebRequest(address));
             }
         }
 
