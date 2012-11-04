@@ -590,7 +590,7 @@ namespace Xps2Img.CommandLine
                 var bitArray = Interval.Parse(CpuAffinity).ToBitArray();
 
                 var bitIndex = 0;
-                var affinityMask = bitArray.Cast<bool>().Aggregate(0L, (_, bit) => _ | ((bit ? 1L : 0L) << bitIndex++));
+                var affinityMask = bitArray.Cast<bool>().TakeWhile(_ => bitIndex < 64).Aggregate(0L, (_, bit) => _ | ((bit ? 1L : 0L) << bitIndex++));
 
                 return new IntPtr(affinityMask & ((1 << Environment.ProcessorCount) - 1));
             }
