@@ -539,7 +539,13 @@ namespace Xps2Img.CommandLine
 
         #endif
 
-        private const string CpuAffinityDescription = "CPU(s) processors will be executed on\n  all by default\nSyntax:\n  all:\t\t0-\n  single:\t0\n  set:\t\t0,2\n  range:\t0-2 or -2 or 2-\n  combined:\t0,2-";
+        private const string CpuAffinityDescription =
+            "CPU(s) process" +
+            #if XPS2IMG_UI
+            "ors" + 
+            #endif
+            " will be executed on\n  all by default\nSyntax:\n  all:\t\t0-\n  single:\t0\n  set:\t\t0,2\n  range:\t0-2 or -2 or 2-\n  combined:\t0,2-";
+
         private const char CpuAffinityShortOption = 'y';
 
         private const string AutoValueValidationRegex = @"(^\s*" + AutoValue + @"\s*$)";

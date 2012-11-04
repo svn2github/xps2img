@@ -109,6 +109,10 @@
 		<param name="Local" value="Files\Options.html#shortenextension">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="-y, --cpu-affinity">
+		<param name="Local" value="Files\Options.html#affinity">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-s, --silent">
 		<param name="Local" value="Files\Options.html#silent">
 		</OBJECT>
@@ -197,9 +201,13 @@
 		<param name="Local" value="Files\OptionsGUI.html#processorspriority">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Processors Affinity">
+		<param name="Local" value="Files\Options.html#affinity">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Shorten Image Extension">
 		<param name="Local" value="Files\Options.html#shortenextension">
-		</OBJECT>	
+		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Test Mode">
 		<param name="Local" value="Files\Options.html#test">
@@ -258,13 +266,17 @@
 		<param name="Local" value="Files\OptionsGUI.html#processors">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Processors Affinity">
+		<param name="Local" value="Files\Options.html#affinity">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Processors Priority">
 		<param name="Local" value="Files\OptionsGUI.html#processorspriority">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Shorten Image Extension">
 		<param name="Local" value="Files\Options.html#shortenextension">
-		</OBJECT>	
+		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Test Mode">
 		<param name="Local" value="Files\Options.html#test">
@@ -334,12 +346,20 @@
 		<param name="Local" value="Files\Options.html#prelimsprefix">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="-y">
+		<param name="Local" value="Files\Options.html#affinity">
+		</OBJECT>	
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="--batch">
 		<param name="Local" value="Files\OptionsGUI.html#batch">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="--clean">
 		<param name="Local" value="Files\Options.html#clean">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="--cpu-affinity">
+		<param name="Local" value="Files\Options.html#affinity">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="--dpi">

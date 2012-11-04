@@ -11,7 +11,7 @@
     <h1>Command-line Options</h1>
 
     <h2>Usage</h2>
-	<pre><span class="kwd">xps2img</span> <span class="str">src-file</span> <span class="sym">[</span><span class="var">out-dir</span><span class="sym">]</span> <span class="sym">[</span><span class="var">options</span><span class="sym">]</span></pre>	
+	<pre><span class="kwd">xps2img</span> <span class="str">src-file</span> <span class="sym">[</span><span class="var">out-dir</span><span class="sym">]</span> <span class="sym">[</span><span class="var">options</span><span class="sym">]</span></pre>
 
     <p>Mandatory arguments to long options are mandatory for short options too.</p>
 
@@ -64,7 +64,7 @@
         <li>bmp</li>
         <li>gif</li>
     </ul>
-	
+
 	<p class="note">Specify <a href="#shortenextension">this option</a> to shorten image extension down to three characters.</p>
 
     <a class="anchor" name="jpegquality" /><h2>JPEG Quality</h2>
@@ -134,6 +134,18 @@
     <h3>-n, --shorten-extension</h3>
     <p>Shorten image extension down to three characters.</p>
 
+    <a class="anchor" name="affinity" /><h2>Process Affinity</h2>
+    <h3>-y, --cpu-affinity=affinity</h3>
+    <p>CPU(s) process will be executed on.</p>
+    <p class="default">all by default.</p>
+    <dl>
+        <dt>0-</dt><dd>all</dd>
+        <dt>0</dt><dd>single</dd>
+        <dt>0,2</dt><dd>set</dd>
+        <dt>0-2 or -2 or 2-</dt><dd>range</dd>
+        <dt>0,2-</dt><dd>combined</dd>
+    </dl>
+
     <a class="anchor" name="silent" /><h2>Silent</h2>
     <h3>-s, --silent</h3>
     <p>Silent mode (no progress will be shown).</p>
@@ -145,7 +157,7 @@
     <a class="anchor" name="clean" /><h2>Clean</h2>
     <h3>--clean</h3>
     <p>Clean (delete images).</p>
-	
+
     <h1>See Also</h1>
     <div><a href="OptionsGUI.html">GUI Options</a></div>
     <div><a href="ExitCodes.html">Exit Codes</a></div>
