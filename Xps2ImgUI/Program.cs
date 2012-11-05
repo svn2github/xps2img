@@ -51,7 +51,7 @@ namespace Xps2ImgUI
             int workerThreads, completionPortThreads;
 
             ThreadPool.GetMinThreads(out workerThreads, out completionPortThreads);
-            ThreadPool.SetMinThreads(workerThreads*10/4, completionPortThreads);
+            ThreadPool.SetMinThreads(workerThreads + Environment.ProcessorCount + 2, completionPortThreads);
 
             var options = Parser.IsUsageRequiested(args) ? null : Parser.Parse<Options>(args, true);
 
