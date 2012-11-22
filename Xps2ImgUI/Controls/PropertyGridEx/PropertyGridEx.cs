@@ -171,10 +171,10 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         {
             var fonts = new[]
             {
-                new { Name = "Consolas", Scale = 1.006 },
-                new { Name = "Lucida Sans Typewriter", Scale = 0.995 },
-                new { Name = "Courier New", Scale = 1.005 },
-                new { Name = "Lucida Console", Scale = 1.001 }
+                new { Name = "Consolas",                Scale = 1.005 },
+                new { Name = "Lucida Sans Typewriter",  Scale = 1.0 },
+                new { Name = "Courier New",             Scale = 1.0 },
+                new { Name = "Lucida Console",          Scale = 1.001 }
             };
 
             foreach (var font in fonts)
