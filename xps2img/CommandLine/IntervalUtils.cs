@@ -11,7 +11,7 @@ namespace Xps2Img.CommandLine
         {
             var sb = new StringBuilder(16);
             var first = true;
-            foreach (var interval in intervals)
+            foreach (var interval in intervals ?? new List<Interval>())
             {
                 if (!first)
                 {
@@ -92,7 +92,7 @@ namespace Xps2Img.CommandLine
                 count--;
             }
 
-            if (lastPage != null)
+            if (startPage != null && lastPage != null)
             {
                 intervals.Add(new Interval(startPage.Value, lastPage.Value));
             }
