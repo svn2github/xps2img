@@ -2,7 +2,7 @@
 using System.ComponentModel;
 
 using Xps2Img.Shared.CommandLine;
-using Xps2Img.Shared.Utils.UI;
+using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI.Model
 {

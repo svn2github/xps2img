@@ -4,7 +4,7 @@ using System.Linq;
 
 using Xps2Img.Shared.Attributes.UI;
 
-namespace Xps2Img.Shared.Utils.UI
+namespace Xps2ImgUI.Utils.UI
 {
     public class FilterablePropertyBaseFacade: ICustomTypeDescriptor
     {

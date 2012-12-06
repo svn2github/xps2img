@@ -73,7 +73,6 @@
     <Compile Include="Setup\SetupGuard.cs" />
     <Compile Include="Utils\System\SystemManagement.cs" />
     <Compile Include="Utils\System\SystemManagement.Native.cs" />
-    <Compile Include="Utils\UI\FilterablePropertyBase.cs" />
     <Compile Include="Utils\UI\ModalGuard.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
       <DependentUpon>Strings.resx</DependentUpon>
