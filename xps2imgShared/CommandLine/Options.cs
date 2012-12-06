@@ -105,7 +105,7 @@ namespace Xps2Img.Shared.CommandLine
         [Option(
             RequiredSizeDescription,
             RequiredSizeOption,
-            ConverterType = typeof(RequiredSizeTypeConverter),
+            ConverterType = typeof(CheckedRequiredSizeTypeConverter),
             ValidationExpression = Validation.RequiredSizeValidationExpression
         )]
         [DisplayName(RequiredSizeDisplayName)]
