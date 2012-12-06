@@ -7,94 +7,85 @@ using CommandLine;
 
 using Xps2Img.Shared.TypeConverters;
 
-// ReSharper disable LocalizableElement
-
 namespace Xps2ImgUI.Settings
 {
     [Serializable]
-    public class Preferences : IEquatable<Preferences>
+    public partial class Preferences : IEquatable<Preferences>
     {
-        private const string CategoryApplication    = "Application";
-        private const string CategoryConfirmations  = "Confirmations";
-        private const string CategoryConversion     = "Conversion";
-        private const string CategoryUpdates        = "Updates";
-
-        public const string DefaultSelectedItem     = "Auto Complete Filenames";
-
         [DisplayName(DefaultSelectedItem)]
         [Category(CategoryApplication)]
-        [Description("Auto complete filenames in edit boxes.")]
+        [Description(AutoCompleteFilenamesDescription)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool AutoCompleteFilenames { get; set; }
 
-        [DisplayName("Auto Save Settings")]
+        [DisplayName(AutoSaveSettingsDisplayName)]
         [Category(CategoryApplication)]
-        [Description("Auto save settings on exit. If not set default settings will be used next time.")]
+        [Description(AutoSaveSettingsDescription)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool AutoSaveSettings { get; set; }
 
-        [DisplayName("Classic Look")]
+        [DisplayName(ClassicLookDisplayName)]
         [Category(CategoryApplication)]
-        [Description("Use application system look.")]
+        [Description(ClassicLookDescription)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ClassicLook { get; set; }
 
-        [DisplayName("Show Elapsed Time and Statistics")]
+        [DisplayName(ShowElapsedTimeAndStatisticsDisplayName)]
         [Category(CategoryApplication)]
-        [Description("Show time elapsed by last operation and conversion statistics at application title.")]
+        [Description(ShowElapsedTimeAndStatisticsDescription)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ShowElapsedTimeAndStatistics { get; set; }
 
-        [DisplayName("Flash When Completed")]
+        [DisplayName(FlashWhenCompletedDisplayName)]
         [Category(CategoryApplication)]
-        [Description("Flash application window when conversion is completed.")]
+        [Description(FlashWhenCompletedDescription)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool FlashWhenCompleted { get; set; }
 
-        [DisplayName("Confirm Delete")]
+        [DisplayName(ConfirmDeleteDisplayName)]
         [Category(CategoryConfirmations)]
-        [Description("Ask confirmation on images deletion.")]
+        [Description(ConfirmDeleteDescription)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnDelete { get; set; }
 
-        [DisplayName("Confirm Exit")]
+        [DisplayName(ConfirmExitDisplayName)]
         [Category(CategoryConfirmations)]
-        [Description("Ask confirmation on application exit if conversion is in progress.")]
+        [Description(ConfirmExitDescription)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnExit { get; set; }
 
-        [DisplayName("Confirm Stop Conversion")]
+        [DisplayName(ConfirmStopConversionDisplayName)]
         [Category(CategoryConfirmations)]
-        [Description("Ask confirmation on conversion stop.")]
+        [Description(ConfirmStopConversionDescription)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnStop { get; set; }
 
-        [DisplayName("Always Resume")]
+        [DisplayName(AlwaysResumeDisplayName)]
         [Category(CategoryConversion)]
-        [Description("Always resume last conversion if applicable instead of starting new one.")]
+        [Description(AlwaysResumeDescription)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool AlwaysResume { get; set; }
 
-        [DisplayName("Suggest Resume")]
+        [DisplayName(SuggestResumeDisplayName)]
         [Category(CategoryConversion)]
-        [Description("Suggest to resume last conversion if applicable instead of starting new one.")]
+        [Description(SuggestResumeDescription)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool SuggestResume { get; set; }
 
         [ReadOnly(false)]
-        [DisplayName("Shorten Image Extension")]
+        [DisplayName(ShortenImageExtensionDisplayName)]
         [Category(CategoryConversion)]
-        [Description("Shortens image extension down to three characters.")]
+        [Description(ShortensImageExtensionDescription)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ShortenExtension { get; set; }
@@ -106,9 +97,9 @@ namespace Xps2ImgUI.Settings
             Monthly
         }
 
-        [DisplayName("Check for Updates")]
+        [DisplayName(CheckForUpdatesDisplayName)]
         [Category(CategoryUpdates)]
-        [Description("Check for updates interval.")]
+        [Description(CheckForUpdatesDescription)]
         [DefaultValue(CheckInterval.Monthly)]
         public CheckInterval CheckForUpdates { get; set; }
 
