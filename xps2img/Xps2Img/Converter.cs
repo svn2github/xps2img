@@ -8,6 +8,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Xps.Packaging;
 
+using Xps2Img.Shared.CommandLine;
+
 namespace Xps2Img.Xps2Img
 {
     public class Converter : IDisposable

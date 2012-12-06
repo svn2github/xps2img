@@ -7,6 +7,8 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
+using CommandLine;
+
 namespace Xps2ImgUI.Controls.PropertyGridEx
 {
     public class PropertyGridEx : PropertyGrid
@@ -311,9 +313,15 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                 return;
             }
 
-            var oldValue = SelectedGridItem.PropertyDescriptor.GetValue(SelectedObject);
+            var propertyDescriptor = SelectedGridItem.PropertyDescriptor;
 
-            ResetSelectedProperty();
+            var oldValue = propertyDescriptor.GetValue(SelectedObject);
+
+            var propertyInfo = propertyDescriptor.ComponentType.GetProperty(propertyDescriptor.Name);
+
+            ReflectionUtils.SetDefaultValue(SelectedObject, propertyInfo);
+
+            Refresh();
 
             OnPropertyValueChanged(new PropertyValueChangedEventArgs(SelectedGridItem, oldValue));
         }

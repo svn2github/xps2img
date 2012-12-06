@@ -10,13 +10,14 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Xps.Packaging;
 
-using Xps2Img.CommandLine;
+using CommandLine;
+
+using Xps2Img.Shared.CommandLine;
+using Xps2Img.Shared.TypeConverters;
 
 using Xps2ImgUI.Attributes.OptionsHolder;
-using Xps2ImgUI.Converters;
-using Xps2ImgUI.Utils;
 
-using ReturnCode = Xps2Img.CommandLine.CommandLine.ReturnCode;
+using ReturnCode = Xps2Img.Shared.CommandLine.CommandLine.ReturnCode;
 
 namespace Xps2ImgUI.Model
 {
@@ -27,11 +28,11 @@ namespace Xps2ImgUI.Model
         {
         }
 
-        public Xps2ImgModel(Options options)
+        public Xps2ImgModel(UIOptions options)
         {
             InitOptionsHolder();
 
-            _optionsHolder.OptionsObject = options ?? new Options();
+            _optionsHolder.OptionsObject = options ?? new UIOptions();
 
             if (OptionsObject.ImageName == String.Empty)
             {
@@ -41,7 +42,7 @@ namespace Xps2ImgUI.Model
 
         public void Init()
         {
-            var initOptions = _optionsHolder != null ? _optionsHolder.OptionsObject : new Options();
+            var initOptions = _optionsHolder != null ? _optionsHolder.OptionsObject : new UIOptions();
 
             InitOptionsHolder();
 
@@ -57,14 +58,14 @@ namespace Xps2ImgUI.Model
                 _optionsHolder.OptionsObjectChanged -= OptionsHolderOptionsObjectChanged;
             }
 
-            _optionsHolder = new OptionsHolder<Options>();
+            _optionsHolder = new OptionsHolder<UIOptions>();
             _optionsHolder.OptionsObjectChanged += OptionsHolderOptionsObjectChanged;
         }
 
         public void Reset()
         {
             InitOptionsHolder();
-            _optionsHolder.OptionsObject = new Options();
+            _optionsHolder.OptionsObject = new UIOptions();
         }
 
         public void ResetParameters()
@@ -121,7 +122,7 @@ namespace Xps2ImgUI.Model
             return _optionsHolder.FormatCommandLine(false, optionsToExclude);
         }
 
-        public Options OptionsObject
+        public UIOptions OptionsObject
         {
             get { return _optionsHolder.OptionsObject; }
         }
@@ -218,16 +219,6 @@ namespace Xps2ImgUI.Model
 
             process.Start();
 
-            try
-            {
-                process.PriorityClass = OptionsObject.ActualProcessorsPriority;
-            }
-            // ReSharper disable EmptyGeneralCatchClause
-            catch
-            // ReSharper restore EmptyGeneralCatchClause
-            {
-            }
-
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
 
@@ -245,7 +236,7 @@ namespace Xps2ImgUI.Model
 
         private List<Interval> GetDocumentIntervals()
         {
-            var intervals = Interval.Parse(OptionsObject.Pages);
+            var intervals = OptionsObject.Pages.DeepClone();
 
             var pageCount = GetDocumentPageCount();
 
@@ -323,7 +314,7 @@ namespace Xps2ImgUI.Model
                 {
                     _originalProcessPriorityClass = process.PriorityClass;
 
-                    switch (OptionsObject.ActualProcessorsPriority)
+                    switch (OptionsObject.ProcessorsPriorityAsEnum)
                     {
                         case ProcessPriorityClass.Normal:
                             processPriorityClass = ProcessPriorityClass.AboveNormal;
@@ -349,11 +340,11 @@ namespace Xps2ImgUI.Model
         {
             while (Interlocked.CompareExchange(ref _threadsLeft, 0, 0) != 0)
             {
-                Thread.Sleep(500);
                 if (checkExitCode && ExitCode != 0)
                 {
                     throw new Exception(Resources.Strings.ProcessorHasTerminated);
                 }
+                Thread.Sleep(1000);
             }
 
             CanResume = IsStopPending;
@@ -382,7 +373,7 @@ namespace Xps2ImgUI.Model
                 _threadsLeft = 0;
                 _pagesProcessed = 0;
 
-                _threadsCount = IsCreationMode ? OptionsObject.ActualProcessorsNumber : 1;
+                _threadsCount = IsCreationMode ? OptionsObject.ProcessorsNumberAsInt : 1;
                 
                 var splittedIntervals = GetDocumentSplittedIntervals();
 
@@ -505,7 +496,7 @@ namespace Xps2ImgUI.Model
         {
             get
             {
-                return  ShutdownType != PostActionConverter.Default
+                return  ShutdownType != PostActionTypeConverter.Default
                         && !IsDeleteMode
                         && (IsBatchMode || (IsProgressStarted && !_userCancelled));
             }
@@ -599,7 +590,7 @@ namespace Xps2ImgUI.Model
         private ProcessLastPage[] _processLastConvertedPage;
         private BitArray _processedIntervals;
 
-        private OptionsHolder<Options> _optionsHolder;
+        private OptionsHolder<UIOptions> _optionsHolder;
 
         public int PagesProcessedTotal
         {

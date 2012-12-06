@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{98F3CD20-A620-41BE-AA20-DF8568620DEB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Xps2Img.Shared</RootNamespace>
+    <AssemblyName>xps2imgShared</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\_bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;XPS2IMG_SHARED</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\_bin\Release\</OutputPath>
+    <DefineConstants>XPS2IMG_SHARED</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\xps2img\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Attributes\UI\DynamicPropertyFilterAttribute.cs" />
+    <Compile Include="Attributes\Options\BaseOptionAttribute.cs" />
+    <Compile Include="Attributes\Options\NamedOptionAttribute.cs" />
+    <Compile Include="Attributes\Options\UnnamedOptionAttribute.cs" />
+    <Compile Include="Attributes\UI\TabbedDescriptionAttribute.cs" />
+    <Compile Include="CommandLine\ImageDefs.cs" />
+    <Compile Include="CommandLine\Interval.cs" />
+    <Compile Include="CommandLine\IntervalUtils.cs" />
+    <Compile Include="CommandLine\Options.cs" />
+    <Compile Include="CommandLine\ReturnCode.cs" />
+    <Compile Include="Controls\CustomCheckedListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Dialogs\BaseSelectFileFolderEditor.cs" />
+    <Compile Include="Dialogs\SelectExecutableFileEditor.cs" />
+    <Compile Include="Dialogs\SelectFileEditor.cs" />
+    <Compile Include="Dialogs\SelectFolderEditor.cs" />
+    <Compile Include="Dialogs\SelectXpsFileEditor.cs" />
+    <Compile Include="Dialogs\SelectXpsFolderEditor.cs" />
+    <Compile Include="TypeConverters\IntervalTypeConverter.cs" />
+    <Compile Include="TypeConverters\RequiredSizeTypeConverter.cs" />
+    <Compile Include="TypeEditors\CheckedListBoxUITypeEditor.cs" />
+    <Compile Include="TypeEditors\CpuAffinityUITypeEditor.cs" />
+    <Compile Include="Utils\System\AssemblyInformation.cs" />
+    <Compile Include="Utils\DisposableActions.cs" />
+    <Compile Include="Setup\SetupGuard.cs" />
+    <Compile Include="Utils\System\SystemManagement.cs" />
+    <Compile Include="Utils\System\SystemManagement.Native.cs" />
+    <Compile Include="Utils\UI\FilterablePropertyBase.cs" />
+    <Compile Include="Utils\UI\ModalGuard.cs" />
+    <Compile Include="Resources\Strings.Designer.cs">
+      <DependentUpon>Strings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Utils\StringUtils.cs" />
+    <Compile Include="TypeConverters\CheckedDpiTypeConverter.cs" />
+    <Compile Include="TypeConverters\CheckedRequiredSizeTypeConverter.cs" />
+    <Compile Include="TypeConverters\CheckedImageNameTypeConverter.cs" />
+    <Compile Include="TypeConverters\CheckedNullableIntTypeConverter.cs" />
+    <Compile Include="TypeConverters\CheckedPrelimsPrefixTypeConverter.cs" />
+    <Compile Include="TypeConverters\CpuAffinityTypeConverter.cs" />
+    <Compile Include="TypeConverters\DpiTypeConverter.cs" />
+    <Compile Include="TypeConverters\ErrorReporterTypeConverter.cs" />
+    <Compile Include="TypeConverters\JpegNullableIntTypeConverter.cs" />
+    <Compile Include="TypeConverters\NullableIntTypeConverter.cs" />
+    <Compile Include="TypeConverters\PagesTypeConverter.cs" />
+    <Compile Include="TypeConverters\PostActionTypeConverter.cs" />
+    <Compile Include="TypeConverters\ProcessorsNumberTypeConverter.cs" />
+    <Compile Include="TypeConverters\ProcessPriorityClassTypeConverter.cs" />
+    <Compile Include="TypeConverters\StandardValuesTypeConverter.cs" />
+    <Compile Include="TypeConverters\TrimStringTypeConverter.cs" />
+    <Compile Include="TypeConverters\YesNoConverter.cs" />
+    <Compile Include="TypeEditors\OrdinalUITypeEditor.cs" />
+    <Compile Include="CommandLine\Validation.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\_Lib\CommandLine\CommandLine.csproj">
+      <Project>{33D069F8-1FB0-475D-B19F-51979CB3E9DD}</Project>
+      <Name>CommandLine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

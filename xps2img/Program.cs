@@ -7,11 +7,12 @@ using System.Text;
 using System.Threading;
 
 using Xps2Img.CommandLine;
+
+using Xps2Img.Shared.CommandLine;
+using Xps2Img.Shared.Setup;
 using Xps2Img.Xps2Img;
 
-using Xps2ImgUI.Utils;
-
-using ReturnCode = Xps2Img.CommandLine.CommandLine.ReturnCode;
+using ReturnCode = Xps2Img.Shared.CommandLine.CommandLine.ReturnCode;
 
 namespace Xps2Img
 {
@@ -42,10 +43,17 @@ namespace Xps2Img
                     return ReturnCode.InvalidArg;
                 }
 
+                if (options.ProcessorsPriorityAsEnum != ProcessPriorityClass.Normal)
+                {
+                    Process.GetCurrentProcess().PriorityClass = options.ProcessorsPriorityAsEnum;
+                }
+
+#if fsdfsdf
                 if (options.ActualCpuAffinity != IntPtr.Zero)
                 {
                     Process.GetCurrentProcess().ProcessorAffinity = options.ActualCpuAffinity;
                 }
+#endif
 
                 var launchedAsInternal = !String.IsNullOrEmpty(options.CancellationObjectIds);
 
@@ -106,6 +114,8 @@ namespace Xps2Img
 
                 xps2Img.ConverterState.SetLastAndTotalPages(options.Pages.Last().End, options.Pages.GetTotalLength());
 
+                // Options always have default values set.
+                // ReSharper disable PossibleInvalidOperationException
                 options.Pages.ForEach(interval =>
                     xps2Img.Convert(
                         new Converter.Parameters
@@ -116,19 +126,20 @@ namespace Xps2Img
                             EndPage = interval.End,
                             ImageType = options.FileType,
                             ShortenExtension = options.ShortenExtension,
-                            ImageOptions = new ImageOptions(options.JpegQuality, options.TiffCompression),
+                            ImageOptions = new ImageOptions(options.JpegQuality.Value, options.TiffCompression),
                             RequiredSize = options.RequiredSize,
-                            Dpi = options.Dpi,
+                            Dpi = options.Dpi.Value,
                             OutputDir = options.OutDir,
                             BaseImageName = !String.IsNullOrEmpty(options.ImageName) ?
                                               options.ImageName :
                                               (options.ImageName == null ? String.Empty : null),
-                            FirstPageIndex = options.FirstPageIndex,
+                            FirstPageIndex = options.FirstPageIndex.Value,
                             PrelimsPrefix = options.PrelimsPrefix,
                             Clean = options.Clean
                         }
                     )
                 );
+                // ReSharper restore PossibleInvalidOperationException
 
                 xps2Img.OnProgress -= OnProgress;
             }

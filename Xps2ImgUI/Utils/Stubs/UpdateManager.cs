@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.IO;
 
+using Xps2Img.Shared.Utils.System;
+
 namespace Xps2ImgUI.Utils.Stubs
 {
     public class UpdateManager : IUpdateManager

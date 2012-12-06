@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
 
+using Xps2Img.Shared.Setup;
+using Xps2Img.Shared.Utils;
+using Xps2Img.Shared.Utils.System;
+using Xps2Img.Shared.Utils.UI;
+
 using Xps2ImgUI.Utils;
 using Xps2ImgUI.Utils.UI;
 

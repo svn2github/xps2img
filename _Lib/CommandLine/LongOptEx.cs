@@ -67,8 +67,11 @@ namespace CommandLine
                 {
                     Validator.Validate(value);
                 }
+
                 var propertyInfo = BoundObject.GetType().GetProperty(BoundPropertyName);
-                propertyInfo.SetValue(BoundObject, TypeConverter.ConvertFromInvariantString(IsFlag ? "true" : value ?? DefaultValue), null);
+                var typeConverter = ReflectionUtils.GetTypeConverter(propertyInfo);
+
+                propertyInfo.SetValue(BoundObject, typeConverter.ConvertFromInvariantString(IsFlag ? "true" : value ?? DefaultValue), null);
             }
             catch (Exception ex)
             {

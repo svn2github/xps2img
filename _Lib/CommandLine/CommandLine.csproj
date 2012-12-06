@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="ColumnFormatter.cs" />
     <Compile Include="Parser.Win32.cs" />
+    <Compile Include="ReflectionUtils.cs" />
     <Compile Include="ShortOptionType.cs" />
     <Compile Include="Parser.Format.cs" />
     <Compile Include="OptionAttribute.cs" />

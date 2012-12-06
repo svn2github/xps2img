@@ -5,6 +5,7 @@ using System.Windows.Forms;
 
 using Microsoft.WindowsAPICodePack.Dialogs;
 
+using Xps2Img.Shared.Utils.UI;
 using Xps2ImgUI.Utils.UI;
 
 // ReSharper disable CheckNamespace

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Media.Imaging;
 
+using Xps2Img.Shared.CommandLine;
+
 namespace Xps2Img.Xps2Img
 {
     public static class ImageWriter

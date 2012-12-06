@@ -49,9 +49,9 @@
     <Compile Include="IntervalUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\xps2img\xps2img.csproj">
-      <Project>{236BBAAD-700A-4695-834F-713A79E29310}</Project>
-      <Name>xps2img</Name>
+    <ProjectReference Include="..\xps2imgShared\xps2imgShared.csproj">
+      <Project>{98F3CD20-A620-41BE-AA20-DF8568620DEB}</Project>
+      <Name>xps2imgShared</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

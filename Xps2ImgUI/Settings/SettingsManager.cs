@@ -7,10 +7,10 @@ using System.Xml.Serialization;
 
 using CommandLine;
 
-using Xps2Img.CommandLine;
+using Xps2Img.Shared.CommandLine;
+using Xps2Img.Shared.Utils;
 
 using Xps2ImgUI.Model;
-using Xps2ImgUI.Utils;
 
 namespace Xps2ImgUI.Settings
 {
@@ -31,7 +31,7 @@ namespace Xps2ImgUI.Settings
         public static Xps2ImgModel LoadSettings(string file)
         {
             var commandLine = String.Join(StringUtils.SpaceString, File.ReadAllLines(file));
-            return new Xps2ImgModel(Parser.Parse<Options>(commandLine, true));
+            return new Xps2ImgModel(Parser.Parse<UIOptions>(commandLine, true));
         }
 
         public static void SaveSettings(Xps2ImgModel xps2ImgModel)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Xps2Img.CommandLine;
+using Xps2Img.Shared.CommandLine;
 
 namespace Xps2ImgTests
 {

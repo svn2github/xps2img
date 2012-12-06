@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Xps2ImgUI.Converters;
-using Xps2ImgUI.Utils;
+
+using CommandLine;
+
+using Xps2Img.Shared.TypeConverters;
+
+// ReSharper disable LocalizableElement
 
 namespace Xps2ImgUI.Settings
 {

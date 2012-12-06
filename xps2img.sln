@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLine", "_Lib\Command
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xps2imgTests", "xps2imgTests\xps2imgTests.csproj", "{5CBE640C-8B3D-4C9C-BE91-3C8B9540CFBB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xps2imgShared", "xps2imgShared\xps2imgShared.csproj", "{98F3CD20-A620-41BE-AA20-DF8568620DEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{5CBE640C-8B3D-4C9C-BE91-3C8B9540CFBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CBE640C-8B3D-4C9C-BE91-3C8B9540CFBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CBE640C-8B3D-4C9C-BE91-3C8B9540CFBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98F3CD20-A620-41BE-AA20-DF8568620DEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98F3CD20-A620-41BE-AA20-DF8568620DEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98F3CD20-A620-41BE-AA20-DF8568620DEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98F3CD20-A620-41BE-AA20-DF8568620DEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

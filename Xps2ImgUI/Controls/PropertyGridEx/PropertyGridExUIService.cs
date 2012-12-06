@@ -8,8 +8,8 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 
 using Windows7.Dialogs;
 
-using Xps2ImgUI.Utils;
-using Xps2ImgUI.Utils.UI;
+using Xps2Img.Shared.Utils;
+using Xps2Img.Shared.Utils.UI;
 
 namespace Xps2ImgUI.Controls.PropertyGridEx
 {

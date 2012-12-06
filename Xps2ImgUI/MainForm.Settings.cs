@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 using CommandLine;
 
-using Xps2Img.CommandLine;
+using Xps2Img.Shared.CommandLine;
 
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Settings;
@@ -40,7 +40,7 @@ namespace Xps2ImgUI
             _preferences = settings.Preferences ?? new Preferences();
             if (!String.IsNullOrEmpty(settings.CommandLine))
             {
-                Model = new Xps2ImgModel(Parser.Parse<Options>(settings.CommandLine, true));
+                Model = new Xps2ImgModel(Parser.Parse<UIOptions>(settings.CommandLine, true));
             }
         }
 

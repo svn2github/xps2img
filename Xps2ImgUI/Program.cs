@@ -12,14 +12,14 @@ using CommandLine;
 
 using Windows7.Dialogs;
 
-using Xps2Img.CommandLine;
+using Xps2Img.Shared.Setup;
+using Xps2Img.Shared.TypeConverters;
+using Xps2Img.Shared.Utils;
+using Xps2Img.Shared.Utils.System;
+using Xps2Img.Shared.Utils.UI;
 
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Settings;
-using Xps2ImgUI.Utils;
-using Xps2ImgUI.Utils.UI;
-
-using Xps2ImgUI.Converters;
 
 namespace Xps2ImgUI
 {
@@ -53,7 +53,7 @@ namespace Xps2ImgUI
             ThreadPool.GetMinThreads(out workerThreads, out completionPortThreads);
             ThreadPool.SetMinThreads(workerThreads + Environment.ProcessorCount + 2, completionPortThreads);
 
-            var options = Parser.IsUsageRequiested(args) ? null : Parser.Parse<Options>(args, true);
+            var options = Parser.IsUsageRequiested(args) ? null : Parser.Parse<UIOptions>(args, true);
 
             var mainForm = new MainForm { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) };
 
@@ -104,12 +104,12 @@ namespace Xps2ImgUI
         {
             switch(shutdownType)
             {
-                case PostActionConverter.Exit:      return ShutdownType.Exit;
-                case PostActionConverter.Hibernate: return ShutdownType.ForcedHibernate;
-                case PostActionConverter.LogOff:    return ShutdownType.ForcedLogOff;
-                case PostActionConverter.Reboot:    return ShutdownType.ForcedReboot;
-                case PostActionConverter.Shutdown:  return ShutdownType.ForcedShutdown;
-                case PostActionConverter.Sleep:     return ShutdownType.ForcedSleep;
+                case PostActionTypeConverter.Exit:      return ShutdownType.Exit;
+                case PostActionTypeConverter.Hibernate: return ShutdownType.ForcedHibernate;
+                case PostActionTypeConverter.LogOff:    return ShutdownType.ForcedLogOff;
+                case PostActionTypeConverter.Reboot:    return ShutdownType.ForcedReboot;
+                case PostActionTypeConverter.Shutdown:  return ShutdownType.ForcedShutdown;
+                case PostActionTypeConverter.Sleep:     return ShutdownType.ForcedSleep;
             }
             throw new InvalidOperationException();
         }

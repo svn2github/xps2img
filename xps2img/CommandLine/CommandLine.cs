@@ -3,11 +3,16 @@ using System.IO;
 
 using CommandLine;
 
-using Xps2ImgUI.Utils;
+using Xps2Img.Shared.CommandLine;
+using Xps2Img.Shared.Utils.System;
+
+using ReturnCode = Xps2Img.Shared.CommandLine.CommandLine.ReturnCode;
+
+// ReSharper disable LocalizableElement
 
 namespace Xps2Img.CommandLine
 {
-    public static partial class CommandLine
+    public static class CommandLine
     {
         #region Methods.
 
@@ -20,11 +25,11 @@ namespace Xps2Img.CommandLine
         {
             if (Parser.IsUsageRequiested(args))
             {
-                Console.WriteLine(String.Format("{1} {2}{0}{0}{3}",
+                Console.WriteLine("{1} {2}{0}{0}{3}",
                                     Environment.NewLine,
                                     AssemblyInfo.Description.TrimEnd(new[]{ '.' }),
                                     AssemblyInfo.AssemblyVersion,
-                                    Parser.GetUsageString<T>()));
+                                    Parser.GetUsageString<T>());
                 return true;
             }
             return false;
@@ -48,13 +53,13 @@ namespace Xps2Img.CommandLine
         {
             var exceptionHint = GetExceptionHint(ex);
 
-            Console.Error.WriteLine(String.Format("{0}{1}" + (String.IsNullOrEmpty(exceptionHint) ? String.Empty : " {2}"),
+            Console.Error.WriteLine("{0}{1}" + (String.IsNullOrEmpty(exceptionHint) ? String.Empty : " {2}"),
                                     Resources.Strings.Error_Header,
                                     ex
                                     #if !DEBUG
                                     .Message
                                     #endif
-                                    , exceptionHint));
+                                    , exceptionHint);
 
             return ex is ConversionException ? (ex as ConversionException).ReturnCode : ReturnCode.Failed;
         }

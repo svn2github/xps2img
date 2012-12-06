@@ -58,10 +58,6 @@
     <ApplicationIcon>Resources\Ico\Application.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Gnu.Getopt, Version=0.9.1.6641, Culture=neutral, PublicKeyToken=d014b4ccdc53511a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_Lib\_Bin\Gnu.Getopt.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -81,27 +77,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Xps2ImgUI\Utils\AssemblyInformation.cs">
-      <Link>Shared\AssemblyInformation.cs</Link>
-    </Compile>
-    <Compile Include="..\Xps2ImgUI\Utils\SetupGuard.cs">
-      <Link>Shared\SetupGuard.cs</Link>
-    </Compile>
     <Compile Include="CommandLine\CommandLine.cs" />
     <Compile Include="CommandLine\ConversionException.cs" />
-    <Compile Include="CommandLine\Interval.cs" />
-    <Compile Include="CommandLine\IntervalUtils.cs" />
-    <Compile Include="CommandLine\Options.cs" />
-    <Compile Include="CommandLine\ReturnCode.cs" />
-    <Compile Include="CommandLine\TypeConverters\IntervalTypeConverter.cs" />
-    <Compile Include="CommandLine\TypeConverters\RequiredSizeTypeConverter.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
     <Compile Include="Xps2Img\ImageWriter.cs" />
-    <Compile Include="Xps2Img\ImageDefs.cs" />
     <Compile Include="Xps2Img\ConverterState.cs" />
     <Compile Include="Xps2Img\Utils.cs" />
     <Compile Include="Xps2Img\Converter.cs" />
@@ -110,6 +93,10 @@
     <Compile Include="Xps2Img\Win32.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\xps2imgShared\xps2imgShared.csproj">
+      <Project>{98F3CD20-A620-41BE-AA20-DF8568620DEB}</Project>
+      <Name>xps2imgShared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\_Lib\CommandLine\CommandLine.csproj">
       <Project>{33D069F8-1FB0-475D-B19F-51979CB3E9DD}</Project>
       <Name>CommandLine</Name>

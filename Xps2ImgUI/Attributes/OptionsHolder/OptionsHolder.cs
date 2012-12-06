@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Collections.Generic;
 
-using Xps2ImgUI.Attributes.Options;
-using Xps2ImgUI.Utils;
+using CommandLine;
+
+using Xps2Img.Shared.Attributes.Options;
 
 namespace Xps2ImgUI.Attributes.OptionsHolder
 {

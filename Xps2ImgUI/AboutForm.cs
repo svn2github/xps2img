@@ -4,7 +4,9 @@ using System.Windows.Forms;
 
 using TKageyu.Utils;
 
-using Xps2ImgUI.Utils;
+using Xps2Img.Shared.Utils;
+using Xps2Img.Shared.Utils.System;
+
 using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-using Xps2ImgUI.Attributes.Options;
-using Xps2ImgUI.Utils;
+using Xps2Img.Shared.Attributes.Options;
+using Xps2Img.Shared.CommandLine;
+using Xps2Img.Shared.Utils;
 
 namespace Xps2ImgUI.Attributes.OptionsHolder
 {
@@ -25,7 +26,23 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
         public static string GetOptionValue(bool exceptionIfNoRequired, BaseOptionAttribute optionAttribute, object boundObject)
         {
             var propertyInfo = optionAttribute.PropertyInfo;
-            var typeConverter = TypeDescriptor.GetConverter(propertyInfo.GetType());
+
+            TypeConverter typeConverter = null;
+
+            var typeConverterAttribute = (TypeConverterAttribute)Attribute.GetCustomAttribute(propertyInfo, typeof(TypeConverterAttribute));
+            if (typeConverterAttribute != null)
+            {
+                var converterType = Type.GetType(typeConverterAttribute.ConverterTypeName);
+                if(converterType != null)
+                {
+                    typeConverter = (TypeConverter)Activator.CreateInstance(converterType);
+                }
+            }
+
+            if (typeConverter == null)
+            {
+                typeConverter = TypeDescriptor.GetConverter(propertyInfo.GetType());
+            }
 
             var value = propertyInfo.GetValue(boundObject, null);
             if (value is bool)
@@ -70,7 +87,7 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
                 return String.Empty;
             }
 
-            var escape = optionValue == Xps2Img.CommandLine.Options.EmptyOption;
+            var escape = optionValue == Options.EmptyOption;
             optionValue = optionValue.Trim(TrimSymbols);
 
             return escape || optionValue.IndexOfAny(EscapeSymbols) != -1
@@ -96,17 +113,12 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
 
         private static readonly OptionFormatInfo CurrentOptionFormatInfo = new OptionFormatInfo("-{0} {1}", "--{0}={1}");
 
-        public static string FormatCommandLine(bool exceptionIfNoRequired, object optionsObject, IEnumerable<BaseOptionAttribute> optionAttributes)
-        {
-            return FormatCommandLine(exceptionIfNoRequired, optionsObject, optionAttributes, null);
-        }
-
         public static string FormatCommandLine(bool exceptionIfNoRequired, object optionsObject, IEnumerable<BaseOptionAttribute> optionAttributes, params string[] optionsToExclude)
         {
             const string optionsSeparator = " ";
 
             return String.Join(optionsSeparator, optionAttributes
-                .Select(o => optionsToExclude != null && optionsToExclude.Contains(o.Name) ? String.Empty : FormatOption(exceptionIfNoRequired, optionsObject, o, CurrentOptionFormatInfo))
+                    .Select(o => optionsToExclude != null && optionsToExclude.Contains(o.Name) ? String.Empty : FormatOption(exceptionIfNoRequired, optionsObject, o, CurrentOptionFormatInfo))
                     .Where(f => !String.IsNullOrEmpty(f))
                     .ToArray());
         }

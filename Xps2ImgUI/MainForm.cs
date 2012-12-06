@@ -11,7 +11,9 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using Windows7.DesktopIntegration;
 using Windows7.Dialogs;
 
-using Xps2Img.CommandLine;
+using Xps2Img.Shared.CommandLine;
+using Xps2Img.Shared.Utils;
+using Xps2Img.Shared.Utils.UI;
 
 using Xps2ImgUI.Controls;
 using Xps2ImgUI.Controls.PropertyGridEx;
@@ -20,7 +22,7 @@ using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils;
 using Xps2ImgUI.Utils.UI;
 
-using ReturnCode = Xps2Img.CommandLine.CommandLine.ReturnCode;
+using ReturnCode = Xps2Img.Shared.CommandLine.CommandLine.ReturnCode;
 
 namespace Xps2ImgUI
 {
@@ -871,8 +873,16 @@ namespace Xps2ImgUI
 
         private string ConvertedImagesFolder
         {
-            set { Interlocked.CompareExchange(ref _convertedImagesFolder, Path.GetDirectoryName(value), null); }
-            get { return Interlocked.CompareExchange(ref _convertedImagesFolder, null, null) ?? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); }
+            set
+            {
+                Interlocked.CompareExchange(ref _convertedImagesFolder, Path.GetDirectoryName(value), null);
+            }
+            get
+            {
+                return Interlocked.CompareExchange(ref _convertedImagesFolder, null, null)
+                        ?? (!String.IsNullOrEmpty(_model.SrcFile) ? Path.GetDirectoryName(_model.SrcFile) : null)
+                        ?? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            }
         }
 
         private string ConvertButtonCleanText

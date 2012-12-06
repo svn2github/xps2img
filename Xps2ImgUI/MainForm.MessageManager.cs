@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Windows.Forms;
 
+using Windows7.Dialogs;
+
 using Microsoft.WindowsAPICodePack.Dialogs;
 
-using Xps2ImgUI.Utils;
-using Xps2ImgUI.Utils.UI;
+using Xps2Img.Shared.Utils;
+using Xps2Img.Shared.Utils.UI;
 
-using Windows7.Dialogs;
+using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI
 {

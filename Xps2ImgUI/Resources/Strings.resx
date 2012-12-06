@@ -231,15 +231,6 @@
   <data name="ResumeLastConversionSuggestion" xml:space="preserve">
     <value>Would you like to resume last conversion instead of starting new one?</value>
   </data>
-  <data name="SelectXpsFile" xml:space="preserve">
-    <value>Select XPS File</value>
-  </data>
-  <data name="SelectExecutableFile" xml:space="preserve">
-    <value>Select Executable File</value>
-  </data>
-  <data name="SpecifyImagesFolder" xml:space="preserve">
-    <value>Specify folder to store images. If not set new folder named as document will be created in folder where document is.</value>
-  </data>
   <data name="CancelToUsePreviousValidValue" xml:space="preserve">
     <value>\n\n● Cancel or Esc reverts to previous valid value.\n● OK returns to value editing.</value>
   </data>
@@ -387,15 +378,6 @@
   <data name="ValueIsNotValidIntegerNumber" xml:space="preserve">
     <value>Value is not valid integer number</value>
   </data>
-  <data name="FilterAllFiles" xml:space="preserve">
-    <value>All Files (*.*)|*.*</value>
-  </data>
-  <data name="FilterXPSFiles" xml:space="preserve">
-    <value>XPS Files (*.xps)|*.xps|</value>
-  </data>
-  <data name="FilterExeFiles" xml:space="preserve">
-    <value>Executable Files (*.exe)|*.exe|</value>
-  </data>
   <data name="AbbrevSeconds" xml:space="preserve">
     <value>sec</value>
   </data>
@@ -447,5 +429,8 @@ What's new in version {0}
   </data>
   <data name="PageOfPages">
     <value xml:space="preserve">{0}/{1}</value>
+  </data>
+  <data name="FilterAllFiles" xml:space="preserve">
+    <value>All Files (*.*)|*.*</value>
   </data>
 </root>

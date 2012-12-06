@@ -8,11 +8,15 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("XPS to Images Converter"
 #if XPS2IMG_UI
     + " Frontend"
+#elif XPS2IMG_SHARED
+    + " Shared Code"
 #endif
 )]
 [assembly: AssemblyDescription("XPS to Images Converter"
 #if XPS2IMG_UI
     + " Frontend"
+#elif XPS2IMG_SHARED
+    + " Shared Code"
 #endif
 )]
 [assembly: AssemblyConfiguration("")]
