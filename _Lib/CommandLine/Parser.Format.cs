@@ -85,7 +85,7 @@ namespace CommandLine
 
                 optStringBuilder.AppendFormat("{1}{0}", longOpt.Description ?? String.Empty, ColumnFormatter.Separator);
 
-                if (longOpt.HasDefaultValue)
+                if (longOpt.HasDefaultValue && !longOpt.IsNoDefaultValueDescription)
                 {
                     optStringBuilder.AppendFormat(Strings.Format_DefaultValue, longOpt.DefaultValue);
                 }

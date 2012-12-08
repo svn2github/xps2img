@@ -118,6 +118,7 @@ namespace CommandLine
         public bool IsOptional { get { return HasArg == (Argument)ArgumentExpectancy.Optional; } }
 
         public bool IsInternal { get; set; }
+        public bool IsNoDefaultValueDescription { get; set; }
 
         public string ShortOptionToString() { return HasShortOption ? String.Format("-{0}", Convert.ToChar(Val)) : String.Empty; }
         public string LongOptionToString() { return String.Format("--{0}", Name); }

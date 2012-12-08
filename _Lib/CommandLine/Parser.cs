@@ -100,7 +100,7 @@ namespace CommandLine
             {
                 if (!ignoreErrors)
                 {
-                    Console.Error.WriteLine(String.Format("{0}: option '{1}' {2}", ApplicationName, longOptEx.OptionNameToString(), message));
+                    Console.Error.WriteLine("{0}: option '{1}' {2}", ApplicationName, longOptEx.OptionNameToString(), message);
                     isValid = false;
                 }
             };

@@ -7,9 +7,10 @@ namespace CommandLine
     [Flags]
     public enum OptionFlags
     {
-        Internal    = 0x0001,
-        Ignore      = 0x0002,
-        NoValidation= 0x0004
+        Internal     = 0x0001,
+        Ignore       = 0x0002,
+        NoValidation = 0x0004,
+        NoDefaultValueDescription = 0x0008
     }
 
     [AttributeUsage(AttributeTargets.Property)]
@@ -84,6 +85,7 @@ namespace CommandLine
             }
 
             _longOptEx.IsInternal = IsInternal;
+            _longOptEx.IsNoDefaultValueDescription = IsNoDefaultValueDescription;
 
             _longOptEx.Validator = IsNoValidation
                                      ? null
@@ -101,7 +103,8 @@ namespace CommandLine
 
         public bool IsInternal { get { return (Flags & OptionFlags.Internal) != 0; } }
         public bool IsNoValidation { get { return (Flags & OptionFlags.NoValidation) != 0; } }
-
+        public bool IsNoDefaultValueDescription { get { return (Flags & OptionFlags.NoDefaultValueDescription) != 0; } }
+        
         public Type ConverterType { get; set; }
 
         private LongOptEx _longOptEx;
