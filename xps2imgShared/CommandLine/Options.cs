@@ -147,7 +147,6 @@ namespace Xps2Img.Shared.CommandLine
         public bool ShortenExtension { get; set; }
 
         [Option("", ShortOptionType.None10, Flags = OptionFlags.Internal)]
-        [UIOption(CancellationObjectIdName)]
         [Browsable(false)]
         public virtual string CancellationObjectIds { get; set; }
 
@@ -231,7 +230,7 @@ namespace Xps2Img.Shared.CommandLine
             }
         }
 
-        public static readonly string[] ExcludedOnSave = new[] { CancellationObjectIdName, BatchOption };
+        public static readonly string[] ExcludedOnSave = new[] { CancellationObjectIdsName, BatchOption };
         public static readonly string[] ExcludedUIOptions = new[] { ProcessorsOption, BatchOption };
         public static readonly string[] ExcludedOnLaunch = ExcludedUIOptions.Concat(new[] { PagesShortOption.ToString(CultureInfo.InvariantCulture) }).ToArray();
         public static readonly string[] ExcludedOnView = ExcludedOnSave.Concat(ExcludedUIOptions).ToArray();

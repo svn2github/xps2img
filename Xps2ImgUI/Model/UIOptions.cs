@@ -4,6 +4,8 @@ using System.ComponentModel;
 using Xps2Img.Shared.CommandLine;
 using Xps2ImgUI.Utils.UI;
 
+using UIOption = Xps2Img.Shared.Attributes.Options.OptionAttribute;
+
 namespace Xps2ImgUI.Model
 {
     public class UIOptions : Options, ICustomTypeDescriptor
@@ -18,6 +20,7 @@ namespace Xps2ImgUI.Model
         private static readonly Func<string> GetGuidNamePart = () => Guid.NewGuid().ToString().Substring(0, 8);
         private static readonly string CancellationObjectIdStatic = String.Format("{0}-{1}", GetGuidNamePart(), GetGuidNamePart());
 
+        [UIOption(CancellationObjectIdsName)]
         public override string CancellationObjectIds
         {
             get { return CancellationObjectIdStatic; }

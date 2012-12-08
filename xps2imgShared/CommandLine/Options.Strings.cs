@@ -87,6 +87,6 @@
         private const string CleanDescpriction = "Clean (delete images)";
         public  const string CleanOption       = " --clean";
 
-        private const string CancellationObjectIdName = "cancellation-object-ids";
+        public  const string CancellationObjectIdsName = "cancellation-object-ids";
     }
 }

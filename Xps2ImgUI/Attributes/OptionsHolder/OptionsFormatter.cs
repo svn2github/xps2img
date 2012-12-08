@@ -118,7 +118,9 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
             const string optionsSeparator = " ";
 
             return String.Join(optionsSeparator, optionAttributes
-                    .Select(o => optionsToExclude != null && optionsToExclude.Contains(o.Name) ? String.Empty : FormatOption(exceptionIfNoRequired, optionsObject, o, CurrentOptionFormatInfo))
+                    .Select(o => optionsToExclude != null && optionsToExclude.Contains(o.Name)
+                                    ? String.Empty
+                                    : FormatOption(exceptionIfNoRequired, optionsObject, o, CurrentOptionFormatInfo))
                     .Where(f => !String.IsNullOrEmpty(f))
                     .ToArray());
         }
