@@ -68,6 +68,7 @@
         private const string ProcessorsOption            = "processors-number";
         private const string ProcessorsDefaultValue      = Validation.AutoValue;
 
+        private const string ProcessPriorityDescription       = "Document processor priority\n  normal by default\nOne of:\n  idle\n  belownormal\n  normal\n  abovenormal\n  high";
         private const string ProcessPriorityTabbedDescription = "Document processors priority\n  Normal by default";
         private const string ProcessPriorityDisplayName       = "Processors Priority";
         private const char   ProcessPriorityShortOption       = 'c';

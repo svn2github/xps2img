@@ -59,20 +59,14 @@ namespace Xps2Img.Shared.CommandLine
             get; set;
         }
 
-        [Option(
-            PagesDescription,
-            PagesShortOption,
-            DefaultValue = null,
-            ConverterType = typeof(PagesTypeConverter),
-            ValidationExpression = Validation.PagesValidationExpression
-        )]
-        [TypeConverter(typeof(PagesTypeConverter))]
+        [Option(PagesDescription, PagesShortOption, DefaultValue = null, ConverterType = typeof(PagesTypeConverter), ValidationExpression = Validation.PagesValidationExpression)]
         [DisplayName(PagesDisplayName)]
         [TabbedDescription(PagesDescription)]
         [Category(CategoryOptions)]
         [UIOption(PagesShortOption)]
         [DefaultValue(typeof(string), null)]
         [Editor(typeof(OrdinalUITypeEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(PagesTypeConverter))]
         public List<Interval> Pages { get; set; }
 
         [Option(FileTypeDescription, FileTypeShortOption, DefaultValue = FileTypeDefaultValue)]
@@ -102,12 +96,7 @@ namespace Xps2Img.Shared.CommandLine
         [DynamicPropertyFilter("FileType", "Tiff")]
         public TiffCompressOption TiffCompression { get; set; }
 
-        [Option(
-            RequiredSizeDescription,
-            RequiredSizeOption,
-            ConverterType = typeof(CheckedRequiredSizeTypeConverter),
-            ValidationExpression = Validation.RequiredSizeValidationExpression
-        )]
+        [Option(RequiredSizeDescription, RequiredSizeOption, ConverterType = typeof(CheckedRequiredSizeTypeConverter), ValidationExpression = Validation.RequiredSizeValidationExpression)]
         [DisplayName(RequiredSizeDisplayName)]
         [TabbedDescription(RequiredSizeDescription)]
         [UIOption(RequiredSizeOption)]
@@ -206,7 +195,7 @@ namespace Xps2Img.Shared.CommandLine
             }
         }
 
-        [Option("", ProcessPriorityShortOption, DefaultValue = ProcessPriorityDefaultValue)]
+        [Option(ProcessPriorityDescription, ProcessPriorityShortOption, DefaultValue = ProcessPriorityDefaultValue, Flags = OptionFlags.NoDefaultValueDescription)]
         [UIOption(ProcessPriorityShortOption)]
         [DisplayName(ProcessPriorityDisplayName)]
         [TabbedDescription(ProcessPriorityTabbedDescription)]
@@ -219,24 +208,25 @@ namespace Xps2Img.Shared.CommandLine
 
             set
             {
+                value = value.RemoveSpaces();
                 _processPriority =
                     String.CompareOrdinal(Validation.AutoValue, value) != 0 &&
-                    !Enum.IsDefined(typeof(ProcessPriorityClass), value.RemoveSpaces())
-                        ? Validation.AutoValue
-                        : value;
+                    EnumUtils.HasValue<ProcessPriorityClass>(value)
+                        ? value
+                        : Validation.AutoValue;
             }
         }
 
         private string _processPriority;
-        
+
         [Browsable(false)]
         public ProcessPriorityClass ProcessorsPriorityAsEnum
         {
             get
             {
-                var processorsPriority = ProcessPriority.RemoveSpaces();
-                return Enum.IsDefined(typeof(ProcessPriorityClass), processorsPriority)
-                        ? (ProcessPriorityClass)Enum.Parse(typeof(ProcessPriorityClass), processorsPriority)
+                ProcessPriorityClass processPriorityClass;
+                return EnumUtils.TryParse(ProcessPriority, out processPriorityClass)
+                        ? processPriorityClass
                         : ProcessPriorityClass.Normal;
             }
         }
@@ -251,7 +241,7 @@ namespace Xps2Img.Shared.CommandLine
         private bool _batch;
 
         [Browsable(false)]
-        [Option("", BatchShortOption, ArgumentExpectancy.No)]
+        [Option("", BatchShortOption, ArgumentExpectancy.No, Flags = OptionFlags.Internal)]
         [UIOption(BatchOption)]
         [DefaultValue(false)]
         public bool Batch
