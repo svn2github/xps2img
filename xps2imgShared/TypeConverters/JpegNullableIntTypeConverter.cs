@@ -11,7 +11,7 @@ namespace Xps2Img.Shared.TypeConverters
         {
         }
 
-        private static readonly int[] Dpis = new[] { 10, 15, 25, 35, 45, 55, 65, 75, 85, 95, 100 };
+        private static readonly int[] JpegQuality = new[] { 10, 15, 25, 35, 45, 55, 65, 75, 85, 95, 100 };
 
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
         {
@@ -20,7 +20,7 @@ namespace Xps2Img.Shared.TypeConverters
 
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(Dpis);
+            return new StandardValuesCollection(JpegQuality);
         }
     }
 }
