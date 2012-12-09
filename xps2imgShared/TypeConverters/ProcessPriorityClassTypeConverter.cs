@@ -11,9 +11,9 @@ namespace Xps2Img.Shared.TypeConverters
     {
         public const ProcessPriorityClass Auto = 0;
 
-        private readonly ProcessPriorityClass[] _allowedValues = new[]
+        private readonly object[] _allowedValues = new object[]
         {
-            Auto,
+            (int)Auto,
             ProcessPriorityClass.Idle,
             ProcessPriorityClass.BelowNormal,
             ProcessPriorityClass.Normal,

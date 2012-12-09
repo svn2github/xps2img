@@ -92,10 +92,19 @@ namespace CommandLine
 
                 if (longOpt.IsEnum)
                 {
+                    var typeConverter = longOpt.TypeConverter;
                     optStringBuilder.AppendFormat(
                         Strings.Format_Alternatives,
                         String.Join(Strings.Format_AlternativesSeparator,
-                                    Array.ConvertAll(Enum.GetNames(longOpt.GetPropertyValue().GetType()), x => x.ToLowerInvariant())));
+                                    Array.ConvertAll(
+                                        typeConverter == null
+                                            ? Enum.GetNames(longOpt.GetPropertyValue().GetType())
+                                            : (typeConverter.GetStandardValues() ?? new object[0])
+                                                .Cast<object>()
+                                                .Where(o => o is Enum)
+                                                .Select(o => o.ToString())
+                                                .ToArray()
+                                        , x => x.ToLowerInvariant())));
                 }
 
                 const string lineSeparator = "\n";

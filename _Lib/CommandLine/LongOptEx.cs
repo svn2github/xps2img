@@ -104,7 +104,7 @@ namespace CommandLine
         public bool HasDefaultValue { get { return !String.IsNullOrEmpty(DefaultValue); } }
 
         public TypeConverter TypeConverter { get; set; }
-        public bool IsEnum { get { return TypeConverter.GetType() == typeof(EnumConverter); } }
+        public bool IsEnum { get { return TypeConverter is EnumConverter; } }
 
         public bool IsShortOptionAuto { get { return Val == ShortOptionType.Auto; } }
         public bool IsShortOptionNone { get { return Val < ShortOptionType.Auto; } }

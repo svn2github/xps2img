@@ -199,7 +199,7 @@ namespace Xps2Img.Shared.CommandLine
             }
         }
 
-        [Option(ProcessPriorityDescription, ProcessPriorityShortOption, DefaultValue = ProcessPriorityDefaultValue, Flags = OptionFlags.NoDefaultValueDescription)]
+        [Option(ProcessPriorityDescription, ProcessPriorityShortOption, DefaultValue = ProcessPriorityDefaultValue, ConverterType = typeof(ProcessPriorityClassTypeConverter), Flags = OptionFlags.NoDefaultValueDescription)]
         [UIOption(ProcessPriorityShortOption)]
         [DisplayName(ProcessPriorityDisplayName)]
         [TabbedDescription(ProcessPriorityTabbedDescription)]
