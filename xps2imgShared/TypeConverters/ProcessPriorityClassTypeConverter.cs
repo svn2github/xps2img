@@ -1,22 +1,43 @@
-﻿using Xps2Img.Shared.CommandLine;
+﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Globalization;
+
+using Xps2Img.Shared.CommandLine;
 
 namespace Xps2Img.Shared.TypeConverters
 {
-    public class ProcessPriorityClassTypeConverter : StandardValuesTypeConverter
+    public class ProcessPriorityClassTypeConverter : StringEnumConverter<ProcessPriorityClass>
     {
-        private static readonly string[] Processors =
+        public const ProcessPriorityClass Auto = 0;
+
+        private readonly ProcessPriorityClass[] _allowedValues = new[]
         {
-            Validation.AutoValue,
-            "Idle",
-            "Below Normal",
-            "Normal",
-            "Above Normal",
-            "High"
+            Auto,
+            ProcessPriorityClass.Idle,
+            ProcessPriorityClass.BelowNormal,
+            ProcessPriorityClass.Normal,
+            ProcessPriorityClass.AboveNormal,
+            ProcessPriorityClass.High
         };
 
-        public override string[] Values
+        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            get { return Processors; }
+            return new StandardValuesCollection(_allowedValues);
+        }
+
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            return value != null && (ProcessPriorityClass)value == Auto
+                    ? Validation.AutoValue
+                    : base.ConvertTo(context, culture, value, destinationType);
+        }
+
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            return String.CompareOrdinal(Validation.AutoValue, value as string) == 0
+                    ? Auto
+                    : base.ConvertFrom(context, culture, value);
         }
     }
 }

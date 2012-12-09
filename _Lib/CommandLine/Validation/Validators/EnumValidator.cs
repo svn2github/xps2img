@@ -22,7 +22,7 @@ namespace CommandLine.Validation.Validators
 
         public void Validate(string value)
         {
-            var lowerValue = value.ToLowerInvariant();
+            var lowerValue = value.ToLowerInvariant().Replace(" ", "");
             if (!_names.Contains(lowerValue))
             {
                 throw new ValidationException(Resources.Strings.Validation_EnumValidator);

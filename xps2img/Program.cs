@@ -10,6 +10,8 @@ using Xps2Img.CommandLine;
 
 using Xps2Img.Shared.CommandLine;
 using Xps2Img.Shared.Setup;
+using Xps2Img.Shared.TypeConverters;
+
 using Xps2Img.Xps2Img;
 
 using ReturnCode = Xps2Img.Shared.CommandLine.CommandLine.ReturnCode;
@@ -43,9 +45,9 @@ namespace Xps2Img
                     return ReturnCode.InvalidArg;
                 }
 
-                if (options.ProcessorsPriorityAsEnum != ProcessPriorityClass.Normal)
+                if (options.ProcessPriority != ProcessPriorityClassTypeConverter.Auto)
                 {
-                    Process.GetCurrentProcess().PriorityClass = options.ProcessorsPriorityAsEnum;
+                    Process.GetCurrentProcess().PriorityClass = options.ProcessPriority;
                 }
 
 #if fsdfsdf

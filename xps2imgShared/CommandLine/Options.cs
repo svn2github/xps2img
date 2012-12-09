@@ -14,7 +14,6 @@ using Xps2Img.Shared.Attributes.UI;
 using Xps2Img.Shared.Dialogs;
 using Xps2Img.Shared.TypeConverters;
 using Xps2Img.Shared.TypeEditors;
-using Xps2Img.Shared.Utils;
 
 using UIOption = Xps2Img.Shared.Attributes.Options.OptionAttribute;
 using UIUnnamedOption = Xps2Img.Shared.Attributes.Options.UnnamedOptionAttribute;
@@ -52,13 +51,13 @@ namespace Xps2Img.Shared.CommandLine
         [DisplayName(PostActionDisplayName)]
         [Category(CategoryParameters)]
         [TypeConverter(typeof(PostActionTypeConverter))]
-        [DefaultValue(PostActionTypeConverter.Default)]
+        [DefaultValue(PostAction.DoNothing)]
         [TabbedDescription(PostActionDescription)]
-        public string PostAction
+        public PostAction PostAction
         {
             get; set;
         }
-
+        
         [Option(PagesDescription, PagesShortOption, DefaultValue = null, ConverterType = typeof(PagesTypeConverter), ValidationExpression = Validation.PagesValidationExpression)]
         [DisplayName(PagesDisplayName)]
         [TabbedDescription(PagesDescription)]
@@ -206,36 +205,12 @@ namespace Xps2Img.Shared.CommandLine
         [TabbedDescription(ProcessPriorityTabbedDescription)]
         [Category(CategoryOptions)]
         [TypeConverter(typeof(ProcessPriorityClassTypeConverter))]
-        [DefaultValue(ProcessPriorityDefaultValue)]
-        public string ProcessPriority
+        [DefaultValue(ProcessPriorityClassTypeConverter.Auto)]
+        public ProcessPriorityClass ProcessPriority
         {
-            get { return _processPriority; }
-
-            set
-            {
-                value = value.RemoveSpaces();
-                _processPriority =
-                    String.CompareOrdinal(Validation.AutoValue, value) != 0 &&
-                    EnumUtils.HasValue<ProcessPriorityClass>(value)
-                        ? value
-                        : Validation.AutoValue;
-            }
+            get; set;
         }
-
-        private string _processPriority;
-
-        [Browsable(false)]
-        public ProcessPriorityClass ProcessorsPriorityAsEnum
-        {
-            get
-            {
-                ProcessPriorityClass processPriorityClass;
-                return EnumUtils.TryParse(ProcessPriority, out processPriorityClass)
-                        ? processPriorityClass
-                        : ProcessPriorityClass.Normal;
-            }
-        }
-
+       
         public static readonly string[] ExcludedOnSave = new[] { CancellationObjectIdsName, BatchOption };
         public static readonly string[] ExcludedUIOptions = new[] { ProcessorsOption, BatchOption };
         public static readonly string[] ExcludedOnLaunch = ExcludedUIOptions.Concat(new[] { PagesShortOption.ToString(CultureInfo.InvariantCulture) }).ToArray();
@@ -257,7 +232,7 @@ namespace Xps2Img.Shared.CommandLine
                 _batch = value;
                 if (_batch)
                 {
-                    PostAction = PostActionTypeConverter.ChooseAction(PostAction, PostActionTypeConverter.Exit);
+                    PostAction = PostActionTypeConverter.ChooseAction(PostAction, PostAction.Exit);
                 }
             }
         }

@@ -100,16 +100,16 @@ namespace Xps2ImgUI
             #endif
         }
 
-        private static ShutdownType PostActionToShutdownType(string shutdownType)
+        private static ShutdownType PostActionToShutdownType(PostAction shutdownType)
         {
             switch(shutdownType)
             {
-                case PostActionTypeConverter.Exit:      return ShutdownType.Exit;
-                case PostActionTypeConverter.Hibernate: return ShutdownType.ForcedHibernate;
-                case PostActionTypeConverter.LogOff:    return ShutdownType.ForcedLogOff;
-                case PostActionTypeConverter.Reboot:    return ShutdownType.ForcedReboot;
-                case PostActionTypeConverter.Shutdown:  return ShutdownType.ForcedShutdown;
-                case PostActionTypeConverter.Sleep:     return ShutdownType.ForcedSleep;
+                case PostAction.Exit:      return ShutdownType.Exit;
+                case PostAction.Hibernate: return ShutdownType.ForcedHibernate;
+                case PostAction.LogOff:    return ShutdownType.ForcedLogOff;
+                case PostAction.Reboot:    return ShutdownType.ForcedReboot;
+                case PostAction.Shutdown:  return ShutdownType.ForcedShutdown;
+                case PostAction.Sleep:     return ShutdownType.ForcedSleep;
             }
             throw new InvalidOperationException();
         }

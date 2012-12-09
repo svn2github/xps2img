@@ -319,7 +319,7 @@ namespace Xps2ImgUI.Model
                 {
                     _originalProcessPriorityClass = process.PriorityClass;
 
-                    switch (OptionsObject.ProcessorsPriorityAsEnum)
+                    switch (OptionsObject.ProcessPriority)
                     {
                         case ProcessPriorityClass.Normal:
                             processPriorityClass = ProcessPriorityClass.AboveNormal;
@@ -492,7 +492,7 @@ namespace Xps2ImgUI.Model
             }
         }
 
-        public string ShutdownType
+        public PostAction ShutdownType
         {
             get { return OptionsObject.PostAction; }
         }
@@ -501,7 +501,7 @@ namespace Xps2ImgUI.Model
         {
             get
             {
-                return  ShutdownType != PostActionTypeConverter.Default
+                return ShutdownType != PostAction.DoNothing
                         && !IsDeleteMode
                         && (IsBatchMode || (IsProgressStarted && !_userCancelled));
             }

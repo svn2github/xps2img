@@ -1,42 +1,36 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-using Xps2Img.Shared.Utils.System;
+﻿using Xps2Img.Shared.Utils.System;
 
 namespace Xps2Img.Shared.TypeConverters
 {
-    public class PostActionTypeConverter : StandardValuesTypeConverter
+    public enum PostAction
+    { 
+        DoNothing,
+        Shutdown,
+        Reboot,
+        Sleep,
+        Hibernate,
+        LogOff,
+        Exit
+    };
+
+    public class PostActionTypeConverter : StringEnumConverter<PostAction>
     {
-        public const string Default   = "Do Nothing";
-        public const string Shutdown  = "Shutdown";
-        public const string Reboot    = "Reboot";
-        public const string Sleep     = "Sleep";
-        public const string Hibernate = "Hibernate";
-        public const string LogOff    = "Log Off";
-        public const string Exit      = "Exit";
-
-        private static IEnumerable<string> Actions
+        public static PostAction ChooseAction(PostAction currentAction, PostAction userAction)
         {
-            get
+            return currentAction != PostAction.DoNothing ? currentAction : userAction;
+        }
+
+        protected override bool IsValueVisible(PostAction value)
+        {
+            switch (value)
             {
-                yield return Default;
-                if(SystemManagement.CanShutdown)    yield return Shutdown;
-                yield return Reboot;
-                if(SystemManagement.CanSleep)       yield return Sleep;
-                if(SystemManagement.CanHibernate)   yield return Hibernate;
-                if(SystemManagement.CanLogOff)      yield return LogOff;
-                yield return Exit;
+                case PostAction.Shutdown:  return SystemManagement.CanShutdown;
+                case PostAction.Sleep:     return SystemManagement.CanSleep;
+                case PostAction.Hibernate: return SystemManagement.CanHibernate;
+                case PostAction.LogOff:    return SystemManagement.CanLogOff;
             }
-        }
 
-        public static string ChooseAction(string currentAction, string userAction)
-        {
-            return currentAction != Default ? currentAction : userAction;
-        }
-
-        public override string[] Values
-        {
-            get { return Actions.ToArray(); }
+            return true;
         }
     }
 }
