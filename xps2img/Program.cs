@@ -105,18 +105,20 @@ namespace Xps2Img
             {
                 xps2Img.OnProgress += OnProgress;
 
-                if (!options.Pages.LessThan(xps2Img.PageCount))
+                var pages = options.SafePages;
+
+                if (!pages.LessThan(xps2Img.PageCount))
                 {
                     throw new ConversionException(String.Format(Resources.Strings.Error_PagesRange, xps2Img.PageCount), ReturnCode.InvalidPages);
                 }
 
-                options.Pages.SetEndValue(xps2Img.PageCount);
+                pages.SetEndValue(xps2Img.PageCount);
 
-                xps2Img.ConverterState.SetLastAndTotalPages(options.Pages.Last().End, options.Pages.GetTotalLength());
+                xps2Img.ConverterState.SetLastAndTotalPages(pages.Last().End, pages.GetTotalLength());
 
                 // Options always have default values set.
                 // ReSharper disable PossibleInvalidOperationException
-                options.Pages.ForEach(interval =>
+                pages.ForEach(interval =>
                     xps2Img.Convert(
                         new Converter.Parameters
                         {

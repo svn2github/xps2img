@@ -236,7 +236,7 @@ namespace Xps2ImgUI.Model
 
         private List<Interval> GetDocumentIntervals()
         {
-            var intervals = OptionsObject.Pages.DeepClone();
+            var intervals = OptionsObject.SafePages.DeepClone();
 
             var pageCount = GetDocumentPageCount();
 

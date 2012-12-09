@@ -64,10 +64,16 @@ namespace Xps2Img.Shared.CommandLine
         [TabbedDescription(PagesDescription)]
         [Category(CategoryOptions)]
         [UIOption(PagesShortOption)]
-        [DefaultValue(typeof(string), null)]
+        [DefaultValue(typeof(List<Interval>), null)]
         [Editor(typeof(OrdinalUITypeEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(PagesTypeConverter))]
         public List<Interval> Pages { get; set; }
+
+        [Browsable(false)]
+        public List<Interval> SafePages
+        {
+            get { return Pages ?? new List<Interval> { new Interval() }; }
+        }
 
         [Option(FileTypeDescription, FileTypeShortOption, DefaultValue = FileTypeDefaultValue)]
         [DisplayName(FileTypeDisplayName)]

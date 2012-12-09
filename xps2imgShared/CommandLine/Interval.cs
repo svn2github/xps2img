@@ -12,18 +12,11 @@ namespace Xps2Img.Shared.CommandLine
         public const string ValidationRegex0 = @"(^\s*$)|(^(\s*,)*\s*((\s*[0-9](\d{1,4})?\s*)|(\s*-\s*[0-9](\d{1,4})?\s*)|(\s*[0-9](\d{1,4})?\s*-\s*[0-9](\d{1,4})?\s*)|(\s*[0-9](\d{1,4})?\s*-\s*))(\s*(\s*,\s*)+\s*((\s*[0-9](\d{1,4})?\s*)|(\s*-\s*[0-9](\d{1,4})?\s*)|(\s*[0-9](\d{1,4})?\s*-\s*[0-9](\d{1,4})?\s*)|(\s*[0-9](\d{1,4})?\s*-\s*)))*(\s*,)*\s*$)";
 
         public Interval()
-            : this(MinValue, MaxValue)
+            : this(MinValue)
         {
         }
 
-        public Interval(int point)
-        {
-            Begin = End = point;
-
-            Normalize();
-        }
-
-        public Interval(int begin, int end)
+        public Interval(int begin, int end = MaxValue)
         {
             Begin = begin;
             End = end;
