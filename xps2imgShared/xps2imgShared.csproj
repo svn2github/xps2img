@@ -71,6 +71,7 @@
     <Compile Include="TypeEditors\CheckedListBoxUITypeEditor.cs" />
     <Compile Include="TypeEditors\CpuAffinityUITypeEditor.cs" />
     <Compile Include="Utils\EnumUtils.cs" />
+    <Compile Include="Utils\SystemManagementUtils.cs" />
     <Compile Include="Utils\System\AssemblyInformation.cs" />
     <Compile Include="Utils\DisposableActions.cs" />
     <Compile Include="Setup\SetupGuard.cs" />

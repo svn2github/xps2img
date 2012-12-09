@@ -13,7 +13,6 @@ using CommandLine;
 using Windows7.Dialogs;
 
 using Xps2Img.Shared.Setup;
-using Xps2Img.Shared.TypeConverters;
 using Xps2Img.Shared.Utils;
 using Xps2Img.Shared.Utils.System;
 using Xps2Img.Shared.Utils.UI;
@@ -86,11 +85,7 @@ namespace Xps2ImgUI
 
             if (model.ShutdownRequested)
             {
-                #if DEBUG
-                System.Diagnostics.Debug.WriteLine("SHUTDOWN TYPE: " + model.ShutdownType);
-                if(PostActionToShutdownType(model.ShutdownType) == ShutdownType.Exit)
-                #endif
-                SystemManagement.Shutdown(PostActionToShutdownType(model.ShutdownType));
+                SystemManagementUtils.Shutdown(model.ShutdownType);
             }
             #if DEBUG
             else
@@ -98,20 +93,6 @@ namespace Xps2ImgUI
                 System.Diagnostics.Debug.WriteLine("NO SHUTDOWN PENDING");
             }
             #endif
-        }
-
-        private static ShutdownType PostActionToShutdownType(PostAction shutdownType)
-        {
-            switch(shutdownType)
-            {
-                case PostAction.Exit:      return ShutdownType.Exit;
-                case PostAction.Hibernate: return ShutdownType.ForcedHibernate;
-                case PostAction.LogOff:    return ShutdownType.ForcedLogOff;
-                case PostAction.Reboot:    return ShutdownType.ForcedReboot;
-                case PostAction.Shutdown:  return ShutdownType.ForcedShutdown;
-                case PostAction.Sleep:     return ShutdownType.ForcedSleep;
-            }
-            throw new InvalidOperationException();
         }
 
         [DllImport("user32.dll")]

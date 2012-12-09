@@ -48,6 +48,7 @@ namespace Xps2Img.Shared.CommandLine
         [TypeConverter(typeof(TrimStringTypeConverter))]
         public string OutDir { get; set; }
 
+        [Option(PostActionDescription, PostActionShortOption, ConverterType = typeof(PostActionTypeConverter))]
         [DisplayName(PostActionDisplayName)]
         [Category(CategoryParameters)]
         [TypeConverter(typeof(PostActionTypeConverter))]
@@ -58,7 +59,7 @@ namespace Xps2Img.Shared.CommandLine
             get; set;
         }
         
-        [Option(PagesDescription, PagesShortOption, DefaultValue = null, ConverterType = typeof(PagesTypeConverter), ValidationExpression = Validation.PagesValidationExpression)]
+        [Option(PagesDescription, PagesShortOption, ConverterType = typeof(PagesTypeConverter), ValidationExpression = Validation.PagesValidationExpression)]
         [DisplayName(PagesDisplayName)]
         [TabbedDescription(PagesDescription)]
         [Category(CategoryOptions)]

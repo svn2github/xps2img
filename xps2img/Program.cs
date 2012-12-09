@@ -11,6 +11,7 @@ using Xps2Img.CommandLine;
 using Xps2Img.Shared.CommandLine;
 using Xps2Img.Shared.Setup;
 using Xps2Img.Shared.TypeConverters;
+using Xps2Img.Shared.Utils;
 
 using Xps2Img.Xps2Img;
 
@@ -31,6 +32,9 @@ namespace Xps2Img
         {
             SetupGuard.Enter();
 
+            Options options = null;
+            int exitCode;
+
             try
             {
                 if (CommandLine.CommandLine.IsUsageDisplayed<Options>(args))
@@ -38,7 +42,7 @@ namespace Xps2Img
                     return ReturnCode.NoArgs;
                 }
 
-                var options = CommandLine.CommandLine.Parse(args);
+                options = CommandLine.CommandLine.Parse(args);
 
                 if (options == null)
                 {
@@ -71,16 +75,23 @@ namespace Xps2Img
 
                 Convert(options, () => _isCancelled);
 
-                return _isUserCancelled
+                exitCode = _isUserCancelled
                             ? ReturnCode.UserCancelled
                             : launchedAsInternal
-                                ? ReturnCode.InternalOK
-                                : ReturnCode.OK;
+                                    ? ReturnCode.InternalOK
+                                    : ReturnCode.OK;
             }
             catch (Exception ex)
             {
-                return CommandLine.CommandLine.DisplayError(ex);
+                exitCode = CommandLine.CommandLine.DisplayError(ex);
             }
+
+            if (options != null && options.PostAction != PostAction.Exit)
+            {
+                SystemManagementUtils.Shutdown(options.PostAction);
+            }
+
+            return exitCode;
         }
 
         private static void WaitForCancellationThread(Options options)

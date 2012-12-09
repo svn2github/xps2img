@@ -17,6 +17,7 @@
 
         private const string PostActionDescription = "Action to execute after conversion completed";
         public  const string PostActionDisplayName = "After Conversion";
+        private const char   PostActionShortOption = 'w';
 
         private const string PagesDescription = "Page number(s)\n  all pages by default\nSyntax:\n  all:\t\t1-\n  single:\t1\n  set:\t\t1,3\n  range:\t1-10 or -10 or 10-\n  combined:\t1,3-5,7-9,15-";
         private const string PagesDisplayName = "Page Number(s)";
