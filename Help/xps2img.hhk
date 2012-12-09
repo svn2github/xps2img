@@ -69,6 +69,10 @@
 		<param name="Local" value="Files\Options.html#outdir">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="-w, --post-action">
+		<param name="Local" value="Files\Options.html#afterconversion">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-p, --pages">
 		<param name="Local" value="Files\Options.html#pages">
 		</OBJECT>
@@ -109,6 +113,10 @@
 		<param name="Local" value="Files\Options.html#shortenextension">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="-c, --process-priority">
+		<param name="Local" value="Files\Options.html#processpriority">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-y, --cpu-affinity">
 		<param name="Local" value="Files\Options.html#affinity">
 		</OBJECT>
@@ -143,7 +151,7 @@
 		<param name="Local" value="Files\Options.html#outdir">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="After Conversion">
+		<param name="Name" value="Post Conversion Action">
 		<param name="Local" value="Files\Options.html#afterconversion">
 		</OBJECT>
 	</UL>
@@ -198,7 +206,7 @@
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Processors Priority">
-		<param name="Local" value="Files\OptionsGUI.html#processorspriority">
+		<param name="Local" value="Files\Options.html#processpriority">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Processors Affinity">
@@ -224,10 +232,6 @@
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Output Folder">
 		<param name="Local" value="Files\Options.html#outdir">
-		</OBJECT>
-	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="After Conversion">
-		<param name="Local" value="Files\Options.html#afterconversion">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="First Page Index">
@@ -258,6 +262,10 @@
 		<param name="Local" value="Files\Options.html#pages">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Post Conversion Action">
+		<param name="Local" value="Files\Options.html#afterconversion">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Preliminaries Prefix">
 		<param name="Local" value="Files\Options.html#prelimsprefix">
 		</OBJECT>
@@ -271,7 +279,7 @@
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Processors Priority">
-		<param name="Local" value="Files\OptionsGUI.html#processorspriority">
+		<param name="Local" value="Files\Options.html#processpriority">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Shorten Image Extension">
@@ -300,6 +308,10 @@
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-b">
 		<param name="Local" value="Files\OptionsGUI.html#batch">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="-c">
+		<param name="Local" value="Files\Options.html#processpriority">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-d">
@@ -342,13 +354,17 @@
 		<param name="Local" value="Files\Options.html#tiffcompression">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="-w">
+		<param name="Local" value="Files\Options.html#afterconversion">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-x">
 		<param name="Local" value="Files\Options.html#prelimsprefix">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-y">
 		<param name="Local" value="Files\Options.html#affinity">
-		</OBJECT>	
+		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="--batch">
 		<param name="Local" value="Files\OptionsGUI.html#batch">
@@ -386,16 +402,20 @@
 		<param name="Local" value="Files\Options.html#pages">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="--post-action">
+		<param name="Local" value="Files\Options.html#afterconversion">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="--prelims-prefix">
 		<param name="Local" value="Files\Options.html#prelimsprefix">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="--processors">
+		<param name="Name" value="--processors-number">
 		<param name="Local" value="Files\OptionsGUI.html#processors">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="--processors-priority">
-		<param name="Local" value="Files\OptionsGUI.html#processorspriority">
+		<param name="Name" value="--process-priority">
+		<param name="Local" value="Files\Options.html#processpriority">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="--required-size">

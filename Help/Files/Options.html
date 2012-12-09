@@ -26,17 +26,18 @@
     <p>Output folder. Optional.</p>
     <p class="default">new folder named as document will be created in folder where document is by default.</p>
 
-    <a class="anchor" name="afterconversion" /><h2>After Conversion</h2>
+    <a class="anchor" name="afterconversion" /><h2>Post Conversion Action</h2>
+    <h3>-w, --post-action=action</h3>
     <p>Action to execute after conversion completed. Only available actions are shown.</p>
     <p>One of:</p>
     <ul>
-        <li>Do Nothing</li>
-        <li>Shutdown</li>
-        <li>Reboot</li>
-        <li>Sleep</li>
-        <li>Hibernate</li>
-        <li>Log Off</li>
-        <li>Exit</li>
+        <li>donothing</li>
+        <li>shutdown</li>
+        <li>reboot</li>
+        <li>sleep</li>
+        <li>hibernate</li>
+        <li>logoff</li>
+        <li>exit</li>
     </ul>
     <p class="note">If conversion fails on startup error message will be shown and no action executed. Active only during conversion session.</p>
 
@@ -133,6 +134,19 @@
     <a class="anchor" name="shortenextension" /><h2>Shorten Image Extension</h2>
     <h3>-n, --shorten-extension</h3>
     <p>Shorten image extension down to three characters.</p>
+
+    <a class="anchor" name="processpriority" /><h2>Process Priority</h2>
+    <h3>-c, --process-priority=priority</h3>
+    <p>Process priority.</p>
+    <p class="default">normal by default.</p>
+    <p>One of:</p>
+    <ul>
+        <li>idle</li>
+        <li>belownormal</li>
+        <li>normal</li>
+        <li>abovenormal</li>
+        <li>high</li>
+    </ul>
 
     <a class="anchor" name="affinity" /><h2>Process Affinity</h2>
     <h3>-y, --cpu-affinity=affinity</h3>
