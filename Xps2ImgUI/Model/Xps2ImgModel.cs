@@ -240,9 +240,14 @@ namespace Xps2ImgUI.Model
 
             var pageCount = GetDocumentPageCount();
 
-            if (pageCount == 0 || !intervals.LessThan(pageCount))
+            if (pageCount == 0)
             {
-                return new List<Interval>();
+                throw new IndexOutOfRangeException(Resources.Strings.DocumentHasNoPages);
+            }
+
+            if (!intervals.LessThan(pageCount))
+            {
+                throw new IndexOutOfRangeException(String.Format(Resources.Strings.PagesSpecifiedAreOutOfRange, pageCount)); 
             }
 
             intervals.Last().SetEndValue(pageCount);

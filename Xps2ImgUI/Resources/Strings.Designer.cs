@@ -313,6 +313,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Document has no pages. Nothing to convert..
+        /// </summary>
+        internal static string DocumentHasNoPages {
+            get {
+                return ResourceManager.GetString("DocumentHasNoPages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Download Failed.
         /// </summary>
         internal static string DownloadFailed {
@@ -480,6 +489,15 @@ namespace Xps2ImgUI.Resources {
         internal static string PageOfPages {
             get {
                 return ResourceManager.GetString("PageOfPages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pages specified are out of document pages range. {0} is the last one..
+        /// </summary>
+        internal static string PagesSpecifiedAreOutOfRange {
+            get {
+                return ResourceManager.GetString("PagesSpecifiedAreOutOfRange", resourceCulture);
             }
         }
         
