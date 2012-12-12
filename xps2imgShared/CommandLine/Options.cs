@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -54,10 +53,7 @@ namespace Xps2Img.Shared.CommandLine
         [TypeConverter(typeof(PostActionTypeConverter))]
         [DefaultValue(PostAction.DoNothing)]
         [TabbedDescription(PostActionDescription)]
-        public PostAction PostAction
-        {
-            get; set;
-        }
+        public PostAction PostAction { get; set; }
         
         [Option(PagesDescription, PagesShortOption, ConverterType = typeof(PagesTypeConverter), ValidationExpression = Validation.PagesValidationExpression)]
         [DisplayName(PagesDisplayName)]
@@ -164,39 +160,23 @@ namespace Xps2Img.Shared.CommandLine
         [Browsable(false)]
         public string ParentAppMutexName { get { return SyncObjectsNames.Last(); } }
 
-        [Option("", ShortOptionType.None12, DefaultValue = ProcessorsDefaultValue, Flags = OptionFlags.Internal)]
+        [Option("", ShortOptionType.None12, ConverterType = typeof(ProcessorsNumberTypeConverter), Flags = OptionFlags.Internal)]
         [UIOption(ProcessorsOption)]
         [DisplayName(ProcessorsDisplayName)]
         [TabbedDescription(ProcessorsTabbedDescription)]
         [Category(CategoryOptions)]
         [TypeConverter(typeof(ProcessorsNumberTypeConverter))]
         [DefaultValue(ProcessorsDefaultValue)]
-        public string ProcessorsNumber
-        {
-            get { return _processorsNumber; }
-
-            set
-            {
-                var processesNumber = 1;
-
-                _processorsNumber =
-                    (String.CompareOrdinal(Validation.AutoValue, value) != 0 && !Int32.TryParse(value, out processesNumber)) ||
-                    (processesNumber <= 0 || processesNumber > ProcessorsNumberTypeConverter.ProcessorCount)
-                        ? Validation.AutoValue
-                        : value;
-            }
-        }
-
-        private string _processorsNumber;
+        public int ProcessorsNumber { get; set; }
 
         [Browsable(false)]
-        public int ProcessorsNumberAsInt
+        public int SafeProcessorsNumber
         {
             get
             {
-                return Validation.AutoValue == ProcessorsNumber
+                return ProcessorsNumber == ProcessorsDefaultValue
                         ? ProcessorsNumberTypeConverter.ProcessorCount
-                        : Int32.Parse(ProcessorsNumber);
+                        : ProcessorsNumber;
             }
         }
 
@@ -207,10 +187,7 @@ namespace Xps2Img.Shared.CommandLine
         [Category(CategoryOptions)]
         [TypeConverter(typeof(ProcessPriorityClassTypeConverter))]
         [DefaultValue(ProcessPriorityClassTypeConverter.Auto)]
-        public ProcessPriorityClass ProcessPriority
-        {
-            get; set;
-        }
+        public ProcessPriorityClass ProcessPriority { get; set; }
        
         public static readonly string[] ExcludedOnSave = new[] { CancellationObjectIdsName, BatchOption };
         public static readonly string[] ExcludedUIOptions = new[] { ProcessorsOption, BatchOption };

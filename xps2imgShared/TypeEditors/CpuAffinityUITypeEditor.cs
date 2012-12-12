@@ -12,7 +12,7 @@ namespace Xps2Img.Shared.TypeEditors
     {
         private static IEnumerable<CheckItem> GetAll(bool check = true)
         {
-            return ProcessorsNumberTypeConverter.Processors.Skip(1).Select(x => new CheckItem { Item = (int.Parse(x) - 1).ToString(CultureInfo.InvariantCulture), Checked = check });
+            return ProcessorsNumberTypeConverter.Processors.Skip(1).Select(x => new CheckItem { Item = (x - 1).ToString(CultureInfo.InvariantCulture), Checked = check });
         }
 
         protected CpuAffinityUITypeEditor()
@@ -44,7 +44,7 @@ namespace Xps2Img.Shared.TypeEditors
 
         private static IEnumerable<CheckItem> ParseValue(string value)
         {
-            if (value != null && value.ToLowerInvariant() == Validation.AutoValue.ToLowerInvariant())
+            if (value != null && String.Compare(value, Validation.AutoValue, StringComparison.InvariantCultureIgnoreCase) == 0)
             {
                 return GetAll();
             }

@@ -98,7 +98,6 @@
     <Compile Include="TypeConverters\PostActionTypeConverter.cs" />
     <Compile Include="TypeConverters\ProcessorsNumberTypeConverter.cs" />
     <Compile Include="TypeConverters\ProcessPriorityClassTypeConverter.cs" />
-    <Compile Include="TypeConverters\StandardValuesTypeConverter.cs" />
     <Compile Include="TypeConverters\TrimStringTypeConverter.cs" />
     <Compile Include="TypeConverters\YesNoConverter.cs" />
     <Compile Include="TypeEditors\OrdinalUITypeEditor.cs" />

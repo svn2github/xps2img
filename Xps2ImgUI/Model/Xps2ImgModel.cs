@@ -378,7 +378,7 @@ namespace Xps2ImgUI.Model
                 _threadsLeft = 0;
                 _pagesProcessed = 0;
 
-                _threadsCount = IsCreationMode ? OptionsObject.ProcessorsNumberAsInt : 1;
+                _threadsCount = IsCreationMode ? OptionsObject.SafeProcessorsNumber : 1;
                 
                 var splittedIntervals = GetDocumentSplittedIntervals();
 

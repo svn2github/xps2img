@@ -1,4 +1,6 @@
-﻿namespace Xps2Img.Shared.CommandLine
+﻿using Xps2Img.Shared.TypeConverters;
+
+namespace Xps2Img.Shared.CommandLine
 {
     public partial class Options
     {
@@ -67,7 +69,7 @@
         private const string ProcessorsDisplayName       = "Processors";
         private const string ProcessorsTabbedDescription = "Number of simultaneously running document processors\n  number of logical CPUs by default";
         private const string ProcessorsOption            = "processors-number";
-        private const string ProcessorsDefaultValue      = Validation.AutoValue;
+        private const int ProcessorsDefaultValue         = ProcessorsNumberTypeConverter.AutoValue;
 
         private const string ProcessPriorityDescription       = "Process priority\n  normal by default";
         private const string ProcessPriorityTabbedDescription = "Document processors priority\n  Normal by default";
