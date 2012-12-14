@@ -32,6 +32,8 @@ namespace Xps2Img
         {
             SetupGuard.Enter();
 
+            var conversionStarted = false;
+
             Options options = null;
             int exitCode;
 
@@ -54,12 +56,10 @@ namespace Xps2Img
                     Process.GetCurrentProcess().PriorityClass = options.ProcessPriority;
                 }
 
-#if fsdfsdf
-                if (options.ActualCpuAffinity != IntPtr.Zero)
+                if (options.CpuAffinity != IntPtr.Zero)
                 {
-                    Process.GetCurrentProcess().ProcessorAffinity = options.ActualCpuAffinity;
+                    Process.GetCurrentProcess().ProcessorAffinity = options.CpuAffinity;
                 }
-#endif
 
                 var launchedAsInternal = !String.IsNullOrEmpty(options.CancellationObjectIds);
 
@@ -73,11 +73,11 @@ namespace Xps2Img
 
                 Win32.SetConsoleCtrlHandler(_ => _isUserCancelled = _isCancelled = true, true);
 
-                Convert(options, () => _isCancelled);
+                Convert(options, () => _isCancelled, out conversionStarted);
 
                 exitCode = _isUserCancelled
-                            ? ReturnCode.UserCancelled
-                            : launchedAsInternal
+                                ? ReturnCode.UserCancelled
+                                : launchedAsInternal
                                     ? ReturnCode.InternalOK
                                     : ReturnCode.OK;
             }
@@ -86,7 +86,7 @@ namespace Xps2Img
                 exitCode = CommandLine.CommandLine.DisplayError(ex);
             }
 
-            if (options != null && options.PostAction != PostAction.Exit)
+            if (options != null && options.PostAction != PostAction.Exit && conversionStarted)
             {
                 SystemManagementUtils.Shutdown(options.PostAction);
             }
@@ -112,8 +112,10 @@ namespace Xps2Img
             _isCancelled = true;
         }
 
-        private static void Convert(Options options, Func<bool> cancelConversionFunc)
+        private static void Convert(Options options, Func<bool> cancelConversionFunc, out bool conversionStarted)
         {
+            conversionStarted = false;
+
             using (var xps2Img = Converter.Create(options.SrcFile, cancelConversionFunc))
             {
                 xps2Img.OnProgress += OnProgress;
@@ -124,6 +126,8 @@ namespace Xps2Img
                 {
                     throw new ConversionException(String.Format(Resources.Strings.Error_PagesRange, xps2Img.PageCount), ReturnCode.InvalidPages);
                 }
+
+                conversionStarted = true;
 
                 pages.SetEndValue(xps2Img.PageCount);
 
