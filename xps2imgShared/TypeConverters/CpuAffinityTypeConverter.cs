@@ -74,7 +74,9 @@ namespace Xps2Img.Shared.TypeConverters
 
         private static List<Interval> Parse(string value)
         {
-            return Interval.Parse(value, FirstProcessorIndex);
+            var intervals = Interval.Parse(value, FirstProcessorIndex);
+            intervals.SetEndValue(Environment.ProcessorCount-1);
+            return intervals;
         }
     }
 }
