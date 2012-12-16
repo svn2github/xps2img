@@ -2,7 +2,7 @@
 
 namespace CommandLine.Validation.Validators
 {
-    internal class RegexValidator : IValidator
+    public class RegexValidator : ValidatorBase
     {
         private static readonly Regex Filter = new Regex(@"^/(?<regex>[\s\S]+?)/(?<options>[ims]*)$");
 
@@ -36,12 +36,14 @@ namespace CommandLine.Validation.Validators
             _validator = new Regex(regexp, regexOptions);
         }
 
-        public void Validate(string value)
+        protected override bool IsValid(string value)
         {
-            if (!_validator.IsMatch(value))
-            {
-                throw new ValidationException(Resources.Strings.Validation_RegexValidator);
-            }
+            return _validator.IsMatch(value);
+        }
+
+        protected override string Message
+        {
+            get { return Resources.Strings.Validation_RegexValidator; }
         }
     }
 }

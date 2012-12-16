@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace Xps2Img.Shared.CommandLine
                 first = false;
             }
             var result = sb.ToString();
-            return result == (minValue + "-") ? "" : result;
+            return result == (minValue + "-") ? String.Empty : result;
         }
 
         public static int GetTotalLength(this IEnumerable<Interval> intervals)

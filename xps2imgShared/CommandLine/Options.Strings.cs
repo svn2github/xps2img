@@ -69,8 +69,14 @@ namespace Xps2Img.Shared.CommandLine
         private const string ProcessorsDisplayName       = "Processors";
         private const string ProcessorsTabbedDescription = "Number of simultaneously running document processors\n  number of logical CPUs by default";
         private const string ProcessorsOption            = "processors-number";
-        private const int ProcessorsDefaultValue         = ProcessorsNumberTypeConverter.AutoValue;
+        private const int    ProcessorsDefaultValue      = ProcessorsNumberTypeConverter.AutoValue;
 
+        private const string CpuAffinityTabbedDescription = "CPUs processors" + CpuAffinityDescriptionMore;
+        private const string CpuAffinityDescription       = "CPUs process" + CpuAffinityDescriptionMore;
+        private const string CpuAffinityDescriptionMore   = " will be executed on\n  all by default\nSyntax:\n  all:\t\t0-\n  single:\t0\n  set:\t\t0,2\n  range:\t0-2 or -2 or 2-\n  combined:\t0,2-";
+        private const string CpuAffinityDisplayName       = "Processors Affinity";
+        private const char   CpuAffinityShortOption       = 'y';
+        
         private const string ProcessPriorityDescription       = "Process priority\n  normal by default";
         private const string ProcessPriorityTabbedDescription = "Document processors priority\n  Normal by default";
         private const string ProcessPriorityDisplayName       = "Processors Priority";

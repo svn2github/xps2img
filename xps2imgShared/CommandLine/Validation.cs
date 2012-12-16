@@ -8,7 +8,7 @@ namespace Xps2Img.Shared.CommandLine
 {
     public static class Validation
     {
-        public static void ValidateProperty(object propertyValue, string validatorExpresion)
+        public static void ValidateProperty(object propertyValue, string validatorExpresion, Func<string, bool> predicate = null)
         {
             if (String.IsNullOrEmpty(propertyValue as string))
             {
@@ -18,7 +18,7 @@ namespace Xps2Img.Shared.CommandLine
             try
             {
                 var validator = Parser.Parse(validatorExpresion);
-                validator.Validate(propertyValue.ToString());
+                validator.Validate(propertyValue.ToString(), predicate);
             }
             catch (ValidationException ex)
             {
@@ -26,6 +26,11 @@ namespace Xps2Img.Shared.CommandLine
                 message[0] = Char.ToUpper(message[0]);
                 throw new ValidationException(new string(message));
             }
+        }
+
+        public static bool IsAutoValue(string value)
+        {
+            return String.Compare((value ?? String.Empty).Trim(), AutoValue, StringComparison.InvariantCultureIgnoreCase) == 0;
         }
 
         public const string AutoValue = "Auto";

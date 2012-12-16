@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace CommandLine.Validation.Validators
 {
-    internal class IntValidator : IValidator
+    public class IntValidator : ValidatorBase
     {
         private static readonly Regex Filter = new Regex(@"^\s*(?<lowerBound>\d+)\s*-\s*(?<upperBound>\d+)\s*$");
 
@@ -32,13 +32,15 @@ namespace CommandLine.Validation.Validators
             Debug.Assert(_lowerBound <= _upperBound);
         }
 
-        public void Validate(string value)
+        protected override bool IsValid(string value)
         {
             int val;
-            if (!Int32.TryParse(value, out val) || val < _lowerBound || val > _upperBound)
-            {
-                throw new ValidationException(String.Format(Resources.Strings.Validation_IntValidator, _lowerBound, _upperBound));
-            }
+            return Int32.TryParse(value, out val) && val >= _lowerBound && val <= _upperBound;
+        }
+
+        protected override string Message
+        {
+            get { return String.Format(Resources.Strings.Validation_IntValidator, _lowerBound, _upperBound); }
         }
     }
 }

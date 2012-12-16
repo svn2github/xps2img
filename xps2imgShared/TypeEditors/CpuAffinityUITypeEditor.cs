@@ -10,19 +10,19 @@ namespace Xps2Img.Shared.TypeEditors
 {
     public class CpuAffinityUITypeEditor : CheckedListBoxUITypeEditor<string>
     {
-        private static IEnumerable<CheckItem> GetAll(bool check = true)
+        private static IEnumerable<ListItem> NewItems(bool check = true)
         {
-            return ProcessorsNumberTypeConverter.Processors.Skip(1).Select(x => new CheckItem { Item = (x - 1).ToString(CultureInfo.InvariantCulture), Checked = check });
+            return Enumerable.Range(0, Environment.ProcessorCount).Select(x => new ListItem { Item = x.ToString(CultureInfo.InvariantCulture), Checked = check });
         }
 
         protected CpuAffinityUITypeEditor()
         {
-            _items = GetAll();
+            _items = NewItems();
         }
 
         protected override object DefaultValue
         {
-            get { return Validation.AutoValue; }
+            get { return null; }
         }
         
         protected override object Value
@@ -30,55 +30,49 @@ namespace Xps2Img.Shared.TypeEditors
             set { _items = ParseValue(_typeConverter.ConvertToInvariantString(value)); }
             get
             {
-                return
-                    _typeConverter.ConvertFromInvariantString(
-                    CheckItems.All(x => x.Checked)
-                        ? (string)DefaultValue
-                        : CheckItems.All(x => !x.Checked)
-                            ? GetAll().ElementAt(0).ToString()
-                            : CheckItems.Aggregate("", (s, x) => x.Checked ? s + (s == "" ? "" : ",") + x.Item : s));
+                return _typeConverter.ConvertFromInvariantString(
+                            ListItems.All(x => x.Checked)
+                                ? (string)DefaultValue
+                                : ListItems.All(x => !x.Checked)
+                                    ? NewItems().ElementAt(0).ToString()
+                                    : ListItems.Aggregate(String.Empty, (s, x) => x.Checked ? s + (String.IsNullOrEmpty(s) ? String.Empty : ",") + x.Item : s));
             }
         }
 
         private readonly CpuAffinityTypeConverter _typeConverter = new CpuAffinityTypeConverter();
 
-        private static IEnumerable<CheckItem> ParseValue(string value)
+        private static IEnumerable<ListItem> ParseValue(string value)
         {
-            if (value != null && String.Compare(value, Validation.AutoValue, StringComparison.InvariantCultureIgnoreCase) == 0)
+            if (String.IsNullOrEmpty(value) || Validation.IsAutoValue(value))
             {
-                return GetAll();
+                return NewItems();
             }
 
-            var checkItems = GetAll(false).ToArray();
+            var items = NewItems(false).ToArray();
 
             if (String.IsNullOrEmpty(value))
             {
-                checkItems[0].Checked = true;
-                return checkItems;
+                items[0].Checked = true;
+                return items;
             }
 
             var isOneSet = false;
             foreach (var idStr in value.Split(','))
             {
                 int id;
-                if (int.TryParse(idStr, out id) && id >= 0 && id < checkItems.Length)
+                if (int.TryParse(idStr, out id) && id >= 0 && id < items.Length)
                 {
-                    checkItems[id].Checked = true;
+                    items[id].Checked = true;
                     isOneSet = true;
                 }
             }
 
-            if (!isOneSet)
-            {
-                return GetAll();
-            }
-
-            return checkItems;
+            return !isOneSet ? NewItems() : items;
         }
 
-        private IEnumerable<CheckItem> _items;
+        private IEnumerable<ListItem> _items;
 
-        protected override IEnumerable<CheckItem> CheckItems
+        protected override IEnumerable<ListItem> ListItems
         {
             set { _items = value; }
             get { return _items; }

@@ -16,28 +16,52 @@ namespace Xps2Img.Shared.TypeConverters
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            var strValue = value as string;
-            Validation.ValidateProperty(strValue, Validation.CpuAffinityValidationExpression);
-            return String.IsNullOrEmpty(strValue) || String.Compare(strValue, Validation.AutoValue, StringComparison.InvariantCultureIgnoreCase) == 0
-                                ? Validation.AutoValue
-                                : IntervalUtils.ToString(Interval.Parse(strValue));
+            var intPtrValue = value as IntPtr?;
+
+            if (!intPtrValue.HasValue || intPtrValue.Value == IntPtr.Zero)
+            {
+                return Validation.AutoValue;
+            }
+
+            var bits = (ulong)intPtrValue.Value.ToInt64();
+
+            var index = 0;
+            var intervalString = String.Empty;
+
+            do
+            {
+                if ((bits & 1L) != 0)
+                {
+                    intervalString += (String.IsNullOrEmpty(intervalString) ? String.Empty : ",") + index;
+                }
+
+                index++;
+            } while ((bits >>= 1) != 0);
+
+            return IntervalUtils.ToString(Interval.Parse(intervalString));
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var strValue = value as string;
 
-            if (String.IsNullOrEmpty(strValue) || String.Compare(strValue, Validation.AutoValue, StringComparison.InvariantCultureIgnoreCase) == 0)
+            if (String.IsNullOrEmpty(strValue) || Validation.IsAutoValue(strValue))
             {
-                return IntPtr.Zero;
+                return null;
             }
 
+            Action<Func<string, bool>> validateProperty = p => Validation.ValidateProperty(strValue, Validation.CpuAffinityValidationExpression, p);
+
+            validateProperty(null);
+
             var bitArray = Interval.Parse(strValue).ToBitArray();
+
+            validateProperty(_ => bitArray.Length <= Environment.ProcessorCount);
 
             var bitIndex = 0;
             var affinityMask = bitArray.Cast<bool>().TakeWhile(_ => bitIndex < 64).Aggregate(0L, (_, bit) => _ | ((bit ? 1L : 0L) << bitIndex++));
 
-            return new IntPtr(affinityMask & ((1 << Environment.ProcessorCount) - 1));
+            return new IntPtr(affinityMask & (1 << Environment.ProcessorCount) - 1);
         }
     }
 }

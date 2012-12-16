@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -12,21 +11,14 @@ namespace Xps2Img.Shared.TypeConverters
     {
         public const int AutoValue = 0;
 
-        public static readonly int ProcessorCount = Environment.ProcessorCount;
-        public static readonly int[] Processors = EnumProcessors().ToArray();
-
-        private static IEnumerable<int> EnumProcessors()
+        private static int[] Processors
         {
-            yield return AutoValue;
-            for (var i = 1; i <= ProcessorCount; i++)
-            {
-                yield return i;
-            }
-        }
+            get { return Enumerable.Range(0, Environment.ProcessorCount + 1).ToArray(); }
+        }           
 
         private static bool IsProcessorsCountValid(int processorsNumber)
         {
-            return processorsNumber > 0 && processorsNumber <= ProcessorCount;
+            return processorsNumber > 0 && processorsNumber <= Environment.ProcessorCount;
         }
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
@@ -39,7 +31,7 @@ namespace Xps2Img.Shared.TypeConverters
             var strValue = value as string;
 
             int processorsNumber;
-            return String.Compare(strValue, Validation.AutoValue, StringComparison.InvariantCultureIgnoreCase) == 0
+            return Validation.IsAutoValue(strValue)
                     ? AutoValue
                     : Int32.TryParse(strValue, out processorsNumber) && IsProcessorsCountValid(processorsNumber)
                         ? processorsNumber

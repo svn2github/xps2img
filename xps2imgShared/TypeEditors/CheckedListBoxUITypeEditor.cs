@@ -12,7 +12,7 @@ namespace Xps2Img.Shared.TypeEditors
 {
     public abstract class CheckedListBoxUITypeEditor<TV> : UITypeEditor
     {
-        protected class CheckItem
+        protected class ListItem
         {
             public TV Item { get; set; }
             public bool Checked { get; set; }
@@ -25,35 +25,33 @@ namespace Xps2Img.Shared.TypeEditors
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
             var windowsFormsEditorService = (IWindowsFormsEditorService) provider.GetService(typeof(IWindowsFormsEditorService));
-            if (windowsFormsEditorService != null)
+            if (windowsFormsEditorService == null)
             {
-                Value = value as string;
-
-                var prevValue = Value;
-
-                using (var checkedListBox = new CustomCheckedListBox { CheckOnClick = true, IntegralHeight = true, BorderStyle = BorderStyle.None })
-                {
-                    foreach (var checkItem in CheckItems)
-                    {
-                        checkedListBox.Items.Add(checkItem, checkItem.Checked);
-                    }
-
-                    checkedListBox.ItemCheck += CheckedListBoxOnItemCheck;
-                    windowsFormsEditorService.DropDownControl(checkedListBox);
-                    checkedListBox.ItemCheck -= CheckedListBoxOnItemCheck;
-
-                    if (checkedListBox.ExitedByEscape)
-                    {
-                        return prevValue ?? DefaultValue;
-                    }
-
-                    CheckItems = checkedListBox.Items.OfType<CheckItem>().ToArray();
-                }
-
-                return Value ?? DefaultValue;
+                return DefaultValue;
             }
 
-            return DefaultValue;
+            var prevValue = Value = value;
+
+            using (var checkedListBox = new CustomCheckedListBox { CheckOnClick = true, IntegralHeight = true, BorderStyle = BorderStyle.None })
+            {
+                foreach (var checkItem in ListItems)
+                {
+                    checkedListBox.Items.Add(checkItem, checkItem.Checked);
+                }
+
+                checkedListBox.ItemCheck += CheckedListBoxOnItemCheck;
+                windowsFormsEditorService.DropDownControl(checkedListBox);
+                checkedListBox.ItemCheck -= CheckedListBoxOnItemCheck;
+
+                if (checkedListBox.ExitedByEscape)
+                {
+                    return prevValue ?? DefaultValue;
+                }
+
+                ListItems = checkedListBox.Items.OfType<ListItem>().ToArray();
+            }
+
+            return Value ?? DefaultValue;
         }
 
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
@@ -68,12 +66,12 @@ namespace Xps2Img.Shared.TypeEditors
 
         private static void CheckedListBoxOnItemCheck(object sender, ItemCheckEventArgs itemCheckEventArgs)
         {
-            ((CheckItem)((CheckedListBox)sender).Items[itemCheckEventArgs.Index]).Checked = itemCheckEventArgs.NewValue == CheckState.Checked;
+            ((ListItem)((CheckedListBox)sender).Items[itemCheckEventArgs.Index]).Checked = itemCheckEventArgs.NewValue == CheckState.Checked;
         }
 
         protected abstract object DefaultValue { get; }
         protected abstract object Value { get; set; }
 
-        protected abstract IEnumerable<CheckItem> CheckItems { get; set; }
+        protected abstract IEnumerable<ListItem> ListItems { get; set; }
     }
 }

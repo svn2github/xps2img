@@ -56,9 +56,9 @@ namespace Xps2Img
                     Process.GetCurrentProcess().PriorityClass = options.ProcessPriority;
                 }
 
-                if (options.CpuAffinity != IntPtr.Zero)
+                if (options.CpuAffinity.HasValue && options.CpuAffinity != IntPtr.Zero)
                 {
-                    Process.GetCurrentProcess().ProcessorAffinity = options.CpuAffinity;
+                    Process.GetCurrentProcess().ProcessorAffinity = options.CpuAffinity.Value;
                 }
 
                 var launchedAsInternal = !String.IsNullOrEmpty(options.CancellationObjectIds);
@@ -86,7 +86,7 @@ namespace Xps2Img
                 exitCode = CommandLine.CommandLine.DisplayError(ex);
             }
 
-            if (options != null && options.PostAction != PostAction.Exit && conversionStarted)
+            if (conversionStarted && options != null && options.PostAction != PostAction.Exit)
             {
                 SystemManagementUtils.Shutdown(options.PostAction);
             }

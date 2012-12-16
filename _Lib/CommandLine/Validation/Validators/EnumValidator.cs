@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace CommandLine.Validation.Validators
 {
-    internal class EnumValidator : IValidator
+    public class EnumValidator : ValidatorBase
     {
         public static IValidator Create(object validation)
         {
@@ -20,13 +20,14 @@ namespace CommandLine.Validation.Validators
             _names = Array.ConvertAll(Enum.GetNames(enumType), x => x.ToLowerInvariant());
         }
 
-        public void Validate(string value)
+        protected override bool IsValid(string value)
         {
-            var lowerValue = value.ToLowerInvariant().Replace(" ", "");
-            if (!_names.Contains(lowerValue))
-            {
-                throw new ValidationException(Resources.Strings.Validation_EnumValidator);
-            }
+            return _names.Contains(value.ToLowerInvariant().Replace("\x20", String.Empty));
+        }
+
+        protected override string Message
+        {
+            get { return Resources.Strings.Validation_EnumValidator; }
         }
     }
 }

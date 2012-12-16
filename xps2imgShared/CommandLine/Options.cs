@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -60,7 +61,7 @@ namespace Xps2Img.Shared.CommandLine
         [TabbedDescription(PagesDescription)]
         [Category(CategoryOptions)]
         [UIOption(PagesShortOption)]
-        [DefaultValue(typeof(List<Interval>), null)]
+        [DefaultValue(null)]
         [Editor(typeof(OrdinalUITypeEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(PagesTypeConverter))]
         public List<Interval> Pages { get; set; }
@@ -172,12 +173,7 @@ namespace Xps2Img.Shared.CommandLine
         [Browsable(false)]
         public int SafeProcessorsNumber
         {
-            get
-            {
-                return ProcessorsNumber == ProcessorsDefaultValue
-                        ? ProcessorsNumberTypeConverter.ProcessorCount
-                        : ProcessorsNumber;
-            }
+            get { return ProcessorsNumber == ProcessorsDefaultValue ? Environment.ProcessorCount : ProcessorsNumber; }
         }
 
         [Option(ProcessPriorityDescription, ProcessPriorityShortOption, DefaultValue = ProcessPriorityDefaultValue, ConverterType = typeof(ProcessPriorityClassTypeConverter), Flags = OptionFlags.NoDefaultValueDescription)]
@@ -204,7 +200,11 @@ namespace Xps2Img.Shared.CommandLine
         [DefaultValue(false)]
         public bool Batch
         {
-            get { return _batch; }
+            get
+            {
+                return _batch;
+            }
+
             set
             {
                 _batch = value;
@@ -215,67 +215,15 @@ namespace Xps2Img.Shared.CommandLine
             }
         }
 
-#if NOT_READY
-        private const string CpuAffinityDescription =
-            "CPUs process" +
-            #if XPS2IMG_UI
-            "ors" + 
-            #endif
-            " will be executed on\n  all by default\nSyntax:\n  all:\t\t0-\n  single:\t0\n  set:\t\t0,2\n  range:\t0-2 or -2 or 2-\n  combined:\t0,2-";
-
-        private const char CpuAffinityShortOption = 'y';
-
         [Option(CpuAffinityDescription, CpuAffinityShortOption, ValidationExpression = Validation.CpuAffinityValidationExpression)]
-        #if XPS2IMG_UI
-        [DisplayName("Processors Affinity")]
-        [TabbedDescription(CpuAffinityDescription)]
+        [DisplayName(CpuAffinityDisplayName)]
+        [TabbedDescription(CpuAffinityTabbedDescription)]
         [UIOption(CpuAffinityShortOption)]
         [Category(CategoryOptions)]
-        [DefaultValue(Validation.AutoValue)]
+        [DefaultValue(null)]
         [Editor(typeof(CpuAffinityUITypeEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(CpuAffinityTypeConverter))]
-        public IntPtr CpuAffinity { get; set; }
-#if dfdf
-        public string CpuAffinity
-        {
-            get { return _cpuAffinity; }
-            set
-            {
-                ValidateProperty(value, CpuAffinityValidationExpression);
-                value = value.Trim();
-                _cpuAffinity = String.IsNullOrEmpty(value) || String.Compare(value, AutoValue, StringComparison.InvariantCultureIgnoreCase) == 0
-                                    ? AutoValue
-                                    : IntervalUtils.ToString(Interval.Parse(value));
-            }
-        }
-        private string _cpuAffinity;
-#endif
-        #else
-        public string CpuAffinity { get; set; }
-        #endif
-
-        #if !XPS2IMG_UI
-
-        public IntPtr ActualCpuAffinity
-        {
-            get
-            {
-                if(String.IsNullOrEmpty(CpuAffinity) || CpuAffinity == AutoValue)
-                {
-                    return IntPtr.Zero;
-                }
-
-                var bitArray = Interval.Parse(CpuAffinity).ToBitArray();
-
-                var bitIndex = 0;
-                var affinityMask = bitArray.Cast<bool>().TakeWhile(_ => bitIndex < 64).Aggregate(0L, (_, bit) => _ | ((bit ? 1L : 0L) << bitIndex++));
-
-                return new IntPtr(affinityMask & ((1 << Environment.ProcessorCount) - 1));
-            }
-        }
-
-#endif
-#endif
+        public IntPtr? CpuAffinity { get; set; }
 
         [Option(SilentModeDescription, SilentModeShortOption, ArgumentExpectancy.No)]
         [Browsable(false)]
