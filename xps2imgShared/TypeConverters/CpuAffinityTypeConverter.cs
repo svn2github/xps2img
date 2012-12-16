@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace Xps2Img.Shared.TypeConverters
 {
     public class CpuAffinityTypeConverter: TypeConverter
     {
+        public const int FirstProcessorIndex = 0;
+
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             return sourceType == typeof(string);
@@ -26,7 +29,7 @@ namespace Xps2Img.Shared.TypeConverters
             var intervalString = String.Empty;
             ForEachBit(intPtrValue.Value, p => intervalString += (String.IsNullOrEmpty(intervalString) ? String.Empty : ",") + p);
 
-            return IntervalUtils.ToString(Interval.Parse(intervalString));
+            return Parse(intervalString).ToString(FirstProcessorIndex);
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
@@ -42,7 +45,7 @@ namespace Xps2Img.Shared.TypeConverters
 
             validateProperty(null);
 
-            var bitArray = Interval.Parse(strValue).ToBitArray();
+            var bitArray = Parse(strValue).ToBitArray();
 
             validateProperty(_ => bitArray.Length <= Environment.ProcessorCount);
 
@@ -67,6 +70,11 @@ namespace Xps2Img.Shared.TypeConverters
 
                 index++;
             } while ((bits >>= 1) != 0);
+        }
+
+        private static List<Interval> Parse(string value)
+        {
+            return Interval.Parse(value, FirstProcessorIndex);
         }
     }
 }

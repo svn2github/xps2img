@@ -11,7 +11,9 @@ namespace Xps2Img.Shared.TypeEditors
     {
         private static IEnumerable<ListItem> NewItems(bool check = true)
         {
-            return Enumerable.Range(0, Environment.ProcessorCount).Select(x => new ListItem { Item = x.ToString(CultureInfo.InvariantCulture), Checked = check });
+            return Enumerable
+                    .Range(CpuAffinityTypeConverter.FirstProcessorIndex, Environment.ProcessorCount)
+                    .Select(x => new ListItem { Item = x.ToString(CultureInfo.InvariantCulture), Checked = check });
         }
 
         protected CpuAffinityUITypeEditor()

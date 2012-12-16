@@ -16,16 +16,20 @@ namespace Xps2Img.Shared.CommandLine
         {
         }
 
-        public Interval(int begin, int end = MaxValue)
+        public Interval(int begin, int end = MaxValue, int minValue = MinValue)
         {
+            ActualMinValue = minValue;
+
             Begin = begin;
             End = end;
 
             Normalize();
         }
 
-        public Interval(string intervalString)
+        public Interval(string intervalString, int minValue = MinValue)
         {
+            ActualMinValue = minValue;
+
             Func<string, int> toInt = s => int.Parse(s, CultureInfo.InvariantCulture);
 
             var set = intervalString.Split(new[] { '-' }).Select(s => s.Trim()).ToArray();
@@ -44,7 +48,7 @@ namespace Xps2Img.Shared.CommandLine
             if (String.IsNullOrEmpty(set[0]))
             {
                 // -X
-                Begin = MinValue;
+                Begin = minValue;
                 End = toInt(set[1]);
             }
             else
@@ -78,11 +82,13 @@ namespace Xps2Img.Shared.CommandLine
         public const int MinValue = 1;
         public const int MaxValue = int.MaxValue - 2;
 
+        public int ActualMinValue { get; private set; }
+
         public int Begin { get; private set; }
         public int End { get; private set; }
 
         public bool HasOneValue { get { return Begin == End; } }
-        public bool HasMinValue { get { return Begin == MinValue; } }
+        public bool HasMinValue { get { return Begin == ActualMinValue; } }
         public bool HasMaxValue { get { return End == MaxValue; } }
         public bool HasSequentialValues { get { return Begin == End - 1; } }
         
@@ -133,19 +139,21 @@ namespace Xps2Img.Shared.CommandLine
                     : String.Format(HasSequentialValues ? "{0},{1}" : "{0}-{1}", Begin, End);
         }
 
-        public static List<Interval> Parse(string intervalString)
+        public static List<Interval> Parse(string intervalString, int minValue = MinValue)
         {
             if (intervalString == null || String.IsNullOrEmpty(intervalString.Trim()))
             {
-                return new List<Interval> { new Interval() };
+                return new List<Interval> { new Interval(minValue, minValue: minValue) };
             }
 
-            return Optimize(intervalString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                    .Where(s => !String.IsNullOrEmpty(s.Trim()))
-                    .Select(interval => new Interval(interval)).ToList());
+            return Optimize(
+                        intervalString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                            .Where(s => !String.IsNullOrEmpty(s.Trim()))
+                            .Select(interval => new Interval(interval, minValue)).ToList(),
+                        minValue);
         }
 
-        private static List<Interval> Optimize(IList<Interval> intervals)
+        private static List<Interval> Optimize(IList<Interval> intervals, int minValue = MinValue)
         {
             var intervalsOptimized = new List<Interval>();
 
@@ -166,7 +174,7 @@ namespace Xps2Img.Shared.CommandLine
                     (x.End + 1 == y.Begin && x.Begin <= y.Begin)
                 )
                 {
-                    intervals.Add(new Interval(x.Begin, y.End));
+                    intervals.Add(new Interval(x.Begin, y.End, minValue));
                     return true;
                 }
                 return false;
@@ -176,7 +184,7 @@ namespace Xps2Img.Shared.CommandLine
             {
                 if (x.End >= y.End && x.Begin >= y.Begin && x.Begin <= y.End)
                 {
-                    intervals.Add(new Interval(y.Begin, x.End));
+                    intervals.Add(new Interval(y.Begin, x.End, minValue));
                     return true;
                 }
                 return false;

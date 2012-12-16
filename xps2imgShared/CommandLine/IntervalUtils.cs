@@ -8,9 +8,9 @@ namespace Xps2Img.Shared.CommandLine
 {
     public static class IntervalUtils
     {
-        public static string ToString(this IEnumerable<Interval> intervals, int minValue = 1)
+        public static string ToString(this IEnumerable<Interval> intervals, int minValue = Interval.MinValue)
         {
-            var sb = new StringBuilder(16);
+            var sb = new StringBuilder(64);
             var first = true;
             foreach (var interval in intervals ?? new List<Interval>())
             {
