@@ -23,20 +23,8 @@ namespace Xps2Img.Shared.TypeConverters
                 return Validation.AutoValue;
             }
 
-            var bits = (ulong)intPtrValue.Value.ToInt64();
-
-            var index = 0;
             var intervalString = String.Empty;
-
-            do
-            {
-                if ((bits & 1L) != 0)
-                {
-                    intervalString += (String.IsNullOrEmpty(intervalString) ? String.Empty : ",") + index;
-                }
-
-                index++;
-            } while ((bits >>= 1) != 0);
+            ForEachBit(intPtrValue.Value, p => intervalString += (String.IsNullOrEmpty(intervalString) ? String.Empty : ",") + p);
 
             return IntervalUtils.ToString(Interval.Parse(intervalString));
         }
@@ -62,6 +50,23 @@ namespace Xps2Img.Shared.TypeConverters
             var affinityMask = bitArray.Cast<bool>().TakeWhile(_ => bitIndex < 64).Aggregate(0L, (_, bit) => _ | ((bit ? 1L : 0L) << bitIndex++));
 
             return new IntPtr(affinityMask & (1 << Environment.ProcessorCount) - 1);
+        }
+
+        public static void ForEachBit(IntPtr intPtrValue, Action<int> hasBitInPosition)
+        {
+            var bits = (ulong)intPtrValue.ToInt64();
+
+            var index = 0;
+
+            do
+            {
+                if ((bits & 1L) != 0)
+                {
+                    hasBitInPosition(index);
+                }
+
+                index++;
+            } while ((bits >>= 1) != 0);
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-using Xps2Img.Shared.CommandLine;
 using Xps2Img.Shared.TypeConverters;
 
 namespace Xps2Img.Shared.TypeEditors
@@ -27,7 +26,7 @@ namespace Xps2Img.Shared.TypeEditors
         
         protected override object Value
         {
-            set { _items = ParseValue(_typeConverter.ConvertToInvariantString(value)); }
+            set { _items = ParseValue((IntPtr?)value); }
             get
             {
                 return _typeConverter.ConvertFromInvariantString(
@@ -41,33 +40,17 @@ namespace Xps2Img.Shared.TypeEditors
 
         private readonly CpuAffinityTypeConverter _typeConverter = new CpuAffinityTypeConverter();
 
-        private static IEnumerable<ListItem> ParseValue(string value)
+        private static IEnumerable<ListItem> ParseValue(IntPtr? value)
         {
-            if (String.IsNullOrEmpty(value) || Validation.IsAutoValue(value))
+            if (!value.HasValue || value.Value == IntPtr.Zero)
             {
                 return NewItems();
             }
 
-            var items = NewItems(false).ToArray();
+            var listItems = NewItems(false).ToArray();
+            CpuAffinityTypeConverter.ForEachBit(value.Value, p => { if (p < listItems.Length) listItems[p].Checked = true; });
 
-            if (String.IsNullOrEmpty(value))
-            {
-                items[0].Checked = true;
-                return items;
-            }
-
-            var isOneSet = false;
-            foreach (var idStr in value.Split(','))
-            {
-                int id;
-                if (int.TryParse(idStr, out id) && id >= 0 && id < items.Length)
-                {
-                    items[id].Checked = true;
-                    isOneSet = true;
-                }
-            }
-
-            return !isOneSet ? NewItems() : items;
+            return listItems;
         }
 
         private IEnumerable<ListItem> _items;
