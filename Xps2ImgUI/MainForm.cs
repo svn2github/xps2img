@@ -44,29 +44,20 @@ namespace Xps2ImgUI
 
         private bool PropertyGridResetGroupCallback(string label, bool check)
         {
-            if (label != Options.CategoryParameters && label != Options.CategoryOptions)
+            if (!check)
             {
-                return false;
-            }
-
-            if (check)
-            {
-                return true;
-            }
-
-            switch (label)
-            {
-                case Options.CategoryParameters:
-                    Model.ResetParameters();
-                    break;
-                case Options.CategoryOptions:
-                    Model.ResetOptions();
-                    break;
+                ResetByCategory(label);
             }
 
             return true;
         }
 
+        private void ResetByCategory(string category)
+        {
+            settingsPropertyGrid.ResetByCategory(category);
+            Model.FireOptionsObjectChanged();
+        }
+        
         private void OptionsObjectChanged(object sender, EventArgs e)
         {
             settingsPropertyGrid.SelectedObject = Model.OptionsObject;
@@ -281,8 +272,8 @@ namespace Xps2ImgUI
             settingsPropertyGrid.AddToolStripSeparator();
 
             // Reset Settings button.
-            _resetToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.ResetOptions, (s, e) => Model.ResetOptions(),
-                new ToolStripButtonItem(Resources.Strings.ResetParameters, (s, e) => Model.ResetParameters()),
+            _resetToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.ResetOptions, (s, e) => ResetByCategory(Options.CategoryOptions),
+                new ToolStripButtonItem(Resources.Strings.ResetParameters, (s, e) => ResetByCategory(Options.CategoryParameters)),
                 new ToolStripButtonItem(),
                 new ToolStripButtonItem(Resources.Strings.Reset, (s, e) => Model.Reset())
              );

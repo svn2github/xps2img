@@ -26,6 +26,8 @@ namespace Xps2ImgUI
         {
             this.RemoveSystemMenuDisabledItems();
 
+            preferencesPropertyGrid.ResetGroupCallback = PropertyGridResetGroupCallback;
+
             preferencesPropertyGrid.ModernLook = !Preferences.ClassicLook;
             preferencesPropertyGrid.RemoveLastToolStripItem();
 
@@ -34,15 +36,26 @@ namespace Xps2ImgUI
             preferencesPropertyGrid.DocLines = 5;
             preferencesPropertyGrid.MoveSplitterByPercent(50);
 
-            EnableReset();
-
             preferencesPropertyGrid.SelectGridItem(Preferences.DefaultSelectedItem);
 
             ReflectionUtils.SetReadOnly<Preferences>(_isRunning, () => Preferences.ShortenExtension);
 
+            EnableReset();
+
             base.OnLoad(e);
         }
 
+        private bool PropertyGridResetGroupCallback(string label, bool check)
+        {
+            if (!check)
+            {
+                preferencesPropertyGrid.ResetByCategory(label);
+                EnableReset();
+            }
+
+            return true;
+        }
+        
         protected override void OnHelpRequested(HelpEventArgs hevent)
         {
             ShowHelp();

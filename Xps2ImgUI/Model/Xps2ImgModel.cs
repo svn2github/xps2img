@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -66,16 +65,6 @@ namespace Xps2ImgUI.Model
         {
             InitOptionsHolder();
             _optionsHolder.OptionsObject = new UIOptions();
-        }
-
-        public void ResetParameters()
-        {
-            ResetByCategory(Options.CategoryParameters);
-        }
-
-        public void ResetOptions()
-        {
-            ResetByCategory(Options.CategoryOptions);
         }
 
         public void Launch(ConversionType conversionType)
@@ -563,18 +552,12 @@ namespace Xps2ImgUI.Model
             FireOptionsObjectChanged();
         }
 
-        private void FireOptionsObjectChanged()
+        public void FireOptionsObjectChanged()
         {
             if (OptionsObjectChanged != null)
             {
                 OptionsObjectChanged(this, EventArgs.Empty);
             }
-        }
-
-        private void ResetByCategory(string category)
-        {
-            ReflectionUtils.SetDefaultValues(OptionsObject, pi => category == (pi.FirstOrDefaultAttribute<CategoryAttribute>() ?? new CategoryAttribute()).Category);
-            FireOptionsObjectChanged();
         }
 
         private static readonly Regex OutputRegex = new Regex(@"^\[\s*(?<percent>\d+)%\][^\d]+(?<page>\d+)\s+\(\s*(?<pages>\d+/\d+)\).+?'(?<file>.+)'");

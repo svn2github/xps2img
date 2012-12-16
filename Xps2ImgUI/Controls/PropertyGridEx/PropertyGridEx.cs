@@ -326,6 +326,15 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             OnPropertyValueChanged(new PropertyValueChangedEventArgs(SelectedGridItem, oldValue));
         }
 
+        public void ResetByCategory(string category)
+        {
+            ReflectionUtils.SetDefaultValues(SelectedObject, pi => 
+                category == (pi.FirstOrDefaultAttribute<CategoryAttribute>() ?? new CategoryAttribute()).Category &&
+                pi.FirstOrDefaultAttribute<ReadOnlyAttribute>() == null
+            );
+            Refresh();
+        }
+
         public new object SelectedObject
         {
             get { return base.SelectedObject; }
