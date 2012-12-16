@@ -49,7 +49,8 @@ namespace Xps2ImgUI
         {
             if (!check)
             {
-                preferencesPropertyGrid.ResetByCategory(label);
+                preferencesPropertyGrid.ResetByCategory(label,
+                    pi => !_isRunning || pi.Name != ReflectionUtils.GetPropertyName(() => Preferences.ShortenExtension));
                 EnableReset();
             }
 
