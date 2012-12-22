@@ -428,8 +428,6 @@ namespace Xps2ImgUI
 
         private bool IsShutdownConfirmed()
         {
-            base.Activate();
-
             using (new ModalGuard())
             {
                 var action = new PostActionTypeConverter().ConvertToInvariantString(Model.ShutdownType);
