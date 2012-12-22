@@ -16,9 +16,10 @@ namespace Xps2Img.Shared.CommandLine
         {
         }
 
-        public Interval(int begin, int end = MaxValue, int minValue = MinValue)
+        public Interval(int begin, int end = MaxValue, int minValue = MinValue, int maxValue = MaxValue)
         {
             ActualMinValue = minValue;
+            ActualMaxValue = maxValue;
 
             Begin = begin;
             End = end;
@@ -26,9 +27,10 @@ namespace Xps2Img.Shared.CommandLine
             Normalize();
         }
 
-        public Interval(string intervalString, int minValue = MinValue)
+        public Interval(string intervalString, int minValue = MinValue, int maxValue = MaxValue)
         {
             ActualMinValue = minValue;
+            ActualMaxValue = maxValue;
 
             Func<string, int> toInt = s => int.Parse(s, CultureInfo.InvariantCulture);
 
@@ -56,7 +58,7 @@ namespace Xps2Img.Shared.CommandLine
             {
                 // X-
                 Begin = toInt(set[0]);
-                End = MaxValue;
+                End = maxValue;
             }
             else
             {
@@ -83,20 +85,21 @@ namespace Xps2Img.Shared.CommandLine
         public const int MaxValue = int.MaxValue - 2;
 
         public int ActualMinValue { get; private set; }
+        public int ActualMaxValue { get; private set; }
 
         public int Begin { get; private set; }
         public int End { get; private set; }
 
         public bool HasOneValue { get { return Begin == End; } }
         public bool HasMinValue { get { return Begin == ActualMinValue; } }
-        public bool HasMaxValue { get { return End == MaxValue; } }
+        public bool HasMaxValue { get { return End == ActualMaxValue; } }
         public bool HasSequentialValues { get { return Begin == End - 1; } }
         
         public int Length
         {
             get
             {
-                if (HasMaxValue)
+                if (End >= MaxValue)
                 {
                     throw new ArgumentException("Could not calculate sequence length: Interval.MaxValue has been found.");
                 }
@@ -120,6 +123,8 @@ namespace Xps2Img.Shared.CommandLine
             {
                 End = endValue;
             }
+
+            ActualMaxValue = endValue;
         }
 
         public override string ToString()

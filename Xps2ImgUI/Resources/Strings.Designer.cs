@@ -322,6 +322,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Now!.
+        /// </summary>
+        internal static string DoItNowFormat {
+            get {
+                return ResourceManager.GetString("DoItNowFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Download Failed.
         /// </summary>
         internal static string DownloadFailed {
@@ -381,6 +390,15 @@ namespace Xps2ImgUI.Resources {
         internal static string FilterXPS2ImgFiles {
             get {
                 return ResourceManager.GetString("FilterXPS2ImgFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Going to {0} in {1} second{2}....
+        /// </summary>
+        internal static string GoingToActionInFormat {
+            get {
+                return ResourceManager.GetString("GoingToActionInFormat", resourceCulture);
             }
         }
         
@@ -486,18 +504,18 @@ namespace Xps2ImgUI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to {0}/{1}.
         /// </summary>
-        internal static string PageOfPages {
+        internal static string PageOfPagesFormat {
             get {
-                return ResourceManager.GetString("PageOfPages", resourceCulture);
+                return ResourceManager.GetString("PageOfPagesFormat", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Pages specified are out of document pages range. {0} is the last one..
         /// </summary>
-        internal static string PagesSpecifiedAreOutOfRange {
+        internal static string PagesSpecifiedAreOutOfRangeFormat {
             get {
-                return ResourceManager.GetString("PagesSpecifiedAreOutOfRange", resourceCulture);
+                return ResourceManager.GetString("PagesSpecifiedAreOutOfRangeFormat", resourceCulture);
             }
         }
         
@@ -511,11 +529,29 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to s.
+        /// </summary>
+        internal static string PluralFormS {
+            get {
+                return ResourceManager.GetString("PluralFormS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Preferences....
         /// </summary>
         internal static string Preferences {
             get {
                 return ResourceManager.GetString("Preferences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press {0} button to {1}..
+        /// </summary>
+        internal static string PressButtonToProceedFormat {
+            get {
+                return ResourceManager.GetString("PressButtonToProceedFormat", resourceCulture);
             }
         }
         
@@ -648,9 +684,9 @@ namespace Xps2ImgUI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to {0} parameter is required..
         /// </summary>
-        internal static string SpecifyValue {
+        internal static string SpecifyValueFormat {
             get {
-                return ResourceManager.GetString("SpecifyValue", resourceCulture);
+                return ResourceManager.GetString("SpecifyValueFormat", resourceCulture);
             }
         }
         
@@ -673,20 +709,20 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to start/wait &quot;&quot; {0} -b.
-        /// </summary>
-        internal static string UIBatchCommandLine {
-            get {
-                return ResourceManager.GetString("UIBatchCommandLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to  &amp; if errorlevel 1 exit /b.
         /// </summary>
         internal static string UIBatchCommandLineErrorHandling {
             get {
                 return ResourceManager.GetString("UIBatchCommandLineErrorHandling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to start/wait &quot;&quot; {0} -b.
+        /// </summary>
+        internal static string UIBatchCommandLineFormat {
+            get {
+                return ResourceManager.GetString("UIBatchCommandLineFormat", resourceCulture);
             }
         }
         
@@ -765,9 +801,9 @@ namespace Xps2ImgUI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to {0} Validation Error.
         /// </summary>
-        internal static string ValidationError {
+        internal static string ValidationErrorFormat {
             get {
-                return ResourceManager.GetString("ValidationError", resourceCulture);
+                return ResourceManager.GetString("ValidationErrorFormat", resourceCulture);
             }
         }
         
@@ -940,9 +976,9 @@ namespace Xps2ImgUI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to {1}{0}{0}Please make sure that xps2img.exe utility is present into the application folder..
         /// </summary>
-        internal static string Xps2ImgNotFount {
+        internal static string Xps2ImgNotFountFormat {
             get {
-                return ResourceManager.GetString("Xps2ImgNotFount", resourceCulture);
+                return ResourceManager.GetString("Xps2ImgNotFountFormat", resourceCulture);
             }
         }
         

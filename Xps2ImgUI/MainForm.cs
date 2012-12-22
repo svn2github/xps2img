@@ -12,6 +12,7 @@ using Windows7.DesktopIntegration;
 using Windows7.Dialogs;
 
 using Xps2Img.Shared.CommandLine;
+using Xps2Img.Shared.TypeConverters;
 using Xps2Img.Shared.Utils;
 using Xps2Img.Shared.Utils.UI;
 
@@ -145,6 +146,11 @@ namespace Xps2ImgUI
                 }
             }
 
+            if (!_autoClosed)
+            {
+                Model.CancelShutdownRequest();
+            }
+
             base.OnClosing(e);
         }
 
@@ -247,7 +253,7 @@ namespace Xps2ImgUI
             // Separator.
             settingsPropertyGrid.AddToolStripSeparator();
 
-            Func<bool, string> copyBatch = eh => String.Format(Resources.Strings.UIBatchCommandLine + (eh ? Resources.Strings.UIBatchCommandLineErrorHandling : String.Empty), _uiCommandLine);
+            Func<bool, string> copyBatch = eh => String.Format(Resources.Strings.UIBatchCommandLineFormat + (eh ? Resources.Strings.UIBatchCommandLineErrorHandling : String.Empty), _uiCommandLine);
 
             // Show Command Line button.
             _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.ShowCommandLine, ShowCommandLineToolStripButtonClick,
@@ -406,6 +412,34 @@ namespace Xps2ImgUI
                 ShowErrorMessageBox(Resources.Strings.ConversionWasAbortedByUser);
             }
 
+            if (_preferences.ConfirmOnAfterConversion && Model.ShutdownRequested && !Model.IsBatchMode && Model.ShutdownType != PostAction.Exit)
+            {
+                base.Activate();
+
+                using (new ModalGuard())
+                {
+                    using (new DisposableActions(() => TopMost = true, () => TopMost = false))
+                    {
+                        var action = new PostActionTypeConverter().ConvertToInvariantString(Model.ShutdownType);
+                        var confirmForm = new CountdownForm(action, _preferences.WaitForShutdownSeconds)
+                        {
+                            OKText = String.Format(Resources.Strings.DoItNowFormat, action),
+                            ConfirmChecked = !_preferences.ConfirmOnAfterConversion
+                        };
+
+                        if (confirmForm.ShowDialog(this) != DialogResult.OK)
+                        {
+                            Model.CancelShutdownRequest();
+                            return;
+                        }
+
+                        _preferences.ConfirmOnAfterConversion = !confirmForm.ConfirmChecked;
+                    }
+                }
+            }
+
+            _autoClosed = true;
+
             Close();
         }
 
@@ -538,7 +572,7 @@ namespace Xps2ImgUI
                 if (showMessage)
                 {
                     Activate();
-                    ShowErrorMessageBox(String.Format(Resources.Strings.SpecifyValue, firstRequiredOptionLabel), null, false, firstRequiredOptionLabel, Resources.Strings.ParameterIsRequired, Resources.Strings.EditParameter);
+                    ShowErrorMessageBox(String.Format(Resources.Strings.SpecifyValueFormat, firstRequiredOptionLabel), null, false, firstRequiredOptionLabel, Resources.Strings.ParameterIsRequired, Resources.Strings.EditParameter);
 
                     Model.ExitCode = ReturnCode.NoArgs;
 
@@ -613,7 +647,7 @@ namespace Xps2ImgUI
 
             if (e.Exception is Win32Exception)
             {
-                message = String.Format(Resources.Strings.Xps2ImgNotFount, Environment.NewLine, message);
+                message = String.Format(Resources.Strings.Xps2ImgNotFountFormat, Environment.NewLine, message);
             }
             
             this.InvokeIfNeeded(() => { UpdateFailedStatus(message, e.Exception); EnableConvertControls(); });
@@ -857,6 +891,8 @@ namespace Xps2ImgUI
                 menu.Items.Remove(resumeToolStripMenuItem);
             }
         }
+
+        private bool _autoClosed;
 
         private volatile bool _conversionFailed;
 

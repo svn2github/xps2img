@@ -22,7 +22,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("http://xps2img.sf.net")]
 [assembly: AssemblyProduct("Xps2Img")]
-[assembly: AssemblyCopyright("Copyright © 2010-2012, Ivan Ivon")]
+[assembly: AssemblyCopyright("Copyright © 2010-2013, Ivan Ivon")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -47,5 +47,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly : AssemblyVersion    ("3.21.0.0")]
-[assembly : AssemblyFileVersion("3.21.0.0")]
+[assembly : AssemblyVersion    ("3.22.0.0")]
+[assembly : AssemblyFileVersion("3.22.0.0")]

@@ -13,7 +13,7 @@
 #define AppMutex                "Xps2ImgInnoSetupGuard"
 
 #define AppName                 "XPS to Images Converter"
-#define AppVersion              "3.21.0.0"
+#define AppVersion              "3.22.0.0"
 
 #define AppNamePart             "{app}\xps2img"
 #define AppExe                  AppNamePart + "UI.exe"
@@ -29,7 +29,7 @@
 
 #define OutputDir               "_Output"
 
-#define VersionInfoCopyright    "Copyright © 2010-2012, Ivan Ivon"
+#define VersionInfoCopyright    "Copyright © 2010-2013, Ivan Ivon"
 #define VersionInfoCompany      AppPublisherURL
 #define VersionInfoDescription  AppName + " Setup"
 

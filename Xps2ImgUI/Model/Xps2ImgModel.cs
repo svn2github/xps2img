@@ -84,9 +84,14 @@ namespace Xps2ImgUI.Model
             xps2ImgLaunchThread.Start();
         }
 
-        public void Cancel()
+        public void CancelShutdownRequest()
         {
             _userCancelled = true;
+        }
+
+        public void Cancel()
+        {
+            CancelShutdownRequest();
             Stop();
         }
 
@@ -236,7 +241,7 @@ namespace Xps2ImgUI.Model
 
             if (!intervals.LessThan(pageCount))
             {
-                throw new IndexOutOfRangeException(String.Format(Resources.Strings.PagesSpecifiedAreOutOfRange, pageCount)); 
+                throw new IndexOutOfRangeException(String.Format(Resources.Strings.PagesSpecifiedAreOutOfRangeFormat, pageCount)); 
             }
 
             intervals.Last().SetEndValue(pageCount);
@@ -511,7 +516,7 @@ namespace Xps2ImgUI.Model
 
             var pageIndex = _pagesProcessedDelta + Interlocked.Increment(ref _pagesProcessed);
             var percent = pageIndex * 100 / _pagesTotal;
-            var pages = String.Format(Resources.Strings.PageOfPages, pageIndex, _pagesTotal);
+            var pages = String.Format(Resources.Strings.PageOfPagesFormat, pageIndex, _pagesTotal);
 
             if (CanResume)
             {

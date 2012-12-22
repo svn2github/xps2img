@@ -47,6 +47,13 @@ namespace Xps2ImgUI.Settings
         [TypeConverter(typeof(YesNoConverter))]
         public bool FlashWhenCompleted { get; set; }
 
+        [DisplayName(ConfirmAfterConversionDisplayName)]
+        [Category(CategoryConfirmations)]
+        [Description(ConfirmAfterConversionDescription)]
+        [DefaultValue(true)]
+        [TypeConverter(typeof(YesNoConverter))]
+        public bool ConfirmOnAfterConversion { get; set; }
+
         [DisplayName(ConfirmDeleteDisplayName)]
         [Category(CategoryConfirmations)]
         [Description(ConfirmDeleteDescription)]
@@ -126,6 +133,9 @@ namespace Xps2ImgUI.Settings
             }
         }
 
+        [Browsable(false)]
+        public int WaitForShutdownSeconds { get { return 45; } }
+
         public Preferences()
         {
             Reset();
@@ -151,6 +161,7 @@ namespace Xps2ImgUI.Settings
                 yield return ClassicLook;
                 yield return ShowElapsedTimeAndStatistics;
                 yield return FlashWhenCompleted;
+                yield return ConfirmOnAfterConversion;
                 yield return ConfirmOnDelete;
                 yield return ConfirmOnExit;
                 yield return ConfirmOnStop;

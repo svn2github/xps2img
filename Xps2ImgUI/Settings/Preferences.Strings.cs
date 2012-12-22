@@ -22,6 +22,9 @@
         private const string FlashWhenCompletedDisplayName = "Flash When Completed";
         private const string FlashWhenCompletedDescription = "Flash application window when conversion is completed.";
 
+        private const string ConfirmAfterConversionDisplayName = "Confirm After Conversion";
+        private const string ConfirmAfterConversionDescription = "Ask confirmation on after conversion action.";
+
         private const string ConfirmDeleteDisplayName = "Confirm Delete";
         private const string ConfirmDeleteDescription = "Ask confirmation on images deletion.";
 

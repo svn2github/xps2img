@@ -82,6 +82,12 @@
     </Compile>
     <Compile Include="Attributes\OptionsHolder\OptionsFormatter.cs" />
     <Compile Include="Attributes\OptionsHolder\OptionsHolder.cs" />
+    <Compile Include="CountdownForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CountdownForm.Designer.cs">
+      <DependentUpon>CountdownForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PropertyGridEx\PropertyGridExUIService.cs" />
     <Compile Include="Controls\PropertyGridEx\PropertyGridExServiceProvider.cs" />
     <Compile Include="Controls\PropertyGridEx\PropertyGridEx.cs">

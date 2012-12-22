@@ -141,10 +141,10 @@
   <data name="ClosingConfirmation" xml:space="preserve">
     <value>Currently executing conversion will be aborted.</value>
   </data>
-  <data name="SpecifyValue" xml:space="preserve">
+  <data name="SpecifyValueFormat" xml:space="preserve">
     <value>{0} parameter is required.</value>
   </data>
-  <data name="Xps2ImgNotFount" xml:space="preserve">
+  <data name="Xps2ImgNotFountFormat" xml:space="preserve">
     <value>{1}{0}{0}Please make sure that xps2img.exe utility is present into the application folder.</value>
   </data>
   <data name="BrowseImages" xml:space="preserve">
@@ -237,7 +237,7 @@
   <data name="AutoSaveSettings" xml:space="preserve">
     <value>A&amp;uto Save Settings</value>
   </data>
-  <data name="ValidationError" xml:space="preserve">
+  <data name="ValidationErrorFormat" xml:space="preserve">
     <value>{0} Validation Error</value>
   </data>
   <data name="ValueEdit" xml:space="preserve">
@@ -412,23 +412,23 @@ What's new in version {0}
   <data name="WhatsNewBullet" xml:space="preserve">
     <value>● </value>
   </data>
-  <data name="UIBatchCommandLine">
-    <value xml:space="preserve">start/wait "" {0} -b</value>
+  <data name="UIBatchCommandLineFormat" xml:space="preserve">
+    <value>start/wait "" {0} -b</value>
   </data>
-  <data name="UIBatchCommandLineErrorHandling">
-    <value xml:space="preserve"> &amp; if errorlevel 1 exit /b</value>
+  <data name="UIBatchCommandLineErrorHandling" xml:space="preserve">
+    <value> &amp; if errorlevel 1 exit /b</value>
   </data>
-  <data name="ShortenImageExtension">
-    <value xml:space="preserve">S&amp;horten Image Extension</value>
+  <data name="ShortenImageExtension" xml:space="preserve">
+    <value>S&amp;horten Image Extension</value>
   </data>
-  <data name="ConversionWasAbortedByUser">
-    <value xml:space="preserve">Conversion was aborted by user.</value>
+  <data name="ConversionWasAbortedByUser" xml:space="preserve">
+    <value>Conversion was aborted by user.</value>
   </data>
-  <data name="BrowseImagesFolder">
-    <value xml:space="preserve">Browse I&amp;mages Folder</value>
+  <data name="BrowseImagesFolder" xml:space="preserve">
+    <value>Browse I&amp;mages Folder</value>
   </data>
-  <data name="PageOfPages">
-    <value xml:space="preserve">{0}/{1}</value>
+  <data name="PageOfPagesFormat" xml:space="preserve">
+    <value>{0}/{1}</value>
   </data>
   <data name="FilterAllFiles" xml:space="preserve">
     <value>All Files (*.*)|*.*</value>
@@ -436,7 +436,19 @@ What's new in version {0}
   <data name="DocumentHasNoPages" xml:space="preserve">
     <value>Document has no pages. Nothing to convert.</value>
   </data>
-  <data name="PagesSpecifiedAreOutOfRange" xml:space="preserve">
+  <data name="PagesSpecifiedAreOutOfRangeFormat" xml:space="preserve">
     <value>Pages specified are out of document pages range. {0} is the last one.</value>
+  </data>
+  <data name="PressButtonToProceedFormat" xml:space="preserve">
+    <value>Press {0} button to {1}.</value>
+  </data>
+  <data name="PluralFormS" xml:space="preserve">
+    <value>s</value>
+  </data>
+  <data name="DoItNowFormat" xml:space="preserve">
+    <value>{0} Now!</value>
+  </data>
+  <data name="GoingToActionInFormat" xml:space="preserve">
+    <value>Going to {0} in {1} second{2}...</value>
   </data>
 </root>

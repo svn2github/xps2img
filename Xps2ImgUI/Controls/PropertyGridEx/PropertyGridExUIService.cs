@@ -34,7 +34,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                 var detailsTextBox = (TextBox)detailsField.GetValue(form);
                 var displayName = propertyDescriptor.DisplayName;
 
-                var title = String.Format(Resources.Strings.ValidationError, displayName);
+                var title = String.Format(Resources.Strings.ValidationErrorFormat, displayName);
                 var message = detailsTextBox.Text.AppendDot();
 
                 var dialogResult = TaskDialogUtils.Show(
