@@ -412,35 +412,45 @@ namespace Xps2ImgUI
                 ShowErrorMessageBox(Resources.Strings.ConversionWasAbortedByUser);
             }
 
-            if (_preferences.ConfirmOnAfterConversion && Model.ShutdownRequested && !Model.IsBatchMode && Model.ShutdownType != PostAction.Exit)
+            if (_preferences.ConfirmOnAfterConversion
+                && Model.ShutdownRequested
+                && Model.ShutdownType != PostAction.Exit
+                && !Model.IsBatchMode
+                && !IsShutdownConfirmed())
             {
-                base.Activate();
-
-                using (new ModalGuard())
-                {
-                    using (new DisposableActions(() => TopMost = true, () => TopMost = false))
-                    {
-                        var action = new PostActionTypeConverter().ConvertToInvariantString(Model.ShutdownType);
-                        var confirmForm = new CountdownForm(action, _preferences.WaitForShutdownSeconds)
-                        {
-                            OKText = String.Format(Resources.Strings.DoItNowFormat, action),
-                            ConfirmChecked = !_preferences.ConfirmOnAfterConversion
-                        };
-
-                        if (confirmForm.ShowDialog(this) != DialogResult.OK)
-                        {
-                            Model.CancelShutdownRequest();
-                            return;
-                        }
-
-                        _preferences.ConfirmOnAfterConversion = !confirmForm.ConfirmChecked;
-                    }
-                }
+                return;
             }
 
             _autoClosed = true;
 
             Close();
+        }
+
+        private bool IsShutdownConfirmed()
+        {
+            base.Activate();
+
+            using (new ModalGuard())
+            {
+                using (new DisposableActions(() => TopMost = true, () => TopMost = false))
+                {
+                    var action = new PostActionTypeConverter().ConvertToInvariantString(Model.ShutdownType);
+                    var confirmForm = new CountdownForm(action, _preferences.WaitForShutdownSeconds)
+                    {
+                        OKText = String.Format(Resources.Strings.DoItNowFormat, action),
+                        ConfirmChecked = !_preferences.ConfirmOnAfterConversion
+                    };
+
+                    if (confirmForm.ShowDialog(this) != DialogResult.OK)
+                    {
+                        Model.CancelShutdownRequest();
+                        return false;
+                    }
+
+                    _preferences.ConfirmOnAfterConversion = !confirmForm.ConfirmChecked;
+                }
+            }
+            return true;
         }
 
         private void UpdateElapsedTime()
