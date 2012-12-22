@@ -432,24 +432,29 @@ namespace Xps2ImgUI
 
             using (new ModalGuard())
             {
-                using (new DisposableActions(() => TopMost = true, () => TopMost = false))
+                var action = new PostActionTypeConverter().ConvertToInvariantString(Model.ShutdownType);
+
+                using (var confirmForm = new CountdownForm(action, _preferences.WaitForShutdownSeconds)
                 {
-                    var action = new PostActionTypeConverter().ConvertToInvariantString(Model.ShutdownType);
-                    var confirmForm = new CountdownForm(action, _preferences.WaitForShutdownSeconds)
+                    OKText = String.Format(Resources.Strings.DoItNowFormat, action),
+                    ConfirmChecked = !_preferences.ConfirmOnAfterConversion
+                })
+                {
+                    // ReSharper disable AccessToDisposedClosure
+                    using (new DisposableActions(() => confirmForm.TopMost = true, () => confirmForm.TopMost = false))
+                    // ReSharper restore AccessToDisposedClosure
                     {
-                        OKText = String.Format(Resources.Strings.DoItNowFormat, action),
-                        ConfirmChecked = !_preferences.ConfirmOnAfterConversion
-                    };
+                        if (confirmForm.ShowDialog(this) != DialogResult.OK)
+                        {
+                            Model.CancelShutdownRequest();
+                            return false;
+                        }
 
-                    if (confirmForm.ShowDialog(this) != DialogResult.OK)
-                    {
-                        Model.CancelShutdownRequest();
-                        return false;
+                        _preferences.ConfirmOnAfterConversion = !confirmForm.ConfirmChecked;
                     }
-
-                    _preferences.ConfirmOnAfterConversion = !confirmForm.ConfirmChecked;
                 }
             }
+
             return true;
         }
 
