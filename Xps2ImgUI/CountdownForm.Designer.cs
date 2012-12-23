@@ -64,7 +64,7 @@
             // 
             // iconPictureBox
             // 
-            this.iconPictureBox.Location = new System.Drawing.Point(7, 10);
+            this.iconPictureBox.Location = new System.Drawing.Point(8, 8);
             this.iconPictureBox.Name = "iconPictureBox";
             this.iconPictureBox.Size = new System.Drawing.Size(32, 32);
             this.iconPictureBox.TabIndex = 2;
@@ -88,7 +88,7 @@
             // textLabel
             // 
             this.textLabel.AutoSize = true;
-            this.textLabel.Location = new System.Drawing.Point(44, 20);
+            this.textLabel.Location = new System.Drawing.Point(46, 18);
             this.textLabel.Name = "textLabel";
             this.textLabel.Size = new System.Drawing.Size(0, 13);
             this.textLabel.TabIndex = 3;
