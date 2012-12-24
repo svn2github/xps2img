@@ -1,0 +1,50 @@
+﻿<html dir="LTR"><head><META http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5"><title>Getopt Properties</title><xml></xml><link rel="stylesheet" type="text/css" href="MSDN.css"></head><body id="bodyID" class="dtBODY"><div id="nsbanner"><div id="bannerrow1"><table class="bannerparthead" cellspacing="0"><tr id="hdr"><td class="runninghead">Gnu.Getopt Class Library</td><td class="product"></td></tr></table></div><div id="TitleRow"><h1 class="dtH1">Getopt Properties</h1></div></div><div id="nstext"><p>The properties of the <b>Getopt</b> class are listed below. For a complete list of <b>Getopt</b> class members, see the <a href="Gnu.Getopt.GetoptMembers.html">Getopt Members</a> topic.</p><h4 class="dtH4">Public Instance Properties</h4><div class="tablediv"><table class="dtTABLE" cellspacing="0">
+<tr VALIGN="top"><td width="50%"><img src="pubproperty.gif"><a href="Gnu.Getopt.Getopt.Argv.html">Argv</a></td><td width="50%">
+            Since in GNU getopt() the argument vector is passed back in to the
+            function every time, the caller can swap out <code>argv</code> on the
+            fly. Since passing argv is not required in the .NET version, this
+            method allows the user to override argv. Note that incorrect use of
+            this method can lead to serious lossage.
+            </td></tr>
+<tr VALIGN="top"><td width="50%"><img src="pubproperty.gif"><a href="Gnu.Getopt.Getopt.Longind.html">Longind</a></td><td width="50%">
+            Returns the index into the array of long options (NOT argv)
+            representing the long option that was found.
+            </td></tr>
+<tr VALIGN="top"><td width="50%"><img src="pubproperty.gif"><a href="Gnu.Getopt.Getopt.Optarg.html">Optarg</a></td><td width="50%">
+            For communication from <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a> to the caller. When
+            <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a> finds an option that takes an argument, the
+            argument value is returned here. Also, when <code>ordering</code> is
+            <b>ReturnInOrder</b>, each non-option ARGV-element is
+            returned here. No set method is provided because setting this
+            variable has no effect.
+            </td></tr>
+<tr VALIGN="top"><td width="50%"><img src="pubproperty.gif"><a href="Gnu.Getopt.Getopt.Opterr.html">Opterr</a></td><td width="50%">
+            Normally <a href="Gnu.Getopt.Getopt.html">Getopt</a> will print a message to the standard
+            error when an invalid option is encountered. This can be suppressed
+            (or re-enabled) by calling this method.
+            </td></tr>
+<tr VALIGN="top"><td width="50%"><img src="pubproperty.gif"><a href="Gnu.Getopt.Getopt.Optind.html">Optind</a></td><td width="50%"><code>optind</code> is the index in ARGV of the next element to be
+            scanned. This is used for communication to and from the caller and
+            for communication between successive calls to <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a>.
+            
+            When <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a> returns -1, this is the index of the
+            first of the non-option elements that the caller should itself
+            scan.
+            
+            Otherwise, <code>optind</code> communicates from one call to the next how
+            much of ARGV has been scanned so far.  
+            </td></tr>
+<tr VALIGN="top"><td width="50%"><img src="pubproperty.gif"><a href="Gnu.Getopt.Getopt.Optopt.html">Optopt</a></td><td width="50%">
+            When <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a> encounters an invalid option, it stores
+            the value of that option in <code>optopt</code> which can be retrieved
+            with this method. There is no corresponding set method because
+            setting this variable has no effect.
+            </td></tr>
+<tr VALIGN="top"><td width="50%"><img src="pubproperty.gif"><a href="Gnu.Getopt.Getopt.Optstring.html">Optstring</a></td><td width="50%">
+            In GNU getopt, it is possible to change the string containg valid
+            options on the fly because it is passed as an argument to
+            <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a> each time.
+            In this version we do not pass the string on every call.
+            In order to allow dynamic option string changing, this method is
+            provided.
+            </td></tr></table></div><h4 class="dtH4">See Also</h4><p><a href="Gnu.Getopt.Getopt.html">Getopt Class</a> | <a href="Gnu.Getopt.html">Gnu.Getopt Namespace</a> | <a href="Gnu.Getopt.LongOpt.html">LongOpt</a></p><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e" viewastext="true" style="display: none;"><param name="Keyword" value="Getopt class, properties"></object><hr><div id="footer"><p><a>Copyright (c) 1987-1997 Free Software Foundation, Inc., Java Port Copyright (c) 1998 by Aaron M. Renn (arenn@urbanophile.com), C#.NET Port of the Java Port Copyright (c) 2004 by Klaus Prückl (klaus.prueckl@aon.at)</a></p><p>Generated from assembly Gnu.Getopt [0.9.1.24218]</p></div></div></body></html>

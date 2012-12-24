@@ -1,0 +1,21 @@
+﻿<html dir="LTR"><head><META http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5"><title>Getopt Methods</title><xml></xml><link rel="stylesheet" type="text/css" href="MSDN.css"></head><body id="bodyID" class="dtBODY"><div id="nsbanner"><div id="bannerrow1"><table class="bannerparthead" cellspacing="0"><tr id="hdr"><td class="runninghead">Gnu.Getopt Class Library</td><td class="product"></td></tr></table></div><div id="TitleRow"><h1 class="dtH1">Getopt Methods</h1></div></div><div id="nstext"><p>The methods of the <b>Getopt</b> class are listed below. For a complete list of <b>Getopt</b> class members, see the <a href="Gnu.Getopt.GetoptMembers.html">Getopt Members</a> topic.</p><h4 class="dtH4">Public Instance Methods</h4><div class="tablediv"><table class="dtTABLE" cellspacing="0">
+<tr VALIGN="top"><td width="50%"><img src="pubmethod.gif"><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfSystemObjectClassEqualsTopic.asp">Equals</a> (inherited from <b>Object</b>)</td><td width="50%"></td></tr>
+<tr VALIGN="top"><td width="50%"><img src="pubmethod.gif"><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfSystemObjectClassGetHashCodeTopic.asp">GetHashCode</a> (inherited from <b>Object</b>)</td><td width="50%"></td></tr>
+<tr VALIGN="top"><td width="50%"><img src="pubmethod.gif"><a href="Gnu.Getopt.Getopt.getopt.html">getopt</a></td><td width="50%">
+            This method returns a char that is the current option that has been
+            parsed from the command line. If the option takes an argument, then
+            the internal variable <code>optarg</code> is set which is a string
+            representing the the value of the argument. This value can be
+            retrieved by the caller using the <a href="Gnu.Getopt.Getopt.Optarg.html">Optarg</a> property. If
+            an invalid option is found, an error message is printed and a
+            '<code>?</code>' is returned.
+            The name of the invalid option character can be retrieved by
+            calling the <code>Optopt</code> property. When there are no more options
+            to be scanned, this method returns -1. The index of first
+            non-option element in argv can be retrieved with the
+            <a href="Gnu.Getopt.Getopt.Optind.html">Optind</a> property.
+            </td></tr>
+<tr VALIGN="top"><td width="50%"><img src="pubmethod.gif"><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfSystemObjectClassGetTypeTopic.asp">GetType</a> (inherited from <b>Object</b>)</td><td width="50%"></td></tr>
+<tr VALIGN="top"><td width="50%"><img src="pubmethod.gif"><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfSystemObjectClassToStringTopic.asp">ToString</a> (inherited from <b>Object</b>)</td><td width="50%"></td></tr></table></div><h4 class="dtH4">Protected Instance Methods</h4><div class="tablediv"><table class="dtTABLE" cellspacing="0">
+<tr VALIGN="top"><td width="50%"><img src="protmethod.gif"><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfSystemObjectClassFinalizeTopic.asp">Finalize</a> (inherited from <b>Object</b>)</td><td width="50%"></td></tr>
+<tr VALIGN="top"><td width="50%"><img src="protmethod.gif"><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfSystemObjectClassMemberwiseCloneTopic.asp">MemberwiseClone</a> (inherited from <b>Object</b>)</td><td width="50%"></td></tr></table></div><h4 class="dtH4">See Also</h4><p><a href="Gnu.Getopt.Getopt.html">Getopt Class</a> | <a href="Gnu.Getopt.html">Gnu.Getopt Namespace</a> | <a href="Gnu.Getopt.LongOpt.html">LongOpt</a></p><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e" viewastext="true" style="display: none;"><param name="Keyword" value="Getopt class, methods"></object><hr><div id="footer"><p><a>Copyright (c) 1987-1997 Free Software Foundation, Inc., Java Port Copyright (c) 1998 by Aaron M. Renn (arenn@urbanophile.com), C#.NET Port of the Java Port Copyright (c) 2004 by Klaus Prückl (klaus.prueckl@aon.at)</a></p><p>Generated from assembly Gnu.Getopt [0.9.1.24218]</p></div></div></body></html>

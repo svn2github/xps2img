@@ -1,0 +1,22 @@
+﻿<html dir="LTR"><head><META http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5"><title>Getopt Constructor (String, String[], String, LongOpt[], Boolean)</title><xml></xml><link rel="stylesheet" type="text/css" href="MSDN.css"></head><body id="bodyID" class="dtBODY"><div id="nsbanner"><div id="bannerrow1"><table class="bannerparthead" cellspacing="0"><tr id="hdr"><td class="runninghead">Gnu.Getopt Class Library</td><td class="product"></td></tr></table></div><div id="TitleRow"><h1 class="dtH1">Getopt Constructor (String, String[], String, LongOpt[], Boolean)</h1></div></div><div id="nstext"><p>
+            Construct a Getopt instance with given input data that is capable
+            of parsing long options and short options.  Contrary to what you
+            might think, the flag <i>longOnly</i> does not
+            determine whether or not we scan for only long arguments. Instead,
+            a value of true here allows long arguments to start with a
+            '<code>-</code>' instead of "<code>--</code>" unless there is a conflict with
+            a short option name.
+            </p><div class="syntax">public Getopt(<br>   <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfSystemStringClassTopic.asp">string</a> <i>progname</i>,<br>   <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfSystemStringClassTopic.asp">string[]</a> <i>argv</i>,<br>   <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfSystemStringClassTopic.asp">string</a> <i>optstring</i>,<br>   <a href="Gnu.Getopt.LongOpt.html">LongOpt[]</a> <i>longOptions</i>,<br>   <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfSystemBooleanClassTopic.asp">bool</a> <i>longOnly</i><br>);</div><h4 class="dtH4">Parameters</h4><dl><dt><i>progname</i></dt><dd>
+            The name to display as the program name when printing errors
+            </dd><dt><i>argv</i></dt><dd>
+            The string array passed as the command ilne to the program.
+            </dd><dt><i>optstring</i></dt><dd>
+            A string containing a description of the valid short args for this
+            program.
+            </dd><dt><i>longOptions</i></dt><dd>
+            An array of <a href="Gnu.Getopt.LongOpt.html">LongOpt</a> objects that describes the valid
+            long args for this program.
+            </dd><dt><i>longOnly</i></dt><dd>
+            true if long options that do not conflict with short options can
+            start with a '<code>-</code>' as well as "<code>--</code>".
+            </dd></dl><h4 class="dtH4">See Also</h4><p><a href="Gnu.Getopt.Getopt.html">Getopt Class</a> | <a href="Gnu.Getopt.html">Gnu.Getopt Namespace</a> | <a href="Gnu.Getopt.GetoptConstructor.html">Getopt Constructor Overload List</a></p><hr><div id="footer"><p><a>Copyright (c) 1987-1997 Free Software Foundation, Inc., Java Port Copyright (c) 1998 by Aaron M. Renn (arenn@urbanophile.com), C#.NET Port of the Java Port Copyright (c) 2004 by Klaus Prückl (klaus.prueckl@aon.at)</a></p><p>Generated from assembly Gnu.Getopt [0.9.1.24218]</p></div></div></body></html>

@@ -1,0 +1,354 @@
+﻿<html dir="LTR"><head><META http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5"><title>Getopt Class</title><xml></xml><link rel="stylesheet" type="text/css" href="MSDN.css"></head><body id="bodyID" class="dtBODY"><div id="nsbanner"><div id="bannerrow1"><table class="bannerparthead" cellspacing="0"><tr id="hdr"><td class="runninghead">Gnu.Getopt Class Library</td><td class="product"></td></tr></table></div><div id="TitleRow"><h1 class="dtH1">Getopt Class</h1></div></div><div id="nstext"><p>
+            This is a C# port of a Java port of GNU getopt, a class for parsing
+            command line arguments passed to programs. It it based on the C
+            getopt() functions in glibc 2.0.6 and should parse options in a 100%
+            compatible manner. If it does not, that is a bug. The programmer's
+            interface is also very compatible.
+            </p><p>For a list of all members of this type, see <a href="Gnu.Getopt.GetoptMembers.html">Getopt Members</a>.</p><p><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfSystemObjectClassTopic.asp">System.Object</a><br>   <b>Getopt</b></p><div class="syntax"><div>public class Getopt</div></div><h4 class="dtH4">Remarks</h4><p>
+            To use Getopt, create a Getopt object with a args array passed to the
+            main method, then call the <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a> method in a loop. It
+            will return an <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfSystemInt32ClassTopic.asp">Int32</a> that contains the value of the option
+            character parsed from the command line. When there are no more options
+            to be parsed, it returns -1.
+            <p>
+            A command line option can be defined to take an argument. If an option
+            has an argument, the value of that argument is stored in an instance
+            variable called <code>optarg</code>, which can be accessed using the
+            <a href="Gnu.Getopt.Getopt.Optarg.html">Optarg</a> property.
+            If an option that requires an argument is found, but there is no
+            argument present, then an error message is printed. Normally
+            <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a> returns a '<code>?</code>' in this situation, but that
+            can be changed as described below.
+            </p><p>
+            If an invalid option is encountered, an error message is printed to
+            the standard error and <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a> returns a '<code>?</code>'.
+            The value of the invalid option encountered is stored in the instance
+            variable optopt which can be retrieved using the <a href="Gnu.Getopt.Getopt.Optopt.html">Optopt</a>
+            property.
+            To suppress the printing of error messages for this or any other error,
+            set the value of the <code>opterr</code> instance variable to false using the
+            <a href="Gnu.Getopt.Getopt.Opterr.html">Opterr</a> property.
+            </p><p>
+            Between calls to <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a>, the instance variable
+            <code>optind</code> is used to keep track of where the object is in the
+            parsing process. After all options have been returned, <code>optind</code>
+            is the index in argv of the first non-option argument.
+            This variable can be accessed with the <a href="Gnu.Getopt.Getopt.Optind.html">Optind</a> property.
+            </p><p>
+            Note that this object expects command line options to be passed in the
+            traditional Unix manner. That is, proceeded by a '<code>-</code>' character.
+            Multiple options can follow the '<code>-</code>'. For example "<code>-abc</code>"
+            is equivalent to "<code>-a -b -c</code>". If an option takes a required
+            argument, the value of the argument can immediately follow the option
+            character or be present in the next argv element. For example,
+            "<code>-cfoo</code>" and "<code>-c foo</code>" both represent an option character
+            of '<code>c</code>' with an argument of "<code>foo</code>" assuming <code>c</code> takes
+            a required argument.
+            If an option takes an argument that is not required, then any argument
+            must immediately follow the option character in the same argv element.
+            For example, if c takes a non-required argument, then "<code>-cfoo</code>"
+            represents option character '<code>c</code>' with an argument of "<code>foo</code>"
+            while "<code>-c foo</code>" represents the option character '<code>c</code>' with
+            no argument, and a first non-option argv element of "<code>foo</code>".
+            </p><p>
+            The user can stop <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a> from scanning any further into
+            a command line by using the special argument "<code>--</code>" by itself.
+            For example:
+            "<code>-a -- -d</code>" would return an option character of '<code>a</code>', then
+            return -1.
+            The "<code>--</code>" is discarded and "<code>-d</code>" is pointed to by
+            <code>optind</code> as the first non-option argv element.
+            </p><example>
+            Here is a basic example of using Getopt:
+            <pre class="code">
+            Getopt g = new Getopt("testprog", args, "ab:c::d");
+            
+            int c;
+            string arg;
+            while ((c = g.getopt()) != -1)
+            {
+            	switch(c)
+            	{
+            		case 'a':
+            		case 'd':
+            			Console.WriteLine("You picked " + (char)c );
+            			break;
+            				
+            		case 'b':
+            		case 'c':
+            			arg = g.Optarg;
+            			Console.WriteLine("You picked " + (char)c + 
+            				" with an argument of " +
+            				((arg != null) ? arg : "null") );
+            			break;
+            
+            		case '?':
+            			break; // getopt() already printed an error
+            
+            		default:
+            			Console.WriteLine("getopt() returned " + c);
+            			break;
+            	}
+            }
+            </pre>
+            In this example, a new Getopt object is created with three params. The
+            first param is the program name. This is for printing error messages in
+            the form "program: error message". In the C version, this value is
+            taken from argv[0], but in .NET the program name is not passed in that
+            element, thus the need for this parameter. The second param is the
+            argument list that was passed to the main() method. The third param is
+            the list of valid options. Each character represents a valid option. If
+            the character is followed by a single colon, then that option has a
+            required argument. If the character is followed by two colons, then
+            that option has an argument that is not required.
+            <p>
+            Note in this example that the value returned from <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a>
+            is cast to a char prior to printing. This is required in order to make
+            the value display correctly as a character instead of an integer.
+            </p></example>
+            If the first character in the option string is a colon, for example
+            "<code>:abc::d</code>", then <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a> will return a '<code>:</code>'
+            instead of a '<code>?</code>' when it encounters an option with a missing
+            required argument. This allows the caller to distinguish between
+            invalid options and valid options that are simply incomplete.
+            <p>
+            In the traditional Unix getopt(), -1 is returned when the first
+            non-option charcter is encountered. In GNU getopt(), the default
+            behavior is to allow options to appear anywhere on the command line.
+            The <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a> method permutes the argument to make it appear
+            to the caller that all options were at the beginning of the command
+            line, and all non-options were at the end. For example, calling
+            <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a> with command line argv of "<code>-a foo bar -d</code>"
+            returns options '<code>a</code>' and '<code>d</code>', then sets optind to point to
+            "<code>foo</code>". The program would read the last two argv elements as
+            "<code>foo</code>" and "<code>bar</code>", just as if the user had typed
+            "<code>-a -d foo bar</code>". 
+            </p><p> 
+            The user can force <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a> to stop scanning the command
+            line with the special argument "<code>--</code>" by itself. Any elements
+            occuring before the "<code>--</code>" are scanned and permuted as normal. Any
+            elements after the "<code>--</code>" are returned as is as non-option argv
+            elements. For example, "<code>foo -a -- bar -d</code>" would return option
+            '<code>a</code>' then -1. <code>optind</code> would point  to "<code>foo</code>",
+            "<code>bar</code>" and "<code>-d</code>" as the non-option argv elements. The
+            "<code>--</code>" is discarded by <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a>.
+            </p><p>
+            There are two ways this default behavior can be modified. The first is
+            to specify traditional Unix getopt() behavior (which is also POSIX
+            behavior) in which scanning stops when the first non-option argument
+            encountered. (Thus "<code>-a foo bar -d</code>" would return '<code>a</code>' as an
+            option and have "<code>foo</code>", "<code>bar</code>", and "<code>-d</code>" as
+            non-option elements).
+            The second is to allow options anywhere, but to return all elements in
+            the order they occur on the command line.
+            When a non-option element is ecountered, an integer 1 is returned and
+            the value of the non-option element is stored in <code>optarg</code> is if
+            it were the argument to that option.
+            For example, "<code>-a foo -d</code>", returns first '<code>a</code>', then 1 (with
+            <code>optarg</code> set to "<code>foo</code>") then '<code>d</code>' then -1.
+            When this "return in order" functionality is enabled, the only way to
+            stop <code>getopt</code> from scanning all command line elements is to
+            use the special "<code>--</code>" string by itself as described above. An
+            example is "<code>-a foo -b -- bar</code>", which would return '<code>a</code>',
+            then integer 1 with <code>optarg</code> set to "<code>foo</code>", then '<code>b</code>',
+            then -1.
+            <code>optind</code> would then point to "<code>bar</code>" as the first non-option
+            argv element. The "<code>--</code>" is discarded.
+            </p><p>
+            The POSIX/traditional behavior is enabled by either setting the 
+            application setting "Gnu.PosixlyCorrect" or by putting a '<code>+</code>'
+            sign as the first character of the option string.
+            The difference between the two methods is that setting the
+            "Gnu.PosixlyCorrect" application setting also forces certain error
+            messages to be displayed in POSIX format.
+            To enable the "return in order" functionality, put a '<code>-</code>' as the
+            first character of the option string. Note that after determining the
+            proper behavior, Getopt strips this leading '<code>+</code>' or '<code>-</code>',
+            meaning that a '<code>:</code>' placed as the second character after one of
+            those two will still cause <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a> to return a '<code>:</code>'
+            instead of a '<code>?</code>' if a required option argument is missing.
+            </p><p>
+            In addition to traditional single character options, GNU Getopt also
+            supports long options. These are preceeded by a "<code>--</code>" sequence
+            and can be as long as desired. Long options provide a more
+            user-friendly way of entering command line options.
+            For example, in addition to a "<code>-h</code>" for help, a program could
+            support also "<code>--help</code>".
+            </p><p>
+            Like short options, long options can also take a required or
+            non-required argument. Required arguments can either be specified by
+            placing an equals sign after the option name, then the argument, or by
+            putting the argument in the next argv element. For example:
+            "<code>--outputdir=foo</code>" and "<code>--outputdir foo</code>" both represent an
+            option of "<code>outputdir</code>" with an argument of "<code>foo</code>", assuming
+            that outputdir takes a required argument. If a long option takes a
+            non-required argument, then the equals sign form must be used to
+            specify the argument. In this case, "<code>--outputdir=foo</code>" would
+            represent option outputdir with an argument of <code>foo</code> while
+            "<code>--outputdir foo</code>" would represent the option outputdir with no
+            argument and a first non-option argv element of "<code>foo</code>".
+            </p><p>
+            Long options can also be specified using a special POSIX argument
+            format (one that I highly discourage). This form of entry is enabled by
+            placing a "<code>W;</code>" (yes, '<code>W</code>' then a semi-colon) in the valid
+            option string.
+            This causes getopt to treat the name following the "<code>-W</code>" as the
+            name of the long option. For example, "<code>-W outputdir=foo</code>" would
+            be equivalent to "<code>--outputdir=foo</code>". The name can immediately
+            follow the "<code>-W</code>" like so: "<code>-Woutputdir=foo</code>".
+            Option arguments are handled identically to normal long options. If a
+            string follows the "<code>-W</code>" that does not represent a
+            valid long option, then <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a> returns '<code>W</code>' and
+            the caller must decide what to do. Otherwise <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a>
+            returns a long option value as described below.
+            </p><p>
+            While long options offer convenience, they can also be tedious to type
+            in full. So it is permissible to abbreviate the option name to as few
+            characters as required to uniquely identify it. If the name can
+            represent multiple long options, then an error message is printed and
+            <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a> returns a '<code>?</code>'.  
+            </p><p>
+            If an invalid option is specified or a required option argument is 
+            missing, <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a> prints an error and returns a '<code>?</code>'
+            or '<code>:</code>' exactly as for short options.
+            Note that when an invalid long option is encountered, the <code>optopt</code>
+            variable is set to integer 0 and so cannot be used to identify the
+            incorrect option the user entered.
+            </p><p>
+            Long options are defined by <a href="Gnu.Getopt.LongOpt.html">LongOpt</a> objects. These
+            objects are created with a contructor that takes four params: a string
+            representing the object name, a integer specifying what arguments the
+            option takes (the value is one of the <a href="Gnu.Getopt.Argument.html">Argument</a>
+            enumeration: <a href="Gnu.Getopt.Argument.html">No</a>,
+            <a href="Gnu.Getopt.Argument.html">Required</a>, or <a href="Gnu.Getopt.Argument.html">Optional</a>),
+            a <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfSystemTextStringBuilderClassTopic.asp">StringBuilder</a> flag object (described
+            below), and an integer value (described below).
+            </p><p>
+            To enable long option parsing, create an array of
+            <a href="Gnu.Getopt.LongOpt.html">LongOpt</a>'s representing the legal options and pass it to
+            the Getopt() constructor.
+            WARNING: If all elements of the array are not populated with
+            <a href="Gnu.Getopt.LongOpt.html">LongOpt</a> objects, the <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a> method will
+            throw a <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfSystemNullReferenceExceptionClassTopic.asp">NullReferenceException</a>.
+            </p><p>
+            When <a href="Gnu.Getopt.Getopt.getopt.html">getopt</a> is called and a long option is encountered,
+            one of two things can be returned.
+            If the flag field in the <a href="Gnu.Getopt.LongOpt.html">LongOpt</a> object representing the
+            long option is non-null, then the integer value field is stored there
+            and an integer 0 is returned to the caller.
+            The <code>val</code> field can then be retrieved from the <code>flag</code> field.
+            Note that since the <code>flag</code> field is a
+            <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfSystemTextStringBuilderClassTopic.asp">StringBuilder</a>, the appropriate string to
+            integer converions must be performed in order to get the actual int
+            value stored there.
+            If the <code>flag</code> field in the <a href="Gnu.Getopt.LongOpt.html">LongOpt</a> object is null,
+            then the value field of the <a href="Gnu.Getopt.LongOpt.html">LongOpt</a> is returned.
+            This can be the character of a short option.
+            This allows an app to have both a long and short option sequence (say,
+            "<code>-h</code>" and "<code>--help</code>") that do the exact same thing.
+            </p><p>
+            With long options, there is an alternative method of determining which
+            option was selected. The property Longind will return the index in the
+            long option array (NOT argv) of the long option found. So if multiple
+            long options are configured to return the same value, the application
+            can use <a href="Gnu.Getopt.Getopt.Longind.html">Longind</a> to distinguish between them. 
+            </p><example>
+            Here is an expanded Getopt example using long options and various
+            techniques described above:
+            <pre class="code">
+            int c;
+            string arg;
+            LongOpt[] longopts = new LongOpt[3];
+            
+            StringBuffer sb = new StringBuffer();
+            longopts[0] = new LongOpt("help", LongOpt.NO_ARGUMENT, null, 'h');
+            longopts[1] = new LongOpt("outputdir", LongOpt.REQUIRED_ARGUMENT, sb, 'o'); 
+            longopts[2] = new LongOpt("maximum", LongOpt.OPTIONAL_ARGUMENT, null, 2);
+            
+            Getopt g = new Getopt("testprog", argv, "-:bc::d:hW;", longopts);
+            g.Opterr = false; // We'll do our own error handling
+            
+            while ((c = g.getopt()) != -1)
+            	switch (c)
+            	{
+            		case 0:
+            			arg = g.getOptarg();
+            			Console.WriteLine("Got long option with value '" +
+            				(char)(new Integer(sb.toString())).intValue()
+            				+ "' with argument " +
+            				((arg != null) ? arg : "null"));
+            			break;
+            
+            		case 1:
+            			Console.WriteLine("I see you have return in order set and that " +
+            				"a non-option argv element was just found " +
+            				"with the value '" + g.Optarg + "'");
+            			break;
+            
+            		case 2:
+            			arg = g.getOptarg();
+            			Console.WriteLine("I know this, but pretend I didn't");
+            			Console.WriteLine("We picked option " +
+            				longopts[g.Longind].getName() +
+            				" with value " + 
+            				((arg != null) ? arg : "null"));
+            			break;
+            
+            		case 'b':
+            			Console.WriteLine("You picked plain old option " + (char)c);
+            			break;
+            
+            		case 'c':
+            		case 'd':
+            			arg = g.getOptarg();
+            			Console.WriteLine("You picked option '" + (char)c + 
+            				"' with argument " +
+            				((arg != null) ? arg : "null"));
+            			break;
+            
+            		case 'h':
+            			Console.WriteLine("I see you asked for help");
+            			break;
+            
+            		case 'W':
+            			Console.WriteLine("Hmmm. You tried a -W with an incorrect long " +
+            				"option name");
+            			break;
+            
+            		case ':':
+            			Console.WriteLine("Doh! You need an argument for option " +
+            				(char)g.getOptopt());
+            			break;
+            
+            		case '?':
+            			Console.WriteLine("The option '" + (char)g.getOptopt() + 
+            				"' is not valid");
+            			break;
+            
+            		default:
+            			Console.WriteLine("getopt() returned " + c);
+            			break;
+            	}
+            
+            for (int i = g.getOptind(); i &lt; argv.length ; i++)
+            	Console.WriteLine("Non option argv element: " + argv[i] );
+            </pre><p>
+            There is an alternative form of the constructor used for long options
+            above. This takes a trailing boolean flag. If set to false, Getopt
+            performs identically to the example, but if the boolean flag is true
+            then long options are allowed to start with a single '<code>-</code>' instead
+            of "<code>--</code>". If the first character of the option is a valid short
+            option character, then the option is treated as if it were the short
+            option. Otherwise it behaves as if the option is a long option.
+            Note that the name given to this option - <code>longOnly</code> - is very
+            counter-intuitive.
+            It does not cause only long options to be parsed but instead enables
+            the behavior described above.
+            </p></example><p> 
+            Note that the functionality and variable names used are driven from the
+            C lib version as this object is a port of the C code, not a new
+            implementation. This should aid in porting existing C/C++ code, as well
+            as helping programmers familiar with the glibc version to adapt to the
+            C#.NET version.
+            </p></p><h4 class="dtH4">Requirements</h4><p><b>Namespace: </b><a href="Gnu.Getopt.html">Gnu.Getopt</a></p><p><b>Assembly: </b>Gnu.Getopt (in Gnu.Getopt.dll)
+					</p><h4 class="dtH4">See Also</h4><p><a href="Gnu.Getopt.GetoptMembers.html">Getopt Members</a> | <a href="Gnu.Getopt.html">Gnu.Getopt Namespace</a> | <a href="Gnu.Getopt.LongOpt.html">LongOpt</a></p><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e" viewastext="true" style="display: none;"><param name="Keyword" value="Getopt class, about Getopt class"></object><hr><div id="footer"><p><a>Copyright (c) 1987-1997 Free Software Foundation, Inc., Java Port Copyright (c) 1998 by Aaron M. Renn (arenn@urbanophile.com), C#.NET Port of the Java Port Copyright (c) 2004 by Klaus Prückl (klaus.prueckl@aon.at)</a></p><p>Generated from assembly Gnu.Getopt [0.9.1.24218]</p></div></div></body></html>
