@@ -1,0 +1,35 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{41DC1382-32CB-4362-83D3-ADD7AC810CB0}"
+	ProjectSection(SolutionItems) = preProject
+		COPYING.LIB = COPYING.LIB
+		Gnu.Getopt.FxCop = Gnu.Getopt.FxCop
+		Gnu.Getopt.ndoc = Gnu.Getopt.ndoc
+		Gnu.Getopt.nunit = Gnu.Getopt.nunit
+		Gnu.Getopt.snk = Gnu.Getopt.snk
+		readme.txt = readme.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gnu.Getopt", "Gnu.Getopt\Gnu.Getopt.csproj", "{379BC478-7D84-4E0E-A4B8-197905C824AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gnu.Getopt.Tests", "Gnu.Getopt.Tests\Gnu.Getopt.Tests.csproj", "{2A0076D5-2C27-4FB0-A23A-43BB0484F0A5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{379BC478-7D84-4E0E-A4B8-197905C824AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{379BC478-7D84-4E0E-A4B8-197905C824AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{379BC478-7D84-4E0E-A4B8-197905C824AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{379BC478-7D84-4E0E-A4B8-197905C824AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A0076D5-2C27-4FB0-A23A-43BB0484F0A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A0076D5-2C27-4FB0-A23A-43BB0484F0A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A0076D5-2C27-4FB0-A23A-43BB0484F0A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A0076D5-2C27-4FB0-A23A-43BB0484F0A5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
