@@ -16,6 +16,14 @@ namespace Xps2Img.Shared.CommandLine
         {
         }
 
+
+        public Interval(int point)
+        {
+            Begin = End = point;
+
+            Normalize();
+        }
+
         public Interval(int begin, int end = MaxValue, int minValue = MinValue, int maxValue = MaxValue)
         {
             ActualMinValue = minValue;
