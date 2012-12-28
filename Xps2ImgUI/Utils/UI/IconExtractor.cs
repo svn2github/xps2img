@@ -222,7 +222,9 @@ namespace TKageyu.Utils
 
         ~IconExtractor()
         {
+            #if DEBUG
             Debug.Assert(false, "DO NOT RELY ON FINALIZER! Use using(new IconExtractor(...)) instead!");
+            #endif
             Dispose();
         }
 
