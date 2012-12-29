@@ -52,7 +52,14 @@ namespace Xps2Img.Shared.TypeConverters
             var bitIndex = 0;
             var affinityMask = bitArray.Cast<bool>().TakeWhile(_ => bitIndex < 64).Aggregate(0L, (_, bit) => _ | ((bit ? 1L : 0L) << bitIndex++));
 
-            return new IntPtr(affinityMask & (1 << Environment.ProcessorCount) - 1);
+            var resultMask = affinityMask & CpuMask;
+
+            return resultMask == CpuMask ? (IntPtr?)null : new IntPtr(resultMask);
+        }
+
+        private static long CpuMask
+        {
+            get { return (1 << Environment.ProcessorCount) - 1; }
         }
 
         public static void ForEachBit(IntPtr intPtrValue, Action<int> hasBitInPosition)
