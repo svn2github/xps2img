@@ -92,7 +92,7 @@ namespace Xps2Img.Xps2Img
             public string PrelimsPrefix { get; set; }
 
             public bool Clean { get; set; }
-            
+
             public Parameters()
             {
                 FirstPageIndex = 1;
@@ -143,7 +143,7 @@ namespace Xps2Img.Xps2Img
             {
                 return;
             }
-            
+
             for (var docPageNumber = parameters.StartPage; docPageNumber <= parameters.EndPage; docPageNumber++)
             {
                 if (IsCancelled)
@@ -293,9 +293,6 @@ namespace Xps2Img.Xps2Img
                     {
                         throw;
                     }
-
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
 
                     Thread.Sleep(triesSleepInterval);
                 }

@@ -37,7 +37,20 @@ namespace Xps2ImgUI
         private static bool _isBatchMode;
 
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
+        {
+            try
+            {
+                MainExec(args);
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex);
+                Environment.Exit(-1);
+            }
+        }
+
+        private static void MainExec(string[] args)
         {
             SetupGuard.Enter();
 
