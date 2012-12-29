@@ -69,7 +69,7 @@ namespace Xps2Img.Shared.CommandLine
         [Browsable(false)]
         public List<Interval> SafePages
         {
-            get { return Pages ?? new List<Interval> { new Interval() }; }
+            get { return Pages ?? new List<Interval> { new Interval(begin: 1) }; }
         }
 
         [Option(FileTypeDescription, FileTypeShortOption, DefaultValue = FileTypeDefaultValue)]
