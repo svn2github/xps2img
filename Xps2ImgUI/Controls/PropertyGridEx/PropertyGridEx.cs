@@ -239,6 +239,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             {
                 DrawFlatToolbar = value;
                 BackColor = _backColorOriginal;
+                ContextMenuStrip.RenderMode = value ? ToolStripRenderMode.ManagerRenderMode : ToolStripRenderMode.System;
             }
         }
 

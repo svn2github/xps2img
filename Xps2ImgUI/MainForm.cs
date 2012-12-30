@@ -92,9 +92,8 @@ namespace Xps2ImgUI
         {
             settingsPropertyGrid.ModernLook = !_preferences.ClassicLook;
             settingsPropertyGrid.AllowAutoComplete = _preferences.AutoCompleteFilenames;
-            convertContextMenuStrip.RenderMode = _preferences.ClassicLook
-                                                     ? ToolStripRenderMode.System
-                                                     : ToolStripRenderMode.ManagerRenderMode;
+            convertContextMenuStrip.RenderMode = settingsPropertyGrid.ContextMenuStrip.RenderMode;
+
             if (Model.IsBatchMode)
             {
                 _preferences.ShortenExtension = Model.OptionsObject.ShortenExtension;
