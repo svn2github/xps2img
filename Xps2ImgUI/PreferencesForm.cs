@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection;
 using System.Windows.Forms;
 
 using CommandLine;
@@ -47,12 +48,15 @@ namespace Xps2ImgUI
 
         private bool PropertyGridResetGroupCallback(string label, bool check)
         {
-            if (!check)
+            Func<PropertyInfo, bool> allowFilter = pi => !_isRunning || pi.Name != ReflectionUtils.GetPropertyName(() => Preferences.ShortenExtension);
+
+            if (check)
             {
-                preferencesPropertyGrid.ResetByCategory(label,
-                    pi => !_isRunning || pi.Name != ReflectionUtils.GetPropertyName(() => Preferences.ShortenExtension));
-                EnableReset();
+                return preferencesPropertyGrid.IsResetByCategoryEnabled(label, allowFilter);
             }
+
+            preferencesPropertyGrid.ResetByCategory(label, allowFilter);
+            EnableReset();
 
             return true;
         }

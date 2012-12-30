@@ -53,13 +53,28 @@ namespace CommandLine
 
         public static void ForEachPropertyInfo(object optionsObject, Action<PropertyInfo> propertyInfoAction)
         {
+            ForEachPropertyInfo(optionsObject, pi => { propertyInfoAction(pi); return true; });
+        }
+
+        public static bool ForEachPropertyInfo(object optionsObject, Func<PropertyInfo, bool> propertyInfoAction)
+        {
             const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public;
-            Array.ForEach(optionsObject.GetType().GetProperties(bindingFlags), propertyInfoAction);
+            return optionsObject.GetType().GetProperties(bindingFlags).All(propertyInfoAction);
         }
 
         public static T FirstOrDefaultAttribute<T>(this MemberInfo memberInfo) where T : Attribute
         {
             return (T)memberInfo.GetCustomAttributes(typeof(T), true).FirstOrDefault();
+        }
+
+        public static T FirstOrNewAttribute<T>(this MemberInfo memberInfo) where T : Attribute, new ()
+        {
+            return FirstOrDefaultAttribute<T>(memberInfo) ?? new T();
+        }
+
+        public static T FirstOrNewAttribute<T>(this MemberInfo memberInfo, Func<T> activator) where T : Attribute
+        {
+            return FirstOrDefaultAttribute<T>(memberInfo) ?? activator();
         }
 
         public static string GetPropertyName(Expression<Func<object>> propertyExpression)

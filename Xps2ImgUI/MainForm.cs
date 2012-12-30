@@ -45,10 +45,12 @@ namespace Xps2ImgUI
 
         private bool PropertyGridResetGroupCallback(string label, bool check)
         {
-            if (!check)
+            if (check)
             {
-                ResetByCategory(label);
+                return settingsPropertyGrid.IsResetByCategoryEnabled(label);
             }
+
+            ResetByCategory(label);
 
             return true;
         }

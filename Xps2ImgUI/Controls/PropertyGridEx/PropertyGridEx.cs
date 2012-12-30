@@ -327,10 +327,26 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             OnPropertyValueChanged(new PropertyValueChangedEventArgs(SelectedGridItem, oldValue));
         }
 
+        public bool IsResetByCategoryEnabled(string category, Func<PropertyInfo, bool> allowFilter = null)
+        {
+            return !ReflectionUtils.ForEachPropertyInfo(SelectedObject, pi =>
+            {
+                if(category != pi.FirstOrNewAttribute<CategoryAttribute>().Category || (allowFilter != null && !allowFilter(pi)))
+                {
+                    return true;
+                }
+
+                var defaultValue = pi.FirstOrNewAttribute(() => new DefaultValueAttribute(null)).Value;
+                var propertyValue = pi.GetValue(SelectedObject, null);
+
+                return defaultValue == null ? propertyValue == null : defaultValue.Equals(propertyValue);
+            });
+        }
+
         public void ResetByCategory(string category, Func<PropertyInfo, bool> allowFilter = null)
         {
-            ReflectionUtils.SetDefaultValues(SelectedObject, pi => 
-                category == (pi.FirstOrDefaultAttribute<CategoryAttribute>() ?? new CategoryAttribute()).Category &&
+            ReflectionUtils.SetDefaultValues(SelectedObject, pi =>
+                category == pi.FirstOrNewAttribute<CategoryAttribute>().Category &&
                 (allowFilter == null || allowFilter(pi))
             );
             Refresh();
