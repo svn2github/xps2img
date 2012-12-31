@@ -109,6 +109,8 @@ namespace Xps2ImgUI.Model
             catch(InvalidOperationException)
             {
             }
+
+            _isRunning = false;
         }
 
         public string FormatCommandLine(params string[] optionsToExclude)
