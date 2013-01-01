@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("http://xps2img.sf.net")]
 [assembly: AssemblyProduct("Command line parser")]
-[assembly: AssemblyCopyright("Copyright © Ivan Ivon, 2010-2011")]
+[assembly: AssemblyCopyright("Copyright © Ivan Ivon, 2010-2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
