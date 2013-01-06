@@ -517,11 +517,6 @@ namespace Xps2ImgUI
             UpdateRunningStatus(false);
         }
 
-        private void EnableConvertControls()
-        {
-            EnableConvertControls(ControlState.EnabledAndFocused);
-        }
-
         [Flags]
         private enum ControlState
         {
@@ -531,7 +526,7 @@ namespace Xps2ImgUI
             EnabledAndFocused = Enabled | Focused
         }
 
-        private void EnableConvertControls(ControlState controlState)
+        private void EnableConvertControls(ControlState controlState = ControlState.EnabledAndFocused)
         {
             var enabled = (controlState & ControlState.Enabled) != 0;
             var focused = (controlState & ControlState.Focused) != 0;
@@ -674,7 +669,7 @@ namespace Xps2ImgUI
                 return;
             }
 
-            this.InvokeIfNeeded(EnableConvertControls);
+            this.InvokeIfNeeded(() => EnableConvertControls());
         }
 
         private new void Activate()
