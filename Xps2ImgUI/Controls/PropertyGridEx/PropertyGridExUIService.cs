@@ -62,64 +62,17 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             }
         }
 
-        public bool CanShowComponentEditor(object component)
-        {
-            throw new NotSupportedException();
-        }
-
-        public IWin32Window GetDialogOwnerWindow()
-        {
-            throw new NotSupportedException();
-        }
-
-        public void SetUIDirty()
-        {
-            throw new NotSupportedException();
-        }
-
-        public bool ShowComponentEditor(object component, IWin32Window parent)
-        {
-            throw new NotSupportedException();
-        }
-
-        public void ShowError(Exception ex, string message)
-        {
-            throw new NotSupportedException();
-        }
-
-        public void ShowError(Exception ex)
-        {
-            throw new NotSupportedException();
-        }
-
-        public void ShowError(string message)
-        {
-            throw new NotSupportedException();
-        }
-
-        public DialogResult ShowMessage(string message, string caption, MessageBoxButtons buttons)
-        {
-            throw new NotSupportedException();
-        }
-
-        public void ShowMessage(string message, string caption)
-        {
-            throw new NotSupportedException();
-        }
-
-        public void ShowMessage(string message)
-        {
-            throw new NotSupportedException();
-        }
-
-        public bool ShowToolWindow(Guid toolWindow)
-        {
-            throw new NotSupportedException();
-        }
-
-        public IDictionary Styles
-        {
-            get { throw new NotSupportedException(); }
-        }
+        public bool CanShowComponentEditor(object component) { throw new NotSupportedException(); }
+        public IWin32Window GetDialogOwnerWindow() { throw new NotSupportedException(); }
+        public void SetUIDirty() { throw new NotSupportedException(); }
+        public bool ShowComponentEditor(object component, IWin32Window parent) { throw new NotSupportedException(); }
+        public void ShowError(Exception ex, string message) { throw new NotSupportedException(); }
+        public void ShowError(Exception ex) { throw new NotSupportedException(); }
+        public void ShowError(string message) { throw new NotSupportedException(); }
+        public DialogResult ShowMessage(string message, string caption, MessageBoxButtons buttons) { throw new NotSupportedException(); }
+        public void ShowMessage(string message, string caption) { throw new NotSupportedException(); }
+        public void ShowMessage(string message) { throw new NotSupportedException(); }
+        public bool ShowToolWindow(Guid toolWindow) { throw new NotSupportedException(); }
+        public IDictionary Styles { get { throw new NotSupportedException(); } }
     }
 }
