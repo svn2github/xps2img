@@ -187,7 +187,7 @@ namespace Xps2ImgUI
             if (m.Msg == Windows7Taskbar.WM_TaskbarButtonCreated)
             {
                 _thumbButtonManager = new ThumbButtonManager(Handle);
-                _thumbButton = _thumbButtonManager.CreateThumbButton(Resources.Icons.Play, ConvertButtonCleanText, (s, e) => ExecuteConversion(ExecuteFlags.Convert | ExecuteFlags.ActivateWindow | ExecuteFlags.DoNotClickButton));
+                _thumbButton = _thumbButtonManager.CreateThumbButton(Resources.Icons.Play, ConvertButtonCleanText, (s, e) => ExecuteConversion(ExecuteFlags.Convert | ExecuteFlags.ActivateWindow));
                 _thumbButtonManager.AddThumbButtons(_thumbButton);
             }
 
@@ -703,12 +703,16 @@ namespace Xps2ImgUI
             Resume          = 1 << 0,
             Convert         = 1 << 1,
             ActivateWindow  = 1 << 2,
-            DoNotClickButton= 1 << 3,
-            NoResume        = 1 << 4
+            NoResume        = 1 << 3
         }
 
         private void ExecuteConversion(ExecuteFlags executeFlags)
         {
+            if (!Model.IsRunning && !settingsPropertyGrid.Validate())
+            {
+                return;
+            }
+
             var canResume = (executeFlags & ExecuteFlags.NoResume) == 0 && Model.CanResume;
             var execute = (executeFlags & ExecuteFlags.Convert) != 0 && !(canResume && _preferences.AlwaysResume);
 
@@ -719,6 +723,11 @@ namespace Xps2ImgUI
                 if ((executeFlags & ExecuteFlags.ActivateWindow) != 0)
                 {
                     Activate();
+                }
+
+                if (ModalGuard.IsEntered)
+                {
+                    return;
                 }
 
                 bool footerCheckBoxChecked;
@@ -755,10 +764,10 @@ namespace Xps2ImgUI
                 }
             }
 
-            ExecuteConversion(conversionType, (executeFlags & ExecuteFlags.DoNotClickButton) == 0);
+            ExecuteConversion(conversionType);
         }
 
-        private void ExecuteConversion(ConversionType conversionType, bool clickButton = false)
+        private void ExecuteConversion(ConversionType conversionType)
         {
             if (Model.IsRunning)
             {
@@ -766,21 +775,6 @@ namespace Xps2ImgUI
                 {
                     EnableConvertControls(ControlState.Default);
                     Model.Cancel();
-                }
-                return;
-            }
-
-            // Force command line update if launched via shortcut.
-            if (clickButton && !ModalGuard.IsEntered && !convertButton.Focused)
-            {
-                convertButton.Focus();
-                if (settingsPropertyGrid.HasErrors)
-                {
-                    settingsPropertyGrid.Focus();
-                }
-                else
-                {
-                    convertButton.PerformClick();
                 }
                 return;
             }
@@ -877,14 +871,14 @@ namespace Xps2ImgUI
 
         private void DeleteImagesToolStripMenuItemClick(object sender, EventArgs e)
         {
-            ExecuteDeleteImages(true);
+            ExecuteDeleteImages();
         }
 
-        private void ExecuteDeleteImages(bool clickButton = false)
+        private void ExecuteDeleteImages()
         {
             if (Model.IsBatchMode || !_preferences.ConfirmOnDelete || ShowConfirmationMessageBox(Resources.Strings.DeleteConvertedImagesConfirmation))
             {
-                ExecuteConversion(ConversionType.Delete, clickButton);
+                ExecuteConversion(ConversionType.Delete);
             }
         }
 

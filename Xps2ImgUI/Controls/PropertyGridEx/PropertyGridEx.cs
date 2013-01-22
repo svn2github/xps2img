@@ -60,6 +60,9 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             _propertyGridViewEdit = (TextBox)propertyGridViewType.GetProperty("Edit", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(_propertyGridView, null);
             Debug.Assert(_propertyGridViewEdit != null);
 
+            _propertyGridViewEnsurePendingChangesCommitted = propertyGridViewType.GetMethod("EnsurePendingChangesCommitted", BindingFlags.Instance | BindingFlags.Public);
+            Debug.Assert(_propertyGridViewEnsurePendingChangesCommitted != null);
+
             // Add a custom service provider to give us control over the property value error dialog shown to the user.
             var errorDialogField = propertyGridViewType.GetField("serviceProvider", BindingFlags.Instance | BindingFlags.NonPublic);
             if (errorDialogField != null)
@@ -189,6 +192,20 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                 }
                 newFont.Dispose();
             }
+        }
+
+        public void EnsurePendingChangesCommitted()
+        {
+            _propertyGridViewEnsurePendingChangesCommitted.Invoke(_propertyGridView, new object[0]);
+        }
+
+        public new bool Validate()
+        {
+            HasErrors = false;
+            _propertyGridViewEnsurePendingChangesCommitted.Invoke(_propertyGridView, new object[0]);
+            var isValid = !HasErrors;
+            HasErrors = false;
+            return isValid;
         }
 
         private readonly PropertyInfo _docLinesPropertyInfo;
@@ -374,7 +391,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public bool HasErrors { get; set; }
+        public bool HasErrors { get; internal set; }
 
         private bool _allowAutoComplete;
 
@@ -409,6 +426,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         private readonly Control _propertyGridView;
         private readonly TextBox _propertyGridViewEdit;
+        private readonly MethodInfo _propertyGridViewEnsurePendingChangesCommitted;
 
         private readonly Type _docCommentType;
 
