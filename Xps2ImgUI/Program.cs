@@ -20,6 +20,8 @@ using Xps2Img.Shared.Utils.UI;
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Settings;
 
+using ReturnCode = Xps2Img.Shared.CommandLine.CommandLine.ReturnCode;
+
 namespace Xps2ImgUI
 {
     static class Program
@@ -46,7 +48,7 @@ namespace Xps2ImgUI
             catch (Exception ex)
             {
                 HandleException(ex);
-                Environment.Exit(-1);
+                Environment.Exit(ReturnCode.Failed);
             }
         }
 
