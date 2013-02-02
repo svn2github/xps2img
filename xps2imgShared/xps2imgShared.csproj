@@ -65,7 +65,10 @@
     <Compile Include="Dialogs\SelectFolderEditor.cs" />
     <Compile Include="Dialogs\SelectXpsFileEditor.cs" />
     <Compile Include="Dialogs\SelectXpsFolderEditor.cs" />
-    <Compile Include="TypeConverters\StringEnumConverter.cs" />
+    <Compile Include="TypeConverters\ValueDescriptionEnumConverter.cs" />
+    <Compile Include="TypeConverters\TranformationEnumConverter.cs" />
+    <Compile Include="TypeConverters\ToUpperEnumConverter.cs" />
+    <Compile Include="TypeConverters\WordsSeparatedEnumConverter.cs" />
     <Compile Include="TypeConverters\IntervalTypeConverter.cs" />
     <Compile Include="TypeConverters\RequiredSizeTypeConverter.cs" />
     <Compile Include="TypeEditors\CheckedListBoxUITypeEditor.cs" />

@@ -40,6 +40,19 @@ namespace Xps2Img.Shared.Utils
             return str.Replace(SpaceString, String.Empty);
         }
 
+        public static string ToUpperFirst(this string str)
+        {
+            if (String.IsNullOrEmpty(str))
+            {
+                return str;
+            }
+
+            var charArray = str.ToCharArray();
+            charArray[0] = Char.ToUpper(charArray[0]);
+
+            return new string(charArray);
+        }
+
         public const char   SpaceChar   = '\x20';
         public const string SpaceString = "\x20";
     }

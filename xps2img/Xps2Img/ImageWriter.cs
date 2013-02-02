@@ -5,6 +5,8 @@ using System.Windows.Media.Imaging;
 
 using Xps2Img.Shared.CommandLine;
 
+using TiffCompressOption = System.Windows.Media.Imaging.TiffCompressOption;
+
 namespace Xps2Img.Xps2Img
 {
     public static class ImageWriter
@@ -20,7 +22,7 @@ namespace Xps2Img.Xps2Img
                 case ImageType.Jpeg:
                     return new JpegBitmapEncoder { QualityLevel = imageOptions.JpegQualityLevel };
                 case ImageType.Tiff:
-                    return new TiffBitmapEncoder { Compression = imageOptions.TiffCompression };
+                    return new TiffBitmapEncoder { Compression = (TiffCompressOption) imageOptions.TiffCompression };
                 case ImageType.Bmp:
                     return new BmpBitmapEncoder();
                 case ImageType.Gif:

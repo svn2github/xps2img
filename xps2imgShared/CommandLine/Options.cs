@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Drawing.Design;
 using System.Globalization;
 using System.Linq;
-using System.Windows.Media.Imaging;
 
 using CommandLine;
 
@@ -78,6 +77,7 @@ namespace Xps2Img.Shared.CommandLine
         [UIOption(FileTypeShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(ImageType.Png)]
+        [TypeConverter(typeof(ToUpperEnumConverter<ImageType>))]
         public ImageType FileType { get; set; }
 
         [Option(JpegQualityDescription, JpegQualityShortOption, DefaultValue = JpegQualityDefaultValue, ValidationExpression = Validation.JpegQualityValidationExpression)]
@@ -90,13 +90,14 @@ namespace Xps2Img.Shared.CommandLine
         [TypeConverter(typeof(JpegNullableIntTypeConverter))]
         public int? JpegQuality { get; set; }
 
-        [Option(TiffCompressionDescription, TiffCompressionShortOption, DefaultValue = TiffCompressionDefaultValue)]
+        [Option(TiffCompressionDescription, TiffCompressionShortOption, DefaultValue = TiffCompressionDefaultValue, ConverterType = typeof(ValueDescriptionEnumConverter<TiffCompressOption>))]
         [DisplayName(TiffCompressionDisplayName)]
         [TabbedDescription(TiffCompressionDescription)]
         [UIOption(TiffCompressionShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(TiffCompressOption.Zip)]
         [DynamicPropertyFilter("FileType", "Tiff")]
+        [TypeConverter(typeof(ValueDescriptionEnumConverter<TiffCompressOption>))]
         public TiffCompressOption TiffCompression { get; set; }
 
         [Option(RequiredSizeDescription, RequiredSizeOption, ConverterType = typeof(CheckedRequiredSizeTypeConverter), ValidationExpression = Validation.RequiredSizeValidationExpression)]

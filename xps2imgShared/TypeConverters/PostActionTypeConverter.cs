@@ -13,7 +13,7 @@ namespace Xps2Img.Shared.TypeConverters
         Exit
     };
 
-    public class PostActionTypeConverter : StringEnumConverter<PostAction>
+    public class PostActionTypeConverter : WordsSeparatedEnumConverter<PostAction>
     {
         public static PostAction ChooseAction(PostAction currentAction, PostAction userAction)
         {

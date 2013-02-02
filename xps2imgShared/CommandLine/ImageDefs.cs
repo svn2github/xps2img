@@ -1,4 +1,4 @@
-﻿using System.Windows.Media.Imaging;
+﻿using System.ComponentModel;
 
 namespace Xps2Img.Shared.CommandLine
 {
@@ -9,6 +9,22 @@ namespace Xps2Img.Shared.CommandLine
         Tiff,
         Bmp,
         Gif
+    }
+
+    public enum TiffCompressOption
+    {
+        Default,
+        None,
+        [Description("CCITT3")]
+        Ccitt3,
+        [Description("CCITT4")]
+        Ccitt4,
+        [Description("LZW")]
+        Lzw,
+        [Description("RLE")]
+        Rle,
+        [Description("ZIP")]
+        Zip
     }
 
     public class ImageOptions
