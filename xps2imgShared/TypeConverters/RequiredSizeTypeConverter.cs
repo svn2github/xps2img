@@ -14,7 +14,7 @@ namespace Xps2Img.Shared.TypeConverters
             return destinationType == typeof(string);
         }
 
-        public const string ValidationRegex = @"^(((?<width>[1-9]\d{1,6})x?)|((?<width>[1-9]\d{1,6}))?(x(?<height>[1-9]\d{1,6})?))$";
+        public const string ValidationRegex = @"^\s*(((?<width>[1-9]\d{1,6})\s*(x|\s*)?\s*)|((?<width>[1-9]\d{1,6}))?(\s*(x|\s*)\s*(?<height>[1-9]\d{1,6})?))\s*$";
         private static readonly Regex Filter = new Regex(ValidationRegex);
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)

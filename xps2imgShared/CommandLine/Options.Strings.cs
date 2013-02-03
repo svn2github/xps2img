@@ -40,7 +40,7 @@ namespace Xps2Img.Shared.CommandLine
         private const char   TiffCompressionShortOption  = 't';
         private const string TiffCompressionDefaultValue = "zip";
 
-        private const string RequiredSizeDescription = "Desired image size\n  DPI will be ignored if image size is specified \nSyntax:\n  width only:\t2000\n  height only:\tx1000\n  both:\t\t2000x1000\n\t\twidth for landscape orientation\n\t\theight for portrait orientation";
+        private const string RequiredSizeDescription = "Desired image size (greater or equal 10)\n  DPI will be ignored if image size is specified \nSyntax:\n  width only:\t2000\n  height only:\tx1000\n  both:\t\t2000x1000\n\t\twidth for landscape orientation\n\t\theight for portrait orientation";
         private const string RequiredSizeDisplayName = "Image Size";
         private const char   RequiredSizeOption      = 'r';
 
