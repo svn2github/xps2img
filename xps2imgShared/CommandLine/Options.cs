@@ -90,14 +90,14 @@ namespace Xps2Img.Shared.CommandLine
         [TypeConverter(typeof(JpegNullableIntTypeConverter))]
         public int? JpegQuality { get; set; }
 
-        [Option(TiffCompressionDescription, TiffCompressionShortOption, DefaultValue = TiffCompressionDefaultValue, ConverterType = typeof(ValueDescriptionEnumConverter<TiffCompressOption>))]
+        [Option(TiffCompressionDescription, TiffCompressionShortOption, DefaultValue = TiffCompressionDefaultValue, ConverterType = typeof(TiffCompressOptionEnumConverter))]
         [DisplayName(TiffCompressionDisplayName)]
         [TabbedDescription(TiffCompressionDescription)]
         [UIOption(TiffCompressionShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(TiffCompressOption.Zip)]
         [DynamicPropertyFilter("FileType", "Tiff")]
-        [TypeConverter(typeof(ValueDescriptionEnumConverter<TiffCompressOption>))]
+        [TypeConverter(typeof(TiffCompressOptionEnumConverter))]
         public TiffCompressOption TiffCompression { get; set; }
 
         [Option(RequiredSizeDescription, RequiredSizeOption, ConverterType = typeof(CheckedRequiredSizeTypeConverter), ValidationExpression = Validation.RequiredSizeValidationExpression)]

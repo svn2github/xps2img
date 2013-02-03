@@ -65,6 +65,7 @@
     <Compile Include="Dialogs\SelectFolderEditor.cs" />
     <Compile Include="Dialogs\SelectXpsFileEditor.cs" />
     <Compile Include="Dialogs\SelectXpsFolderEditor.cs" />
+    <Compile Include="TypeConverters\TiffCompressOptionEnumConverter.cs" />
     <Compile Include="TypeConverters\ValueDescriptionEnumConverter.cs" />
     <Compile Include="TypeConverters\TranformationEnumConverter.cs" />
     <Compile Include="TypeConverters\ToUpperEnumConverter.cs" />

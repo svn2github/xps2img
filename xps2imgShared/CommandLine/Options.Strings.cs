@@ -35,7 +35,7 @@ namespace Xps2Img.Shared.CommandLine
         private const char   JpegQualityShortOption  = 'q';
         private const string JpegQualityDefaultValue = "85";
 
-        private const string TiffCompressionDescription  = "TIFF compression method\n  Default saves images using best possible compression\n  CCITT3, CCITT4 and RLE produce black and white images";
+        private const string TiffCompressionDescription  = "TIFF compression method\n  CCITT3, CCITT4 and RLE produce black and white images";
         private const string TiffCompressionDisplayName  = "TIFF Compression";
         private const char   TiffCompressionShortOption  = 't';
         private const string TiffCompressionDefaultValue = "zip";
