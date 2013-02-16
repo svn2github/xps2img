@@ -49,7 +49,7 @@ namespace Xps2ImgUI.Utils.UI
 
         private static void Execute(string command, string pathOrFile)
         {
-            Process.Start("explorer.exe", String.Format("/{0},{1}", command, pathOrFile));
+            Process.Start("explorer.exe", String.Format(@"/{0},""{1}""", command, pathOrFile.Trim('"')));
         }
     }
 }
