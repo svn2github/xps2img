@@ -27,12 +27,7 @@ namespace Xps2ImgUI
     static class Program
     {
         public const string ProductName = "xps2img";
-
-        public const string HelpFile = ProductName + ".chm";
-
-        public const string HelpTopicPreferences = "1000";
-        public const string HelpTopicHistory     = "1100";
-
+        
         public static readonly string Xps2ImgExecutable   = Path.Combine(AssemblyInfo.ApplicationFolder, ProductName + ".exe");
         public static readonly string Xps2ImgUIExecutable = Path.Combine(AssemblyInfo.ApplicationFolder, ProductName + "ui.exe");
 

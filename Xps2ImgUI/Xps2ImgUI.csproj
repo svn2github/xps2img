@@ -97,6 +97,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ToolStripButtonItem.cs" />
+    <Compile Include="Utils\UI\HelpUtils.cs" />
     <Compile Include="Settings\Preferences.Strings.cs" />
     <Compile Include="Utils\UI\FilterablePropertyBase.cs" />
     <Compile Include="Model\UIOptions.cs" />

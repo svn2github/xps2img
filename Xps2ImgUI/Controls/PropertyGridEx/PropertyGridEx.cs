@@ -217,6 +217,13 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public override bool Focused
+        {
+            get { return base.Focused || _propertyGridView.Focused || _propertyGridViewEdit.Focused; }
+        }
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int DocLines
         {
             get { return (int)_docLinesPropertyInfo.GetValue(_docComment, null); }

@@ -151,7 +151,7 @@
 		<param name="Local" value="Files\Options.html#outdir">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="Post Conversion Action">
+		<param name="Name" value="After Conversion">
 		<param name="Local" value="Files\Options.html#afterconversion">
 		</OBJECT>
 	</UL>
@@ -262,7 +262,7 @@
 		<param name="Local" value="Files\Options.html#pages">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="Post Conversion Action">
+		<param name="Name" value="After Conversion">
 		<param name="Local" value="Files\Options.html#afterconversion">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">

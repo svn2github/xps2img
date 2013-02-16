@@ -157,6 +157,7 @@ namespace Xps2ImgUI
 
         protected override void OnHelpRequested(HelpEventArgs hevent)
         {
+            hevent.Handled = true;
             ShowHelp();
         }
 
@@ -691,9 +692,14 @@ namespace Xps2ImgUI
 
         private void ShowHelp()
         {
-            if (!ModalGuard.IsEntered)
+            if (ModalGuard.IsEntered)
             {
-                Help.ShowHelp(this, Program.HelpFile, HelpNavigator.TableOfContents);
+                return;
+            }
+
+            if (!this.ShowPropertyHelp(settingsPropertyGrid, HelpUtils.HelpTopicOptions))
+            {
+                this.ShowHelpTableOfContents();
             }
         }
 

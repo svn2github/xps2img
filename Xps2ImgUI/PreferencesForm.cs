@@ -63,6 +63,7 @@ namespace Xps2ImgUI
         
         protected override void OnHelpRequested(HelpEventArgs hevent)
         {
+            hevent.Handled = true;
             ShowHelp();
         }
 
@@ -113,7 +114,10 @@ namespace Xps2ImgUI
 
         private void ShowHelp()
         {
-            Help.ShowHelp(this, Program.HelpFile, HelpNavigator.TopicId, Program.HelpTopicPreferences);           
+            if (!this.ShowPropertyHelp(preferencesPropertyGrid))
+            {
+                this.ShowHelpTopicId(HelpUtils.HelpTopicPreferences);
+            }
         }
 
         private ToolStripButton _resetToolStripButton;

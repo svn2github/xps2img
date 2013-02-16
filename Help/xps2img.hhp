@@ -31,7 +31,75 @@ Files\ExitCodes.html
 [ALIAS]
 IDH_Preferences=Files\Preferences.html
 IDH_History=Files\History.html
+IDH_Options=Files\Options.html
+IDH_XPSFile=Files\Options.html#srcfile
+IDH_OutputFolder=Files\Options.html#outdir
+IDH_PostConversionAction=Files\Options.html#afterconversion
+IDH_PageNumbers=Files\Options.html#pages
+IDH_ImageType=Files\Options.html#filetype
+IDH_JPEGQuality=Files\Options.html#jpegquality
+IDH_TIFFCompression=Files\Options.html#tiffcompression
+IDH_ImageSize=Files\Options.html#requiredsize
+IDH_ImageDPI=Files\Options.html#dpi
+IDH_ImagePrefix=Files\Options.html#imagename
+IDH_FirstPageIndex=Files\Options.html#firstpageindex
+IDH_PreliminariesPrefix=Files\Options.html#prelimsprefix
+IDH_Processors=Files\OptionsGUI.html#processors
+IDH_ProcessPriority=Files\Options.html#processpriority
+IDH_ProcessAffinity=Files\Options.html#affinity
+IDH_TestMode=Files\Options.html#test
+IDH_Application=Files\Preferences.html#application
+IDH_AutoCompleteFilenames=Files\Preferences.html#autoCompleteFilenames
+IDH_AutoSaveSettings=Files\Preferences.html#autoSaveSettings
+IDH_ClassicLook=Files\Preferences.html#classicLook
+IDH_FlashWhenCompleted=Files\Preferences.html#flash
+IDH_ShowElapsedTime=Files\Preferences.html#showElapsedTime
+IDH_Confirmations=Files\Preferences.html#confirmations
+IDH_ConfirmAfterConversion=Files\Preferences.html#confirmAfterConversion
+IDH_ConfirmDelete=Files\Preferences.html#confirmDelete
+IDH_ConfirmExit=Files\Preferences.html#confirmExit
+IDH_ConfirmStopConversion=Files\Preferences.html#confirmStopConversion
+IDH_Conversion=Files\Preferences.html#conversion
+IDH_AlwaysResume=Files\Preferences.html#alwaysResume
+IDH_SuggestResume=Files\Preferences.html#suggestResume
+IDH_ShortenImageExtension=Files\Preferences.html#shortenImageExtension
+IDH_Updates=Files\Preferences.html#updates
+IDH_CheckForUpdates=Files\Preferences.html#checkForUpdates
 
 [MAP]
-#define IDH_Preferences	1000
-#define IDH_History	1100
+#define IDH_Preferences			1000
+#define IDH_History			1001
+#define IDH_Options			1002
+#define IDH_XPSFile			1200
+#define IDH_OutputFolder		1201
+#define IDH_PostConversionAction	1202
+#define IDH_PageNumbers			1203
+#define IDH_ImageType			1204
+#define IDH_JPEGQuality			1205
+#define IDH_TIFFCompression		1206
+#define IDH_ImageSize			1207
+#define IDH_ImageDPI			1208
+#define IDH_ImagePrefix			1209
+#define IDH_FirstPageIndex		1210
+#define IDH_PreliminariesPrefix		1211
+#define IDH_Processors             	1212
+#define IDH_ProcessPriority		1213
+#define IDH_ProcessAffinity		1214
+#define IDH_TestMode			1215
+#define IDH_Application			1250
+#define IDH_AutoCompleteFilenames	1251
+#define IDH_AutoSaveSettings		1252
+#define IDH_ClassicLook			1253
+#define IDH_FlashWhenCompleted		1254
+#define IDH_ShowElapsedTime		1255
+#define IDH_Confirmations		1256
+#define IDH_ConfirmAfterConversion	1257
+#define IDH_ConfirmDelete		1258
+#define IDH_ConfirmExit			1259
+#define IDH_ConfirmStopConversion	1260
+#define IDH_Conversion			1261
+#define IDH_AlwaysResume		1262
+#define IDH_SuggestResume		1263
+#define IDH_ShortenImageExtension	1264
+#define IDH_Updates			1265
+#define IDH_CheckForUpdates		1266

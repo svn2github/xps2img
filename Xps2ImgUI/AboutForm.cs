@@ -39,6 +39,7 @@ namespace Xps2ImgUI
 
         protected override void OnHelpRequested(HelpEventArgs hevent)
         {
+            hevent.Handled = true;
             ShowHelp();
         }
 
@@ -55,12 +56,12 @@ namespace Xps2ImgUI
 
         private void ShowHelp()
         {
-            Help.ShowHelp(this, Program.HelpFile, HelpNavigator.TableOfContents);
+            this.ShowHelpTableOfContents();
         }
 
         private void HistoryLinkLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Help.ShowHelp(this, Program.HelpFile, HelpNavigator.TopicId, Program.HelpTopicHistory);
+            this.ShowHelpTopicId(HelpUtils.HelpTopicHistory);
         }
 
         private void CheckForUpdatesLinkLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
