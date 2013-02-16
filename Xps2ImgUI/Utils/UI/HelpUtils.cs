@@ -53,9 +53,11 @@ namespace Xps2ImgUI.Utils.UI
         private static readonly Dictionary<string, string> PropertyToTopicMap = new Dictionary<string, string>
         {
             // Options.
+            { Options.CategoryParameters,           HelpTopicXpsFile },
             { Options.SrcFileDisplayName,           HelpTopicXpsFile },
             { Options.OutDirDisplayName,            HelpTopicOutputFolder },
             { Options.PostActionDisplayName,        HelpTopicPostConversionAction },
+            { Options.CategoryOptions,              HelpTopicPageNumbers },
             { Options.PagesDisplayName,             HelpTopicPageNumbers },
             { Options.FileTypeDisplayName,          HelpTopicImageType },
             { Options.JpegQualityDisplayName,       HelpTopicJpegQuality },
