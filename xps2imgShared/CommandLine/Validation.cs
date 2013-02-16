@@ -39,7 +39,8 @@ namespace Xps2Img.Shared.CommandLine
         public const string DpiValidationExpression = "16-2350";
         public const string FileNameCharactersNotAllowed = " <>:\"/\\|?* characters are not allowed";
         public const string FileNameValidationRegex = @"/^([^\x00-\x1F<>:""/\\|?*])*$/";
-        public const string FirstPageIndexValidationExpression = "1-10000";
+        public const string FirstPageIndexRegex = @"^\s*""?\s*(?<first>[1-9](\d{1,4})?)((\s+|(\s*-\s*))(?<second>[1-9](\d{1,4})?))?\s*""?\s*$";
+        public const string FirstPageIndexValidationExpression = "/" + FirstPageIndexRegex + "/";
         public const string ImageNameValidationExpression = FileNameValidationRegex;
         public const string JpegQualityValidationExpression = "10-100";
         public const string PagesValidationExpression = "/" + Interval.ValidationRegex + "/";

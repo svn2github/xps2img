@@ -13,12 +13,4 @@ namespace Xps2Img.Shared.TypeConverters
             return base.ConvertFrom(context, culture, value);
         }
     }
-
-    public class CheckedFirstPageIndexTypeConverter : CheckedNullableIntTypeConverter
-    {
-        public CheckedFirstPageIndexTypeConverter()
-            : base(Validation.FirstPageIndexValidationExpression)
-        {
-        }
-    }
 }

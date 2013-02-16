@@ -127,7 +127,7 @@ namespace Xps2Img.Shared.CommandLine
         [TypeConverter(typeof(CheckedImageNameTypeConverter))]
         public string ImageName { get; set; }
 
-        [Option(FirstPageIndexDescription, FirstPageIndexShortOption, DefaultValue = FirstPageIndexDefaultValue, ValidationExpression = Validation.FirstPageIndexValidationExpression)]
+        [Option(FirstPageIndexDescription, FirstPageIndexShortOption, DefaultValue = FirstPageIndexDefaultValue, ValidationExpression = Validation.FirstPageIndexValidationExpression, Flags = OptionFlags.NoDefaultValueDescription)]
         [DisplayName(FirstPageIndexDisplayName)]
         [TabbedDescription(FirstPageIndexDescription)]
         [UIOption(FirstPageIndexShortOption)]

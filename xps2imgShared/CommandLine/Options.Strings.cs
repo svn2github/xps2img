@@ -53,7 +53,7 @@ namespace Xps2Img.Shared.CommandLine
         private const string ImageNameDisplayName = "Image Prefix";
         private const char   ImageNameShortOption = 'i';
 
-        private const string FirstPageIndexDescription  = "Document body first page index";
+        private const string FirstPageIndexDescription  = "Document body first page index or desired and actual page numbers in any order.\n  1 by default\nSyntax:\n  numeric: 95\n  desired and actual page numbers: \"95 100\" or 95-100";
         private const string FirstPageIndexDisplayName  = "First Page Index";
         private const char   FirstPageIndexShortOption  = 'a';
         private const string FirstPageIndexDefaultValue = "1";
