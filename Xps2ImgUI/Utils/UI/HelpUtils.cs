@@ -92,12 +92,12 @@ namespace Xps2ImgUI.Utils.UI
         };
 
         public static void ShowHelpTableOfContents(this Control control)
-        { 
+        {
             Help.ShowHelp(control, HelpFile, HelpNavigator.TableOfContents);
         }
 
         public static void ShowHelpTopicId(this Control control, string topicId)
-        { 
+        {
             Help.ShowHelp(control, HelpFile, HelpNavigator.TopicId, topicId);
         }
 
