@@ -197,6 +197,13 @@ namespace Xps2ImgUI
                 _thumbButtonManager.DispatchMessage(ref m);
             }
 
+            if (m.Msg == WmProgress)
+            {
+                var e = m.GetPostMessageData<ConversionProgressEventArgs>();
+                UpdateProgress(e.Percent, e.Pages, e.File);
+                return;
+            }
+
             try
             {
                 base.WndProc(ref m);
@@ -630,10 +637,12 @@ namespace Xps2ImgUI
             }
         }
 
+        private const uint WmProgress = Win32Utils.WM_APP + 1;
+
         private void OutputDataReceived(object sender, ConversionProgressEventArgs e)
         {
+            this.PostMessage(WmProgress, e);
             ConvertedImagesFolder = e.File;
-            this.InvokeIfNeeded(() => UpdateProgress(e.Percent, e.Pages, e.File));
         }
 
         private void ErrorDataReceived(object sender, ConversionErrorEventArgs e)

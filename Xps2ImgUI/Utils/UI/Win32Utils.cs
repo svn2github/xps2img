@@ -193,6 +193,11 @@ namespace Xps2ImgUI.Utils.UI
         [DllImport("user32.dll")]
         private static extern bool GetMenuItemInfo(IntPtr hMenu, uint uItem, bool fByPosition, ref MENUITEMINFO lpmii);
 
+        public const uint WM_APP = 0x8000U;
+
+        [DllImport("user32.dll")]
+        private static extern bool PostMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+
         private const int SC_CLOSE = 0xF060;
 
         [DllImport("user32.dll")]
@@ -234,6 +239,19 @@ namespace Xps2ImgUI.Utils.UI
         public static bool AttachConsole()
         {
             return AttachConsole(ATTACH_PARENT_PROCESS);
+        }
+
+        public static void PostMessage(this Control control, uint msg, object data)
+        {
+            PostMessage(control.Handle, msg, IntPtr.Zero, GCHandle.ToIntPtr(GCHandle.Alloc(data)));
+        }
+
+        public static T GetPostMessageData<T>(this Message msg)
+        {
+            var gcHandle = GCHandle.FromIntPtr(msg.LParam);
+            var data = (T)gcHandle.Target;
+            gcHandle.Free();
+            return data;
         }
     }
 }
