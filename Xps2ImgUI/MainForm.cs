@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -512,13 +513,18 @@ namespace Xps2ImgUI
                                   Model.PagesProcessedTotal, Model.PagesTotal);
         }
 
-        private void UpdateFailedStatus(string message, Exception exception = null)
+        private void UpdateFailedStatus(string message, Exception exception = null, int? page = null)
         {
             _conversionFailed = true;
 
             this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.Error);
 
             FlashForm();
+
+            if (page.HasValue)
+            {
+                message = String.Format(CultureInfo.InvariantCulture, Resources.Strings.UpdatePageFailedStatus, page, message);
+            }
 
             ShowErrorMessageBox(message, exception, true, Resources.Strings.ConversionFailed, message, Resources.Strings.BackToApplication);
 
@@ -647,7 +653,7 @@ namespace Xps2ImgUI
 
         private void ErrorDataReceived(object sender, ConversionErrorEventArgs e)
         {
-            this.InvokeIfNeeded(() => UpdateFailedStatus(e.Message));
+            this.InvokeIfNeeded(() => UpdateFailedStatus(e.Message, page: e.Page));
         }
 
         private void Completed(object sender, EventArgs e)

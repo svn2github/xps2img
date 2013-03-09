@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -528,7 +529,7 @@ namespace Xps2ImgUI.Model
                     _processedIntervals.Set(lastConvertedPage.Page, false);
                 }
 
-                lastConvertedPage.Page = Int32.Parse(match.Groups["page"].Value);
+                lastConvertedPage.Page = int.Parse(match.Groups["page"].Value, CultureInfo.InvariantCulture);
             }
 
             var file = match.Groups["file"].Value;
@@ -548,7 +549,12 @@ namespace Xps2ImgUI.Model
             if (ErrorDataReceived != null && !_isErrorReported)
             {
                 _isErrorReported = true;
-                ErrorDataReceived(this, new ConversionErrorEventArgs(CleanErrorMessageRegex.Replace(e.Data, String.Empty)));
+
+                var match = ErrorMessageRegex.Match(e.Data);
+
+                Func<string, string, string> getMatch = (g, d) => match.Success ? match.Groups[g].Value : d;
+
+                ErrorDataReceived(this, new ConversionErrorEventArgs(getMatch("message", e.Data), getMatch("page", null)));
             }
 
             Stop();
@@ -568,7 +574,7 @@ namespace Xps2ImgUI.Model
         }
 
         private static readonly Regex OutputRegex = new Regex(@"^\[\s*(?<percent>\d+)%\][^\d]+(?<page>\d+)\s+\(\s*(?<pages>\d+/\d+)\).+?'(?<file>.+)'");
-        private static readonly Regex CleanErrorMessageRegex = new Regex(@"^Error:\s*");
+        private static readonly Regex ErrorMessageRegex = new Regex(@"^(?<page>[^:]+):\s*(?<message>.+)$");
 
         private class ProcessLastPage
         {

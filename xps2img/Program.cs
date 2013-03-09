@@ -33,6 +33,7 @@ namespace Xps2Img
             SetupGuard.Enter();
 
             var conversionStarted = false;
+            var launchedAsInternal = false;
 
             Options options = null;
             int exitCode;
@@ -61,7 +62,7 @@ namespace Xps2Img
                     Process.GetCurrentProcess().ProcessorAffinity = options.CpuAffinity.Value;
                 }
 
-                var launchedAsInternal = !String.IsNullOrEmpty(options.CancellationObjectIds);
+                launchedAsInternal = !String.IsNullOrEmpty(options.CancellationObjectIds);
 
                 if (launchedAsInternal)
                 {
@@ -83,10 +84,10 @@ namespace Xps2Img
             }
             catch (Exception ex)
             {
-                exitCode = CommandLine.CommandLine.DisplayError(ex);
+                exitCode = CommandLine.CommandLine.DisplayError(ex, launchedAsInternal);
             }
 
-            if (conversionStarted && options != null && options.PostAction != PostAction.Exit)
+            if (conversionStarted && options.PostAction != PostAction.Exit)
             {
                 SystemManagementUtils.Shutdown(options.PostAction);
             }

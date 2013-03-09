@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
+using System.Windows.Markup;
 
 using CommandLine;
 
@@ -49,19 +51,31 @@ namespace Xps2Img.CommandLine
                 String.Empty;
         }
 
-        public static int DisplayError(Exception ex)
+        public static int DisplayError(Exception ex, bool launchedAsInternal)
         {
             var exceptionHint = GetExceptionHint(ex);
 
-            Console.Error.WriteLine("{0}{1}" + (String.IsNullOrEmpty(exceptionHint) ? String.Empty : " {2}"),
-                                    Resources.Strings.Error_Header,
+            var conversionException = ex as ConversionException;
+
+            var page = launchedAsInternal && conversionException != null && conversionException.InnerException is XamlParseException
+                        ? conversionException.ContextData
+                        : -1;
+            
+            Console.Error.WriteLine("{0}: {1}" + (String.IsNullOrEmpty(exceptionHint) ? String.Empty : " {2}"),
+                                    launchedAsInternal
+                                        ? page.ToString(CultureInfo.InvariantCulture)
+                                        : Resources.Strings.Error_Header,
                                     ex
                                     #if !DEBUG
                                     .Message
                                     #endif
                                     , exceptionHint);
 
-            return ex is ConversionException ? (ex as ConversionException).ReturnCode : ReturnCode.Failed;
+            return !launchedAsInternal || conversionException == null
+                    ? ReturnCode.Failed
+                    : page != -1 
+                        ? page
+                        : conversionException.ContextData;
         }
 
         #endregion

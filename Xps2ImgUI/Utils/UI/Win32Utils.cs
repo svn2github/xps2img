@@ -243,7 +243,15 @@ namespace Xps2ImgUI.Utils.UI
 
         public static void PostMessage(this Control control, uint msg, object data)
         {
-            PostMessage(control.Handle, msg, IntPtr.Zero, GCHandle.ToIntPtr(GCHandle.Alloc(data)));
+            try
+            {
+                PostMessage(control.Handle, msg, IntPtr.Zero, GCHandle.ToIntPtr(GCHandle.Alloc(data)));
+            }
+            // ReSharper disable EmptyGeneralCatchClause
+            catch
+            // ReSharper restore EmptyGeneralCatchClause
+            {
+            }
         }
 
         public static T GetPostMessageData<T>(this Message msg)

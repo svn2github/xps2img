@@ -781,6 +781,17 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Page #{0} conversion failed with error:
+        ///
+        ///{1}.
+        /// </summary>
+        internal static string UpdatePageFailedStatus {
+            get {
+                return ResourceManager.GetString("UpdatePageFailedStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Updates Check Failed.
         /// </summary>
         internal static string UpdatesCheckFailed {
