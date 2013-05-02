@@ -111,8 +111,6 @@ namespace Xps2Img.Xps2Img
 
             ConverterParameters = parameters;
 
-            var numberFormat = PageCount.GetNumberFormat();
-
             if (parameters.BaseImageName == null)
             {
                 parameters.BaseImageName = Path.GetFileNameWithoutExtension(XpsFileName) + '-';
@@ -146,6 +144,8 @@ namespace Xps2Img.Xps2Img
                 return;
             }
 
+            var numberFormat = PageCount.GetNumberFormat();
+
             for (var docPageNumber = parameters.StartPage; docPageNumber <= parameters.EndPage; docPageNumber++)
             {
                 if (IsCancelled)
@@ -155,62 +155,79 @@ namespace Xps2Img.Xps2Img
 
                 ConverterState.ActivePage = docPageNumber;
 
-                var pageIndex = docPageNumber - parameters.FirstPageIndex + 1;
-
-                var isContent = pageIndex <= 0;
-                if (isContent)
-                {
-                    pageIndex = -(pageIndex + parameters.FirstPageIndex - 1);
-                }
-
-                var pageIndexFormatted = new StringBuilder(16).AppendFormat(numberFormat, pageIndex);
-
-                if (isContent)
-                {
-                    pageIndexFormatted.Remove(0, 1);
-                    pageIndexFormatted.Insert(0, parameters.PrelimsPrefix);
-                }
-
-                var fileName = Path.Combine(activeDir, parameters.BaseImageName + pageIndexFormatted);
-
-                if(parameters.Clean)
-                {
-                    var fullFileName = fileName + ImageWriter.GetImageExtension(parameters.ImageType, parameters.ShortenExtension);
-
-                    if (!parameters.Test)
-                    {
-                        File.Delete(fullFileName);
-                    }
-
-                    FireOnProgress(fullFileName);
-                }
-                else
-                {
-                    ImageWriter.Write(
-                      !parameters.Test,
-                      fileName,
-                      parameters.ImageType,
-                      parameters.ShortenExtension,
-                      parameters.ImageOptions,
-                      GetPageBitmap(_documentPaginator, docPageNumber - 1, parameters),
-                      FireOnProgress
-                    );
-                }
+                ProcessPage(parameters, activeDir, docPageNumber, numberFormat);
             }
 
-            if (parameters.Clean && !parameters.Test)
+            PostClean(parameters, activeDir);
+        }
+
+        private void ProcessPage(Parameters parameters, string activeDir, int docPageNumber, string numberFormat)
+        {
+            var pageIndex = docPageNumber - parameters.FirstPageIndex + 1;
+
+            var isContent = pageIndex <= 0;
+            if (isContent)
             {
-                try
-                {
-                    File.Delete("thumbs.db");
-                    Directory.Delete(activeDir);
-                }
-                // ReSharper disable EmptyGeneralCatchClause
-                catch
-                {
-                }
-                // ReSharper restore EmptyGeneralCatchClause
+                pageIndex = -(pageIndex + parameters.FirstPageIndex - 1);
             }
+
+            var pageIndexFormatted = new StringBuilder(16).AppendFormat(numberFormat, pageIndex);
+
+            if (isContent)
+            {
+                pageIndexFormatted.Remove(0, 1);
+                pageIndexFormatted.Insert(0, parameters.PrelimsPrefix);
+            }
+
+            var fileName = Path.Combine(activeDir, parameters.BaseImageName + pageIndexFormatted);
+
+            if (parameters.Clean)
+            {
+                CleanPageFile(parameters, fileName);
+                return;
+            }
+
+            // Render page.
+            ImageWriter.Write(
+                !parameters.Test,
+                fileName,
+                parameters.ImageType,
+                parameters.ShortenExtension,
+                parameters.ImageOptions,
+                GetPageBitmap(_documentPaginator, docPageNumber - 1, parameters),
+                FireOnProgress
+            );
+        }
+
+        private void CleanPageFile(Parameters parameters, string fileName)
+        {
+            var fullFileName = fileName + ImageWriter.GetImageExtension(parameters.ImageType, parameters.ShortenExtension);
+
+            if (!parameters.Test)
+            {
+                File.Delete(fullFileName);
+            }
+
+            FireOnProgress(fullFileName);
+        }
+
+        private static void PostClean(Parameters parameters, string activeDir)
+        {
+            if (!parameters.Clean || parameters.Test)
+            {
+                return;
+            }
+
+            try
+            {
+                File.Delete("thumbs.db");
+                Directory.Delete(activeDir);
+            }
+            // ReSharper disable EmptyGeneralCatchClause
+            catch
+            {
+            }
+            // ReSharper restore EmptyGeneralCatchClause
         }
 
         private void FireOnProgress(string fileName)
