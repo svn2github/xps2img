@@ -50,11 +50,13 @@
     <Compile Include="Attributes\Options\NamedOptionAttribute.cs" />
     <Compile Include="Attributes\Options\UnnamedOptionAttribute.cs" />
     <Compile Include="Attributes\UI\TabbedDescriptionAttribute.cs" />
-    <Compile Include="CommandLine\Options.Strings.cs" />
+    <Compile Include="CommandLine\Options.cs" />
+    <Compile Include="CommandLine\Options.Strings.cs">
+      <DependentUpon>Options.cs</DependentUpon>
+    </Compile>
     <Compile Include="CommandLine\ImageDefs.cs" />
     <Compile Include="CommandLine\Interval.cs" />
     <Compile Include="CommandLine\IntervalUtils.cs" />
-    <Compile Include="CommandLine\Options.cs" />
     <Compile Include="CommandLine\ReturnCode.cs" />
     <Compile Include="Controls\CustomCheckedListBox.cs">
       <SubType>Component</SubType>

@@ -54,10 +54,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ColumnFormatter.cs" />
-    <Compile Include="Parser.Win32.cs" />
+    <Compile Include="Parser.Win32.cs">
+      <DependentUpon>Parser.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReflectionUtils.cs" />
     <Compile Include="ShortOptionType.cs" />
-    <Compile Include="Parser.Format.cs" />
+    <Compile Include="Parser.Format.cs">
+      <DependentUpon>Parser.cs</DependentUpon>
+    </Compile>
     <Compile Include="OptionAttribute.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Enums.cs" />
