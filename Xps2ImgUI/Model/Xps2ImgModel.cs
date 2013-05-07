@@ -1,27 +1,15 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
-using System.Windows.Xps.Packaging;
-
-using CommandLine;
 
 using Xps2Img.Shared.CommandLine;
 using Xps2Img.Shared.TypeConverters;
 
 using Xps2ImgUI.Attributes.OptionsHolder;
 
-using ReturnCode = Xps2Img.Shared.CommandLine.CommandLine.ReturnCode;
-
 namespace Xps2ImgUI.Model
 {
-    public class Xps2ImgModel
+    public partial class Xps2ImgModel
     {
         public Xps2ImgModel()
             : this(null)
@@ -51,17 +39,6 @@ namespace Xps2ImgUI.Model
             _optionsHolder.OptionsObject = initOptions;
         }
 
-        private void InitOptionsHolder()
-        {
-            if (_optionsHolder != null)
-            {
-                _optionsHolder.OptionsObjectChanged -= OptionsHolderOptionsObjectChanged;
-            }
-
-            _optionsHolder = new OptionsHolder<UIOptions>();
-            _optionsHolder.OptionsObjectChanged += OptionsHolderOptionsObjectChanged;
-        }
-
         public void Reset()
         {
             InitOptionsHolder();
@@ -75,14 +52,7 @@ namespace Xps2ImgUI.Model
                 throw new InvalidOperationException(Resources.Strings.UnexpectedConversionIsInProgress);  
             }
 
-            _conversionType = conversionType;
-
-            CancelEvent.Reset();
-
-            var xps2ImgLaunchThread = new Thread(Xps2ImgLaunchThread);
-
-            xps2ImgLaunchThread.SetApartmentState(ApartmentState.STA);
-            xps2ImgLaunchThread.Start();
+            LaunchInternal(conversionType);
         }
 
         public void CancelShutdownRequest()
@@ -117,6 +87,14 @@ namespace Xps2ImgUI.Model
         public string FormatCommandLine(params string[] optionsToExclude)
         {
             return _optionsHolder.FormatCommandLine(false, optionsToExclude);
+        }
+
+        public void FireOptionsObjectChanged()
+        {
+            if (OptionsObjectChanged != null)
+            {
+                OptionsObjectChanged(this, EventArgs.Empty);
+            }
         }
 
         public UIOptions OptionsObject
@@ -165,14 +143,60 @@ namespace Xps2ImgUI.Model
             get { return CancelEvent.WaitOne(0); }
         }
 
-        private EventWaitHandle CancelEvent
+        public bool IsDeleteMode
         {
-            get { return _cancelEvent ?? (_cancelEvent = new EventWaitHandle(false, EventResetMode.ManualReset, _optionsHolder.OptionsObject.CancellationEventName)); }
+            get { return _conversionType == ConversionType.Delete; }
         }
 
-        private bool IsSingleProcessor
+        public bool CanResume
         {
-            get { return _threadsCount == 1; }
+            get
+            {
+                return _processLastConvertedPage != null && _processedIntervals != null;
+            }
+            set
+            {
+                if (value)
+                {
+                    return;
+                }
+
+                _processLastConvertedPage = null;
+                _processedIntervals = null;
+            }
+        }
+
+        public PostAction ShutdownType
+        {
+            get { return OptionsObject.PostAction; }
+        }
+
+        public bool ShutdownRequested
+        {
+            get
+            {
+                return ShutdownType != PostAction.DoNothing
+                       && !IsDeleteMode
+                       && (IsBatchMode || (IsProgressStarted && !_userCancelled));
+            }
+        }
+
+        public int PagesProcessedTotal
+        {
+            get { return _pagesProcessedDelta + _pagesProcessed; }
+        }
+
+        public int PagesProcessed
+        {
+            get { return _pagesProcessed; }
+        }
+
+        public int PagesTotal { get; private set; }
+
+        public int ExitCode
+        {
+            get { return Interlocked.CompareExchange(ref _processExitCode, 0, 0); }
+            set { Interlocked.CompareExchange(ref _processExitCode, value, 0); }
         }
 
         public event EventHandler<ConversionProgressEventArgs> OutputDataReceived;
@@ -184,271 +208,9 @@ namespace Xps2ImgUI.Model
         public event ThreadExceptionEventHandler LaunchFailed;
         public event EventHandler LaunchSucceeded;
 
-        private void FreeProcessResources(Process process)
+        private EventWaitHandle CancelEvent
         {
-            process.CancelOutputRead();
-            process.CancelErrorRead();
-
-            process.OutputDataReceived -= OutputDataReceivedWrapper;
-            process.ErrorDataReceived -= ErrorDataReceivedWrapper;
-
-            process.Close();
-        }
-
-        private readonly Encoding _consoleEncoding = Encoding.UTF8;
-
-        private Process StartProcess(string commandLine)
-        {
-            var processStartInfo = new ProcessStartInfo(Program.Xps2ImgExecutable, commandLine)
-            {
-                CreateNoWindow = true,
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                StandardOutputEncoding = _consoleEncoding,
-                StandardErrorEncoding = _consoleEncoding
-            };
-
-            var process = new Process { StartInfo = processStartInfo, EnableRaisingEvents = true };
-
-            process.OutputDataReceived += OutputDataReceivedWrapper;
-            process.ErrorDataReceived += ErrorDataReceivedWrapper;
-
-            process.Start();
-
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-
-            return process;
-        }
-
-        private int GetDocumentPageCount()
-        {
-            using (var xpsDocument = new XpsDocument(OptionsObject.SrcFile, FileAccess.Read))
-            {
-                var fixedDocumentSequence = xpsDocument.GetFixedDocumentSequence();
-                return fixedDocumentSequence == null ? 0 : fixedDocumentSequence.DocumentPaginator.PageCount;
-            }
-        }
-
-        private List<Interval> GetDocumentIntervals()
-        {
-            var intervals = OptionsObject.SafePages.DeepClone();
-
-            var pageCount = GetDocumentPageCount();
-
-            if (pageCount == 0)
-            {
-                throw new IndexOutOfRangeException(Resources.Strings.DocumentHasNoPages);
-            }
-
-            if (!intervals.LessThan(pageCount))
-            {
-                throw new IndexOutOfRangeException(String.Format(Resources.Strings.PagesSpecifiedAreOutOfRangeFormat, pageCount)); 
-            }
-
-            intervals.Last().SetEndValue(pageCount);
-
-            return intervals;
-        }
-
-        private IEnumerable<List<Interval>> GetDocumentSplittedIntervals()
-        {
-            _pagesProcessedDelta = 0;
-
-            if (!IsSingleProcessor)
-            {
-                BoostProcessPriority(true);
-            }
-
-            var totalIntervals = GetDocumentIntervals();
-            var intervals = CanResume ? IntervalUtils.FromBitArray(_processedIntervals) : totalIntervals;
-
-            if (intervals.Any())
-            {
-                _pagesTotal = totalIntervals.GetTotalLength();
-                if (_pagesTotal <= 0) _pagesTotal = 1;
-
-                if (CanResume)
-                {
-                    _pagesProcessedDelta = totalIntervals.GetTotalLength() - intervals.GetTotalLength();
-                    if (_pagesProcessedDelta < 0) _pagesProcessedDelta = 0;
-                }
-
-                _processedIntervals = intervals.ToBitArray();
-                return intervals.SplitBy(_threadsCount);
-            }
-
-            _threadsCount = 1;
-            _processedIntervals = null;
-
-            return new List<List<Interval>> { new List<Interval>() };
-        }
-
-        private void Xps2ImgProcessWaitThread(Process process)
-        {
-            try
-            {
-                process.WaitForExit();
-                if(process.ExitCode >= 0)
-                {
-                    ExitCode = process.ExitCode;
-                }
-                Interlocked.Decrement(ref _threadsLeft);
-                FreeProcessResources(process);
-            }
-            // ReSharper disable EmptyGeneralCatchClause
-            catch
-            {
-            }
-            // ReSharper restore EmptyGeneralCatchClause
-        }
-
-        private void BoostProcessPriority(bool boost)
-        {
-            try
-            {
-                var process = Process.GetCurrentProcess();
-
-                var processPriorityClass = _originalProcessPriorityClass;
-                
-                if (boost)
-                {
-                    _originalProcessPriorityClass = process.PriorityClass;
-
-                    switch (OptionsObject.ProcessPriority)
-                    {
-                        case ProcessPriorityClass.Normal:
-                            processPriorityClass = ProcessPriorityClass.AboveNormal;
-                            break;
-                        case ProcessPriorityClass.AboveNormal:
-                            processPriorityClass = ProcessPriorityClass.High;
-                            break;
-                        default:
-                            return;
-                    }
-                }
-
-                process.PriorityClass = processPriorityClass;
-            }
-            // ReSharper disable EmptyGeneralCatchClause
-            catch
-            {
-            }
-            // ReSharper restore EmptyGeneralCatchClause
-        }
-
-        private void WaitAllProcessThreads(bool checkExitCode)
-        {
-            while (Interlocked.CompareExchange(ref _threadsLeft, 0, 0) != 0)
-            {
-                if (checkExitCode && ExitCode != 0)
-                {
-                    throw new Exception(Resources.Strings.ProcessorHasTerminated);
-                }
-                Thread.Sleep(1000);
-            }
-
-            CanResume = IsStopPending;
-        }
-
-        private void Xps2ImgLaunchThread()
-        {
-            try
-            {
-                if (IsResumeMode && !CanResume)
-                {
-                    throw new InvalidOperationException(Resources.Strings.UnexpectedResumeIsNotAvailable);
-                }
-
-                if (!IsResumeMode)
-                {
-                    CanResume = false;
-                }
-
-                _isRunning = true;
-                _isErrorReported = false;
-                _progressStarted = false;
-                _userCancelled = false;
-
-                _processExitCode = 0;
-                _threadsLeft = 0;
-                _pagesProcessed = 0;
-
-                _threadsCount = IsCreationMode ? OptionsObject.SafeProcessorsNumber : 1;
-                
-                var splittedIntervals = GetDocumentSplittedIntervals();
-
-                _appMutex = new Mutex(true, _optionsHolder.OptionsObject.ParentAppMutexName);
-
-                _processLastConvertedPage = null;
-
-                var processLastConvertedPage = new List<ProcessLastPage>();
-
-                foreach (var t in splittedIntervals)
-                {
-                    var processCommandLine = String.Format("{0} -" + Options.PagesShortOption + " \"{1}\" {2}",
-                                                FormatCommandLine(Options.ExcludedOnLaunch),
-                                                IntervalUtils.ToString(t),
-                                                IsCreationMode ? String.Empty : Options.CleanOption);
-                    var process = StartProcess(processCommandLine);
-                    ThreadPool.QueueUserWorkItem(_ => Xps2ImgProcessWaitThread(process));
-                    Interlocked.Increment(ref _threadsLeft);
-                    processLastConvertedPage.Add(new ProcessLastPage(process));
-                }
-
-                _processLastConvertedPage = _processedIntervals != null ? processLastConvertedPage.ToArray() : null;
-
-                if (LaunchSucceeded != null)
-                {
-                    LaunchSucceeded(this, EventArgs.Empty);
-                }
-
-                WaitAllProcessThreads(true);
-
-                if (Completed != null)
-                {
-                    Completed(this, EventArgs.Empty);
-                }
-            }
-            catch (Exception ex)
-            {
-                Stop();
-
-                WaitAllProcessThreads(false);
-
-                if (LaunchFailed == null)
-                {
-                    throw;
-                }
-
-                ExitCode = ReturnCode.Failed;
-
-                if (!_isErrorReported)
-                {
-                    LaunchFailed(this, new ThreadExceptionEventArgs(ex));
-                }
-            }
-            finally
-            {
-                _isRunning = false;
-
-                if (_appMutex != null)
-                {
-                    _appMutex.Close();
-                    _appMutex = null;
-                }
-
-                if (!IsSingleProcessor)
-                {
-                    BoostProcessPriority(false);
-                }
-
-                if(_userCancelled)
-                {
-                    ExitCode = ReturnCode.UserCancelled;
-                }
-            }
+            get { return _cancelEvent ?? (_cancelEvent = new EventWaitHandle(false, EventResetMode.ManualReset, _optionsHolder.OptionsObject.CancellationEventName)); }
         }
 
         private bool IsCreationMode
@@ -466,98 +228,15 @@ namespace Xps2ImgUI.Model
             get { return _conversionType == ConversionType.Resume; }
         }
 
-        public bool IsDeleteMode
+        private void InitOptionsHolder()
         {
-            get { return _conversionType == ConversionType.Delete; }
-        }
-
-        public bool CanResume
-        {
-            get
+            if (_optionsHolder != null)
             {
-                return 
-                    _processLastConvertedPage != null &&
-                    _processedIntervals != null;
-            }
-            set
-            {
-                if(!value)
-                {
-                    _processLastConvertedPage = null;
-                    _processedIntervals = null;
-                }
-            }
-        }
-
-        public PostAction ShutdownType
-        {
-            get { return OptionsObject.PostAction; }
-        }
-
-        public bool ShutdownRequested
-        {
-            get
-            {
-                return ShutdownType != PostAction.DoNothing
-                        && !IsDeleteMode
-                        && (IsBatchMode || (IsProgressStarted && !_userCancelled));
-            }
-        }
-
-        private void OutputDataReceivedWrapper(object sender, DataReceivedEventArgs e)
-        {
-            if (String.IsNullOrEmpty(e.Data) || OutputDataReceived == null)
-            {
-                return;
+                _optionsHolder.OptionsObjectChanged -= OptionsHolderOptionsObjectChanged;
             }
 
-            var match = OutputRegex.Match(e.Data);
-            if (!match.Success)
-            {
-                return;
-            }
-
-            var pageIndex = _pagesProcessedDelta + Interlocked.Increment(ref _pagesProcessed);
-            var percent = pageIndex * 100 / _pagesTotal;
-            var pages = String.Format(Resources.Strings.PageOfPagesFormat, pageIndex, _pagesTotal);
-
-            if (CanResume)
-            {
-                var lastConvertedPage = _processLastConvertedPage.First(p => ReferenceEquals(p.Process, sender));
-                if (lastConvertedPage.Page != 0)
-                {
-                    _processedIntervals.Set(lastConvertedPage.Page, false);
-                }
-
-                lastConvertedPage.Page = int.Parse(match.Groups["page"].Value, CultureInfo.InvariantCulture);
-            }
-
-            var file = match.Groups["file"].Value;
-
-            _progressStarted = true;
-
-            OutputDataReceived(this, new ConversionProgressEventArgs(percent, pages, file));
-        }
-
-        private void ErrorDataReceivedWrapper(object sender, DataReceivedEventArgs e)
-        {
-            if (String.IsNullOrEmpty(e.Data))
-            {
-                return;
-            }
-
-            if (ErrorDataReceived != null && !_isErrorReported)
-            {
-                _isErrorReported = true;
-
-                var match = ErrorMessageRegex.Match(e.Data);
-
-                Func<string, string, string> getMatch = (g, d) => match.Success ? match.Groups[g].Value : d;
-
-                ErrorDataReceived(this, new ConversionErrorEventArgs(getMatch("message", e.Data), getMatch("page", null)));
-            }
-
-            Stop();
+            _optionsHolder = new OptionsHolder<UIOptions>();
+            _optionsHolder.OptionsObjectChanged += OptionsHolderOptionsObjectChanged;
         }
 
         private void OptionsHolderOptionsObjectChanged(object sender, EventArgs e)
@@ -565,74 +244,6 @@ namespace Xps2ImgUI.Model
             FireOptionsObjectChanged();
         }
 
-        public void FireOptionsObjectChanged()
-        {
-            if (OptionsObjectChanged != null)
-            {
-                OptionsObjectChanged(this, EventArgs.Empty);
-            }
-        }
-
-        private static readonly Regex OutputRegex = new Regex(@"^\[\s*(?<percent>\d+)%\][^\d]+(?<page>\d+)\s+\(\s*(?<pages>\d+/\d+)\).+?'(?<file>.+)'");
-        private static readonly Regex ErrorMessageRegex = new Regex(@"^(?<page>[^:]+):\s*(?<message>.+)$");
-
-        private class ProcessLastPage
-        {
-            public ProcessLastPage(Process process)
-            {
-                Process = process;
-            }
-
-            public readonly Process Process;
-
-            public int Page { get; set; }
-        }
-
-        private ProcessLastPage[] _processLastConvertedPage;
-        private BitArray _processedIntervals;
-
         private OptionsHolder<UIOptions> _optionsHolder;
-
-        public int PagesProcessedTotal
-        {
-            get { return _pagesProcessedDelta + _pagesProcessed; }
-        }
-
-        public int PagesProcessed
-        {
-            get { return _pagesProcessed; }
-        }
-
-        public int PagesTotal
-        {
-            get { return _pagesTotal; }
-        }
-
-        public int ExitCode
-        {
-            get { return Interlocked.CompareExchange(ref _processExitCode, 0, 0); }
-            set { Interlocked.CompareExchange(ref _processExitCode, value, 0); }
-        }
-
-        private int _pagesTotal;
-        private int _pagesProcessed;
-        private int _pagesProcessedDelta;
-
-        private int _threadsLeft;
-        private int _threadsCount;
-
-        private int _processExitCode;
-
-        private ProcessPriorityClass _originalProcessPriorityClass;
-
-        private ConversionType _conversionType;
-
-        private volatile bool _isErrorReported;
-        private volatile bool _isRunning;
-        private volatile bool _progressStarted;
-        private volatile bool _userCancelled;
-
-        private EventWaitHandle _cancelEvent;
-        private Mutex _appMutex;
     }
 }
