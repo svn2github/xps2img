@@ -15,8 +15,8 @@ namespace Xps2ImgUI
     {
         private bool CheckForUpdatesEnabled
         {
-            set { _updatesToolStripButtonItem.ToolStripItem.Enabled = value; }
             get { return _updatesToolStripButtonItem.ToolStripItem.Enabled; }
+            set { _updatesToolStripButtonItem.ToolStripItem.Enabled = value; }
         }
 
         private void CheckForUpdates(bool periodicUpdatesCheck = false)

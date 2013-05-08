@@ -384,15 +384,15 @@ namespace Xps2ImgUI
 
         private string ConvertedImagesFolder
         {
-            set
-            {
-                Interlocked.CompareExchange(ref _convertedImagesFolder, Path.GetDirectoryName(value), null);
-            }
             get
             {
                 return Interlocked.CompareExchange(ref _convertedImagesFolder, null, null)
                         ?? (!String.IsNullOrEmpty(Model.SrcFile) ? Path.GetDirectoryName(Model.SrcFile) : null)
                         ?? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            }
+            set
+            {
+                Interlocked.CompareExchange(ref _convertedImagesFolder, Path.GetDirectoryName(value), null);
             }
         }
 
