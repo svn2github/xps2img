@@ -82,6 +82,10 @@
     </Compile>
     <Compile Include="Attributes\OptionsHolder\OptionsFormatter.cs" />
     <Compile Include="Attributes\OptionsHolder\OptionsHolder.cs" />
+    <Compile Include="MainForm.Events.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="CountdownForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +101,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ToolStripButtonItem.cs" />
+    <Compile Include="MainForm.Commands.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Model\Xps2ImgModel.Events.cs">
       <DependentUpon>Xps2ImgModel.cs</DependentUpon>
     </Compile>
@@ -116,6 +124,10 @@
       <DependentUpon>UpdateDownloadForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.UpdateManager.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Grid.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>

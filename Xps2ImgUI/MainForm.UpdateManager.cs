@@ -59,18 +59,9 @@ namespace Xps2ImgUI
                 {
                     if (ShowConfirmationMessageBox(Resources.Strings.NewUpdateIsAvailable, String.Format(Resources.Strings.WhatsNewFormat, _updateManager.WhatsNew), MessageBoxDefaultButton.Button1, MessageBoxIcon.Information))
                     {
-                        using (new ModalGuard())
+                        if (BeginUpdateInstallation())
                         {
-                            using (var updateDownloadForm = new UpdateDownloadForm(_updateManager))
-                            {
-                                var dialogResult = updateDownloadForm.ShowDialog();
-                                if (dialogResult == DialogResult.OK)
-                                {
-                                    SetupGuard.Leave();
-                                    _updateManager.InstallAsync();
-                                    return;
-                                }
-                            }
+                            return;
                         }
 
                         if (OpenSiteOnError(Resources.Strings.DownloadFailedWarning))
@@ -86,6 +77,24 @@ namespace Xps2ImgUI
                     ShowMessageBox(Resources.Strings.UpdateNoNewVersionAvailable, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+        }
+
+        private bool BeginUpdateInstallation()
+        {
+            using (new ModalGuard())
+            {
+                using (var updateDownloadForm = new UpdateDownloadForm(_updateManager))
+                {
+                    var dialogResult = updateDownloadForm.ShowDialog();
+                    if (dialogResult == DialogResult.OK)
+                    {
+                        SetupGuard.Leave();
+                        _updateManager.InstallAsync();
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         private void UpdateInstallationLaunched(object sender, EventArgs eventArgs)

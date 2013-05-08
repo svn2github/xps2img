@@ -48,5 +48,7 @@ namespace Xps2ImgUI
         {
             return typeof(Settings);
         }
+
+        private Preferences _preferences = new Preferences();
     }
 }
