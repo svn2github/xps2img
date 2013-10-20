@@ -7,7 +7,7 @@ namespace CommandLine.Validation
 {
     public static class Parser
     {
-        private static readonly Func<object, IValidator>[] Validators = new Func<object, IValidator>[]
+        private static readonly Func<object, IValidator>[] Validators =
         {
             IntValidator.Create,
             RegexValidator.Create,

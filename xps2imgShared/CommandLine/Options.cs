@@ -186,12 +186,12 @@ namespace Xps2Img.Shared.CommandLine
         [DefaultValue(ProcessPriorityClassTypeConverter.Auto)]
         public ProcessPriorityClass ProcessPriority { get; set; }
        
-        public static readonly string[] ExcludedOnSave = new[] { CancellationObjectIdsName, BatchOption };
-        public static readonly string[] ExcludedUIOptions = new[] { ProcessorsOption, BatchOption };
+        public static readonly string[] ExcludedOnSave = { CancellationObjectIdsName, BatchOption };
+        public static readonly string[] ExcludedUIOptions = { ProcessorsOption, BatchOption };
         public static readonly string[] ExcludedOnLaunch = ExcludedUIOptions.Concat(new[] { PagesShortOption.ToString(CultureInfo.InvariantCulture) }).ToArray();
         public static readonly string[] ExcludedOnView = ExcludedOnSave.Concat(ExcludedUIOptions).ToArray();
 
-        public static readonly string[] ExcludeOnResumeCheck = new[] { ProcessorsDisplayName, ProcessPriorityDisplayName, PostActionDisplayName };
+        public static readonly string[] ExcludeOnResumeCheck = { ProcessorsDisplayName, ProcessPriorityDisplayName, PostActionDisplayName };
 
         private bool _batch;
 

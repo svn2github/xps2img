@@ -7,12 +7,12 @@ using System.Reflection;
 
 namespace CommandLine
 {
-    internal class IntegrityCheck
+    internal static class IntegrityCheck
     {
         [Conditional("DEBUG")]
         public static void Perform(Type optionsObjectType, List<LongOptEx> longOpts)
         {
-            Func<LongOptEx, string> formatLOE = longOptEx =>
+            Func<LongOptEx, string> formatLongOptEx = longOptEx =>
               String.Format(longOptEx.IsUnnamed ? "{{ BoundPropertyName: \"{2}\" }}" : "{{ Name: \"{0}\", Val: '{1}', BoundPropertyName: \"{2}\" }}",
                             longOptEx.Name, longOptEx.Val >= ' ' ? ((char)longOptEx.Val).ToString(CultureInfo.InvariantCulture) : String.Format("0x{0,02:X}", longOptEx.Val), longOptEx.BoundPropertyName);
 
@@ -27,12 +27,12 @@ namespace CommandLine
 
                 if (longOptEx.TypeConverter == null)
                 {
-                    errors.Add(String.Format("'TypeConverter' should not be 'null' for option {0}", formatLOE(longOptEx)));
+                    errors.Add(String.Format("'TypeConverter' should not be 'null' for option {0}", formatLongOptEx(longOptEx)));
                 }
 
                 if (longOptEx.BoundObject == null)
                 {
-                    errors.Add(String.Format("'BoundObject' should not be 'null' for option {0}", formatLOE(longOptEx)));
+                    errors.Add(String.Format("'BoundObject' should not be 'null' for option {0}", formatLongOptEx(longOptEx)));
                 }
 
                 // Unnamed property.
@@ -40,7 +40,7 @@ namespace CommandLine
                 {
                     if (longOptEx.HasShortOption)
                     {
-                        errors.Add(String.Format("'Val' should not be set for unnamed option {0}", formatLOE(longOptEx)));
+                        errors.Add(String.Format("'Val' should not be set for unnamed option {0}", formatLongOptEx(longOptEx)));
                     }
 
                     // Unnamed required order.
@@ -50,7 +50,7 @@ namespace CommandLine
                         {
                             errors.Add(String.Format(
                                          "Unnamed required option {0} should be specified before unnamed optional option {1}",
-                                         formatLOE(longOptEx), formatLOE(unnamedOptionalOption)));
+                                         formatLongOptEx(longOptEx), formatLongOptEx(unnamedOptionalOption)));
                         }
                     }
                     else
@@ -62,17 +62,17 @@ namespace CommandLine
                 // Named property.
                 if (String.IsNullOrEmpty(longOptEx.Name))
                 {
-                    errors.Add(String.Format("'Name' is not set for {0}", formatLOE(longOptEx)));
+                    errors.Add(String.Format("'Name' is not set for {0}", formatLongOptEx(longOptEx)));
                 }
 
                 if (!isUnnamed && longOptEx.IsShortOptionAuto)
                 {
-                    errors.Add(String.Format("'Val' is not set for {0}", formatLOE(longOptEx)));
+                    errors.Add(String.Format("'Val' is not set for {0}", formatLongOptEx(longOptEx)));
                 }
 
                 if (String.IsNullOrEmpty(longOptEx.BoundPropertyName))
                 {
-                    errors.Add(String.Format("'BoundPropertyName' is not set for {0}", formatLOE(longOptEx)));
+                    errors.Add(String.Format("'BoundPropertyName' is not set for {0}", formatLongOptEx(longOptEx)));
                 }
                 else
                 {
@@ -101,17 +101,17 @@ namespace CommandLine
 
                     if (!isUnnamed && longOptEx.Name == longOptExInt.Name)
                     {
-                        errors.Add(String.Format("'Name' is identical for {0} and {1}", formatLOE(longOptEx), formatLOE(longOptExInt)));
+                        errors.Add(String.Format("'Name' is identical for {0} and {1}", formatLongOptEx(longOptEx), formatLongOptEx(longOptExInt)));
                     }
 
                     if (!isUnnamed && longOptEx.Val == longOptExInt.Val)
                     {
-                        errors.Add(String.Format("'Val' is identical for {0} and {1}", formatLOE(longOptEx), formatLOE(longOptExInt)));
+                        errors.Add(String.Format("'Val' is identical for {0} and {1}", formatLongOptEx(longOptEx), formatLongOptEx(longOptExInt)));
                     }
 
                     if (longOptEx.BoundPropertyName == longOptExInt.BoundPropertyName)
                     {
-                        errors.Add(String.Format("'BoundPropertyName' is identical for {0} and {1}", formatLOE(longOptEx), formatLOE(longOptExInt)));
+                        errors.Add(String.Format("'BoundPropertyName' is identical for {0} and {1}", formatLongOptEx(longOptEx), formatLongOptEx(longOptExInt)));
                     }
                 }
             }

@@ -323,7 +323,7 @@ namespace Xps2ImgUI.Utils
             Explorer.ShellExecute(setup, requireAdmin, SetupCommandLineArguments, requireAdmin ? "runas" : null);
         }
 
-        private static readonly char[] VersionSeparator = new[] { '.' };
+        private static readonly char[] VersionSeparator = { '.' };
 
         private static int CompareVersions(string version, string newVersion)
         {

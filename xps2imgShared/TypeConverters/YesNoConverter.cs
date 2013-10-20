@@ -23,6 +23,6 @@ namespace Xps2Img.Shared.TypeConverters
             return base.ConvertFrom(context, culture, value);
         }
 
-        private static readonly string[] Values = new[] { "No", "Yes" };
+        private static readonly string[] Values = { "No", "Yes" };
     }
 }

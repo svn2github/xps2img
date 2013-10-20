@@ -41,7 +41,7 @@ namespace CommandLine
             return result;
         }
 
-        private static readonly string[] HelpOpt = new[] { "-h", "--help" };
+        private static readonly string[] HelpOpt = { "-h", "--help" };
 
         public static bool IsUsageRequiested(string[] args)
         {

@@ -18,7 +18,7 @@ namespace Xps2Img.Shared.Attributes.Options
 
         private PropertyInfo _propertyInfo;
 
-        private static readonly char[] ObligatoryMark = new[] { '*' };
+        private static readonly char[] ObligatoryMark = { '*' };
 
         public PropertyInfo PropertyInfo
         {

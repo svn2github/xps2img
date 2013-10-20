@@ -41,12 +41,12 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             _docComment = controls.FirstOrDefault(c => c.GetType().Name == "DocComment");
             Debug.Assert(_docComment != null);
 
-            _docCommentType = _docComment.GetType();
+            var docCommentType = _docComment.GetType();
 
-            _docLinesPropertyInfo = _docCommentType.GetProperty("Lines");
-            _docFontPropertyInfo = _docCommentType.GetProperty("Font");
+            _docLinesPropertyInfo = docCommentType.GetProperty("Lines");
+            _docFontPropertyInfo = docCommentType.GetProperty("Font");
 
-            var docUserSizedField = _docCommentType.GetField("userSized", BindingFlags.Instance | BindingFlags.NonPublic);
+            var docUserSizedField = docCommentType.GetField("userSized", BindingFlags.Instance | BindingFlags.NonPublic);
             if (docUserSizedField != null)
             {
                 docUserSizedField.SetValue(_docComment, true);
@@ -434,8 +434,6 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         private readonly Control _propertyGridView;
         private readonly TextBox _propertyGridViewEdit;
         private readonly MethodInfo _propertyGridViewEnsurePendingChangesCommitted;
-
-        private readonly Type _docCommentType;
 
         private Color _backColorOriginal;
     }

@@ -8,7 +8,7 @@ namespace CommandLine
     public static class ColumnFormatter
     {
         public const char Separator = '\x07';
-        private static readonly char[] SeparatorArray = new[] { Separator };
+        private static readonly char[] SeparatorArray = { Separator };
 
         private const int TabSize = 8;
 

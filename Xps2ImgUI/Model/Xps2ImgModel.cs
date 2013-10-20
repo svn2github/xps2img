@@ -66,7 +66,7 @@ namespace Xps2ImgUI.Model
             Stop();
         }
 
-        public void Stop()
+        private void Stop()
         {
             if (!_isRunning)
             {
@@ -128,12 +128,7 @@ namespace Xps2ImgUI.Model
             get { return _isRunning; }
         }
 
-        public bool IsConversionFailed
-        {
-            get { return _isErrorReported; }
-        }
-
-        public bool IsProgressStarted
+        private bool IsProgressStarted
         {
             get { return _progressStarted; }
         }

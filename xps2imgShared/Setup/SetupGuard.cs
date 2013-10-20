@@ -2,7 +2,7 @@
 
 namespace Xps2Img.Shared.Setup
 {
-    public class SetupGuard
+    public static class SetupGuard
     {
         private static Mutex _mutex;
 
