@@ -59,7 +59,8 @@
 #include ISM_RootDir + "/Include/Extra/Code/SingleSetupInstance.isi"
 #include ISM_RootDir + "/Include/Extra/Code/RegisterOpenWith.isi"
 #include ISM_RootDir + "/Include/Extra/Code/WindowsFirewall.isi"
-#include ISM_RootDir + "/Include/Extra/Code/Utils.isi"
+#include ISM_RootDir + "/Include/Extra/Code/CmdLine.isi"
+#include ISM_RootDir + "/Include/Extra/Code/Convert.isi"
 
 #include "Messages.iss"
 

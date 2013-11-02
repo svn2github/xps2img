@@ -4,7 +4,7 @@
 
 function IsUpdate : Boolean;
 begin
-    Result := Utils_HasParam('update');
+    Result := CmdLine_HasParam('update');
 end;
 
 var
@@ -12,7 +12,7 @@ var
 
 function IsPortable : Boolean;
 begin
-    Result := IsUserPortable or Utils_HasParam('portable');
+    Result := IsUserPortable or CmdLine_HasParam('portable');
 end;
 
 function IsInstallable : Boolean;

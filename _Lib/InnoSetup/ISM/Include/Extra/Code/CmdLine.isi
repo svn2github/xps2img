@@ -1,0 +1,46 @@
+#ifndef __ISM_EXTRA_CODE_CMDLINE_ISI__
+#define __ISM_EXTRA_CODE_CMDLINE_ISI__
+
+[Code]
+
+function CmdLine_HasParam(const paramName: String) : Boolean;
+var
+    i: Integer;
+    lowerParamStr, fullParamName, fullParamNameEqual: String;
+begin
+    Result := False;
+
+    fullParamName := '/' + Lowercase(paramName);
+    fullParamNameEqual := fullParamName + '=';
+
+    for i := 1 to ParamCount do
+    begin
+        lowerParamStr := Lowercase(ParamStr(i));
+        Result := (lowerParamStr = fullParamName) or (Pos(fullParamNameEqual, lowerParamStr) = 1);
+        if Result then Exit;
+    end;
+end;
+
+function CmdLine_GetParam(const paramName: String) : String;
+var
+    i: Integer;
+    paramString, fullParamNameEqual: String;
+begin
+    Result := '';
+
+    fullParamNameEqual := '/' + Lowercase(paramName) + '=';
+
+    for i := 1 to ParamCount do
+    begin
+        paramString := ParamStr(i);
+        if Pos(fullParamNameEqual, Lowercase(paramString)) = 1 then
+        begin
+            Result := Copy(paramString, Length(fullParamNameEqual)+1, 10000);
+            Exit;
+        end;
+    end;
+end;
+
+[/Code]
+
+#endif

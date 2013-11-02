@@ -35,14 +35,14 @@ end;
 
 function IsInstallableIndex: Integer;
 begin
-  Result := Utils_BooleanToInteger(IsInstallable);
+  Result := Convert_BooleanToInteger(IsInstallable);
 end;
 
 procedure UpdateTaskValues(IsInstallableBoolean: Boolean);
 begin
-  TaskDesktopValues[Utils_BooleanToInteger(IsInstallableBoolean)]   := WizardForm.TasksList.Checked[TaskDesktopIndex];
-  TaskExtensionValues[Utils_BooleanToInteger(IsInstallableBoolean)] := WizardForm.TasksList.Checked[TaskExtensionIndex];
-  TaskFirewallValues[Utils_BooleanToInteger(IsInstallableBoolean)]  := WizardForm.TasksList.Checked[TaskFirewallIndex] and WizardForm.TasksList.ItemEnabled[TaskFirewallIndex];
+  TaskDesktopValues[Convert_BooleanToInteger(IsInstallableBoolean)]   := WizardForm.TasksList.Checked[TaskDesktopIndex];
+  TaskExtensionValues[Convert_BooleanToInteger(IsInstallableBoolean)] := WizardForm.TasksList.Checked[TaskExtensionIndex];
+  TaskFirewallValues[Convert_BooleanToInteger(IsInstallableBoolean)]  := WizardForm.TasksList.Checked[TaskFirewallIndex] and WizardForm.TasksList.ItemEnabled[TaskFirewallIndex];
 end;
 
 function InitializeSetup: Boolean;
@@ -100,7 +100,7 @@ begin
   SetupModePage.Add(ExpandConstant(InstallModeCM));
   SetupModePage.Add(ExpandConstant('{cm:Msg_SetupModePortable}'));
 
-  SetupModePage.SelectedValueIndex := Utils_BooleanToInteger(IsPortable);
+  SetupModePage.SelectedValueIndex := Convert_BooleanToInteger(IsPortable);
 end;
 
 procedure DeinitializeSetup;
