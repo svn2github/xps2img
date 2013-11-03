@@ -35,7 +35,7 @@ begin
         paramString := ParamStr(i);
         if Pos(fullParamNameEqual, Lowercase(paramString)) = 1 then
         begin
-            Result := Copy(paramString, Length(fullParamNameEqual)+1, 10000);
+            Result := Trim(RemoveQuotes(Copy(paramString, Length(fullParamNameEqual)+1, 10000)));
             Exit;
         end;
     end;
