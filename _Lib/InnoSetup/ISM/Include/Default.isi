@@ -6,7 +6,6 @@
 #endif
 
 #ifdef DEBUG
-	#define ISM_OnDiskSpanning
 	#define SetupLogging       'yes'
 #endif
 
@@ -30,11 +29,11 @@
 #endif
 
 #ifdef DEBUG
-	#define Compression				'none'
+	#define Compression				    'none'
 	#define InternalCompressLevel	'none'
 #else
 	#ifndef Compression
-		#define Compression			'lzma2/ultra64'
+		#define Compression       'lzma2/ultra64'
 		#define SolidCompression	'yes'
 	#endif
 	#ifndef InternalCompressLevel
