@@ -22,5 +22,14 @@
 #define PathUtils_IsInnoSetupPath(str path) \
         Pos('{', path) == 1 && Pos('}', path)
 
+#define PathUtils_AddBackslash(str s, int prepend=0) \
+        Len(s) ? (prepend ? (Pos('\', s) != 1 ? '\' + s : s) : AddBackslash(RemoveBackslash(s))) : s
+
+#define PathUtils_RemoveFileExt(str s) \
+    Len(s) ? ((Local[0] = RPos('.', s)) ? Copy(s, 1, Local[0]-1) : s) : s
+
+#define PathUtils_ExtractFileNameWithoutExt(str s) \
+    PathUtils_RemoveFileExt(ExtractFileName(s))
+
 #endif
 

@@ -37,7 +37,5 @@
 #define Utils_NotDefinedInt(int val)		val == Const_UndefinedIntValue
 #define Utils_DefinedInt(int val)			!Utils_NotDefinedInt(val)
 
-#define Utils_AddBackslash(str s, int prepend=0) Len(s) ? (prepend ? (Pos('\', s) != 1 ? '\' + s : s) : AddBackslash(RemoveBackslash(s))) : s
-
 #endif
 

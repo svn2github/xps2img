@@ -4,13 +4,14 @@
 #define __ISM_COMMON_DEBUG_IIS__
 
 #include "String.isi"
+#include "PathUtils.isi"
 
 #ifndef ISM_TranslatedScriptName
-    #define ISM_TranslatedScriptName SetupSetting('OutputBaseFilename') + '_translated.iss'
+    #define ISM_TranslatedScriptName PathUtils_RemoveFileExt(SetupSetting('OutputBaseFilename')) + '_translated.iss'
 #endif
 
 #ifndef ISM_TranslatedAndCleanScriptName
-    #define ISM_TranslatedAndCleanScriptName SetupSetting('OutputBaseFilename') + '_translated_clean.iss'
+    #define ISM_TranslatedAndCleanScriptName PathUtils_RemoveFileExt(ISM_TranslatedScriptName) + '_clean.iss'
 #endif
 
 #ifndef ISM_ScriptEditor

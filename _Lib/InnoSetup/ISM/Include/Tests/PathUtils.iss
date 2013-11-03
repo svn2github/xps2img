@@ -160,6 +160,62 @@
     #pragma error UnitTest_MsgFailed
 #endif
 
+#if UnitTest_NotEqual("", PathUtils_AddBackslash(""))
+    #pragma error UnitTest_MsgFailed
+#endif
+
+#if UnitTest_NotEqual("", PathUtils_AddBackslash("", True))
+    #pragma error UnitTest_MsgFailed
+#endif
+
+#if UnitTest_NotEqual("\", PathUtils_AddBackslash("\"))
+    #pragma error UnitTest_MsgFailed
+#endif
+
+#if UnitTest_NotEqual("\", PathUtils_AddBackslash("\", True))
+    #pragma error UnitTest_MsgFailed
+#endif
+
+#if UnitTest_NotEqual("dir\", PathUtils_AddBackslash("dir"))
+    #pragma error UnitTest_MsgFailed
+#endif
+
+#if UnitTest_NotEqual("dir\", PathUtils_AddBackslash("dir\\"))
+    #pragma error UnitTest_MsgFailed
+#endif
+
+#if UnitTest_NotEqual("\dir", PathUtils_AddBackslash("dir", True))
+    #pragma error UnitTest_MsgFailed
+#endif
+
+#if UnitTest_NotEqual("c:\12\345\6", PathUtils_RemoveFileExt("c:\12\345\6.ext"))
+    #pragma error UnitTest_MsgFailed
+#endif
+  
+#if UnitTest_NotEqual("c:\12\345\6", PathUtils_RemoveFileExt("c:\12\345\6.ex"))
+    #pragma error UnitTest_MsgFailed
+#endif
+
+#if UnitTest_NotEqual("c:\12\345\6", PathUtils_RemoveFileExt("c:\12\345\6"))
+    #pragma error UnitTest_MsgFailed
+#endif
+
+#if UnitTest_NotEqual("c:\12\345\6", PathUtils_RemoveFileExt("c:\12\345\6."))
+    #pragma error UnitTest_MsgFailed
+#endif
+
+#if UnitTest_NotEqual("6", PathUtils_ExtractFileNameWithoutExt("c:\12\345\6.ext"))
+    #pragma error UnitTest_MsgFailed
+#endif
+  
+#if UnitTest_NotEqual("6", PathUtils_ExtractFileNameWithoutExt("c:\12\345\6.ex"))
+    #pragma error UnitTest_MsgFailed
+#endif
+
+#if UnitTest_NotEqual("6", PathUtils_ExtractFileNameWithoutExt("c:\12\345\6"))
+    #pragma error UnitTest_MsgFailed
+#endif
+
 // Tests are OK message.
 
 #pragma message UnitTest_MsgPassed
