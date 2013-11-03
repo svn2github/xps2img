@@ -6,11 +6,11 @@
 #include "String.isi"
 
 #ifndef ISM_TranslatedScriptName
-    #define ISM_TranslatedScriptName '_setup_translated.iss'
+    #define ISM_TranslatedScriptName SetupSetting('OutputBaseFilename') + '_translated.iss'
 #endif
 
 #ifndef ISM_TranslatedAndCleanScriptName
-    #define ISM_TranslatedAndCleanScriptName '_setup_translated_clean.iss'
+    #define ISM_TranslatedAndCleanScriptName SetupSetting('OutputBaseFilename') + '_translated_clean.iss'
 #endif
 
 #ifndef ISM_ScriptEditor
