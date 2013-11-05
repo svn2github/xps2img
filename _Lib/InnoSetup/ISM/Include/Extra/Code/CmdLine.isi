@@ -3,6 +3,16 @@
 
 [Code]
 
+function _CmdLine_GetParamName(const paramName: String) : String;
+begin
+    Result := '/' + Lowercase(paramName);
+end;
+
+function _CmdLine_GetParamNameEqual(const paramName: String) : String;
+begin
+    Result := _CmdLine_GetParamName(paramName) + '=';
+end;
+
 function CmdLine_HasParam(const paramName: String) : Boolean;
 var
     i: Integer;
@@ -10,8 +20,8 @@ var
 begin
     Result := False;
 
-    fullParamName := '/' + Lowercase(paramName);
-    fullParamNameEqual := fullParamName + '=';
+    fullParamName := _CmdLine_GetParamName(paramName);
+    fullParamNameEqual := _CmdLine_GetParamNameEqual(paramName);
 
     for i := 1 to ParamCount do
     begin
@@ -28,7 +38,7 @@ var
 begin
     Result := '';
 
-    fullParamNameEqual := '/' + Lowercase(paramName) + '=';
+    fullParamNameEqual := _CmdLine_GetParamNameEqual(paramName);
 
     for i := 1 to ParamCount do
     begin
