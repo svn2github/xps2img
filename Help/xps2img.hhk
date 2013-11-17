@@ -121,16 +121,16 @@
 		<param name="Local" value="Files\Options.html#affinity">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="-s, --silent">
-		<param name="Local" value="Files\Options.html#silent">
-		</OBJECT>
-	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-k, --ignore-existing">
 		<param name="Local" value="Files\Options.html#ignoreExisting">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-g, --ignore-errors">
 		<param name="Local" value="Files\Options.html#ignoreErrors">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="-s, --silent">
+		<param name="Local" value="Files\Options.html#silent">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-e, --test">

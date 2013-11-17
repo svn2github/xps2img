@@ -231,10 +231,6 @@ namespace Xps2Img.Shared.CommandLine
         [TypeConverter(typeof(CpuAffinityTypeConverter))]
         public IntPtr? CpuAffinity { get; set; }
 
-        [Option(SilentModeDescription, SilentModeShortOption, ArgumentExpectancy.No)]
-        [Browsable(false)]
-        public virtual bool Silent { get; set; }
-
         [Option(IgnoreExistingDescription, IgnoreExistingShortOption, ArgumentExpectancy.No)]
         [DisplayName(IgnoreExistingDisplayName)]
         [TabbedDescription(IgnoreExistingDescription)]
@@ -252,6 +248,10 @@ namespace Xps2Img.Shared.CommandLine
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool IgnoreErrors { get; set; }
+        
+        [Option(SilentModeDescription, SilentModeShortOption, ArgumentExpectancy.No)]
+        [Browsable(false)]
+        public virtual bool Silent { get; set; }
 
         [Option(TestDescription, TestShortOption, ArgumentExpectancy.No)]
         [DisplayName(TestDisplayName)]
