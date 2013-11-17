@@ -141,6 +141,8 @@ namespace Xps2Img
                         new Converter.Parameters
                         {
                             Silent = options.Silent,
+                            IgnoreExisting = options.IgnoreExisting,
+                            IgnoreErrors = options.IgnoreErrors,
                             Test = options.Test,
                             StartPage = interval.Begin,
                             EndPage = interval.End,

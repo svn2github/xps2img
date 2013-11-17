@@ -2,6 +2,10 @@
 
 namespace Xps2Img.Shared.CommandLine
 {
+    // ReSharper disable ClassNeverInstantiated.Global
+    // ReSharper disable MemberCanBePrivate.Global
+    // ReSharper disable MemberCanBeProtected.Global
+    // ReSharper disable UnusedMember.Global
     public partial class Options
     {
         private const string OptionsDescription = "\nConverts XPS (XML Paper Specification) document to set of images.";
@@ -89,7 +93,15 @@ namespace Xps2Img.Shared.CommandLine
         private const string SilentModeDescription = "Silent mode (no progress will be shown)";
         private const char   SilentModeShortOption = 's';
 
-        private const string TestDescription = "Test mode (no file operations will be performed)";
+        private const string IgnoreExistingDescription = "Do not overwrite existing images";
+        public const string  IgnoreExistingDisplayName = "Ignore Existing Images";
+        private const char   IgnoreExistingShortOption = 'k';
+
+        private const string IgnoreErrorsDescription = "Ignore conversion errors";
+        public  const string IgnoreErrorsDisplayName = "Ignore Conversion Errors";
+        private const char   IgnoreErrorsShortOption = 'g';
+
+        private const string TestDescription = "Test mode (no files will be written)";
         public  const string TestDisplayName = "Test Mode";
         private const char   TestShortOption = 'e';
 

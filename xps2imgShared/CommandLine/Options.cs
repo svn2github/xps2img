@@ -19,6 +19,11 @@ using UIUnnamedOption = Xps2Img.Shared.Attributes.Options.UnnamedOptionAttribute
 
 namespace Xps2Img.Shared.CommandLine
 {
+    // ReSharper disable ClassNeverInstantiated.Global
+    // ReSharper disable MemberCanBePrivate.Global
+    // ReSharper disable MemberCanBeProtected.Global
+    // ReSharper disable UnusedAutoPropertyAccessor.Global
+    // ReSharper disable UnusedMember.Global
     [Description(OptionsDescription)]
     public partial class Options
     {
@@ -171,7 +176,7 @@ namespace Xps2Img.Shared.CommandLine
         [DefaultValue(ProcessorsDefaultValue)]
         public int ProcessorsNumber { get; set; }
 
-        [Browsable(false)]
+        [Browsable(false)]       
         public int SafeProcessorsNumber
         {
             get { return ProcessorsNumber == ProcessorsDefaultValue ? Environment.ProcessorCount : ProcessorsNumber; }
@@ -185,7 +190,7 @@ namespace Xps2Img.Shared.CommandLine
         [TypeConverter(typeof(ProcessPriorityClassTypeConverter))]
         [DefaultValue(ProcessPriorityClassTypeConverter.Auto)]
         public ProcessPriorityClass ProcessPriority { get; set; }
-       
+
         public static readonly string[] ExcludedOnSave = { CancellationObjectIdsName, BatchOption };
         public static readonly string[] ExcludedUIOptions = { ProcessorsOption, BatchOption };
         public static readonly string[] ExcludedOnLaunch = ExcludedUIOptions.Concat(new[] { PagesShortOption.ToString(CultureInfo.InvariantCulture) }).ToArray();
@@ -229,6 +234,24 @@ namespace Xps2Img.Shared.CommandLine
         [Option(SilentModeDescription, SilentModeShortOption, ArgumentExpectancy.No)]
         [Browsable(false)]
         public virtual bool Silent { get; set; }
+
+        [Option(IgnoreExistingDescription, IgnoreExistingShortOption, ArgumentExpectancy.No)]
+        [DisplayName(IgnoreExistingDisplayName)]
+        [TabbedDescription(IgnoreExistingDescription)]
+        [UIOption(IgnoreExistingShortOption)]
+        [Category(CategoryOptions)]
+        [DefaultValue(false)]
+        [TypeConverter(typeof(YesNoConverter))]
+        public bool IgnoreExisting { get; set; }
+
+        [Option(IgnoreErrorsDescription, IgnoreErrorsShortOption, ArgumentExpectancy.No)]
+        [DisplayName(IgnoreErrorsDisplayName)]
+        [TabbedDescription(IgnoreErrorsDescription)]
+        [UIOption(IgnoreErrorsShortOption)]
+        [Category(CategoryOptions)]
+        [DefaultValue(false)]
+        [TypeConverter(typeof(YesNoConverter))]
+        public bool IgnoreErrors { get; set; }
 
         [Option(TestDescription, TestShortOption, ArgumentExpectancy.No)]
         [DisplayName(TestDisplayName)]

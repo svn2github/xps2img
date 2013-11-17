@@ -46,14 +46,9 @@ namespace Xps2Img.Xps2Img
 
         public int PageCount { get { return _documentPaginator.PageCount; } }
 
-        public static Converter Create(string xpsFileName, Func<bool> cancelConversionFunc)
+        public static Converter Create(string xpsFileName, Func<bool> cancelConversionFunc = null)
         {
             return new Converter(xpsFileName, cancelConversionFunc);
-        }
-
-        public static Converter Create(string xpsFileName)
-        {
-            return Create(xpsFileName, null);
         }
 
         public class ProgressEventArgs : EventArgs
@@ -75,6 +70,8 @@ namespace Xps2Img.Xps2Img
         public class Parameters
         {
             public bool Silent { get; set; }
+            public bool IgnoreExisting { get; set; }
+            public bool IgnoreErrors { get; set; }
             public bool Test { get; set; }
 
             public int StartPage { get; set; }
@@ -187,16 +184,25 @@ namespace Xps2Img.Xps2Img
                 return;
             }
 
-            // Render page.
-            ImageWriter.Write(
-                !parameters.Test,
-                fileName,
-                parameters.ImageType,
-                parameters.ShortenExtension,
-                parameters.ImageOptions,
-                GetPageBitmap(_documentPaginator, docPageNumber - 1, parameters),
-                FireOnProgress
-            );
+            try
+            {
+                // Render page.
+                ImageWriter.Write(f => !parameters.Test && (!parameters.IgnoreExisting || !File.Exists(f)),
+                    fileName,
+                    parameters.ImageType,
+                    parameters.ShortenExtension,
+                    parameters.ImageOptions,
+                    parameters.Test,
+                    () => GetPageBitmap(_documentPaginator, docPageNumber - 1, parameters),
+                    FireOnProgress);
+            }
+            catch
+            {
+                if (!parameters.IgnoreErrors)
+                {
+                    throw;
+                }
+            }
         }
 
         private void CleanPageFile(Parameters parameters, string fileName)

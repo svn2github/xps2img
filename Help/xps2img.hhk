@@ -125,6 +125,14 @@
 		<param name="Local" value="Files\Options.html#silent">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="-k, --ignore-existing">
+		<param name="Local" value="Files\Options.html#ignoreExisting">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="-g, --ignore-errors">
+		<param name="Local" value="Files\Options.html#ignoreErrors">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-e, --test">
 		<param name="Local" value="Files\Options.html#test">
 		</OBJECT>
@@ -217,6 +225,14 @@
 		<param name="Local" value="Files\Options.html#shortenextension">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Ignore Existing Images">
+		<param name="Local" value="Files\Options.html#ignoreExisting">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Ignore Conversion Errors">
+		<param name="Local" value="Files\Options.html#ignoreErrors">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Test Mode">
 		<param name="Local" value="Files\Options.html#test">
 		</OBJECT>
@@ -236,6 +252,14 @@
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="First Page Index">
 		<param name="Local" value="Files\Options.html#firstpageindex">
+		</OBJECT>	
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Ignore Conversion Errors">
+		<param name="Local" value="Files\Options.html#ignoreErrors">
+		</OBJECT>	
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Ignore Existing Images">
+		<param name="Local" value="Files\Options.html#ignoreExisting">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Image DPI">
@@ -326,8 +350,16 @@
 		<param name="Local" value="Files\Options.html#filetype">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="-g">
+		<param name="Local" value="Files\Options.html#ignoreErrors">
+		</OBJECT>	
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-i">
 		<param name="Local" value="Files\Options.html#imagename">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="-k">
+		<param name="Local" value="Files\Options.html#ignoreExisting">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-n">
@@ -392,6 +424,14 @@
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="--image-name">
 		<param name="Local" value="Files\Options.html#imagename">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="--ignore-errors">
+		<param name="Local" value="Files\Options.html#ignoreErrors">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="--ignore-existing">
+		<param name="Local" value="Files\Options.html#ignoreExisting">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="--jpeg-quality">

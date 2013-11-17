@@ -32,11 +32,6 @@ namespace Xps2Img.Xps2Img
             }
         }
 
-        public static void Write(string fileName, ImageType imageType, bool shortenExtension, ImageOptions imageOptions, BitmapSource bitmapSource, Action<string> writeCallback)
-        {
-            Write(true, fileName, imageType, shortenExtension, imageOptions, bitmapSource, writeCallback);
-        }
-
         private static readonly Dictionary<ImageType, string> ImageTypeExtensions = new Dictionary<ImageType, string>();
 
         public static string GetImageExtension(ImageType imageType, bool shortenExtension)
@@ -56,28 +51,29 @@ namespace Xps2Img.Xps2Img
             return extension;
         }
 
-        public static void Write(bool writeFile, string fileName, ImageType imageType, bool shortenExtension, ImageOptions imageOptions, BitmapSource bitmapSource, Action<string> writeCallback)
+        public static void Write(Func<string, bool> shouldWriteFileFunc, string fileName, ImageType imageType, bool shortenExtension, ImageOptions imageOptions, bool forceGetBitmapSourceIfNoWrite, Func<BitmapSource> getBitmapSourceFunc, Action<string> writeCallback)
         {
             var bitmapEncoder = CreateEncoder(imageType, imageOptions);
             var fullFileName = fileName + GetImageExtension(imageType, shortenExtension);
-
-            if (bitmapSource == null)
-            {
-                return;
-            }
 
             if (writeCallback != null)
             {
                 writeCallback(fullFileName);
             }
 
-            if (writeFile)
+            if (!shouldWriteFileFunc(fullFileName))
             {
-                using (var stream = new FileStream(fullFileName, FileMode.Create, FileAccess.Write, FileShare.None))
+                if (forceGetBitmapSourceIfNoWrite)
                 {
-                    bitmapEncoder.Frames.Add(BitmapFrame.Create(bitmapSource));
-                    bitmapEncoder.Save(stream);
+                    getBitmapSourceFunc();
                 }
+                return;
+            }
+
+            using (var stream = new FileStream(fullFileName, FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                bitmapEncoder.Frames.Add(BitmapFrame.Create(getBitmapSourceFunc()));
+                bitmapEncoder.Save(stream);
             }
         }
     }

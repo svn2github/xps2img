@@ -49,6 +49,8 @@ namespace Xps2ImgUI.Utils.UI
         private const string HelpTopicShortenImageExtension  = "1264";
         private const string HelpTopicUpdates                = "1265";
         private const string HelpTopicCheckForUpdates        = "1266";
+        private const string HelpTopicIgnoreExistingDisplayName = "1267";
+        private const string HelpTopicIgnoreErrorsDisplayName   = "1268";
 
         private static readonly Dictionary<string, string> PropertyToTopicMap = new Dictionary<string, string>
         {
@@ -70,7 +72,10 @@ namespace Xps2ImgUI.Utils.UI
             { Options.ProcessorsDisplayName,        HelpTopicProcessors },
             { Options.ProcessPriorityDisplayName,   HelpTopicProcessPriority },
             { Options.CpuAffinityDisplayName,       HelpTopicProcessAffinity },
+            { Options.IgnoreExistingDisplayName,    HelpTopicIgnoreExistingDisplayName },
+            { Options.IgnoreErrorsDisplayName,      HelpTopicIgnoreErrorsDisplayName },
             { Options.TestDisplayName,              HelpTopicTestMode },
+
             // Preferences.
             { Preferences.CategoryApplication,                  HelpTopicApplication },
             { Preferences.AutoCompleteFilenamesDisplayName,     HelpTopicAutoCompleteFilenames },
