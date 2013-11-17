@@ -99,14 +99,13 @@ namespace Xps2Img
         {
             var parentAppMutex = Mutex.OpenExisting(options.ParentAppMutexName);
             var cancelEvent = new EventWaitHandle(false, EventResetMode.AutoReset, options.CancellationEventName);
-            
+
+            // ReSharper disable once EmptyGeneralCatchClause
             try
             {
                 WaitHandle.WaitAny(new WaitHandle[] { cancelEvent, parentAppMutex });
             }
-            // ReSharper disable EmptyGeneralCatchClause
             catch
-            // ReSharper restore EmptyGeneralCatchClause
             {
             }
 

@@ -65,7 +65,10 @@ namespace Xps2ImgUI.Model
                 ErrorDataReceived(this, new ConversionErrorEventArgs(getMatch("message", e.Data), getMatch("page", null)));
             }
 
-            Stop();
+            if (!OptionsObject.IgnoreErrors)
+            {
+                Stop();
+            }
         }
     }
 }

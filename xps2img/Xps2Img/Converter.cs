@@ -180,24 +180,20 @@ namespace Xps2Img.Xps2Img
 
             if (parameters.Clean)
             {
-                CleanPageFile(parameters, fileName);
+                DeleteImage(parameters, fileName, FireOnProgress);
                 return;
             }
 
             try
             {
                 // Render page.
-                ImageWriter.Write(f => !parameters.Test && (!parameters.IgnoreExisting || !File.Exists(f)),
-                    fileName,
-                    parameters.ImageType,
-                    parameters.ShortenExtension,
-                    parameters.ImageOptions,
-                    parameters.Test,
-                    () => GetPageBitmap(_documentPaginator, docPageNumber - 1, parameters),
-                    FireOnProgress);
+                ImageWriter.Write(f => !parameters.Test && (!parameters.IgnoreExisting || !File.Exists(f)), fileName,
+                                  parameters.ImageType, parameters.ShortenExtension, parameters.ImageOptions, parameters.Test,
+                                  () => GetPageBitmap(_documentPaginator, docPageNumber - 1, parameters), FireOnProgress);
             }
             catch
             {
+                DeleteImage(parameters, fileName);
                 if (!parameters.IgnoreErrors)
                 {
                     throw;
@@ -205,7 +201,7 @@ namespace Xps2Img.Xps2Img
             }
         }
 
-        private void CleanPageFile(Parameters parameters, string fileName)
+        private static void DeleteImage(Parameters parameters, string fileName, Action<string> progressCallback = null)
         {
             var fullFileName = fileName + ImageWriter.GetImageExtension(parameters.ImageType, parameters.ShortenExtension);
 
@@ -214,7 +210,10 @@ namespace Xps2Img.Xps2Img
                 File.Delete(fullFileName);
             }
 
-            FireOnProgress(fullFileName);
+            if (progressCallback != null)
+            {
+                progressCallback(fullFileName);
+            }
         }
 
         private static void PostClean(Parameters parameters, string activeDir)
@@ -224,16 +223,15 @@ namespace Xps2Img.Xps2Img
                 return;
             }
 
+            // ReSharper disable once EmptyGeneralCatchClause
             try
             {
                 File.Delete("thumbs.db");
                 Directory.Delete(activeDir);
             }
-            // ReSharper disable EmptyGeneralCatchClause
             catch
             {
             }
-            // ReSharper restore EmptyGeneralCatchClause
         }
 
         private void FireOnProgress(string fileName)
