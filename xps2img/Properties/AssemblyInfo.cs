@@ -22,7 +22,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("http://xps2img.sf.net")]
 [assembly: AssemblyProduct("Xps2Img")]
-[assembly: AssemblyCopyright("Copyright © 2010-2013, Ivan Ivon")]
+[assembly: AssemblyCopyright("Copyright © 2010-2014, Ivan Ivon")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

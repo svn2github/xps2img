@@ -9,7 +9,9 @@ using System.Threading;
 using System.Windows.Xps.Packaging;
 
 using CommandLine;
+
 using Xps2Img.Shared.CommandLine;
+using Xps2Img.Shared.Utils;
 
 using ReturnCode = Xps2Img.Shared.CommandLine.CommandLine.ReturnCode;
 
@@ -95,7 +97,8 @@ namespace Xps2ImgUI.Model
 
             WaitAllWorkers(false);
 
-            if (LaunchFailed == null)
+            var launchFailed = LaunchFailed;
+            if (launchFailed == null)
             {
                 throw ex;
             }
@@ -104,23 +107,17 @@ namespace Xps2ImgUI.Model
 
             if (!_isErrorReported)
             {
-                LaunchFailed(this, new ThreadExceptionEventArgs(ex));
+                launchFailed(this, new ThreadExceptionEventArgs(ex));
             }
         }
 
         private void WorkerWait()
         {
-            if (LaunchSucceeded != null)
-            {
-                LaunchSucceeded(this, EventArgs.Empty);
-            }
+            LaunchSucceeded.SafeInvoke(this);
 
             WaitAllWorkers(true);
 
-            if (Completed != null)
-            {
-                Completed(this, EventArgs.Empty);
-            }
+            Completed.SafeInvoke(this);
         }
 
         private void WorkerCheckPreconitions()

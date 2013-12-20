@@ -11,6 +11,7 @@ using System.Windows.Xps.Packaging;
 
 using Xps2Img.CommandLine;
 using Xps2Img.Shared.CommandLine;
+using Xps2Img.Shared.Utils;
 
 namespace Xps2Img.Xps2Img
 {
@@ -63,9 +64,7 @@ namespace Xps2Img.Xps2Img
             public readonly ConverterState ConverterState;
         }
 
-        public delegate void ProgressDelegate(object sender, ProgressEventArgs args);
-
-        public event ProgressDelegate OnProgress;
+        public event EventHandler<ProgressEventArgs> OnProgress;
 
         public class Parameters
         {
@@ -238,10 +237,7 @@ namespace Xps2Img.Xps2Img
         {
             ConverterState.ActivePageIndex++;
 
-            if (OnProgress != null)
-            {
-                OnProgress(this, new ProgressEventArgs(fileName, ConverterState));
-            }
+            OnProgress.SafeInvoke(this, new ProgressEventArgs(fileName, ConverterState));
         }
 
         private RenderTargetBitmap GetPageBitmap(DocumentPaginator documentPaginator, int pageNumber, Parameters parameters)

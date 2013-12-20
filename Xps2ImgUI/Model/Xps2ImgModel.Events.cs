@@ -14,7 +14,8 @@ namespace Xps2ImgUI.Model
 
         private void OutputDataReceivedWrapper(object sender, DataReceivedEventArgs e)
         {
-            if (String.IsNullOrEmpty(e.Data) || OutputDataReceived == null)
+            var outputDataReceived = OutputDataReceived;
+            if (String.IsNullOrEmpty(e.Data) || outputDataReceived == null)
             {
                 return;
             }
@@ -44,7 +45,7 @@ namespace Xps2ImgUI.Model
 
             _progressStarted = true;
 
-            OutputDataReceived(this, new ConversionProgressEventArgs(percent, pages, file));
+            outputDataReceived(this, new ConversionProgressEventArgs(percent, pages, file));
         }
 
         private void ErrorDataReceivedWrapper(object sender, DataReceivedEventArgs e)
@@ -54,7 +55,8 @@ namespace Xps2ImgUI.Model
                 return;
             }
 
-            if (ErrorDataReceived != null && !_isErrorReported)
+            var errorDataReceived = ErrorDataReceived;
+            if (errorDataReceived != null && !_isErrorReported)
             {
                 _isErrorReported = true;
 
@@ -62,7 +64,7 @@ namespace Xps2ImgUI.Model
 
                 Func<string, string, string> getMatch = (g, d) => match.Success ? match.Groups[g].Value : d;
 
-                ErrorDataReceived(this, new ConversionErrorEventArgs(getMatch("message", e.Data), getMatch("page", null)));
+                errorDataReceived(this, new ConversionErrorEventArgs(getMatch("message", e.Data), getMatch("page", null)));
             }
 
             if (!OptionsObject.IgnoreErrors)

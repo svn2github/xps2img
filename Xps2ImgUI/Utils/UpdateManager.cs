@@ -10,7 +10,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 
+using Xps2Img.Shared.Utils;
 using Xps2Img.Shared.Utils.System;
+
 using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils.UI;
 
@@ -275,9 +277,10 @@ namespace Xps2ImgUI.Utils
 
             _exception = args.Error;
 
-            if (DownloadFileCompleted != null)
+            var downloadFileCompleted = DownloadFileCompleted;
+            if (downloadFileCompleted != null)
             {
-                DownloadFileCompleted(this, args);
+                downloadFileCompleted(this, args);
             }
         }
 
@@ -289,9 +292,10 @@ namespace Xps2ImgUI.Utils
                 return;
             }
 
-            if (DownloadProgressChanged != null)
+            var downloadProgressChanged = DownloadProgressChanged;
+            if (downloadProgressChanged != null)
             {
-                DownloadProgressChanged(this, args);
+                downloadProgressChanged(this, args);
             }
         }
 
@@ -311,10 +315,7 @@ namespace Xps2ImgUI.Utils
                 _exception = ex;
             }
 
-            if (InstallationLaunched != null)
-            {
-                InstallationLaunched(this, EventArgs.Empty);
-            }
+            InstallationLaunched.SafeInvoke(this);
         }
 
         private static void CheckAccessAndInstall(string setup)

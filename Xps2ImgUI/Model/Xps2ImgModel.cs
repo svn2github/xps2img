@@ -4,6 +4,7 @@ using System.Threading;
 
 using Xps2Img.Shared.CommandLine;
 using Xps2Img.Shared.TypeConverters;
+using Xps2Img.Shared.Utils;
 
 using Xps2ImgUI.Attributes.OptionsHolder;
 
@@ -91,10 +92,7 @@ namespace Xps2ImgUI.Model
 
         public void FireOptionsObjectChanged()
         {
-            if (OptionsObjectChanged != null)
-            {
-                OptionsObjectChanged(this, EventArgs.Empty);
-            }
+            OptionsObjectChanged.SafeInvoke(this);
         }
 
         public UIOptions OptionsObject
