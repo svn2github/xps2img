@@ -5,7 +5,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
-
 using Xps2Img.CommandLine;
 
 using Xps2Img.Shared.CommandLine;
@@ -170,7 +169,7 @@ namespace Xps2Img
                 // ReSharper restore PossibleInvalidOperationException
 
                 xps2Img.OnProgress -= OnProgress;
-                xps2Img.OnError += OnError;
+                xps2Img.OnError -= OnError;
             }
         }
 
