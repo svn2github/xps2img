@@ -81,11 +81,11 @@ namespace Xps2ImgUI
 
             if (Model.IsBatchMode)
             {
-                ShowErrorMessageBox(String.Format("{0} {1}.", Resources.Strings.ConversionFailedForTheFollowingPages, pages));
+                ShowErrorMessageBox(String.Format("{0}{1}.", Resources.Strings.ConversionCompletedWithErrors, pages));
                 return;
             }
 
-            if (ShowConfirmationMessageBox(Resources.Strings.ConversionFailedForTheFollowingPages, String.Format(Resources.Strings.ConfirmToCopyPageNumbersToClipboard, pages)))
+            if (ShowConfirmationMessageBox(Resources.Strings.ConversionCompletedWithErrors, String.Format(Resources.Strings.NotConvertedPageNumbers, pages)))
             {
                 ClipboardUtils.CopyToClipboard(pages);
             }

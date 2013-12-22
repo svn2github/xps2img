@@ -223,11 +223,11 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  {0}. Confirm to copy page numbers to clipboard..
+        ///   Looks up a localized string similar to Conversion completed with errors..
         /// </summary>
-        internal static string ConfirmToCopyPageNumbersToClipboard {
+        internal static string ConversionCompletedWithErrors {
             get {
-                return ResourceManager.GetString("ConfirmToCopyPageNumbersToClipboard", resourceCulture);
+                return ResourceManager.GetString("ConversionCompletedWithErrors", resourceCulture);
             }
         }
         
@@ -237,15 +237,6 @@ namespace Xps2ImgUI.Resources {
         internal static string ConversionFailed {
             get {
                 return ResourceManager.GetString("ConversionFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Conversion failed for the following pages:.
-        /// </summary>
-        internal static string ConversionFailedForTheFollowingPages {
-            get {
-                return ResourceManager.GetString("ConversionFailedForTheFollowingPages", resourceCulture);
             }
         }
         
@@ -525,6 +516,15 @@ namespace Xps2ImgUI.Resources {
         internal static string NoStartConversionOver {
             get {
                 return ResourceManager.GetString("NoStartConversionOver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Not converted page numbers: {0}. Confirm to copy them to clipboard..
+        /// </summary>
+        internal static string NotConvertedPageNumbers {
+            get {
+                return ResourceManager.GetString("NotConvertedPageNumbers", resourceCulture);
             }
         }
         

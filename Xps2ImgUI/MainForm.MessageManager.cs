@@ -184,7 +184,7 @@ namespace Xps2ImgUI
                 okCommand = Resources.Strings.YesDownloadAndUpdate;
                 taskDialogStandardIcon = TaskDialogStandardIcon.Information;
             }
-            else if (message == Resources.Strings.ConversionFailedForTheFollowingPages)
+            else if (message == Resources.Strings.ConversionCompletedWithErrors)
             {
                 taskInstruction = Resources.Strings.CompletedWithErrors;
                 taskText = Resources.Strings.WouldYouLikeToCopyPageNumbersToClipboard;

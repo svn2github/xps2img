@@ -454,11 +454,11 @@ What's new in version {0}
   <data name="UpdatePageFailedStatus" xml:space="preserve">
     <value>Page #{0} conversion failed: {1}</value>
   </data>
-  <data name="ConversionFailedForTheFollowingPages" xml:space="preserve">
-    <value>Conversion failed for the following pages:</value>
+  <data name="ConversionCompletedWithErrors" xml:space="preserve">
+    <value>Conversion completed with errors.</value>
   </data>
-  <data name="ConfirmToCopyPageNumbersToClipboard" xml:space="preserve">
-    <value> {0}. Confirm to copy page numbers to clipboard.</value>
+  <data name="NotConvertedPageNumbers" xml:space="preserve">
+    <value> Not converted page numbers: {0}. Confirm to copy them to clipboard.</value>
   </data>
   <data name="CompletedWithErrors" xml:space="preserve">
     <value>Completed with Errors</value>
