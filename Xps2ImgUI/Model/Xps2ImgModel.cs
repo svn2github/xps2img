@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Diagnostics;
 using System.Threading;
 
@@ -184,7 +185,19 @@ namespace Xps2ImgUI.Model
             get { return _pagesProcessed; }
         }
 
-        public int PagesTotal { get; private set; }
+        private int _pagesTotal;
+
+        public int PagesTotal
+        {
+            get { return _pagesTotal; }
+            private set
+            {
+                _pagesTotal = value > 0 ? value : 1;
+                ErrorPages = new BitArray(value + 1);
+            }
+        }
+
+        public BitArray ErrorPages { get; private set; }
 
         public int ExitCode
         {

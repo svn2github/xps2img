@@ -15,7 +15,7 @@ using Xps2Img.Shared.Utils;
 
 namespace Xps2Img.Xps2Img
 {
-    public class Converter : IDisposable
+    public partial class Converter : IDisposable
     {
         private readonly XpsDocument _xpsDocument;
         private readonly DocumentPaginator _documentPaginator;
@@ -52,19 +52,8 @@ namespace Xps2Img.Xps2Img
             return new Converter(xpsFileName, cancelConversionFunc);
         }
 
-        public class ProgressEventArgs : EventArgs
-        {
-            public ProgressEventArgs(string fullFileName, ConverterState converterState)
-            {
-                FullFileName = fullFileName;
-                ConverterState = converterState;
-            }
-
-            public readonly string FullFileName;
-            public readonly ConverterState ConverterState;
-        }
-
         public event EventHandler<ProgressEventArgs> OnProgress;
+        public event EventHandler<ExceptionEventArgs> OnError;
 
         public class Parameters
         {
@@ -190,13 +179,15 @@ namespace Xps2Img.Xps2Img
                                   parameters.ImageType, parameters.ShortenExtension, parameters.ImageOptions, parameters.Test,
                                   () => GetPageBitmap(_documentPaginator, docPageNumber - 1, parameters), FireOnProgress);
             }
-            catch
+            catch(Exception ex)
             {
                 DeleteImage(parameters, fileName);
                 if (!parameters.IgnoreErrors)
                 {
                     throw;
                 }
+
+                OnError.SafeInvoke(this, new ExceptionEventArgs(ex));
             }
         }
 

@@ -24,6 +24,8 @@ namespace Xps2Img
         private static volatile bool _isCancelled;
         private static volatile bool _isUserCancelled;
 
+        private static bool _launchedAsInternal;
+
         [DllImport("kernel32.dll")]
         private static extern bool SetConsoleCP(int wCodePageID);
 
@@ -33,7 +35,6 @@ namespace Xps2Img
             SetupGuard.Enter();
 
             var conversionStarted = false;
-            var launchedAsInternal = false;
 
             Options options = null;
             int exitCode;
@@ -62,9 +63,9 @@ namespace Xps2Img
                     Process.GetCurrentProcess().ProcessorAffinity = options.CpuAffinity.Value;
                 }
 
-                launchedAsInternal = !String.IsNullOrEmpty(options.CancellationObjectIds);
+                _launchedAsInternal = !String.IsNullOrEmpty(options.CancellationObjectIds);
 
-                if (launchedAsInternal)
+                if (_launchedAsInternal)
                 {
                     Console.OutputEncoding = Encoding.UTF8;
                     SetConsoleCP(Console.OutputEncoding.CodePage);
@@ -78,13 +79,13 @@ namespace Xps2Img
 
                 exitCode = _isUserCancelled
                                 ? ReturnCode.UserCancelled
-                                : launchedAsInternal
+                                : _launchedAsInternal
                                     ? ReturnCode.InternalOK
                                     : ReturnCode.OK;
             }
             catch (Exception ex)
             {
-                exitCode = CommandLine.CommandLine.DisplayError(ex, launchedAsInternal);
+                exitCode = DisplayError(ex);
             }
 
             if (conversionStarted && options.PostAction != PostAction.Exit)
@@ -93,6 +94,11 @@ namespace Xps2Img
             }
 
             return exitCode;
+        }
+
+        private static int DisplayError(Exception ex)
+        {
+            return CommandLine.CommandLine.DisplayError(ex, _launchedAsInternal);
         }
 
         private static void WaitForCancellationThread(Options options)
@@ -119,6 +125,7 @@ namespace Xps2Img
             using (var xps2Img = Converter.Create(options.SrcFile, cancelConversionFunc))
             {
                 xps2Img.OnProgress += OnProgress;
+                xps2Img.OnError += OnError;
 
                 var pages = options.SafePages;
 
@@ -163,6 +170,7 @@ namespace Xps2Img
                 // ReSharper restore PossibleInvalidOperationException
 
                 xps2Img.OnProgress -= OnProgress;
+                xps2Img.OnError += OnError;
             }
         }
 
@@ -196,6 +204,11 @@ namespace Xps2Img
                                 args.ConverterState.TotalPages,
                                 Path.GetFileName(args.FullFileName),
                                 Path.GetFileNameWithoutExtension(converter.XpsFileName));
+        }
+
+        private static void OnError(object sender, Converter.ExceptionEventArgs args)
+        {
+            DisplayError(args.Exception);
         }
     }
 }

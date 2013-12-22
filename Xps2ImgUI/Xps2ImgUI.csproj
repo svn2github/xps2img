@@ -111,6 +111,7 @@
     <Compile Include="Model\Xps2ImgModel.Worker.cs">
       <DependentUpon>Xps2ImgModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\UI\ClipboardUtils.cs" />
     <Compile Include="Utils\UI\HelpUtils.cs" />
     <Compile Include="Settings\Preferences.Strings.cs">
       <DependentUpon>Preferences.cs</DependentUpon>

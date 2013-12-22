@@ -45,11 +45,6 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
             }
         }
 
-        public string FormatCommandLine(params string[] optionsToExclude)
-        {
-            return FormatCommandLine(false, optionsToExclude);
-        }
-
         public string FormatCommandLine(bool exceptionIfNoRequired, params string[] optionsToExclude)
         {
             return OptionsFormatter.FormatCommandLine(exceptionIfNoRequired, OptionsObject, OptionAttributes, optionsToExclude);

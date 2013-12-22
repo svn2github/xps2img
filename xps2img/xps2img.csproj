@@ -88,6 +88,9 @@
     <Compile Include="Xps2Img\ConverterState.cs" />
     <Compile Include="Xps2Img\Utils.cs" />
     <Compile Include="Xps2Img\Converter.cs" />
+    <Compile Include="Xps2Img\Converter.EventArgs.cs">
+      <DependentUpon>Converter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xps2Img\Win32.cs" />

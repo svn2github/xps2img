@@ -67,11 +67,11 @@ namespace Xps2ImgUI
 
             // Show Command Line button.
             _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.ShowCommandLine, ShowCommandLineToolStripButtonClick,
-                new ToolStripButtonItem(Resources.Strings.CopyCommandLineToClipboard, (s, e) => CopyToClipboard(commandLineTextBox.Text)),
-                new ToolStripButtonItem(Resources.Strings.CopyUICommandLineToClipboard, (s, e) => CopyToClipboard(_uiCommandLine)),
+                new ToolStripButtonItem(Resources.Strings.CopyCommandLineToClipboard, (s, e) => ClipboardUtils.CopyToClipboard(commandLineTextBox.Text)),
+                new ToolStripButtonItem(Resources.Strings.CopyUICommandLineToClipboard, (s, e) => ClipboardUtils.CopyToClipboard(_uiCommandLine)),
                 new ToolStripButtonItem(),
-                new ToolStripButtonItem(Resources.Strings.CopyUIBatchCommandLineToClipboard, (s, e) => CopyToClipboard(() => copyBatch(true))),
-                new ToolStripButtonItem(Resources.Strings.CopyUIBatchCommandLineWithoutErrorHandlingToClipboard, (s, e) => CopyToClipboard(() => copyBatch(false)))
+                new ToolStripButtonItem(Resources.Strings.CopyUIBatchCommandLineToClipboard, (s, e) => ClipboardUtils.CopyToClipboard(() => copyBatch(true))),
+                new ToolStripButtonItem(Resources.Strings.CopyUIBatchCommandLineWithoutErrorHandlingToClipboard, (s, e) => ClipboardUtils.CopyToClipboard(() => copyBatch(false)))
              );
 
             UpdateShowCommandLineCommand();
@@ -104,8 +104,8 @@ namespace Xps2ImgUI
                 new ToolStripButtonItem(Resources.Strings.BrowseImagesFolder, (s, e) => Explorer.Select(ConvertedImagesFolder)),
                 xpsBrowseButton = new ToolStripButtonItem(Resources.Strings.BrowseXPSFile, (s, e) => Explorer.Select(Model.SrcFile)),
                 new ToolStripButtonItem(),
-                new ToolStripButtonItem(Resources.Strings.CopyImagesFolderPathToClipboard, (s, e) => CopyToClipboard(ConvertedImagesFolder)),
-                xpsCopyButton = new ToolStripButtonItem(Resources.Strings.CopyXPSFilePathToClipboard, (s, e) => CopyToClipboard(Model.SrcFile))
+                new ToolStripButtonItem(Resources.Strings.CopyImagesFolderPathToClipboard, (s, e) => ClipboardUtils.CopyToClipboard(ConvertedImagesFolder)),
+                xpsCopyButton = new ToolStripButtonItem(Resources.Strings.CopyXPSFilePathToClipboard, (s, e) => ClipboardUtils.CopyToClipboard(Model.SrcFile))
             ).DropDownOpening += (s, a) => xpsCopyButton.ToolStripItem.Enabled = xpsBrowseButton.ToolStripItem.Enabled = !String.IsNullOrEmpty(Model.SrcFile);
 
             //  Help.

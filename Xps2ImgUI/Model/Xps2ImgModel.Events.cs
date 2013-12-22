@@ -12,7 +12,7 @@ namespace Xps2ImgUI.Model
         private static readonly Regex OutputRegex = new Regex(@"^\[\s*(?<percent>\d+)%\][^\d]+(?<page>\d+)\s+\(\s*(?<pages>\d+/\d+)\).+?'(?<file>.+)'");
         private static readonly Regex ErrorMessageRegex = new Regex(@"^(?<page>[^:]+):\s*(?<message>.+)$");
 
-        private void OutputDataReceivedWrapper(object sender, DataReceivedEventArgs e)
+        private void OutputDataReceivedHandler(object sender, DataReceivedEventArgs e)
         {
             var outputDataReceived = OutputDataReceived;
             if (String.IsNullOrEmpty(e.Data) || outputDataReceived == null)
@@ -48,7 +48,7 @@ namespace Xps2ImgUI.Model
             outputDataReceived(this, new ConversionProgressEventArgs(percent, pages, file));
         }
 
-        private void ErrorDataReceivedWrapper(object sender, DataReceivedEventArgs e)
+        private void ErrorDataReceivedHandler(object sender, DataReceivedEventArgs e)
         {
             if (String.IsNullOrEmpty(e.Data))
             {
@@ -56,15 +56,27 @@ namespace Xps2ImgUI.Model
             }
 
             var errorDataReceived = ErrorDataReceived;
-            if (errorDataReceived != null && !_isErrorReported)
+            if (errorDataReceived != null)
             {
+                var isErrorReported = _isErrorReported;
                 _isErrorReported = true;
 
                 var match = ErrorMessageRegex.Match(e.Data);
 
                 Func<string, string, string> getMatch = (g, d) => match.Success ? match.Groups[g].Value : d;
+                
+                var args = new ConversionErrorEventArgs(getMatch("message", e.Data), getMatch("page", null));
 
-                errorDataReceived(this, new ConversionErrorEventArgs(getMatch("message", e.Data), getMatch("page", null)));
+                if (OptionsObject.IgnoreErrors && args.Page.HasValue)
+                {
+                    ErrorPages.Set(args.Page.Value, true);
+                    return;
+                }
+
+                if (!isErrorReported)
+                {
+                    errorDataReceived(this, args);
+                }
             }
 
             if (!OptionsObject.IgnoreErrors)

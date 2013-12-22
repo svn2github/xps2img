@@ -161,34 +161,6 @@ namespace Xps2ImgUI
             }
         }
 
-        private static void CopyToClipboard(Func<string> messageFunc)
-        {
-            CopyToClipboard(messageFunc());
-        }
-
-        private static void CopyToClipboard(string str)
-        {
-            if (String.IsNullOrEmpty(str))
-            {
-                return;
-            }
-
-            var tries = 2;
-            while(tries-- != 0)
-            {
-                try
-                {
-                    Clipboard.SetDataObject(str, true, 2, 100);
-                    break;
-                }
-                // ReSharper disable EmptyGeneralCatchClause
-                catch (Exception)
-                // ReSharper restore EmptyGeneralCatchClause
-                {
-                }
-            }
-        }
-
         private void ShowHelp()
         {
             if (ModalGuard.IsEntered)

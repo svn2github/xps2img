@@ -43,6 +43,8 @@ namespace Xps2ImgUI.Model
             _pagesProcessed = 0;
 
             _threadsCount = IsCreationMode ? OptionsObject.SafeProcessorsNumber : 1;
+
+            ErrorPages = new BitArray(1);
         }
 
         private void WorkerStart()
@@ -230,7 +232,6 @@ namespace Xps2ImgUI.Model
             if (intervals.Any())
             {
                 PagesTotal = totalIntervals.GetTotalLength();
-                if (PagesTotal <= 0) PagesTotal = 1;
 
                 if (CanResume)
                 {
@@ -298,8 +299,8 @@ namespace Xps2ImgUI.Model
 
             var process = new Process { StartInfo = processStartInfo, EnableRaisingEvents = true };
 
-            process.OutputDataReceived += OutputDataReceivedWrapper;
-            process.ErrorDataReceived += ErrorDataReceivedWrapper;
+            process.OutputDataReceived += OutputDataReceivedHandler;
+            process.ErrorDataReceived += ErrorDataReceivedHandler;
 
             process.Start();
 
@@ -314,8 +315,8 @@ namespace Xps2ImgUI.Model
             process.CancelOutputRead();
             process.CancelErrorRead();
 
-            process.OutputDataReceived -= OutputDataReceivedWrapper;
-            process.ErrorDataReceived -= ErrorDataReceivedWrapper;
+            process.OutputDataReceived -= OutputDataReceivedHandler;
+            process.ErrorDataReceived -= ErrorDataReceivedHandler;
 
             process.Close();
         }
