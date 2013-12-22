@@ -458,6 +458,9 @@ What's new in version {0}
     <value>Conversion completed with errors.</value>
   </data>
   <data name="NotConvertedPageNumbers" xml:space="preserve">
+    <value> Not converted page numbers: {0}.</value>
+  </data>
+  <data name="NotConvertedPageNumbersConfirmToCopy" xml:space="preserve">
     <value> Not converted page numbers: {0}. Confirm to copy them to clipboard.</value>
   </data>
   <data name="CompletedWithErrors" xml:space="preserve">

@@ -520,11 +520,20 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Not converted page numbers: {0}. Confirm to copy them to clipboard..
+        ///   Looks up a localized string similar to  Not converted page numbers: {0}..
         /// </summary>
         internal static string NotConvertedPageNumbers {
             get {
                 return ResourceManager.GetString("NotConvertedPageNumbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Not converted page numbers: {0}. Confirm to copy them to clipboard..
+        /// </summary>
+        internal static string NotConvertedPageNumbersConfirmToCopy {
+            get {
+                return ResourceManager.GetString("NotConvertedPageNumbersConfirmToCopy", resourceCulture);
             }
         }
         
