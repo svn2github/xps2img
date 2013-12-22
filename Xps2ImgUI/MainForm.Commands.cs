@@ -251,17 +251,19 @@ namespace Xps2ImgUI
             
             progressBar.Value = 0;
 
-            if (!Model.IsRunning || !isRunning)
+            if (Model.IsRunning && isRunning)
             {
-                this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.NoProgress);
+                return;
+            }
 
-                if (Model.ShutdownRequested)
+            this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.NoProgress);
+
+            if (Model.ShutdownRequested)
+            {
+                RegisterIdleHandler(CloseFormHandler, true);
+                if (Model.IsBatchMode)
                 {
-                    RegisterIdleHandler(CloseFormHandler, true);
-                    if (Model.IsBatchMode)
-                    {
-                        base.Activate();
-                    }
+                    base.Activate();
                 }
             }
         }

@@ -68,6 +68,29 @@ namespace Xps2ImgUI
             this.InvokeIfNeeded(() => UpdateFailedStatus(e.Message, page: e.Page));
         }
 
+        private void HandleErrorPages()
+        {
+            var errorPages = Model.ErrorPages;
+
+            if (!errorPages.Any())
+            {
+                return;
+            }
+
+            var pages = IntervalUtils.ToString(errorPages);
+
+            if (Model.IsBatchMode)
+            {
+                ShowErrorMessageBox(String.Format("{0} {1}.", Resources.Strings.ConversionFailedForTheFollowingPages, pages));
+                return;
+            }
+
+            if (ShowConfirmationMessageBox(Resources.Strings.ConversionFailedForTheFollowingPages, String.Format(Resources.Strings.ConfirmToCopyPageNumbersToClipboard, pages)))
+            {
+                ClipboardUtils.CopyToClipboard(pages);
+            }
+        }
+
         private void Completed(object sender, EventArgs e)
         {
             if (_conversionFailed)
@@ -75,7 +98,7 @@ namespace Xps2ImgUI
                 return;
             }
 
-            this.InvokeIfNeeded(() => { UpdateRunningStatus(false); EnableConvertControls(); FlashForm(); });
+            this.InvokeIfNeeded(() => { UpdateRunningStatus(false); EnableConvertControls(); FlashForm(); HandleErrorPages(); });
         }
 
         private void LaunchFailed(object sender, ThreadExceptionEventArgs e)

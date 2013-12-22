@@ -170,7 +170,7 @@ namespace Xps2ImgUI
                 taskText = Resources.Strings.WouldYouLikeToDownloadUpdateManually;
                 okCommand = Resources.Strings.YesDownloadManually;
             }
-            if (message == Resources.Strings.UpdateFailedWarning)
+            else if (message == Resources.Strings.UpdateFailedWarning)
             {
                 taskInstruction = Resources.Strings.UpdateFailed;
                 taskText = Resources.Strings.WouldYouLikeToDownloadAndUpdateManually;
@@ -183,6 +183,12 @@ namespace Xps2ImgUI
                 footerText = Resources.Strings.VisitDownloadPage;
                 okCommand = Resources.Strings.YesDownloadAndUpdate;
                 taskDialogStandardIcon = TaskDialogStandardIcon.Information;
+            }
+            else if (message == Resources.Strings.ConversionFailedForTheFollowingPages)
+            {
+                taskInstruction = Resources.Strings.CompletedWithErrors;
+                taskText = Resources.Strings.WouldYouLikeToCopyPageNumbersToClipboard;
+                okCommand = Resources.Strings.YesCopyToClipboard;
             }
         }
 

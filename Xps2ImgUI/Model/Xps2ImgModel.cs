@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 
 using Xps2Img.Shared.CommandLine;
@@ -193,11 +195,16 @@ namespace Xps2ImgUI.Model
             private set
             {
                 _pagesTotal = value > 0 ? value : 1;
-                ErrorPages = new BitArray(value + 1);
+                _errorPages = new BitArray(_pagesTotal + 1);
             }
         }
 
-        public BitArray ErrorPages { get; private set; }
+        private BitArray _errorPages;
+
+        public List<Interval> ErrorPages
+        {
+            get { return IntervalUtils.FromBitArray(_errorPages); }
+        }
 
         public int ExitCode
         {

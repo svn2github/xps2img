@@ -44,7 +44,7 @@ namespace Xps2ImgUI.Model
 
             _threadsCount = IsCreationMode ? OptionsObject.SafeProcessorsNumber : 1;
 
-            ErrorPages = new BitArray(1);
+            _errorPages = new BitArray(1);
         }
 
         private void WorkerStart()
