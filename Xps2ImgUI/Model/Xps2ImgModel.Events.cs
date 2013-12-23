@@ -69,7 +69,10 @@ namespace Xps2ImgUI.Model
 
                 if (OptionsObject.IgnoreErrors && args.Page.HasValue)
                 {
-                    _errorPages.Set(args.Page.Value, true);
+                    lock (_errorPages.SyncRoot)
+                    {
+                        _errorPages.Set(args.Page.Value, true);
+                    }
                     return;
                 }
 
