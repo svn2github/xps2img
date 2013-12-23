@@ -47,6 +47,8 @@ IDH_PreliminariesPrefix=xps2img.chm::/Files\Options.html#prelimsprefix
 IDH_Processors=xps2img.chm::/Files\OptionsGUI.html#processors
 IDH_ProcessPriority=xps2img.chm::/Files\Options.html#processpriority
 IDH_ProcessAffinity=xps2img.chm::/Files\Options.html#affinity
+IDH_IgnoreExisting=xps2img.chm::/Files\Options.html#ignoreExisting
+IDH_IgnoreErrors=xps2img.chm::/Files\Options.html#ignoreErrors
 IDH_TestMode=xps2img.chm::/Files\Options.html#test
 IDH_Application=xps2img.chm::/Files\Preferences.html#application
 IDH_AutoCompleteFilenames=xps2img.chm::/Files\Preferences.html#autoCompleteFilenames
@@ -65,8 +67,6 @@ IDH_SuggestResume=xps2img.chm::/Files\Preferences.html#suggestResume
 IDH_ShortenImageExtension=xps2img.chm::/Files\Preferences.html#shortenImageExtension
 IDH_Updates=xps2img.chm::/Files\Preferences.html#updates
 IDH_CheckForUpdates=xps2img.chm::/Files\Preferences.html#checkForUpdates
-IDH_IgnoreExisting=xps2img.chm::/Files\Preferences.html#ignoreExisting
-IDH_IgnoreErrors=xps2img.chm::/Files\Preferences.html#ignoreErrors
 
 [MAP]
 #define IDH_Preferences			1000

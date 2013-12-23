@@ -160,13 +160,27 @@ namespace Xps2ImgUI
             }
         }
 
+        private readonly string[] _forceRefreshForProperties = { Options.FileTypeDisplayName, Options.PostActionDisplayName };
+
         private void SettingsPropertyGridPropertyValueChanged(object sender, PropertyValueChangedEventArgs e)
         {
-            UpdateCommandLine(Options.ExcludeOnResumeCheck.Contains(e.ChangedItem.Label));
-            if (e.ChangedItem.Label == Options.FileTypeDisplayName || e.ChangedItem.Label == Options.PostActionDisplayName)
+            Func<string[], bool> hasOneOf = o => o.Contains(e.ChangedItem.Label);
+
+            var forceRefresh = false;
+            var canResume = hasOneOf(Options.ExcludeOnResumeCheck);
+
+            if (!canResume)
+            {
+                Model.OptionsObject.IgnoreExisting = false;
+                forceRefresh = true;
+            }
+
+            if (forceRefresh || hasOneOf(_forceRefreshForProperties))
             {
                 settingsPropertyGrid.Refresh();
             }
+
+            UpdateCommandLine(canResume);
         }
 
         private void SettingsPropertyGridSelectedObjectsChanged(object sender, EventArgs e)

@@ -196,7 +196,7 @@ namespace Xps2Img.Shared.CommandLine
         public static readonly string[] ExcludedOnLaunch = ExcludedUIOptions.Concat(new[] { PagesShortOption.ToString(CultureInfo.InvariantCulture) }).ToArray();
         public static readonly string[] ExcludedOnView = ExcludedOnSave.Concat(ExcludedUIOptions).ToArray();
 
-        public static readonly string[] ExcludeOnResumeCheck = { ProcessorsDisplayName, ProcessPriorityDisplayName, PostActionDisplayName };
+        public static readonly string[] ExcludeOnResumeCheck = { ProcessorsDisplayName, ProcessPriorityDisplayName, PostActionDisplayName, IgnoreExistingDisplayName, IgnoreErrorsDisplayName };
 
         private bool _batch;
 
