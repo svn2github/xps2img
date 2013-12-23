@@ -233,7 +233,7 @@ namespace Xps2Img.Shared.CommandLine
 
         [Option(IgnoreExistingDescription, IgnoreExistingShortOption, ArgumentExpectancy.No)]
         [DisplayName(IgnoreExistingDisplayName)]
-        [TabbedDescription(IgnoreExistingDescription)]
+        [TabbedDescription(IgnoreExistingTabbedDescription)]
         [UIOption(IgnoreExistingShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(false)]

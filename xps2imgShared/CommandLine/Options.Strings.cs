@@ -93,7 +93,8 @@ namespace Xps2Img.Shared.CommandLine
         private const string SilentModeDescription = "Silent mode (no progress will be shown)";
         private const char   SilentModeShortOption = 's';
 
-        private const string IgnoreExistingDescription = "Do not overwrite existing images. Will be reset in case of any image related property change";
+        private const string IgnoreExistingDescription = "Do not overwrite existing images";
+        private const string IgnoreExistingTabbedDescription = IgnoreExistingDescription + ". Will be reset in case of any image related property change";
         public const string  IgnoreExistingDisplayName = "Ignore Existing Images";
         private const char   IgnoreExistingShortOption = 'k';
 
