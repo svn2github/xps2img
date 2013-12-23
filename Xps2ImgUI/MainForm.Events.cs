@@ -169,7 +169,7 @@ namespace Xps2ImgUI
             var forceRefresh = false;
             var canResume = hasOneOf(Options.ExcludeOnResumeCheck);
 
-            if (!canResume)
+            if (Model.OptionsObject.IgnoreExisting && !canResume)
             {
                 Model.OptionsObject.IgnoreExisting = false;
                 forceRefresh = true;
