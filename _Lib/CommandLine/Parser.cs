@@ -9,26 +9,25 @@ namespace CommandLine
 {
     public static partial class Parser
     {
-        private static List<LongOptEx> GetOptionsList(Type optionsObjectType)
+        private static IList<LongOptEx> GetOptionsList(Type optionsObjectType)
         {
             var optionsObject = Activator.CreateInstance(optionsObjectType);
             return GetOptionsList(optionsObject);
         }
 
-        private static List<LongOptEx> GetOptionsList(object optionsObject)
+        private static IList<LongOptEx> GetOptionsList(object optionsObject)
         {
             return GetOptionsList(optionsObject, false);
         }
 
-        private static List<LongOptEx> GetOptionsList(object optionsObject, bool ignoreDefault)
+        private static IList<LongOptEx> GetOptionsList(object optionsObject, bool ignoreDefault)
         {
             const BindingFlags bindingFlags = BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
             var result = new List<LongOptEx>();
 
-            // ReSharper disable LoopCanBeConvertedToQuery
+            // ReSharper disable once LoopCanBeConvertedToQuery
             foreach (var propertyInfo in optionsObject.GetType().GetProperties(bindingFlags))
-            // ReSharper restore LoopCanBeConvertedToQuery
             {
                 var optionAttribute = (OptionAttribute)propertyInfo.GetCustomAttributes(typeof(OptionAttribute), true).FirstOrDefault();
 
@@ -92,6 +91,7 @@ namespace CommandLine
             var optionsObject = (T)Activator.CreateInstance(optionsObjectType);
             var longOpts = GetOptionsList(optionsObject).ToArray();
 
+            // ReSharper disable once CoVariantArrayConversion
             var getopt = new Getopt(applicationName, args, longOpts.BuildOptString(), longOpts, false);
 
             var isValid = true;

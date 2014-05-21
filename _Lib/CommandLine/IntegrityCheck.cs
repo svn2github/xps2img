@@ -10,7 +10,7 @@ namespace CommandLine
     internal static class IntegrityCheck
     {
         [Conditional("DEBUG")]
-        public static void Perform(Type optionsObjectType, List<LongOptEx> longOpts)
+        public static void Perform(Type optionsObjectType, IList<LongOptEx> longOpts)
         {
             Func<LongOptEx, string> formatLongOptEx = longOptEx =>
               String.Format(longOptEx.IsUnnamed ? "{{ BoundPropertyName: \"{2}\" }}" : "{{ Name: \"{0}\", Val: '{1}', BoundPropertyName: \"{2}\" }}",
