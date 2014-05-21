@@ -43,7 +43,7 @@ namespace CommandLine
 
         private static readonly string[] HelpOpt = { "-h", "--help" };
 
-        public static bool IsUsageRequiested(string[] args)
+        public static bool IsUsageRequested(string[] args)
         {
             return !args.Any() || (args.Length == 1 && HelpOpt.Contains(args.First()));
         }

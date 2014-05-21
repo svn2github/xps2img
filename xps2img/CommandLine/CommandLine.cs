@@ -25,7 +25,7 @@ namespace Xps2Img.CommandLine
 
         public static bool IsUsageDisplayed<T>(string[] args)
         {
-            if (Parser.IsUsageRequiested(args))
+            if (Parser.IsUsageRequested(args))
             {
                 Console.WriteLine("{1} {2}{0}{0}{3}",
                                     Environment.NewLine,

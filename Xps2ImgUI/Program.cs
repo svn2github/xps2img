@@ -62,7 +62,7 @@ namespace Xps2ImgUI
             ThreadPool.GetMinThreads(out workerThreads, out completionPortThreads);
             ThreadPool.SetMinThreads(workerThreads + Environment.ProcessorCount + 2, completionPortThreads);
 
-            var options = Parser.IsUsageRequiested(args) ? null : Parser.Parse<UIOptions>(args, true);
+            var options = Parser.IsUsageRequested(args) ? null : Parser.Parse<UIOptions>(args, true);
 
             var mainForm = new MainForm { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) };
 
