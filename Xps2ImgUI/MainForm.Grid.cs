@@ -62,6 +62,9 @@ namespace Xps2ImgUI
 
             Func<bool, string> copyBatch = eh => String.Format(Resources.Strings.UIBatchCommandLineFormat + (eh ? Resources.Strings.UIBatchCommandLineErrorHandling : String.Empty), _uiCommandLine);
 
+            // Separator.
+            settingsPropertyGrid.AddToolStripSeparator();
+
             // Show Command Line button.
             _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.CommandLine, Resources.Strings.ShowCommandLine, ShowCommandLineToolStripButtonClick,
                 new ToolStripButtonItem(Resources.Strings.CopyCommandLineToClipboard, (s, e) => ClipboardUtils.CopyToClipboard(commandLineTextBox.Text)),
@@ -72,6 +75,9 @@ namespace Xps2ImgUI
              );
 
             UpdateShowCommandLineCommand();
+
+            // Separator.
+            settingsPropertyGrid.AddToolStripSeparator();
 
             // Load/save settings.
             _loadToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.LoadSettings, Resources.Strings.LoadSettings, (s, e) => modalAction(() => Model = SettingsManager.LoadSettings()),
@@ -84,6 +90,9 @@ namespace Xps2ImgUI
                 new ToolStripButtonItem(),
                 new ToolStripButtonItem(Resources.Strings.Reset, (s, e) => Model.Reset())
              );
+
+            // Separator.
+            settingsPropertyGrid.AddToolStripSeparator();
 
             // Explorer browse.
 
