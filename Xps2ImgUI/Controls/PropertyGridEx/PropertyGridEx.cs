@@ -38,6 +38,14 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             _toolStrip = (ToolStrip)controls.FirstOrDefault(c => c is ToolStrip);
             Debug.Assert(_toolStrip != null);
 
+            var toolStripType = _toolStrip.GetType();
+
+            _currentlyActiveTooltipItem = toolStripType.GetField("currentlyActiveTooltipItem", BindingFlags.Instance | BindingFlags.NonPublic);
+            Debug.Assert(_currentlyActiveTooltipItem != null);
+
+            _updateToolTipMethodInfo = toolStripType.GetMethod("UpdateToolTip", BindingFlags.Instance | BindingFlags.NonPublic);
+            Debug.Assert(_updateToolTipMethodInfo != null);
+
             _docComment = controls.FirstOrDefault(c => c.GetType().Name == "DocComment");
             Debug.Assert(_docComment != null);
 
@@ -397,6 +405,14 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             Refresh();
         }
 
+        public void UpdateToolStripToolTip()
+        {
+            var oldValue = _currentlyActiveTooltipItem.GetValue(_toolStrip);
+
+            _currentlyActiveTooltipItem.SetValue(_toolStrip, null);
+            _updateToolTipMethodInfo.Invoke(_toolStrip, new [] { oldValue });
+        }
+
         public new object SelectedObject
         {
             get { return base.SelectedObject; }
@@ -455,6 +471,9 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         private readonly Control _propertyGridView;
         private readonly TextBox _propertyGridViewEdit;
         private readonly MethodInfo _propertyGridViewEnsurePendingChangesCommitted;
+
+        private readonly FieldInfo _currentlyActiveTooltipItem;
+        private readonly MethodInfo _updateToolTipMethodInfo;
 
         private Color _backColorOriginal;
     }

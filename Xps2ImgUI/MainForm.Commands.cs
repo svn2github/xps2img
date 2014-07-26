@@ -345,6 +345,8 @@ namespace Xps2ImgUI
         {
             _showCommandLineToolStripButton.Image = IsCommandLineVisible ? Resources.Images.CommandLineHide : Resources.Images.CommandLine;
             _showCommandLineToolStripButton.ToolTipText = IsCommandLineVisible ? Resources.Strings.HideCommandLine : Resources.Strings.ShowCommandLine;
+
+            settingsPropertyGrid.UpdateToolStripToolTip();
         }
 
         private string FormatCommandLine(bool isUi)
