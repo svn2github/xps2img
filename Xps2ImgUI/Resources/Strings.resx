@@ -201,8 +201,8 @@
   <data name="Preferences" xml:space="preserve">
     <value>Preferences</value>
   </data>
-  <data name="ResetToDefault" xml:space="preserve">
-    <value>Reset to default</value>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>Reset to defaults</value>
   </data>
   <data name="SaveSettingsTitle" xml:space="preserve">
     <value>Save Settings</value>

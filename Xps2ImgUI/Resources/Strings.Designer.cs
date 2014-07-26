@@ -646,11 +646,11 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset to default.
+        ///   Looks up a localized string similar to Reset to defaults.
         /// </summary>
-        internal static string ResetToDefault {
+        internal static string ResetToDefaults {
             get {
-                return ResourceManager.GetString("ResetToDefault", resourceCulture);
+                return ResourceManager.GetString("ResetToDefaults", resourceCulture);
             }
         }
         

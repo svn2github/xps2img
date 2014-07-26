@@ -223,7 +223,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Help.png" />
     <Content Include="Resources\Ico\Application.ico" />
     <Content Include="Resources\Ico\Play.ico" />
     <Content Include="Resources\Ico\Stop.ico" />
