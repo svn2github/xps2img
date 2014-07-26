@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ShowCommandLine" xml:space="preserve">
-    <value>Show Co&amp;mmand Line</value>
+    <value>Show command line</value>
   </data>
   <data name="ResetOptions" xml:space="preserve">
-    <value>Reset &amp;Options</value>
+    <value>Reset options</value>
   </data>
   <data name="Launch" xml:space="preserve">
     <value>&amp;Convert</value>
@@ -130,7 +130,7 @@
     <value>&amp;Stop</value>
   </data>
   <data name="HideCommandLine" xml:space="preserve">
-    <value>Hide Co&amp;mmand Line</value>
+    <value>Hide command line</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>XPS to Images Converter</value>
@@ -148,7 +148,7 @@
     <value>{1}{0}{0}Please make sure that xps2img.exe utility is present into the application folder.</value>
   </data>
   <data name="BrowseImages" xml:space="preserve">
-    <value>Bro&amp;wse Images</value>
+    <value>Browse images</value>
   </data>
   <data name="BrowseXPSFile" xml:space="preserve">
     <value>Browse &amp;XPS File</value>
@@ -172,13 +172,13 @@
     <value>&amp;Copy Images Folder Path To Clipboard</value>
   </data>
   <data name="Help" xml:space="preserve">
-    <value>&amp;Help</value>
+    <value>Help</value>
   </data>
   <data name="About" xml:space="preserve">
     <value>&amp;About...</value>
   </data>
   <data name="LoadSettings" xml:space="preserve">
-    <value>Lo&amp;ad Settings...</value>
+    <value>Load settings</value>
   </data>
   <data name="SaveSettings" xml:space="preserve">
     <value>&amp;Save Settings...</value>
@@ -199,10 +199,10 @@
     <value>Press OK to proceed.</value>
   </data>
   <data name="Preferences" xml:space="preserve">
-    <value>&amp;Preferences...</value>
+    <value>Preferences</value>
   </data>
   <data name="ResetToDefault" xml:space="preserve">
-    <value>Reset To &amp;Default</value>
+    <value>Reset to default</value>
   </data>
   <data name="SaveSettingsTitle" xml:space="preserve">
     <value>Save Settings</value>

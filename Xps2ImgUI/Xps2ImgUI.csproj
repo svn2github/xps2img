@@ -111,6 +111,11 @@
     <Compile Include="Model\Xps2ImgModel.Worker.cs">
       <DependentUpon>Xps2ImgModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Images.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Images.resx</DependentUpon>
+    </Compile>
     <Compile Include="Utils\UI\ClipboardUtils.cs" />
     <Compile Include="Utils\UI\HelpUtils.cs" />
     <Compile Include="Settings\Preferences.Strings.cs">
@@ -190,6 +195,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Icons.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Images.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -217,6 +226,13 @@
     <Content Include="Resources\Ico\Application.ico" />
     <Content Include="Resources\Ico\Play.ico" />
     <Content Include="Resources\Ico\Stop.ico" />
+    <Content Include="Resources\Png\BrowseImages.png" />
+    <Content Include="Resources\Png\CommandLine.png" />
+    <Content Include="Resources\Png\CommandLineHide.png" />
+    <Content Include="Resources\Png\Eraser.png" />
+    <Content Include="Resources\Png\Help.png" />
+    <Content Include="Resources\Png\LoadSettings.png" />
+    <Content Include="Resources\Png\Preferences.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\xps2imgShared\xps2imgShared.csproj">

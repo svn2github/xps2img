@@ -266,13 +266,15 @@ namespace Xps2ImgUI
             get { return !settingsSplitContainer.Panel2Collapsed; }
             set
             {
-                if (settingsSplitContainer.Panel2Collapsed == value)
+                if (settingsSplitContainer.Panel2Collapsed != value)
                 {
-                    settingsSplitContainer.Panel2Collapsed = !value;
-                    if (WindowState == FormWindowState.Normal)
-                    {
-                        Height += (commandLineTextBox.Height + settingsSplitContainer.SplitterWidth)*(value ? 1 : -1);
-                    }
+                    return;
+                }
+
+                settingsSplitContainer.Panel2Collapsed = !value;
+                if (WindowState == FormWindowState.Normal)
+                {
+                    Height += (commandLineTextBox.Height + settingsSplitContainer.SplitterWidth)*(value ? 1 : -1);
                 }
             }
         }

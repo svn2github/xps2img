@@ -124,7 +124,17 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         public ToolStripSplitButton AddToolStripSplitButton(string text, EventHandler eventHandler, params ToolStripButtonItem[] items)
         {
             var toolStripSplitButton = new ToolStripSplitButton(text) { AutoToolTip = UseAutoToolTip };
+            return AddToolStripSplitButton(toolStripSplitButton, eventHandler, items);
+        }
 
+        public ToolStripSplitButton AddToolStripSplitButton(Image image, string toolTipText, EventHandler eventHandler, params ToolStripButtonItem[] items)
+        {
+            var toolStripSplitButton = new ToolStripSplitButton(image) { AutoToolTip = UseAutoToolTip, ToolTipText = toolTipText, ImageScaling = ToolStripItemImageScaling.None };
+            return AddToolStripSplitButton(toolStripSplitButton, eventHandler, items);
+        }
+
+        public ToolStripSplitButton AddToolStripSplitButton(ToolStripSplitButton toolStripSplitButton, EventHandler eventHandler, params ToolStripButtonItem[] items)
+        {
             _toolStrip.Items.Add(toolStripSplitButton);
             toolStripSplitButton.ButtonClick += eventHandler;
 
@@ -147,9 +157,20 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             return toolStripSplitButton;
         }
 
+        public ToolStripButton AddToolStripButton(Image image, string toolTipText, EventHandler eventHandler)
+        {
+            var toolStripButton = new ToolStripButton(image) { AutoToolTip = UseAutoToolTip, ToolTipText = toolTipText, ImageScaling = ToolStripItemImageScaling.None };
+            return AddToolStripButton(toolStripButton, eventHandler);
+        }
+
         public ToolStripButton AddToolStripButton(string text, EventHandler eventHandler)
         {
             var toolStripButton = new ToolStripButton(text) { AutoToolTip = UseAutoToolTip };
+            return AddToolStripButton(toolStripButton, eventHandler);
+        }
+
+        public ToolStripButton AddToolStripButton(ToolStripButton toolStripButton, EventHandler eventHandler)
+        {
             toolStripButton.Click += eventHandler;
             _toolStrip.Items.Add(toolStripButton);
             return toolStripButton;
@@ -160,7 +181,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             _toolStrip.Items.Add(new ToolStripSeparator());
         }
 
-        protected void MoveSplitterTo(int x)
+        private void MoveSplitterTo(int x)
         {
             _propertyGridView.GetType()
                 .GetMethod("MoveSplitterTo", BindingFlags.NonPublic | BindingFlags.Instance)

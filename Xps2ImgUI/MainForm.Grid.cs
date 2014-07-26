@@ -35,7 +35,7 @@ namespace Xps2ImgUI
             settingsPropertyGrid.RemoveLastToolStripItem();
 
             // Preferences button.
-            var preferencesToolStripSplitButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.Preferences, PreferencesToolStripButtonClick);
+            var preferencesToolStripSplitButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.Preferences, Resources.Strings.Preferences, PreferencesToolStripButtonClick);
 
             _shortenExtensionToolStripMenuItem = new ToolStripMenuItem(Resources.Strings.ShortenImageExtension) { CheckOnClick = true, Checked = _preferences.ShortenExtension };
             _shortenExtensionToolStripMenuItem.CheckedChanged += (s, e) =>
@@ -60,13 +60,10 @@ namespace Xps2ImgUI
 
             preferencesToolStripSplitButton.Enabled = Model.IsUserMode;
 
-            // Separator.
-            settingsPropertyGrid.AddToolStripSeparator();
-
             Func<bool, string> copyBatch = eh => String.Format(Resources.Strings.UIBatchCommandLineFormat + (eh ? Resources.Strings.UIBatchCommandLineErrorHandling : String.Empty), _uiCommandLine);
 
             // Show Command Line button.
-            _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.ShowCommandLine, ShowCommandLineToolStripButtonClick,
+            _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.CommandLine, Resources.Strings.ShowCommandLine, ShowCommandLineToolStripButtonClick,
                 new ToolStripButtonItem(Resources.Strings.CopyCommandLineToClipboard, (s, e) => ClipboardUtils.CopyToClipboard(commandLineTextBox.Text)),
                 new ToolStripButtonItem(Resources.Strings.CopyUICommandLineToClipboard, (s, e) => ClipboardUtils.CopyToClipboard(_uiCommandLine)),
                 new ToolStripButtonItem(),
@@ -76,31 +73,22 @@ namespace Xps2ImgUI
 
             UpdateShowCommandLineCommand();
 
-            // Separator.
-            settingsPropertyGrid.AddToolStripSeparator();
-
             // Load/save settings.
-            _loadToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.LoadSettings, (s, e) => modalAction(() => Model = SettingsManager.LoadSettings()),
+            _loadToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.LoadSettings, Resources.Strings.LoadSettings, (s, e) => modalAction(() => Model = SettingsManager.LoadSettings()),
                 new ToolStripButtonItem(Resources.Strings.SaveSettings, (s, e) => modalAction(() => SettingsManager.SaveSettings(Model)))
             );
 
-            // Separator.
-            settingsPropertyGrid.AddToolStripSeparator();
-
             // Reset Settings button.
-            _resetToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.ResetOptions, (s, e) => ResetByCategory(Options.CategoryOptions),
+            _resetToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.Eraser, Resources.Strings.ResetOptions, (s, e) => ResetByCategory(Options.CategoryOptions),
                 new ToolStripButtonItem(Resources.Strings.ResetParameters, (s, e) => ResetByCategory(Options.CategoryParameters)),
                 new ToolStripButtonItem(),
                 new ToolStripButtonItem(Resources.Strings.Reset, (s, e) => Model.Reset())
              );
 
-            // Separator.
-            settingsPropertyGrid.AddToolStripSeparator();
-
             // Explorer browse.
 
             ToolStripButtonItem xpsCopyButton, xpsBrowseButton;
-            settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.BrowseImages, BrowseConvertedImagesToolStripButtonClick,
+            settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.BrowseImages, Resources.Strings.BrowseImages, BrowseConvertedImagesToolStripButtonClick,
                 new ToolStripButtonItem(Resources.Strings.BrowseImagesFolder, (s, e) => Explorer.Select(ConvertedImagesFolder)),
                 xpsBrowseButton = new ToolStripButtonItem(Resources.Strings.BrowseXPSFile, (s, e) => Explorer.Select(Model.SrcFile)),
                 new ToolStripButtonItem(),
@@ -111,7 +99,7 @@ namespace Xps2ImgUI
             //  Help.
             _updatesToolStripButtonItem = new ToolStripButtonItem(Resources.Strings.CheckForUpdates, (s, e) => CheckForUpdates());
 
-            settingsPropertyGrid.AddToolStripSplitButton(Resources.Strings.Help, (s, e) => ShowHelp(), _updatesToolStripButtonItem,
+            settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.Help, Resources.Strings.Help, (s, e) => ShowHelp(), _updatesToolStripButtonItem,
                 new ToolStripButtonItem(),
                 new ToolStripButtonItem(Resources.Strings.About,
                 (s, e) => modalAction(() =>

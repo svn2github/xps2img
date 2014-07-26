@@ -32,7 +32,7 @@ namespace Xps2ImgUI
             preferencesPropertyGrid.ModernLook = !Preferences.ClassicLook;
             preferencesPropertyGrid.RemoveLastToolStripItem();
 
-            _resetToolStripButton = preferencesPropertyGrid.AddToolStripButton(Resources.Strings.ResetToDefault, ResetToolStripButtonClick);
+            _resetToolStripButton = preferencesPropertyGrid.AddToolStripButton(Resources.Images.Eraser, Resources.Strings.ResetToDefault, ResetToolStripButtonClick);
 
             preferencesPropertyGrid.DocLines = 5;
             preferencesPropertyGrid.MoveSplitterByPercent(50);
