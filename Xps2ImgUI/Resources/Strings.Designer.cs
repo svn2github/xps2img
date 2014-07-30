@@ -178,6 +178,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to \n\n● Cancel or Esc reverts to previous valid value.\n● OK returns to value editing..
         /// </summary>
         internal static string CancelToUsePreviousValidValue {
@@ -192,6 +201,15 @@ namespace Xps2ImgUI.Resources {
         internal static string CheckForUpdates {
             get {
                 return ResourceManager.GetString("CheckForUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        internal static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
             }
         }
         
@@ -430,6 +448,51 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check for Updates.
+        /// </summary>
+        internal static string HelpAbout_CheckForUpdatesLinkLabel {
+            get {
+                return ResourceManager.GetString("HelpAbout_CheckForUpdatesLinkLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to XPS to Images Converter Frontend..
+        /// </summary>
+        internal static string HelpAbout_Description {
+            get {
+                return ResourceManager.GetString("HelpAbout_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Revision History.
+        /// </summary>
+        internal static string HelpAbout_HistoryLinkLabel {
+            get {
+                return ResourceManager.GetString("HelpAbout_HistoryLinkLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visit Web Site.
+        /// </summary>
+        internal static string HelpAbout_SiteLinkLabel {
+            get {
+                return ResourceManager.GetString("HelpAbout_SiteLinkLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About {0} {1}.
+        /// </summary>
+        internal static string HelpAbout_Title {
+            get {
+                return ResourceManager.GetString("HelpAbout_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hide command line.
         /// </summary>
         internal static string HideCommandLine {
@@ -538,6 +601,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}/{1}.
         /// </summary>
         internal static string PageOfPagesFormat {
@@ -579,6 +651,15 @@ namespace Xps2ImgUI.Resources {
         internal static string Preferences {
             get {
                 return ResourceManager.GetString("Preferences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preferences.
+        /// </summary>
+        internal static string Preferences_Title {
+            get {
+                return ResourceManager.GetString("Preferences_Title", resourceCulture);
             }
         }
         

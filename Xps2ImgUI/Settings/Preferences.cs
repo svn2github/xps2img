@@ -12,7 +12,19 @@ namespace Xps2ImgUI.Settings
     [Serializable]
     public partial class Preferences : IEquatable<Preferences>
     {
-        [DisplayName(DefaultSelectedItem)]
+        public enum Localizations
+        {
+            English,
+            Українська,
+        }
+
+        [DisplayName(ApplicationLanguageDisplayName)]
+        [Category(CategoryApplication)]
+        [Description(ApplicationLanguageDescription)]
+        [DefaultValue(Localizations.English)]
+        public Localizations ApplicationLanguage { get; set; }
+
+        [DisplayName(AutoCompleteFilenamesDisplayName)]
         [Category(CategoryApplication)]
         [Description(AutoCompleteFilenamesDescription)]
         [DefaultValue(false)]
@@ -172,6 +184,8 @@ namespace Xps2ImgUI.Settings
                 yield return CheckForUpdates == CheckInterval.Never;
                 yield return CheckForUpdates == CheckInterval.Weekly;
                 yield return CheckForUpdates == CheckInterval.Monthly;
+                yield return ApplicationLanguage == Localizations.English;
+                yield return ApplicationLanguage == Localizations.Українська;
             }
         }
 

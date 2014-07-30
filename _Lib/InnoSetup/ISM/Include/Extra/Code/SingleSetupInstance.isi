@@ -42,7 +42,11 @@ function CreateFile(
     dwFlagsAndAttributes: Cardinal;
     hTemplateFile:Integer
 ): Integer;
+#ifdef UNICODE
+external 'CreateFileW@kernel32.dll stdcall';
+#else
 external 'CreateFileA@kernel32.dll stdcall';
+#endif
 
 function WriteFile(
     hFile: THandle;

@@ -5,12 +5,13 @@ using System.Windows.Forms;
 
 using CommandLine;
 
+using Xps2ImgUI.Localization;
 using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI
 {
-    public partial class PreferencesForm : Form
+    public partial class PreferencesForm : Form, IFormLocalization
     {
         private readonly bool _isRunning;
 
@@ -21,6 +22,8 @@ namespace Xps2ImgUI
             _isRunning = isRunning;
 
             Preferences = preferences;
+
+            this.EnableFormLocalization();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -65,6 +68,14 @@ namespace Xps2ImgUI
         {
             hevent.Handled = true;
             ShowHelp();
+        }
+
+        public void UICultureChanged()
+        {
+            Text = Resources.Strings.Preferences_Title;
+
+            okButton.Text = Resources.Strings.OK;
+            cancelButton.Text = Resources.Strings.Cancel;
         }
 
         private void ResetToolStripButtonClick(object sender, EventArgs e)

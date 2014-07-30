@@ -51,6 +51,7 @@ namespace Xps2ImgUI.Utils.UI
         private const string HelpTopicCheckForUpdates        = "1266";
         private const string HelpTopicIgnoreExistingDisplayName = "1267";
         private const string HelpTopicIgnoreErrorsDisplayName   = "1268";
+        private const string HelpTopicApplicationLanguage    = "1269";
 
         private static readonly Dictionary<string, string> PropertyToTopicMap = new Dictionary<string, string>
         {
@@ -77,6 +78,7 @@ namespace Xps2ImgUI.Utils.UI
             { Options.TestDisplayName,              HelpTopicTestMode },
 
             // Preferences.
+            { Preferences.ApplicationLanguageDisplayName,       HelpTopicApplicationLanguage },
             { Preferences.CategoryApplication,                  HelpTopicApplication },
             { Preferences.AutoCompleteFilenamesDisplayName,     HelpTopicAutoCompleteFilenames },
             { Preferences.AutoSaveSettingsDisplayName,          HelpTopicAutoSaveSettings },

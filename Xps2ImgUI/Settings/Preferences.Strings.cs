@@ -7,7 +7,11 @@
         public  const string CategoryConversion    = "Conversion";
         public  const string CategoryUpdates       = "Updates";
         
-        public  const string DefaultSelectedItem              = AutoCompleteFilenamesDisplayName;
+        public  const string DefaultSelectedItem            = ApplicationLanguageDisplayName;
+
+        public  const string ApplicationLanguageDisplayName = "Application Language";
+        private const string ApplicationLanguageDescription = "User interface language.";
+
         public  const string AutoCompleteFilenamesDisplayName = "Auto Complete Filenames";
         private const string AutoCompleteFilenamesDescription = "Auto complete filenames in edit boxes.";
 
@@ -18,7 +22,7 @@
         private const string ClassicLookDescription = "Use application system look.";
 
         public  const string ShowElapsedTimeAndStatisticsDisplayName = "Show Elapsed Time and Statistics";
-        private const string ShowElapsedTimeAndStatisticsDescription = "Show time elapsed by last operation and conversion statistics at application title.";
+        private const string ShowElapsedTimeAndStatisticsDescription = "Show time elapsed by last operation and conversion statistics in application title.";
 
         public  const string FlashWhenCompletedDisplayName = "Flash When Completed";
         private const string FlashWhenCompletedDescription = "Flash application window when conversion is completed.";

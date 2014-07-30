@@ -472,4 +472,31 @@ What's new in version {0}
   <data name="YesCopyToClipboard" xml:space="preserve">
     <value>&amp;Yes, Copy to Clipboard</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="HelpAbout_CheckForUpdatesLinkLabel" xml:space="preserve">
+    <value>Check for Updates</value>
+  </data>
+  <data name="HelpAbout_Description" xml:space="preserve">
+    <value>XPS to Images Converter Frontend.</value>
+  </data>
+  <data name="HelpAbout_HistoryLinkLabel" xml:space="preserve">
+    <value>View Revision History</value>
+  </data>
+  <data name="HelpAbout_SiteLinkLabel" xml:space="preserve">
+    <value>Visit Web Site</value>
+  </data>
+  <data name="HelpAbout_Title" xml:space="preserve">
+    <value>About {0} {1}</value>
+  </data>
+  <data name="Preferences_Title" xml:space="preserve">
+    <value>Preferences</value>
+  </data>
 </root>

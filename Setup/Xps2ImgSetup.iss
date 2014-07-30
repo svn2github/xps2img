@@ -1,5 +1,9 @@
 #define ISM_CleanTranslationOnly
 
+#ifndef UNICODE
+    #error Unicode InnoSetup required
+#endif
+
 #define ISM_RootDir             AddBackslash(CompilerPath) + "Include/ISM"
 
 #include ISM_RootDir + "/Include/WinVer.isi"
@@ -29,7 +33,7 @@
 
 #define OutputDir               "_Output"
 
-#define VersionInfoCopyright    "Copyright © 2010-2013, Ivan Ivon"
+#define VersionInfoCopyright    "Copyright © 2010-2014, Ivan Ivon"
 #define VersionInfoCompany      AppPublisherURL
 #define VersionInfoDescription  AppName + " Setup"
 

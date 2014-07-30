@@ -6,16 +6,18 @@ using TKageyu.Utils;
 
 using Xps2Img.Shared.Utils;
 using Xps2Img.Shared.Utils.System;
-
+using Xps2ImgUI.Localization;
 using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI
 {
-    public partial class AboutForm : Form
+    public partial class AboutForm : Form, IFormLocalization
     {
         public AboutForm()
         {
             InitializeComponent();
+
+            this.EnableFormLocalization();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -27,14 +29,23 @@ namespace Xps2ImgUI
                 iconPictureBox.Image = IconExtractor.SplitIcon(iconExtractor.GetIcon(0))[0].ToBitmap();
             }
 
-            labelCopyright.Text = AssemblyInfo.Copyright;
-            labelAbout.Text = AssemblyInfo.Description.AppendDot();
-
-            Text = String.Format(Text, Resources.Strings.WindowTitle, AssemblyInfo.AssemblyVersion);
-
             checkForUpdatesLinkLabel.Enabled = CheckForUpdatesEnabled;
 
             base.OnLoad(e);
+        }
+
+        public void UICultureChanged()
+        {
+            copyrightLabel.Text = AssemblyInfo.Copyright;
+            aboutLabel.Text = Resources.Strings.HelpAbout_Description;
+
+            Text = String.Format(Resources.Strings.HelpAbout_Title, Resources.Strings.WindowTitle, AssemblyInfo.AssemblyVersion);
+
+            closeButton.Text = Resources.Strings.Close;
+
+            siteLinkLabel.Text = Resources.Strings.HelpAbout_SiteLinkLabel;
+            historyLinkLabel.Text = Resources.Strings.HelpAbout_HistoryLinkLabel;
+            checkForUpdatesLinkLabel.Text = Resources.Strings.HelpAbout_CheckForUpdatesLinkLabel;
         }
 
         protected override void OnHelpRequested(HelpEventArgs hevent)

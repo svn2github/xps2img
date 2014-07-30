@@ -67,6 +67,7 @@ IDH_SuggestResume=xps2img.chm::/Files\Preferences.html#suggestResume
 IDH_ShortenImageExtension=xps2img.chm::/Files\Preferences.html#shortenImageExtension
 IDH_Updates=xps2img.chm::/Files\Preferences.html#updates
 IDH_CheckForUpdates=xps2img.chm::/Files\Preferences.html#checkForUpdates
+IDH_ApplicationLanguage=xps2img.chm::/Files\Preferences.html#applicationLanguage
 
 [MAP]
 #define IDH_Preferences			1000
@@ -107,3 +108,4 @@ IDH_CheckForUpdates=xps2img.chm::/Files\Preferences.html#checkForUpdates
 #define IDH_CheckForUpdates		1266
 #define IDH_IgnoreExisting		1267
 #define IDH_IgnoreErrors		1268
+#define IDH_ApplicationLanguage		1269

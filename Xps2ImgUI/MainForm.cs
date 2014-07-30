@@ -9,7 +9,7 @@ using Windows7.DesktopIntegration;
 using Xps2Img.Shared.TypeConverters;
 using Xps2Img.Shared.Utils;
 using Xps2Img.Shared.Utils.UI;
-
+using Xps2ImgUI.Localization;
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils;
@@ -19,7 +19,7 @@ using ReturnCode = Xps2Img.Shared.CommandLine.CommandLine.ReturnCode;
 
 namespace Xps2ImgUI
 {
-    public partial class MainForm : Form, ISettings
+    public partial class MainForm : Form, IFormLocalization, ISettings
     {
         public MainForm()
         {
@@ -33,6 +33,8 @@ namespace Xps2ImgUI
             _updateManager.InstallationLaunched += (s, e) => this.InvokeIfNeeded(() => RegisterIdleHandler(UpdateInstallationLaunched));
 
             settingsPropertyGrid.ResetGroupCallback = PropertyGridResetGroupCallback;
+
+            this.EnableFormLocalization();
         }
 
         private bool PropertyGridResetGroupCallback(string label, bool check)
@@ -66,9 +68,6 @@ namespace Xps2ImgUI
 
         protected override void OnLoad(EventArgs e)
         {
-            Text = Resources.Strings.WindowTitle;
-
-            convertButton.Text = Resources.Strings.Launch;
             convertButton.ContextMenuStrip = convertContextMenuStrip;
 
             var isCommandLineVisible = IsCommandLineVisible;
@@ -86,13 +85,22 @@ namespace Xps2ImgUI
             base.OnLoad(e);
         }
 
+        public void UICultureChanged()
+        {
+            Text = Resources.Strings.WindowTitle;
+
+            convertButton.Text = Resources.Strings.Launch;
+        }
+
         protected override void OnSizeChanged(EventArgs e)
         {
             if (MinimumSize.IsEmpty)
             {
                 MinimumSize = Size;
             }
+
             SizeGripStyle = WindowState == FormWindowState.Maximized ? SizeGripStyle.Hide : SizeGripStyle.Show;
+
             base.OnSizeChanged(e);
         }
 
