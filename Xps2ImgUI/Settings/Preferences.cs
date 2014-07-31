@@ -14,10 +14,11 @@ namespace Xps2ImgUI.Settings
     {
         public enum Localizations
         {
-            English,
-            Українська,
+            English     = 0x0009,
+            Українська  = 0x0022,
         }
 
+        [ReadOnly(false)]
         [DisplayName(ApplicationLanguageDisplayName)]
         [Category(CategoryApplication)]
         [Description(ApplicationLanguageDescription)]

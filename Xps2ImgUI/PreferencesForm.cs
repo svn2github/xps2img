@@ -15,6 +15,9 @@ namespace Xps2ImgUI
     {
         private readonly bool _isRunning;
 
+        private readonly string _shortenExtensionPropertyName;
+        private readonly string _applicationLanguagePropertyName;
+
         public PreferencesForm(Preferences preferences, bool isRunning)
         {
             InitializeComponent();
@@ -22,6 +25,9 @@ namespace Xps2ImgUI
             _isRunning = isRunning;
 
             Preferences = preferences;
+
+            _shortenExtensionPropertyName = ReflectionUtils.GetPropertyName(() => Preferences.ShortenExtension);
+            _applicationLanguagePropertyName = ReflectionUtils.GetPropertyName(() => Preferences.ApplicationLanguage);
 
             this.EnableFormLocalization();
         }
@@ -42,7 +48,8 @@ namespace Xps2ImgUI
 
             preferencesPropertyGrid.SelectGridItem(Preferences.DefaultSelectedItem);
 
-            ReflectionUtils.SetReadOnly<Preferences>(_isRunning, () => Preferences.ShortenExtension);
+            ReflectionUtils.SetReadOnly<Preferences>(_isRunning, _shortenExtensionPropertyName);
+            ReflectionUtils.SetReadOnly<Preferences>(_isRunning, _applicationLanguagePropertyName);
 
             EnableReset();
 
@@ -51,7 +58,7 @@ namespace Xps2ImgUI
 
         private bool PropertyGridResetGroupCallback(string label, bool check)
         {
-            Func<PropertyInfo, bool> allowFilter = pi => !_isRunning || pi.Name != ReflectionUtils.GetPropertyName(() => Preferences.ShortenExtension);
+            Func<PropertyInfo, bool> allowFilter = pi => !_isRunning || (pi.Name != _shortenExtensionPropertyName && pi.Name != _applicationLanguagePropertyName);
 
             if (check)
             {
@@ -59,6 +66,7 @@ namespace Xps2ImgUI
             }
 
             preferencesPropertyGrid.ResetByCategory(label, allowFilter);
+
             EnableReset();
 
             return true;
@@ -76,17 +84,28 @@ namespace Xps2ImgUI
 
             okButton.Text = Resources.Strings.OK;
             cancelButton.Text = Resources.Strings.Cancel;
+
+            preferencesPropertyGrid.Refresh();
         }
 
         private void ResetToolStripButtonClick(object sender, EventArgs e)
         {
-            var shortenExtension = Preferences.ShortenExtension;
+            var oldShortenExtension = Preferences.ShortenExtension;
+            var oldApplicationLanguage = Preferences.ApplicationLanguage;
 
             Preferences.Reset();
 
+            var newApplicationLanguage = Preferences.ApplicationLanguage;
+
             if (_isRunning)
             {
-                Preferences.ShortenExtension = shortenExtension;
+                Preferences.ShortenExtension = oldShortenExtension;
+                Preferences.ApplicationLanguage = oldApplicationLanguage;
+            }
+
+            if (oldApplicationLanguage != newApplicationLanguage)
+            {
+                ChangeCulture();
             }
 
             preferencesPropertyGrid.Refresh();
@@ -96,12 +115,23 @@ namespace Xps2ImgUI
 
         private void PreferencesPropertyGridPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
+            if(e.ChangedItem.PropertyDescriptor.Name == _applicationLanguagePropertyName)
+            {
+                ChangeCulture();
+            }
+
             EnableReset();
+        }
+
+        private void ChangeCulture()
+        {
+            LocalizationManager.SetUICulture((int)Preferences.ApplicationLanguage);
         }
 
         private void PreferencesFormHelpButtonClicked(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
+
             ShowHelp();
         }
 

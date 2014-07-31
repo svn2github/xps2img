@@ -10,7 +10,12 @@ namespace Xps2ImgUI.Localization
 
         public static CultureInfo ResetUICulture()
         {
-            return SetUICulture(null);
+            return SetUICulture(String.Empty);
+        }
+
+        public static CultureInfo SetUICulture(int culture)
+        {
+            return SetUICulture(CultureInfo.GetCultureInfo(culture));
         }
 
         public static CultureInfo SetUICulture(string culture)
@@ -19,6 +24,11 @@ namespace Xps2ImgUI.Localization
                                 ? CultureInfo.InvariantCulture 
                                 : CultureInfo.GetCultureInfo(culture);
 
+            return SetUICulture(cultureInfo);
+        }
+
+        public static CultureInfo SetUICulture(CultureInfo cultureInfo)
+        {
             Thread.CurrentThread.CurrentUICulture = cultureInfo;
 
             var uiCultureChanged = UICultureChanged;
