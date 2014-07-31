@@ -103,6 +103,8 @@
 <ApplicationFile("Gnu.Getopt.dll")>
 <ApplicationFile("Microsoft.WindowsAPICodePack.dll")>
 <ApplicationFile("xps2img.chm")>
+<ApplicationFile("xps2img.exe.config")>
+<ApplicationFile("xps2imgUI.exe.config")>
 #define Active_Check    "IsPortable"
     <ApplicationFile(PortableMarkFile)>
 <Reset_ActiveCheck>

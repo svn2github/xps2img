@@ -130,7 +130,6 @@ namespace Xps2ImgUI
             // convertButton
             // 
             this.convertButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.convertButton.AutoSize = true;
             this.convertButton.Location = new System.Drawing.Point(638, 495);
             this.convertButton.Name = "convertButton";
             this.convertButton.Size = new System.Drawing.Size(75, 23);
