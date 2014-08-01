@@ -56,7 +56,7 @@ begin
   if not NETFW_IsDetectedNoSP(NETFW_Version35) and not NETFW_IsDetectedNoSP(NETFW_Version4) and not NETFW_IsDetectedNoSP(NETFW_Version45) then
   begin
     if MsgBox(ExpandConstant('{cm:Msg_DotNetIsMissing}'), mbConfirmation, MB_YESNO) = idYes then
-      ShellExec('open', 'http://www.microsoft.com/downloads/details.aspx?FamilyID=AB99342F-5D1A-413D-8319-81DA479AB0D7', '', '', SW_SHOWNORMAL, ewNoWait, errorCode);
+      ShellExec('open', NETFW_Version35Uri, '', '', SW_SHOWNORMAL, ewNoWait, errorCode);
     Result := False;
   end;
 end;

@@ -89,7 +89,7 @@
 <CustomMessage("en.Group_Uninstall",    "Uninstall")>
 <CustomMessage("en.Menu_WebSite",       "%1 Web Site")>
 
-<CustomMessage("en.Task_RegisterFileAssociations",     "&Register file associations")>
+<CustomMessage("en.Task_RegisterFileAssociations",      "&Register file associations")>
 <CustomMessage("en.Task_AddWindowsFirewallException",   "Add &Windows Firewall exception")>
 <CustomMessage("en.Task_SystemIntegrationTitle",        "System integration:")>
 

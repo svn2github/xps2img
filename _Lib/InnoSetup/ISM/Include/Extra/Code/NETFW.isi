@@ -14,6 +14,10 @@ const
     NETFW_Version4ClientProfile = 'v4\Client';
     NETFW_Version4  = 'v4\Full';
     NETFW_Version45 = 'v4.5';
+    
+const
+
+    NETFW_Version35Uri = 'http://www.microsoft.com/downloads/details.aspx?FamilyID=AB99342F-5D1A-413D-8319-81DA479AB0D7';
 
 const
 
