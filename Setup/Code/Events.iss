@@ -48,15 +48,13 @@ end;
 function InitializeSetup: Boolean;
 var
   errorCode: Integer;
-  isInstalled: Cardinal;
 begin
   
   Result := SingleSetupInstance_InitializeSetup;
   if not Result then Exit;
   
-  // Check for the .Net 3.5 framework
-  isInstalled := 0;
-  if (not RegQueryDWordValue(HKLM, 'SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5', 'Install', isInstalled)) or (isInstalled <> 1) then
+  // Check for the .Net 3.5+ framework
+  if (not NETFW_IsDetectedNoSP(NETFW_Version35)) and (not NETFW_IsDetectedNoSP(NETFW_Version4)) and (not NETFW_IsDetectedNoSP(NETFW_Version45)) then
   begin
     if MsgBox(ExpandConstant('{cm:Msg_DotNetIsMissing}'), mbConfirmation, MB_YESNO) = idYes then
       ShellExec('open', 'http://www.microsoft.com/downloads/details.aspx?FamilyID=AB99342F-5D1A-413D-8319-81DA479AB0D7', '', '', SW_SHOWNORMAL, ewNoWait, errorCode);

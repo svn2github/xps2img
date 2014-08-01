@@ -65,6 +65,7 @@
 #include ISM_RootDir + "/Include/Extra/Code/WindowsFirewall.isi"
 #include ISM_RootDir + "/Include/Extra/Code/CmdLine.isi"
 #include ISM_RootDir + "/Include/Extra/Code/Convert.isi"
+#include ISM_RootDir + "/Include/Extra/Code/NETFW.isi"
 
 #include "Messages.iss"
 

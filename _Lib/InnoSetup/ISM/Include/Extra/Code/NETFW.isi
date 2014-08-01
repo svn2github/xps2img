@@ -1,0 +1,82 @@
+#ifndef __ISM_EXTRA_CODE_NETFW_ISI__
+#define __ISM_EXTRA_CODE_NETFW_ISI__
+
+// http://kynosarges.org/DotNetVersion.html
+
+[Code]
+
+const
+
+    NETFW_Version11 = 'v1.1.4322';
+    NETFW_Version2  = 'v2.0.50727';
+    NETFW_Version3  = 'v3.0';   
+    NETFW_Version35 = 'v3.5';         
+    NETFW_Version4ClientProfile = 'v4\Client';
+    NETFW_Version4  = 'v4\Full';
+    NETFW_Version45 = 'v4.5';
+
+const
+
+    NETFW_NoSP  = 0;
+    NETFW_SP1   = 1;
+    NETFW_SP2   = 2;
+    NETFW_SP3   = 3;
+
+function NETFW_IsDetected(version: String; service: Cardinal) : Boolean;
+var
+    key: String;
+    install, release, serviceCount: Cardinal;
+    check45, success: Boolean;
+begin
+    // .NET 4.5 installs as update to .NET 4.0 Full
+    if version = 'v4.5' then
+    begin
+        version := 'v4\Full';
+        check45 := true;
+    end
+    else
+    begin
+        check45 := false;
+    end;
+
+    // installation key group for all .NET versions
+    key := 'SOFTWARE\Microsoft\NET Framework Setup\NDP\' + version;
+
+    // .NET 3.0 uses value InstallSuccess in subkey Setup
+    if Pos('v3.0', version) = 1 then
+    begin
+        success := RegQueryDWordValue(HKLM, key + '\Setup', 'InstallSuccess', install);
+    end
+    else
+    begin
+        success := RegQueryDWordValue(HKLM, key, 'Install', install);
+    end;
+
+    // .NET 4.0/4.5 uses value Servicing instead of SP
+    if Pos('v4', version) = 1 then
+    begin
+        success := success and RegQueryDWordValue(HKLM, key, 'Servicing', serviceCount);
+    end
+    else
+    begin
+        success := success and RegQueryDWordValue(HKLM, key, 'SP', serviceCount);
+    end;
+
+    // .NET 4.5 uses additional value Release
+    if check45 then
+    begin
+        success := success and RegQueryDWordValue(HKLM, key, 'Release', release);
+        success := success and (release >= 378389);
+    end;
+
+    Result := success and (install = 1) and (serviceCount >= service);
+end;
+
+function NETFW_IsDetectedNoSP(version: String) : Boolean;
+begin
+    Result := NETFW_IsDetected(version, NETFW_NoSP);
+end;
+
+[/Code]
+
+#endif
