@@ -31,10 +31,4 @@
     <File(LicenseFileLocalized)>
 <Reset_ActiveLanguages>
 
-<LocalizedCustomMessage(ActiveLanguage, "NETFW_Version11Uri",   "http://www.microsoft.com/en-us/download/details.aspx?id=26")>
-<LocalizedCustomMessage(ActiveLanguage, "NETFW_Version2Uri",    "http://www.microsoft.com/en-us/download/details.aspx?id=1639")>
-<LocalizedCustomMessage(ActiveLanguage, "NETFW_Version3Uri",    "http://www.microsoft.com/en-us/download/details.aspx?id=3005")>
-<LocalizedCustomMessage(ActiveLanguage, "NETFW_Version35Uri",   "http://www.microsoft.com/en-us/download/details.aspx?id=22")>
-<LocalizedCustomMessage(ActiveLanguage, "NETFW_Version4ClientProfileUri", "http://www.microsoft.com/en-us/download/details.aspx?id=17113")>
-<LocalizedCustomMessage(ActiveLanguage, "NETFW_Version4Uri",    "http://www.microsoft.com/en-us/download/details.aspx?id=17851")>
-<LocalizedCustomMessage(ActiveLanguage, "NETFW_Version45Uri",   "http://www.microsoft.com/en-us/download/details.aspx?id=30653")>
+<NETFW_CustomMessages(ActiveLanguage)>

@@ -3,17 +3,19 @@
 
 // http://kynosarges.org/DotNetVersion.html
 
-[CustomMessages]
+#include "../../Setup.isi"
+#include "../../Sections.isi"
 
-en.NETFW_Version11Uri=http://www.microsoft.com/en-us/download/details.aspx?id=26
-en.NETFW_Version2Uri=http://www.microsoft.com/en-us/download/details.aspx?id=1639
-en.NETFW_Version3Uri=http://www.microsoft.com/en-us/download/details.aspx?id=3005
-en.NETFW_Version35Uri=http://www.microsoft.com/en-us/download/details.aspx?id=22
-en.NETFW_Version4ClientProfileUri=http://www.microsoft.com/en-us/download/details.aspx?id=17113
-en.NETFW_Version4Uri=http://www.microsoft.com/en-us/download/details.aspx?id=17851
-en.NETFW_Version45Uri=http://www.microsoft.com/en-us/download/details.aspx?id=30653
-
-[/CustomMessages]
+#define NETFW_CustomMessages(str language='en') \
+    LocalizedCustomMessage(language, "NETFW_Version11Uri", "http://www.microsoft.com/en-us/download/details.aspx?id=26") + \
+    LocalizedCustomMessage(language, "NETFW_Version2Uri", "http://www.microsoft.com/en-us/download/details.aspx?id=1639") + \
+    LocalizedCustomMessage(language, "NETFW_Version3Uri", "http://www.microsoft.com/en-us/download/details.aspx?id=3005") + \
+    LocalizedCustomMessage(language, "NETFW_Version35Uri", "http://www.microsoft.com/en-us/download/details.aspx?id=22") + \
+    LocalizedCustomMessage(language, "NETFW_Version4ClientProfileUri", "http://www.microsoft.com/en-us/download/details.aspx?id=17113") + \
+    LocalizedCustomMessage(language, "NETFW_Version4Uri", "http://www.microsoft.com/en-us/download/details.aspx?id=17851") + \
+    LocalizedCustomMessage(language, "NETFW_Version45Uri", "http://www.microsoft.com/en-us/download/details.aspx?id=30653")
+    
+{#NETFW_CustomMessages()}
 
 [Code]
 
