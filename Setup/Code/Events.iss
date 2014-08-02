@@ -48,6 +48,7 @@ end;
 function InitializeSetup: Boolean;
 var
   errorCode: Integer;
+  msgBoxResult: Integer;
 begin
   Result := SingleSetupInstance_InitializeSetup;
   if not Result then Exit;
@@ -55,9 +56,10 @@ begin
   // .NET 3.5+ framework check.
   if not NETFW_IsDetectedNoSP(NETFW_Version35) and not NETFW_IsDetectedNoSP(NETFW_Version4) and not NETFW_IsDetectedNoSP(NETFW_Version45) then
   begin
-    if MsgBox(ExpandConstant('{cm:Msg_DotNetIsMissing}'), mbConfirmation, MB_YESNO) = idYes then
+    msgBoxResult := MsgBox(ExpandConstant('{cm:Msg_DotNetIsMissing}'), mbConfirmation, MB_YESNOCANCEL);
+    if msgBoxResult = idYes then
       ShellExec('open', NETFW_Version35Uri, '', '', SW_SHOWNORMAL, ewNoWait, errorCode);
-    Result := False;
+    Result := msgBoxResult = idCancel;
   end;
 end;
 

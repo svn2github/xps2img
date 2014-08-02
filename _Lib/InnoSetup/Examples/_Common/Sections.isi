@@ -80,8 +80,9 @@
 
 // Uninstall.
 
+
 #define IconUninstall() \
-            Icon("{group}\{cm:Group_Uninstall}\" + Utils_CmFormat("UninstallProgram", AppName), "{uninstallexe}", "", "{app}", Utils_CmFormat("UninstallProgram", AppName))
+            Icon(Const_UninstallGroup + Utils_CmFormat("UninstallProgram", AppName), "{uninstallexe}", "", "{app}", Utils_CmFormat("UninstallProgram", AppName))
 
 // Launch.
 

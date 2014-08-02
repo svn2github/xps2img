@@ -17,7 +17,6 @@
 
 <CustomMessage("en.Group_Cheats",		"Cheats")>
 <CustomMessage("en.Group_Help",			"Help")>
-<CustomMessage("en.Group_Uninstall",	"Uninstall")>
 <CustomMessage("en.Group_Web",          "Game on Web")>
 
 // Menu items.

@@ -1,0 +1,40 @@
+#define private ActiveLanguage          "uk"
+
+#define private LicenseFileLocalized    "Docs\" + ActiveLanguage + "\license.rtf"
+
+<Language(ActiveLanguage, "compiler:Languages\Ukrainian.isl", LicenseFileLocalized)>
+
+<LocalizedCustomMessage(ActiveLanguage, "Help",               AppName + " Help")>
+<LocalizedCustomMessage(ActiveLanguage, "License",            AppName + " License")>
+<LocalizedCustomMessage(ActiveLanguage, "ViewHelp",           "View " + AppName + " Help")>
+<LocalizedCustomMessage(ActiveLanguage, "Group_Uninstall",    "Uninstall")>
+<LocalizedCustomMessage(ActiveLanguage, "Menu_WebSite",       "%1 Web Site")>
+
+<LocalizedCustomMessage(ActiveLanguage, "Task_RegisterFileAssociations",      "&Register file associations")>
+<LocalizedCustomMessage(ActiveLanguage, "Task_AddWindowsFirewallException",   "Add &Windows Firewall exception")>
+<LocalizedCustomMessage(ActiveLanguage, "Task_SystemIntegrationTitle",        "System integration:")>
+
+; .NET check.
+<LocalizedCustomMessage(ActiveLanguage, "Msg_DotNetIsMissing", "This application requires Microsoft.NET 3.5 which is not installed.%n%nWould you like to download it now?%n%nPress Cancel to continue installation. Application might not work in this case.")>
+<LocalizedCustomMessage(ActiveLanguage, "Msg_KeepSettings",    "Would you like to keep saved application settings?")>
+
+; Setup mode.
+<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupMode",                   "Setup Mode")>
+<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupModeReadyPage",          "Setup mode:")>
+<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupModeQuestion",           "Would you like to install application or setup it as portable?")>
+<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupModeGroupTitle",         "Please specify setup mode:")>
+<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupModeInstall",            "&Standard installation")>
+<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupModeInstallUserOnly",    "In&stall only for me. Run Setup as Administrator for standard installation")>
+<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupModePortable",           "P&ortable")>
+
+#define Active_Languages ActiveLanguage
+    <File(LicenseFileLocalized)>
+<Reset_ActiveLanguages>
+
+<LocalizedCustomMessage(ActiveLanguage, "NETFW_Version11Uri",   "http://www.microsoft.com/en-us/download/details.aspx?id=26")>
+<LocalizedCustomMessage(ActiveLanguage, "NETFW_Version2Uri",    "http://www.microsoft.com/en-us/download/details.aspx?id=1639")>
+<LocalizedCustomMessage(ActiveLanguage, "NETFW_Version3Uri",    "http://www.microsoft.com/en-us/download/details.aspx?id=3005")>
+<LocalizedCustomMessage(ActiveLanguage, "NETFW_Version35Uri",   "http://www.microsoft.com/en-us/download/details.aspx?id=22")>
+<LocalizedCustomMessage(ActiveLanguage, "NETFW_Version4ClientProfileUri", "http://www.microsoft.com/en-us/download/details.aspx?id=17113")>
+<LocalizedCustomMessage(ActiveLanguage, "NETFW_Version4Uri",    "http://www.microsoft.com/en-us/download/details.aspx?id=17851")>
+<LocalizedCustomMessage(ActiveLanguage, "NETFW_Version45Uri",   "http://www.microsoft.com/en-us/download/details.aspx?id=30653")>

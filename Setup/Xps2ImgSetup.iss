@@ -29,8 +29,6 @@
 
 #define ArchitecturesInstallIn64BitMode "x64"
 
-#define LicenseFile             "Docs\license.rtf"
-
 #define OutputDir               "_Output"
 
 #define VersionInfoCopyright    "Copyright © 2010-2014, Ivan Ivon"
@@ -67,8 +65,6 @@
 #include ISM_RootDir + "/Include/Extra/Code/Convert.isi"
 #include ISM_RootDir + "/Include/Extra/Code/NETFW.isi"
 
-#include "Messages.iss"
-
 #include "Code/Params.iss"
 #include "Code/Events.iss"
 
@@ -79,23 +75,14 @@
 
 #define Common_RunFlags     RunFlag_NoWait + RunFlag_PostInstall + RunFlag_SkipIfSilent
 
-<Language("en", "compiler:Default.isl")>
-
-<Message("en.BeveledLabel", VersionInfoCompany)>
-
-<CustomMessage("en.Help",               AppName + " Help")>
-<CustomMessage("en.License",            AppName + " License")>
-<CustomMessage("en.ViewHelp",           "View " + AppName + " Help")>
-<CustomMessage("en.Group_Uninstall",    "Uninstall")>
-<CustomMessage("en.Menu_WebSite",       "%1 Web Site")>
-
-<CustomMessage("en.Task_RegisterFileAssociations",      "&Register file associations")>
-<CustomMessage("en.Task_AddWindowsFirewallException",   "Add &Windows Firewall exception")>
-<CustomMessage("en.Task_SystemIntegrationTitle",        "System integration:")>
-
 #define ApplicationFile(f)  File(BinariesPath + f)
 
 #define PortableMarkFile    "xps2imgUI.exe.portable"
+
+#include "Lang\en\Messages.iss"
+#include "Lang\uk\Messages.iss"
+
+<Message("BeveledLabel", VersionInfoCompany)>
 
 <ApplicationFile("xps2img.exe")>
 <ApplicationFile("xps2imgUI.exe")>
@@ -109,7 +96,6 @@
 #define Active_Check    "IsPortable"
     <ApplicationFile(PortableMarkFile)>
 <Reset_ActiveCheck>
-<File(LicenseFile)>
 
 <UninstallDelete(AddBackslash("{app}") + PortableMarkFile)>
 
@@ -144,10 +130,11 @@
 <Reset_ActiveCheck>
 
 #define Active_Check    "IsInstallable"
-    <Icon(AddBackslash("{group}\{cm:Group_Uninstall}") + Utils_CmFormat("UninstallProgram", AppName), "{uninstallexe}")>
+    <Icon(Const_UninstallGroup + Utils_CmFormat("UninstallProgram", AppName), "{uninstallexe}")>
 <Reset_ActiveCheck>
 
-<Icon("{group}\{cm:License}", AddBackslash("{app}") + ExtractFileName(LicenseFile))>
+<Icon("{group}\{cm:License}", "{app}\license.rtf")>
+
 <IconRun(AddBackslash("{group}") + AppName, AppExe)>
 <IconRun("{group}\{cm:Help}", AppReadmeFile)>
 

@@ -375,11 +375,14 @@
 
 #ifdef ISM_NoSectionCustomMessages
 	#define CustomMessage(str id, str message) ''
+	#define LocalizedCustomMessage(str language, str id, str message) ''
 #else
 	#define CustomMessage(str id, str message) \
 		Section_Start('CustomMessages') + \
 			Utils_AddLine(id, message) + \
 		Section_End('CustomMessages')
+
+	#define LocalizedCustomMessage(str language, str id, str message) CustomMessage(language + "." + id, message)
 #endif
 	
 // [Registry]

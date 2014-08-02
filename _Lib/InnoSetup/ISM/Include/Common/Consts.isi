@@ -21,5 +21,16 @@
 
 #define Const_UndefinedIntValue		-1
 
+#define Const_UninstallGroup		"{group}\{code:UninstallAppTitle}\"
+
+[Code]
+
+function UninstallAppTitle(_: String): String;
+begin
+  Result := SetupMessage(msgUninstallAppTitle);
+end;
+
+[/Code]
+
 #endif
 

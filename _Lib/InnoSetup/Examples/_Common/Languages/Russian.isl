@@ -17,7 +17,6 @@
 
 <CustomMessage("ru.Group_Cheats",		"×èòû")>
 <CustomMessage("ru.Group_Help",			"Ñïğàâêà")>
-<CustomMessage("ru.Group_Uninstall",	"Äåèíñòàëëÿöèÿ")>
 <CustomMessage("ru.Group_Web",          "Èíòåğíåò-ğåñóğñû")>
 
 // Menu items.

@@ -3,6 +3,18 @@
 
 // http://kynosarges.org/DotNetVersion.html
 
+[CustomMessages]
+
+en.NETFW_Version11Uri=http://www.microsoft.com/en-us/download/details.aspx?id=26
+en.NETFW_Version2Uri=http://www.microsoft.com/en-us/download/details.aspx?id=1639
+en.NETFW_Version3Uri=http://www.microsoft.com/en-us/download/details.aspx?id=3005
+en.NETFW_Version35Uri=http://www.microsoft.com/en-us/download/details.aspx?id=22
+en.NETFW_Version4ClientProfileUri=http://www.microsoft.com/en-us/download/details.aspx?id=17113
+en.NETFW_Version4Uri=http://www.microsoft.com/en-us/download/details.aspx?id=17851
+en.NETFW_Version45Uri=http://www.microsoft.com/en-us/download/details.aspx?id=30653
+
+[/CustomMessages]
+
 [Code]
 
 const
@@ -15,10 +27,6 @@ const
     NETFW_Version4  = 'v4\Full';
     NETFW_Version45 = 'v4.5';
     
-const
-
-    NETFW_Version35Uri = 'http://www.microsoft.com/downloads/details.aspx?FamilyID=AB99342F-5D1A-413D-8319-81DA479AB0D7';
-
 const
 
     NETFW_NoSP  = 0;
@@ -81,6 +89,39 @@ begin
     Result := NETFW_IsDetected(version, NETFW_NoSP);
 end;
 
-[/Code]
+function NETFW_Version11Uri : String;
+begin
+    Result := ExpandConstant('{cm:NETFW_Version11Uri}');
+end;
+
+function NETFW_Version2Uri : String;
+begin
+    Result := ExpandConstant('{cm:NETFW_Version2Uri}');
+end;
+
+function NETFW_Version3Uri : String;
+begin
+    Result := ExpandConstant('{cm:NETFW_Version3Uri}');
+end;
+
+function NETFW_Version35Uri : String;
+begin
+    Result := ExpandConstant('{cm:NETFW_Version35Uri}');
+end;
+
+function NETFW_Version4ClientProfileUri : String;
+begin
+    Result := ExpandConstant('{cm:NETFW_Version4ClientProfileUri}');
+end;
+
+function NETFW_Version4Uri : String;
+begin
+    Result := ExpandConstant('{cm:NETFW_Version4Uri}');
+end;
+
+function NETFW_Version45Uri : String;
+begin
+    Result := ExpandConstant('{cm:NETFW_Version45Uri}');
+end;
 
 #endif
