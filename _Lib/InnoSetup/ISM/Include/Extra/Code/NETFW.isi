@@ -6,14 +6,21 @@
 #include "../../Setup.isi"
 #include "../../Sections.isi"
 
-#define NETFW_CustomMessages(str language='en') \
-    LocalizedCustomMessage(language, "NETFW_Version11Uri", "http://www.microsoft.com/en-us/download/details.aspx?id=26") + \
-    LocalizedCustomMessage(language, "NETFW_Version2Uri", "http://www.microsoft.com/en-us/download/details.aspx?id=1639") + \
-    LocalizedCustomMessage(language, "NETFW_Version3Uri", "http://www.microsoft.com/en-us/download/details.aspx?id=3005") + \
-    LocalizedCustomMessage(language, "NETFW_Version35Uri", "http://www.microsoft.com/en-us/download/details.aspx?id=22") + \
-    LocalizedCustomMessage(language, "NETFW_Version4ClientProfileUri", "http://www.microsoft.com/en-us/download/details.aspx?id=17113") + \
-    LocalizedCustomMessage(language, "NETFW_Version4Uri", "http://www.microsoft.com/en-us/download/details.aspx?id=17851") + \
-    LocalizedCustomMessage(language, "NETFW_Version45Uri", "http://www.microsoft.com/en-us/download/details.aspx?id=30653")
+#define NETFW_CustomMessages(   str language='en', \
+                                version11Uri='http://www.microsoft.com/en-us/download/details.aspx?id=26', \
+                                version2Uri='http://www.microsoft.com/en-us/download/details.aspx?id=1639', \
+                                version3Uri='http://www.microsoft.com/en-us/download/details.aspx?id=3005', \
+                                version35Uri='http://www.microsoft.com/en-us/download/details.aspx?id=22', \
+                                version4ClientProfileUri='http://www.microsoft.com/en-us/download/details.aspx?id=17113', \
+                                version4Uri='http://www.microsoft.com/en-us/download/details.aspx?id=17851', \
+                                version45Uri='http://www.microsoft.com/en-us/download/details.aspx?id=30653') \
+    LocalizedCustomMessage(language, "NETFW_Version11Uri",  version11Uri) + \
+    LocalizedCustomMessage(language, "NETFW_Version2Uri",   version2Uri) + \
+    LocalizedCustomMessage(language, "NETFW_Version3Uri",   version3Uri) + \
+    LocalizedCustomMessage(language, "NETFW_Version35Uri",  version35Uri) + \
+    LocalizedCustomMessage(language, "NETFW_Version4ClientProfileUri", version4ClientProfileUri) + \
+    LocalizedCustomMessage(language, "NETFW_Version4Uri",   version4Uri) + \
+    LocalizedCustomMessage(language, "NETFW_Version45Uri",  version45Uri)
     
 {#NETFW_CustomMessages()}
 
