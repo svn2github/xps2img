@@ -7,7 +7,6 @@
 <LocalizedCustomMessage(ActiveLanguage, "Help",               AppName + " Help")>
 <LocalizedCustomMessage(ActiveLanguage, "License",            AppName + " License")>
 <LocalizedCustomMessage(ActiveLanguage, "ViewHelp",           "View " + AppName + " Help")>
-<LocalizedCustomMessage(ActiveLanguage, "Group_Uninstall",    "Uninstall")>
 <LocalizedCustomMessage(ActiveLanguage, "Menu_WebSite",       "%1 Web Site")>
 
 <LocalizedCustomMessage(ActiveLanguage, "Task_RegisterFileAssociations",      "&Register file associations")>
