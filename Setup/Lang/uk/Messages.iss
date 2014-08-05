@@ -1,33 +1,24 @@
-#define private ActiveLanguage          "uk"
+#define ActiveLanguage                      "uk"
+#define MessagesFile                        "compiler:Languages\Ukrainian.isl"
 
-#define private LicenseFileLocalized    "Docs\" + ActiveLanguage + "\license.rtf"
+#define Help                                AppName + " Довідка (Англійською)"
+#define License                             AppName + " Ліцензія"
+#define ViewHelp                            "Показати " + AppName + " довідку (Англійською)"
+#define Menu_WebSite                        "%1 Web Site"
 
-<Language(ActiveLanguage, "compiler:Languages\Ukrainian.isl", LicenseFileLocalized)>
+#define Task_RegisterFileAssociations       "Р&еєструвати файлові асоціації"
+#define Task_AddWindowsFirewallException    "Додати &виняток до Windows Firewall"
+#define Task_SystemIntegrationTitle         "Системна інтеграція:"
 
-<LocalizedCustomMessage(ActiveLanguage, "Help",               AppName + " Help")>
-<LocalizedCustomMessage(ActiveLanguage, "License",            AppName + " License")>
-<LocalizedCustomMessage(ActiveLanguage, "ViewHelp",           "View " + AppName + " Help")>
-<LocalizedCustomMessage(ActiveLanguage, "Menu_WebSite",       "%1 Web Site")>
+#define Msg_DotNetIsMissing                 "Програма потребує встановлення Microsoft.NET 3.5%n%nБажаєте завантажити його зараз?%n%nНажміть Скасувати для подальшого встановлення. Зверніть увагу, що роботоздатність програми у такому випадку не гарантується."
+#define Msg_KeepSettings                    "Бажаєте залишити збережені налаштування програми?"
 
-<LocalizedCustomMessage(ActiveLanguage, "Task_RegisterFileAssociations",      "&Register file associations")>
-<LocalizedCustomMessage(ActiveLanguage, "Task_AddWindowsFirewallException",   "Add &Windows Firewall exception")>
-<LocalizedCustomMessage(ActiveLanguage, "Task_SystemIntegrationTitle",        "System integration:")>
+#define Msg_SetupMode                       "Встановити як"
+#define Msg_SetupModeReadyPage              "Встановити програму:"
+#define Msg_SetupModeQuestion               "Бажаєте встановити програму звичайно або портативно?"
+#define Msg_SetupModeGroupTitle             "Встановити програму:"
+#define Msg_SetupModeInstall                "&Звичайно"
+#define Msg_SetupModeInstallUserOnly        "Тільки для &мене. Для звичайного встановлення запустіть програму з правами адміністратора."
+#define Msg_SetupModePortable               "&Портативно"
 
-; .NET check.
-<LocalizedCustomMessage(ActiveLanguage, "Msg_DotNetIsMissing", "This application requires Microsoft.NET 3.5 which is not installed.%n%nWould you like to download it now?%n%nPress Cancel to continue installation. Application might not work in this case.")>
-<LocalizedCustomMessage(ActiveLanguage, "Msg_KeepSettings",    "Would you like to keep saved application settings?")>
-
-; Setup mode.
-<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupMode",                   "Setup Mode")>
-<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupModeReadyPage",          "Setup mode:")>
-<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupModeQuestion",           "Would you like to install application or setup it as portable?")>
-<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupModeGroupTitle",         "Please specify setup mode:")>
-<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupModeInstall",            "&Standard installation")>
-<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupModeInstallUserOnly",    "In&stall only for me. Run Setup as Administrator for standard installation")>
-<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupModePortable",           "P&ortable")>
-
-#define Active_Languages ActiveLanguage
-    <File(LicenseFileLocalized)>
-<Reset_ActiveLanguages>
-
-<NETFW_CustomMessages(ActiveLanguage)>
+#include "../Messages.iss"

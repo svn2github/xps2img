@@ -1,31 +1,24 @@
-#define private ActiveLanguage          "en"
+#define ActiveLanguage                      "en"
+#define MessagesFile                        "compiler:Default.isl"
 
-#define private LicenseFileLocalized    "Docs\" + ActiveLanguage + "\license.rtf"
+#define Help                                AppName + " Help"
+#define License                             AppName + " License"
+#define ViewHelp                            "View " + AppName + " Help"
+#define Menu_WebSite                        "%1 Web Site"
 
-<Language(ActiveLanguage, "compiler:Default.isl", LicenseFileLocalized)>
+#define Task_RegisterFileAssociations       "&Register file associations"
+#define Task_AddWindowsFirewallException    "Add &Windows Firewall exception"
+#define Task_SystemIntegrationTitle         "System integration:"
 
-<LocalizedCustomMessage(ActiveLanguage, "Help",               AppName + " Help")>
-<LocalizedCustomMessage(ActiveLanguage, "License",            AppName + " License")>
-<LocalizedCustomMessage(ActiveLanguage, "ViewHelp",           "View " + AppName + " Help")>
-<LocalizedCustomMessage(ActiveLanguage, "Menu_WebSite",       "%1 Web Site")>
+#define Msg_DotNetIsMissing                 "This application requires Microsoft.NET 3.5 which is not installed.%n%nWould you like to download it now?%n%nPress Cancel to continue installation. Application might not work in this case."
+#define Msg_KeepSettings                    "Would you like to keep saved application settings?"
 
-<LocalizedCustomMessage(ActiveLanguage, "Task_RegisterFileAssociations",      "&Register file associations")>
-<LocalizedCustomMessage(ActiveLanguage, "Task_AddWindowsFirewallException",   "Add &Windows Firewall exception")>
-<LocalizedCustomMessage(ActiveLanguage, "Task_SystemIntegrationTitle",        "System integration:")>
+#define Msg_SetupMode                       "Setup As"
+#define Msg_SetupModeReadyPage              "Setup as:"
+#define Msg_SetupModeQuestion               "Would you like to install application or setup it as portable?"
+#define Msg_SetupModeGroupTitle             "Please specify setup mode:"
+#define Msg_SetupModeInstall                "&Standard installation"
+#define Msg_SetupModeInstallUserOnly        "In&stall only for me. Run Setup as Administrator for standard installation"
+#define Msg_SetupModePortable               "P&ortable"
 
-; .NET check.
-<LocalizedCustomMessage(ActiveLanguage, "Msg_DotNetIsMissing", "This application requires Microsoft.NET 3.5 which is not installed.%n%nWould you like to download it now?%n%nPress Cancel to continue installation. Application might not work in this case.")>
-<LocalizedCustomMessage(ActiveLanguage, "Msg_KeepSettings",    "Would you like to keep saved application settings?")>
-
-; Setup mode.
-<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupMode",                   "Setup Mode")>
-<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupModeReadyPage",          "Setup mode:")>
-<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupModeQuestion",           "Would you like to install application or setup it as portable?")>
-<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupModeGroupTitle",         "Please specify setup mode:")>
-<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupModeInstall",            "&Standard installation")>
-<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupModeInstallUserOnly",    "In&stall only for me. Run Setup as Administrator for standard installation")>
-<LocalizedCustomMessage(ActiveLanguage, "Msg_SetupModePortable",           "P&ortable")>
-
-#define Active_Languages ActiveLanguage
-    <File(LicenseFileLocalized)>
-<Reset_ActiveLanguages>
+#include "../Messages.iss"
