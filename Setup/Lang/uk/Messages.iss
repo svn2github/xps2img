@@ -22,3 +22,5 @@
 #define protected Msg_SetupModePortable                 "&Портативно"
 
 #include "../Messages.iss"
+
+<NETFW_CustomMessages(ActiveLanguage)>

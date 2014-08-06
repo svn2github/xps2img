@@ -27,5 +27,3 @@
 #define Active_Languages ActiveLanguage
     <File(LicenseFileLocalized)>
 <Reset_ActiveLanguages>
-
-<NETFW_CustomMessages(ActiveLanguage)>
