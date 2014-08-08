@@ -40,6 +40,9 @@
 #define AppPublisher            "Ivan Ivon (" + VersionInfoCompany + ")"
 #define AppReadmeFile           "{app}\xps2img.chm"
 
+#define Uninstallable           "IsInstallable"
+#define CreateUninstallRegKey   "IsInstallable"
+
 #define AllowNoIcons            "yes"
 
 #define SetupIconFile           "Icons/Application.ico"
@@ -67,9 +70,6 @@
 
 #include "Code/Params.iss"
 #include "Code/Events.iss"
-
-#define Uninstallable           "IsInstallable"
-#define CreateUninstallRegKey   "IsInstallable"
 
 #include ISM_RootDir + "/Include/IncludeAll.isi"
 
