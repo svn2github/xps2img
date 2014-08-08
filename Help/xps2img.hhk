@@ -26,6 +26,14 @@
 		<param name="Local" value="Files\GUI.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="GUI Frontend Preferences">
+		<param name="Local" value="Files\Preferences.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="GUI Frontend Command-line Options">
+		<param name="Local" value="Files\OptionsGUI.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Hints&amp;Tips">
 		<param name="Local" value="Files\Hints.html">
 		</OBJECT>

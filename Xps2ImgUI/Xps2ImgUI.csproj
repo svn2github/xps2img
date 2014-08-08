@@ -165,7 +165,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Icons.resx</DependentUpon>
     </Compile>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Utils\Stubs\UpdateManager.cs" />
     <Compile Include="Utils\Interfaces\IUpdateManager.cs" />
     <Compile Include="Localization\IFormLocalization.cs" />
