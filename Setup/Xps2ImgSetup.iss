@@ -80,7 +80,7 @@
 #define PortableMarkFile    "xps2imgUI.exe.portable"
 
 #include "Lang\en\Messages.iss"
-//#include "Lang\uk\Messages.iss"
+#include "Lang\uk\Messages.iss"
 
 <Message("BeveledLabel", VersionInfoCompany)>
 

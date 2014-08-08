@@ -15,7 +15,7 @@ namespace Xps2ImgUI.Settings
         public enum Localizations
         {
             English     = 0x0009,
-            //Українська  = 0x0022
+            Українська  = 0x0022
         }
 
         [ReadOnly(false)]
@@ -186,7 +186,7 @@ namespace Xps2ImgUI.Settings
                 yield return CheckForUpdates == CheckInterval.Weekly;
                 yield return CheckForUpdates == CheckInterval.Monthly;
                 yield return ApplicationLanguage == Localizations.English;
-                //yield return ApplicationLanguage == Localizations.Українська;
+                yield return ApplicationLanguage == Localizations.Українська;
             }
         }
 
