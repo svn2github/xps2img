@@ -2,11 +2,11 @@
 #define __ISM_VERSION_ISI__
 
 // ISM version.
-#define ISM_Version					EncodeVer(5, 2, 2, 0)
+#define ISM_Version					EncodeVer(5, 5, 5, 0)
 #define ISM_VersionString			DecodeVer(ISM_Version)
 
 // Preprocessor version required.
-#define ISM_PreprocVer				EncodeVer(5, 2, 1, 0)
+#define ISM_PreprocVer				EncodeVer(5, 5, 5, 0)
 #define ISM_PreprocVerString		DecodeVer(ISM_PreprocVer)
 
 #define private __ISM_VersionWarning__(str app, str version) "[ISM] " + app + " " + version + " or higher is required"
