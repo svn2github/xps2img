@@ -119,7 +119,7 @@ begin
     // Expand the returned string from ReadFile  to avoid an access violation.
     stringWnd := StringOfChar('#', 101);
     ReadFile(_SingleSetupInstance_hLockFile, stringWnd, 100, bytesRead, 0);
-    stringWnd := Copy(stringWnd, 0, bytesRead);
+    stringWnd := Copy(stringWnd, 0, bytesRead / sizeof(stringWnd[1]));
     CloseHandle(_SingleSetupInstance_hLockFile);
     hPrevWnd := StrToIntDef(stringWnd, 0);
     Result := hPrevWnd = 0;
@@ -146,7 +146,7 @@ var
 begin
     hMainWnd := WizardForm.Handle;
     stringWnd := IntToStr(hMainWnd);
-    WriteFile(_SingleSetupInstance_hLockFile, stringWnd, length(stringWnd), bytesWritten, 0);
+    WriteFile(_SingleSetupInstance_hLockFile, stringWnd, Length(stringWnd) * SizeOf(stringWnd[1]), bytesWritten, 0);
 end;
 
 function SingleSetupInstance_InitializeSetup: Boolean;
