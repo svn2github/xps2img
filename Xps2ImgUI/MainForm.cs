@@ -68,6 +68,8 @@ namespace Xps2ImgUI
 
         protected override void OnLoad(EventArgs e)
         {
+            LocalizationManager.SetUICulture((int)_preferences.ApplicationLanguage);
+
             convertButton.ContextMenuStrip = convertContextMenuStrip;
 
             var isCommandLineVisible = IsCommandLineVisible;

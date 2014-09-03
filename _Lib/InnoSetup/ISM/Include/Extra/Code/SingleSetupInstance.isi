@@ -89,7 +89,7 @@ begin
       CREATE_ALWAYS,
       FILE_ATTRIBUTE_TEMPORARY,
       0);
-    if(INVALID_HANDLE_VALUE = _SingleSetupInstance_hLockFile) then
+    if INVALID_HANDLE_VALUE = _SingleSetupInstance_hLockFile then
     begin
       // File is still locked, i.e. the first instance is still running.
       Result := True;
@@ -111,7 +111,7 @@ begin
       OPEN_EXISTING,
       FILE_ATTRIBUTE_TEMPORARY,
       0);
-    if(INVALID_HANDLE_VALUE = _SingleSetupInstance_hLockFile) then
+    if INVALID_HANDLE_VALUE = _SingleSetupInstance_hLockFile then
     begin // The file's disappeared, i.e. we should start up normally.
       Result := False;
       Exit;

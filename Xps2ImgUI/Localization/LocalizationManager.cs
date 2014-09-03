@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Reflection;
 using System.Threading;
 
 namespace Xps2ImgUI.Localization
@@ -29,7 +30,9 @@ namespace Xps2ImgUI.Localization
 
         public static CultureInfo SetUICulture(CultureInfo cultureInfo)
         {
-            Thread.CurrentThread.CurrentUICulture = cultureInfo;
+            SetDefaultThreadCurrentCulture(cultureInfo, false);
+
+            CurrentUICulture = cultureInfo;
 
             var uiCultureChanged = UICultureChanged;
             if (uiCultureChanged != null)
@@ -38,6 +41,43 @@ namespace Xps2ImgUI.Localization
             }
 
             return cultureInfo;
+        }
+
+        public static CultureInfo CurrentUICulture
+        {
+            get { return Thread.CurrentThread.CurrentUICulture; }
+            private set { Thread.CurrentThread.CurrentUICulture = value; }
+        }
+
+        private static void SetDefaultThreadCurrentCulture(CultureInfo culture, bool setCulture = true, bool setUICulture = true)
+        {
+            Action<bool, string> setCultureFor = (set, name) =>
+            {
+                if (set)
+                {
+                    typeof (CultureInfo).InvokeMember(name, BindingFlags.SetField | BindingFlags.NonPublic | BindingFlags.Static, null, culture, new object[] { culture });
+                }
+            };
+
+            // ReSharper disable EmptyGeneralCatchClause
+            try
+            {
+                setCultureFor(setCulture, "s_userDefaultCulture");
+                setCultureFor(setUICulture, "s_userDefaultUICulture");
+            }
+            catch
+            {
+            }
+
+            try
+            {
+                setCultureFor(setCulture, "m_userDefaultCulture");
+                setCultureFor(setUICulture, "m_userDefaultUICulture");
+            }
+            catch
+            {
+            }
+            // ReSharper restore EmptyGeneralCatchClause
         }
     }
 }

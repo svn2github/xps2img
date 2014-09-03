@@ -4,7 +4,7 @@
 #define protected Help                                  AppName + " Довідка (Англійською)"
 #define protected License                               AppName + " Ліцензія"
 #define protected ViewHelp                              "Показати " + AppName + " довідку (Англійською)"
-#define protected Menu_WebSite                          "%1 Web Site"
+#define protected Menu_WebSite                          "%1 в Інтернеті"
     
 #define protected Task_RegisterFileAssociations         "Р&еєструвати файлові асоціації"
 #define protected Task_AddWindowsFirewallException      "Додати &виняток до Windows Firewall"

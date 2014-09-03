@@ -17,20 +17,30 @@ begin
     Result := ExpandConstant(AddBackslash('{userappdata}') + '{#AppName}');
 end;
 
+function TasksList: TNewCheckListBox;
+begin
+  Result := WizardForm.TasksList;
+end;
+
+function GetTasksListIndex(message: String) : Integer;
+begin
+  Result := TasksList.Items.IndexOf(ExpandConstant('{cm:' + message + '}'));
+end;
+
 function TaskDesktopIndex: Integer;
 begin
-  Result := WizardForm.TasksList.Items.IndexOf(ExpandConstant('{cm:CreateDesktopIcon}'));
+  Result := GetTasksListIndex('CreateDesktopIcon');
 end;
 
 function TaskExtensionIndex: Integer;
 begin
-  Result := WizardForm.TasksList.Items.IndexOf(ExpandConstant('{cm:Task_RegisterFileAssociations}'));
+  Result := GetTasksListIndex('Task_RegisterFileAssociations');
 end;
 
 function TaskFirewallIndex: Integer;
 begin
-  Result := WizardForm.TasksList.Items.IndexOf(ExpandConstant('{cm:Task_AddWindowsFirewallException}'));
-  WizardForm.TasksList.ItemEnabled[Result] := WindowsFirewall_IsConfigurable;
+  Result := GetTasksListIndex('Task_AddWindowsFirewallException');
+  TasksList.ItemEnabled[Result] := WindowsFirewall_IsConfigurable;
 end;
 
 function IsInstallableIndex: Integer;
@@ -40,9 +50,9 @@ end;
 
 procedure UpdateTaskValues(IsInstallableBoolean: Boolean);
 begin
-  TaskDesktopValues[Convert_BooleanToInteger(IsInstallableBoolean)]   := WizardForm.TasksList.Checked[TaskDesktopIndex];
-  TaskExtensionValues[Convert_BooleanToInteger(IsInstallableBoolean)] := WizardForm.TasksList.Checked[TaskExtensionIndex];
-  TaskFirewallValues[Convert_BooleanToInteger(IsInstallableBoolean)]  := WizardForm.TasksList.Checked[TaskFirewallIndex] and WizardForm.TasksList.ItemEnabled[TaskFirewallIndex];
+  TaskDesktopValues[Convert_BooleanToInteger(IsInstallableBoolean)]   := TasksList.Checked[TaskDesktopIndex];
+  TaskExtensionValues[Convert_BooleanToInteger(IsInstallableBoolean)] := TasksList.Checked[TaskExtensionIndex];
+  TaskFirewallValues[Convert_BooleanToInteger(IsInstallableBoolean)]  := TasksList.Checked[TaskFirewallIndex] and TasksList.ItemEnabled[TaskFirewallIndex];
 end;
 
 function InitializeSetup: Boolean;
@@ -72,12 +82,14 @@ begin
   SingleSetupInstance_InitializeWizard;
 
   DirValues[IndexOfPortable] := ApplicationData;
+
   case IsAdminLoggedOn of
     True:
     begin
       InstallModeCM := '{cm:Msg_SetupModeInstall}';
       DirValues[IndexOfInstall] := WizardForm.DirEdit.Text;
     end;
+
     False:
     begin
       InstallModeCM := '{cm:Msg_SetupModeInstallUserOnly}';
@@ -96,6 +108,7 @@ begin
     ExpandConstant('{cm:Msg_SetupModeQuestion}'),
     ExpandConstant('{cm:Msg_SetupModeGroupTitle}'),
     True, False);
+
   SetupModePage.Add(ExpandConstant(InstallModeCM));
   SetupModePage.Add(ExpandConstant('{cm:Msg_SetupModePortable}'));
 
@@ -112,6 +125,7 @@ begin
   case CurPageID of
     wpSelectDir:
       WizardForm.DirEdit.Text := DirValues[IsInstallableIndex];
+
     wpSelectTasks:
     begin
       if not TaskValuesInit then
@@ -119,10 +133,11 @@ begin
         UpdateTaskValues(True);
         TaskValuesInit := True;
       end;
-      WizardForm.TasksList.Checked[TaskDesktopIndex]   := TaskDesktopValues[IsInstallableIndex];
-      WizardForm.TasksList.Checked[TaskExtensionIndex] := TaskExtensionValues[IsInstallableIndex];
-      WizardForm.TasksList.Checked[TaskFirewallIndex]  := TaskFirewallValues[IsInstallableIndex];
+      TasksList.Checked[TaskDesktopIndex]   := TaskDesktopValues[IsInstallableIndex];
+      TasksList.Checked[TaskExtensionIndex] := TaskExtensionValues[IsInstallableIndex];
+      TasksList.Checked[TaskFirewallIndex]  := TaskFirewallValues[IsInstallableIndex];
     end;
+
     wpSelectProgramGroup:
     begin
       if not NoIconsCheckValuesInit then
@@ -162,6 +177,7 @@ begin
       WindowsFirewall_RemoveException('{#AppName}', {#FirewallProcessImageFileName});
       MRU_Remove('{#XPSFileExtension}', '{#AppExe}');
     end;
+
     usUninstall:
       if DirExists(ApplicationData) and (UninstallSilent or (MsgBox(ExpandConstant('{cm:Msg_KeepSettings}'), mbConfirmation, MB_YESNO) = idNo)) then
         DelTree(ApplicationData, True, True, True);
@@ -173,8 +189,10 @@ begin
   case CurPageID of
     wpSelectDir:
       DirValues[IsInstallableIndex] := WizardForm.DirEdit.Text;
+
     wpSelectTasks:
       UpdateTaskValues(IsInstallable);
+
     wpSelectProgramGroup:
     begin
       NoIconsCheckValues[IsInstallableIndex] := WizardForm.NoIconsCheck.Checked;
