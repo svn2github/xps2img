@@ -11,6 +11,8 @@ var
   TaskValuesInit: Boolean;
   NoIconsCheckValuesInit: Boolean;
   InstallModeCM: String;
+  UseCurrentDirCheckBox: TNewCheckBox;
+  PreviousDir: String;
 
 function ApplicationData: String;
 begin
@@ -77,9 +79,36 @@ const
   IndexOfPortable = 0;
   IndexOfInstall  = 1;
   
+procedure OnUseCurrentDirCheckBoxClick(Sender: TObject);
+begin
+  if UseCurrentDirCheckBox.Checked then
+  begin
+    PreviousDir := WizardForm.DirEdit.Text;
+    WizardForm.DirEdit.Text := ExpandConstant('{src}') + '\' + ExtractFileName(PreviousDir);
+  end
+  else
+  begin
+    WizardForm.DirEdit.Text := PreviousDir;
+  end;
+end;
+
+procedure AddUseCurrentDirCheckBox;
+begin
+  UseCurrentDirCheckBox := TNewCheckBox.Create(WizardForm);
+  
+  UseCurrentDirCheckBox.Parent := WizardForm.SelectDirPage;
+  UseCurrentDirCheckBox.Top := WizardForm.DirEdit.Top + WizardForm.DirEdit.Height + 8;
+  UseCurrentDirCheckBox.Width := WizardForm.Width;
+  UseCurrentDirCheckBox.Caption := ExpandConstant('{cm:Msg_InstallToCurrentDirectory}');
+  
+  UseCurrentDirCheckBox.OnClick := @OnUseCurrentDirCheckBoxClick;
+end;
+
 procedure InitializeWizard;
-begin 
+begin
   SingleSetupInstance_InitializeWizard;
+  
+  AddUseCurrentDirCheckBox;
 
   DirValues[IndexOfPortable] := ApplicationData;
 
@@ -124,8 +153,11 @@ procedure CurPageChanged(CurPageID: Integer);
 begin
   case CurPageID of
     wpSelectDir:
+    begin
       WizardForm.DirEdit.Text := DirValues[IsInstallableIndex];
-
+      UseCurrentDirCheckBox.Visible := IsUserPortable;
+    end;
+    
     wpSelectTasks:
     begin
       if not TaskValuesInit then

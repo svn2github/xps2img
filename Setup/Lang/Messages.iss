@@ -11,6 +11,8 @@
 <LocalizedCustomMessage(ActiveLanguage, "Task_AddWindowsFirewallException",   Task_AddWindowsFirewallException)>
 <LocalizedCustomMessage(ActiveLanguage, "Task_SystemIntegrationTitle",        Task_SystemIntegrationTitle)>
 
+<LocalizedCustomMessage(ActiveLanguage, "Msg_InstallToCurrentDirectory",      Msg_InstallToCurrentDirectory)>
+
 ; .NET check.
 <LocalizedCustomMessage(ActiveLanguage, "Msg_DotNetIsMissing", Msg_DotNetIsMissing)>
 <LocalizedCustomMessage(ActiveLanguage, "Msg_KeepSettings",    Msg_KeepSettings)>
