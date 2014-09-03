@@ -10,7 +10,7 @@
 #define protected Task_AddWindowsFirewallException      "Додати &виняток до Windows Firewall"
 #define protected Task_SystemIntegrationTitle           "Системна інтеграція:"
 
-#define protected Msg_InstallToCurrentDirectory		    "Встановити у &поточну папку"
+#define protected Msg_InstallToCurrentDirectory         "Встановити у &поточну папку"
     
 #define protected Msg_DotNetIsMissing                   "Програма потребує встановлення Microsoft.NET 3.5%n%nБажаєте завантажити його зараз?%n%nНажміть Скасувати для подальшого встановлення. Зверніть увагу, що роботоздатність програми у такому випадку не гарантується."
 #define protected Msg_KeepSettings                      "Бажаєте залишити збережені налаштування програми?"
