@@ -10,7 +10,7 @@
 #define protected Task_AddWindowsFirewallException      "Add &Windows Firewall exception"
 #define protected Task_SystemIntegrationTitle           "System integration:"
 
-#define protected Msg_InstallToCurrentDirectory         "Install to &current folder"
+#define protected Msg_InstallToCurrentDirectory         "Install into &current folder"
 
 #define protected Msg_DotNetIsMissing                   "This application requires Microsoft.NET 3.5 which is not installed.%n%nWould you like to download it now?%n%nPress Cancel to continue installation. Application might not work in this case."
 #define protected Msg_KeepSettings                      "Would you like to keep saved application settings?"

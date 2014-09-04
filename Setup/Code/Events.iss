@@ -86,8 +86,8 @@ end;
   
 procedure UpdateUseCurrentDir;
 begin
-  WizardForm.DirEdit.ReadOnly := UseCurrentDir;
-  WizardForm.DirBrowseButton.Enabled := not WizardForm.DirEdit.ReadOnly;
+  WizardForm.DirEdit.Enabled := not UseCurrentDir;
+  WizardForm.DirBrowseButton.Enabled := WizardForm.DirEdit.Enabled;
 end;
 
 procedure OnUseCurrentDirCheckBoxClick(Sender: TObject);
