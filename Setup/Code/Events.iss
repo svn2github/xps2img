@@ -79,9 +79,20 @@ const
   IndexOfPortable = 0;
   IndexOfInstall  = 1;
   
+function UseCurrentDir: Boolean;
+begin
+  Result := UseCurrentDirCheckBox.Visible and UseCurrentDirCheckBox.Checked;
+end;
+  
+procedure UpdateUseCurrentDir;
+begin
+  WizardForm.DirEdit.ReadOnly := UseCurrentDir;
+  WizardForm.DirBrowseButton.Enabled := not WizardForm.DirEdit.ReadOnly;
+end;
+
 procedure OnUseCurrentDirCheckBoxClick(Sender: TObject);
 begin
-  if UseCurrentDirCheckBox.Checked then
+  if UseCurrentDir then
   begin
     PreviousDir := WizardForm.DirEdit.Text;
     WizardForm.DirEdit.Text := ExpandConstant('{src}') + '\' + ExtractFileName(PreviousDir);
@@ -90,6 +101,7 @@ begin
   begin
     WizardForm.DirEdit.Text := PreviousDir;
   end;
+  UpdateUseCurrentDir;
 end;
 
 procedure AddUseCurrentDirCheckBox;
@@ -156,6 +168,7 @@ begin
     begin
       WizardForm.DirEdit.Text := DirValues[IsInstallableIndex];
       UseCurrentDirCheckBox.Visible := IsUserPortable;
+      UpdateUseCurrentDir;
     end;
     
     wpSelectTasks:
