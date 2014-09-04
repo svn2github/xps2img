@@ -146,7 +146,7 @@ var
 begin
     hMainWnd := WizardForm.Handle;
     stringWnd := IntToStr(hMainWnd);
-    WriteFile(_SingleSetupInstance_hLockFile, stringWnd, Length(stringWnd) * SizeOf(stringWnd[1]), bytesWritten, 0);
+    WriteFile(_SingleSetupInstance_hLockFile, stringWnd, Length(stringWnd) * sizeof(stringWnd[1]), bytesWritten, 0);
 end;
 
 function SingleSetupInstance_InitializeSetup: Boolean;

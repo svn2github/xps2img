@@ -62,7 +62,7 @@ var
   errorCode: Integer;
   msgBoxResult: Integer;
 begin
-  Result := SingleSetupInstance_InitializeSetup;
+  Result := IsUpdate or SingleSetupInstance_InitializeSetup;
   if not Result then Exit;
   
   // .NET 3.5+ framework check.
