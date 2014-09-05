@@ -13,6 +13,7 @@ using System.Threading;
 using Xps2Img.Shared.Utils;
 using Xps2Img.Shared.Utils.System;
 
+using Xps2ImgUI.Localization;
 using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils.UI;
 
@@ -32,11 +33,11 @@ namespace Xps2ImgUI.Utils
         private const string VersionCheck       = @"/Releases/xps2img[^-]*-(?<version>(\.?\d+){4})";
 
         private static readonly string DownloadFolder = String.Format("xps2img-update-{0}", Guid.NewGuid().ToString().Split("-".ToCharArray()).First());
-        private static readonly string SetupCommandLineArguments = String.Format("/dir=\"{0}\" /update /silent /nocancel {1}", AssemblyInfo.ApplicationFolder, GetPortableArguments("/portable", "/tasks=\"\""));
+        private static readonly string SetupCommandLineArguments = String.Format("/dir=\"{0}\" /update /silent /nocancel {1}", AssemblyInfo.ApplicationFolder, GetPortableArguments("/portable", "/tasks=\"\"", "/lang={0}"));
 
         private static string GetPortableArguments(params string[] arguments)
         {
-            return String.Join(" ", arguments.Select(s => SettingsManager.IsPortable ? s : String.Empty).ToArray());
+            return String.Join(" ", arguments.Select(s => SettingsManager.IsPortable ? s : String.Empty).ToArray()).Trim();
         }
 
         public bool HasUpdate
@@ -321,7 +322,7 @@ namespace Xps2ImgUI.Utils
         private static void CheckAccessAndInstall(string setup)
         {
             var requireAdmin = !IsDirectoryWritableForCurrentUser(AssemblyInfo.ApplicationFolder);
-            Explorer.ShellExecute(setup, requireAdmin, SetupCommandLineArguments, requireAdmin ? "runas" : null);
+            Explorer.ShellExecute(setup, requireAdmin, String.Format(SetupCommandLineArguments, LocalizationManager.CurrentUICulture.Name), requireAdmin ? "runas" : null);
         }
 
         private static readonly char[] VersionSeparator = { '.' };
