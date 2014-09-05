@@ -65,6 +65,21 @@
 // Windows 8 Release Preview
 #define Windows8ReleasePreview  '6.2.8400'
 
+// Windows 8
+#define Windows8  				'6.2.9200'
+
+// Windows Server 2012
+#define WindowsServer2012  		'6.2.9200'
+
+// Windows 8.1
+#define Windows8_1  			'6.3.9200'
+
+// Windows Server 2012
+#define WindowsServer2012R2  	'6.3.9200'
+
+// Windows 8.1 with Update 1
+#define Windows8_1Update1  		'6.3.9600'
+
 //
 // Windows Service Packs.
 //
