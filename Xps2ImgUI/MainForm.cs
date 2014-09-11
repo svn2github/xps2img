@@ -92,6 +92,8 @@ namespace Xps2ImgUI
             Text = Resources.Strings.WindowTitle;
 
             convertButton.Text = Resources.Strings.Launch;
+
+            settingsPropertyGrid.RefreshLocalization();
         }
 
         protected override void OnSizeChanged(EventArgs e)

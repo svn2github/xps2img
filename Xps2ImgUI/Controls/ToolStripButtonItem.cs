@@ -5,20 +5,27 @@ namespace Xps2ImgUI.Controls
 {
     public class ToolStripButtonItem
     {
-        public readonly string Text;
+        private const string Separator = "-";
+
+        public readonly Func<string> TextFunc;
         public readonly EventHandler EventHandler;
 
         public ToolStripItem ToolStripItem { get; set; }
 
-        public bool IsSeparator { get { return Text == null; } }
+        public string Text
+        {
+            get { return TextFunc != null ? TextFunc() : Separator; }
+        }
+
+        public bool IsSeparator { get { return Text == Separator; } }
 
         public ToolStripButtonItem()
         {
         }
 
-        public ToolStripButtonItem(string text, EventHandler eventHandler)
+        public ToolStripButtonItem(Func<string> textFunc, EventHandler eventHandler)
         {
-            Text = text;
+            TextFunc = textFunc;
             EventHandler = eventHandler;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -8,6 +9,8 @@ using System.Reflection;
 using System.Windows.Forms;
 
 using CommandLine;
+
+using Xps2ImgUI.Controls.PropertyGridEx.ToolStripEx;
 
 namespace Xps2ImgUI.Controls.PropertyGridEx
 {
@@ -120,6 +123,31 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             }
         }
 
+        public void RefreshLocalization()
+        {
+            RefreshLocalization(_toolStrip.Items);
+            Refresh();
+        }
+
+        private static void RefreshLocalization(IEnumerable items)
+        {
+            foreach (ToolStripItem item in items)
+            {
+                var localizableToolStripItem = item as ILocalizableToolStripItem;
+
+                if (localizableToolStripItem != null)
+                {
+                    localizableToolStripItem.RefreshLocalization();
+                }
+
+                var toolStripMenuItem = item as ToolStripDropDownItem;
+                if (toolStripMenuItem != null)
+                {
+                    RefreshLocalization(toolStripMenuItem.DropDownItems);
+                }
+            }
+        }
+
         public void RemoveLastToolStripItem()
         {
             var lastIndex = _toolStrip.Items.Count - 1;
@@ -151,15 +179,15 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                 if (item.IsSeparator)
                 {
                     toolStripSplitButton.DropDownItems.Add(new ToolStripSeparator());
+                    continue;
                 }
-                else
-                {
-                    var itemControl = toolStripSplitButton.DropDownItems.Add(item.Text);
-                    itemControl.AutoToolTip = UseAutoToolTip;
-                    itemControl.Click += item.EventHandler;
 
-                    item.ToolStripItem = itemControl;
-                }
+                var itemControl = new ToolStripMenuItemEx(item.TextFunc) { AutoToolTip = UseAutoToolTip };
+                itemControl.Click += item.EventHandler;
+
+                toolStripSplitButton.DropDownItems.Add(itemControl);
+
+                item.ToolStripItem = itemControl;
             }
 
             return toolStripSplitButton;

@@ -85,7 +85,7 @@ namespace Xps2ImgUI
             okButton.Text = Resources.Strings.OK;
             cancelButton.Text = Resources.Strings.Cancel;
 
-            preferencesPropertyGrid.Refresh();
+            preferencesPropertyGrid.RefreshLocalization();
         }
 
         private void ResetToolStripButtonClick(object sender, EventArgs e)
