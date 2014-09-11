@@ -119,285 +119,379 @@
   </resheader>
   <data name="ShowCommandLine" xml:space="preserve">
     <value>Show command line</value>
+    <comment>Show command line</comment>
   </data>
   <data name="ResetOptions" xml:space="preserve">
     <value>Reset options</value>
+    <comment>Reset options</comment>
   </data>
   <data name="Launch" xml:space="preserve">
     <value>&amp;Convert</value>
+    <comment>&amp;Convert</comment>
   </data>
   <data name="Stop" xml:space="preserve">
     <value>&amp;Stop</value>
+    <comment>&amp;Stop</comment>
   </data>
   <data name="HideCommandLine" xml:space="preserve">
     <value>Hide command line</value>
+    <comment>Hide command line</comment>
   </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>XPS to Images Converter</value>
+    <comment>XPS to Images Converter</comment>
   </data>
   <data name="WindowTitleProgressFormat" xml:space="preserve">
     <value>{1}% ({2}) [{3}] - {4} - {0}</value>
+    <comment>{1}% ({2}) [{3}] - {4} - {0}</comment>
   </data>
   <data name="ClosingConfirmation" xml:space="preserve">
     <value>Currently executing conversion will be aborted.</value>
+    <comment>Currently executing conversion will be aborted.</comment>
   </data>
   <data name="SpecifyValueFormat" xml:space="preserve">
     <value>{0} parameter is required.</value>
+    <comment>{0} parameter is required.</comment>
   </data>
   <data name="Xps2ImgNotFountFormat" xml:space="preserve">
     <value>{1}{0}{0}Please make sure that xps2img.exe utility is present into the application folder.</value>
+    <comment>{1}{0}{0}Please make sure that xps2img.exe utility is present into the application folder.</comment>
   </data>
   <data name="BrowseImages" xml:space="preserve">
     <value>Browse images</value>
+    <comment>Browse images</comment>
   </data>
   <data name="BrowseXPSFile" xml:space="preserve">
     <value>Browse &amp;XPS File</value>
+    <comment>Browse &amp;XPS File</comment>
   </data>
   <data name="WindowTitleLaunchingFormat" xml:space="preserve">
     <value>Launching xps2img... - {0}</value>
+    <comment>Launching xps2img... - {0}</comment>
   </data>
   <data name="ResetParameters" xml:space="preserve">
     <value>Reset &amp;Parameters</value>
+    <comment>Reset &amp;Parameters</comment>
   </data>
   <data name="Reset" xml:space="preserve">
     <value>Reset &amp;Settings</value>
+    <comment>Reset &amp;Settings</comment>
   </data>
   <data name="CopyCommandLineToClipboard" xml:space="preserve">
     <value>&amp;Copy Command Line To Clipboard</value>
+    <comment>&amp;Copy Command Line To Clipboard</comment>
   </data>
   <data name="CopyXPSFilePathToClipboard" xml:space="preserve">
     <value>Copy XP&amp;S File Path To Clipboard</value>
+    <comment>Copy XP&amp;S File Path To Clipboard</comment>
   </data>
   <data name="CopyImagesFolderPathToClipboard" xml:space="preserve">
     <value>&amp;Copy Images Folder Path To Clipboard</value>
+    <comment>&amp;Copy Images Folder Path To Clipboard</comment>
   </data>
   <data name="Help" xml:space="preserve">
     <value>Help</value>
+    <comment>Help</comment>
   </data>
   <data name="About" xml:space="preserve">
     <value>&amp;About...</value>
+    <comment>&amp;About...</comment>
   </data>
   <data name="LoadSettings" xml:space="preserve">
     <value>Load settings</value>
+    <comment>Load settings</comment>
   </data>
   <data name="SaveSettings" xml:space="preserve">
     <value>&amp;Save Settings...</value>
+    <comment>&amp;Save Settings...</comment>
   </data>
   <data name="FilterXPS2ImgFiles" xml:space="preserve">
     <value>XPS2Img Files (*.x2i)|*.x2i|</value>
+    <comment>XPS2Img Files (*.x2i)|*.x2i|</comment>
   </data>
   <data name="XPS2ImgFileExtension" xml:space="preserve">
     <value>.x2i</value>
+    <comment>.x2i</comment>
   </data>
   <data name="ProcessorHasTerminated" xml:space="preserve">
     <value>xps2img.exe processor application has terminated unexpectedly.</value>
+    <comment>xps2img.exe processor application has terminated unexpectedly.</comment>
   </data>
   <data name="DeleteConvertedImagesConfirmation" xml:space="preserve">
     <value>Converted images will be deleted.</value>
+    <comment>Converted images will be deleted.</comment>
   </data>
   <data name="PressToProceedMessage" xml:space="preserve">
     <value>Press OK to proceed.</value>
+    <comment>Press OK to proceed.</comment>
   </data>
   <data name="Preferences" xml:space="preserve">
     <value>Preferences</value>
+    <comment>Preferences</comment>
   </data>
   <data name="ResetToDefaults" xml:space="preserve">
     <value>Reset to defaults</value>
+    <comment>Reset to defaults</comment>
   </data>
   <data name="SaveSettingsTitle" xml:space="preserve">
     <value>Save Settings</value>
+    <comment>Save Settings</comment>
   </data>
   <data name="LoadSettingsTitle" xml:space="preserve">
     <value>Load Settings</value>
+    <comment>Load Settings</comment>
   </data>
   <data name="ElapsedTimeTextTemplate" xml:space="preserve">
     <value> ● {0:00}:{1:00}:{2:00} ● {6}/{7} ● {3}{4}/{5} ●</value>
+    <comment> ● {0:00}:{1:00}:{2:00} ● {6}/{7} ● {3}{4}/{5} ●</comment>
   </data>
   <data name="ElapsedTimeTextTemplateShort" xml:space="preserve">
     <value> ● {0:00}:{1:00}:{2:00} ● {6}/{7} ●</value>
+    <comment> ● {0:00}:{1:00}:{2:00} ● {6}/{7} ●</comment>
   </data>
   <data name="ConversionStopConfirmation" xml:space="preserve">
     <value>Conversion will be stopped.</value>
+    <comment>Conversion will be stopped.</comment>
   </data>
   <data name="CopyUICommandLineToClipboard" xml:space="preserve">
     <value>Copy &amp;UI Command Line To Clipboard</value>
+    <comment>Copy &amp;UI Command Line To Clipboard</comment>
   </data>
   <data name="CopyUIBatchCommandLineToClipboard" xml:space="preserve">
     <value>Copy UI &amp;Batch Command Line To Clipboard</value>
+    <comment>Copy UI &amp;Batch Command Line To Clipboard</comment>
   </data>
   <data name="CopyUIBatchCommandLineWithoutErrorHandlingToClipboard" xml:space="preserve">
     <value>Copy UI Batch Command Line Without &amp;Error Handling To Clipboard</value>
+    <comment>Copy UI Batch Command Line Without &amp;Error Handling To Clipboard</comment>
   </data>
   <data name="ResumeLastConversionSuggestion" xml:space="preserve">
     <value>Would you like to resume last conversion instead of starting new one?</value>
+    <comment>Would you like to resume last conversion instead of starting new one?</comment>
   </data>
   <data name="CancelToUsePreviousValidValue" xml:space="preserve">
     <value>\n\n● Cancel or Esc reverts to previous valid value.\n● OK returns to value editing.</value>
+    <comment>\n\n● Cancel or Esc reverts to previous valid value.\n● OK returns to value editing.</comment>
   </data>
   <data name="AutoSaveSettings" xml:space="preserve">
     <value>A&amp;uto Save Settings</value>
+    <comment>A&amp;uto Save Settings</comment>
   </data>
   <data name="ValidationErrorFormat" xml:space="preserve">
     <value>{0} Validation Error</value>
+    <comment>{0} Validation Error</comment>
   </data>
   <data name="ValueEdit" xml:space="preserve">
     <value>&amp;Edit Value</value>
+    <comment>&amp;Edit Value</comment>
   </data>
   <data name="ValueRevert" xml:space="preserve">
     <value>&amp;Revert Value</value>
+    <comment>&amp;Revert Value</comment>
   </data>
   <data name="DeleteImagesConfirmation" xml:space="preserve">
     <value>Delete Images Confirmation</value>
+    <comment>Delete Images Confirmation</comment>
   </data>
   <data name="WouldYouLikeToDeleteImages" xml:space="preserve">
     <value>Would you like to delete images?</value>
+    <comment>Would you like to delete images?</comment>
   </data>
   <data name="YesDeleteImages" xml:space="preserve">
     <value>&amp;Yes, Delete Images</value>
+    <comment>&amp;Yes, Delete Images</comment>
   </data>
   <data name="NoBackToApplication" xml:space="preserve">
     <value>&amp;No, Go Back to Application</value>
+    <comment>&amp;No, Go Back to Application</comment>
   </data>
   <data name="StopConversionConfirmation" xml:space="preserve">
     <value>Stop Conversion Confirmation</value>
+    <comment>Stop Conversion Confirmation</comment>
   </data>
   <data name="WouldYouLikeToStopConversion" xml:space="preserve">
     <value>Would you like to stop conversion?</value>
+    <comment>Would you like to stop conversion?</comment>
   </data>
   <data name="YesStopConversion" xml:space="preserve">
     <value>&amp;Yes, Stop Conversion</value>
+    <comment>&amp;Yes, Stop Conversion</comment>
   </data>
   <data name="CloseApplicationConfirmation" xml:space="preserve">
     <value>Close Application Confirmation</value>
+    <comment>Close Application Confirmation</comment>
   </data>
   <data name="WouldYouLikeToAbortConversionAndCloseApplication" xml:space="preserve">
     <value>Would you like to abort conversion and close application?</value>
+    <comment>Would you like to abort conversion and close application?</comment>
   </data>
   <data name="YesAbortAndClose" xml:space="preserve">
     <value>&amp;Yes, Abort and Close</value>
+    <comment>&amp;Yes, Abort and Close</comment>
   </data>
   <data name="AlwaysConfirmAndDoNotAskAgain" xml:space="preserve">
     <value>Al&amp;ways confirm and do not ask again</value>
+    <comment>Al&amp;ways confirm and do not ask again</comment>
   </data>
   <data name="EditParameter" xml:space="preserve">
     <value>&amp;Edit Parameter</value>
+    <comment>&amp;Edit Parameter</comment>
   </data>
   <data name="ParameterIsRequired" xml:space="preserve">
     <value>This parameter is required and could not be empty.</value>
+    <comment>This parameter is required and could not be empty.</comment>
   </data>
   <data name="ConversionFailed" xml:space="preserve">
     <value>Conversion Failed</value>
+    <comment>Conversion Failed</comment>
   </data>
   <data name="BackToApplication" xml:space="preserve">
     <value>Go &amp;Back to Application</value>
+    <comment>Go &amp;Back to Application</comment>
   </data>
   <data name="ResumeConversionConfirmation" xml:space="preserve">
     <value>Resume Conversion Confirmation</value>
+    <comment>Resume Conversion Confirmation</comment>
   </data>
   <data name="YesResumeConversion" xml:space="preserve">
     <value>&amp;Yes, Resume Conversion</value>
+    <comment>&amp;Yes, Resume Conversion</comment>
   </data>
   <data name="NoStartConversionOver" xml:space="preserve">
     <value>&amp;No, Start Conversion Over</value>
+    <comment>&amp;No, Start Conversion Over</comment>
   </data>
   <data name="UnexpectedResumeIsNotAvailable" xml:space="preserve">
     <value>Unexpected: Resume is not available.</value>
+    <comment>Unexpected: Resume is not available.</comment>
   </data>
   <data name="UnexpectedConversionIsInProgress" xml:space="preserve">
     <value>Unexpected: Conversion is in progress.</value>
+    <comment>Unexpected: Conversion is in progress.</comment>
   </data>
   <data name="UnexpectedErrorOccured" xml:space="preserve">
     <value>Unexpected Error Occured</value>
+    <comment>Unexpected Error Occured</comment>
   </data>
   <data name="HideDetails" xml:space="preserve">
     <value>Hide &amp;Details</value>
+    <comment>Hide &amp;Details</comment>
   </data>
   <data name="ShowDetails" xml:space="preserve">
     <value>Show &amp;Details</value>
+    <comment>Show &amp;Details</comment>
   </data>
   <data name="NoExceptionDetailsPresent" xml:space="preserve">
     <value>No exception details present.</value>
+    <comment>No exception details present.</comment>
   </data>
   <data name="RememberChoiceAndDoNotAskAgain" xml:space="preserve">
     <value>&amp;Remember choice and do not ask again</value>
+    <comment>&amp;Remember choice and do not ask again</comment>
   </data>
   <data name="CheckForUpdates" xml:space="preserve">
     <value>Check for &amp;Updates</value>
+    <comment>Check for &amp;Updates</comment>
   </data>
   <data name="UpdateNoNewVersionAvailable" xml:space="preserve">
     <value>There is no new version available at this time.</value>
+    <comment>There is no new version available at this time.</comment>
   </data>
   <data name="UpdatesCheckFailedWarning" xml:space="preserve">
     <value>Check for updates failed. Application Web site will be opened.</value>
+    <comment>Check for updates failed. Application Web site will be opened.</comment>
   </data>
   <data name="UpdatesCheckFailed" xml:space="preserve">
     <value>Updates Check Failed</value>
+    <comment>Updates Check Failed</comment>
   </data>
   <data name="WouldYouLikeToCheckForUpdatesManually" xml:space="preserve">
     <value>Would you like to check for updates manually?</value>
+    <comment>Would you like to check for updates manually?</comment>
   </data>
   <data name="YesCheckForUpdatesManually" xml:space="preserve">
     <value>&amp;Yes, Check for Updates Manually</value>
+    <comment>&amp;Yes, Check for Updates Manually</comment>
   </data>
   <data name="DownloadFailedWarning" xml:space="preserve">
     <value>Download failed. Application Web site will be opened.</value>
+    <comment>Download failed. Application Web site will be opened.</comment>
   </data>
   <data name="DownloadFailed" xml:space="preserve">
     <value>Download Failed</value>
+    <comment>Download Failed</comment>
   </data>
   <data name="WouldYouLikeToDownloadUpdateManually" xml:space="preserve">
     <value>Would you like to download update manually?</value>
+    <comment>Would you like to download update manually?</comment>
   </data>
   <data name="YesDownloadManually" xml:space="preserve">
     <value>&amp;Yes, Download Update Manually</value>
+    <comment>&amp;Yes, Download Update Manually</comment>
   </data>
   <data name="UpdateFailedWarning" xml:space="preserve">
     <value>Update failed. Application Web site will be opened.</value>
+    <comment>Update failed. Application Web site will be opened.</comment>
   </data>
   <data name="UpdateFailed" xml:space="preserve">
     <value>Update Failed</value>
+    <comment>Update Failed</comment>
   </data>
   <data name="WouldYouLikeToDownloadAndUpdateManually" xml:space="preserve">
     <value>Would you like to download and update manually?</value>
+    <comment>Would you like to download and update manually?</comment>
   </data>
   <data name="YesDownloadAndUpdateManually" xml:space="preserve">
     <value>&amp;Yes, Download and Update Manually</value>
+    <comment>&amp;Yes, Download and Update Manually</comment>
   </data>
   <data name="NewUpdateIsAvailable" xml:space="preserve">
     <value>New version is available. Application will be updated.</value>
+    <comment>New version is available. Application will be updated.</comment>
   </data>
   <data name="NewUpdateAvailable" xml:space="preserve">
     <value>New Version Available</value>
+    <comment>New Version Available</comment>
   </data>
   <data name="WouldYouLikeToDownloadItAndUpdateApplication" xml:space="preserve">
     <value>Would you like to download it and update application?</value>
+    <comment>Would you like to download it and update application?</comment>
   </data>
   <data name="YesDownloadAndUpdate" xml:space="preserve">
     <value>&amp;Yes, Download and Update</value>
+    <comment>&amp;Yes, Download and Update</comment>
   </data>
   <data name="ValueIsNotValidIntegerNumber" xml:space="preserve">
     <value>Value is not valid integer number</value>
+    <comment>Value is not valid integer number</comment>
   </data>
   <data name="AbbrevSeconds" xml:space="preserve">
     <value>sec</value>
+    <comment>sec</comment>
   </data>
   <data name="AbbrevMinutes" xml:space="preserve">
     <value>min</value>
+    <comment>min</comment>
   </data>
   <data name="AbbrevHours" xml:space="preserve">
     <value>hr</value>
+    <comment>hr</comment>
   </data>
   <data name="AbbrevDays" xml:space="preserve">
     <value>d</value>
+    <comment>d</comment>
   </data>
   <data name="AbbrevPages" xml:space="preserve">
     <value>pp</value>
+    <comment>pp</comment>
   </data>
   <data name="AbbrevPage" xml:space="preserve">
     <value>p</value>
+    <comment>p</comment>
   </data>
   <data name="VisitDownloadPage" xml:space="preserve">
     <value>&lt;a href="http://sourceforge.net/projects/xps2img/files/"&gt;Visit download page&lt;/a&gt;</value>
+    <comment>&lt;a href="http://sourceforge.net/projects/xps2img/files/"&gt;Visit download page&lt;/a&gt;</comment>
   </data>
   <data name="WhatsNewFormat" xml:space="preserve">
     <value>
@@ -405,98 +499,130 @@
 What's new in version {0}
 
 </value>
+    <comment>What's new in version {0}</comment>
   </data>
   <data name="WhatsNewDateFormat" xml:space="preserve">
     <value>{0} {1:'('d MMMM yyyy'):'}</value>
+    <comment>{0} {1:'('d MMMM yyyy'):'}</comment>
   </data>
   <data name="WhatsNewBullet" xml:space="preserve">
     <value>● </value>
+    <comment>● </comment>
   </data>
   <data name="UIBatchCommandLineFormat" xml:space="preserve">
     <value>start/wait "" {0} -b</value>
+    <comment>start/wait "" {0} -b</comment>
   </data>
   <data name="UIBatchCommandLineErrorHandling" xml:space="preserve">
     <value> &amp; if errorlevel 1 exit /b</value>
+    <comment> &amp; if errorlevel 1 exit /b</comment>
   </data>
   <data name="ShortenImageExtension" xml:space="preserve">
     <value>S&amp;horten Image Extension</value>
+    <comment>S&amp;horten Image Extension</comment>
   </data>
   <data name="ConversionWasAbortedByUser" xml:space="preserve">
     <value>Conversion was aborted by user.</value>
+    <comment>Conversion was aborted by user.</comment>
   </data>
   <data name="BrowseImagesFolder" xml:space="preserve">
     <value>Browse I&amp;mages Folder</value>
+    <comment>Browse I&amp;mages Folder</comment>
   </data>
   <data name="PageOfPagesFormat" xml:space="preserve">
     <value>{0}/{1}</value>
+    <comment>{0}/{1}</comment>
   </data>
   <data name="FilterAllFiles" xml:space="preserve">
     <value>All Files (*.*)|*.*</value>
+    <comment>All Files (*.*)|*.*</comment>
   </data>
   <data name="DocumentHasNoPages" xml:space="preserve">
     <value>Document has no pages. Nothing to convert.</value>
+    <comment>Document has no pages. Nothing to convert.</comment>
   </data>
   <data name="PagesSpecifiedAreOutOfRangeFormat" xml:space="preserve">
     <value>Pages specified are out of document pages range. {0} is the last one.</value>
+    <comment>Pages specified are out of document pages range. {0} is the last one.</comment>
   </data>
   <data name="PressButtonToProceedFormat" xml:space="preserve">
     <value>Press {0} button to {1}.</value>
+    <comment>Press {0} button to {1}.</comment>
   </data>
   <data name="PluralFormS" xml:space="preserve">
     <value>s</value>
+    <comment>s</comment>
   </data>
   <data name="DoItNowFormat" xml:space="preserve">
     <value>{0} Now!</value>
+    <comment>{0} Now!</comment>
   </data>
   <data name="GoingToActionInFormat" xml:space="preserve">
     <value>Going to {0} in {1} second{2}...</value>
+    <comment>Going to {0} in {1} second{2}...</comment>
   </data>
   <data name="UpdatePageFailedStatus" xml:space="preserve">
     <value>Page #{0} conversion failed: {1}</value>
+    <comment>Page #{0} conversion failed: {1}</comment>
   </data>
   <data name="ConversionCompletedWithErrors" xml:space="preserve">
     <value>Conversion completed with errors.</value>
+    <comment>Conversion completed with errors.</comment>
   </data>
   <data name="NotConvertedPageNumbers" xml:space="preserve">
     <value> Not converted page numbers: {0}.</value>
+    <comment> Not converted page numbers: {0}.</comment>
   </data>
   <data name="NotConvertedPageNumbersConfirmToCopy" xml:space="preserve">
     <value> Not converted page numbers: {0}. Confirm to copy them to clipboard.</value>
+    <comment> Not converted page numbers: {0}. Confirm to copy them to clipboard.</comment>
   </data>
   <data name="CompletedWithErrors" xml:space="preserve">
     <value>Completed with Errors</value>
+    <comment>Completed with Errors</comment>
   </data>
   <data name="WouldYouLikeToCopyPageNumbersToClipboard" xml:space="preserve">
     <value>Would you like to copy page numbers to clipboard?</value>
+    <comment>Would you like to copy page numbers to clipboard?</comment>
   </data>
   <data name="YesCopyToClipboard" xml:space="preserve">
     <value>&amp;Yes, Copy to Clipboard</value>
+    <comment>&amp;Yes, Copy to Clipboard</comment>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
+    <comment>Cancel</comment>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
+    <comment>OK</comment>
   </data>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
+    <comment>Close</comment>
   </data>
   <data name="HelpAbout_CheckForUpdatesLinkLabel" xml:space="preserve">
     <value>Check for Updates</value>
+    <comment>Check for Updates</comment>
   </data>
   <data name="HelpAbout_Description" xml:space="preserve">
     <value>XPS to Images Converter Frontend.</value>
+    <comment>XPS to Images Converter Frontend.</comment>
   </data>
   <data name="HelpAbout_HistoryLinkLabel" xml:space="preserve">
     <value>View Revision History</value>
+    <comment>View Revision History</comment>
   </data>
   <data name="HelpAbout_SiteLinkLabel" xml:space="preserve">
     <value>Visit Web Site</value>
+    <comment>Visit Web Site</comment>
   </data>
   <data name="HelpAbout_Title" xml:space="preserve">
     <value>About {0} {1}</value>
+    <comment>About {0} {1}</comment>
   </data>
   <data name="Preferences_Title" xml:space="preserve">
     <value>Preferences</value>
+    <comment>Preferences</comment>
   </data>
 </root>

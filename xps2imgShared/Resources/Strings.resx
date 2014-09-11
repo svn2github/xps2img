@@ -119,23 +119,30 @@
   </resheader>
   <data name="ValueIsNotValidIntegerNumber" xml:space="preserve">
     <value>Value is not valid integer number</value>
+    <comment>Value is not valid integer number</comment>
   </data>
   <data name="FilterAllFiles" xml:space="preserve">
     <value>All Files (*.*)|*.*</value>
+    <comment>All Files (*.*)|*.*</comment>
   </data>
   <data name="FilterXPSFiles" xml:space="preserve">
     <value>XPS Files (*.xps)|*.xps|</value>
+    <comment>XPS Files (*.xps)|*.xps|</comment>
   </data>
   <data name="FilterExeFiles" xml:space="preserve">
     <value>Executable Files (*.exe)|*.exe|</value>
+    <comment>Executable Files (*.exe)|*.exe|</comment>
   </data>
   <data name="SelectXpsFile" xml:space="preserve">
     <value>Select XPS File</value>
+    <comment>Select XPS File</comment>
   </data>
   <data name="SelectExecutableFile" xml:space="preserve">
     <value>Select Executable File</value>
+    <comment>Select Executable File</comment>
   </data>
   <data name="SpecifyImagesFolder" xml:space="preserve">
     <value>Specify folder to store images. If not set new folder named as document will be created in folder where document is.</value>
+    <comment>Specify folder to store images. If not set new folder named as document will be created in folder where document is.</comment>
   </data>
 </root>

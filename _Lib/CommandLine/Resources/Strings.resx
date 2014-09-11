@@ -121,50 +121,68 @@
     <value>
 One of:
   {0}</value>
+    <comment>
+One of:
+  {0}</comment>
   </data>
   <data name="Format_AlternativesSeparator" xml:space="preserve">
     <value>
   </value>
+    <comment> </comment>
   </data>
   <data name="Format_DefaultValue" xml:space="preserve">
     <value>
   {0} by default</value>
+    <comment>
+  {0} by default</comment>
   </data>
   <data name="Format_LongOpt" xml:space="preserve">
     <value>{1}</value>
+    <comment>{1}</comment>
   </data>
   <data name="Format_OptionalOptions" xml:space="preserve">
     <value> [options]</value>
+    <comment> [options]</comment>
   </data>
   <data name="Format_ShortAndLongOpt" xml:space="preserve">
     <value>{0}, {1}</value>
+    <comment>{0}, {1}</comment>
   </data>
   <data name="Format_Usage" xml:space="preserve">
     <value>Usage: {0}</value>
+    <comment>Usage: {0}</comment>
   </data>
   <data name="Message_MandatoryArgs" xml:space="preserve">
     <value>Mandatory arguments to long options are mandatory for short options too.
 </value>
+    <comment>Mandatory arguments to long options are mandatory for short options too.</comment>
   </data>
   <data name="Message_OptNotSpecified" xml:space="preserve">
     <value>must be specified</value>
+    <comment>must be specified</comment>
   </data>
   <data name="Message_OptPadLeft" xml:space="preserve">
     <value>  </value>
+    <comment>  </comment>
   </data>
   <data name="Validation_EnumValidator" xml:space="preserve">
     <value>value is not in list</value>
+    <comment>value is not in list</comment>
   </data>
   <data name="Validation_IntValidator" xml:space="preserve">
     <value>value should be between {0} and {1}</value>
+    <comment>value should be between {0} and {1}</comment>
   </data>
   <data name="Validation_NoValidator" xml:space="preserve">
     <value>UNEXPECTED: No validator found for validation expression</value>
+    <comment>UNEXPECTED: No validator found for validation expression</comment>
   </data>
   <data name="Validation_RegexValidator" xml:space="preserve">
     <value>value is not valid. Please refer help for details</value>
+    <comment>value is not valid. Please refer help for details</comment>
   </data>
-	<data name="Format_ShortOptionalAndLongOpt">
-		<value xml:space="preserve">{0}{2}, {1}</value>
-	</data>
+  <data name="Format_ShortOptionalAndLongOpt" xml:space="preserve">
+    <value>{0}{2}, {1}</value>
+    <comment>{0}{2}, {1}</comment>
+  </data>
 </root>
