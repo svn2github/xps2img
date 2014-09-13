@@ -14,7 +14,7 @@ namespace Xps2ImgUI.Settings
     {
         public enum Localizations
         {
-            English     = 0x0009,
+            English     = 0x007F, // Invariant.
             Українська  = 0x0022
         }
 

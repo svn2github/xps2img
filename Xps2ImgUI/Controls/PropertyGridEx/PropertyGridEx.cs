@@ -36,6 +36,8 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         public PropertyGridEx()
         {
+            const BindingFlags instanceNonPublic = BindingFlags.Instance | BindingFlags.NonPublic;
+
             var controls = Controls.OfType<Control>().ToArray();
 
             _toolStrip = (ToolStrip)controls.FirstOrDefault(c => c is ToolStrip);
@@ -43,10 +45,10 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
             var toolStripType = _toolStrip.GetType();
 
-            _currentlyActiveTooltipItem = toolStripType.GetField("currentlyActiveTooltipItem", BindingFlags.Instance | BindingFlags.NonPublic);
+            _currentlyActiveTooltipItem = toolStripType.GetField("currentlyActiveTooltipItem", instanceNonPublic);
             Debug.Assert(_currentlyActiveTooltipItem != null);
 
-            _updateToolTipMethodInfo = toolStripType.GetMethod("UpdateToolTip", BindingFlags.Instance | BindingFlags.NonPublic);
+            _updateToolTipMethodInfo = toolStripType.GetMethod("UpdateToolTip", instanceNonPublic);
             Debug.Assert(_updateToolTipMethodInfo != null);
 
             _docComment = controls.FirstOrDefault(c => c.GetType().Name == "DocComment");
@@ -57,7 +59,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             _docLinesPropertyInfo = docCommentType.GetProperty("Lines");
             _docFontPropertyInfo = docCommentType.GetProperty("Font");
 
-            var docUserSizedField = docCommentType.GetField("userSized", BindingFlags.Instance | BindingFlags.NonPublic);
+            var docUserSizedField = docCommentType.GetField("userSized", instanceNonPublic);
             if (docUserSizedField != null)
             {
                 docUserSizedField.SetValue(_docComment, true);
@@ -68,14 +70,14 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
             var propertyGridViewType = _propertyGridView.GetType();
 
-            _propertyGridViewEdit = (TextBox)propertyGridViewType.GetProperty("Edit", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(_propertyGridView, null);
+            _propertyGridViewEdit = (TextBox)propertyGridViewType.GetProperty("Edit", instanceNonPublic).GetValue(_propertyGridView, null);
             Debug.Assert(_propertyGridViewEdit != null);
 
             _propertyGridViewEnsurePendingChangesCommitted = propertyGridViewType.GetMethod("EnsurePendingChangesCommitted", BindingFlags.Instance | BindingFlags.Public);
             Debug.Assert(_propertyGridViewEnsurePendingChangesCommitted != null);
 
             // Add a custom service provider to give us control over the property value error dialog shown to the user.
-            var errorDialogField = propertyGridViewType.GetField("serviceProvider", BindingFlags.Instance | BindingFlags.NonPublic);
+            var errorDialogField = propertyGridViewType.GetField("serviceProvider", instanceNonPublic);
             if (errorDialogField != null)
             {
                 errorDialogField.SetValue(_propertyGridView, new PropertyGridExServiceProvider(this));

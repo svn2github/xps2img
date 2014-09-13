@@ -261,14 +261,14 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)_Build\Common.targets" />
   <PropertyGroup>
     <PostBuildEvent>echo.|set /p _=$(TargetFileName)&gt;"$(TargetPath).portable"
 exit 0</PostBuildEvent>
   </PropertyGroup>
+  <Target Name="BeforeBuild" DependsOnTargets="ReplaceResourceManager" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
   <Target Name="AfterBuild">
   </Target>
   -->

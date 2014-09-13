@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<UsingTask TaskName="ReplaceFileText" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+  <ParameterGroup>
+    <Filename ParameterType="System.String" Required="true" />
+    <MatchExpression ParameterType="System.String" Required="true" />
+    <ReplacementText ParameterType="System.String" Required="true" />
+  </ParameterGroup>
+  <Task>
+    <Reference Include="System.Core" />
+    <Using Namespace="System" />
+    <Using Namespace="System.IO" />
+    <Using Namespace="System.Text.RegularExpressions" />
+    <Code Type="Fragment" Language="cs">
+    <![CDATA[
+        var text = File.ReadAllText(Filename);
+        var replacedText = Regex.Replace(text, MatchExpression, ReplacementText);
+        if(!ReferenceEquals(text, replacedText))
+        {
+            File.WriteAllText(Filename, replacedText);
+        }
+    ]]>
+    </Code>
+  </Task>
+</UsingTask>
+<Target Name="ReplaceResourceManager">
+  <ReplaceFileText
+    Filename="$(ProjectDir)Resources\Strings.Designer.cs"
+    MatchExpression="global::System\.Resources\.ResourceManager\(.+typeof\(([^)]+)\)\.Assembly\)"
+    ReplacementText="Xps2Img.Shared.Localization.SingleAssemblyResourceManager(typeof($1))" />
+</Target>
+</Project>
