@@ -60,12 +60,17 @@ namespace Xps2ImgUI
 
         protected override void OnClosed(EventArgs e)
         {
-            if (DialogResult == DialogResult.Cancel && Preferences.ApplicationLanguage != _originalApplicationLanguage)
-            {
-                Preferences.ApplicationLanguage = _originalApplicationLanguage;
-                ChangeCulture();
-            }
             base.OnClosed(e);
+
+            // Reset language on cancel.
+            if (DialogResult != DialogResult.Cancel || Preferences.ApplicationLanguage == _originalApplicationLanguage)
+            {
+                return;
+            }
+
+            Preferences.ApplicationLanguage = _originalApplicationLanguage;
+
+            ChangeCulture();
         }
 
         private bool PropertyGridResetGroupCallback(string label, bool check)
