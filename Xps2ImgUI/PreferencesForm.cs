@@ -17,12 +17,14 @@ namespace Xps2ImgUI
 
         private readonly string _shortenExtensionPropertyName;
         private readonly string _applicationLanguagePropertyName;
-
+        private readonly Preferences.Localizations _originalApplicationLanguage;
+        
         public PreferencesForm(Preferences preferences, bool isRunning)
         {
             InitializeComponent();
 
             _isRunning = isRunning;
+            _originalApplicationLanguage = preferences.ApplicationLanguage;
 
             Preferences = preferences;
 
@@ -54,6 +56,16 @@ namespace Xps2ImgUI
             EnableReset();
 
             base.OnLoad(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            if (DialogResult == DialogResult.Cancel && Preferences.ApplicationLanguage != _originalApplicationLanguage)
+            {
+                Preferences.ApplicationLanguage = _originalApplicationLanguage;
+                ChangeCulture();
+            }
+            base.OnClosed(e);
         }
 
         private bool PropertyGridResetGroupCallback(string label, bool check)

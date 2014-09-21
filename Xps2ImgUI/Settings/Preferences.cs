@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 
 using CommandLine;
@@ -192,6 +193,9 @@ namespace Xps2ImgUI.Settings
 
         public override int GetHashCode()
         {
+            Debug.Assert(Enum.GetValues(typeof(CheckInterval)).Length == 3, "Update Fields for CheckInterval enum!");
+            Debug.Assert(Enum.GetValues(typeof(Localizations)).Length == 2, "Update Localizations for CheckInterval enum!");
+
             var position = 0;
             return Fields.Aggregate(0, (current, field) => current | (field ? 1 : 0) << position++);
         }
