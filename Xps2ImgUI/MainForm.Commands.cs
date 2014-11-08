@@ -168,7 +168,7 @@ namespace Xps2ImgUI
                 return;
             }
 
-            if (!this.ShowPropertyHelp(settingsPropertyGrid, HelpUtils.HelpTopicOptions))
+            if (!HelpUtils.ShowPropertyHelp(settingsPropertyGrid, HelpUtils.HelpTopicOptions))
             {
                 HelpUtils.ShowHelpTableOfContents();
             }

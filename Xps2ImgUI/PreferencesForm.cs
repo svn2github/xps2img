@@ -172,7 +172,7 @@ namespace Xps2ImgUI
 
         private void ShowHelp()
         {
-            if (!this.ShowPropertyHelp(preferencesPropertyGrid))
+            if (!HelpUtils.ShowPropertyHelp(preferencesPropertyGrid))
             {
                 HelpUtils.ShowHelpTopicId(HelpUtils.HelpTopicPreferences);
             }

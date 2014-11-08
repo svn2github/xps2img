@@ -120,7 +120,7 @@ namespace Xps2ImgUI.Utils.UI
             Help.ShowHelp(HelpForm, HelpFile, HelpNavigator.TopicId, topicId);
         }
 
-        public static bool ShowPropertyHelp(this Control control, string text, string fallbackTopicId = null)
+        private static bool ShowPropertyHelp(string text, string fallbackTopicId = null)
         {
             string topicId;
 
@@ -143,7 +143,7 @@ namespace Xps2ImgUI.Utils.UI
             return true;
         }
 
-        public static bool ShowPropertyHelp(this Control control, PropertyGrid propertyGrid, string fallbackTopicId = null)
+        public static bool ShowPropertyHelp(PropertyGrid propertyGrid, string fallbackTopicId = null)
         {
             if (!propertyGrid.Focused)
             {
@@ -151,7 +151,7 @@ namespace Xps2ImgUI.Utils.UI
             }
 
             var gridItem = propertyGrid.SelectedGridItem;
-            return gridItem != null && control.ShowPropertyHelp(gridItem.PropertyDescriptor != null ? gridItem.PropertyDescriptor.Name : gridItem.Label, fallbackTopicId);
+            return gridItem != null && ShowPropertyHelp(gridItem.PropertyDescriptor != null ? gridItem.PropertyDescriptor.Name : gridItem.Label, fallbackTopicId);
         }
     }
 }
