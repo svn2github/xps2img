@@ -4,7 +4,6 @@ using System.Windows.Forms;
 
 using TKageyu.Utils;
 
-using Xps2Img.Shared.Utils;
 using Xps2Img.Shared.Utils.System;
 using Xps2ImgUI.Localization;
 using Xps2ImgUI.Utils.UI;
@@ -65,14 +64,14 @@ namespace Xps2ImgUI
             ShowHelp();
         }
 
-        private void ShowHelp()
+        private static void ShowHelp()
         {
-            this.ShowHelpTableOfContents();
+            HelpUtils.ShowHelpTableOfContents();
         }
 
         private void HistoryLinkLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            this.ShowHelpTopicId(HelpUtils.HelpTopicHistory);
+            HelpUtils.ShowHelpTopicId(HelpUtils.HelpTopicHistory);
         }
 
         private void CheckForUpdatesLinkLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

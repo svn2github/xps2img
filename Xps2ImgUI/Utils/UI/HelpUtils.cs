@@ -103,14 +103,21 @@ namespace Xps2ImgUI.Utils.UI
             { ReflectionUtils.GetPropertyName(() => PreferencesRef.CheckForUpdates),                HelpTopicCheckForUpdates }
         };
 
-        public static void ShowHelpTableOfContents(this Control control)
+        private static Form _helpForm;
+
+        private static Form HelpForm
         {
-            Help.ShowHelp(control, HelpFile, HelpNavigator.TableOfContents);
+            get { return _helpForm ?? (_helpForm = new Form()); }
         }
 
-        public static void ShowHelpTopicId(this Control control, string topicId)
+        public static void ShowHelpTableOfContents()
         {
-            Help.ShowHelp(control, HelpFile, HelpNavigator.TopicId, topicId);
+            Help.ShowHelp(HelpForm, HelpFile, HelpNavigator.TableOfContents);
+        }
+
+        public static void ShowHelpTopicId(string topicId)
+        {
+            Help.ShowHelp(HelpForm, HelpFile, HelpNavigator.TopicId, topicId);
         }
 
         public static bool ShowPropertyHelp(this Control control, string text, string fallbackTopicId = null)
@@ -131,7 +138,7 @@ namespace Xps2ImgUI.Utils.UI
                 topicId = fallbackTopicId;
             }
 
-            control.ShowHelpTopicId(topicId);
+            ShowHelpTopicId(topicId);
 
             return true;
         }

@@ -170,7 +170,7 @@ namespace Xps2ImgUI
 
             if (!this.ShowPropertyHelp(settingsPropertyGrid, HelpUtils.HelpTopicOptions))
             {
-                this.ShowHelpTableOfContents();
+                HelpUtils.ShowHelpTableOfContents();
             }
         }
 
