@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 using Xps2Img.Shared.CommandLine;
@@ -56,14 +57,25 @@ namespace Xps2ImgUI.Utils.UI
         private static readonly Options OptionsRef = new Options();
         private static readonly Preferences PreferencesRef = new Preferences();
 
+        private static readonly Dictionary<Func<string>, string> CategoryToTopicMap = new Dictionary<Func<string>, string>
+        {
+            // Options.
+            { () => Options.CategoryParameters,         HelpTopicXpsFile },
+            { () => Options.CategoryOptions,            HelpTopicPageNumbers },
+
+            // Preferences.
+            { () => Preferences.CategoryApplication,    HelpTopicApplication },
+            { () => Preferences.CategoryConfirmations,  HelpTopicConfirmations },
+            { () => Preferences.CategoryConversion,     HelpTopicConversion },
+            { () => Preferences.CategoryUpdates,        HelpTopicUpdates }
+        };
+
         private static readonly Dictionary<string, string> PropertyToTopicMap = new Dictionary<string, string>
         {
             // Options.
-            { Options.CategoryParameters,            HelpTopicXpsFile },
             { OptionsRef.PropNameSrcFile,            HelpTopicXpsFile },
             { OptionsRef.PropNameOutDir,             HelpTopicOutputFolder },
             { OptionsRef.PropNamePostAction,         HelpTopicPostConversionAction },
-            { Options.CategoryOptions,               HelpTopicPageNumbers },
             { OptionsRef.PropNamePages,              HelpTopicPageNumbers },
             { OptionsRef.PropNameFileType,           HelpTopicImageType },
             { OptionsRef.PropNameJpegQuality,        HelpTopicJpegQuality },
@@ -81,23 +93,19 @@ namespace Xps2ImgUI.Utils.UI
             { OptionsRef.PropNameTest,               HelpTopicTestMode },
 
             // Preferences.
-            { Preferences.CategoryApplication,                       HelpTopicApplication },
             { PreferencesRef.PropNameApplicationLanguage,            HelpTopicApplicationLanguage },
             { PreferencesRef.PropNameAutoCompleteFilenames,          HelpTopicAutoCompleteFilenames },
             { PreferencesRef.PropNameAutoSaveSettings,               HelpTopicAutoSaveSettings },
             { PreferencesRef.PropNameClassicLook,                    HelpTopicClassicLook },
             { PreferencesRef.PropNameFlashWhenCompleted,             HelpTopicFlashWhenCompleted },
             { PreferencesRef.PropNameShowElapsedTimeAndStatistics,   HelpTopicShowElapsedTime },
-            { Preferences.CategoryConfirmations,                     HelpTopicConfirmations },
             { PreferencesRef.PropNameConfirmOnAfterConversion,       HelpTopicConfirmAfterConversion },
             { PreferencesRef.PropNameConfirmOnDelete,                HelpTopicConfirmDelete },
             { PreferencesRef.PropNameConfirmOnExit,                  HelpTopicConfirmExit },
             { PreferencesRef.PropNameConfirmOnStop,                  HelpTopicConfirmStopConversion },
-            { Preferences.CategoryConversion,                        HelpTopicConversion },
             { PreferencesRef.PropNameAlwaysResume,                   HelpTopicAlwaysResume },
             { PreferencesRef.PropNameSuggestResume,                  HelpTopicSuggestResume },
             { PreferencesRef.PropNameShortenExtension,               HelpTopicShortenImageExtension },
-            { Preferences.CategoryUpdates,                           HelpTopicUpdates },
             { PreferencesRef.PropNameCheckForUpdates,                HelpTopicCheckForUpdates }
         };
 
@@ -129,11 +137,12 @@ namespace Xps2ImgUI.Utils.UI
 
             if (!PropertyToTopicMap.TryGetValue(text, out topicId))
             {
-                if (fallbackTopicId == null)
+                topicId = CategoryToTopicMap.FirstOrDefault(kvp => kvp.Key() == text).Value ?? fallbackTopicId;
+
+                if (topicId == null)
                 {
                     return false;
                 }
-                topicId = fallbackTopicId;
             }
 
             ShowHelpTopicId(topicId);
