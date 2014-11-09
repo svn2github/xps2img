@@ -18,14 +18,14 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
     {
         public class EditAutoComplete
         {
-            public EditAutoComplete(string label, AutoCompleteSource autoCompleteSource, AutoCompleteMode autoCompleteMode = AutoCompleteMode.SuggestAppend)
+            public EditAutoComplete(string propName, AutoCompleteSource autoCompleteSource, AutoCompleteMode autoCompleteMode = AutoCompleteMode.SuggestAppend)
             {
-                Label = label;
+                PropName = propName;
                 AutoCompleteMode = autoCompleteMode;
                 AutoCompleteSource = autoCompleteSource;
             }
 
-            public readonly string Label;
+            public readonly string PropName;
             public readonly AutoCompleteMode AutoCompleteMode;
             public readonly AutoCompleteSource AutoCompleteSource;
         }
@@ -98,11 +98,11 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             base.OnSelectedObjectsChanged(e);
         }
 
-        private string _selectedItemLabel;
+        private string _selectedItemPropName;
 
         protected override void OnSelectedGridItemChanged(SelectedGridItemChangedEventArgs e)
         {
-            _selectedItemLabel = e.NewSelection.Label;
+            _selectedItemPropName = e.NewSelection.PropertyDescriptor.Name;
 
             UpdateAutoComplete();
 
@@ -114,15 +114,19 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             _propertyGridViewEdit.AutoCompleteMode = AutoCompleteMode.None;
             _propertyGridViewEdit.AutoCompleteSource = AutoCompleteSource.None;
 
-            if (AllowAutoComplete && AutoCompleteSettings != null)
+            if (!AllowAutoComplete || AutoCompleteSettings == null)
             {
-                var autoCompleteSettings = AutoCompleteSettings.FirstOrDefault(editAutoComplete => _selectedItemLabel == editAutoComplete.Label);
-                if (autoCompleteSettings != null)
-                {
-                    _propertyGridViewEdit.AutoCompleteMode = autoCompleteSettings.AutoCompleteMode;
-                    _propertyGridViewEdit.AutoCompleteSource = autoCompleteSettings.AutoCompleteSource;
-                }
+                return;
             }
+
+            var autoCompleteSettings = AutoCompleteSettings.FirstOrDefault(editAutoComplete => _selectedItemPropName == editAutoComplete.PropName);
+            if (autoCompleteSettings == null)
+            {
+                return;
+            }
+
+            _propertyGridViewEdit.AutoCompleteMode = autoCompleteSettings.AutoCompleteMode;
+            _propertyGridViewEdit.AutoCompleteSource = autoCompleteSettings.AutoCompleteSource;
         }
 
         public void RefreshLocalization()

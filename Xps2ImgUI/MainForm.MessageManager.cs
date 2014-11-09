@@ -20,11 +20,14 @@ namespace Xps2ImgUI
 
             if (Model.IsBatchMode)
             {
-                if (Win32Utils.AttachConsole())
+                if (!Win32Utils.AttachConsole())
                 {
-                    Console.WriteLine(message);
-                    Win32Utils.FreeConsole();
+                    return;
                 }
+
+                Console.WriteLine(message);
+                Win32Utils.FreeConsole();
+
                 return;
             }
 

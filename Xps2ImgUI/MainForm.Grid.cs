@@ -20,8 +20,8 @@ namespace Xps2ImgUI
         {
             settingsPropertyGrid.AutoCompleteSettings = new[]
             {
-                new PropertyGridEx.EditAutoComplete(Options.SrcFileDisplayName, AutoCompleteSource.FileSystem),
-                new PropertyGridEx.EditAutoComplete(Options.OutDirDisplayName, AutoCompleteSource.FileSystemDirectories)
+                new PropertyGridEx.EditAutoComplete(Model.OptionsObject.PropNameSrcFile, AutoCompleteSource.FileSystem),
+                new PropertyGridEx.EditAutoComplete(Model.OptionsObject.PropNameOutDir, AutoCompleteSource.FileSystemDirectories)
             };
 
             settingsPropertyGrid.DragDrop += MainFormDragDrop;
@@ -96,7 +96,6 @@ namespace Xps2ImgUI
             settingsPropertyGrid.AddToolStripSeparator();
 
             // Explorer browse.
-
             ToolStripButtonItem xpsCopyButton, xpsBrowseButton;
             settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.BrowseImages, Resources.Strings.BrowseImages, BrowseConvertedImagesToolStripButtonClick,
                 new ToolStripButtonItem(() => Resources.Strings.BrowseImagesFolder, (s, e) => Explorer.Select(ConvertedImagesFolder)),
