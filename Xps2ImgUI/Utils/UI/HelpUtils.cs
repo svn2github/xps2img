@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-using CommandLine;
-
 using Xps2Img.Shared.CommandLine;
 
 using Xps2ImgUI.Settings;
@@ -61,46 +59,46 @@ namespace Xps2ImgUI.Utils.UI
         private static readonly Dictionary<string, string> PropertyToTopicMap = new Dictionary<string, string>
         {
             // Options.
-            { Options.CategoryParameters,                                           HelpTopicXpsFile },
-            { ReflectionUtils.GetPropertyName(() => OptionsRef.SrcFile),            HelpTopicXpsFile },
-            { ReflectionUtils.GetPropertyName(() => OptionsRef.OutDir),             HelpTopicOutputFolder },
-            { ReflectionUtils.GetPropertyName(() => OptionsRef.PostAction),         HelpTopicPostConversionAction },
-            { Options.CategoryOptions,                                              HelpTopicPageNumbers },
-            { ReflectionUtils.GetPropertyName(() => OptionsRef.Pages),              HelpTopicPageNumbers },
-            { ReflectionUtils.GetPropertyName(() => OptionsRef.FileType),           HelpTopicImageType },
-            { ReflectionUtils.GetPropertyName(() => OptionsRef.JpegQuality),        HelpTopicJpegQuality },
-            { ReflectionUtils.GetPropertyName(() => OptionsRef.TiffCompression),    HelpTopicTiffCompression },
-            { ReflectionUtils.GetPropertyName(() => OptionsRef.RequiredSize),       HelpTopicImageSize },
-            { ReflectionUtils.GetPropertyName(() => OptionsRef.Dpi),                HelpTopicImageDpi },
-            { ReflectionUtils.GetPropertyName(() => OptionsRef.ImageName),          HelpTopicImagePrefix },
-            { ReflectionUtils.GetPropertyName(() => OptionsRef.FirstPageIndex),     HelpTopicFirstPageIndex },
-            { ReflectionUtils.GetPropertyName(() => OptionsRef.PrelimsPrefix),      HelpTopicPreliminariesPrefix },
-            { ReflectionUtils.GetPropertyName(() => OptionsRef.ProcessorsNumber),   HelpTopicProcessors },
-            { ReflectionUtils.GetPropertyName(() => OptionsRef.ProcessPriority),    HelpTopicProcessPriority },
-            { ReflectionUtils.GetPropertyName(() => OptionsRef.CpuAffinity),        HelpTopicProcessAffinity },
-            { ReflectionUtils.GetPropertyName(() => OptionsRef.IgnoreExisting),     HelpTopicIgnoreExistingDisplayName },
-            { ReflectionUtils.GetPropertyName(() => OptionsRef.IgnoreErrors),       HelpTopicIgnoreErrorsDisplayName },
-            { ReflectionUtils.GetPropertyName(() => OptionsRef.Test),               HelpTopicTestMode },
+            { Options.CategoryParameters,            HelpTopicXpsFile },
+            { OptionsRef.PropNameSrcFile,            HelpTopicXpsFile },
+            { OptionsRef.PropNameOutDir,             HelpTopicOutputFolder },
+            { OptionsRef.PropNamePostAction,         HelpTopicPostConversionAction },
+            { Options.CategoryOptions,               HelpTopicPageNumbers },
+            { OptionsRef.PropNamePages,              HelpTopicPageNumbers },
+            { OptionsRef.PropNameFileType,           HelpTopicImageType },
+            { OptionsRef.PropNameJpegQuality,        HelpTopicJpegQuality },
+            { OptionsRef.PropNameTiffCompression,    HelpTopicTiffCompression },
+            { OptionsRef.PropNameRequiredSize,       HelpTopicImageSize },
+            { OptionsRef.PropNameDpi,                HelpTopicImageDpi },
+            { OptionsRef.PropNameImageName,          HelpTopicImagePrefix },
+            { OptionsRef.PropNameFirstPageIndex,     HelpTopicFirstPageIndex },
+            { OptionsRef.PropNamePrelimsPrefix,      HelpTopicPreliminariesPrefix },
+            { OptionsRef.PropNameProcessorsNumber,   HelpTopicProcessors },
+            { OptionsRef.PropNameProcessPriority,    HelpTopicProcessPriority },
+            { OptionsRef.PropNameCpuAffinity,        HelpTopicProcessAffinity },
+            { OptionsRef.PropNameIgnoreExisting,     HelpTopicIgnoreExistingDisplayName },
+            { OptionsRef.PropNameIgnoreErrors,       HelpTopicIgnoreErrorsDisplayName },
+            { OptionsRef.PropNameTest,               HelpTopicTestMode },
 
             // Preferences.
-            { Preferences.CategoryApplication,                                                      HelpTopicApplication },
-            { ReflectionUtils.GetPropertyName(() => PreferencesRef.ApplicationLanguage),            HelpTopicApplicationLanguage },
-            { ReflectionUtils.GetPropertyName(() => PreferencesRef.AutoCompleteFilenames),          HelpTopicAutoCompleteFilenames },
-            { ReflectionUtils.GetPropertyName(() => PreferencesRef.AutoSaveSettings),               HelpTopicAutoSaveSettings },
-            { ReflectionUtils.GetPropertyName(() => PreferencesRef.ClassicLook),                    HelpTopicClassicLook },
-            { ReflectionUtils.GetPropertyName(() => PreferencesRef.FlashWhenCompleted),             HelpTopicFlashWhenCompleted },
-            { ReflectionUtils.GetPropertyName(() => PreferencesRef.ShowElapsedTimeAndStatistics),   HelpTopicShowElapsedTime },
-            { Preferences.CategoryConfirmations,                                                    HelpTopicConfirmations },
-            { ReflectionUtils.GetPropertyName(() => PreferencesRef.ConfirmOnAfterConversion),       HelpTopicConfirmAfterConversion },
-            { ReflectionUtils.GetPropertyName(() => PreferencesRef.ConfirmOnDelete),                HelpTopicConfirmDelete },
-            { ReflectionUtils.GetPropertyName(() => PreferencesRef.ConfirmOnExit),                  HelpTopicConfirmExit },
-            { ReflectionUtils.GetPropertyName(() => PreferencesRef.ConfirmOnStop),                  HelpTopicConfirmStopConversion },
-            { Preferences.CategoryConversion,                                                       HelpTopicConversion },
-            { ReflectionUtils.GetPropertyName(() => PreferencesRef.AlwaysResume),                   HelpTopicAlwaysResume },
-            { ReflectionUtils.GetPropertyName(() => PreferencesRef.SuggestResume),                  HelpTopicSuggestResume },
-            { ReflectionUtils.GetPropertyName(() => PreferencesRef.ShortenExtension),               HelpTopicShortenImageExtension },
-            { Preferences.CategoryUpdates,                                                          HelpTopicUpdates },
-            { ReflectionUtils.GetPropertyName(() => PreferencesRef.CheckForUpdates),                HelpTopicCheckForUpdates }
+            { Preferences.CategoryApplication,                       HelpTopicApplication },
+            { PreferencesRef.PropNameApplicationLanguage,            HelpTopicApplicationLanguage },
+            { PreferencesRef.PropNameAutoCompleteFilenames,          HelpTopicAutoCompleteFilenames },
+            { PreferencesRef.PropNameAutoSaveSettings,               HelpTopicAutoSaveSettings },
+            { PreferencesRef.PropNameClassicLook,                    HelpTopicClassicLook },
+            { PreferencesRef.PropNameFlashWhenCompleted,             HelpTopicFlashWhenCompleted },
+            { PreferencesRef.PropNameShowElapsedTimeAndStatistics,   HelpTopicShowElapsedTime },
+            { Preferences.CategoryConfirmations,                     HelpTopicConfirmations },
+            { PreferencesRef.PropNameConfirmOnAfterConversion,       HelpTopicConfirmAfterConversion },
+            { PreferencesRef.PropNameConfirmOnDelete,                HelpTopicConfirmDelete },
+            { PreferencesRef.PropNameConfirmOnExit,                  HelpTopicConfirmExit },
+            { PreferencesRef.PropNameConfirmOnStop,                  HelpTopicConfirmStopConversion },
+            { Preferences.CategoryConversion,                        HelpTopicConversion },
+            { PreferencesRef.PropNameAlwaysResume,                   HelpTopicAlwaysResume },
+            { PreferencesRef.PropNameSuggestResume,                  HelpTopicSuggestResume },
+            { PreferencesRef.PropNameShortenExtension,               HelpTopicShortenImageExtension },
+            { Preferences.CategoryUpdates,                           HelpTopicUpdates },
+            { PreferencesRef.PropNameCheckForUpdates,                HelpTopicCheckForUpdates }
         };
 
         private static Form _helpForm;

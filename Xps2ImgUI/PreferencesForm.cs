@@ -15,8 +15,6 @@ namespace Xps2ImgUI
     {
         private readonly bool _isRunning;
 
-        private readonly string _shortenExtensionPropertyName;
-        private readonly string _applicationLanguagePropertyName;
         private readonly Preferences.Localizations _originalApplicationLanguage;
         
         public PreferencesForm(Preferences preferences, bool isRunning)
@@ -27,9 +25,6 @@ namespace Xps2ImgUI
             _originalApplicationLanguage = preferences.ApplicationLanguage;
 
             Preferences = preferences;
-
-            _shortenExtensionPropertyName = ReflectionUtils.GetPropertyName(() => Preferences.ShortenExtension);
-            _applicationLanguagePropertyName = ReflectionUtils.GetPropertyName(() => Preferences.ApplicationLanguage);
 
             this.EnableFormLocalization();
         }
@@ -50,8 +45,8 @@ namespace Xps2ImgUI
 
             preferencesPropertyGrid.SelectGridItem(Preferences.DefaultSelectedItem);
 
-            ReflectionUtils.SetReadOnly<Preferences>(_isRunning, _shortenExtensionPropertyName);
-            ReflectionUtils.SetReadOnly<Preferences>(_isRunning, _applicationLanguagePropertyName);
+            ReflectionUtils.SetReadOnly<Preferences>(_isRunning, Preferences.PropNameShortenExtension);
+            ReflectionUtils.SetReadOnly<Preferences>(_isRunning, Preferences.PropNameApplicationLanguage);
 
             EnableReset();
 
@@ -75,7 +70,7 @@ namespace Xps2ImgUI
 
         private bool PropertyGridResetGroupCallback(string label, bool check)
         {
-            Func<PropertyInfo, bool> allowFilter = pi => !_isRunning || (pi.Name != _shortenExtensionPropertyName && pi.Name != _applicationLanguagePropertyName);
+            Func<PropertyInfo, bool> allowFilter = pi => !_isRunning || (pi.Name != Preferences.PropNameShortenExtension && pi.Name != Preferences.PropNameApplicationLanguage);
 
             if (check)
             {
@@ -132,7 +127,7 @@ namespace Xps2ImgUI
 
         private void PreferencesPropertyGridPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
-            if(e.ChangedItem.PropertyDescriptor.Name == _applicationLanguagePropertyName)
+            if(e.ChangedItem.PropertyDescriptor.Name == Preferences.PropNameApplicationLanguage)
             {
                 ChangeCulture();
             }
