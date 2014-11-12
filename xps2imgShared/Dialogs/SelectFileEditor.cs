@@ -10,7 +10,7 @@ namespace Xps2Img.Shared.Dialogs
 {
     public class SelectFileEditor : BaseSelectFileFolderEditor
     {
-        public string Filter { get; set; }
+        public Func<string> Filter { get; set; }
         public string InitialDirectory { get; set; }
 
         public SelectFileEditor()
@@ -18,14 +18,14 @@ namespace Xps2Img.Shared.Dialogs
         {
         }
 
-        public SelectFileEditor(string filter)
+        public SelectFileEditor(Func<string> filter)
             : this(filter, null)
         {
         }
 
-        public SelectFileEditor(string filter, string initialDirectory)
+        public SelectFileEditor(Func<string> filter, string initialDirectory)
         {
-            Filter = String.IsNullOrEmpty(filter) ? Resources.Strings.FilterAllFiles : filter;
+            Filter = filter ?? (() => Resources.Strings.FilterAllFiles);
             InitialDirectory = String.IsNullOrEmpty(initialDirectory) ? DefaultFolder : initialDirectory;
         }
 
@@ -49,11 +49,11 @@ namespace Xps2Img.Shared.Dialogs
 
             using (new ModalGuard())
             {
-                using (var dialog = new OpenFileDialog { Filter = Filter, InitialDirectory = InitialDirectory, FileName = Path.GetFileName(fileName) })
+                using (var dialog = new OpenFileDialog { Filter = Filter(), InitialDirectory = InitialDirectory, FileName = Path.GetFileName(fileName) })
                 {
-                    if (!String.IsNullOrEmpty(Title))
+                    if (Title != null)
                     {
-                        dialog.Title = Title;
+                        dialog.Title = Title();
                     }
 
                     var tryCount = 2;

@@ -1,10 +1,11 @@
-﻿using System.Drawing.Design;
+﻿using System;
+using System.Drawing.Design;
 
 namespace Xps2Img.Shared.Dialogs
 {
     public class BaseSelectFileFolderEditor : UITypeEditor
     {
-        public string Title { get; set; }
+        public Func<string> Title { get; set; }
 
         public string DefaultFolder
         {

@@ -3,9 +3,9 @@
     public class SelectXpsFileEditor : SelectFileEditor
     {
         public SelectXpsFileEditor() :
-            base(Resources.Strings.FilterXPSFiles + Resources.Strings.FilterAllFiles)
+            base(() => Resources.Strings.FilterXPSFiles + Resources.Strings.FilterAllFiles)
         {
-            Title = Resources.Strings.SelectXpsFile;
+            Title = () => Resources.Strings.SelectXpsFile;
         }
     }
 }
