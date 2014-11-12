@@ -39,5 +39,5 @@ ren "%targetFile%" "%tempName%" || goto ERROR
 "%ilMerge%" "/out:%startFile%" /t:%outType% "%tempFile%" "%resFile%" || goto ERROR
 @echo off
 rd /s /q "%targetDir%\%lang%"
-del /q "%targetDir%\%targetName%_temp_*_%targetExt%"
+del /q "%tempFile%"
 exit /b 0
