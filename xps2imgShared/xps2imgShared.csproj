@@ -135,4 +135,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)_Build\Common.targets" />
   <Target Name="BeforeBuild" DependsOnTargets="ReplaceResourceManager" />
+  <PropertyGroup>
+    <PostBuildEvent>call "$(SolutionDir)_Build\Scripts\MergeResources.bat" "$(TargetPath)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
