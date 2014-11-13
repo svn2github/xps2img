@@ -7,6 +7,11 @@ set targetDir=%~dp1
 set targetName=%~n1
 set targetExt=%~x1
 
+if "%targetDir%"=="" (
+	echo Specify file path.
+	exit 1
+)
+
 set ilMerge=%scriptDir%..\Bin\ILMerge.exe
 
 set startFile=%~1
@@ -31,7 +36,7 @@ set tempFile=%targetDir%\%tempName%
 set resFile=%targetDir%\%lang%\%targetName%.resources.dll
 echo Merging "%lang%" language...
 if not exist %resFile% (
-	echo Warning: "%lang%" does not exist.
+	echo Warning: "%lang%" language does not exist.
 	exit /b 1
 )
 @echo on
