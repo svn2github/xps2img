@@ -17,7 +17,7 @@
 #define AppMutex                "Xps2ImgInnoSetupGuard"
 
 #define AppName                 "XPS to Images Converter"
-#define AppVersion              "3.29.0.0"
+#define AppVersion              "4.0.0.0"
 
 #define AppNamePart             "{app}\xps2img"
 #define AppExe                  AppNamePart + "UI.exe"

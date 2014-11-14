@@ -176,6 +176,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Icons.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Resources\Strings.uk.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
@@ -266,7 +269,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)_Build\Common.targets" />
   <PropertyGroup>
-    <PostBuildEvent>echo.|set /p _=$(TargetFileName)&gt;"$(TargetPath).portable"
+    <PostBuildEvent>call "$(SolutionDir)_Build\Scripts\MergeResources.bat" "$(TargetPath)"
+echo.|set /p _=$(TargetFileName)&gt;"$(TargetPath).portable"
 exit 0</PostBuildEvent>
   </PropertyGroup>
   <Target Name="BeforeBuild" DependsOnTargets="ReplaceResourceManager" />
