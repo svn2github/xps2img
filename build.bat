@@ -67,10 +67,10 @@ echo.
 echo There were errors!
 echo.
 pause
-exit /b 1
+exit 1
 
 :isInstalled
 if exist "%~1" exit /b 0
 echo.
 echo %~2 is not found. Download at %~3
-exit /b 1
+exit 1
