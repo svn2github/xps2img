@@ -262,7 +262,7 @@ namespace Xps2Img.Shared.CommandLine
         [TypeConverter(typeof(YesNoConverter))]
         public bool Test { get; set; }
 
-        [Option(CleanDescpriction, ShortOptionType.None1, ArgumentExpectancy.No)]
+        [Option(CleanDescription, ShortOptionType.None1, ArgumentExpectancy.No)]
         [Browsable(false)]
         public bool Clean { get; set; }
     }

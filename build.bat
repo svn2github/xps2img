@@ -13,6 +13,7 @@ set helpFolder=%slnFolder%Help
 set setupFolder=%slnFolder%Setup
 set outFolder=%slnFolder%_bin\%buildConfig%
 set ismFolder=%slnFolder%_Lib\InnoSetup\ISM
+set mergeResources=%slnFolder%_Build\Scripts\MergeResources.bat
 
 set PFx86=%PROGRAMFILES(x86)%
 if "%PFx86%"=="" set PFx86=%PROGRAMFILES%
@@ -37,6 +38,9 @@ if not exist "%isFolder%\Include\ISM" (
 
 %msbuild% "%slnFolder%Xps2Img.sln" %buildOptions% || goto ERROR
 %msbuild% "%slnFolder%Xps2ImgUI.sln" %buildOptions% || goto ERROR
+
+@call "%mergeResources%" "%outFolder%\xps2imgShared.dll" || goto ERROR
+@call "%mergeResources%" "%outFolder%\xps2imgUI.exe" || goto ERROR
 
 %hhc% "%helpFolder%\xps2img.hhp" && goto ERROR
 copy "%helpFolder%\xps2img.chm" "%outFolder%" /Y || goto ERROR

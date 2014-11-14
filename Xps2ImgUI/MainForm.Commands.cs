@@ -184,7 +184,10 @@ namespace Xps2ImgUI
         {
             settingsPropertyGrid.ModernLook = !_preferences.ClassicLook;
             settingsPropertyGrid.AllowAutoComplete = _preferences.AutoCompleteFilenames;
+
             convertContextMenuStrip.RenderMode = settingsPropertyGrid.ContextMenuStrip.RenderMode;
+
+            var canResume = Model.OptionsObject.ShortenExtension == _preferences.ShortenExtension;
 
             if (Model.IsBatchMode)
             {
@@ -195,7 +198,7 @@ namespace Xps2ImgUI
                 Model.OptionsObject.ShortenExtension = _preferences.ShortenExtension;
             }
 
-            UpdateCommandLine();
+            UpdateCommandLine(canResume);
         }
 
         private void EnableConvertControls(ControlState controlState = ControlState.EnabledAndFocused)

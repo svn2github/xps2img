@@ -106,7 +106,7 @@ namespace Xps2Img.Shared.CommandLine
         public  const string TestDisplayName = "Test Mode";
         private const char   TestShortOption = 'e';
 
-        private const string CleanDescpriction = "Clean (delete images)";
+        private const string CleanDescription  = "Clean (delete images)";
         public  const string CleanOption       = " --clean";
 
         public  const string CancellationObjectIdsName = "cancellation-object-ids";

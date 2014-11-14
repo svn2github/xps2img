@@ -7,6 +7,8 @@ set targetDir=%~dp1
 set targetName=%~n1
 set targetExt=%~x1
 
+echo.
+
 if "%targetDir%"=="" (
 	echo Specify file path.
 	exit 1
@@ -20,9 +22,9 @@ set outType=winexe
 
 if /i "%targetExt%"==".dll" set outType=library
 
-call :mergeLang "uk"
+call :mergeLang "uk" || goto ERROR
 
-exit 0
+exit /b 0
 
 :ERROR
 @echo off
@@ -43,6 +45,7 @@ if not exist %resFile% (
 ren "%targetFile%" "%tempName%" || goto ERROR
 "%ilMerge%" "/out:%startFile%" /t:%outType% "%tempFile%" "%resFile%" || goto ERROR
 @echo off
-rd /s /q "%targetDir%\%lang%"
+del /q "%resFile%"
+rd "%targetDir%\%lang%" > nul 2>&1
 del /q "%tempFile%"
 exit /b 0

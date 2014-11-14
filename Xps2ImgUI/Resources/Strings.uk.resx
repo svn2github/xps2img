@@ -133,6 +133,14 @@
     <value>С&amp;топ</value>
     <comment>&amp;Stop</comment>
   </data>
+  <data name="Resume" xml:space="preserve">
+    <value>&amp;Продовжити</value>
+    <comment>&amp;Resume</comment>
+  </data>
+  <data name="DeleteImages" xml:space="preserve">
+    <value>&amp;Видалити всі картинки</value>
+    <comment>&amp;Delete Images</comment>
+  </data>
   <data name="HideCommandLine" xml:space="preserve">
     <value>Hide command line</value>
     <comment>Hide command line</comment>

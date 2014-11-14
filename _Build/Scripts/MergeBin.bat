@@ -3,6 +3,8 @@
 set scriptDir=%~dp0
 set targetDir=%~1
 
+echo.
+
 if "%targetDir%"=="" (
 	echo Specify binaries path.
 	exit 1
@@ -16,7 +18,7 @@ set uiFiles="%targetDir%\Microsoft.WindowsAPICodePack.dll"
 call :merge xps2img.exe "exe"
 call :merge xps2imgUI.exe "winexe" 
 
-exit 0
+exit /b 0
 
 :ERROR
 @echo off

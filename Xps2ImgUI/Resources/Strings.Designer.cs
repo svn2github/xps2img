@@ -340,6 +340,15 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Delete Images.
+        /// </summary>
+        internal static string DeleteImages {
+            get {
+                return ResourceManager.GetString("DeleteImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete Images Confirmation.
         /// </summary>
         internal static string DeleteImagesConfirmation {
@@ -732,6 +741,15 @@ namespace Xps2ImgUI.Resources {
         internal static string ResetToDefaults {
             get {
                 return ResourceManager.GetString("ResetToDefaults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Resume.
+        /// </summary>
+        internal static string Resume {
+            get {
+                return ResourceManager.GetString("Resume", resourceCulture);
             }
         }
         

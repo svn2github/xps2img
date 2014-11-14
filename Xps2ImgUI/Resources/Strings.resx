@@ -133,6 +133,14 @@
     <value>&amp;Stop</value>
     <comment>&amp;Stop</comment>
   </data>
+  <data name="Resume" xml:space="preserve">
+    <value>&amp;Resume</value>
+    <comment>&amp;Resume</comment>
+  </data>
+  <data name="DeleteImages" xml:space="preserve">
+    <value>&amp;Delete Images</value>
+    <comment>&amp;Delete Images</comment>
+  </data>
   <data name="HideCommandLine" xml:space="preserve">
     <value>Hide command line</value>
     <comment>Hide command line</comment>

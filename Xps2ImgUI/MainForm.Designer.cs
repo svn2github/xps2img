@@ -105,14 +105,12 @@ namespace Xps2ImgUI
             // 
             this.convertToolStripMenuItem.Name = "convertToolStripMenuItem";
             this.convertToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.convertToolStripMenuItem.Text = "&Convert";
             this.convertToolStripMenuItem.Click += new System.EventHandler(this.ConvertButtonClick);
             // 
             // resumeToolStripMenuItem
             // 
             this.resumeToolStripMenuItem.Name = "resumeToolStripMenuItem";
             this.resumeToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.resumeToolStripMenuItem.Text = "&Resume";
             this.resumeToolStripMenuItem.Click += new System.EventHandler(this.ResumeToolStripMenuItemClick);
             // 
             // toolStripSeparator
@@ -124,7 +122,6 @@ namespace Xps2ImgUI
             // 
             this.deleteImagesToolStripMenuItem.Name = "deleteImagesToolStripMenuItem";
             this.deleteImagesToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.deleteImagesToolStripMenuItem.Text = "&Delete Images";
             this.deleteImagesToolStripMenuItem.Click += new System.EventHandler(this.DeleteImagesToolStripMenuItemClick);
             // 
             // convertButton

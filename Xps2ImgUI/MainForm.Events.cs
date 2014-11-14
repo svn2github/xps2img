@@ -194,11 +194,13 @@ namespace Xps2ImgUI
             {
                 using (var preferencesForm = new PreferencesForm(_preferences, Model.IsRunning))
                 {
-                    if (preferencesForm.ShowDialog(this) == DialogResult.OK)
+                    if (preferencesForm.ShowDialog(this) != DialogResult.OK)
                     {
-                        _preferences = preferencesForm.Preferences;
-                        ApplyPreferences();
+                        return;
                     }
+
+                    _preferences = preferencesForm.Preferences;
+                    ApplyPreferences();
                 }
             }
         }
@@ -222,6 +224,11 @@ namespace Xps2ImgUI
         private void СonvertContextMenuStripOpening(object sender, CancelEventArgs e)
         {
             var menu = (ContextMenuStrip) sender;
+
+            convertToolStripMenuItem.Text = Resources.Strings.Launch;
+            resumeToolStripMenuItem.Text = Resources.Strings.Resume;
+            deleteImagesToolStripMenuItem.Text = Resources.Strings.DeleteImages;
+
             if(Model.CanResume)
             {
                 menu.Items.Insert(_resumeToolStripMenuItemPosition, resumeToolStripMenuItem);
