@@ -45,7 +45,7 @@ if not exist "%isFolder%\Include\ISM" (
 %hhc% "%helpFolder%\xps2img.hhp" && goto ERROR
 copy "%helpFolder%\xps2img.chm" "%outFolder%" /Y || goto ERROR
 
-%isComp% /cc "%setupFolder%\Xps2ImgSetup.iss" || goto IS_ERROR
+%isComp% /cc "%setupFolder%\Xps2ImgSetup.iss" /dBinariesPath=..\_bin\%buildConfig%\ || goto IS_ERROR
 copy "%setupFolder%\_Output\Xps2ImgSetup.exe" "%outFolder%" /Y || goto ERROR
 
 @echo off

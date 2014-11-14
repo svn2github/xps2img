@@ -4,6 +4,10 @@
     #error Unicode InnoSetup required
 #endif
 
+#ifndef BinariesPath
+  #define BinariesPath          "..\_bin\Release\"
+#endif
+
 #define ISM_RootDir             AddBackslash(CompilerPath) + "Include/ISM"
 
 #include ISM_RootDir + "/Include/WinVer.isi"
@@ -49,8 +53,6 @@
 
 #define WizardImageFile         "Images/WizardImage.bmp"
 #define WizardSmallImageFile    "Images/WizardSmallImage.bmp"
-
-#define BinariesPath            "..\_bin\Release\"
 
 #define X2IFileExtension        "x2i"
 #define XPSFileExtension        "xps"
