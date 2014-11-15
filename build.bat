@@ -4,7 +4,7 @@ set buildConfig=Release
 
 set logFile=build.log
 
-if not "%~1"=="" set buildConfig=Debug
+if not "%~1"=="" set buildConfig=%~1
 
 if exist "%logFile%" del /f /q "%logFile%"
 
@@ -25,7 +25,7 @@ set hhc="%PFx86%\HTML Help Workshop\hhc.exe"
 set isFolder=%PFx86%\Inno Setup 5
 set isComp="%isFolder%\iscc.exe"
 
-set buildOptions=/p:Configuration=%buildConfig% /t:Rebuild "/l:FileLogger,Microsoft.Build.Engine;logfile=%logFile%;append=true;encoding=utf-8"
+set buildOptions=/p:Configuration="%buildConfig%" /t:Rebuild "/l:FileLogger,Microsoft.Build.Engine;logfile=%logFile%;append=true;encoding=utf-8"
 
 call :isInstalled %msbuild% "Microsoft .NET Framework 4" "http://www.microsoft.com/download/en/details.aspx?id=17851" || goto ERROR
 call :isInstalled %hhc% "HTML Help Workshop" "http://www.microsoft.com/download/en/details.aspx?id=21138" || goto ERROR
