@@ -59,7 +59,7 @@ namespace Xps2ImgUI
 
         private void OutputDataReceived(object sender, ConversionProgressEventArgs e)
         {
-            this.PostMessage(WmProgress, e);
+            _handle.PostMessage(WmProgress, e);
             ConvertedImagesFolder = e.File;
         }
 

@@ -13,7 +13,9 @@ set helpFolder=%slnFolder%Help
 set setupFolder=%slnFolder%Setup
 set outFolder=%slnFolder%_bin\%buildConfig%
 set ismFolder=%slnFolder%_Lib\InnoSetup\ISM
-set mergeResources=%slnFolder%_Build\Scripts\MergeResources.bat
+set buildScripts=%slnFolder%_Build\Scripts
+set mergeResources=%buildScripts%\MergeResources.bat
+set mergeBin=%buildScripts%\MergeBin.bat
 
 set PFx86=%PROGRAMFILES(x86)%
 if "%PFx86%"=="" set PFx86=%PROGRAMFILES%
@@ -39,11 +41,17 @@ if not exist "%isFolder%\Include\ISM" (
 %msbuild% "%slnFolder%Xps2Img.sln" %buildOptions% || goto ERROR
 %msbuild% "%slnFolder%Xps2ImgUI.sln" %buildOptions% || goto ERROR
 
-@call "%mergeResources%" "%outFolder%\xps2imgShared.dll" || goto ERROR
-@call "%mergeResources%" "%outFolder%\xps2imgUI.exe" || goto ERROR
-
 %hhc% "%helpFolder%\xps2img.hhp" && goto ERROR
 copy "%helpFolder%\xps2img.chm" "%outFolder%" /Y || goto ERROR
+
+@echo off
+if /i "%buildConfig%"=="Release" (
+	call "%mergeResources%" "%outFolder%\xps2imgShared.dll" || goto ERROR
+	call "%mergeResources%" "%outFolder%\xps2imgUI.exe" || goto ERROR
+
+	call "%mergeBin%" "%outFolder%" || goto ERROR
+)
+@echo on
 
 %isComp% /cc "%setupFolder%\Xps2ImgSetup.iss" /dBinariesPath=..\_bin\%buildConfig%\ || goto IS_ERROR
 copy "%setupFolder%\_Output\Xps2ImgSetup.exe" "%outFolder%" /Y || goto ERROR
@@ -67,10 +75,10 @@ echo.
 echo There were errors!
 echo.
 pause
-exit 1
+exit /b 1
 
 :isInstalled
 if exist "%~1" exit /b 0
 echo.
 echo %~2 is not found. Download at %~3
-exit 1
+exit /b 1

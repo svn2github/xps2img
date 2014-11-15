@@ -3,11 +3,10 @@
 set scriptDir=%~dp0
 set targetDir=%~1
 
-echo.
-
 if "%targetDir%"=="" (
+	echo.
 	echo Specify binaries path.
-	exit 1
+	exit /b 1
 )
 
 set ilMerge=%scriptDir%..\Bin\ILMerge.exe
@@ -16,14 +15,17 @@ set commonFiles="%targetDir%\CommandLine.dll" "%targetDir%\Gnu.Getopt.dll" "%tar
 set uiFiles="%targetDir%\Microsoft.WindowsAPICodePack.dll"
 
 call :merge xps2img.exe "exe"
-call :merge xps2imgUI.exe "winexe" 
+call :merge xps2imgUI.exe "winexe"
+
+del /q %commonFiles%
+del /q %uiFiles%
 
 exit /b 0
 
 :ERROR
 @echo off
 echo ILMerge failed with errors.
-exit 1
+exit /b 1
 
 :merge
 set startFile=%targetDir%\%~1
@@ -31,6 +33,7 @@ set mergeType=%~2
 set tempName=%~n1_temp_%~x1
 set tempFile=%targetDir%\%tempName%
 
+echo.
 echo Merging "%startFile%"...
 
 if "%mergeType%"=="winexe" set additionalFiles=%uiFiles%

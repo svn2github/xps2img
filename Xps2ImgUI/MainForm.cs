@@ -68,6 +68,8 @@ namespace Xps2ImgUI
 
         protected override void OnLoad(EventArgs e)
         {
+            _handle = Handle;
+
             LocalizationManager.SetUICulture((int)_preferences.ApplicationLanguage);
 
             convertButton.ContextMenuStrip = convertContextMenuStrip;
@@ -331,5 +333,7 @@ namespace Xps2ImgUI
 
         private readonly IUpdateManager _updateManager = UpdateManager.Create();
         private readonly int _resumeToolStripMenuItemPosition;
+
+        private IntPtr _handle;
     }
 }

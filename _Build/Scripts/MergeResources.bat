@@ -11,7 +11,7 @@ echo.
 
 if "%targetDir%"=="" (
 	echo Specify file path.
-	exit 1
+	exit /b 1
 )
 
 set ilMerge=%scriptDir%..\Bin\ILMerge.exe
@@ -29,7 +29,7 @@ exit /b 0
 :ERROR
 @echo off
 echo ILMerge failed with errors.
-exit 1
+exit /b 1
 
 :mergeLang
 set lang=%~1

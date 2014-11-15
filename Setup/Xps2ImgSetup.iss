@@ -77,7 +77,7 @@
 
 #define Common_RunFlags     RunFlag_NoWait + RunFlag_PostInstall + RunFlag_SkipIfSilent
 
-#define ApplicationFile(f)  File(BinariesPath + f)
+#define ApplicationFile(f)  Local[1]=BinariesPath + f, FileExists(Local[1]) ? File(Local[1]) : InstallDelete("{app}\" + f)
 
 #define PortableMarkFile    "xps2imgUI.exe.portable"
 
@@ -92,9 +92,9 @@
 <ApplicationFile("CommandLine.dll")>
 <ApplicationFile("Gnu.Getopt.dll")>
 <ApplicationFile("Microsoft.WindowsAPICodePack.dll")>
-<ApplicationFile("xps2img.chm")>
 <ApplicationFile("xps2img.exe.config")>
 <ApplicationFile("xps2imgUI.exe.config")>
+<ApplicationFile("xps2img.chm")>
 #define Active_Check    "IsPortable"
     <ApplicationFile(PortableMarkFile)>
 <Reset_ActiveCheck>

@@ -241,17 +241,9 @@ namespace Xps2ImgUI.Utils.UI
             return AttachConsole(ATTACH_PARENT_PROCESS);
         }
 
-        public static void PostMessage(this Control control, uint msg, object data)
+        public static void PostMessage(this IntPtr handle, uint msg, object data)
         {
-            try
-            {
-                PostMessage(control.Handle, msg, IntPtr.Zero, GCHandle.ToIntPtr(GCHandle.Alloc(data)));
-            }
-            // ReSharper disable EmptyGeneralCatchClause
-            catch
-            // ReSharper restore EmptyGeneralCatchClause
-            {
-            }
+            PostMessage(handle, msg, IntPtr.Zero, GCHandle.ToIntPtr(GCHandle.Alloc(data)));
         }
 
         public static T GetPostMessageData<T>(this Message msg)
