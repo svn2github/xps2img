@@ -49,7 +49,7 @@
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 0;
-            this.cancelButton.Text = "Cancel";
+            this.cancelButton.Text = "cancelButton";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
             // UpdateDownloadForm
@@ -67,7 +67,6 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "{0}% - Downloading Update";
             this.ResumeLayout(false);
 
         }

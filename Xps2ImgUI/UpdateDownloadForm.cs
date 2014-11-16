@@ -2,12 +2,13 @@
 using System.Windows.Forms;
 using System.ComponentModel;
 
+using Xps2ImgUI.Localization;
 using Xps2ImgUI.Utils;
 using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI
 {
-    public partial class UpdateDownloadForm : Form
+    public partial class UpdateDownloadForm : Form, IFormLocalization
     {
         private string _textFormat;
         private readonly IUpdateManager _updateManager;
@@ -15,16 +16,15 @@ namespace Xps2ImgUI
         public UpdateDownloadForm(IUpdateManager updateManager)
         {
             InitializeComponent();
+
             _updateManager = updateManager;
+
+            this.EnableFormLocalization();
         }
 
         protected override void OnLoad(EventArgs e)
         {
             this.RemoveSystemMenuDisabledItems();
-
-            _textFormat = Text;
-
-            SetTitle(0);
 
             _updateManager.DownloadFileCompleted += DownloadFileCompleted;
             _updateManager.DownloadProgressChanged += DownloadProgressChanged;
@@ -74,6 +74,15 @@ namespace Xps2ImgUI
             _updateManager.DownloadProgressChanged -= DownloadProgressChanged;
 
             base.OnClosed(e);
+        }
+
+        public void UICultureChanged()
+        {
+            _textFormat = Resources.Strings.Downloading;
+
+            cancelButton.Text = Resources.Strings.Cancel;
+
+            SetTitle(0);
         }
     }
 }

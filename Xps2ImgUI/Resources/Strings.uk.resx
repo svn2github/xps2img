@@ -633,4 +633,8 @@ What's new in version {0}
     <value>Preferences</value>
     <comment>Preferences</comment>
   </data>
+  <data name="Downloading" xml:space="preserve">
+    <value>{0}% - Отримання апдейта</value>
+    <comment>{0}% - Downloading Update</comment>
+  </data>
 </root>

@@ -2,11 +2,12 @@
 using System.Drawing;
 using System.Windows.Forms;
 
+using Xps2ImgUI.Localization;
 using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI
 {
-    public partial class CountdownForm : Form
+    public partial class CountdownForm : Form, IFormLocalization
     {
         public CountdownForm(string headerText, int countdownSeconds)
         {
@@ -16,7 +17,7 @@ namespace Xps2ImgUI
 
             countdownProgressBar.Maximum = countdownProgressBar.Value = countdownSeconds;
 
-            UpdateLabelText();
+            this.EnableFormLocalization();
         }
 
         private void UpdateLabelText()
@@ -97,6 +98,14 @@ namespace Xps2ImgUI
                 return;
             }
             countdownProgressBar.Value--;
+            UpdateLabelText();
+        }
+
+        public void UICultureChanged()
+        {
+            okButton.Text = Resources.Strings.OK;
+            cancelButton.Text = Resources.Strings.Cancel;
+
             UpdateLabelText();
         }
     }
