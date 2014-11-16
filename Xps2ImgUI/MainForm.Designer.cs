@@ -41,10 +41,12 @@ namespace Xps2ImgUI
             this.deleteImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.convertButton = new wyDay.Controls.SplitButton();
             this.settingsPropertyGrid = new Xps2ImgUI.Controls.PropertyGridEx.PropertyGridEx();
+            this.progressTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.settingsSplitContainer.Panel1.SuspendLayout();
             this.settingsSplitContainer.Panel2.SuspendLayout();
             this.settingsSplitContainer.SuspendLayout();
             this.convertContextMenuStrip.SuspendLayout();
+            this.progressTableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // settingsSplitContainer
@@ -81,14 +83,39 @@ namespace Xps2ImgUI
             this.commandLineTextBox.Size = new System.Drawing.Size(150, 46);
             this.commandLineTextBox.TabIndex = 0;
             // 
+            // progressTableLayoutPanel
+            // 
+            this.progressTableLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressTableLayoutPanel.RowCount = 1;
+            this.progressTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.progressTableLayoutPanel.ColumnCount = 2;
+            this.progressTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.progressTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.progressTableLayoutPanel.Controls.Add(this.convertButton, 1, 0);
+            this.progressTableLayoutPanel.Controls.Add(this.progressBar, 0, 0);
+            this.progressTableLayoutPanel.Name = "progressTableLayoutPanel";
+            this.progressTableLayoutPanel.Location = new System.Drawing.Point(5, 492);
+            this.progressTableLayoutPanel.Size = new System.Drawing.Size(708, 29);
+            this.progressTableLayoutPanel.TabIndex = 0;
+            // 
             // progressBar
             // 
-            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar.Location = new System.Drawing.Point(8, 495);
+            this.progressBar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(627, 23);
-            this.progressBar.TabIndex = 0;
+            this.progressBar.Size = new System.Drawing.Size(629, 22);
+            this.progressBar.TabIndex = 1;
+            // 
+            // convertButton
+            // 
+            this.convertButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.convertButton.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.convertButton.Name = "convertButton";
+            this.convertButton.MinimumSize = new System.Drawing.Size(75, 23);
+            this.convertButton.Size = new System.Drawing.Size(75, 23);
+            this.convertButton.TabIndex = 1;
+            this.convertButton.UseVisualStyleBackColor = true;
+            this.convertButton.Click += new System.EventHandler(this.ConvertButtonClick);
             // 
             // convertContextMenuStrip
             // 
@@ -124,16 +151,6 @@ namespace Xps2ImgUI
             this.deleteImagesToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.deleteImagesToolStripMenuItem.Click += new System.EventHandler(this.DeleteImagesToolStripMenuItemClick);
             // 
-            // convertButton
-            // 
-            this.convertButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.convertButton.Location = new System.Drawing.Point(638, 495);
-            this.convertButton.Name = "convertButton";
-            this.convertButton.Size = new System.Drawing.Size(75, 23);
-            this.convertButton.TabIndex = 1;
-            this.convertButton.UseVisualStyleBackColor = true;
-            this.convertButton.Click += new System.EventHandler(this.ConvertButtonClick);
-            // 
             // settingsPropertyGrid
             // 
             this.settingsPropertyGrid.AllowDrop = true;
@@ -154,9 +171,8 @@ namespace Xps2ImgUI
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(720, 526);
-            this.Controls.Add(this.progressBar);
-            this.Controls.Add(this.convertButton);
             this.Controls.Add(this.settingsSplitContainer);
+            this.Controls.Add(progressTableLayoutPanel);
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -165,11 +181,12 @@ namespace Xps2ImgUI
             this.settingsSplitContainer.Panel1.ResumeLayout(false);
             this.settingsSplitContainer.Panel2.ResumeLayout(false);
             this.settingsSplitContainer.Panel2.PerformLayout();
+            this.progressTableLayoutPanel.PerformLayout();
             this.settingsSplitContainer.ResumeLayout(false);
             this.convertContextMenuStrip.ResumeLayout(false);
+            this.progressTableLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
-
     }
 
     #endregion
@@ -184,6 +201,7 @@ namespace Xps2ImgUI
     private System.Windows.Forms.ToolStripMenuItem convertToolStripMenuItem;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
     private System.Windows.Forms.ToolStripMenuItem resumeToolStripMenuItem;
+    private System.Windows.Forms.TableLayoutPanel progressTableLayoutPanel;
   }
 }
 

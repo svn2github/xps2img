@@ -484,6 +484,18 @@ namespace wyDay.Controls
             if (showSplit)
                 ret_size.Width += SplitSectionWidth;
 
+            if (MinimumSize.Width > ret_size.Width)
+                ret_size.Width = MinimumSize.Width;
+
+            if (MinimumSize.Height > ret_size.Height)
+                ret_size.Height = MinimumSize.Height;
+
+            if (MaximumSize.Width != 0 && MaximumSize.Width < ret_size.Width)
+                ret_size.Width = MaximumSize.Width;
+
+            if (MaximumSize.Height != 0 && MaximumSize.Height < ret_size.Height)
+                ret_size.Height = MaximumSize.Height;
+
             return ret_size;
         }
 
