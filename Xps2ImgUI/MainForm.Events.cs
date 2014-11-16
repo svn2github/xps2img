@@ -200,7 +200,7 @@ namespace Xps2ImgUI
                     }
 
                     _preferences = preferencesForm.Preferences;
-                    ApplyPreferences();
+                    ApplyPreferences(true);
                 }
             }
         }

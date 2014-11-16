@@ -94,6 +94,7 @@ namespace Xps2ImgUI
             Text = Resources.Strings.WindowTitle;
 
             convertButton.Text = Resources.Strings.Launch;
+            convertButton.MinimumSize = convertButton.Size;
 
             settingsPropertyGrid.RefreshLocalization();
         }

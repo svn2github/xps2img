@@ -180,7 +180,7 @@ namespace Xps2ImgUI
             Model.FireOptionsObjectChanged();
         }
 
-        private void ApplyPreferences()
+        private void ApplyPreferences(bool byUser = false)
         {
             settingsPropertyGrid.ModernLook = !_preferences.ClassicLook;
             settingsPropertyGrid.AllowAutoComplete = _preferences.AutoCompleteFilenames;
@@ -198,7 +198,7 @@ namespace Xps2ImgUI
                 Model.OptionsObject.ShortenExtension = _preferences.ShortenExtension;
             }
 
-            UpdateCommandLine(canResume);
+            UpdateCommandLine(byUser && canResume);
         }
 
         private void EnableConvertControls(ControlState controlState = ControlState.EnabledAndFocused)
