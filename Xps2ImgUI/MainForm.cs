@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -70,7 +72,7 @@ namespace Xps2ImgUI
         {
             _handle = Handle;
 
-            LocalizationManager.SetUICulture((int)_preferences.ApplicationLanguage);
+            RegisterCultureSpecificConvertButtonSize();
 
             convertButton.ContextMenuStrip = convertContextMenuStrip;
 
@@ -84,17 +86,47 @@ namespace Xps2ImgUI
             
             FocusFirstRequiredOption(false);
 
-            CheckForUpdates(true);
-
             base.OnLoad(e);
+
+            BeginInvoke((MethodInvoker)(() =>
+            {
+                LocalizationManager.SetUICulture((int) _preferences.ApplicationLanguage);
+                CheckForUpdates(true);
+            }));
+        }
+
+        private void RegisterCultureSpecificConvertButtonSize()
+        {
+            var minimumConvertButtonSize = CultureSpecificConvertButtonSize;
+            if (minimumConvertButtonSize.IsEmpty)
+            {
+                CultureSpecificConvertButtonSize = convertButton.Size;
+            }
+        }
+
+        private Size CultureSpecificConvertButtonSize
+        {
+            get
+            {
+                Size size, invariantSize;
+                _cultureSpecificConvertButtonSize.TryGetValue(LocalizationManager.CurrentUICulture.Name, out size);
+                _cultureSpecificConvertButtonSize.TryGetValue(LocalizationManager.DefaultUICulture.Name, out invariantSize);
+                return !size.IsEmpty && invariantSize.Width > size.Width ? invariantSize : size;
+            }
+            set
+            {
+                _cultureSpecificConvertButtonSize[LocalizationManager.CurrentUICulture.Name] = value;
+            }
         }
 
         public void UICultureChanged()
         {
             Text = Resources.Strings.WindowTitle;
 
+            convertButton.MinimumSize = Size.Empty;
             convertButton.Text = Resources.Strings.Launch;
-            convertButton.MinimumSize = convertButton.Size;
+            RegisterCultureSpecificConvertButtonSize();
+            convertButton.MinimumSize = CultureSpecificConvertButtonSize;
 
             settingsPropertyGrid.RefreshLocalization();
         }
@@ -334,6 +366,8 @@ namespace Xps2ImgUI
 
         private readonly IUpdateManager _updateManager = UpdateManager.Create();
         private readonly int _resumeToolStripMenuItemPosition;
+
+        private readonly Dictionary<string, Size> _cultureSpecificConvertButtonSize = new Dictionary<string, Size>();
 
         private IntPtr _handle;
     }

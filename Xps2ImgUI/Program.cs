@@ -17,6 +17,7 @@ using Xps2Img.Shared.Utils;
 using Xps2Img.Shared.Utils.System;
 using Xps2Img.Shared.Utils.UI;
 
+using Xps2ImgUI.Localization;
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Settings;
 
@@ -61,6 +62,8 @@ namespace Xps2ImgUI
 
             ThreadPool.GetMinThreads(out workerThreads, out completionPortThreads);
             ThreadPool.SetMinThreads(workerThreads + Environment.ProcessorCount + 2, completionPortThreads);
+
+            LocalizationManager.ResetUICulture();
 
             var options = Parser.IsUsageRequested(args) ? null : Parser.Parse<UIOptions>(args, true);
 
