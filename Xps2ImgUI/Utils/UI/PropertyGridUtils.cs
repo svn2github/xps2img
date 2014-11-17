@@ -7,14 +7,20 @@ namespace Xps2ImgUI.Utils.UI
     public static class PropertyGridUtils
     {
         // http://www.vb-helper.com/howto_net_select_propertygrid_item2.html
-        private static GridItem FindItem(PropertyGrid propertyGrid, Func<GridItem, bool> findGridItem)
+
+        private static GridItem GetParentNode(PropertyGrid propertyGrid)
         {
             var node = propertyGrid.SelectedGridItem;
             while (node.Parent != null)
             {
                 node = node.Parent;
             }
-            return FindNode(node, findGridItem);
+            return node;
+        }
+
+        private static GridItem FindItem(PropertyGrid propertyGrid, Func<GridItem, bool> findGridItem)
+        {
+            return FindNode(GetParentNode(propertyGrid), findGridItem);
         }
 
         private static GridItem FindNode(GridItem node, Func<GridItem, bool> findGridItem)
@@ -27,17 +33,26 @@ namespace Xps2ImgUI.Utils.UI
                       .FirstOrDefault(gridItem => gridItem != null);
         }
 
-        public static void SelectGridItem(this PropertyGrid propertyGrid, string itemLabel)
+        public static void SelectFirstGridItem(this PropertyGrid propertyGrid)
         {
-            SelectGridItem(propertyGrid, itemLabel, null);
+            Func<GridItem, bool> isEmpty = n => n == null || n.GridItems.Count == 0;
+
+            var node = GetParentNode(propertyGrid);
+            if (isEmpty(node))
+            {
+                return;
+            }
+
+            node = node.GridItems[0];
+            if (isEmpty(node))
+            {
+                return;
+            }
+
+            propertyGrid.SelectedGridItem = node.GridItems[0];
         }
 
-        public static void SelectGridItem(this PropertyGrid propertyGrid, string itemLabel, Func<GridItem, bool> searchFunc)
-        {
-            SelectGridItem(propertyGrid, itemLabel, searchFunc, false);
-        }
-
-        public static void SelectGridItem(this PropertyGrid propertyGrid, string itemLabel, Func<GridItem, bool> searchFunc, bool focus)
+        public static void SelectGridItem(this PropertyGrid propertyGrid, string itemLabel, Func<GridItem, bool> searchFunc = null, bool focus = false)
         {
             if (searchFunc == null)
             {

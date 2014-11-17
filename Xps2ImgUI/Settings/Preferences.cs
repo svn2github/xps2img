@@ -22,10 +22,6 @@ namespace Xps2ImgUI.Settings
         public  const string CategoryConversion    = "Conversion";
         public  const string CategoryUpdates       = "Updates";
         
-        public  const string DefaultSelectedItem            = ApplicationLanguageDisplayName;
-
-        private const string ApplicationLanguageDisplayName = "Application Language";
-
         static Preferences()
         {
             LocalizableTypeDescriptionProviderInstaller.AddProvider<Preferences>(Resources.Strings.ResourceManager);
