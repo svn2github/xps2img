@@ -765,4 +765,12 @@ What's new in version {0}
     <value>Updates</value>
     <comment>Updates</comment>
   </data>
+  <data name="PropertyGrid_ResetItem" xml:space="preserve">
+    <value>&amp;Reset {0}</value>
+    <comment>&amp;Reset {0}</comment>
+  </data>
+  <data name="PropertyGrid_CloseItem" xml:space="preserve">
+    <value>&amp;Close</value>
+    <comment>&amp;Close</comment>
+  </data>
 </root>

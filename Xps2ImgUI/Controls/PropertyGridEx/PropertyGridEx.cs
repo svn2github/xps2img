@@ -6,11 +6,15 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Resources;
 using System.Windows.Forms;
 
 using CommandLine;
 
 using Xps2ImgUI.Controls.PropertyGridEx.ToolStripEx;
+
+// ReSharper disable UnusedMember.Global
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace Xps2ImgUI.Controls.PropertyGridEx
 {
@@ -43,6 +47,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             _toolStrip = (ToolStrip)controls.FirstOrDefault(c => c is ToolStrip);
             Debug.Assert(_toolStrip != null);
 
+            // ReSharper disable once PossibleNullReferenceException
             var toolStripType = _toolStrip.GetType();
 
             _currentlyActiveTooltipItem = toolStripType.GetField("currentlyActiveTooltipItem", instanceNonPublic);
@@ -54,6 +59,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             _docComment = controls.FirstOrDefault(c => c.GetType().Name == "DocComment");
             Debug.Assert(_docComment != null);
 
+            // ReSharper disable once PossibleNullReferenceException
             var docCommentType = _docComment.GetType();
 
             _docLinesPropertyInfo = docCommentType.GetProperty("Lines");
@@ -68,6 +74,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             _propertyGridView = controls.FirstOrDefault(c => c.GetType().Name == "PropertyGridView");
             Debug.Assert(_propertyGridView != null);
 
+            // ReSharper disable once PossibleNullReferenceException
             var propertyGridViewType = _propertyGridView.GetType();
 
             _propertyGridViewEdit = (TextBox)propertyGridViewType.GetProperty("Edit", instanceNonPublic).GetValue(_propertyGridView, null);
@@ -211,7 +218,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             return AddToolStripButton(toolStripButton, eventHandler);
         }
 
-        public ToolStripButton AddToolStripButton(ToolStripButton toolStripButton, EventHandler eventHandler)
+        private ToolStripButton AddToolStripButton(ToolStripButton toolStripButton, EventHandler eventHandler)
         {
             toolStripButton.Click += eventHandler;
             _toolStrip.Items.Add(toolStripButton);
@@ -351,9 +358,33 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         // bool check   - check requested if true; otherwise reset should be executed
         public Func<string, bool, bool> ResetGroupCallback { get; set; }
 
-        private const string ResetItemText = "&Reset {0}";
-        private const string CloseItemText = "&Close";
         private const string ResetItemName = "reset";
+        private const string CloseItemName = "close";
+
+        private const string ResetItemKey = "PropertyGrid_ResetItem";
+        private const string CloseItemKey = "PropertyGrid_CloseItem";
+
+        private static string ResetItemText
+        {
+            get { return GetLocalizedString(ResetItemKey, "&Reset {0}"); }
+        }
+
+        private static string CloseItemText
+        {
+            get { return GetLocalizedString(CloseItemKey, "&Close"); }
+        }
+
+        private static string GetLocalizedString(string key, string defaultValue)
+        {
+            if(ResourceManager == null)
+            {
+                return defaultValue;
+            }
+
+            var localizedString = ResourceManager.GetString(key);
+
+            return String.IsNullOrEmpty(localizedString) ? defaultValue : localizedString;
+        }
 
         private void InitContextMenuStrip()
         {
@@ -370,13 +401,17 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             resetMenuItem.Click += ResetMenuItemClick;
 
             contextMenuStrip.Items.Add("-");
-            contextMenuStrip.Items.Add(CloseItemText);
+
+            var closeItemText = contextMenuStrip.Items.Add(CloseItemText);
+            closeItemText.Name = CloseItemName;
 
             base.ContextMenuStrip = contextMenuStrip;
         }
 
         private void ContextStripMenuOpening(object sender, CancelEventArgs e)
         {
+            ContextMenuStrip.Items[CloseItemName].Text = CloseItemText;
+
             var resetMenuItem = ContextMenuStrip.Items[ResetItemName];
             var label = SelectedGridItem.Label;
 
@@ -498,6 +533,9 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                 UpdateAutoComplete();
             }
         }
+
+        [Browsable(false)]
+        public static ResourceManager ResourceManager { get; set; }
 
         private readonly ToolStrip _toolStrip;
         private readonly Control _docComment;

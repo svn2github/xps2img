@@ -997,6 +997,24 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Close.
+        /// </summary>
+        internal static string PropertyGrid_CloseItem {
+            get {
+                return ResourceManager.GetString("PropertyGrid_CloseItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Reset {0}.
+        /// </summary>
+        internal static string PropertyGrid_ResetItem {
+            get {
+                return ResourceManager.GetString("PropertyGrid_ResetItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Remember choice and do not ask again.
         /// </summary>
         internal static string RememberChoiceAndDoNotAskAgain {

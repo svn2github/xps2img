@@ -761,8 +761,16 @@ What's new in version {0}
     <value>Conversion</value>
     <comment>Conversion</comment>
   </data>
-  <data name="Preferences_Category" xml:space="preserve">
+  <data name="Preferences_UpdatesCategory" xml:space="preserve">
     <value>Updates</value>
     <comment>Updates</comment>
+  </data>
+  <data name="PropertyGrid_ResetItem" xml:space="preserve">
+    <value>&amp;Відкотити {0}</value>
+    <comment>&amp;Reset {0}</comment>
+  </data>
+  <data name="PropertyGrid_CloseItem" xml:space="preserve">
+    <value>&amp;Закрити</value>
+    <comment>&amp;Close</comment>
   </data>
 </root>
