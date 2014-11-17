@@ -673,11 +673,299 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Always resume last conversion if applicable instead of starting new one..
+        /// </summary>
+        internal static string Preferences_AlwaysResumeDescription {
+            get {
+                return ResourceManager.GetString("Preferences_AlwaysResumeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Always Resume.
+        /// </summary>
+        internal static string Preferences_AlwaysResumeName {
+            get {
+                return ResourceManager.GetString("Preferences_AlwaysResumeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application.
+        /// </summary>
+        internal static string Preferences_ApplicationCategory {
+            get {
+                return ResourceManager.GetString("Preferences_ApplicationCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User interface language..
+        /// </summary>
+        internal static string Preferences_ApplicationLanguageDescription {
+            get {
+                return ResourceManager.GetString("Preferences_ApplicationLanguageDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application Language.
+        /// </summary>
+        internal static string Preferences_ApplicationLanguageName {
+            get {
+                return ResourceManager.GetString("Preferences_ApplicationLanguageName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto complete filenames in edit boxes..
+        /// </summary>
+        internal static string Preferences_AutoCompleteFilenamesDescription {
+            get {
+                return ResourceManager.GetString("Preferences_AutoCompleteFilenamesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto Complete Filenames.
+        /// </summary>
+        internal static string Preferences_AutoCompleteFilenamesName {
+            get {
+                return ResourceManager.GetString("Preferences_AutoCompleteFilenamesName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto save settings on exit. If not set default settings will be used next time..
+        /// </summary>
+        internal static string Preferences_AutoSaveSettingsDescription {
+            get {
+                return ResourceManager.GetString("Preferences_AutoSaveSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto Save Settings.
+        /// </summary>
+        internal static string Preferences_AutoSaveSettingsName {
+            get {
+                return ResourceManager.GetString("Preferences_AutoSaveSettingsName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check for updates interval..
+        /// </summary>
+        internal static string Preferences_CheckForUpdatesDescription {
+            get {
+                return ResourceManager.GetString("Preferences_CheckForUpdatesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check for Updates.
+        /// </summary>
+        internal static string Preferences_CheckForUpdatesName {
+            get {
+                return ResourceManager.GetString("Preferences_CheckForUpdatesName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use application system look..
+        /// </summary>
+        internal static string Preferences_ClassicLookDescription {
+            get {
+                return ResourceManager.GetString("Preferences_ClassicLookDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Classic Look.
+        /// </summary>
+        internal static string Preferences_ClassicLookName {
+            get {
+                return ResourceManager.GetString("Preferences_ClassicLookName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirmations.
+        /// </summary>
+        internal static string Preferences_ConfirmationsCategory {
+            get {
+                return ResourceManager.GetString("Preferences_ConfirmationsCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ask confirmation on after conversion action..
+        /// </summary>
+        internal static string Preferences_ConfirmOnAfterConversionDescription {
+            get {
+                return ResourceManager.GetString("Preferences_ConfirmOnAfterConversionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm After Conversion.
+        /// </summary>
+        internal static string Preferences_ConfirmOnAfterConversionName {
+            get {
+                return ResourceManager.GetString("Preferences_ConfirmOnAfterConversionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ask confirmation on images deletion..
+        /// </summary>
+        internal static string Preferences_ConfirmOnDeleteDescription {
+            get {
+                return ResourceManager.GetString("Preferences_ConfirmOnDeleteDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Delete.
+        /// </summary>
+        internal static string Preferences_ConfirmOnDeleteName {
+            get {
+                return ResourceManager.GetString("Preferences_ConfirmOnDeleteName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ask confirmation on application exit if conversion is in progress..
+        /// </summary>
+        internal static string Preferences_ConfirmOnExitDescription {
+            get {
+                return ResourceManager.GetString("Preferences_ConfirmOnExitDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Exit.
+        /// </summary>
+        internal static string Preferences_ConfirmOnExitName {
+            get {
+                return ResourceManager.GetString("Preferences_ConfirmOnExitName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ask confirmation on conversion stop..
+        /// </summary>
+        internal static string Preferences_ConfirmOnStopDescription {
+            get {
+                return ResourceManager.GetString("Preferences_ConfirmOnStopDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Stop Conversion.
+        /// </summary>
+        internal static string Preferences_ConfirmOnStopName {
+            get {
+                return ResourceManager.GetString("Preferences_ConfirmOnStopName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conversion.
+        /// </summary>
+        internal static string Preferences_ConversionCategory {
+            get {
+                return ResourceManager.GetString("Preferences_ConversionCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flash application window when conversion is completed..
+        /// </summary>
+        internal static string Preferences_FlashWhenCompletedDescription {
+            get {
+                return ResourceManager.GetString("Preferences_FlashWhenCompletedDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flash When Completed.
+        /// </summary>
+        internal static string Preferences_FlashWhenCompletedName {
+            get {
+                return ResourceManager.GetString("Preferences_FlashWhenCompletedName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shortens image extension down to three characters..
+        /// </summary>
+        internal static string Preferences_ShortenExtensionDescription {
+            get {
+                return ResourceManager.GetString("Preferences_ShortenExtensionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shorten Image Extension.
+        /// </summary>
+        internal static string Preferences_ShortenExtensionName {
+            get {
+                return ResourceManager.GetString("Preferences_ShortenExtensionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show time elapsed by last operation and conversion statistics in application title..
+        /// </summary>
+        internal static string Preferences_ShowElapsedTimeAndStatisticsDescription {
+            get {
+                return ResourceManager.GetString("Preferences_ShowElapsedTimeAndStatisticsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Elapsed Time and Statistics.
+        /// </summary>
+        internal static string Preferences_ShowElapsedTimeAndStatisticsName {
+            get {
+                return ResourceManager.GetString("Preferences_ShowElapsedTimeAndStatisticsName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suggest to resume last conversion if applicable instead of starting new one..
+        /// </summary>
+        internal static string Preferences_SuggestResumeDescription {
+            get {
+                return ResourceManager.GetString("Preferences_SuggestResumeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suggest Resume.
+        /// </summary>
+        internal static string Preferences_SuggestResumeName {
+            get {
+                return ResourceManager.GetString("Preferences_SuggestResumeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preferences.
         /// </summary>
         internal static string Preferences_Title {
             get {
                 return ResourceManager.GetString("Preferences_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updates.
+        /// </summary>
+        internal static string Preferences_UpdatesCategory {
+            get {
+                return ResourceManager.GetString("Preferences_UpdatesCategory", resourceCulture);
             }
         }
         

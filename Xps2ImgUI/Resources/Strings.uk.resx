@@ -598,15 +598,15 @@ What's new in version {0}
     <comment>&amp;Yes, Copy to Clipboard</comment>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Скасувати</value>
     <comment>Cancel</comment>
   </data>
   <data name="OK" xml:space="preserve">
-    <value>OK</value>
+    <value>ОК</value>
     <comment>OK</comment>
   </data>
   <data name="Close" xml:space="preserve">
-    <value>Close</value>
+    <value>Закрити</value>
     <comment>Close</comment>
   </data>
   <data name="HelpAbout_CheckForUpdatesLinkLabel" xml:space="preserve">
@@ -636,5 +636,133 @@ What's new in version {0}
   <data name="Downloading" xml:space="preserve">
     <value>{0}% - Отримання апдейта</value>
     <comment>{0}% - Downloading Update</comment>
+  </data>
+  <data name="Preferences_ApplicationLanguageName" xml:space="preserve">
+    <value>Мова</value>
+    <comment>Application Language</comment>
+  </data>
+  <data name="Preferences_ApplicationLanguageDescription" xml:space="preserve">
+    <value>Мова програми.</value>
+    <comment>User interface language.</comment>
+  </data>
+  <data name="Preferences_AutoCompleteFilenamesName" xml:space="preserve">
+    <value>Auto Complete Filenames</value>
+    <comment>Auto Complete Filenames</comment>
+  </data>
+  <data name="Preferences_AutoCompleteFilenamesDescription" xml:space="preserve">
+    <value>Auto complete filenames in edit boxes.</value>
+    <comment>Auto complete filenames in edit boxes.</comment>
+  </data>
+  <data name="Preferences_AutoSaveSettingsName" xml:space="preserve">
+    <value>Auto Save Settings</value>
+    <comment>Auto Save Settings</comment>
+  </data>
+  <data name="Preferences_AutoSaveSettingsDescription" xml:space="preserve">
+    <value>Auto save settings on exit. If not set default settings will be used next time.</value>
+    <comment>Auto save settings on exit. If not set default settings will be used next time.</comment>
+  </data>
+  <data name="Preferences_ClassicLookName" xml:space="preserve">
+    <value>Classic Look</value>
+    <comment>Classic Look</comment>
+  </data>
+  <data name="Preferences_ClassicLookDescription" xml:space="preserve">
+    <value>Use application system look.</value>
+    <comment>Use application system look.</comment>
+  </data>
+  <data name="Preferences_ShowElapsedTimeAndStatisticsName" xml:space="preserve">
+    <value>Show Elapsed Time and Statistics</value>
+    <comment>Show Elapsed Time and Statistics</comment>
+  </data>
+  <data name="Preferences_ShowElapsedTimeAndStatisticsDescription" xml:space="preserve">
+    <value>Show time elapsed by last operation and conversion statistics in application title.</value>
+    <comment>Show time elapsed by last operation and conversion statistics in application title.</comment>
+  </data>
+  <data name="Preferences_FlashWhenCompletedName" xml:space="preserve">
+    <value>Flash When Completed</value>
+    <comment>Flash When Completed</comment>
+  </data>
+  <data name="Preferences_FlashWhenCompletedDescription" xml:space="preserve">
+    <value>Flash application window when conversion is completed.</value>
+    <comment>Flash application window when conversion is completed.</comment>
+  </data>
+  <data name="Preferences_ConfirmOnAfterConversionName" xml:space="preserve">
+    <value>Confirm After Conversion</value>
+    <comment>Confirm After Conversion</comment>
+  </data>
+  <data name="Preferences_ConfirmOnAfterConversionDescription" xml:space="preserve">
+    <value>Ask confirmation on after conversion action.</value>
+    <comment>Ask confirmation on after conversion action.</comment>
+  </data>
+  <data name="Preferences_ConfirmOnDeleteName" xml:space="preserve">
+    <value>Confirm Delete</value>
+    <comment>Confirm Delete</comment>
+  </data>
+  <data name="Preferences_ConfirmOnDeleteDescription" xml:space="preserve">
+    <value>Ask confirmation on images deletion.</value>
+    <comment>Ask confirmation on images deletion.</comment>
+  </data>
+  <data name="Preferences_ConfirmOnExitName" xml:space="preserve">
+    <value>Confirm Exit</value>
+    <comment>Confirm Exit</comment>
+  </data>
+  <data name="Preferences_ConfirmOnExitDescription" xml:space="preserve">
+    <value>Ask confirmation on application exit if conversion is in progress.</value>
+    <comment>Ask confirmation on application exit if conversion is in progress.</comment>
+  </data>
+  <data name="Preferences_ConfirmOnStopName" xml:space="preserve">
+    <value>Confirm Stop Conversion</value>
+    <comment>Confirm Stop Conversion</comment>
+  </data>
+  <data name="Preferences_ConfirmOnStopDescription" xml:space="preserve">
+    <value>Ask confirmation on conversion stop.</value>
+    <comment>Ask confirmation on conversion stop.</comment>
+  </data>
+  <data name="Preferences_AlwaysResumeName" xml:space="preserve">
+    <value>Always Resume</value>
+    <comment>Always Resume</comment>
+  </data>
+  <data name="Preferences_AlwaysResumeDescription" xml:space="preserve">
+    <value>Always resume last conversion if applicable instead of starting new one.</value>
+    <comment>Always resume last conversion if applicable instead of starting new one.</comment>
+  </data>
+  <data name="Preferences_SuggestResumeName" xml:space="preserve">
+    <value>Suggest Resume</value>
+    <comment>Suggest Resume</comment>
+  </data>
+  <data name="Preferences_SuggestResumeDescription" xml:space="preserve">
+    <value>Suggest to resume last conversion if applicable instead of starting new one.</value>
+    <comment>Suggest to resume last conversion if applicable instead of starting new one.</comment>
+  </data>
+  <data name="Preferences_ShortenExtensionName" xml:space="preserve">
+    <value>Shorten Image Extension</value>
+    <comment>Shorten Image Extension</comment>
+  </data>
+  <data name="Preferences_ShortenExtensionDescription" xml:space="preserve">
+    <value>Shortens image extension down to three characters.</value>
+    <comment>Shortens image extension down to three characters.</comment>
+  </data>
+  <data name="Preferences_CheckForUpdatesName" xml:space="preserve">
+    <value>Check for Updates</value>
+    <comment>Check for Updates</comment>
+  </data>
+  <data name="Preferences_CheckForUpdatesDescription" xml:space="preserve">
+    <value>Check for updates interval.</value>
+    <comment>Check for updates interval.</comment>
+  </data>
+  <data name="Preferences_ApplicationCategory" xml:space="preserve">
+    <value>Application</value>
+    <comment>Application</comment>
+  </data>
+  <data name="Preferences_ConfirmationsCategory" xml:space="preserve">
+    <value>Confirmations</value>
+    <comment>Confirmations</comment>
+  </data>
+  <data name="Preferences_ConversionCategory" xml:space="preserve">
+    <value>Conversion</value>
+    <comment>Conversion</comment>
+  </data>
+  <data name="Preferences_Category" xml:space="preserve">
+    <value>Updates</value>
+    <comment>Updates</comment>
   </data>
 </root>

@@ -6,13 +6,31 @@ using System.Linq;
 
 using CommandLine;
 
+using Xps2Img.Shared.Localization;
 using Xps2Img.Shared.TypeConverters;
+
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace Xps2ImgUI.Settings
 {
     [Serializable]
     public partial class Preferences : IEquatable<Preferences>
     {
+        public  const string CategoryApplication   = "Application";
+        public  const string CategoryConfirmations = "Confirmations";
+        public  const string CategoryConversion    = "Conversion";
+        public  const string CategoryUpdates       = "Updates";
+        
+        public  const string DefaultSelectedItem            = ApplicationLanguageDisplayName;
+
+        private const string ApplicationLanguageDisplayName = "Application Language";
+
+        static Preferences()
+        {
+            LocalizableTypeDescriptionProviderInstaller.AddProvider<Preferences>(Resources.Strings.ResourceManager);
+        }
+
         public enum Localizations
         {
             English     = 0x007F, // Invariant.
@@ -20,93 +38,67 @@ namespace Xps2ImgUI.Settings
         }
 
         [ReadOnly(false)]
-        [DisplayName(ApplicationLanguageDisplayName)]
         [Category(CategoryApplication)]
-        [Description(ApplicationLanguageDescription)]
         [DefaultValue(Localizations.English)]
         public Localizations ApplicationLanguage { get; set; }
 
-        [DisplayName(AutoCompleteFilenamesDisplayName)]
         [Category(CategoryApplication)]
-        [Description(AutoCompleteFilenamesDescription)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool AutoCompleteFilenames { get; set; }
 
-        [DisplayName(AutoSaveSettingsDisplayName)]
         [Category(CategoryApplication)]
-        [Description(AutoSaveSettingsDescription)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool AutoSaveSettings { get; set; }
 
-        [DisplayName(ClassicLookDisplayName)]
         [Category(CategoryApplication)]
-        [Description(ClassicLookDescription)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ClassicLook { get; set; }
 
-        [DisplayName(ShowElapsedTimeAndStatisticsDisplayName)]
         [Category(CategoryApplication)]
-        [Description(ShowElapsedTimeAndStatisticsDescription)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ShowElapsedTimeAndStatistics { get; set; }
 
-        [DisplayName(FlashWhenCompletedDisplayName)]
         [Category(CategoryApplication)]
-        [Description(FlashWhenCompletedDescription)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool FlashWhenCompleted { get; set; }
 
-        [DisplayName(ConfirmAfterConversionDisplayName)]
         [Category(CategoryConfirmations)]
-        [Description(ConfirmAfterConversionDescription)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnAfterConversion { get; set; }
 
-        [DisplayName(ConfirmDeleteDisplayName)]
         [Category(CategoryConfirmations)]
-        [Description(ConfirmDeleteDescription)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnDelete { get; set; }
 
-        [DisplayName(ConfirmExitDisplayName)]
         [Category(CategoryConfirmations)]
-        [Description(ConfirmExitDescription)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnExit { get; set; }
 
-        [DisplayName(ConfirmStopConversionDisplayName)]
         [Category(CategoryConfirmations)]
-        [Description(ConfirmStopConversionDescription)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnStop { get; set; }
 
-        [DisplayName(AlwaysResumeDisplayName)]
         [Category(CategoryConversion)]
-        [Description(AlwaysResumeDescription)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool AlwaysResume { get; set; }
 
-        [DisplayName(SuggestResumeDisplayName)]
         [Category(CategoryConversion)]
-        [Description(SuggestResumeDescription)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool SuggestResume { get; set; }
 
         [ReadOnly(false)]
-        [DisplayName(ShortenImageExtensionDisplayName)]
         [Category(CategoryConversion)]
-        [Description(ShortensImageExtensionDescription)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ShortenExtension { get; set; }
@@ -118,9 +110,7 @@ namespace Xps2ImgUI.Settings
             Monthly
         }
 
-        [DisplayName(CheckForUpdatesDisplayName)]
         [Category(CategoryUpdates)]
-        [Description(CheckForUpdatesDescription)]
         [DefaultValue(CheckInterval.Monthly)]
         public CheckInterval CheckForUpdates { get; set; }
 
