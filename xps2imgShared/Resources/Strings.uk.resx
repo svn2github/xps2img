@@ -145,4 +145,12 @@
     <value>Оберіть папку до якої потрібно зберегати картинки. У іншому випадку папка пойменована як документ буде створена за місцем його знаходження.</value>
     <comment>Specify folder to store images. If not set new folder named as document will be created in folder where document is.</comment>
   </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Так</value>
+    <comment>Yes</comment>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Ні</value>
+    <comment>No</comment>
+  </data>
 </root>

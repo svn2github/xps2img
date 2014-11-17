@@ -88,6 +88,15 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Executable File.
         /// </summary>
         internal static string SelectExecutableFile {
@@ -120,6 +129,15 @@ namespace Xps2Img.Shared.Resources {
         internal static string ValueIsNotValidIntegerNumber {
             get {
                 return ResourceManager.GetString("ValueIsNotValidIntegerNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }
