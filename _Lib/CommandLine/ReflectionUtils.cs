@@ -10,7 +10,7 @@ namespace CommandLine
 {
     public static class ReflectionUtils
     {
-        public static void SetDefaultValues(object obj, Func<PropertyInfo, bool> propertyFilter)
+        public static void SetDefaultValues(object obj, Func<PropertyInfo, bool> propertyFilter = null)
         {
             Action<PropertyInfo> setDefaultValue = propertyInfo => { if (propertyFilter == null || propertyFilter(propertyInfo)) SetDefaultValue(obj, propertyInfo); };
             ForEachPropertyInfo(obj, setDefaultValue);
@@ -31,11 +31,6 @@ namespace CommandLine
             }
 
             return typeConverter ?? TypeDescriptor.GetConverter(propertyInfo.PropertyType);
-        }
-
-        public static void SetDefaultValues(object obj)
-        {
-            SetDefaultValues(obj, null);
         }
 
         public static void SetDefaultValue(object obj, PropertyInfo propertyInfo)
@@ -97,11 +92,6 @@ namespace CommandLine
 
                 return (T)binaryFormatter.Deserialize(memoryStream);
             }
-        }
-
-        public static void SetReadOnly<T>(bool readOnly, Expression<Func<object>> propertyExpression)
-        {
-            SetReadOnly<T>(readOnly, GetPropertyName(propertyExpression));
         }
 
         public static void SetReadOnly<T>(bool readOnly, string propertyName)

@@ -3,6 +3,11 @@ using System.Globalization;
 using System.Reflection;
 using System.Threading;
 
+using Xps2Img.Shared.Utils;
+
+// ReSharper disable UnusedMethodReturnValue.Global
+// ReSharper disable UnusedMember.Global
+
 namespace Xps2ImgUI.Localization
 {
     public static class LocalizationManager
@@ -28,17 +33,13 @@ namespace Xps2ImgUI.Localization
             return SetUICulture(cultureInfo);
         }
 
-        public static CultureInfo SetUICulture(CultureInfo cultureInfo)
+        private static CultureInfo SetUICulture(CultureInfo cultureInfo)
         {
             SetDefaultThreadCurrentCulture(cultureInfo, false);
 
             CurrentUICulture = cultureInfo;
 
-            var uiCultureChanged = UICultureChanged;
-            if (uiCultureChanged != null)
-            {
-                uiCultureChanged(null, EventArgs.Empty);
-            }
+            UICultureChanged.SafeInvoke(null);
 
             return cultureInfo;
         }

@@ -194,15 +194,26 @@ namespace Xps2ImgUI
             {
                 using (var preferencesForm = new PreferencesForm(_preferences, Model.IsRunning))
                 {
-                    if (preferencesForm.ShowDialog(this) != DialogResult.OK)
+                    // ReSharper disable AccessToDisposedClosure
+                    using (new DisposableActions(() => preferencesForm.ClassicLookChanged += ClassicLookChanged, () => preferencesForm.ClassicLookChanged -= ClassicLookChanged))
+                    // ReSharper enable AccessToDisposedClosure
                     {
-                        return;
-                    }
+                        if (preferencesForm.ShowDialog(this) != DialogResult.OK)
+                        {
+                            return;
+                        }
 
-                    _preferences = preferencesForm.Preferences;
-                    ApplyPreferences(true);
+                        _preferences = preferencesForm.Preferences;
+
+                        ApplyPreferences(true);
+                    }
                 }
             }
+        }
+
+        private void ClassicLookChanged(object sender, EventArgs e)
+        {
+            settingsPropertyGrid.ModernLook = !((PreferencesForm) sender).Preferences.ClassicLook;
         }
 
         private void ShowCommandLineToolStripButtonClick(object sender, EventArgs e)

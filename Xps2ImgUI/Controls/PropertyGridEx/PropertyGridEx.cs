@@ -89,8 +89,6 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             {
                 errorDialogField.SetValue(_propertyGridView, new PropertyGridExServiceProvider(this));
             }
-
-            InitContextMenuStrip();
         }
 
         protected override void OnHandleCreated(EventArgs e)
@@ -105,12 +103,8 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             base.OnSelectedObjectsChanged(e);
         }
 
-        private string _selectedItemPropName;
-
         protected override void OnSelectedGridItemChanged(SelectedGridItemChangedEventArgs e)
         {
-            _selectedItemPropName = e.NewSelection.PropertyDescriptor.Name;
-
             UpdateAutoComplete();
 
             base.OnSelectedGridItemChanged(e);
@@ -126,7 +120,9 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                 return;
             }
 
-            var autoCompleteSettings = AutoCompleteSettings.FirstOrDefault(editAutoComplete => _selectedItemPropName == editAutoComplete.PropName);
+            var selectedPropName = SelectedGridItem.PropertyDescriptor != null ? SelectedGridItem.PropertyDescriptor.Name : String.Empty;
+
+            var autoCompleteSettings = AutoCompleteSettings.FirstOrDefault(editAutoComplete => selectedPropName == editAutoComplete.PropName);
             if (autoCompleteSettings == null)
             {
                 return;
@@ -350,7 +346,11 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public override ContextMenuStrip ContextMenuStrip
         {
-            get { return base.ContextMenuStrip; }
+            get
+            {
+                InitContextMenuStrip();
+                return base.ContextMenuStrip;
+            }
             set { throw new InvalidOperationException("Control uses its on menu."); }
         }
 
