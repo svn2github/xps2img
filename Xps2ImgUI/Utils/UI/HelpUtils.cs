@@ -64,7 +64,7 @@ namespace Xps2ImgUI.Utils.UI
             { () => Options.CategoryOptions,            HelpTopicPageNumbers },
 
             // Preferences.
-            { () => Preferences.CategoryApplication,    HelpTopicApplication },
+            { () => Preferences.CategoryInterface,      HelpTopicApplication },
             { () => Preferences.CategoryConfirmations,  HelpTopicConfirmations },
             { () => Preferences.CategoryConversion,     HelpTopicConversion },
             { () => Preferences.CategoryUpdates,        HelpTopicUpdates }

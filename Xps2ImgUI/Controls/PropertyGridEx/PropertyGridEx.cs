@@ -413,7 +413,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             ContextMenuStrip.Items[CloseItemName].Text = CloseItemText;
 
             var resetMenuItem = ContextMenuStrip.Items[ResetItemName];
-            var label = SelectedGridItem.Label;
+            var label = SelectedGridItem.Label.Trim();
 
             var hasPropertyDescriptor = SelectedGridItem.PropertyDescriptor != null;
 

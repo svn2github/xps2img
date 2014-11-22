@@ -691,15 +691,6 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Application.
-        /// </summary>
-        internal static string Preferences_ApplicationCategory {
-            get {
-                return ResourceManager.GetString("Preferences_ApplicationCategory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to User interface language..
         /// </summary>
         internal static string Preferences_ApplicationLanguageDescription {
@@ -790,7 +781,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Confirmations.
+        ///   Looks up a localized string similar to 	Confirmations.
         /// </summary>
         internal static string Preferences_ConfirmationsCategory {
             get {
@@ -871,7 +862,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conversion.
+        ///   Looks up a localized string similar to 		Conversion.
         /// </summary>
         internal static string Preferences_ConversionCategory {
             get {
@@ -894,6 +885,24 @@ namespace Xps2ImgUI.Resources {
         internal static string Preferences_FlashWhenCompletedName {
             get {
                 return ResourceManager.GetString("Preferences_FlashWhenCompletedName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 				General.
+        /// </summary>
+        internal static string Preferences_GeneralCategory {
+            get {
+                return ResourceManager.GetString("Preferences_GeneralCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 			Interface.
+        /// </summary>
+        internal static string Preferences_InterfaceCategory {
+            get {
+                return ResourceManager.GetString("Preferences_InterfaceCategory", resourceCulture);
             }
         }
         

@@ -17,10 +17,11 @@ namespace Xps2ImgUI.Settings
     [Serializable]
     public partial class Preferences : IEquatable<Preferences>
     {
-        public  const string CategoryApplication   = "Application";
-        public  const string CategoryConfirmations = "Confirmations";
-        public  const string CategoryConversion    = "Conversion";
-        public  const string CategoryUpdates       = "Updates";
+        public const string CategoryInterface     = "Interface";
+        public const string CategoryConfirmations = "Confirmations";
+        public const string CategoryConversion    = "Conversion";
+        public const string CategoryUpdates       = "Updates";
+        public const string CategoryGeneral       = "General";
         
         static Preferences()
         {
@@ -34,31 +35,31 @@ namespace Xps2ImgUI.Settings
         }
 
         [ReadOnly(false)]
-        [Category(CategoryApplication)]
+        [Category(CategoryGeneral)]
         [DefaultValue(Localizations.English)]
         public Localizations ApplicationLanguage { get; set; }
 
-        [Category(CategoryApplication)]
+        [Category(CategoryInterface)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool AutoCompleteFilenames { get; set; }
 
-        [Category(CategoryApplication)]
+        [Category(CategoryInterface)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool AutoSaveSettings { get; set; }
 
-        [Category(CategoryApplication)]
+        [Category(CategoryInterface)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ClassicLook { get; set; }
 
-        [Category(CategoryApplication)]
+        [Category(CategoryInterface)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ShowElapsedTimeAndStatistics { get; set; }
 
-        [Category(CategoryApplication)]
+        [Category(CategoryInterface)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool FlashWhenCompleted { get; set; }

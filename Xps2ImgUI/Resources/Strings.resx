@@ -749,17 +749,21 @@ What's new in version {0}
     <value>Check for updates interval.</value>
     <comment>Check for updates interval.</comment>
   </data>
-  <data name="Preferences_ApplicationCategory" xml:space="preserve">
-    <value>Application</value>
-    <comment>Application</comment>
+  <data name="Preferences_GeneralCategory" xml:space="preserve">
+    <value>&#9;&#9;&#9;&#9;General</value>
+    <comment>&#9;&#9;&#9;&#9;General</comment>
   </data>
-  <data name="Preferences_ConfirmationsCategory" xml:space="preserve">
-    <value>Confirmations</value>
-    <comment>Confirmations</comment>
+  <data name="Preferences_InterfaceCategory" xml:space="preserve">
+    <value>&#9;&#9;&#9;Interface</value>
+    <comment>&#9;&#9;&#9;Interface</comment>
   </data>
   <data name="Preferences_ConversionCategory" xml:space="preserve">
-    <value>Conversion</value>
-    <comment>Conversion</comment>
+    <value>&#9;&#9;Conversion</value>
+    <comment>&#9;&#9;Conversion</comment>
+  </data>
+  <data name="Preferences_ConfirmationsCategory" xml:space="preserve">
+    <value>&#9;Confirmations</value>
+    <comment>&#9;Confirmations</comment>
   </data>
   <data name="Preferences_UpdatesCategory" xml:space="preserve">
     <value>Updates</value>
