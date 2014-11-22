@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using CommandLine;
 
 using Xps2ImgUI.Controls.PropertyGridEx.ToolStripEx;
+using Xps2ImgUI.Utils.UI;
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
@@ -408,6 +409,13 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             base.ContextMenuStrip = contextMenuStrip;
         }
 
+        private static string GetCategoryName(GridItem categoryGridItem)
+        {
+            var gridItem = categoryGridItem.FindGridItem(g => g.GridItemType != GridItemType.Category);
+            var categoryAttribute = gridItem.PropertyDescriptor.Attributes.OfType<CategoryAttribute>().FirstOrDefault();
+            return categoryAttribute != null ? categoryAttribute.Category : null;
+        }
+
         private void ContextStripMenuOpening(object sender, CancelEventArgs e)
         {
             ContextMenuStrip.Items[CloseItemName].Text = CloseItemText;
@@ -415,13 +423,20 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             var resetMenuItem = ContextMenuStrip.Items[ResetItemName];
             var label = SelectedGridItem.Label.Trim();
 
-            var hasPropertyDescriptor = SelectedGridItem.PropertyDescriptor != null;
-
             resetMenuItem.Text = String.Format(ResetItemText, label);
+
+            var propertyDescriptor = SelectedGridItem.PropertyDescriptor;
+            var hasPropertyDescriptor = propertyDescriptor != null;
+
+            if(SelectedGridItem.GridItemType == GridItemType.Category && ResetGroupCallback != null)
+            {
+                label = GetCategoryName(SelectedGridItem) ?? label;
+            }
+
             resetMenuItem.Enabled = !ReadOnly &&
                                     (
                                         (!hasPropertyDescriptor && ResetGroupCallback != null && ResetGroupCallback(label, true)) ||
-                                        (hasPropertyDescriptor && SelectedGridItem.PropertyDescriptor.CanResetValue(SelectedObject))
+                                        (hasPropertyDescriptor && propertyDescriptor.CanResetValue(SelectedObject))
                                     );
         }
 
@@ -467,7 +482,10 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         public void ResetByCategory(string category, Func<PropertyInfo, bool> allowFilter = null)
         {
-            ReflectionUtils.SetDefaultValues(SelectedObject, pi =>
+            // ReSharper disable once AccessToModifiedClosure
+            category = GetCategoryName(this.FindGridItem(g => g.Label == category && g.GridItemType == GridItemType.Category)) ?? category;
+
+            ReflectionUtils.SetDefaultValues(SelectedObject, pi =>  
                 category == pi.FirstOrNewAttribute<CategoryAttribute>().Category &&
                 (allowFilter == null || allowFilter(pi))
             );

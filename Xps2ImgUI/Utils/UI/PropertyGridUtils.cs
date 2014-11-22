@@ -8,58 +8,58 @@ namespace Xps2ImgUI.Utils.UI
     {
         // http://www.vb-helper.com/howto_net_select_propertygrid_item2.html
 
-        private static GridItem GetParentNode(PropertyGrid propertyGrid)
+        public static GridItem GetParentGridItem(this PropertyGrid propertyGrid)
         {
-            var node = propertyGrid.SelectedGridItem;
-            while (node.Parent != null)
+            var gridItem = propertyGrid.SelectedGridItem;
+            while (gridItem.Parent != null)
             {
-                node = node.Parent;
+                gridItem = gridItem.Parent;
             }
-            return node;
+            return gridItem;
         }
 
-        private static GridItem FindItem(PropertyGrid propertyGrid, Func<GridItem, bool> findGridItem)
+        public static GridItem FindGridItem(this PropertyGrid propertyGrid, Func<GridItem, bool> findGridItem)
         {
-            return FindNode(GetParentNode(propertyGrid), findGridItem);
+            return FindGridItem(GetParentGridItem(propertyGrid), findGridItem);
         }
 
-        private static GridItem FindNode(GridItem node, Func<GridItem, bool> findGridItem)
+        public static GridItem FindGridItem(this GridItem gridItem, Func<GridItem, bool> findGridItem)
         {
-            return findGridItem(node) ?
-                    node :
-                    node.GridItems
+            return findGridItem(gridItem) ?
+                    gridItem :
+                    gridItem.GridItems
                       .Cast<GridItem>()
-                      .Select(gridItem => FindNode(gridItem, findGridItem))
-                      .FirstOrDefault(gridItem => gridItem != null);
+                      .Select(g => FindGridItem(g, findGridItem))
+                      .FirstOrDefault(g => g != null);
         }
 
         public static void SelectFirstGridItem(this PropertyGrid propertyGrid)
         {
             Func<GridItem, bool> isEmpty = n => n == null || n.GridItems.Count == 0;
 
-            var node = GetParentNode(propertyGrid);
-            if (isEmpty(node))
+            var gridItem = GetParentGridItem(propertyGrid);
+            if (isEmpty(gridItem))
             {
                 return;
             }
 
-            node = node.GridItems[0];
-            if (isEmpty(node))
+            gridItem = gridItem.GridItems[0];
+            if (isEmpty(gridItem))
             {
                 return;
             }
 
-            propertyGrid.SelectedGridItem = node.GridItems[0];
+            propertyGrid.SelectedGridItem = gridItem.GridItems[0];
         }
 
-        public static void SelectGridItem(this PropertyGrid propertyGrid, string itemLabel, Func<GridItem, bool> searchFunc = null, bool focus = false)
+        public static void SelectGridItem(this PropertyGrid propertyGrid, string gridItemLabel, Func<GridItem, bool> searchFunc = null, bool focus = false)
         {
             if (searchFunc == null)
             {
-                searchFunc = gi => gi.Label == itemLabel;
+                searchFunc = gi => gi.Label == gridItemLabel;
             }
 
-            var gridItem = FindItem(propertyGrid, searchFunc);
+            var gridItem = FindGridItem(propertyGrid, searchFunc);
 
             if (gridItem == null)
             {
