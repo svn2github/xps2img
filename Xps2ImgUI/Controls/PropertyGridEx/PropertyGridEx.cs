@@ -135,6 +135,14 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         public void RefreshLocalization()
         {
+            var firstItemIndex = 0;
+
+            Action<string, string> refreshGridButtons = (k, s) =>
+                (_toolStrip.Items.OfType<ToolStripButton>().FirstOrDefault(i => i.Text == s) ?? _toolStrip.Items[firstItemIndex++]).ToolTipText = GetLocalizedString(k, s);
+
+            refreshGridButtons(CategorizedKey,  "Categorized");
+            refreshGridButtons(AlphabeticalKey, "Alphabetical");
+            
             RefreshLocalization(_toolStrip.Items);
             Refresh();
         }
@@ -352,6 +360,9 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         private const string ResetItemKey = "PropertyGrid_ResetItem";
         private const string CloseItemKey = "PropertyGrid_CloseItem";
+
+        private const string CategorizedKey  = "PropertyGrid_Categorized";
+        private const string AlphabeticalKey = "PropertyGrid_Alphabetical";
 
         private static string ResetItemText
         {

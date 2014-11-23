@@ -769,14 +769,6 @@ What's new in version {0}
     <value>Updates</value>
     <comment>Updates</comment>
   </data>
-  <data name="PropertyGrid_ResetItem" xml:space="preserve">
-    <value>&amp;Відкотити {0}</value>
-    <comment>&amp;Reset {0}</comment>
-  </data>
-  <data name="PropertyGrid_CloseItem" xml:space="preserve">
-    <value>&amp;Закрити</value>
-    <comment>&amp;Close</comment>
-  </data>
   <data name="CheckInterval_NeverValue" xml:space="preserve">
     <value>Ніколи</value>
     <comment>Never</comment>
@@ -788,5 +780,21 @@ What's new in version {0}
   <data name="CheckInterval_MonthlyValue" xml:space="preserve">
     <value>Щомісячно</value>
     <comment>Monthly</comment>
+  </data>
+  <data name="PropertyGrid_ResetItem" xml:space="preserve">
+    <value>&amp;Відкотити {0}</value>
+    <comment>&amp;Reset {0}</comment>
+  </data>
+  <data name="PropertyGrid_CloseItem" xml:space="preserve">
+    <value>&amp;Закрити</value>
+    <comment>&amp;Close</comment>
+  </data>
+  <data name="PropertyGrid_Categorized" xml:space="preserve">
+    <value>За категоріями</value>
+    <comment>Categorized</comment>
+  </data>
+  <data name="PropertyGrid_Alphabetical" xml:space="preserve">
+    <value>За алфавітом</value>
+    <comment>Alphabetical</comment>
   </data>
 </root>

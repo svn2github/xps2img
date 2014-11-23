@@ -1051,6 +1051,24 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alphabetical.
+        /// </summary>
+        internal static string PropertyGrid_Alphabetical {
+            get {
+                return ResourceManager.GetString("PropertyGrid_Alphabetical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorized.
+        /// </summary>
+        internal static string PropertyGrid_Categorized {
+            get {
+                return ResourceManager.GetString("PropertyGrid_Categorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Close.
         /// </summary>
         internal static string PropertyGrid_CloseItem {
