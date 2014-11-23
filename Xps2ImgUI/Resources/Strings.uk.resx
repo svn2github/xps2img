@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ShowCommandLine" xml:space="preserve">
-    <value>Show command line</value>
+    <value>Показати командну строку</value>
     <comment>Show command line</comment>
   </data>
   <data name="ResetOptions" xml:space="preserve">
@@ -142,7 +142,7 @@
     <comment>&amp;Delete Images</comment>
   </data>
   <data name="HideCommandLine" xml:space="preserve">
-    <value>Hide command line</value>
+    <value>Сховати командну строку</value>
     <comment>Hide command line</comment>
   </data>
   <data name="WindowTitle" xml:space="preserve">
@@ -198,11 +198,11 @@
     <comment>&amp;Copy Images Folder Path To Clipboard</comment>
   </data>
   <data name="Help" xml:space="preserve">
-    <value>Help</value>
+    <value>Довідка</value>
     <comment>Help</comment>
   </data>
   <data name="About" xml:space="preserve">
-    <value>&amp;About...</value>
+    <value>&amp;Про програму...</value>
     <comment>&amp;About...</comment>
   </data>
   <data name="LoadSettings" xml:space="preserve">
@@ -238,7 +238,7 @@
     <comment>Preferences</comment>
   </data>
   <data name="ResetToDefaults" xml:space="preserve">
-    <value>Reset to defaults</value>
+    <value>За замовченням</value>
     <comment>Reset to defaults</comment>
   </data>
   <data name="SaveSettingsTitle" xml:space="preserve">

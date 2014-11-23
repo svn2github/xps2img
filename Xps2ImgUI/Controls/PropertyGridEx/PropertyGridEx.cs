@@ -167,15 +167,9 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             }
         }
 
-        public ToolStripSplitButton AddToolStripSplitButton(string text, EventHandler eventHandler, params ToolStripButtonItem[] items)
+        public ToolStripSplitButton AddToolStripSplitButton(Image image, Func<string> toolTipText, EventHandler eventHandler, params ToolStripButtonItem[] items)
         {
-            var toolStripSplitButton = new ToolStripSplitButton(text) { AutoToolTip = UseAutoToolTip };
-            return AddToolStripSplitButton(toolStripSplitButton, eventHandler, items);
-        }
-
-        public ToolStripSplitButton AddToolStripSplitButton(Image image, string toolTipText, EventHandler eventHandler, params ToolStripButtonItem[] items)
-        {
-            var toolStripSplitButton = new ToolStripSplitButton(image) { AutoToolTip = UseAutoToolTip, ToolTipText = toolTipText, ImageScaling = ToolStripItemImageScaling.None };
+            var toolStripSplitButton = new ToolStripSplitButtonEx(toolTipText) { Image = image, AutoToolTip = UseAutoToolTip, ImageScaling = ToolStripItemImageScaling.None };
             return AddToolStripSplitButton(toolStripSplitButton, eventHandler, items);
         }
 
@@ -203,15 +197,9 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             return toolStripSplitButton;
         }
 
-        public ToolStripButton AddToolStripButton(Image image, string toolTipText, EventHandler eventHandler)
+        public ToolStripButton AddToolStripButton(Image image, Func<string> toolTipText, EventHandler eventHandler)
         {
-            var toolStripButton = new ToolStripButton(image) { AutoToolTip = UseAutoToolTip, ToolTipText = toolTipText, ImageScaling = ToolStripItemImageScaling.None };
-            return AddToolStripButton(toolStripButton, eventHandler);
-        }
-
-        public ToolStripButton AddToolStripButton(string text, EventHandler eventHandler)
-        {
-            var toolStripButton = new ToolStripButton(text) { AutoToolTip = UseAutoToolTip };
+            var toolStripButton = new ToolStripButtonEx(toolTipText) { Image = image, AutoToolTip = UseAutoToolTip, ImageScaling = ToolStripItemImageScaling.None };
             return AddToolStripButton(toolStripButton, eventHandler);
         }
 

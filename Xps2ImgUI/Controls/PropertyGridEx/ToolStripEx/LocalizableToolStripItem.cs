@@ -8,23 +8,34 @@ namespace Xps2ImgUI.Controls.PropertyGridEx.ToolStripEx
     {
         private readonly Func<string> _textFunc;
         private readonly ToolStripItem _toolStripItem;
+        private readonly bool _updateText;
 
-        public LocalizableToolStripItem(ToolStripItem toolStripItem, Func<string> textFunc)
+        public LocalizableToolStripItem(ToolStripItem toolStripItem, Func<string> textFunc, bool updateText = true)
         {
             Debug.Assert(toolStripItem != null);
             Debug.Assert(textFunc != null);
             
             _toolStripItem = toolStripItem;
             _textFunc = textFunc;
+            _updateText = updateText;
 
-            toolStripItem.Text = textFunc();
+            RefreshLocalization();
         }
 
         public void RefreshLocalization()
         {
-            if(_textFunc != null)
+            if (_textFunc == null)
+            {
+                return;
+            }
+
+            if(_updateText)
             {
                 _toolStripItem.Text = _textFunc();
+            }
+            else
+            {
+                _toolStripItem.ToolTipText = _textFunc();
             }
         }
     }

@@ -3,11 +3,11 @@ using System.Windows.Forms;
 
 namespace Xps2ImgUI.Controls.PropertyGridEx.ToolStripEx
 {
-    public class ToolStripButtonEx : ToolStripButton, ILocalizableToolStripItem
+    public class ToolStripSplitButtonEx : ToolStripSplitButton, ILocalizableToolStripItem
     {
         private readonly LocalizableToolStripItem _localizableToolStripItem;
 
-        public ToolStripButtonEx(Func<string> textFunc)
+        public ToolStripSplitButtonEx(Func<string> textFunc)
         {
             _localizableToolStripItem = new LocalizableToolStripItem(this, textFunc, false);
         }
