@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -80,6 +81,38 @@ namespace Xps2ImgUI.Utils.UI
                 propertyGrid.SelectedGridItem.Select();
                 SendKeys.SendWait("{TAB}");
             }
+        }
+
+        private static GridItem GetGridItem(PropertyGrid propertyGrid, GridItem gridItem)
+        {
+            return gridItem ?? (propertyGrid != null ? propertyGrid.SelectedGridItem : null);
+        }
+
+        public static bool IsCategory(this PropertyGrid propertyGrid, GridItem gridItem = null)
+        {
+            return GetGridItem(propertyGrid, gridItem).GridItemType == GridItemType.Category;
+        }
+
+        public static bool IsCategory(this GridItem gridItem)
+        {
+            return IsCategory(null, gridItem);
+        }
+
+        public static bool HasPropertyDescriptor(this PropertyGrid propertyGrid, GridItem gridItem = null)
+        {
+            return GetGridItem(propertyGrid, gridItem).PropertyDescriptor != null;
+        }
+
+        public static bool HasPropertyDescriptor(this GridItem gridItem)
+        {
+            return HasPropertyDescriptor(null, gridItem);
+        }
+
+        public static string GetCategoryName(this PropertyGrid propertyGrid, GridItem categoryGridItem = null)
+        {
+            var gridItem = GetGridItem(propertyGrid, categoryGridItem).FindGridItem(g => !g.IsCategory());
+            var categoryAttribute = gridItem.PropertyDescriptor.Attributes.OfType<CategoryAttribute>().FirstOrDefault();
+            return categoryAttribute != null ? categoryAttribute.Category : null;
         }
     }
 }

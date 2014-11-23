@@ -33,7 +33,8 @@ namespace Xps2ImgUI.Utils.UI
         private const string HelpTopicProcessPriority           = "1213";
         private const string HelpTopicProcessAffinity           = "1214";
         private const string HelpTopicTestMode                  = "1215";
-        private const string HelpTopicApplication               = "1250";
+        private const string HelpTopicGeneral                   = "1249";
+        private const string HelpTopicInterface                 = "1250";
         private const string HelpTopicAutoCompleteFilenames     = "1251";
         private const string HelpTopicAutoSaveSettings          = "1252";
         private const string HelpTopicClassicLook               = "1253";
@@ -64,7 +65,8 @@ namespace Xps2ImgUI.Utils.UI
             { () => Options.CategoryOptions,            HelpTopicPageNumbers },
 
             // Preferences.
-            { () => Preferences.CategoryInterface,      HelpTopicApplication },
+            { () => Preferences.CategoryGeneral,        HelpTopicGeneral },
+            { () => Preferences.CategoryInterface,      HelpTopicInterface },
             { () => Preferences.CategoryConfirmations,  HelpTopicConfirmations },
             { () => Preferences.CategoryConversion,     HelpTopicConversion },
             { () => Preferences.CategoryUpdates,        HelpTopicUpdates }
@@ -158,7 +160,7 @@ namespace Xps2ImgUI.Utils.UI
             }
 
             var gridItem = propertyGrid.SelectedGridItem;
-            return gridItem != null && ShowPropertyHelp(gridItem.PropertyDescriptor != null ? gridItem.PropertyDescriptor.Name : gridItem.Label, fallbackTopicId);
+            return gridItem != null && ShowPropertyHelp(gridItem.IsCategory() ? propertyGrid.GetCategoryName(gridItem) : gridItem.PropertyDescriptor.Name, fallbackTopicId);
         }
     }
 }
