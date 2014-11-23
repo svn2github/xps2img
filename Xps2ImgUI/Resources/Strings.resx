@@ -777,4 +777,24 @@ What's new in version {0}
     <value>&amp;Close</value>
     <comment>&amp;Close</comment>
   </data>
+  <data name="Localizations_EnglishValue" xml:space="preserve">
+    <value>English</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="Localizations_UkrainianValue" xml:space="preserve">
+    <value>Українська</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="CheckInterval_NeverValue" xml:space="preserve">
+    <value>Never</value>
+    <comment>Never</comment>
+  </data>
+  <data name="CheckInterval_WeeklyValue" xml:space="preserve">
+    <value>Weekly</value>
+    <comment>Weekly</comment>
+  </data>
+  <data name="CheckInterval_MonthlyValue" xml:space="preserve">
+    <value>Monthly</value>
+    <comment>Monthly</comment>
+  </data>
 </root>

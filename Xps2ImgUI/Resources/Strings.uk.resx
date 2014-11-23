@@ -234,7 +234,7 @@
     <comment>Press OK to proceed.</comment>
   </data>
   <data name="Preferences" xml:space="preserve">
-    <value>Preferences</value>
+    <value>Налаштування</value>
     <comment>Preferences</comment>
   </data>
   <data name="ResetToDefaults" xml:space="preserve">
@@ -630,11 +630,11 @@ What's new in version {0}
     <comment>About {0} {1}</comment>
   </data>
   <data name="Preferences_Title" xml:space="preserve">
-    <value>Preferences</value>
+    <value>Налаштування</value>
     <comment>Preferences</comment>
   </data>
   <data name="Downloading" xml:space="preserve">
-    <value>{0}% - Отримання апдейта</value>
+    <value>{0}% - Завантаження апдейта</value>
     <comment>{0}% - Downloading Update</comment>
   </data>
   <data name="Preferences_ApplicationLanguageName" xml:space="preserve">
@@ -776,5 +776,17 @@ What's new in version {0}
   <data name="PropertyGrid_CloseItem" xml:space="preserve">
     <value>&amp;Закрити</value>
     <comment>&amp;Close</comment>
+  </data>
+  <data name="CheckInterval_NeverValue" xml:space="preserve">
+    <value>Ніколи</value>
+    <comment>Never</comment>
+  </data>
+  <data name="CheckInterval_WeeklyValue" xml:space="preserve">
+    <value>Щотижнево</value>
+    <comment>Weekly</comment>
+  </data>
+  <data name="CheckInterval_MonthlyValue" xml:space="preserve">
+    <value>Щомісячно</value>
+    <comment>Monthly</comment>
   </data>
 </root>

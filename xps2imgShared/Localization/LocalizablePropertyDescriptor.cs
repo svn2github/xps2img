@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Resources;
+
+using Xps2Img.Shared.Localization.TypeConverters;
 
 namespace Xps2Img.Shared.Localization
 {
@@ -9,6 +12,8 @@ namespace Xps2Img.Shared.Localization
         private readonly PropertyDescriptor _propertyDescriptor;
         private readonly ILocalizablePropertyDescriptorStrategy _localizablePropertyDescriptorStrategy;
         private readonly ResourceManager _resourceManager;
+
+        private readonly Dictionary<Type, LocalizableEnumConverter> _typeToLocalizableEnumConverter = new Dictionary<Type, LocalizableEnumConverter>();
 
         public LocalizablePropertyDescriptor(ResourceManager resourceManager, PropertyDescriptor propertyDescriptor, ILocalizablePropertyDescriptorStrategy localizablePropertyDescriptorStrategy)
             : base(propertyDescriptor)
@@ -77,6 +82,27 @@ namespace Xps2Img.Shared.Localization
         public override string Description
         {
             get { return GetLocalizedString(_localizablePropertyDescriptorStrategy.GetDescriptionId(ComponentType, base.DisplayName)); }
+        }
+
+        public override TypeConverter Converter
+        {
+            get
+            {
+                if (!PropertyType.IsEnum)
+                {
+                    return base.Converter;
+                }
+
+                LocalizableEnumConverter localizableEnumConverter;
+                    
+                if(!_typeToLocalizableEnumConverter.TryGetValue(PropertyType, out localizableEnumConverter))
+                {
+                    localizableEnumConverter = new LocalizableEnumConverter(PropertyType, _resourceManager, _localizablePropertyDescriptorStrategy);
+                    _typeToLocalizableEnumConverter[PropertyType] = localizableEnumConverter;
+                }
+
+                return localizableEnumConverter;
+            }
         }
     }
 }

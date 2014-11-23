@@ -25,6 +25,11 @@ namespace Xps2Img.Shared.Localization
             return FormatId(type, propertyName, "Description");
         }
 
+        public string GetEnumValueId(Type type, object value)
+        {
+            return FormatId(type, value.ToString(), "Value");
+        }
+
         public static readonly DefaultLocalizablePropertyDescriptorStrategy Instance = new DefaultLocalizablePropertyDescriptorStrategy();
     }
 }

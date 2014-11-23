@@ -7,5 +7,6 @@ namespace Xps2Img.Shared.Localization
         string GetDisplayNameId(Type type, string propertyName);
         string GetCategoryId(Type type, string category);
         string GetDescriptionId(Type type, string propertyName);
+        string GetEnumValueId(Type type, object value);
     }
 }

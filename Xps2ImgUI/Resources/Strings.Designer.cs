@@ -205,6 +205,33 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Monthly.
+        /// </summary>
+        internal static string CheckInterval_MonthlyValue {
+            get {
+                return ResourceManager.GetString("CheckInterval_MonthlyValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Never.
+        /// </summary>
+        internal static string CheckInterval_NeverValue {
+            get {
+                return ResourceManager.GetString("CheckInterval_NeverValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weekly.
+        /// </summary>
+        internal static string CheckInterval_WeeklyValue {
+            get {
+                return ResourceManager.GetString("CheckInterval_WeeklyValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         internal static string Close {
@@ -552,6 +579,24 @@ namespace Xps2ImgUI.Resources {
         internal static string LoadSettingsTitle {
             get {
                 return ResourceManager.GetString("LoadSettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        internal static string Localizations_EnglishValue {
+            get {
+                return ResourceManager.GetString("Localizations_EnglishValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Українська.
+        /// </summary>
+        internal static string Localizations_UkrainianValue {
+            get {
+                return ResourceManager.GetString("Localizations_UkrainianValue", resourceCulture);
             }
         }
         
