@@ -144,6 +144,7 @@ namespace Xps2ImgUI
             if (oldApplicationLanguage != newApplicationLanguage)
             {
                 ChangeCulture();
+                preferencesPropertyGrid.UpdateToolStripToolTip();
             }
 
             preferencesPropertyGrid.Refresh();
