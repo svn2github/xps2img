@@ -153,4 +153,60 @@
     <value>Ні</value>
     <comment>No</comment>
   </data>
+  <data name="TiffCompressOption_NoneValue" xml:space="preserve">
+    <value>Без компресії</value>
+    <comment>None</comment>
+  </data>
+  <data name="PostAction_DoNothingValue" xml:space="preserve">
+    <value>Нічого</value>
+    <comment>DoNothing</comment>
+  </data>
+  <data name="PostAction_ShutdownValue" xml:space="preserve">
+    <value>Shutdown</value>
+    <comment>Shutdown</comment>
+  </data>
+  <data name="PostAction_RebootValue" xml:space="preserve">
+    <value>Reboot</value>
+    <comment>Reboot</comment>
+  </data>
+  <data name="PostAction_SleepValue" xml:space="preserve">
+    <value>Sleep</value>
+    <comment>Sleep</comment>
+  </data>
+  <data name="PostAction_HibernateValue" xml:space="preserve">
+    <value>Hibernate</value>
+    <comment>Hibernate</comment>
+  </data>
+  <data name="PostAction_LogOffValue" xml:space="preserve">
+    <value>LogOff</value>
+    <comment>LogOff</comment>
+  </data>
+  <data name="PostAction_ExitValue" xml:space="preserve">
+    <value>Exit</value>
+    <comment>Exit</comment>
+  </data>
+  <data name="ProcessPriorityClass_AutoValue" xml:space="preserve">
+    <value>Auto</value>
+    <comment>Auto</comment>
+  </data>
+  <data name="ProcessPriorityClass_IdleValue" xml:space="preserve">
+    <value>Idle</value>
+    <comment>Idle</comment>
+  </data>
+  <data name="ProcessPriorityClass_BelowNormalValue" xml:space="preserve">
+    <value>Below Normal</value>
+    <comment>BelowNormal</comment>
+  </data>
+  <data name="ProcessPriorityClass_NormalValue" xml:space="preserve">
+    <value>Normal</value>
+    <comment>Normal</comment>
+  </data>
+  <data name="ProcessPriorityClass_AboveNormalValue" xml:space="preserve">
+    <value>Above Normal</value>
+    <comment>AboveNormal</comment>
+  </data>
+  <data name="ProcessPriorityClass_HighValue" xml:space="preserve">
+    <value>High</value>
+    <comment>High</comment>
+  </data>
 </root>

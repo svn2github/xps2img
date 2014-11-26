@@ -5,7 +5,7 @@ using Xps2Img.Shared.CommandLine;
 
 namespace Xps2Img.Shared.TypeConverters
 {
-    public class TiffCompressOptionEnumConverter : ValueDescriptionEnumConverter<TiffCompressOption>
+    public class TiffCompressOptionEnumConverter : FilterableEnumConverter<TiffCompressOption>
     {
         protected override bool IsValueVisible(TiffCompressOption value)
         {

@@ -88,11 +88,173 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BMP.
+        /// </summary>
+        internal static string ImageType_BmpValue {
+            get {
+                return ResourceManager.GetString("ImageType_BmpValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GIF.
+        /// </summary>
+        internal static string ImageType_GifValue {
+            get {
+                return ResourceManager.GetString("ImageType_GifValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JPEG.
+        /// </summary>
+        internal static string ImageType_JpegValue {
+            get {
+                return ResourceManager.GetString("ImageType_JpegValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PNG.
+        /// </summary>
+        internal static string ImageType_PngValue {
+            get {
+                return ResourceManager.GetString("ImageType_PngValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TIFF.
+        /// </summary>
+        internal static string ImageType_TiffValue {
+            get {
+                return ResourceManager.GetString("ImageType_TiffValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         internal static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do Nothing.
+        /// </summary>
+        internal static string PostAction_DoNothingValue {
+            get {
+                return ResourceManager.GetString("PostAction_DoNothingValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exit.
+        /// </summary>
+        internal static string PostAction_ExitValue {
+            get {
+                return ResourceManager.GetString("PostAction_ExitValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hibernate.
+        /// </summary>
+        internal static string PostAction_HibernateValue {
+            get {
+                return ResourceManager.GetString("PostAction_HibernateValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LogOff.
+        /// </summary>
+        internal static string PostAction_LogOffValue {
+            get {
+                return ResourceManager.GetString("PostAction_LogOffValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reboot.
+        /// </summary>
+        internal static string PostAction_RebootValue {
+            get {
+                return ResourceManager.GetString("PostAction_RebootValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shutdown.
+        /// </summary>
+        internal static string PostAction_ShutdownValue {
+            get {
+                return ResourceManager.GetString("PostAction_ShutdownValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sleep.
+        /// </summary>
+        internal static string PostAction_SleepValue {
+            get {
+                return ResourceManager.GetString("PostAction_SleepValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Above Normal.
+        /// </summary>
+        internal static string ProcessPriorityClass_AboveNormalValue {
+            get {
+                return ResourceManager.GetString("ProcessPriorityClass_AboveNormalValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto.
+        /// </summary>
+        internal static string ProcessPriorityClass_AutoValue {
+            get {
+                return ResourceManager.GetString("ProcessPriorityClass_AutoValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below Normal.
+        /// </summary>
+        internal static string ProcessPriorityClass_BelowNormalValue {
+            get {
+                return ResourceManager.GetString("ProcessPriorityClass_BelowNormalValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High.
+        /// </summary>
+        internal static string ProcessPriorityClass_HighValue {
+            get {
+                return ResourceManager.GetString("ProcessPriorityClass_HighValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Idle.
+        /// </summary>
+        internal static string ProcessPriorityClass_IdleValue {
+            get {
+                return ResourceManager.GetString("ProcessPriorityClass_IdleValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normal.
+        /// </summary>
+        internal static string ProcessPriorityClass_NormalValue {
+            get {
+                return ResourceManager.GetString("ProcessPriorityClass_NormalValue", resourceCulture);
             }
         }
         
@@ -120,6 +282,60 @@ namespace Xps2Img.Shared.Resources {
         internal static string SpecifyImagesFolder {
             get {
                 return ResourceManager.GetString("SpecifyImagesFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CCITT3.
+        /// </summary>
+        internal static string TiffCompressOption_Ccitt3Value {
+            get {
+                return ResourceManager.GetString("TiffCompressOption_Ccitt3Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CCITT4.
+        /// </summary>
+        internal static string TiffCompressOption_Ccitt4Value {
+            get {
+                return ResourceManager.GetString("TiffCompressOption_Ccitt4Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LZW.
+        /// </summary>
+        internal static string TiffCompressOption_LzwValue {
+            get {
+                return ResourceManager.GetString("TiffCompressOption_LzwValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        internal static string TiffCompressOption_NoneValue {
+            get {
+                return ResourceManager.GetString("TiffCompressOption_NoneValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RLE.
+        /// </summary>
+        internal static string TiffCompressOption_RleValue {
+            get {
+                return ResourceManager.GetString("TiffCompressOption_RleValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ZIP.
+        /// </summary>
+        internal static string TiffCompressOption_ZipValue {
+            get {
+                return ResourceManager.GetString("TiffCompressOption_ZipValue", resourceCulture);
             }
         }
         

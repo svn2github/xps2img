@@ -82,7 +82,7 @@ namespace Xps2Img.Shared.CommandLine
         [UIOption(FileTypeShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(ImageType.Png)]
-        [TypeConverter(typeof(ToUpperEnumConverter<ImageType>))]
+        [TypeConverter(typeof(OptionsEnumConverter<ImageType>))]
         public ImageType FileType { get; set; }
 
         [Option(JpegQualityDescription, JpegQualityShortOption, DefaultValue = JpegQualityDefaultValue, ValidationExpression = Validation.JpegQualityValidationExpression)]

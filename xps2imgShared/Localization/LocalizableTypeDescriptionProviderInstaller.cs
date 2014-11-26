@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Resources;
 
 namespace Xps2Img.Shared.Localization
@@ -7,20 +8,28 @@ namespace Xps2Img.Shared.Localization
     {
         public static LocalizableTypeDescriptionProvider AddProvider(object obj, ResourceManager resourceManager, ILocalizablePropertyDescriptorStrategy localizablePropertyDescriptorStrategy = null)
         {
-            var parentProvider = TypeDescriptor.GetProvider(obj);
-            var localizableTypeDescriptor = new LocalizableTypeDescriptor(parentProvider.GetTypeDescriptor(obj), resourceManager, localizablePropertyDescriptorStrategy ?? DefaultLocalizablePropertyDescriptorStrategy.Instance);
+            var type = obj as Type;
+            var isType = type != null;
+
+            var parentProvider = isType ? TypeDescriptor.GetProvider(type) : TypeDescriptor.GetProvider(obj);
+            var localizableTypeDescriptor = new LocalizableTypeDescriptor(isType ? parentProvider.GetTypeDescriptor(type) : parentProvider.GetTypeDescriptor(obj), resourceManager, localizablePropertyDescriptorStrategy ?? DefaultLocalizablePropertyDescriptorStrategy.Instance);
             var localizableTypeDescriptionProvider = new LocalizableTypeDescriptionProvider(parentProvider, localizableTypeDescriptor);
-            TypeDescriptor.AddProvider(localizableTypeDescriptionProvider, obj);
+
+            if (isType)
+            {
+                TypeDescriptor.AddProvider(localizableTypeDescriptionProvider, type);
+            }
+            else
+            {
+                TypeDescriptor.AddProvider(localizableTypeDescriptionProvider, obj);
+            }
+
             return localizableTypeDescriptionProvider;
         }
 
         public static LocalizableTypeDescriptionProvider AddProvider<T>(ResourceManager resourceManager, ILocalizablePropertyDescriptorStrategy localizablePropertyDescriptorStrategy = null)
         {
-            var parentProvider = TypeDescriptor.GetProvider(typeof(T));
-            var localizableTypeDescriptor = new LocalizableTypeDescriptor(parentProvider.GetTypeDescriptor(typeof(T)), resourceManager, localizablePropertyDescriptorStrategy ?? DefaultLocalizablePropertyDescriptorStrategy.Instance);
-            var localizableTypeDescriptionProvider = new LocalizableTypeDescriptionProvider(parentProvider, localizableTypeDescriptor);
-            TypeDescriptor.AddProvider(localizableTypeDescriptionProvider, typeof(T));
-            return localizableTypeDescriptionProvider;
+            return AddProvider(typeof (T), resourceManager, localizablePropertyDescriptorStrategy);
         }
 
         public static void RemoveProvider(object obj, LocalizableTypeDescriptionProvider localizableTypeDescriptionProvider)
