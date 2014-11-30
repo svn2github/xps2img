@@ -805,4 +805,164 @@ What's new in version {0}
     <value>Alphabetical</value>
     <comment>Alphabetical</comment>
   </data>
+  <data name="UIOptions_SrcFileName" xml:space="preserve">
+    <value>SrcFile</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_SrcFileDescription" xml:space="preserve">
+    <value>SrcFile</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_OutDirName" xml:space="preserve">
+    <value>OutDir</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_OutDirDescription" xml:space="preserve">
+    <value>OutDir</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_PostActionName" xml:space="preserve">
+    <value>PostAction</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_PostActionDescription" xml:space="preserve">
+    <value>PostAction</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_PagesName" xml:space="preserve">
+    <value>Pages</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_PagesDescription" xml:space="preserve">
+    <value>Pages</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_FileTypeName" xml:space="preserve">
+    <value>FileType</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_FileTypeDescription" xml:space="preserve">
+    <value>FileType</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_JpegQualityName" xml:space="preserve">
+    <value>JpegQuality</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_JpegQualityDescription" xml:space="preserve">
+    <value>JpegQuality</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_TiffCompressionName" xml:space="preserve">
+    <value>TiffCompression</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_TiffCompressionDescription" xml:space="preserve">
+    <value>TiffCompression</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_RequiredSizeName" xml:space="preserve">
+    <value>RequiredSize</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_RequiredSizeDescription" xml:space="preserve">
+    <value>RequiredSize</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_DpiName" xml:space="preserve">
+    <value>Dpi</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_DpiDescription" xml:space="preserve">
+    <value>Dpi</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_ImageNameName" xml:space="preserve">
+    <value>ImageName</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_ImageNameDescription" xml:space="preserve">
+    <value>ImageName</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_FirstPageIndexName" xml:space="preserve">
+    <value>FirstPageIndex</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_FirstPageIndexDescription" xml:space="preserve">
+    <value>FirstPageIndex</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_PrelimsPrefixName" xml:space="preserve">
+    <value>PrelimsPrefix</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_PrelimsPrefixDescription" xml:space="preserve">
+    <value>PrelimsPrefix</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_ShortenExtensionName" xml:space="preserve">
+    <value>ShortenExtension</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_ShortenExtensionDescription" xml:space="preserve">
+    <value>ShortenExtension</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_ProcessorsNumberName" xml:space="preserve">
+    <value>ProcessorsNumber</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_ProcessorsNumberDescription" xml:space="preserve">
+    <value>ProcessorsNumber</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_ProcessPriorityName" xml:space="preserve">
+    <value>ProcessPriority</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_ProcessPriorityDescription" xml:space="preserve">
+    <value>ProcessPriority</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_CpuAffinityName" xml:space="preserve">
+    <value>CpuAffinity</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_CpuAffinityDescription" xml:space="preserve">
+    <value>CpuAffinity</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_IgnoreExistingName" xml:space="preserve">
+    <value>IgnoreExisting</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_IgnoreExistingDescription" xml:space="preserve">
+    <value>IgnoreExisting</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_IgnoreErrorsName" xml:space="preserve">
+    <value>IgnoreErrors</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_IgnoreErrorsDescription" xml:space="preserve">
+    <value>IgnoreErrors</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_TestName" xml:space="preserve">
+    <value>Test</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_TestDescription" xml:space="preserve">
+    <value>Test</value>
+    <comment></comment>
+  </data>
+  <data name="UIOptions_ParametersCategory" xml:space="preserve">
+    <value>Parameters</value>
+    <comment>Parameters</comment>
+  </data>
+  <data name="UIOptions_OptionsCategory" xml:space="preserve">
+    <value>Options</value>
+    <comment>Options</comment>
+  </data>
 </root>

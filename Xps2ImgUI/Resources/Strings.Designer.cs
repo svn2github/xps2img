@@ -1249,6 +1249,366 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CpuAffinity.
+        /// </summary>
+        internal static string UIOptions_CpuAffinityDescription {
+            get {
+                return ResourceManager.GetString("UIOptions_CpuAffinityDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CpuAffinity.
+        /// </summary>
+        internal static string UIOptions_CpuAffinityName {
+            get {
+                return ResourceManager.GetString("UIOptions_CpuAffinityName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dpi.
+        /// </summary>
+        internal static string UIOptions_DpiDescription {
+            get {
+                return ResourceManager.GetString("UIOptions_DpiDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dpi.
+        /// </summary>
+        internal static string UIOptions_DpiName {
+            get {
+                return ResourceManager.GetString("UIOptions_DpiName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileType.
+        /// </summary>
+        internal static string UIOptions_FileTypeDescription {
+            get {
+                return ResourceManager.GetString("UIOptions_FileTypeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileType.
+        /// </summary>
+        internal static string UIOptions_FileTypeName {
+            get {
+                return ResourceManager.GetString("UIOptions_FileTypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FirstPageIndex.
+        /// </summary>
+        internal static string UIOptions_FirstPageIndexDescription {
+            get {
+                return ResourceManager.GetString("UIOptions_FirstPageIndexDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FirstPageIndex.
+        /// </summary>
+        internal static string UIOptions_FirstPageIndexName {
+            get {
+                return ResourceManager.GetString("UIOptions_FirstPageIndexName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IgnoreErrors.
+        /// </summary>
+        internal static string UIOptions_IgnoreErrorsDescription {
+            get {
+                return ResourceManager.GetString("UIOptions_IgnoreErrorsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IgnoreErrors.
+        /// </summary>
+        internal static string UIOptions_IgnoreErrorsName {
+            get {
+                return ResourceManager.GetString("UIOptions_IgnoreErrorsName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IgnoreExisting.
+        /// </summary>
+        internal static string UIOptions_IgnoreExistingDescription {
+            get {
+                return ResourceManager.GetString("UIOptions_IgnoreExistingDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IgnoreExisting.
+        /// </summary>
+        internal static string UIOptions_IgnoreExistingName {
+            get {
+                return ResourceManager.GetString("UIOptions_IgnoreExistingName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ImageName.
+        /// </summary>
+        internal static string UIOptions_ImageNameDescription {
+            get {
+                return ResourceManager.GetString("UIOptions_ImageNameDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ImageName.
+        /// </summary>
+        internal static string UIOptions_ImageNameName {
+            get {
+                return ResourceManager.GetString("UIOptions_ImageNameName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JpegQuality.
+        /// </summary>
+        internal static string UIOptions_JpegQualityDescription {
+            get {
+                return ResourceManager.GetString("UIOptions_JpegQualityDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JpegQuality.
+        /// </summary>
+        internal static string UIOptions_JpegQualityName {
+            get {
+                return ResourceManager.GetString("UIOptions_JpegQualityName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options.
+        /// </summary>
+        internal static string UIOptions_OptionsCategory {
+            get {
+                return ResourceManager.GetString("UIOptions_OptionsCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OutDir.
+        /// </summary>
+        internal static string UIOptions_OutDirDescription {
+            get {
+                return ResourceManager.GetString("UIOptions_OutDirDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OutDir.
+        /// </summary>
+        internal static string UIOptions_OutDirName {
+            get {
+                return ResourceManager.GetString("UIOptions_OutDirName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pages.
+        /// </summary>
+        internal static string UIOptions_PagesDescription {
+            get {
+                return ResourceManager.GetString("UIOptions_PagesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pages.
+        /// </summary>
+        internal static string UIOptions_PagesName {
+            get {
+                return ResourceManager.GetString("UIOptions_PagesName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parameters.
+        /// </summary>
+        internal static string UIOptions_ParametersCategory {
+            get {
+                return ResourceManager.GetString("UIOptions_ParametersCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PostAction.
+        /// </summary>
+        internal static string UIOptions_PostActionDescription {
+            get {
+                return ResourceManager.GetString("UIOptions_PostActionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PostAction.
+        /// </summary>
+        internal static string UIOptions_PostActionName {
+            get {
+                return ResourceManager.GetString("UIOptions_PostActionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PrelimsPrefix.
+        /// </summary>
+        internal static string UIOptions_PrelimsPrefixDescription {
+            get {
+                return ResourceManager.GetString("UIOptions_PrelimsPrefixDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PrelimsPrefix.
+        /// </summary>
+        internal static string UIOptions_PrelimsPrefixName {
+            get {
+                return ResourceManager.GetString("UIOptions_PrelimsPrefixName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ProcessorsNumber.
+        /// </summary>
+        internal static string UIOptions_ProcessorsNumberDescription {
+            get {
+                return ResourceManager.GetString("UIOptions_ProcessorsNumberDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ProcessorsNumber.
+        /// </summary>
+        internal static string UIOptions_ProcessorsNumberName {
+            get {
+                return ResourceManager.GetString("UIOptions_ProcessorsNumberName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ProcessPriority.
+        /// </summary>
+        internal static string UIOptions_ProcessPriorityDescription {
+            get {
+                return ResourceManager.GetString("UIOptions_ProcessPriorityDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ProcessPriority.
+        /// </summary>
+        internal static string UIOptions_ProcessPriorityName {
+            get {
+                return ResourceManager.GetString("UIOptions_ProcessPriorityName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RequiredSize.
+        /// </summary>
+        internal static string UIOptions_RequiredSizeDescription {
+            get {
+                return ResourceManager.GetString("UIOptions_RequiredSizeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RequiredSize.
+        /// </summary>
+        internal static string UIOptions_RequiredSizeName {
+            get {
+                return ResourceManager.GetString("UIOptions_RequiredSizeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ShortenExtension.
+        /// </summary>
+        internal static string UIOptions_ShortenExtensionDescription {
+            get {
+                return ResourceManager.GetString("UIOptions_ShortenExtensionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ShortenExtension.
+        /// </summary>
+        internal static string UIOptions_ShortenExtensionName {
+            get {
+                return ResourceManager.GetString("UIOptions_ShortenExtensionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SrcFile.
+        /// </summary>
+        internal static string UIOptions_SrcFileDescription {
+            get {
+                return ResourceManager.GetString("UIOptions_SrcFileDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SrcFile.
+        /// </summary>
+        internal static string UIOptions_SrcFileName {
+            get {
+                return ResourceManager.GetString("UIOptions_SrcFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test.
+        /// </summary>
+        internal static string UIOptions_TestDescription {
+            get {
+                return ResourceManager.GetString("UIOptions_TestDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test.
+        /// </summary>
+        internal static string UIOptions_TestName {
+            get {
+                return ResourceManager.GetString("UIOptions_TestName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TiffCompression.
+        /// </summary>
+        internal static string UIOptions_TiffCompressionDescription {
+            get {
+                return ResourceManager.GetString("UIOptions_TiffCompressionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TiffCompression.
+        /// </summary>
+        internal static string UIOptions_TiffCompressionName {
+            get {
+                return ResourceManager.GetString("UIOptions_TiffCompressionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unexpected: Conversion is in progress..
         /// </summary>
         internal static string UnexpectedConversionIsInProgress {
