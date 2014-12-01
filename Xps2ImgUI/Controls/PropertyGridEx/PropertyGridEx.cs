@@ -14,9 +14,6 @@ using CommandLine;
 using Xps2ImgUI.Controls.PropertyGridEx.ToolStripEx;
 using Xps2ImgUI.Utils.UI;
 
-// ReSharper disable UnusedMember.Global
-// ReSharper disable MemberCanBePrivate.Global
-
 namespace Xps2ImgUI.Controls.PropertyGridEx
 {
     public class PropertyGridEx : PropertyGrid

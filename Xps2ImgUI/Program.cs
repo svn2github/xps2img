@@ -12,6 +12,7 @@ using CommandLine;
 
 using Windows7.Dialogs;
 
+using Xps2Img.Shared.Localization;
 using Xps2Img.Shared.Setup;
 using Xps2Img.Shared.Utils;
 using Xps2Img.Shared.Utils.System;
@@ -65,6 +66,9 @@ namespace Xps2ImgUI
             ThreadPool.SetMinThreads(workerThreads + Environment.ProcessorCount + 2, completionPortThreads);
 
             PropertyGridEx.ResourceManager = Resources.Strings.ResourceManager;
+
+            LocalizableTypeDescriptionProviderInstaller.AddProvider<Preferences>(Resources.Strings.ResourceManager);
+            LocalizableTypeDescriptionProviderInstaller.AddProvider<UIOptions>(Xps2Img.Shared.Resources.Strings.ResourceManager);
 
             LocalizationManager.ResetUICulture();
 

@@ -83,7 +83,6 @@
     <Compile Include="TypeConverters\TiffCompressOptionEnumConverter.cs" />
     <Compile Include="TypeConverters\TranformationEnumConverter.cs" />
     <Compile Include="Localization\TypeConverters\LocalizableEnumConverter.cs" />
-    <Compile Include="TypeConverters\WordsSeparatedEnumConverter.cs" />
     <Compile Include="TypeConverters\IntervalTypeConverter.cs" />
     <Compile Include="TypeConverters\RequiredSizeTypeConverter.cs" />
     <Compile Include="TypeEditors\CheckedListBoxUITypeEditor.cs" />
@@ -129,7 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Strings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>

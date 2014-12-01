@@ -249,4 +249,164 @@
     <value>High</value>
     <comment>High</comment>
   </data>
+  <data name="Options_SrcFileName" xml:space="preserve">
+    <value>SrcFile</value>
+    <comment></comment>
+  </data>
+  <data name="Options_SrcFileDescription" xml:space="preserve">
+    <value>SrcFile</value>
+    <comment></comment>
+  </data>
+  <data name="Options_OutDirName" xml:space="preserve">
+    <value>OutDir</value>
+    <comment></comment>
+  </data>
+  <data name="Options_OutDirDescription" xml:space="preserve">
+    <value>OutDir</value>
+    <comment></comment>
+  </data>
+  <data name="Options_PostActionName" xml:space="preserve">
+    <value>PostAction</value>
+    <comment></comment>
+  </data>
+  <data name="Options_PostActionDescription" xml:space="preserve">
+    <value>PostAction</value>
+    <comment></comment>
+  </data>
+  <data name="Options_PagesName" xml:space="preserve">
+    <value>Pages</value>
+    <comment></comment>
+  </data>
+  <data name="Options_PagesDescription" xml:space="preserve">
+    <value>Pages</value>
+    <comment></comment>
+  </data>
+  <data name="Options_FileTypeName" xml:space="preserve">
+    <value>FileType</value>
+    <comment></comment>
+  </data>
+  <data name="Options_FileTypeDescription" xml:space="preserve">
+    <value>FileType</value>
+    <comment></comment>
+  </data>
+  <data name="Options_JpegQualityName" xml:space="preserve">
+    <value>JpegQuality</value>
+    <comment></comment>
+  </data>
+  <data name="Options_JpegQualityDescription" xml:space="preserve">
+    <value>JpegQuality</value>
+    <comment></comment>
+  </data>
+  <data name="Options_TiffCompressionName" xml:space="preserve">
+    <value>TiffCompression</value>
+    <comment></comment>
+  </data>
+  <data name="Options_TiffCompressionDescription" xml:space="preserve">
+    <value>TiffCompression</value>
+    <comment></comment>
+  </data>
+  <data name="Options_RequiredSizeName" xml:space="preserve">
+    <value>RequiredSize</value>
+    <comment></comment>
+  </data>
+  <data name="Options_RequiredSizeDescription" xml:space="preserve">
+    <value>RequiredSize</value>
+    <comment></comment>
+  </data>
+  <data name="Options_DpiName" xml:space="preserve">
+    <value>Dpi</value>
+    <comment></comment>
+  </data>
+  <data name="Options_DpiDescription" xml:space="preserve">
+    <value>Dpi</value>
+    <comment></comment>
+  </data>
+  <data name="Options_ImageNameName" xml:space="preserve">
+    <value>ImageName</value>
+    <comment></comment>
+  </data>
+  <data name="Options_ImageNameDescription" xml:space="preserve">
+    <value>ImageName</value>
+    <comment></comment>
+  </data>
+  <data name="Options_FirstPageIndexName" xml:space="preserve">
+    <value>FirstPageIndex</value>
+    <comment></comment>
+  </data>
+  <data name="Options_FirstPageIndexDescription" xml:space="preserve">
+    <value>FirstPageIndex</value>
+    <comment></comment>
+  </data>
+  <data name="Options_PrelimsPrefixName" xml:space="preserve">
+    <value>PrelimsPrefix</value>
+    <comment></comment>
+  </data>
+  <data name="Options_PrelimsPrefixDescription" xml:space="preserve">
+    <value>PrelimsPrefix</value>
+    <comment></comment>
+  </data>
+  <data name="Options_ShortenExtensionName" xml:space="preserve">
+    <value>ShortenExtension</value>
+    <comment></comment>
+  </data>
+  <data name="Options_ShortenExtensionDescription" xml:space="preserve">
+    <value>ShortenExtension</value>
+    <comment></comment>
+  </data>
+  <data name="Options_ProcessorsNumberName" xml:space="preserve">
+    <value>ProcessorsNumber</value>
+    <comment></comment>
+  </data>
+  <data name="Options_ProcessorsNumberDescription" xml:space="preserve">
+    <value>ProcessorsNumber</value>
+    <comment></comment>
+  </data>
+  <data name="Options_ProcessPriorityName" xml:space="preserve">
+    <value>ProcessPriority</value>
+    <comment></comment>
+  </data>
+  <data name="Options_ProcessPriorityDescription" xml:space="preserve">
+    <value>ProcessPriority</value>
+    <comment></comment>
+  </data>
+  <data name="Options_CpuAffinityName" xml:space="preserve">
+    <value>CpuAffinity</value>
+    <comment></comment>
+  </data>
+  <data name="Options_CpuAffinityDescription" xml:space="preserve">
+    <value>CpuAffinity</value>
+    <comment></comment>
+  </data>
+  <data name="Options_IgnoreExistingName" xml:space="preserve">
+    <value>IgnoreExisting</value>
+    <comment></comment>
+  </data>
+  <data name="Options_IgnoreExistingDescription" xml:space="preserve">
+    <value>IgnoreExisting</value>
+    <comment></comment>
+  </data>
+  <data name="Options_IgnoreErrorsName" xml:space="preserve">
+    <value>IgnoreErrors</value>
+    <comment></comment>
+  </data>
+  <data name="Options_IgnoreErrorsDescription" xml:space="preserve">
+    <value>IgnoreErrors</value>
+    <comment></comment>
+  </data>
+  <data name="Options_TestName" xml:space="preserve">
+    <value>Test</value>
+    <comment></comment>
+  </data>
+  <data name="Options_TestDescription" xml:space="preserve">
+    <value>Test</value>
+    <comment></comment>
+  </data>
+  <data name="Options_ParametersCategory" xml:space="preserve">
+    <value>&#9;Parameters</value>
+    <comment>&#9;Parameters</comment>
+  </data>
+  <data name="Options_OptionsCategory" xml:space="preserve">
+    <value>Options</value>
+    <comment>Options</comment>
+  </data>
 </root>

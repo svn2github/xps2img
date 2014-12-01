@@ -22,7 +22,7 @@ namespace Xps2Img.Shared.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Xps2Img.Shared.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new Xps2Img.Shared.Localization.SingleAssemblyResourceManager(typeof(Strings));
@@ -51,7 +51,7 @@ namespace Xps2Img.Shared.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to All Files (*.*)|*.*.
         /// </summary>
-        internal static string FilterAllFiles {
+        public static string FilterAllFiles {
             get {
                 return ResourceManager.GetString("FilterAllFiles", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Executable Files (*.exe)|*.exe|.
         /// </summary>
-        internal static string FilterExeFiles {
+        public static string FilterExeFiles {
             get {
                 return ResourceManager.GetString("FilterExeFiles", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to XPS Files (*.xps)|*.xps|.
         /// </summary>
-        internal static string FilterXPSFiles {
+        public static string FilterXPSFiles {
             get {
                 return ResourceManager.GetString("FilterXPSFiles", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to BMP.
         /// </summary>
-        internal static string ImageType_BmpValue {
+        public static string ImageType_BmpValue {
             get {
                 return ResourceManager.GetString("ImageType_BmpValue", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to GIF.
         /// </summary>
-        internal static string ImageType_GifValue {
+        public static string ImageType_GifValue {
             get {
                 return ResourceManager.GetString("ImageType_GifValue", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to JPEG.
         /// </summary>
-        internal static string ImageType_JpegValue {
+        public static string ImageType_JpegValue {
             get {
                 return ResourceManager.GetString("ImageType_JpegValue", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to PNG.
         /// </summary>
-        internal static string ImageType_PngValue {
+        public static string ImageType_PngValue {
             get {
                 return ResourceManager.GetString("ImageType_PngValue", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to TIFF.
         /// </summary>
-        internal static string ImageType_TiffValue {
+        public static string ImageType_TiffValue {
             get {
                 return ResourceManager.GetString("ImageType_TiffValue", resourceCulture);
             }
@@ -135,16 +135,376 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
-        internal static string No {
+        public static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CpuAffinity.
+        /// </summary>
+        public static string Options_CpuAffinityDescription {
+            get {
+                return ResourceManager.GetString("Options_CpuAffinityDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CpuAffinity.
+        /// </summary>
+        public static string Options_CpuAffinityName {
+            get {
+                return ResourceManager.GetString("Options_CpuAffinityName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dpi.
+        /// </summary>
+        public static string Options_DpiDescription {
+            get {
+                return ResourceManager.GetString("Options_DpiDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dpi.
+        /// </summary>
+        public static string Options_DpiName {
+            get {
+                return ResourceManager.GetString("Options_DpiName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileType.
+        /// </summary>
+        public static string Options_FileTypeDescription {
+            get {
+                return ResourceManager.GetString("Options_FileTypeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileType.
+        /// </summary>
+        public static string Options_FileTypeName {
+            get {
+                return ResourceManager.GetString("Options_FileTypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FirstPageIndex.
+        /// </summary>
+        public static string Options_FirstPageIndexDescription {
+            get {
+                return ResourceManager.GetString("Options_FirstPageIndexDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FirstPageIndex.
+        /// </summary>
+        public static string Options_FirstPageIndexName {
+            get {
+                return ResourceManager.GetString("Options_FirstPageIndexName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IgnoreErrors.
+        /// </summary>
+        public static string Options_IgnoreErrorsDescription {
+            get {
+                return ResourceManager.GetString("Options_IgnoreErrorsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IgnoreErrors.
+        /// </summary>
+        public static string Options_IgnoreErrorsName {
+            get {
+                return ResourceManager.GetString("Options_IgnoreErrorsName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IgnoreExisting.
+        /// </summary>
+        public static string Options_IgnoreExistingDescription {
+            get {
+                return ResourceManager.GetString("Options_IgnoreExistingDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IgnoreExisting.
+        /// </summary>
+        public static string Options_IgnoreExistingName {
+            get {
+                return ResourceManager.GetString("Options_IgnoreExistingName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ImageName.
+        /// </summary>
+        public static string Options_ImageNameDescription {
+            get {
+                return ResourceManager.GetString("Options_ImageNameDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ImageName.
+        /// </summary>
+        public static string Options_ImageNameName {
+            get {
+                return ResourceManager.GetString("Options_ImageNameName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JpegQuality.
+        /// </summary>
+        public static string Options_JpegQualityDescription {
+            get {
+                return ResourceManager.GetString("Options_JpegQualityDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JpegQuality.
+        /// </summary>
+        public static string Options_JpegQualityName {
+            get {
+                return ResourceManager.GetString("Options_JpegQualityName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options.
+        /// </summary>
+        public static string Options_OptionsCategory {
+            get {
+                return ResourceManager.GetString("Options_OptionsCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OutDir.
+        /// </summary>
+        public static string Options_OutDirDescription {
+            get {
+                return ResourceManager.GetString("Options_OutDirDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OutDir.
+        /// </summary>
+        public static string Options_OutDirName {
+            get {
+                return ResourceManager.GetString("Options_OutDirName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pages.
+        /// </summary>
+        public static string Options_PagesDescription {
+            get {
+                return ResourceManager.GetString("Options_PagesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pages.
+        /// </summary>
+        public static string Options_PagesName {
+            get {
+                return ResourceManager.GetString("Options_PagesName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 	Parameters.
+        /// </summary>
+        public static string Options_ParametersCategory {
+            get {
+                return ResourceManager.GetString("Options_ParametersCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PostAction.
+        /// </summary>
+        public static string Options_PostActionDescription {
+            get {
+                return ResourceManager.GetString("Options_PostActionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PostAction.
+        /// </summary>
+        public static string Options_PostActionName {
+            get {
+                return ResourceManager.GetString("Options_PostActionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PrelimsPrefix.
+        /// </summary>
+        public static string Options_PrelimsPrefixDescription {
+            get {
+                return ResourceManager.GetString("Options_PrelimsPrefixDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PrelimsPrefix.
+        /// </summary>
+        public static string Options_PrelimsPrefixName {
+            get {
+                return ResourceManager.GetString("Options_PrelimsPrefixName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ProcessorsNumber.
+        /// </summary>
+        public static string Options_ProcessorsNumberDescription {
+            get {
+                return ResourceManager.GetString("Options_ProcessorsNumberDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ProcessorsNumber.
+        /// </summary>
+        public static string Options_ProcessorsNumberName {
+            get {
+                return ResourceManager.GetString("Options_ProcessorsNumberName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ProcessPriority.
+        /// </summary>
+        public static string Options_ProcessPriorityDescription {
+            get {
+                return ResourceManager.GetString("Options_ProcessPriorityDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ProcessPriority.
+        /// </summary>
+        public static string Options_ProcessPriorityName {
+            get {
+                return ResourceManager.GetString("Options_ProcessPriorityName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RequiredSize.
+        /// </summary>
+        public static string Options_RequiredSizeDescription {
+            get {
+                return ResourceManager.GetString("Options_RequiredSizeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RequiredSize.
+        /// </summary>
+        public static string Options_RequiredSizeName {
+            get {
+                return ResourceManager.GetString("Options_RequiredSizeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ShortenExtension.
+        /// </summary>
+        public static string Options_ShortenExtensionDescription {
+            get {
+                return ResourceManager.GetString("Options_ShortenExtensionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ShortenExtension.
+        /// </summary>
+        public static string Options_ShortenExtensionName {
+            get {
+                return ResourceManager.GetString("Options_ShortenExtensionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SrcFile.
+        /// </summary>
+        public static string Options_SrcFileDescription {
+            get {
+                return ResourceManager.GetString("Options_SrcFileDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SrcFile.
+        /// </summary>
+        public static string Options_SrcFileName {
+            get {
+                return ResourceManager.GetString("Options_SrcFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test.
+        /// </summary>
+        public static string Options_TestDescription {
+            get {
+                return ResourceManager.GetString("Options_TestDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test.
+        /// </summary>
+        public static string Options_TestName {
+            get {
+                return ResourceManager.GetString("Options_TestName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TiffCompression.
+        /// </summary>
+        public static string Options_TiffCompressionDescription {
+            get {
+                return ResourceManager.GetString("Options_TiffCompressionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TiffCompression.
+        /// </summary>
+        public static string Options_TiffCompressionName {
+            get {
+                return ResourceManager.GetString("Options_TiffCompressionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do Nothing.
         /// </summary>
-        internal static string PostAction_DoNothingValue {
+        public static string PostAction_DoNothingValue {
             get {
                 return ResourceManager.GetString("PostAction_DoNothingValue", resourceCulture);
             }
@@ -153,7 +513,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Exit.
         /// </summary>
-        internal static string PostAction_ExitValue {
+        public static string PostAction_ExitValue {
             get {
                 return ResourceManager.GetString("PostAction_ExitValue", resourceCulture);
             }
@@ -162,7 +522,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Hibernate.
         /// </summary>
-        internal static string PostAction_HibernateValue {
+        public static string PostAction_HibernateValue {
             get {
                 return ResourceManager.GetString("PostAction_HibernateValue", resourceCulture);
             }
@@ -171,7 +531,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to LogOff.
         /// </summary>
-        internal static string PostAction_LogOffValue {
+        public static string PostAction_LogOffValue {
             get {
                 return ResourceManager.GetString("PostAction_LogOffValue", resourceCulture);
             }
@@ -180,7 +540,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Reboot.
         /// </summary>
-        internal static string PostAction_RebootValue {
+        public static string PostAction_RebootValue {
             get {
                 return ResourceManager.GetString("PostAction_RebootValue", resourceCulture);
             }
@@ -189,7 +549,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Shutdown.
         /// </summary>
-        internal static string PostAction_ShutdownValue {
+        public static string PostAction_ShutdownValue {
             get {
                 return ResourceManager.GetString("PostAction_ShutdownValue", resourceCulture);
             }
@@ -198,7 +558,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Sleep.
         /// </summary>
-        internal static string PostAction_SleepValue {
+        public static string PostAction_SleepValue {
             get {
                 return ResourceManager.GetString("PostAction_SleepValue", resourceCulture);
             }
@@ -207,7 +567,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Above Normal.
         /// </summary>
-        internal static string ProcessPriorityClass_AboveNormalValue {
+        public static string ProcessPriorityClass_AboveNormalValue {
             get {
                 return ResourceManager.GetString("ProcessPriorityClass_AboveNormalValue", resourceCulture);
             }
@@ -216,7 +576,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Auto.
         /// </summary>
-        internal static string ProcessPriorityClass_AutoValue {
+        public static string ProcessPriorityClass_AutoValue {
             get {
                 return ResourceManager.GetString("ProcessPriorityClass_AutoValue", resourceCulture);
             }
@@ -225,7 +585,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Below Normal.
         /// </summary>
-        internal static string ProcessPriorityClass_BelowNormalValue {
+        public static string ProcessPriorityClass_BelowNormalValue {
             get {
                 return ResourceManager.GetString("ProcessPriorityClass_BelowNormalValue", resourceCulture);
             }
@@ -234,7 +594,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to High.
         /// </summary>
-        internal static string ProcessPriorityClass_HighValue {
+        public static string ProcessPriorityClass_HighValue {
             get {
                 return ResourceManager.GetString("ProcessPriorityClass_HighValue", resourceCulture);
             }
@@ -243,7 +603,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Idle.
         /// </summary>
-        internal static string ProcessPriorityClass_IdleValue {
+        public static string ProcessPriorityClass_IdleValue {
             get {
                 return ResourceManager.GetString("ProcessPriorityClass_IdleValue", resourceCulture);
             }
@@ -252,7 +612,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Normal.
         /// </summary>
-        internal static string ProcessPriorityClass_NormalValue {
+        public static string ProcessPriorityClass_NormalValue {
             get {
                 return ResourceManager.GetString("ProcessPriorityClass_NormalValue", resourceCulture);
             }
@@ -261,7 +621,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Select Executable File.
         /// </summary>
-        internal static string SelectExecutableFile {
+        public static string SelectExecutableFile {
             get {
                 return ResourceManager.GetString("SelectExecutableFile", resourceCulture);
             }
@@ -270,7 +630,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Select XPS File.
         /// </summary>
-        internal static string SelectXpsFile {
+        public static string SelectXpsFile {
             get {
                 return ResourceManager.GetString("SelectXpsFile", resourceCulture);
             }
@@ -279,7 +639,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Specify folder to store images. If not set new folder named as document will be created in folder where document is..
         /// </summary>
-        internal static string SpecifyImagesFolder {
+        public static string SpecifyImagesFolder {
             get {
                 return ResourceManager.GetString("SpecifyImagesFolder", resourceCulture);
             }
@@ -288,7 +648,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to CCITT3.
         /// </summary>
-        internal static string TiffCompressOption_Ccitt3Value {
+        public static string TiffCompressOption_Ccitt3Value {
             get {
                 return ResourceManager.GetString("TiffCompressOption_Ccitt3Value", resourceCulture);
             }
@@ -297,7 +657,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to CCITT4.
         /// </summary>
-        internal static string TiffCompressOption_Ccitt4Value {
+        public static string TiffCompressOption_Ccitt4Value {
             get {
                 return ResourceManager.GetString("TiffCompressOption_Ccitt4Value", resourceCulture);
             }
@@ -306,7 +666,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to LZW.
         /// </summary>
-        internal static string TiffCompressOption_LzwValue {
+        public static string TiffCompressOption_LzwValue {
             get {
                 return ResourceManager.GetString("TiffCompressOption_LzwValue", resourceCulture);
             }
@@ -315,7 +675,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to None.
         /// </summary>
-        internal static string TiffCompressOption_NoneValue {
+        public static string TiffCompressOption_NoneValue {
             get {
                 return ResourceManager.GetString("TiffCompressOption_NoneValue", resourceCulture);
             }
@@ -324,7 +684,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to RLE.
         /// </summary>
-        internal static string TiffCompressOption_RleValue {
+        public static string TiffCompressOption_RleValue {
             get {
                 return ResourceManager.GetString("TiffCompressOption_RleValue", resourceCulture);
             }
@@ -333,7 +693,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to ZIP.
         /// </summary>
-        internal static string TiffCompressOption_ZipValue {
+        public static string TiffCompressOption_ZipValue {
             get {
                 return ResourceManager.GetString("TiffCompressOption_ZipValue", resourceCulture);
             }
@@ -342,7 +702,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Value is not valid integer number.
         /// </summary>
-        internal static string ValueIsNotValidIntegerNumber {
+        public static string ValueIsNotValidIntegerNumber {
             get {
                 return ResourceManager.GetString("ValueIsNotValidIntegerNumber", resourceCulture);
             }
@@ -351,7 +711,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
-        internal static string Yes {
+        public static string Yes {
             get {
                 return ResourceManager.GetString("Yes", resourceCulture);
             }

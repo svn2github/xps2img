@@ -6,11 +6,7 @@ using System.Linq;
 
 using CommandLine;
 
-using Xps2Img.Shared.Localization;
 using Xps2Img.Shared.TypeConverters;
-
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable MemberCanBePrivate.Global
 
 namespace Xps2ImgUI.Settings
 {
@@ -22,11 +18,6 @@ namespace Xps2ImgUI.Settings
         public const string CategoryConversion    = "Conversion";
         public const string CategoryUpdates       = "Updates";
         public const string CategoryGeneral       = "General";
-        
-        static Preferences()
-        {
-            LocalizableTypeDescriptionProviderInstaller.AddProvider<Preferences>(Resources.Strings.ResourceManager);
-        }
 
         public enum Localizations
         {

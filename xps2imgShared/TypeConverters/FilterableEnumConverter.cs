@@ -13,10 +13,7 @@ namespace Xps2Img.Shared.TypeConverters
             _names = Enum.GetValues(typeof(T)).Cast<T>().ToArray();
         }
 
-        protected virtual bool IsValueVisible(T value)
-        {
-            return true;
-        }
+        protected abstract bool IsValueVisible(T value);
 
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {

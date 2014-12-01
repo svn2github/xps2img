@@ -5,9 +5,6 @@ using System.Threading;
 
 using Xps2Img.Shared.Utils;
 
-// ReSharper disable UnusedMethodReturnValue.Global
-// ReSharper disable UnusedMember.Global
-
 namespace Xps2ImgUI.Localization
 {
     public static class LocalizationManager

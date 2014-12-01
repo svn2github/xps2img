@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Resources;
 
 using Xps2Img.Shared.Localization.TypeConverters;
@@ -71,7 +72,7 @@ namespace Xps2Img.Shared.Localization
 
         public override string DisplayName
         {
-            get { return GetLocalizedString(_localizablePropertyDescriptorStrategy.GetDisplayNameId(ComponentType, base.DisplayName)); }
+            get { return GetLocalizedString(_localizablePropertyDescriptorStrategy.GetDisplayNameId(ComponentType, base.Name)); }
         }
 
         public override string Category
@@ -81,14 +82,14 @@ namespace Xps2Img.Shared.Localization
 
         public override string Description
         {
-            get { return GetLocalizedString(_localizablePropertyDescriptorStrategy.GetDescriptionId(ComponentType, base.DisplayName)); }
+            get { return GetLocalizedString(_localizablePropertyDescriptorStrategy.GetDescriptionId(ComponentType, base.Name)); }
         }
 
         public override TypeConverter Converter
         {
             get
             {
-                if (!PropertyType.IsEnum)
+                if (!PropertyType.IsEnum || Attributes.OfType<TypeConverterAttribute>().Any())
                 {
                     return base.Converter;
                 }

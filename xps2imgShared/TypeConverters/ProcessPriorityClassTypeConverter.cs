@@ -7,7 +7,7 @@ using Xps2Img.Shared.CommandLine;
 
 namespace Xps2Img.Shared.TypeConverters
 {
-    public class ProcessPriorityClassTypeConverter : WordsSeparatedEnumConverter<ProcessPriorityClass>
+    public class ProcessPriorityClassTypeConverter : OptionsEnumConverter<ProcessPriorityClass>
     {
         public const ProcessPriorityClass Auto = 0;
 

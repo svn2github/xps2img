@@ -33,7 +33,6 @@ namespace Xps2Img.Shared.CommandLine
         }
 
         [UnnamedOption(SrcFileDescription, ConverterType = typeof(TrimStringTypeConverter))]
-        [DisplayName(SrcFileDisplayName)]
         [UIUnnamedOption]
         [Category(CategoryParameters)]
         [Editor(typeof(SelectXpsFileEditor), typeof(UITypeEditor))]
@@ -43,7 +42,6 @@ namespace Xps2Img.Shared.CommandLine
         public string SrcFile { get; set; }
 
         [UnnamedOption(OutDirDescription, false, ConverterType = typeof(TrimStringTypeConverter))]
-        [DisplayName(OutDirDisplayName)]
         [UIUnnamedOption(false)]
         [Editor(typeof(SelectXpsFolderEditor), typeof(UITypeEditor))]
         [Category(CategoryParameters)]
@@ -53,7 +51,6 @@ namespace Xps2Img.Shared.CommandLine
         public string OutDir { get; set; }
 
         [Option(PostActionDescription, PostActionShortOption, ConverterType = typeof(PostActionTypeConverter))]
-        [DisplayName(PostActionDisplayName)]
         [Category(CategoryParameters)]
         [TypeConverter(typeof(PostActionTypeConverter))]
         [DefaultValue(PostAction.DoNothing)]
@@ -61,7 +58,6 @@ namespace Xps2Img.Shared.CommandLine
         public PostAction PostAction { get; set; }
         
         [Option(PagesDescription, PagesShortOption, ConverterType = typeof(PagesTypeConverter), ValidationExpression = Validation.PagesValidationExpression)]
-        [DisplayName(PagesDisplayName)]
         [TabbedDescription(PagesDescription)]
         [Category(CategoryOptions)]
         [UIOption(PagesShortOption)]
@@ -77,7 +73,6 @@ namespace Xps2Img.Shared.CommandLine
         }
 
         [Option(FileTypeDescription, FileTypeShortOption, DefaultValue = FileTypeDefaultValue)]
-        [DisplayName(FileTypeDisplayName)]
         [TabbedDescription(FileTypeDescription)]
         [UIOption(FileTypeShortOption)]
         [Category(CategoryOptions)]
@@ -86,7 +81,6 @@ namespace Xps2Img.Shared.CommandLine
         public ImageType FileType { get; set; }
 
         [Option(JpegQualityDescription, JpegQualityShortOption, DefaultValue = JpegQualityDefaultValue, ValidationExpression = Validation.JpegQualityValidationExpression)]
-        [DisplayName(JpegQualityDisplayName)]
         [TabbedDescription(JpegQualityDescription)]
         [UIOption(JpegQualityShortOption)]
         [Category(CategoryOptions)]
@@ -96,7 +90,6 @@ namespace Xps2Img.Shared.CommandLine
         public int? JpegQuality { get; set; }
 
         [Option(TiffCompressionDescription, TiffCompressionShortOption, DefaultValue = TiffCompressionDefaultValue, ConverterType = typeof(TiffCompressOptionEnumConverter))]
-        [DisplayName(TiffCompressionDisplayName)]
         [TabbedDescription(TiffCompressionDescription)]
         [UIOption(TiffCompressionShortOption)]
         [Category(CategoryOptions)]
@@ -106,7 +99,6 @@ namespace Xps2Img.Shared.CommandLine
         public TiffCompressOption TiffCompression { get; set; }
 
         [Option(RequiredSizeDescription, RequiredSizeOption, ConverterType = typeof(CheckedRequiredSizeTypeConverter), ValidationExpression = Validation.RequiredSizeValidationExpression)]
-        [DisplayName(RequiredSizeDisplayName)]
         [TabbedDescription(RequiredSizeDescription)]
         [UIOption(RequiredSizeOption)]
         [Category(CategoryOptions)]
@@ -115,7 +107,6 @@ namespace Xps2Img.Shared.CommandLine
         public Size? RequiredSize { get; set; }
 
         [Option(DpiDescription, DpiShortOption, DefaultValue = DpiDefaultValue, ValidationExpression = Validation.DpiValidationExpression)]
-        [DisplayName(DpiDisplayName)]
         [TabbedDescription(DpiDescription)]
         [UIOption(DpiShortOption)]
         [Category(CategoryOptions)]
@@ -124,7 +115,6 @@ namespace Xps2Img.Shared.CommandLine
         public int? Dpi { get; set; }
 
         [Option(ImageNameDescription, ImageNameShortOption, ValidationExpression = Validation.ImageNameValidationExpression)]
-        [DisplayName(ImageNameDisplayName)]
         [TabbedDescription(ImageNameDescription)]
         [UIOption(ImageNameShortOption)]
         [Category(CategoryOptions)]
@@ -133,7 +123,6 @@ namespace Xps2Img.Shared.CommandLine
         public string ImageName { get; set; }
 
         [Option(FirstPageIndexDescription, FirstPageIndexShortOption, DefaultValue = FirstPageIndexDefaultValue, ValidationExpression = Validation.FirstPageIndexValidationExpression, Flags = OptionFlags.NoDefaultValueDescription)]
-        [DisplayName(FirstPageIndexDisplayName)]
         [TabbedDescription(FirstPageIndexDescription)]
         [UIOption(FirstPageIndexShortOption)]
         [Category(CategoryOptions)]
@@ -142,7 +131,6 @@ namespace Xps2Img.Shared.CommandLine
         public int? FirstPageIndex { get; set; }
 
         [Option(PrelimsPrefixDescription, PrelimsPrefixShortOption, DefaultValue = PrelimsPrefixDefaultValue, ValidationExpression = Validation.PrelimsPrefixValidationExpression)]
-        [DisplayName(PrelimsPrefixDisplayName)]
         [TabbedDescription(PrelimsPrefixDescription)]
         [UIOption(PrelimsPrefixShortOption)]
         [Category(CategoryOptions)]
@@ -169,7 +157,6 @@ namespace Xps2Img.Shared.CommandLine
 
         [Option("", ShortOptionType.None12, ConverterType = typeof(ProcessorsNumberTypeConverter), Flags = OptionFlags.Internal)]
         [UIOption(ProcessorsOption)]
-        [DisplayName(ProcessorsDisplayName)]
         [TabbedDescription(ProcessorsTabbedDescription)]
         [Category(CategoryOptions)]
         [TypeConverter(typeof(ProcessorsNumberTypeConverter))]
@@ -184,7 +171,6 @@ namespace Xps2Img.Shared.CommandLine
 
         [Option(ProcessPriorityDescription, ProcessPriorityShortOption, DefaultValue = ProcessPriorityDefaultValue, ConverterType = typeof(ProcessPriorityClassTypeConverter), Flags = OptionFlags.NoDefaultValueDescription)]
         [UIOption(ProcessPriorityShortOption)]
-        [DisplayName(ProcessPriorityDisplayName)]
         [TabbedDescription(ProcessPriorityTabbedDescription)]
         [Category(CategoryOptions)]
         [TypeConverter(typeof(ProcessPriorityClassTypeConverter))]
@@ -222,7 +208,6 @@ namespace Xps2Img.Shared.CommandLine
         }
 
         [Option(CpuAffinityDescription, CpuAffinityShortOption, ValidationExpression = Validation.CpuAffinityValidationExpression)]
-        [DisplayName(CpuAffinityDisplayName)]
         [TabbedDescription(CpuAffinityTabbedDescription)]
         [UIOption(CpuAffinityShortOption)]
         [Category(CategoryOptions)]
@@ -232,7 +217,6 @@ namespace Xps2Img.Shared.CommandLine
         public IntPtr? CpuAffinity { get; set; }
 
         [Option(IgnoreExistingDescription, IgnoreExistingShortOption, ArgumentExpectancy.No)]
-        [DisplayName(IgnoreExistingDisplayName)]
         [TabbedDescription(IgnoreExistingTabbedDescription)]
         [UIOption(IgnoreExistingShortOption)]
         [Category(CategoryOptions)]
@@ -241,7 +225,6 @@ namespace Xps2Img.Shared.CommandLine
         public bool IgnoreExisting { get; set; }
 
         [Option(IgnoreErrorsDescription, IgnoreErrorsShortOption, ArgumentExpectancy.No)]
-        [DisplayName(IgnoreErrorsDisplayName)]
         [TabbedDescription(IgnoreErrorsDescription)]
         [UIOption(IgnoreErrorsShortOption)]
         [Category(CategoryOptions)]
@@ -254,7 +237,6 @@ namespace Xps2Img.Shared.CommandLine
         public virtual bool Silent { get; set; }
 
         [Option(TestDescription, TestShortOption, ArgumentExpectancy.No)]
-        [DisplayName(TestDisplayName)]
         [TabbedDescription(TestDescription)]
         [UIOption(TestShortOption)]
         [Category(CategoryOptions)]
