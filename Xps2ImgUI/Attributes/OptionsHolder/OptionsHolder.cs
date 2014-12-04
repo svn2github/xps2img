@@ -39,6 +39,7 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
 
             OptionAttributes = optionAttributes;
             _optionsObject = optionsObject;
+
             if (OptionsObjectChanged != null)
             {
                 OptionsObjectChanged(this, EventArgs.Empty);

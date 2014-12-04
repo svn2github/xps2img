@@ -160,11 +160,11 @@ namespace Xps2ImgUI
             }
         }
 
-        private readonly string[] _forceRefreshForProperties = { Options.FileTypeDisplayName, Options.PostActionDisplayName };
-
         private void SettingsPropertyGridPropertyValueChanged(object sender, PropertyValueChangedEventArgs e)
         {
-            Func<string[], bool> hasOneOf = o => o.Contains(e.ChangedItem.Label);
+            string[] forceRefreshForProperties = { Model.OptionsObject.PropNameFileType, Model.OptionsObject.PropNamePostAction };
+
+            Func<string[], bool> hasOneOf = o => o.Contains(e.ChangedItem.PropertyDescriptor.Name);
 
             var forceRefresh = false;
             var canResume = hasOneOf(Options.ExcludeOnResumeCheck);
@@ -175,7 +175,7 @@ namespace Xps2ImgUI
                 forceRefresh = true;
             }
 
-            if (forceRefresh || hasOneOf(_forceRefreshForProperties))
+            if (forceRefresh || hasOneOf(forceRefreshForProperties))
             {
                 settingsPropertyGrid.Refresh();
             }

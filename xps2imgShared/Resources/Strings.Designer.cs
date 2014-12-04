@@ -295,7 +295,8 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OutDir.
+        ///   Looks up a localized string similar to Output folder
+        ///  new folder named as document will be created in folder where document is by default.
         /// </summary>
         public static string Options_OutDirDescription {
             get {
@@ -304,7 +305,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OutDir.
+        ///   Looks up a localized string similar to Output Folder.
         /// </summary>
         public static string Options_OutDirName {
             get {
@@ -313,7 +314,14 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pages.
+        ///   Looks up a localized string similar to Page number(s)
+        ///  all pages by default
+        ///Syntax:
+        ///  all:		1-
+        ///  single:	1
+        ///  set:		1,3
+        ///  range:	1-10 or -10 or 10-
+        ///  combined:	1,3-5,7-9,15-.
         /// </summary>
         public static string Options_PagesDescription {
             get {
@@ -322,7 +330,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pages.
+        ///   Looks up a localized string similar to Page Number(s).
         /// </summary>
         public static string Options_PagesName {
             get {
@@ -340,7 +348,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PostAction.
+        ///   Looks up a localized string similar to Action to execute after conversion completed.
         /// </summary>
         public static string Options_PostActionDescription {
             get {
@@ -349,7 +357,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PostAction.
+        ///   Looks up a localized string similar to After Conversion.
         /// </summary>
         public static string Options_PostActionName {
             get {
@@ -448,7 +456,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SrcFile.
+        ///   Looks up a localized string similar to XPS file to process (required).
         /// </summary>
         public static string Options_SrcFileDescription {
             get {
@@ -457,7 +465,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SrcFile.
+        ///   Looks up a localized string similar to XPS File.
         /// </summary>
         public static string Options_SrcFileName {
             get {

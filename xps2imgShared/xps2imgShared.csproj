@@ -49,7 +49,6 @@
     <Compile Include="Attributes\Options\BaseOptionAttribute.cs" />
     <Compile Include="Attributes\Options\NamedOptionAttribute.cs" />
     <Compile Include="Attributes\Options\UnnamedOptionAttribute.cs" />
-    <Compile Include="Attributes\UI\TabbedDescriptionAttribute.cs" />
     <Compile Include="CommandLine\Options.cs" />
     <Compile Include="CommandLine\Options.Properties.cs">
       <DependentUpon>Options.cs</DependentUpon>

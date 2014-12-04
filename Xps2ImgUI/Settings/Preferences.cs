@@ -21,8 +21,15 @@ namespace Xps2ImgUI.Settings
 
         public enum Localizations
         {
-            English     = 0x007F, // Invariant.
+            English     = 0x0409,
             Ukrainian   = 0x0022
+        }
+
+        public enum CheckInterval
+        {
+            Never,
+            Weekly,
+            Monthly
         }
 
         [ReadOnly(false)]
@@ -90,13 +97,6 @@ namespace Xps2ImgUI.Settings
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ShortenExtension { get; set; }
-
-        public enum CheckInterval
-        {
-            Never,
-            Weekly,
-            Monthly
-        }
 
         [Category(CategoryUpdates)]
         [DefaultValue(CheckInterval.Monthly)]

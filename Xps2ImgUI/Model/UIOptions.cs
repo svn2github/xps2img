@@ -2,19 +2,20 @@
 using System.ComponentModel;
 
 using Xps2Img.Shared.CommandLine;
-using Xps2ImgUI.Utils.UI;
+
+using Xps2ImgUI.Controls.SettingsPropertyGrid;
 
 using UIOption = Xps2Img.Shared.Attributes.Options.OptionAttribute;
 
 namespace Xps2ImgUI.Model
 {
-    public class UIOptions : Options//, ICustomTypeDescriptor
+    public class UIOptions : Options, ICustomTypeDescriptor
     {
-        private readonly FilterablePropertyBaseFacade _facade;
+        private readonly FilterableCustomTypeDescriptor _facade;
 
         public UIOptions()
         {
-            //_facade = new FilterablePropertyBaseFacade(this);
+            _facade = new FilterableCustomTypeDescriptor(this);
         }
 
         private static readonly Func<string> GetGuidNamePart = () => Guid.NewGuid().ToString().Substring(0, 8);
@@ -33,7 +34,6 @@ namespace Xps2ImgUI.Model
             set { }
         }
 
-#if fdf
         #region ICustomTypeDescriptor
 
         public AttributeCollection GetAttributes() { return _facade.GetAttributes(); }
@@ -50,6 +50,5 @@ namespace Xps2ImgUI.Model
         public object GetPropertyOwner(PropertyDescriptor pd) { return _facade.GetPropertyOwner(pd); }
 
         #endregion
-#endif
     }
 }
