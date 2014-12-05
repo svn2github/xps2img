@@ -34,23 +34,25 @@ namespace Xps2Img.Shared.Localization.TypeConverters
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            InitCultureEnumValues(value.GetType());
+            InitCultureEnumValues();
 
             return GetLocalizedString(value);
         }
 
-        private void InitCultureEnumValues(Type enumType)
+        private void InitCultureEnumValues()
         {
             if (_cultureInfoToEnumValue.ContainsKey(CurrentUICulture))
             {
                 return;
             }
 
-            _cultureInfoToEnumValue[CurrentUICulture] = Enum.GetNames(enumType).ToDictionary(k => GetLocalizedString(k, enumType), k => Enum.Parse(enumType, k));
+            _cultureInfoToEnumValue[CurrentUICulture] = Enum.GetNames(EnumType).ToDictionary(k => GetLocalizedString(k, EnumType), k => Enum.Parse(EnumType, k), StringComparer.OrdinalIgnoreCase);
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
+            InitCultureEnumValues();
+
             return _cultureInfoToEnumValue[CurrentUICulture][value as string];
         }
     }

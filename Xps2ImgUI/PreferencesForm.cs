@@ -98,6 +98,7 @@ namespace Xps2ImgUI
             if (oldApplicationLanguage != Preferences.ApplicationLanguage)
             {
                 ChangeCulture();
+                preferencesPropertyGrid.SelectGridItem(Resources.Strings.Preferences_GeneralCategory);
             }
 
             if (oldClassicLook != Preferences.ClassicLook)

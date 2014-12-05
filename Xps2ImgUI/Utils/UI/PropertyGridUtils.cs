@@ -88,14 +88,14 @@ namespace Xps2ImgUI.Utils.UI
             return gridItem ?? (propertyGrid != null ? propertyGrid.SelectedGridItem : null);
         }
 
-        public static bool IsCategory(this PropertyGrid propertyGrid, GridItem gridItem = null)
+        private static bool TestItemType(this PropertyGrid propertyGrid, GridItem gridItem, GridItemType gridItemType)
         {
-            return GetGridItem(propertyGrid, gridItem).GridItemType == GridItemType.Category;
+            return GetGridItem(propertyGrid, gridItem).GridItemType == gridItemType;
         }
 
         public static bool IsCategory(this GridItem gridItem)
         {
-            return IsCategory(null, gridItem);
+            return TestItemType(null, gridItem, GridItemType.Category);
         }
 
         public static bool HasPropertyDescriptor(this PropertyGrid propertyGrid, GridItem gridItem = null)

@@ -78,7 +78,7 @@
     <Compile Include="Localization\SingleAssemblyResourceManager.cs" />
     <Compile Include="TypeConverters\CheckedFirstPageIndexTypeConverter.cs" />
     <Compile Include="TypeConverters\FilterableEnumConverter.cs" />
-    <Compile Include="TypeConverters\LocalizableEnumConverter.cs" />
+    <Compile Include="TypeConverters\OptionsEnumConverter.cs" />
     <Compile Include="TypeConverters\TiffCompressOptionEnumConverter.cs" />
     <Compile Include="TypeConverters\TranformationEnumConverter.cs" />
     <Compile Include="Localization\TypeConverters\LocalizableEnumConverter.cs" />

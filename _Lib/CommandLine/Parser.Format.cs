@@ -6,8 +6,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-using CommandLine.Resources;
-
 namespace CommandLine
 {
     public static partial class Parser
@@ -37,12 +35,12 @@ namespace CommandLine
             var longOpts = GetOptionsList(optionsObjectType);
             var stringBuilder = new StringBuilder(longOpts.Count * 80);
 
-            stringBuilder.AppendFormat(Strings.Format_Usage, ApplicationName);
+            stringBuilder.AppendFormat(Resources.Strings.Format_Usage, ApplicationName);
 
             longOpts.Where(longOpt => longOpt.IsUnnamed).Aggregate(stringBuilder, (sb, longOpt) => sb.AppendFormat(" {0}", longOpt.FormatOptional(longOpt.DisplayName)));
             if (longOpts.Any(longOpt => longOpt.IsNamed))
             {
-                stringBuilder.Append(Strings.Format_OptionalOptions);
+                stringBuilder.Append(Resources.Strings.Format_OptionalOptions);
             }
 
             stringBuilder.AppendLine();
@@ -54,7 +52,7 @@ namespace CommandLine
                 stringBuilder.AppendLine();
             }
 
-            stringBuilder.AppendLine(Strings.Message_MandatoryArgs);
+            stringBuilder.AppendLine(Resources.Strings.Message_MandatoryArgs);
 
             var lines = new List<string>();
 
@@ -62,7 +60,7 @@ namespace CommandLine
             {
                 var optStringBuilder = new StringBuilder(80);
 
-                optStringBuilder.Append(Strings.Message_OptPadLeft);
+                optStringBuilder.Append(Resources.Strings.Message_OptPadLeft);
                 if (longOpt.IsUnnamed)
                 {
                     optStringBuilder.AppendFormat(longOpt.FormatOptional(longOpt.DisplayName));
@@ -71,9 +69,9 @@ namespace CommandLine
                 {
                     optStringBuilder.AppendFormat(longOpt.HasShortOption
                                                   ? (longOpt.IsOptional
-                                                      ? Strings.Format_ShortOptionalAndLongOpt
-                                                      : Strings.Format_ShortAndLongOpt)
-                                                  : Strings.Format_LongOpt,
+                                                      ? Resources.Strings.Format_ShortOptionalAndLongOpt
+                                                      : Resources.Strings.Format_ShortAndLongOpt)
+                                                  : Resources.Strings.Format_LongOpt,
                                                   longOpt.ShortOptionToString(),
                                                   longOpt.LongOptionToString(),
                                                   longOpt.FormatOptional(longOpt.DisplayArgName));
@@ -87,15 +85,15 @@ namespace CommandLine
 
                 if (longOpt.HasDefaultValue && !longOpt.IsNoDefaultValueDescription)
                 {
-                    optStringBuilder.AppendFormat(Strings.Format_DefaultValue, longOpt.DefaultValue);
+                    optStringBuilder.AppendFormat(Resources.Strings.Format_DefaultValue, longOpt.DefaultValue);
                 }
 
                 if (longOpt.IsEnum)
                 {
                     var typeConverter = longOpt.TypeConverter;
                     optStringBuilder.AppendFormat(
-                        Strings.Format_Alternatives,
-                        String.Join(Strings.Format_AlternativesSeparator,
+                        Resources.Strings.Format_Alternatives,
+                        String.Join(Resources.Strings.Format_AlternativesSeparator,
                                     Array.ConvertAll(
                                         typeConverter == null
                                             ? Enum.GetNames(longOpt.GetPropertyValue().GetType())

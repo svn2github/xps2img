@@ -164,12 +164,14 @@ namespace Xps2ImgUI
         {
             string[] forceRefreshForProperties = { Model.OptionsObject.PropNameFileType, Model.OptionsObject.PropNamePostAction };
 
-            Func<string[], bool> hasOneOf = o => o.Contains(e.ChangedItem.PropertyDescriptor.Name);
+            var propertyName = e.ChangedItem.PropertyDescriptor.Name;
+
+            Func<string[], bool> hasOneOf = o => o.Contains(propertyName);
 
             var forceRefresh = false;
             var canResume = hasOneOf(Options.ExcludeOnResumeCheck);
 
-            if (Model.OptionsObject.IgnoreExisting && !canResume)
+            if (!canResume && Model.OptionsObject.IgnoreExisting && propertyName != Model.OptionsObject.PropNameIgnoreExisting)
             {
                 Model.OptionsObject.IgnoreExisting = false;
                 forceRefresh = true;
