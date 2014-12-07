@@ -20,8 +20,8 @@ namespace Xps2ImgUI
         {
             settingsPropertyGrid.AutoCompleteSettings = new[]
             {
-                new PropertyGridEx.EditAutoComplete(Model.OptionsObject.PropNameSrcFile, AutoCompleteSource.FileSystem),
-                new PropertyGridEx.EditAutoComplete(Model.OptionsObject.PropNameOutDir, AutoCompleteSource.FileSystemDirectories)
+                new PropertyGridEx.EditAutoComplete(Options.Properties.SrcFile, AutoCompleteSource.FileSystem),
+                new PropertyGridEx.EditAutoComplete(Options.Properties.OutDir, AutoCompleteSource.FileSystemDirectories)
             };
 
             settingsPropertyGrid.DragDrop += MainFormDragDrop;

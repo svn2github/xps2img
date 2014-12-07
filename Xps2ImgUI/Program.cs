@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,8 @@ using CommandLine;
 
 using Windows7.Dialogs;
 
+using Xps2Img.Shared.CommandLine;
+using Xps2Img.Shared.Diagnostics;
 using Xps2Img.Shared.Localization;
 using Xps2Img.Shared.Setup;
 using Xps2Img.Shared.Utils;
@@ -52,6 +55,8 @@ namespace Xps2ImgUI
 
         private static void MainExec(string[] args)
         {
+            DebugValidation();
+
             SetupGuard.Enter();
 
             Application.EnableVisualStyles();
@@ -110,7 +115,7 @@ namespace Xps2ImgUI
             #if DEBUG
             else
             {
-                System.Diagnostics.Debug.WriteLine("NO SHUTDOWN PENDING");
+                Debug.WriteLine("NO SHUTDOWN PENDING");
             }
             #endif
         }
@@ -176,6 +181,16 @@ namespace Xps2ImgUI
                     MessageBox.Show(form, exceptionMessage.AppendDot(), Resources.Strings.WindowTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        [Conditional("DEBUG")]
+        private static void DebugValidation()
+        {
+            ValidateProperties.For<Preferences>(typeof(Preferences.Properties));
+            ValidateProperties.For<Options>(typeof(Options.Properties));
+
+            Debug.Assert(Enum.GetValues(typeof(Preferences.CheckInterval)).Length == 3, "Update Fields for CheckInterval enum!");
+            Debug.Assert(Enum.GetValues(typeof(Preferences.Localizations)).Length == 2, "Update Localizations for CheckInterval enum!");
         }
     }
 }

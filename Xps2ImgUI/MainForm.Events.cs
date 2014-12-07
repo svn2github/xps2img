@@ -162,7 +162,7 @@ namespace Xps2ImgUI
 
         private void SettingsPropertyGridPropertyValueChanged(object sender, PropertyValueChangedEventArgs e)
         {
-            string[] forceRefreshForProperties = { Model.OptionsObject.PropNameFileType, Model.OptionsObject.PropNamePostAction };
+            string[] forceRefreshForProperties = { Options.Properties.FileType, Options.Properties.PostAction };
 
             var propertyName = e.ChangedItem.PropertyDescriptor.Name;
 
@@ -171,7 +171,7 @@ namespace Xps2ImgUI
             var forceRefresh = false;
             var canResume = hasOneOf(Options.ExcludeOnResumeCheck);
 
-            if (!canResume && Model.OptionsObject.IgnoreExisting && propertyName != Model.OptionsObject.PropNameIgnoreExisting)
+            if (!canResume && propertyName != Options.Properties.IgnoreExisting && Model.OptionsObject.IgnoreExisting)
             {
                 Model.OptionsObject.IgnoreExisting = false;
                 forceRefresh = true;

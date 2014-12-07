@@ -50,8 +50,8 @@ namespace Xps2ImgUI
 
             preferencesPropertyGrid.SelectFirstGridItem();
 
-            ReflectionUtils.SetReadOnly<Preferences>(_isRunning, Preferences.PropNameShortenExtension);
-            ReflectionUtils.SetReadOnly<Preferences>(_isRunning, Preferences.PropNameApplicationLanguage);
+            ReflectionUtils.SetReadOnly<Preferences>(_isRunning, Preferences.Properties.ShortenExtension);
+            ReflectionUtils.SetReadOnly<Preferences>(_isRunning, Preferences.Properties.ApplicationLanguage);
 
             EnableReset();
 
@@ -83,7 +83,7 @@ namespace Xps2ImgUI
 
         private bool PropertyGridResetGroupCallback(string label, bool check)
         {
-            Func<PropertyInfo, bool> allowFilter = pi => !_isRunning || (pi.Name != Preferences.PropNameShortenExtension && pi.Name != Preferences.PropNameApplicationLanguage);
+            Func<PropertyInfo, bool> allowFilter = pi => !_isRunning || (pi.Name != Preferences.Properties.ShortenExtension && pi.Name != Preferences.Properties.ApplicationLanguage);
 
             if (check)
             {
@@ -157,12 +157,12 @@ namespace Xps2ImgUI
         {
             var name = e.ChangedItem.PropertyDescriptor.Name;
 
-            if(name == Preferences.PropNameApplicationLanguage)
+            if (name == Preferences.Properties.ApplicationLanguage)
             {
                 ChangeCulture();
             }
 
-            if (name == Preferences.PropNameClassicLook)
+            if (name == Preferences.Properties.ClassicLook)
             {
                 ChangePropertyGridLook();
             }

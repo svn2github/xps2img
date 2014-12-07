@@ -63,6 +63,7 @@
     <Compile Include="Controls\CustomCheckedListBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Diagnostics\ValidateProperties.cs" />
     <Compile Include="Dialogs\BaseSelectFileFolderEditor.cs" />
     <Compile Include="Dialogs\SelectExecutableFileEditor.cs" />
     <Compile Include="Dialogs\SelectFileEditor.cs" />
