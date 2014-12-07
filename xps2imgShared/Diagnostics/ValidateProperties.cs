@@ -14,9 +14,9 @@ namespace Xps2Img.Shared.Diagnostics
 
             Debug.Assert(propertiesDefinitions.All(p => p.Name == p.Value));
 
-            var typeProperties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.GetSetMethod() != null).ToDictionary(p => p.Name, p => p.Name);
+            var typeProperties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.GetSetMethod() != null).ToLookup(p => p.Name);
 
-            var missingProperties = propertiesDefinitions.Where(p => !typeProperties.ContainsKey(p.Name)).ToArray();
+            var missingProperties = propertiesDefinitions.Where(p => !typeProperties.Contains(p.Name)).ToArray();
 
             Debug.Assert(!missingProperties.Any());
         }

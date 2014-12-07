@@ -58,7 +58,7 @@ namespace Xps2ImgUI
             DebugValidation();
 
             SetupGuard.Enter();
-
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -70,12 +70,12 @@ namespace Xps2ImgUI
             ThreadPool.GetMinThreads(out workerThreads, out completionPortThreads);
             ThreadPool.SetMinThreads(workerThreads + Environment.ProcessorCount + 2, completionPortThreads);
 
+            LocalizationManager.SetUICulture((int)Preferences.Localizations.English);
+            
             PropertyGridEx.ResourceManager = Resources.Strings.ResourceManager;
 
             LocalizableTypeDescriptionProviderInstaller.AddProvider<Preferences>(Resources.Strings.ResourceManager);
             LocalizableTypeDescriptionProviderInstaller.AddProvider<UIOptions>(Xps2Img.Shared.Resources.Strings.ResourceManager);
-
-            LocalizationManager.ResetUICulture();
 
             var options = Parser.IsUsageRequested(args) ? null : Parser.Parse<UIOptions>(args, true);
 
@@ -189,8 +189,8 @@ namespace Xps2ImgUI
             ValidateProperties.For<Preferences>(typeof(Preferences.Properties));
             ValidateProperties.For<Options>(typeof(Options.Properties));
 
-            Debug.Assert(Enum.GetValues(typeof(Preferences.CheckInterval)).Length == 3, "Update Fields for CheckInterval enum!");
-            Debug.Assert(Enum.GetValues(typeof(Preferences.Localizations)).Length == 2, "Update Localizations for CheckInterval enum!");
+            Debug.Assert(Enum.GetValues(typeof(Preferences.CheckInterval)).Length == 3, "Update fields for CheckInterval enum!");
+            Debug.Assert(Enum.GetValues(typeof(Preferences.Localizations)).Length == 2, "Update fields for Localizations enum!");
         }
     }
 }
