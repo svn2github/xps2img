@@ -81,7 +81,6 @@
     <Compile Include="TypeConverters\FilterableEnumConverter.cs" />
     <Compile Include="TypeConverters\OptionsEnumConverter.cs" />
     <Compile Include="TypeConverters\TiffCompressOptionEnumConverter.cs" />
-    <Compile Include="TypeConverters\TranformationEnumConverter.cs" />
     <Compile Include="Localization\TypeConverters\LocalizableEnumConverter.cs" />
     <Compile Include="TypeConverters\IntervalTypeConverter.cs" />
     <Compile Include="TypeConverters\RequiredSizeTypeConverter.cs" />

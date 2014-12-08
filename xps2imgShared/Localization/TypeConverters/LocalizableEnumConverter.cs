@@ -6,6 +6,8 @@ using System.Linq;
 using System.Resources;
 using System.Threading;
 
+using Xps2Img.Shared.Utils;
+
 namespace Xps2Img.Shared.Localization.TypeConverters
 {
     public class LocalizableEnumConverter : EnumConverter
@@ -27,16 +29,9 @@ namespace Xps2Img.Shared.Localization.TypeConverters
             get { return Thread.CurrentThread.CurrentUICulture; }
         }
 
-        private string GetLocalizedString(object value, Type enumType = null)
+        private static bool IsInvariant(CultureInfo culture)
         {
-            return _resourceManager.GetString(_localizablePropertyDescriptorStrategy.GetEnumValueId(enumType ?? value.GetType(), value)) ?? value.ToString();
-        }
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            InitCultureEnumValues();
-
-            return GetLocalizedString(value);
+            return String.IsNullOrEmpty(culture.Name);
         }
 
         private void InitCultureEnumValues()
@@ -46,14 +41,32 @@ namespace Xps2Img.Shared.Localization.TypeConverters
                 return;
             }
 
-            _cultureInfoToEnumValue[CurrentUICulture] = Enum.GetNames(EnumType).ToDictionary(k => GetLocalizedString(k, EnumType), k => Enum.Parse(EnumType, k), StringComparer.OrdinalIgnoreCase);
+            _cultureInfoToEnumValue[CurrentUICulture] = Enum.GetNames(EnumType).ToDictionary(GetLocalizedString, ParseEnum, StringComparer.OrdinalIgnoreCase);
+        }
+
+        private string GetLocalizedString(object value)
+        {
+            return _resourceManager.GetString(_localizablePropertyDescriptorStrategy.GetEnumValueId(EnumType, value)) ?? value.ToString();
+        }
+
+        private object ParseEnum(string value)
+        {
+            return Enum.Parse(EnumType, value);
+        }
+
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            InitCultureEnumValues();
+
+            return IsInvariant(culture) ? value.ToString() : GetLocalizedString(value);
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             InitCultureEnumValues();
 
-            return _cultureInfoToEnumValue[CurrentUICulture][value as string];
+            var str = (string)value;
+            return IsInvariant(culture) ? ParseEnum(str.RemoveSpaces()) : _cultureInfoToEnumValue[CurrentUICulture][str];
         }
     }
 }

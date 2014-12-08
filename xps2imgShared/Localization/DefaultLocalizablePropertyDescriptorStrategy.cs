@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Xps2Img.Shared.Utils;
+
 namespace Xps2Img.Shared.Localization
 {
     public class DefaultLocalizablePropertyDescriptorStrategy  : ILocalizablePropertyDescriptorStrategy
@@ -7,7 +9,7 @@ namespace Xps2Img.Shared.Localization
         private static string FormatId(Type type, string id, string idCategory)
         {
             // Type_Id[Name|Category|Description|Value]
-            return string.Format("{0}_{1}{2}", type.Name, id.Trim().Replace("\x20", string.Empty), idCategory);
+            return string.Format("{0}_{1}{2}", type.Name, id.Trim().RemoveSpaces(), idCategory);
         }
 
         public string GetDisplayNameId(Type type, string propertyName)
