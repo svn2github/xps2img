@@ -55,18 +55,18 @@ namespace Xps2ImgUI.Utils.UI
         private const string HelpTopicIgnoreErrorsDisplayName   = "1268";
         private const string HelpTopicApplicationLanguage       = "1269";
 
-        private static readonly Dictionary<Func<string>, string> CategoryToTopicMap = new Dictionary<Func<string>, string>
+        private static readonly Dictionary<string, string> CategoryToTopicMap = new Dictionary<string, string>
         {
             // Options.
-            { () => Options.CategoryParameters,         HelpTopicXpsFile },
-            { () => Options.CategoryOptions,            HelpTopicPageNumbers },
+            { Options.CategoryParameters,         HelpTopicXpsFile },
+            { Options.CategoryOptions,            HelpTopicPageNumbers },
 
             // Preferences.
-            { () => Preferences.CategoryGeneral,        HelpTopicGeneral },
-            { () => Preferences.CategoryInterface,      HelpTopicInterface },
-            { () => Preferences.CategoryConfirmations,  HelpTopicConfirmations },
-            { () => Preferences.CategoryConversion,     HelpTopicConversion },
-            { () => Preferences.CategoryUpdates,        HelpTopicUpdates }
+            { Preferences.CategoryGeneral,        HelpTopicGeneral },
+            { Preferences.CategoryInterface,      HelpTopicInterface },
+            { Preferences.CategoryConfirmations,  HelpTopicConfirmations },
+            { Preferences.CategoryConversion,     HelpTopicConversion },
+            { Preferences.CategoryUpdates,        HelpTopicUpdates }
         };
 
         private static readonly Dictionary<string, string> PropertyToTopicMap = new Dictionary<string, string>
@@ -136,7 +136,7 @@ namespace Xps2ImgUI.Utils.UI
 
             if (!PropertyToTopicMap.TryGetValue(text, out topicId))
             {
-                topicId = CategoryToTopicMap.FirstOrDefault(kvp => kvp.Key() == text).Value ?? fallbackTopicId;
+                topicId = CategoryToTopicMap.FirstOrDefault(kvp => kvp.Key == text).Value ?? fallbackTopicId;
 
                 if (topicId == null)
                 {
