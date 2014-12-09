@@ -2,8 +2,7 @@
 using System.ComponentModel;
 
 using Xps2Img.Shared.CommandLine;
-
-using Xps2ImgUI.Controls.SettingsPropertyGrid;
+using Xps2Img.Shared.Localization;
 
 using UIOption = Xps2Img.Shared.Attributes.Options.OptionAttribute;
 

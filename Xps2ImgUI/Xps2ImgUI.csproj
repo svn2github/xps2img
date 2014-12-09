@@ -129,12 +129,10 @@
       <DependentUpon>Images.resx</DependentUpon>
     </Compile>
     <Compile Include="Utils\UI\ClipboardUtils.cs" />
-    <Compile Include="Controls\SettingsPropertyGrid\FilterableLocalizablePropertyDescriptor.cs" />
     <Compile Include="Utils\UI\HelpUtils.cs" />
     <Compile Include="Settings\Preferences.Properties.cs">
       <DependentUpon>Preferences.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SettingsPropertyGrid\FilterableCustomTypeDescriptor.cs" />
     <Compile Include="Model\UIOptions.cs" />
     <Compile Include="UpdateDownloadForm.cs">
       <SubType>Form</SubType>

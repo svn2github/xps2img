@@ -71,6 +71,8 @@
     <Compile Include="Dialogs\SelectXpsFileEditor.cs" />
     <Compile Include="Dialogs\SelectXpsFolderEditor.cs" />
     <Compile Include="Localization\DefaultLocalizablePropertyDescriptorStrategy.cs" />
+    <Compile Include="Localization\FilterableCustomTypeDescriptor.cs" />
+    <Compile Include="Localization\FilterableLocalizablePropertyDescriptor.cs" />
     <Compile Include="Localization\ILocalizablePropertyDescriptorStrategy.cs" />
     <Compile Include="Localization\LocalizablePropertyDescriptor.cs" />
     <Compile Include="Localization\LocalizableTypeDescriptionProvider.cs" />

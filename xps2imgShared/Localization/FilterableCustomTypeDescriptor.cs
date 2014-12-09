@@ -3,9 +3,8 @@ using System.ComponentModel;
 using System.Linq;
 
 using Xps2Img.Shared.Attributes.UI;
-using Xps2Img.Shared.Localization;
 
-namespace Xps2ImgUI.Controls.SettingsPropertyGrid
+namespace Xps2Img.Shared.Localization
 {
     public class FilterableCustomTypeDescriptor: LocalizableTypeDescriptor
     {
@@ -37,9 +36,11 @@ namespace Xps2ImgUI.Controls.SettingsPropertyGrid
 
                     var propertyDescriptor = propertyDescriptorCollection[dpf.PropertyName];
 
-                    if (propertyDescriptor != null && dpf.ShowOn.IndexOf((propertyDescriptor.GetValue(_object) ?? String.Empty).ToString(), StringComparison.InvariantCulture) > -1)
+                    include = propertyDescriptor != null && dpf.ShowOn.IndexOf((propertyDescriptor.GetValue(_object) ?? String.Empty).ToString(), StringComparison.InvariantCulture) > -1;
+
+                    if(include)
                     {
-                        include = true;
+                        break;
                     }
                 }
 

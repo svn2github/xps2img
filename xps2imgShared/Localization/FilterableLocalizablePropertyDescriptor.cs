@@ -1,14 +1,13 @@
 using System.ComponentModel;
 
-using Xps2Img.Shared.Localization;
 using Xps2Img.Shared.Utils;
 
-namespace Xps2ImgUI.Controls.SettingsPropertyGrid
+namespace Xps2Img.Shared.Localization
 {
     public class FilterableLocalizablePropertyDescriptor : LocalizablePropertyDescriptor
     {
         public FilterableLocalizablePropertyDescriptor(PropertyDescriptor propertyDescriptor)
-            : base(Xps2Img.Shared.Resources.Strings.ResourceManager, propertyDescriptor, DefaultLocalizablePropertyDescriptorStrategy.Instance)
+            : base(Resources.Strings.ResourceManager, propertyDescriptor, DefaultLocalizablePropertyDescriptorStrategy.Instance)
         {
         }
 
