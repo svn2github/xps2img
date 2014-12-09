@@ -130,6 +130,9 @@
     </Compile>
     <Compile Include="Utils\UI\ClipboardUtils.cs" />
     <Compile Include="Utils\UI\HelpUtils.cs" />
+    <Compile Include="Utils\UI\HelpUtils.Data.cs">
+      <DependentUpon>HelpUtils.cs</DependentUpon>
+    </Compile>
     <Compile Include="Settings\Preferences.Properties.cs">
       <DependentUpon>Preferences.cs</DependentUpon>
     </Compile>
