@@ -142,7 +142,14 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CpuAffinity.
+        ///   Looks up a localized string similar to CPUs processors will be executed on
+        ///  all by default
+        ///Syntax:
+        ///  all:		0-
+        ///  single:	0
+        ///  set:		0,2
+        ///  range:	0-2 or -2 or 2-
+        ///  combined:	0,2-.
         /// </summary>
         public static string Options_CpuAffinityDescription {
             get {
@@ -151,7 +158,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CpuAffinity.
+        ///   Looks up a localized string similar to Processors Affinity.
         /// </summary>
         public static string Options_CpuAffinityName {
             get {
@@ -160,7 +167,8 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dpi.
+        ///   Looks up a localized string similar to Image DPI (16-2350)
+        ///  DPI will be ignored if image size is specified.
         /// </summary>
         public static string Options_DpiDescription {
             get {
@@ -169,7 +177,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dpi.
+        ///   Looks up a localized string similar to Image DPI.
         /// </summary>
         public static string Options_DpiName {
             get {
@@ -178,7 +186,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FileType.
+        ///   Looks up a localized string similar to Image type.
         /// </summary>
         public static string Options_FileTypeDescription {
             get {
@@ -187,7 +195,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FileType.
+        ///   Looks up a localized string similar to Image Type.
         /// </summary>
         public static string Options_FileTypeName {
             get {
@@ -196,7 +204,11 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FirstPageIndex.
+        ///   Looks up a localized string similar to Document body first page index or desired and actual page numbers in any order
+        ///  1 by default
+        ///Syntax:
+        ///  numeric: 5
+        ///  desired and actual page numbers: \&quot;96 100\&quot; or 96-100.
         /// </summary>
         public static string Options_FirstPageIndexDescription {
             get {
@@ -205,7 +217,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FirstPageIndex.
+        ///   Looks up a localized string similar to First Page Index.
         /// </summary>
         public static string Options_FirstPageIndexName {
             get {
@@ -214,7 +226,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IgnoreErrors.
+        ///   Looks up a localized string similar to Ignore conversion errors.
         /// </summary>
         public static string Options_IgnoreErrorsDescription {
             get {
@@ -223,7 +235,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IgnoreErrors.
+        ///   Looks up a localized string similar to Ignore Conversion Errors.
         /// </summary>
         public static string Options_IgnoreErrorsName {
             get {
@@ -232,7 +244,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IgnoreExisting.
+        ///   Looks up a localized string similar to Do not overwrite existing images. Will be reset in case of any image related property change.
         /// </summary>
         public static string Options_IgnoreExistingDescription {
             get {
@@ -241,7 +253,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IgnoreExisting.
+        ///   Looks up a localized string similar to Ignore Existing Images.
         /// </summary>
         public static string Options_IgnoreExistingName {
             get {
@@ -250,7 +262,9 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ImageName.
+        ///   Looks up a localized string similar to Image prefix
+        ///  numeric if omitted: 01.png
+        ///  name of src file if empty (-i \&quot;\&quot;): src_file-01.png.
         /// </summary>
         public static string Options_ImageNameDescription {
             get {
@@ -259,7 +273,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ImageName.
+        ///   Looks up a localized string similar to Image Prefix.
         /// </summary>
         public static string Options_ImageNameName {
             get {
@@ -268,7 +282,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to JpegQuality.
+        ///   Looks up a localized string similar to JPEG quality level (10-100).
         /// </summary>
         public static string Options_JpegQualityDescription {
             get {
@@ -277,7 +291,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to JpegQuality.
+        ///   Looks up a localized string similar to JPEG Quality.
         /// </summary>
         public static string Options_JpegQualityName {
             get {
@@ -366,7 +380,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PrelimsPrefix.
+        ///   Looks up a localized string similar to Preliminaries prefix. &lt;&gt;:\&quot;/\\|?* characters are not allowed.
         /// </summary>
         public static string Options_PrelimsPrefixDescription {
             get {
@@ -375,7 +389,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PrelimsPrefix.
+        ///   Looks up a localized string similar to Preliminaries Prefix.
         /// </summary>
         public static string Options_PrelimsPrefixName {
             get {
@@ -384,7 +398,8 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ProcessorsNumber.
+        ///   Looks up a localized string similar to Number of simultaneously running document processors
+        ///  number of logical CPUs by default.
         /// </summary>
         public static string Options_ProcessorsNumberDescription {
             get {
@@ -393,7 +408,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ProcessorsNumber.
+        ///   Looks up a localized string similar to Processors.
         /// </summary>
         public static string Options_ProcessorsNumberName {
             get {
@@ -402,7 +417,8 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ProcessPriority.
+        ///   Looks up a localized string similar to Document processors priority
+        ///  Normal by default.
         /// </summary>
         public static string Options_ProcessPriorityDescription {
             get {
@@ -411,7 +427,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ProcessPriority.
+        ///   Looks up a localized string similar to Processors Priority.
         /// </summary>
         public static string Options_ProcessPriorityName {
             get {
@@ -420,7 +436,14 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RequiredSize.
+        ///   Looks up a localized string similar to Desired image size (greater or equal 10)
+        ///  DPI will be ignored if image size is specified 
+        ///Syntax:
+        ///  width only:	2000
+        ///  height only:	x1000
+        ///  both:		2000x1000
+        ///		width for landscape orientation
+        ///		height for portrait orientation.
         /// </summary>
         public static string Options_RequiredSizeDescription {
             get {
@@ -429,7 +452,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RequiredSize.
+        ///   Looks up a localized string similar to Image Size.
         /// </summary>
         public static string Options_RequiredSizeName {
             get {
@@ -438,20 +461,11 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ShortenExtension.
+        ///   Looks up a localized string similar to Shorten image extension down to three characters.
         /// </summary>
         public static string Options_ShortenExtensionDescription {
             get {
                 return ResourceManager.GetString("Options_ShortenExtensionDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ShortenExtension.
-        /// </summary>
-        public static string Options_ShortenExtensionName {
-            get {
-                return ResourceManager.GetString("Options_ShortenExtensionName", resourceCulture);
             }
         }
         
@@ -474,7 +488,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Test.
+        ///   Looks up a localized string similar to Test mode (no files will be written).
         /// </summary>
         public static string Options_TestDescription {
             get {
@@ -483,7 +497,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Test.
+        ///   Looks up a localized string similar to Test Mode.
         /// </summary>
         public static string Options_TestName {
             get {
@@ -492,7 +506,8 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TiffCompression.
+        ///   Looks up a localized string similar to TIFF compression method
+        ///  CCITT3, CCITT4 and RLE produce black and white images.
         /// </summary>
         public static string Options_TiffCompressionDescription {
             get {
@@ -501,7 +516,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TiffCompression.
+        ///   Looks up a localized string similar to TIFF Compression.
         /// </summary>
         public static string Options_TiffCompressionName {
             get {

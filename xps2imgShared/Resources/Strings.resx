@@ -282,124 +282,120 @@
     <comment>Page number(s)&#xA;  all pages by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;1-&#xA;  single:&#x9;1&#xA;  set:&#x9;&#x9;1,3&#xA;  range:&#x9;1-10 or -10 or 10-&#xA;  combined:&#x9;1,3-5,7-9,15-</comment>
   </data>
   <data name="Options_FileTypeName" xml:space="preserve">
-    <value>FileType</value>
-    <comment></comment>
+    <value>Image Type</value>
+    <comment>Image Type</comment>
   </data>
   <data name="Options_FileTypeDescription" xml:space="preserve">
-    <value>FileType</value>
-    <comment></comment>
+    <value>Image type</value>
+    <comment>Image type</comment>
   </data>
   <data name="Options_JpegQualityName" xml:space="preserve">
-    <value>JpegQuality</value>
-    <comment></comment>
+    <value>JPEG Quality</value>
+    <comment>JPEG Quality</comment>
   </data>
   <data name="Options_JpegQualityDescription" xml:space="preserve">
-    <value>JpegQuality</value>
-    <comment></comment>
+    <value>JPEG quality level (10-100)</value>
+    <comment>JPEG quality level (10-100)</comment>
   </data>
   <data name="Options_TiffCompressionName" xml:space="preserve">
-    <value>TiffCompression</value>
-    <comment></comment>
+    <value>TIFF Compression</value>
+    <comment>TIFF Compression</comment>
   </data>
   <data name="Options_TiffCompressionDescription" xml:space="preserve">
-    <value>TiffCompression</value>
-    <comment></comment>
+    <value>TIFF compression method&#xA;  CCITT3, CCITT4 and RLE produce black and white images</value>
+    <comment>TIFF compression method&#xA;  CCITT3, CCITT4 and RLE produce black and white images</comment>
   </data>
   <data name="Options_RequiredSizeName" xml:space="preserve">
-    <value>RequiredSize</value>
-    <comment></comment>
+    <value>Image Size</value>
+    <comment>Image Size</comment>
   </data>
   <data name="Options_RequiredSizeDescription" xml:space="preserve">
-    <value>RequiredSize</value>
-    <comment></comment>
+    <value>Desired image size (greater or equal 10)&#xA;  DPI will be ignored if image size is specified &#xA;Syntax:&#xA;  width only:&#x9;2000&#xA;  height only:&#x9;x1000&#xA;  both:&#x9;&#x9;2000x1000&#xA;&#x9;&#x9;width for landscape orientation&#xA;&#x9;&#x9;height for portrait orientation</value>
+    <comment>Desired image size (greater or equal 10)&#xA;  DPI will be ignored if image size is specified &#xA;Syntax:&#xA;  width only:&#x9;2000&#xA;  height only:&#x9;x1000&#xA;  both:&#x9;&#x9;2000x1000&#xA;&#x9;&#x9;width for landscape orientation&#xA;&#x9;&#x9;height for portrait orientation</comment>
   </data>
   <data name="Options_DpiName" xml:space="preserve">
-    <value>Dpi</value>
-    <comment></comment>
+    <value>Image DPI</value>
+    <comment>Image DPI</comment>
   </data>
   <data name="Options_DpiDescription" xml:space="preserve">
-    <value>Dpi</value>
-    <comment></comment>
+    <value>Image DPI (16-2350)&#xA;  DPI will be ignored if image size is specified</value>
+    <comment>Image DPI (16-2350)&#xA;  DPI will be ignored if image size is specified</comment>
   </data>
   <data name="Options_ImageNameName" xml:space="preserve">
-    <value>ImageName</value>
-    <comment></comment>
+    <value>Image Prefix</value>
+    <comment>Image Prefix</comment>
   </data>
   <data name="Options_ImageNameDescription" xml:space="preserve">
-    <value>ImageName</value>
-    <comment></comment>
+    <value>Image prefix&#xA;  numeric if omitted: 01.png&#xA;  name of src file if empty (-i \"\"): src_file-01.png</value>
+    <comment>Image prefix&#xA;  numeric if omitted: 01.png&#xA;  name of src file if empty (-i \"\"): src_file-01.png</comment>
   </data>
   <data name="Options_FirstPageIndexName" xml:space="preserve">
-    <value>FirstPageIndex</value>
-    <comment></comment>
+    <value>First Page Index</value>
+    <comment>First Page Index</comment>
   </data>
   <data name="Options_FirstPageIndexDescription" xml:space="preserve">
-    <value>FirstPageIndex</value>
-    <comment></comment>
+    <value>Document body first page index or desired and actual page numbers in any order&#xA;  1 by default&#xA;Syntax:&#xA;  numeric: 5&#xA;  desired and actual page numbers: \"96 100\" or 96-100</value>
+    <comment>Document body first page index or desired and actual page numbers in any order&#xA;  1 by default&#xA;Syntax:&#xA;  numeric: 5&#xA;  desired and actual page numbers: \"96 100\" or 96-100</comment>
   </data>
   <data name="Options_PrelimsPrefixName" xml:space="preserve">
-    <value>PrelimsPrefix</value>
-    <comment></comment>
+    <value>Preliminaries Prefix</value>
+    <comment>Preliminaries Prefix</comment>
   </data>
   <data name="Options_PrelimsPrefixDescription" xml:space="preserve">
-    <value>PrelimsPrefix</value>
-    <comment></comment>
-  </data>
-  <data name="Options_ShortenExtensionName" xml:space="preserve">
-    <value>ShortenExtension</value>
-    <comment></comment>
+    <value>Preliminaries prefix. &lt;&gt;:\&quot;/\\|?* characters are not allowed</value>
+    <comment>Preliminaries prefix. &lt;&gt;:\&quot;/\\|?* characters are not allowed</comment>
   </data>
   <data name="Options_ShortenExtensionDescription" xml:space="preserve">
-    <value>ShortenExtension</value>
-    <comment></comment>
+    <value>Shorten image extension down to three characters</value>
+    <comment>Shorten image extension down to three characters</comment>
   </data>
   <data name="Options_ProcessorsNumberName" xml:space="preserve">
-    <value>ProcessorsNumber</value>
-    <comment></comment>
+    <value>Processors</value>
+    <comment>Processors</comment>
   </data>
   <data name="Options_ProcessorsNumberDescription" xml:space="preserve">
-    <value>ProcessorsNumber</value>
-    <comment></comment>
+    <value>Number of simultaneously running document processors&#xA;  number of logical CPUs by default</value>
+    <comment>Number of simultaneously running document processors&#xA;  number of logical CPUs by default</comment>
   </data>
   <data name="Options_ProcessPriorityName" xml:space="preserve">
-    <value>ProcessPriority</value>
-    <comment></comment>
+    <value>Processors Priority</value>
+    <comment>Processors Priority</comment>
   </data>
   <data name="Options_ProcessPriorityDescription" xml:space="preserve">
-    <value>ProcessPriority</value>
-    <comment></comment>
+    <value>Document processors priority&#xA;  Normal by default</value>
+    <comment>Document processors priority&#xA;  Normal by default</comment>
   </data>
   <data name="Options_CpuAffinityName" xml:space="preserve">
-    <value>CpuAffinity</value>
-    <comment></comment>
+    <value>Processors Affinity</value>
+    <comment>Processors Affinity</comment>
   </data>
   <data name="Options_CpuAffinityDescription" xml:space="preserve">
-    <value>CpuAffinity</value>
-    <comment></comment>
+    <value>CPUs processors will be executed on&#xA;  all by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;0-&#xA;  single:&#x9;0&#xA;  set:&#x9;&#x9;0,2&#xA;  range:&#x9;0-2 or -2 or 2-&#xA;  combined:&#x9;0,2-</value>
+    <comment>CPUs processors will be executed on&#xA;  all by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;0-&#xA;  single:&#x9;0&#xA;  set:&#x9;&#x9;0,2&#xA;  range:&#x9;0-2 or -2 or 2-&#xA;  combined:&#x9;0,2-</comment>
   </data>
   <data name="Options_IgnoreExistingName" xml:space="preserve">
-    <value>IgnoreExisting</value>
-    <comment></comment>
+    <value>Ignore Existing Images</value>
+    <comment>Ignore Existing Images</comment>
   </data>
   <data name="Options_IgnoreExistingDescription" xml:space="preserve">
-    <value>IgnoreExisting</value>
-    <comment></comment>
+    <value>Do not overwrite existing images. Will be reset in case of any image related property change</value>
+    <comment>Do not overwrite existing images. Will be reset in case of any image related property change</comment>
   </data>
   <data name="Options_IgnoreErrorsName" xml:space="preserve">
-    <value>IgnoreErrors</value>
-    <comment></comment>
+    <value>Ignore Conversion Errors</value>
+    <comment>Ignore Conversion Errors</comment>
   </data>
   <data name="Options_IgnoreErrorsDescription" xml:space="preserve">
-    <value>IgnoreErrors</value>
-    <comment></comment>
+    <value>Ignore conversion errors</value>
+    <comment>Ignore conversion errors</comment>
   </data>
   <data name="Options_TestName" xml:space="preserve">
-    <value>Test</value>
-    <comment></comment>
+    <value>Test Mode</value>
+    <comment>Test Mode</comment>
   </data>
   <data name="Options_TestDescription" xml:space="preserve">
-    <value>Test</value>
-    <comment></comment>
+    <value>Test mode (no files will be written)</value>
+    <comment>Test mode (no files will be written)</comment>
   </data>
   <data name="Options_ParametersCategory" xml:space="preserve">
     <value>&#9;Parameters</value>
