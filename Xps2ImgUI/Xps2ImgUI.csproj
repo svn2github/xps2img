@@ -181,8 +181,8 @@
     <EmbeddedResource Include="Resources\Strings.uk.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
+    <None Include="..\xps2img\App.config">
+      <Link>App.config</Link>
     </None>
     <None Include="Utils\Stubs\UpdateManager.cs" />
     <Compile Include="Utils\Interfaces\IUpdateManager.cs" />
