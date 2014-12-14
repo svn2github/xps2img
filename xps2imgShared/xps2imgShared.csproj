@@ -19,7 +19,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\_bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;XPS2IMG_SHARED</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -27,7 +27,6 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\_bin\Release\</OutputPath>
-    <DefineConstants>XPS2IMG_SHARED</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -79,6 +78,7 @@
     <Compile Include="Localization\LocalizableTypeDescriptionProviderInstaller.cs" />
     <Compile Include="Localization\LocalizableTypeDescriptor.cs" />
     <Compile Include="Localization\SingleAssemblyResourceManager.cs" />
+    <Compile Include="Properties\ProjectAssemblyInfo.cs" />
     <Compile Include="TypeConverters\CheckedFirstPageIndexTypeConverter.cs" />
     <Compile Include="TypeConverters\FilterableEnumConverter.cs" />
     <Compile Include="TypeConverters\OptionsEnumConverter.cs" />

@@ -37,7 +37,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\_bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;XPS2IMG_UI</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
@@ -46,7 +46,6 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\_bin\Release\</OutputPath>
-    <DefineConstants>XPS2IMG_UI</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
@@ -82,6 +81,7 @@
     </Compile>
     <Compile Include="Attributes\OptionsHolder\OptionsFormatter.cs" />
     <Compile Include="Attributes\OptionsHolder\OptionsHolder.cs" />
+    <Compile Include="Properties\ProjectAssemblyInfo.cs" />
     <Compile Include="Controls\PropertyGridEx\ToolStripEx\ToolStripButtonEx.cs">
       <SubType>Component</SubType>
     </Compile>
