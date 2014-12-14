@@ -1,12 +1,14 @@
 ﻿using System.Runtime.InteropServices;
 using System.Security;
 
+// ReSharper disable UnusedField.Compiler
+// ReSharper disable UnusedMember.Local
+// ReSharper disable MemberCanBePrivate.Local
+// ReSharper disable FieldCanBeMadeReadOnly.Local
+// ReSharper disable InconsistentNaming
+
 namespace Xps2Img.Shared.Utils.System
 {
-    // ReSharper disable UnusedMember.Local
-    // ReSharper disable MemberCanBePrivate.Local
-    // ReSharper disable FieldCanBeMadeReadOnly.Local
-    // ReSharper disable InconsistentNaming
     [SuppressUnmanagedCodeSecurity]
     public static partial class SystemManagement
     {

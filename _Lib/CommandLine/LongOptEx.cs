@@ -25,27 +25,17 @@ namespace CommandLine
         {
         }
 
-        public LongOptEx(string description, string name) :
-            this(description, name, ArgumentExpectancy.Required)
-        {
-        }
-
         public LongOptEx(string description, ArgumentExpectancy hasArg) :
             this(description, String.Empty, hasArg)
         {
         }
 
-        public LongOptEx(string description, string name, ArgumentExpectancy hasArg) :
+        public LongOptEx(string description, string name, ArgumentExpectancy hasArg = ArgumentExpectancy.Required) :
             this(description, name, ShortOptionType.Auto, hasArg)
         {
         }
 
-        public LongOptEx(string description, string name, char shortOption) :
-            this(description, name, shortOption, ArgumentExpectancy.Required)
-        {
-        }
-
-        public LongOptEx(string description, string name, char shortOption, ArgumentExpectancy hasArg) :
+        public LongOptEx(string description, string name, char shortOption, ArgumentExpectancy hasArg = ArgumentExpectancy.Required) :
             base(name, (Argument)hasArg, null,
                 name == Unnamed ? ShortOptionType.Auto :
                   shortOption != ShortOptionType.Auto ? shortOption :
@@ -54,12 +44,7 @@ namespace CommandLine
             Description = description;
         }
 
-        public void SetPropertyValue(string value)
-        {
-            SetPropertyValue(value, null);
-        }
-
-        public void SetPropertyValue(string value, Action<LongOptEx, string> validationErrorAction)
+        public void SetPropertyValue(string value, Action<LongOptEx, string> validationErrorAction = null)
         {
             try
             {

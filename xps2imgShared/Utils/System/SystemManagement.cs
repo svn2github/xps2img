@@ -85,6 +85,7 @@ namespace Xps2Img.Shared.Utils.System
                 args["Flags"] = shutdownType;
                 args["Reserved"] = 0;
 
+                // ReSharper disable once PossibleInvalidCastExceptionInForeachLoop
                 foreach (ManagementObject managementObject in operatingSystem.GetInstances())
                 {
                     managementObject.InvokeMethod("Win32Shutdown", args, null);

@@ -189,13 +189,11 @@
     <Compile Include="Localization\IFormLocalization.cs" />
     <Compile Include="Localization\LocalizationManager.cs" />
     <Compile Include="Utils\UpdateManager.cs" />
-    <None Include="Utils\PropertiesComparator.cs" />
     <Compile Include="Utils\UI\Explorer.cs" />
     <Compile Include="Utils\UI\IconExtractor.cs" />
     <Compile Include="Utils\UI\ControlUtils.cs" />
     <Compile Include="Utils\UI\Win32Utils.cs" />
     <Compile Include="Utils\UI\PropertyGridUtils.cs" />
-    <None Include="Utils\UI\WaitCursor.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

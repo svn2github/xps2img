@@ -23,17 +23,12 @@ namespace CommandLine
         {
         }
 
-        public OptionAttribute(string description, string name) :
-            this(description, name, ArgumentExpectancy.Required)
-        {
-        }
-
         public OptionAttribute(string description, ArgumentExpectancy hasArg) :
             this(description, GenerateNameFromProperty, hasArg)
         {
         }
 
-        public OptionAttribute(string description, string name, ArgumentExpectancy hasArg) :
+        public OptionAttribute(string description, string name, ArgumentExpectancy hasArg = ArgumentExpectancy.Required) :
             this(description, name, ShortOptionType.Auto, hasArg)
         {
         }
@@ -43,17 +38,12 @@ namespace CommandLine
         {
         }
 
-        public OptionAttribute(string description, string name, char shortOption) :
-            this(description, name, shortOption, ArgumentExpectancy.Required)
-        {
-        }
-
         public OptionAttribute(string description, char shortOption, ArgumentExpectancy hasArg) :
             this(description, GenerateNameFromProperty, shortOption, hasArg)
         {
         }
 
-        public OptionAttribute(string description, string name, char shortOption, ArgumentExpectancy hasArg)
+        public OptionAttribute(string description, string name, char shortOption, ArgumentExpectancy hasArg = ArgumentExpectancy.Required)
         {
             _longOptEx = new LongOptEx(description, name, shortOption, hasArg);
         }
@@ -119,12 +109,7 @@ namespace CommandLine
     [AttributeUsage(AttributeTargets.Property)]
     public class UnnamedOptionAttribute : OptionAttribute
     {
-        public UnnamedOptionAttribute(string description) :
-            this(description, true)
-        {
-        }
-
-        public UnnamedOptionAttribute(string description, bool isRequired) :
+        public UnnamedOptionAttribute(string description, bool isRequired = true) :
             base(description, isRequired)
         {
         }
