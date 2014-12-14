@@ -1,6 +1,4 @@
-﻿//#define STUB_UPDATEMANAGER
-
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
