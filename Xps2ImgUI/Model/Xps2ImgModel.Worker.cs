@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Xps.Packaging;
 
-using CommandLine;
+using CommandLine.Utils;
 
 using Xps2Img.Shared.CommandLine;
 using Xps2Img.Shared.Utils;

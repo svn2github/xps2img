@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Resources;
 using System.Windows.Forms;
 
-using CommandLine;
+using CommandLine.Utils;
 
 using Xps2ImgUI.Controls.PropertyGridEx.ToolStripEx;
 using Xps2ImgUI.Utils.UI;

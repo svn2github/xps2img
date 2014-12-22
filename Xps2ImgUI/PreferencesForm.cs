@@ -3,9 +3,10 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Windows.Forms;
 
-using CommandLine;
+using CommandLine.Utils;
 
 using Xps2Img.Shared.Utils;
+
 using Xps2ImgUI.Localization;
 using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils.UI;

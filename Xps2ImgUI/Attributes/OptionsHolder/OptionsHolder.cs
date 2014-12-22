@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 
-using CommandLine;
+using CommandLine.Utils;
 
 using Xps2Img.Shared.Attributes.Options;
 

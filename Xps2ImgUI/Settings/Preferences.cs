@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-using CommandLine;
+using CommandLine.Utils;
 
 using Xps2Img.Shared.TypeConverters;
 
