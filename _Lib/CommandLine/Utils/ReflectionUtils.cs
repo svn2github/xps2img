@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace CommandLine
+namespace CommandLine.Utils
 {
     public static class ReflectionUtils
     {

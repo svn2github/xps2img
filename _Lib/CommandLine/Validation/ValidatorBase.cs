@@ -1,5 +1,7 @@
 ﻿using System;
 
+using CommandLine.Interfaces;
+
 namespace CommandLine.Validation
 {
     public abstract class ValidatorBase: IValidator

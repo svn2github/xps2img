@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 
+using CommandLine.Interfaces;
 using CommandLine.Validation.Validators;
 
 namespace CommandLine.Validation

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 
+using CommandLine.Interfaces;
+
 namespace CommandLine.Validation.Validators
 {
     public class EnumValidator : ValidatorBase

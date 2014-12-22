@@ -51,7 +51,7 @@ namespace Xps2Img.Shared.Localization.TypeConverters
 
         private object ParseEnum(string value)
         {
-            return Enum.Parse(EnumType, value);
+            return Enum.Parse(EnumType, value, true);
         }
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
+using CommandLine.Utils;
+
 namespace CommandLine
 {
     public static partial class Parser
@@ -45,12 +47,10 @@ namespace CommandLine
 
             stringBuilder.AppendLine();
 
-            var description = (DescriptionAttribute)optionsObjectType.GetCustomAttributes(typeof(DescriptionAttribute), true).FirstOrDefault();
-            if (description != null)
-            {
-                stringBuilder.AppendLine(description.Description);
-                stringBuilder.AppendLine();
-            }
+            var descriptionAttribute = (DescriptionAttribute)optionsObjectType.GetCustomAttributes(typeof(DescriptionAttribute), true).FirstOrDefault();
+
+            stringBuilder.AppendLine(descriptionAttribute != null ? descriptionAttribute.Description : GetDescription<T>(null));
+            stringBuilder.AppendLine();
 
             stringBuilder.AppendLine(Resources.Strings.Message_MandatoryArgs);
 

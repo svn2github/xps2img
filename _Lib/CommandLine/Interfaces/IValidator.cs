@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CommandLine.Validation
+namespace CommandLine.Interfaces
 {
     public interface IValidator
     {

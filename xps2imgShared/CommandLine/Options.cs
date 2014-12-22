@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Linq;
 
 using CommandLine;
+using CommandLine.Utils;
 
 using Xps2Img.Shared.Attributes.UI;
 using Xps2Img.Shared.Dialogs;
@@ -24,7 +25,6 @@ namespace Xps2Img.Shared.CommandLine
     // ReSharper disable MemberCanBeProtected.Global
     // ReSharper disable UnusedAutoPropertyAccessor.Global
     // ReSharper disable UnusedMember.Global
-    [Description(OptionsDescription)]
     public partial class Options
     {
         public Options()

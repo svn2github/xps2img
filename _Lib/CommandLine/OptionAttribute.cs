@@ -2,17 +2,10 @@
 using System.ComponentModel;
 using System.Reflection;
 
+using CommandLine.GetOpt;
+
 namespace CommandLine
 {
-    [Flags]
-    public enum OptionFlags
-    {
-        Internal     = 0x0001,
-        Ignore       = 0x0002,
-        NoValidation = 0x0004,
-        NoDefaultValueDescription = 0x0008
-    }
-
     [AttributeUsage(AttributeTargets.Property)]
     public class OptionAttribute : Attribute
     {

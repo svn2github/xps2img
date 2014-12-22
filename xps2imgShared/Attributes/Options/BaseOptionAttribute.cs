@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Reflection;
 
-using CommandLine;
+using CommandLine.Utils;
 
 namespace Xps2Img.Shared.Attributes.Options
 {

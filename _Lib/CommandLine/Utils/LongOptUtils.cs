@@ -4,9 +4,9 @@ using System.Linq;
 
 using Gnu.Getopt;
 
-namespace CommandLine
+namespace CommandLine.Utils
 {
-    internal static class Utils
+    internal static class LongOptUtils
     {
         public static string BuildOptString(this IEnumerable<LongOpt> longOpts)
         {

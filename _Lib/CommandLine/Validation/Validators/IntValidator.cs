@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
+using CommandLine.Interfaces;
+
 namespace CommandLine.Validation.Validators
 {
     public class IntValidator : ValidatorBase

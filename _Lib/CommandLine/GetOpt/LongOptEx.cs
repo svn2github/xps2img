@@ -2,12 +2,13 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-
+using CommandLine.Interfaces;
+using CommandLine.Utils;
 using CommandLine.Validation;
 
 using Gnu.Getopt;
 
-namespace CommandLine
+namespace CommandLine.GetOpt
 {
     internal class LongOptEx : LongOpt
     {
@@ -74,7 +75,7 @@ namespace CommandLine
             return propertyValue;
         }
 
-        public readonly string Description;
+        public string Description { get; set; }
 
         public string BoundPropertyName { get; set; }
 

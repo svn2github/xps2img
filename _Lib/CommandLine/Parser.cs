@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
+using CommandLine.GetOpt;
+using CommandLine.Interfaces;
+using CommandLine.Strings;
+using CommandLine.Utils;
+
 using Gnu.Getopt;
 
 namespace CommandLine
@@ -41,10 +46,31 @@ namespace CommandLine
         }
 
         private static readonly string[] HelpOpt = { "-h", "--help" };
-
+        
         public static bool IsUsageRequested(string[] args)
         {
             return !args.Any() || (args.Length == 1 && HelpOpt.Contains(args.First()));
+        }
+
+        private static StringsSource _stringsSource;
+
+        public static void RegisterStringsSource<TStringsSource>()
+        {
+            _stringsSource = new StringsSource(typeof(TStringsSource));
+        }
+
+        private static IStringsSourceKeyProvider _stringsSourceKeyProvider = DefaultStringsSourceKeyProvider.Instance;
+
+        public static IStringsSourceKeyProvider StringsSourceKeyProvider
+        {
+            get { return _stringsSourceKeyProvider; }
+            set { _stringsSourceKeyProvider = value ?? DefaultStringsSourceKeyProvider.Instance; }
+        }
+
+        private static string GetDescription<T>(string id)
+        {
+            var key = StringsSourceKeyProvider.FormatKey(typeof(T), id, "Description");
+            return _stringsSource != null ? _stringsSource.GetString(key) : key;
         }
 
         public static T Parse<T>(string cmdline) where T : class

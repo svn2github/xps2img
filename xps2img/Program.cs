@@ -6,6 +6,9 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+
+using CommandLine;
+
 using Xps2Img.CommandLine;
 
 using Xps2Img.Shared.CommandLine;
@@ -33,6 +36,8 @@ namespace Xps2Img
         private static int Main(string[] args)
         {
             SetupGuard.Enter();
+
+            Parser.RegisterStringsSource<Shared.Resources.Strings>();
 
             Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
 

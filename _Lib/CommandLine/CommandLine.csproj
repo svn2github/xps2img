@@ -53,31 +53,35 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ColumnFormatter.cs" />
+    <Compile Include="Utils\ColumnFormatter.cs" />
+    <Compile Include="Strings\DefaultStringsSourceKeyProvider.cs" />
+    <Compile Include="Interfaces\IStringsSourceKeyProvider.cs" />
+    <Compile Include="OptionFlags.cs" />
     <Compile Include="Parser.Win32.cs">
       <DependentUpon>Parser.cs</DependentUpon>
     </Compile>
-    <Compile Include="ReflectionUtils.cs" />
+    <Compile Include="Utils\ReflectionUtils.cs" />
     <Compile Include="ShortOptionType.cs" />
     <Compile Include="Parser.Format.cs">
       <DependentUpon>Parser.cs</DependentUpon>
     </Compile>
     <Compile Include="OptionAttribute.cs" />
     <Compile Include="Parser.cs" />
-    <Compile Include="Enums.cs" />
-    <Compile Include="LongOptEx.cs" />
+    <Compile Include="ArgumentExpectancy.cs" />
+    <Compile Include="GetOpt\LongOptEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Utils.cs" />
-    <Compile Include="IntegrityCheck.cs" />
+    <Compile Include="Strings\StringsSource.cs" />
+    <Compile Include="Utils\LongOptUtils.cs" />
+    <Compile Include="Utils\IntegrityCheck.cs" />
     <Compile Include="Validation\ValidatorBase.cs" />
     <Compile Include="Validation\Validators\EnumValidator.cs" />
     <Compile Include="Validation\Validators\RegexValidator.cs" />
-    <Compile Include="Validation\IValidator.cs" />
+    <Compile Include="Interfaces\IValidator.cs" />
     <Compile Include="Validation\Validators\IntValidator.cs" />
     <Compile Include="Validation\Parser.cs" />
     <Compile Include="Validation\ValidationException.cs" />

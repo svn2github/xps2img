@@ -77,6 +77,8 @@ namespace Xps2ImgUI
             LocalizableTypeDescriptionProviderInstaller.AddProvider<Preferences>(Resources.Strings.ResourceManager);
             LocalizableTypeDescriptionProviderInstaller.AddProvider<UIOptions>(Xps2Img.Shared.Resources.Strings.ResourceManager);
 
+            Parser.StringsSourceType = typeof(Xps2Img.Shared.Resources.Strings);
+
             var options = Parser.IsUsageRequested(args) ? null : Parser.Parse<UIOptions>(args, true);
 
             var mainForm = new MainForm { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) };

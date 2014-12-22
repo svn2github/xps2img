@@ -5,7 +5,9 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace CommandLine
+using CommandLine.GetOpt;
+
+namespace CommandLine.Utils
 {
     internal static class IntegrityCheck
     {
