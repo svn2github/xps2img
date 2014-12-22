@@ -249,6 +249,10 @@
     <value>High</value>
     <comment>High</comment>
   </data>
+  <data name="Options_Description" xml:space="preserve">
+    <value>&#xA;Converts XPS (XML Paper Specification) document to set of images.</value>
+    <comment>&#xA;Converts XPS (XML Paper Specification) document to set of images.</comment>
+  </data>
   <data name="Options_SrcFileName" xml:space="preserve">
     <value>XPS File</value>
     <comment>XPS File</comment>
@@ -256,6 +260,10 @@
   <data name="Options_SrcFileDescription" xml:space="preserve">
     <value>XPS file to process (required)</value>
     <comment>XPS file to process (required)</comment>
+  </data>
+  <data name="Options_SrcFileCmdDescription" xml:space="preserve">
+    <value>XPS file to process</value>
+    <comment>XPS file to process</comment>
   </data>
   <data name="Options_OutDirName" xml:space="preserve">
     <value>Output Folder</value>
@@ -365,6 +373,10 @@
     <value>Document processors priority&#xA;  Normal by default</value>
     <comment>Document processors priority&#xA;  Normal by default</comment>
   </data>
+  <data name="Options_ProcessPriorityCmdDescription" xml:space="preserve">
+    <value>Process prioritypriority&#xA;  normal by default</value>
+    <comment>Process priority&#xA;  normal by default</comment>
+  </data>
   <data name="Options_CpuAffinityName" xml:space="preserve">
     <value>Processors Affinity</value>
     <comment>Processors Affinity</comment>
@@ -373,6 +385,10 @@
     <value>CPUs processors will be executed on&#xA;  all by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;0-&#xA;  single:&#x9;0&#xA;  set:&#x9;&#x9;0,2&#xA;  range:&#x9;0-2 or -2 or 2-&#xA;  combined:&#x9;0,2-</value>
     <comment>CPUs processors will be executed on&#xA;  all by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;0-&#xA;  single:&#x9;0&#xA;  set:&#x9;&#x9;0,2&#xA;  range:&#x9;0-2 or -2 or 2-&#xA;  combined:&#x9;0,2-</comment>
   </data>
+  <data name="Options_CpuAffinityCmdDescription" xml:space="preserve">
+    <value>CPUs process will be executed on&#xA;  all by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;0-&#xA;  single:&#x9;0&#xA;  set:&#x9;&#x9;0,2&#xA;  range:&#x9;0-2 or -2 or 2-&#xA;  combined:&#x9;0,2-</value>
+    <comment>CPUs process will be executed on&#xA;  all by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;0-&#xA;  single:&#x9;0&#xA;  set:&#x9;&#x9;0,2&#xA;  range:&#x9;0-2 or -2 or 2-&#xA;  combined:&#x9;0,2-</comment>
+  </data>
   <data name="Options_IgnoreExistingName" xml:space="preserve">
     <value>Ignore Existing Images</value>
     <comment>Ignore Existing Images</comment>
@@ -380,6 +396,10 @@
   <data name="Options_IgnoreExistingDescription" xml:space="preserve">
     <value>Do not overwrite existing images. Will be reset in case of any image related property change</value>
     <comment>Do not overwrite existing images. Will be reset in case of any image related property change</comment>
+  </data>
+  <data name="Options_IgnoreExistingCmdDescription" xml:space="preserve">
+    <value>Do not overwrite existing images</value>
+    <comment>Do not overwrite existing images</comment>
   </data>
   <data name="Options_IgnoreErrorsName" xml:space="preserve">
     <value>Ignore Conversion Errors</value>

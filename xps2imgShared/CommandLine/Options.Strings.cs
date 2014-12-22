@@ -8,6 +8,7 @@ namespace Xps2Img.Shared.CommandLine
     // ReSharper disable UnusedMember.Global
     public partial class Options
     {
+        // Options_Description
         private const string OptionsDescription = "\nConverts XPS (XML Paper Specification) document to set of images.";
 
         public  const string CategoryParameters = "\tParameters";

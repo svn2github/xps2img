@@ -142,6 +142,22 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CPUs process will be executed on
+        ///  all by default
+        ///Syntax:
+        ///  all:		0-
+        ///  single:	0
+        ///  set:		0,2
+        ///  range:	0-2 or -2 or 2-
+        ///  combined:	0,2-.
+        /// </summary>
+        public static string Options_CpuAffinityCmdDescription {
+            get {
+                return ResourceManager.GetString("Options_CpuAffinityCmdDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CPUs processors will be executed on
         ///  all by default
         ///Syntax:
@@ -163,6 +179,16 @@ namespace Xps2Img.Shared.Resources {
         public static string Options_CpuAffinityName {
             get {
                 return ResourceManager.GetString("Options_CpuAffinityName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///Converts XPS (XML Paper Specification) document to set of images..
+        /// </summary>
+        public static string Options_Description {
+            get {
+                return ResourceManager.GetString("Options_Description", resourceCulture);
             }
         }
         
@@ -240,6 +266,15 @@ namespace Xps2Img.Shared.Resources {
         public static string Options_IgnoreErrorsName {
             get {
                 return ResourceManager.GetString("Options_IgnoreErrorsName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not overwrite existing images.
+        /// </summary>
+        public static string Options_IgnoreExistingCmdDescription {
+            get {
+                return ResourceManager.GetString("Options_IgnoreExistingCmdDescription", resourceCulture);
             }
         }
         
@@ -417,6 +452,16 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Process prioritypriority
+        ///  normal by default.
+        /// </summary>
+        public static string Options_ProcessPriorityCmdDescription {
+            get {
+                return ResourceManager.GetString("Options_ProcessPriorityCmdDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Document processors priority
         ///  Normal by default.
         /// </summary>
@@ -466,6 +511,15 @@ namespace Xps2Img.Shared.Resources {
         public static string Options_ShortenExtensionDescription {
             get {
                 return ResourceManager.GetString("Options_ShortenExtensionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to XPS file to process.
+        /// </summary>
+        public static string Options_SrcFileCmdDescription {
+            get {
+                return ResourceManager.GetString("Options_SrcFileCmdDescription", resourceCulture);
             }
         }
         
