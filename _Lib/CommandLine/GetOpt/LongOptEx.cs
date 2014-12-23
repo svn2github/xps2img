@@ -2,9 +2,9 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+
 using CommandLine.Interfaces;
 using CommandLine.Utils;
-using CommandLine.Validation;
 
 using Gnu.Getopt;
 
@@ -76,11 +76,15 @@ namespace CommandLine.GetOpt
         }
 
         public string Description { get; set; }
+        public string DescriptionKey { get; set; }
+
+        public bool HasDescription { get { return !String.IsNullOrEmpty(Description); } }
+        public bool HasDescriptionKey { get { return !String.IsNullOrEmpty(DescriptionKey); } }
 
         public string BoundPropertyName { get; set; }
 
         public string DisplayName { get { return IsUnnamed && !String.IsNullOrEmpty(BoundPropertyName) ? GetLongName(BoundPropertyName) : Name; } }
-        public string DisplayArgName { get { return Name.Split(new[] { '-' }).Last(); } }
+        public string DisplayArgName { get { return Name.Split('-').Last(); } }
 
         public object BoundObject { get; set; }
 

@@ -164,7 +164,9 @@ namespace Xps2ImgUI
         {
             string[] forceRefreshForProperties = { Options.Properties.FileType, Options.Properties.PostAction };
 
-            var propertyName = e.ChangedItem.PropertyDescriptor.Name;
+            var propertyDescriptor = e.ChangedItem.PropertyDescriptor;
+
+            var propertyName = propertyDescriptor == null ? String.Empty : propertyDescriptor.Name;
 
             Func<string[], bool> hasOneOf = o => o.Contains(propertyName);
 

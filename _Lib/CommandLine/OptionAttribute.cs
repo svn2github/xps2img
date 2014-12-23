@@ -16,11 +16,6 @@ namespace CommandLine
         {
         }
 
-        public OptionAttribute(string description, ArgumentExpectancy hasArg) :
-            this(description, GenerateNameFromProperty, hasArg)
-        {
-        }
-
         public OptionAttribute(string description, string name, ArgumentExpectancy hasArg = ArgumentExpectancy.Required) :
             this(description, name, ShortOptionType.Auto, hasArg)
         {
@@ -33,6 +28,26 @@ namespace CommandLine
 
         public OptionAttribute(string description, char shortOption, ArgumentExpectancy hasArg) :
             this(description, GenerateNameFromProperty, shortOption, hasArg)
+        {
+        }
+
+        public OptionAttribute(ArgumentExpectancy hasArg) :
+            this(GenerateNameFromProperty, hasArg)
+        {
+        }
+
+        public OptionAttribute(string name, ArgumentExpectancy hasArg = ArgumentExpectancy.Required) :
+            this(name, ShortOptionType.Auto, hasArg)
+        {
+        }
+
+        public OptionAttribute(char shortOption) :
+            this(GenerateNameFromProperty, shortOption)
+        {
+        }
+
+        public OptionAttribute(char shortOption, ArgumentExpectancy hasArg) :
+            this(GenerateNameFromProperty, shortOption, hasArg)
         {
         }
 
@@ -53,12 +68,9 @@ namespace CommandLine
                               new LongOptEx(_longOptEx.Description, attrName, (ArgumentExpectancy)_longOptEx.HasArg);
             }
 
+            _longOptEx.DescriptionKey = DescriptionKey;
             _longOptEx.BoundPropertyName = name;
-
-            _longOptEx.TypeConverter = (TypeConverter)(ConverterType == null ?
-                                          TypeDescriptor.GetConverter(propertyInfo.PropertyType) :
-                                          Activator.CreateInstance(ConverterType));
-
+            _longOptEx.TypeConverter = (TypeConverter)(ConverterType == null ? TypeDescriptor.GetConverter(propertyInfo.PropertyType) : Activator.CreateInstance(ConverterType));
             _longOptEx.BoundObject = optionsObject;
             _longOptEx.DefaultValue = DefaultValue;
 
@@ -77,6 +89,8 @@ namespace CommandLine
                                        : (object)ValidationExpression);
             return _longOptEx;
         }
+
+        public string DescriptionKey { get; set; }
 
         public string DefaultValue { get; set; }
 
@@ -102,6 +116,11 @@ namespace CommandLine
     [AttributeUsage(AttributeTargets.Property)]
     public class UnnamedOptionAttribute : OptionAttribute
     {
+        public UnnamedOptionAttribute(bool isRequired = true) :
+            base(null, isRequired)
+        {
+        }
+
         public UnnamedOptionAttribute(string description, bool isRequired = true) :
             base(description, isRequired)
         {

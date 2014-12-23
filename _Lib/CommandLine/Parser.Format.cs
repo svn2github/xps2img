@@ -81,7 +81,11 @@ namespace CommandLine
                     }
                 }
 
-                optStringBuilder.AppendFormat("{1}{0}", longOpt.Description ?? String.Empty, ColumnFormatter.Separator);
+                var description = longOpt.HasDescription
+                                    ? longOpt.Description
+                                    : GetDescription<T>(longOpt.HasDescriptionKey ? longOpt.DescriptionKey : longOpt.BoundPropertyName);
+
+                optStringBuilder.AppendFormat("{1}{0}", description, ColumnFormatter.Separator);
 
                 if (longOpt.HasDefaultValue && !longOpt.IsNoDefaultValueDescription)
                 {

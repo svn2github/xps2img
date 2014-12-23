@@ -32,7 +32,7 @@ namespace Xps2Img.Shared.CommandLine
             ReflectionUtils.SetDefaultValues(this);
         }
 
-        [UnnamedOption(SrcFileDescription, ConverterType = typeof(TrimStringTypeConverter))]
+        [UnnamedOption(DescriptionKey = "SrcFileCmd", ConverterType = typeof(TrimStringTypeConverter))]
         [UIUnnamedOption]
         [Category(CategoryParameters)]
         [Editor(typeof(SelectXpsFileEditor), typeof(UITypeEditor))]
@@ -40,7 +40,7 @@ namespace Xps2Img.Shared.CommandLine
         [TypeConverter(typeof(TrimStringTypeConverter))]
         public string SrcFile { get; set; }
 
-        [UnnamedOption(OutDirDescription, false, ConverterType = typeof(TrimStringTypeConverter))]
+        [UnnamedOption(false, ConverterType = typeof(TrimStringTypeConverter))]
         [UIUnnamedOption(false)]
         [Editor(typeof(SelectXpsFolderEditor), typeof(UITypeEditor))]
         [Category(CategoryParameters)]
@@ -48,13 +48,13 @@ namespace Xps2Img.Shared.CommandLine
         [TypeConverter(typeof(TrimStringTypeConverter))]
         public string OutDir { get; set; }
 
-        [Option(PostActionDescription, PostActionShortOption, ConverterType = typeof(PostActionTypeConverter))]
+        [Option(PostActionShortOption, ConverterType = typeof(PostActionTypeConverter))]
         [Category(CategoryParameters)]
         [TypeConverter(typeof(PostActionTypeConverter))]
         [DefaultValue(PostAction.DoNothing)]
         public PostAction PostAction { get; set; }
         
-        [Option(PagesDescription, PagesShortOption, ConverterType = typeof(PagesTypeConverter), ValidationExpression = Validation.PagesValidationExpression)]
+        [Option(PagesShortOption, ConverterType = typeof(PagesTypeConverter), ValidationExpression = Validation.PagesValidationExpression)]
         [Category(CategoryOptions)]
         [UIOption(PagesShortOption)]
         [DefaultValue(null)]
@@ -68,14 +68,14 @@ namespace Xps2Img.Shared.CommandLine
             get { return Pages ?? new List<Interval> { new Interval(begin: 1) }; }
         }
 
-        [Option(FileTypeDescription, FileTypeShortOption, DefaultValue = FileTypeDefaultValue)]
+        [Option(FileTypeShortOption, DefaultValue = FileTypeDefaultValue)]
         [UIOption(FileTypeShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(ImageType.Png)]
         [TypeConverter(typeof(OptionsEnumConverter<ImageType>))]
         public ImageType FileType { get; set; }
 
-        [Option(JpegQualityDescription, JpegQualityShortOption, DefaultValue = JpegQualityDefaultValue, ValidationExpression = Validation.JpegQualityValidationExpression)]
+        [Option(JpegQualityShortOption, DefaultValue = JpegQualityDefaultValue, ValidationExpression = Validation.JpegQualityValidationExpression)]
         [UIOption(JpegQualityShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(85)]
@@ -83,7 +83,7 @@ namespace Xps2Img.Shared.CommandLine
         [TypeConverter(typeof(JpegNullableIntTypeConverter))]
         public int? JpegQuality { get; set; }
 
-        [Option(TiffCompressionDescription, TiffCompressionShortOption, DefaultValue = TiffCompressionDefaultValue, ConverterType = typeof(TiffCompressOptionEnumConverter))]
+        [Option(TiffCompressionShortOption, DefaultValue = TiffCompressionDefaultValue, ConverterType = typeof(TiffCompressOptionEnumConverter))]
         [UIOption(TiffCompressionShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(TiffCompressOption.Zip)]
@@ -91,47 +91,47 @@ namespace Xps2Img.Shared.CommandLine
         [TypeConverter(typeof(TiffCompressOptionEnumConverter))]
         public TiffCompressOption TiffCompression { get; set; }
 
-        [Option(RequiredSizeDescription, RequiredSizeOption, ConverterType = typeof(CheckedRequiredSizeTypeConverter), ValidationExpression = Validation.RequiredSizeValidationExpression)]
+        [Option(RequiredSizeOption, ConverterType = typeof(CheckedRequiredSizeTypeConverter), ValidationExpression = Validation.RequiredSizeValidationExpression)]
         [UIOption(RequiredSizeOption)]
         [Category(CategoryOptions)]
         [DefaultValue(null)]
         [TypeConverter(typeof(CheckedRequiredSizeTypeConverter))]
         public Size? RequiredSize { get; set; }
 
-        [Option(DpiDescription, DpiShortOption, DefaultValue = DpiDefaultValue, ValidationExpression = Validation.DpiValidationExpression)]
+        [Option(DpiShortOption, DefaultValue = DpiDefaultValue, ValidationExpression = Validation.DpiValidationExpression)]
         [UIOption(DpiShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(120)]
         [TypeConverter(typeof(CheckedDpiTypeConverter))]
         public int? Dpi { get; set; }
 
-        [Option(ImageNameDescription, ImageNameShortOption, ValidationExpression = Validation.ImageNameValidationExpression)]
+        [Option(ImageNameShortOption, ValidationExpression = Validation.ImageNameValidationExpression)]
         [UIOption(ImageNameShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(null)]
         [TypeConverter(typeof(CheckedImageNameTypeConverter))]
         public string ImageName { get; set; }
 
-        [Option(FirstPageIndexDescription, FirstPageIndexShortOption, DefaultValue = FirstPageIndexDefaultValue, ValidationExpression = Validation.FirstPageIndexValidationExpression, Flags = OptionFlags.NoDefaultValueDescription)]
+        [Option(FirstPageIndexShortOption, DefaultValue = FirstPageIndexDefaultValue, ValidationExpression = Validation.FirstPageIndexValidationExpression, Flags = OptionFlags.NoDefaultValueDescription)]
         [UIOption(FirstPageIndexShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(1)]
         [TypeConverter(typeof(CheckedFirstPageIndexTypeConverter))]
         public int? FirstPageIndex { get; set; }
 
-        [Option(PrelimsPrefixDescription, PrelimsPrefixShortOption, DefaultValue = PrelimsPrefixDefaultValue, ValidationExpression = Validation.PrelimsPrefixValidationExpression)]
+        [Option(PrelimsPrefixShortOption, DefaultValue = PrelimsPrefixDefaultValue, ValidationExpression = Validation.PrelimsPrefixValidationExpression)]
         [UIOption(PrelimsPrefixShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(PrelimsPrefixDefaultValue)]
         [TypeConverter(typeof(CheckedPrelimsPrefixTypeConverter))]
         public string PrelimsPrefix { get; set; }
 
-        [Option(ShortenExtensionDescription, ShortenExtensionOption, ArgumentExpectancy.No)]
+        [Option(ShortenExtensionOption, ArgumentExpectancy.No)]
         [Browsable(false)]
         [UIOption(ShortenExtensionOption)]
         public bool ShortenExtension { get; set; }
 
-        [Option("", ShortOptionType.None10, Flags = OptionFlags.Internal)]
+        [Option(ShortOptionType.None10, Flags = OptionFlags.Internal)]
         [Browsable(false)]
         public virtual string CancellationObjectIds { get; set; }
 
@@ -143,7 +143,7 @@ namespace Xps2Img.Shared.CommandLine
         [Browsable(false)]
         public string ParentAppMutexName { get { return SyncObjectsNames.Last(); } }
 
-        [Option("", ShortOptionType.None12, ConverterType = typeof(ProcessorsNumberTypeConverter), Flags = OptionFlags.Internal)]
+        [Option(ShortOptionType.None12, ConverterType = typeof(ProcessorsNumberTypeConverter), Flags = OptionFlags.Internal)]
         [UIOption(ProcessorsOption)]
         [Category(CategoryOptions)]
         [TypeConverter(typeof(ProcessorsNumberTypeConverter))]
@@ -156,7 +156,7 @@ namespace Xps2Img.Shared.CommandLine
             get { return ProcessorsNumber == ProcessorsDefaultValue ? Environment.ProcessorCount : ProcessorsNumber; }
         }
 
-        [Option(ProcessPriorityDescription, ProcessPriorityShortOption, DefaultValue = ProcessPriorityDefaultValue, ConverterType = typeof(ProcessPriorityClassTypeConverter), Flags = OptionFlags.NoDefaultValueDescription)]
+        [Option(ProcessPriorityShortOption, DefaultValue = ProcessPriorityDefaultValue, DescriptionKey = "ProcessPriorityCmd", ConverterType = typeof(ProcessPriorityClassTypeConverter), Flags = OptionFlags.NoDefaultValueDescription)]
         [UIOption(ProcessPriorityShortOption)]
         [Category(CategoryOptions)]
         [TypeConverter(typeof(ProcessPriorityClassTypeConverter))]
@@ -168,12 +168,12 @@ namespace Xps2Img.Shared.CommandLine
         public static readonly string[] ExcludedOnLaunch = ExcludedUIOptions.Concat(new[] { PagesShortOption.ToString(CultureInfo.InvariantCulture) }).ToArray();
         public static readonly string[] ExcludedOnView = ExcludedOnSave.Concat(ExcludedUIOptions).ToArray();
 
-        public static readonly string[] ExcludeOnResumeCheck = { ProcessorsDisplayName, ProcessPriorityDisplayName, PostActionDisplayName, IgnoreExistingDisplayName, IgnoreErrorsDisplayName };
+        public static readonly string[] ExcludeOnResumeCheck = { Properties.ProcessorsNumber, Properties.ProcessPriority, Properties.PostAction, Properties.IgnoreExisting, Properties.IgnoreErrors };
 
         private bool _batch;
 
         [Browsable(false)]
-        [Option("", BatchShortOption, ArgumentExpectancy.No, Flags = OptionFlags.Internal)]
+        [Option(BatchShortOption, ArgumentExpectancy.No, Flags = OptionFlags.Internal)]
         [UIOption(BatchOption)]
         [DefaultValue(false)]
         public bool Batch
@@ -193,7 +193,7 @@ namespace Xps2Img.Shared.CommandLine
             }
         }
 
-        [Option(CpuAffinityDescription, CpuAffinityShortOption, ValidationExpression = Validation.CpuAffinityValidationExpression)]
+        [Option(CpuAffinityShortOption, DescriptionKey = "CpuAffinityCmd", ValidationExpression = Validation.CpuAffinityValidationExpression)]
         [UIOption(CpuAffinityShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(null)]
@@ -201,32 +201,32 @@ namespace Xps2Img.Shared.CommandLine
         [TypeConverter(typeof(CpuAffinityTypeConverter))]
         public IntPtr? CpuAffinity { get; set; }
 
-        [Option(IgnoreExistingDescription, IgnoreExistingShortOption, ArgumentExpectancy.No)]
+        [Option(IgnoreExistingShortOption, ArgumentExpectancy.No, DescriptionKey = "IgnoreExistingCmd")]
         [UIOption(IgnoreExistingShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool IgnoreExisting { get; set; }
 
-        [Option(IgnoreErrorsDescription, IgnoreErrorsShortOption, ArgumentExpectancy.No)]
+        [Option(IgnoreErrorsShortOption, ArgumentExpectancy.No)]
         [UIOption(IgnoreErrorsShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool IgnoreErrors { get; set; }
         
-        [Option(SilentModeDescription, SilentModeShortOption, ArgumentExpectancy.No)]
+        [Option(SilentModeShortOption, ArgumentExpectancy.No)]
         [Browsable(false)]
         public virtual bool Silent { get; set; }
 
-        [Option(TestDescription, TestShortOption, ArgumentExpectancy.No)]
+        [Option(TestShortOption, ArgumentExpectancy.No)]
         [UIOption(TestShortOption)]
         [Category(CategoryOptions)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool Test { get; set; }
 
-        [Option(CleanDescription, ShortOptionType.None1, ArgumentExpectancy.No)]
+        [Option(ShortOptionType.None1, ArgumentExpectancy.No)]
         [Browsable(false)]
         public bool Clean { get; set; }
     }
