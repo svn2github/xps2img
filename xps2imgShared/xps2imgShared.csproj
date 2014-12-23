@@ -58,7 +58,7 @@
     <Compile Include="CommandLine\Options.Defaults.cs">
       <DependentUpon>Options.cs</DependentUpon>
     </Compile>
-    <Compile Include="CommandLine\Options.Strings.cs">
+    <Compile Include="CommandLine\Options.Names.cs">
       <DependentUpon>Options.cs</DependentUpon>
     </Compile>
     <Compile Include="CommandLine\Options.ShortOptions.cs">

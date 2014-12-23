@@ -6,13 +6,13 @@ namespace Xps2Img.Shared.CommandLine
     {
         public static class Properties
         {
-            public static class Consts
+            internal static class Consts
             {
                 // ReSharper disable MemberHidesStaticFromOuterClass
-                public const string ProcessPriority = "ProcessPriority";
-                public const string SrcFile         = "SrcFile";
-                public const string CpuAffinity     = "CpuAffinity";
-                public const string IgnoreExisting  = "IgnoreExisting";
+                internal const string SrcFile               = "SrcFile";
+                internal const string ProcessPriority       = "ProcessPriority";
+                internal const string CpuAffinity           = "CpuAffinity";
+                internal const string IgnoreExisting        = "IgnoreExisting";
                 // ReSharper restore MemberHidesStaticFromOuterClass
             }
 

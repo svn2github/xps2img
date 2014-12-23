@@ -20,7 +20,7 @@ namespace Xps2ImgUI.Model
         private static readonly Func<string> GetGuidNamePart = () => Guid.NewGuid().ToString().Substring(0, 8);
         private static readonly string CancellationObjectIdStatic = String.Format("{0}-{1}", GetGuidNamePart(), GetGuidNamePart());
 
-        [UIOption(CancellationObjectIdsName)]
+        [UIOption(Names.CancellationObjectIds)]
         public override string CancellationObjectIds
         {
             get { return CancellationObjectIdStatic; }

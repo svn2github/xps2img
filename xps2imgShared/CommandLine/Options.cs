@@ -32,6 +32,8 @@ namespace Xps2Img.Shared.CommandLine
             ReflectionUtils.SetDefaultValues(this);
         }
 
+        private const string DescriptionKeyPostfix = "Cmd";
+
         [Category(Categories.Parameters)]
         [UnnamedOption(DescriptionKey = Properties.Consts.SrcFile + DescriptionKeyPostfix, ConverterType = typeof(TrimStringTypeConverter))]
         [UIUnnamedOption]
@@ -145,7 +147,7 @@ namespace Xps2Img.Shared.CommandLine
 
         [Category(Categories.Options)]
         [Option(ShortOptionType.None12, ConverterType = typeof(ProcessorsNumberTypeConverter), Flags = OptionFlags.Internal)]
-        [UIOption(ProcessorsOption)]
+        [UIOption(Names.Processors)]
         [TypeConverter(typeof(ProcessorsNumberTypeConverter))]
         [DefaultValue(Defaults.Processors)]
         public int ProcessorsNumber { get; set; }
@@ -163,8 +165,8 @@ namespace Xps2Img.Shared.CommandLine
         [DefaultValue(ProcessPriorityClassTypeConverter.Auto)]
         public ProcessPriorityClass ProcessPriority { get; set; }
 
-        public static readonly string[] ExcludedOnSave = { CancellationObjectIdsName, BatchOption };
-        public static readonly string[] ExcludedUIOptions = { ProcessorsOption, BatchOption };
+        public static readonly string[] ExcludedOnSave = { Names.CancellationObjectIds, Names.Batch };
+        public static readonly string[] ExcludedUIOptions = { Names.Processors, Names.Batch };
         public static readonly string[] ExcludedOnLaunch = ExcludedUIOptions.Concat(new[] { ShortOptions.Pages.ToString(CultureInfo.InvariantCulture) }).ToArray();
         public static readonly string[] ExcludedOnView = ExcludedOnSave.Concat(ExcludedUIOptions).ToArray();
 
@@ -174,7 +176,7 @@ namespace Xps2Img.Shared.CommandLine
 
         [Browsable(false)]
         [Option(ShortOptions.Batch, ArgumentExpectancy.No, Flags = OptionFlags.Internal)]
-        [UIOption(BatchOption)]
+        [UIOption(Names.Batch)]
         [DefaultValue(false)]
         public bool Batch
         {

@@ -62,7 +62,7 @@ namespace Xps2ImgUI.Model
                 var processCommandLine = String.Format("{0} -" + Options.ShortOptions.Pages + " \"{1}\" {2}",
                                             FormatCommandLine(Options.ExcludedOnLaunch),
                                             IntervalUtils.ToString(t),
-                                            IsCreationMode ? String.Empty : Options.CleanOption);
+                                            IsCreationMode ? String.Empty : Options.Names.Clean);
                 var process = StartProcess(processCommandLine);
                 ThreadPool.QueueUserWorkItem(_ => WaitForProcessWorker(process));
                 Interlocked.Increment(ref _threadsLeft);

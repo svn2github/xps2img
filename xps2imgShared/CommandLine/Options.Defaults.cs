@@ -4,7 +4,7 @@ namespace Xps2Img.Shared.CommandLine
 {
     public partial class Options
     {
-        public static class Defaults
+        internal static class Defaults
         {
             public const string FileType        = "png";
             public const string JpegQuality     = "85";

@@ -87,7 +87,7 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
                 return String.Empty;
             }
 
-            var escape = optionValue == Options.EmptyOption;
+            var escape = optionValue == Options.Names.Empty;
             optionValue = optionValue.Trim(TrimSymbols);
 
             return escape || optionValue.IndexOfAny(EscapeSymbols) != -1

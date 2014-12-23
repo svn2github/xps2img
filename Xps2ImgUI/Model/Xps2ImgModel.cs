@@ -27,7 +27,7 @@ namespace Xps2ImgUI.Model
 
             if (OptionsObject.ImageName == String.Empty)
             {
-                OptionsObject.ImageName = Options.EmptyOption;
+                OptionsObject.ImageName = Options.Names.Empty;
             }
         }
 
