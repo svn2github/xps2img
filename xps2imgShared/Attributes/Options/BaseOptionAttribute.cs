@@ -6,6 +6,7 @@ using CommandLine.Utils;
 
 namespace Xps2Img.Shared.Attributes.Options
 {
+    [AttributeUsage(AttributeTargets.Property)]
     public class BaseOptionAttribute : Attribute
     {
         public string Name { get; set; }

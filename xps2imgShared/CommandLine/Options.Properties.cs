@@ -6,7 +6,17 @@ namespace Xps2Img.Shared.CommandLine
     {
         public static class Properties
         {
-            public static readonly string SrcFile           = "SrcFile";
+            public static class Consts
+            {
+                // ReSharper disable MemberHidesStaticFromOuterClass
+                public const string ProcessPriority = "ProcessPriority";
+                public const string SrcFile         = "SrcFile";
+                public const string CpuAffinity     = "CpuAffinity";
+                public const string IgnoreExisting  = "IgnoreExisting";
+                // ReSharper restore MemberHidesStaticFromOuterClass
+            }
+
+            public static readonly string SrcFile           = Consts.SrcFile;
             public static readonly string OutDir            = "OutDir";
             public static readonly string PostAction        = "PostAction";
             public static readonly string Pages             = "Pages";
@@ -19,9 +29,9 @@ namespace Xps2Img.Shared.CommandLine
             public static readonly string FirstPageIndex    = "FirstPageIndex";
             public static readonly string PrelimsPrefix     = "PrelimsPrefix";
             public static readonly string ProcessorsNumber  = "ProcessorsNumber";
-            public static readonly string ProcessPriority   = "ProcessPriority";
-            public static readonly string CpuAffinity       = "CpuAffinity";
-            public static readonly string IgnoreExisting    = "IgnoreExisting";
+            public static readonly string ProcessPriority   = Consts.ProcessPriority;
+            public static readonly string CpuAffinity       = Consts.CpuAffinity;
+            public static readonly string IgnoreExisting    = Consts.IgnoreExisting;
             public static readonly string IgnoreErrors      = "IgnoreErrors";
             public static readonly string Test              = "Test";
         }

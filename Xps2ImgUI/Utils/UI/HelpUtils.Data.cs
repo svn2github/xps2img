@@ -55,15 +55,15 @@ namespace Xps2ImgUI.Utils.UI
         private static readonly Dictionary<string, string> CategoryToTopicMap = new Dictionary<string, string>
         {
             // Options.
-            { Options.CategoryParameters,         HelpTopicXpsFile },
-            { Options.CategoryOptions,            HelpTopicPageNumbers },
+            { Options.Categories.Parameters,        HelpTopicXpsFile },
+            { Options.Categories.Options,           HelpTopicPageNumbers },
 
             // Preferences.
-            { Preferences.CategoryGeneral,        HelpTopicGeneral },
-            { Preferences.CategoryInterface,      HelpTopicInterface },
-            { Preferences.CategoryConfirmations,  HelpTopicConfirmations },
-            { Preferences.CategoryConversion,     HelpTopicConversion },
-            { Preferences.CategoryUpdates,        HelpTopicUpdates }
+            { Preferences.Categories.General,       HelpTopicGeneral },
+            { Preferences.Categories.Interface,     HelpTopicInterface },
+            { Preferences.Categories.Confirmations, HelpTopicConfirmations },
+            { Preferences.Categories.Conversion,    HelpTopicConversion },
+            { Preferences.Categories.Updates,       HelpTopicUpdates }
         };
 
         private static readonly Dictionary<string, string> PropertyToTopicMap = new Dictionary<string, string>

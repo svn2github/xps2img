@@ -136,6 +136,15 @@
     <Compile Include="Settings\Preferences.Properties.cs">
       <DependentUpon>Preferences.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings\Preferences.Categories.cs">
+      <DependentUpon>Preferences.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\Preferences.CheckInterval.cs">
+      <DependentUpon>Preferences.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\Preferences.Localizations.cs">
+      <DependentUpon>Preferences.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\UIOptions.cs" />
     <Compile Include="UpdateDownloadForm.cs">
       <SubType>Form</SubType>

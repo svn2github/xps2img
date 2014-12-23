@@ -12,92 +12,73 @@ namespace Xps2ImgUI.Settings
     [Serializable]
     public partial class Preferences : IEquatable<Preferences>
     {
-        public const string CategoryInterface     = "Interface";
-        public const string CategoryConfirmations = "Confirmations";
-        public const string CategoryConversion    = "Conversion";
-        public const string CategoryUpdates       = "Updates";
-        public const string CategoryGeneral       = "General";
-
-        public enum Localizations
-        {
-            English     = 0x0409,
-            Ukrainian   = 0x0022
-        }
-
-        public enum CheckInterval
-        {
-            Never,
-            Weekly,
-            Monthly
-        }
-
         [ReadOnly(false)]
-        [Category(CategoryGeneral)]
+        [Category(Categories.General)]
         [DefaultValue(Localizations.English)]
         public Localizations ApplicationLanguage { get; set; }
 
-        [Category(CategoryInterface)]
+        [Category(Categories.Interface)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool AutoCompleteFilenames { get; set; }
 
-        [Category(CategoryInterface)]
+        [Category(Categories.Interface)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool AutoSaveSettings { get; set; }
 
-        [Category(CategoryInterface)]
+        [Category(Categories.Interface)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ClassicLook { get; set; }
 
-        [Category(CategoryInterface)]
+        [Category(Categories.Interface)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ShowElapsedTimeAndStatistics { get; set; }
 
-        [Category(CategoryInterface)]
+        [Category(Categories.Interface)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool FlashWhenCompleted { get; set; }
 
-        [Category(CategoryConfirmations)]
+        [Category(Categories.Confirmations)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnAfterConversion { get; set; }
 
-        [Category(CategoryConfirmations)]
+        [Category(Categories.Confirmations)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnDelete { get; set; }
 
-        [Category(CategoryConfirmations)]
+        [Category(Categories.Confirmations)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnExit { get; set; }
 
-        [Category(CategoryConfirmations)]
+        [Category(Categories.Confirmations)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ConfirmOnStop { get; set; }
 
-        [Category(CategoryConversion)]
+        [Category(Categories.Conversion)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool AlwaysResume { get; set; }
 
-        [Category(CategoryConversion)]
+        [Category(Categories.Conversion)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool SuggestResume { get; set; }
 
         [ReadOnly(false)]
-        [Category(CategoryConversion)]
+        [Category(Categories.Conversion)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         public bool ShortenExtension { get; set; }
 
-        [Category(CategoryUpdates)]
+        [Category(Categories.Updates)]
         [DefaultValue(CheckInterval.Monthly)]
         public CheckInterval CheckForUpdates { get; set; }
 
