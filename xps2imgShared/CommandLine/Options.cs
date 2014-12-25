@@ -81,7 +81,7 @@ namespace Xps2Img.Shared.CommandLine
         [Option(ShortOptions.JpegQuality, DefaultValue = Defaults.JpegQuality, ValidationExpression = Validation.JpegQualityValidationExpression)]
         [UIOption(ShortOptions.JpegQuality)]
         [DefaultValue(85)]
-        [DynamicPropertyFilter("FileType", "Jpeg")]
+        [DynamicPropertyFilter(Properties.Consts.FileType, ImageType.Jpeg)]
         [TypeConverter(typeof(JpegNullableIntTypeConverter))]
         public int? JpegQuality { get; set; }
 
@@ -89,7 +89,7 @@ namespace Xps2Img.Shared.CommandLine
         [Option(ShortOptions.TiffCompression, DefaultValue = Defaults.TiffCompression, ConverterType = typeof(TiffCompressOptionEnumConverter))]
         [UIOption(ShortOptions.TiffCompression)]
         [DefaultValue(TiffCompressOption.Zip)]
-        [DynamicPropertyFilter("FileType", "Tiff")]
+        [DynamicPropertyFilter(Properties.Consts.FileType, ImageType.Tiff)]
         [TypeConverter(typeof(TiffCompressOptionEnumConverter))]
         public TiffCompressOption TiffCompression { get; set; }
 

@@ -2,18 +2,13 @@
 
 namespace Xps2Img.Shared.Attributes.UI
 {
-    [AttributeUsage(AttributeTargets.Property, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
     public class DynamicPropertyFilterAttribute : Attribute
     {
-        public readonly string PropertyName;
-        public readonly string ShowOn;
+        public string PropertyName { get; private set; }
+        public object ShowOn { get; private set; }
 
-        public DynamicPropertyFilterAttribute() :
-            this(null, null)
-        {
-        }
-
-        public DynamicPropertyFilterAttribute(string propertyName, string showOn)
+        public DynamicPropertyFilterAttribute(string propertyName, object showOn)
         {
             PropertyName = propertyName;
             ShowOn = showOn;
