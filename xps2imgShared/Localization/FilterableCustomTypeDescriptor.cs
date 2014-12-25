@@ -15,28 +15,23 @@ namespace Xps2Img.Shared.Localization
             _object = obj;
         }
 
-        protected PropertyDescriptorCollection GetFilteredProperties(Attribute[] attributes)
+        public override PropertyDescriptorCollection GetProperties(Attribute[] attributes)
         {
-            var propertyDescriptorCollection = TypeDescriptor.GetProperties(_object, attributes, true);
-            var finalProps = new PropertyDescriptorCollection(new PropertyDescriptor[0]);
+            var objectPropertyDescriptorCollection = TypeDescriptor.GetProperties(_object, attributes, true);
+            var propertyDescriptorCollection = new PropertyDescriptorCollection(new PropertyDescriptor[0]);
 
-            foreach (PropertyDescriptor pd in propertyDescriptorCollection)
+            foreach (PropertyDescriptor pd in objectPropertyDescriptorCollection)
             {
                 var include = false;
                 var dynamic = false;
 
-                foreach (var dpf in pd.Attributes.OfType<DynamicPropertyFilterAttribute>())
+                foreach (var dynamicPropertyFilterAttribute in pd.Attributes.OfType<DynamicPropertyFilterAttribute>())
                 {
                     dynamic = true;
 
-                    if (String.IsNullOrEmpty(dpf.PropertyName))
-                    {
-                        break;
-                    }
+                    var propertyDescriptor = objectPropertyDescriptorCollection[dynamicPropertyFilterAttribute.PropertyName];
 
-                    var propertyDescriptor = propertyDescriptorCollection[dpf.PropertyName];
-
-                    include = propertyDescriptor != null && dpf.ShowOn.IndexOf((propertyDescriptor.GetValue(_object) ?? String.Empty).ToString(), StringComparison.InvariantCulture) > -1;
+                    include = propertyDescriptor != null && dynamicPropertyFilterAttribute.ShowOn.IndexOf((propertyDescriptor.GetValue(_object) ?? String.Empty).ToString(), StringComparison.InvariantCulture) > -1;
 
                     if(include)
                     {
@@ -46,19 +41,21 @@ namespace Xps2Img.Shared.Localization
 
                 if (!dynamic || include)
                 {
-                    finalProps.Add(new FilterableLocalizablePropertyDescriptor(pd));
+                    propertyDescriptorCollection.Add(new FilterableLocalizablePropertyDescriptor(pd));
                 }
             }
 
-            return finalProps;
+            return propertyDescriptorCollection;
         }
 
-        #region ICustomTypeDescriptor Members
+        public override PropertyDescriptorCollection GetProperties()
+        {
+            return GetProperties(new Attribute[0]);
+        }
 
-        public override object GetPropertyOwner(PropertyDescriptor pd) { return _object; }
-        public override PropertyDescriptorCollection GetProperties(Attribute[] attributes) { return GetFilteredProperties(attributes); }
-        public override PropertyDescriptorCollection GetProperties() { return GetFilteredProperties(new Attribute[0]); }
-
-        #endregion
+        public override object GetPropertyOwner(PropertyDescriptor pd)
+        {
+            return _object;
+        }
     }
 }
