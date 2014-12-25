@@ -31,7 +31,7 @@ namespace Xps2Img.Shared.Localization
 
                     var propertyDescriptor = objectPropertyDescriptorCollection[dynamicPropertyFilterAttribute.PropertyName];
 
-                    include = propertyDescriptor != null && dynamicPropertyFilterAttribute.ShowOn.Equals(propertyDescriptor.GetValue(_object));
+                    include = propertyDescriptor != null && Equals(dynamicPropertyFilterAttribute.ShowOn, propertyDescriptor.GetValue(_object));
 
                     if(include)
                     {
@@ -52,6 +52,7 @@ namespace Xps2Img.Shared.Localization
         {
             return GetProperties(new Attribute[0]);
         }
+
         public override object GetPropertyOwner(PropertyDescriptor pd)
         {
             return _object;
