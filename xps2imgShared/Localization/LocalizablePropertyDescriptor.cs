@@ -72,7 +72,7 @@ namespace Xps2Img.Shared.Localization
 
         public override string DisplayName
         {
-            get { return GetLocalizedString(_localizablePropertyDescriptorStrategy.GetDisplayNameId(ComponentType, base.Name)); }
+            get { return GetLocalizedString(_localizablePropertyDescriptorStrategy.GetDisplayNameId(ComponentType, Name)); }
         }
 
         public override string Category
@@ -82,7 +82,7 @@ namespace Xps2Img.Shared.Localization
 
         public override string Description
         {
-            get { return GetLocalizedString(_localizablePropertyDescriptorStrategy.GetDescriptionId(ComponentType, base.Name)); }
+            get { return GetLocalizedString(_localizablePropertyDescriptorStrategy.GetDescriptionId(ComponentType, Name)); }
         }
 
         public override TypeConverter Converter

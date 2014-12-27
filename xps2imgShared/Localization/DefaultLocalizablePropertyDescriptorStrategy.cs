@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Xps2Img.Shared.Utils;
+using CommandLine.Strings;
 
 namespace Xps2Img.Shared.Localization
 {
@@ -8,8 +8,7 @@ namespace Xps2Img.Shared.Localization
     {
         private static string FormatId(Type type, string id, string idCategory)
         {
-            // Type_Id[Name|Category|Description|Value]
-            return string.Format("{0}_{1}{2}", type.Name, id.Trim().RemoveSpaces(), idCategory);
+            return DefaultStringsSourceKeyProvider.Instance.FormatKey(type, id.Trim(), idCategory);
         }
 
         public string GetDisplayNameId(Type type, string propertyName)
@@ -32,6 +31,6 @@ namespace Xps2Img.Shared.Localization
             return FormatId(type, value.ToString(), "Value");
         }
 
-        public static readonly DefaultLocalizablePropertyDescriptorStrategy Instance = new DefaultLocalizablePropertyDescriptorStrategy();
+        public static readonly ILocalizablePropertyDescriptorStrategy Instance = new DefaultLocalizablePropertyDescriptorStrategy();
     }
 }
