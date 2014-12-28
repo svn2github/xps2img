@@ -231,7 +231,6 @@ namespace Xps2ImgUI
         {
             if (!isRunning)
             {
-                Text = Resources.Strings.WindowTitle;
                 _stopwatch.Stop();
                 UpdateElapsedTime();
             }
@@ -271,16 +270,19 @@ namespace Xps2ImgUI
             }
         }
 
-        private void UpdateElapsedTime()
+        private void UpdateElapsedTime(bool reset = false)
         {
-            if (!_preferences.ShowElapsedTimeAndStatistics)
+            TimeSpan elapsed;
+
+            Text = Resources.Strings.WindowTitle;
+
+            if (reset)
             {
+                _stopwatch.Reset();
                 return;
             }
 
-            var elapsed = _stopwatch.Elapsed;
-
-            if (elapsed == default(TimeSpan))
+            if (!_preferences.ShowElapsedTimeAndStatistics || (elapsed = _stopwatch.Elapsed) == default(TimeSpan))
             {
                 return;
             }

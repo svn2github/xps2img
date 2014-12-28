@@ -160,10 +160,10 @@ namespace Xps2ImgUI
             }
         }
 
+        private readonly string[] _forceRefreshForProperties = { Options.Properties.FileType, Options.Properties.PostAction };
+        
         private void SettingsPropertyGridPropertyValueChanged(object sender, PropertyValueChangedEventArgs e)
         {
-            string[] forceRefreshForProperties = { Options.Properties.FileType, Options.Properties.PostAction };
-
             var propertyDescriptor = e.ChangedItem.PropertyDescriptor;
 
             var propertyName = propertyDescriptor == null ? String.Empty : propertyDescriptor.Name;
@@ -179,9 +179,14 @@ namespace Xps2ImgUI
                 forceRefresh = true;
             }
 
-            if (forceRefresh || hasOneOf(forceRefreshForProperties))
+            if (forceRefresh || hasOneOf(_forceRefreshForProperties))
             {
                 settingsPropertyGrid.Refresh();
+            }
+
+            if (propertyName == Options.Properties.SrcFile && String.Compare((string)e.OldValue, (string)e.ChangedItem.Value, StringComparison.OrdinalIgnoreCase) != 0)
+            {
+                UpdateElapsedTime(true);
             }
 
             UpdateCommandLine(canResume);

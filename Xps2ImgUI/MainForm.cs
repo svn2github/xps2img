@@ -121,11 +121,11 @@ namespace Xps2ImgUI
 
         public void UICultureChanged()
         {
-            Text = Resources.Strings.WindowTitle;
-
             convertButton.MinimumSize = Size.Empty;
             convertButton.Text = Resources.Strings.Launch;
+
             RegisterCultureSpecificConvertButtonSize();
+
             convertButton.MinimumSize = CultureSpecificConvertButtonSize;
 
             settingsPropertyGrid.RefreshLocalization();
