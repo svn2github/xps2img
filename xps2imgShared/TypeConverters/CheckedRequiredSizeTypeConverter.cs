@@ -9,7 +9,7 @@ namespace Xps2Img.Shared.TypeConverters
     {
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            Validation.ValidateProperty(value, Validation.RequiredSizeValidationExpression);
+            Validation.ValidateProperty(value, Options.ValidationExpressions.RequiredSize);
             return base.ConvertFrom(context, culture, value);
         }
     }

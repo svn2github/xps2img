@@ -23,7 +23,7 @@ namespace Xps2Img.Shared.TypeConverters
 
             if (!intPtrValue.HasValue || intPtrValue.Value == IntPtr.Zero)
             {
-                return Validation.AutoValue;
+                return Options.ValidationExpressions.AutoValue;
             }
 
             var intervalString = String.Empty;
@@ -41,7 +41,7 @@ namespace Xps2Img.Shared.TypeConverters
                 return null;
             }
 
-            Action<Func<string, bool>> validateProperty = p => Validation.ValidateProperty(strValue, Validation.CpuAffinityValidationExpression, p);
+            Action<Func<string, bool>> validateProperty = p => Validation.ValidateProperty(strValue, Options.ValidationExpressions.CpuAffinity, p);
 
             validateProperty(null);
 

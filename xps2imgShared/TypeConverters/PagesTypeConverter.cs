@@ -17,7 +17,7 @@ namespace Xps2Img.Shared.TypeConverters
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var strValue = value as string;
-            Validation.ValidateProperty(strValue, Validation.PagesValidationExpression);
+            Validation.ValidateProperty(strValue, Options.ValidationExpressions.Pages);
             return Interval.Parse(strValue);
         }
 

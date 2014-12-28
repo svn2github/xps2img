@@ -57,7 +57,7 @@ namespace Xps2Img.Shared.CommandLine
         public PostAction PostAction { get; set; }
 
         [Category(Categories.Options)]
-        [Option(ShortOptions.Pages, ConverterType = typeof(PagesTypeConverter), ValidationExpression = Validation.PagesValidationExpression)]
+        [Option(ShortOptions.Pages, ConverterType = typeof(PagesTypeConverter), ValidationExpression = ValidationExpressions.Pages)]
         [UIOption(ShortOptions.Pages)]
         [DefaultValue(null)]
         [Editor(typeof(OrdinalUITypeEditor), typeof(UITypeEditor))]
@@ -78,7 +78,7 @@ namespace Xps2Img.Shared.CommandLine
         public ImageType FileType { get; set; }
 
         [Category(Categories.Options)]
-        [Option(ShortOptions.JpegQuality, DefaultValue = Defaults.JpegQuality, ValidationExpression = Validation.JpegQualityValidationExpression)]
+        [Option(ShortOptions.JpegQuality, DefaultValue = Defaults.JpegQuality, ValidationExpression = ValidationExpressions.JpegQuality)]
         [UIOption(ShortOptions.JpegQuality)]
         [DefaultValue(85)]
         [DynamicPropertyFilter(Properties.Consts.FileType, ImageType.Jpeg)]
@@ -94,35 +94,35 @@ namespace Xps2Img.Shared.CommandLine
         public TiffCompressOption TiffCompression { get; set; }
 
         [Category(Categories.Options)]
-        [Option(ShortOptions.RequiredSize, ConverterType = typeof(CheckedRequiredSizeTypeConverter), ValidationExpression = Validation.RequiredSizeValidationExpression)]
+        [Option(ShortOptions.RequiredSize, ConverterType = typeof(CheckedRequiredSizeTypeConverter), ValidationExpression = ValidationExpressions.RequiredSize)]
         [UIOption(ShortOptions.RequiredSize)]
         [DefaultValue(null)]
         [TypeConverter(typeof(CheckedRequiredSizeTypeConverter))]
         public Size? RequiredSize { get; set; }
 
         [Category(Categories.Options)]
-        [Option(ShortOptions.Dpi, DefaultValue = Defaults.Dpi, ValidationExpression = Validation.DpiValidationExpression)]
+        [Option(ShortOptions.Dpi, DefaultValue = Defaults.Dpi, ValidationExpression = ValidationExpressions.Dpi)]
         [UIOption(ShortOptions.Dpi)]
         [DefaultValue(120)]
         [TypeConverter(typeof(CheckedDpiTypeConverter))]
         public int? Dpi { get; set; }
 
         [Category(Categories.Options)]
-        [Option(ShortOptions.ImageName, ValidationExpression = Validation.ImageNameValidationExpression)]
+        [Option(ShortOptions.ImageName, ValidationExpression = ValidationExpressions.ImageName)]
         [UIOption(ShortOptions.ImageName)]
         [DefaultValue(null)]
         [TypeConverter(typeof(CheckedImageNameTypeConverter))]
         public string ImageName { get; set; }
 
         [Category(Categories.Options)]
-        [Option(ShortOptions.FirstPageIndex, DefaultValue = Defaults.FirstPageIndex, ValidationExpression = Validation.FirstPageIndexValidationExpression, Flags = OptionFlags.NoDefaultValueDescription)]
+        [Option(ShortOptions.FirstPageIndex, DefaultValue = Defaults.FirstPageIndex, ValidationExpression = ValidationExpressions.FirstPageIndex, Flags = OptionFlags.NoDefaultValueDescription)]
         [UIOption(ShortOptions.FirstPageIndex)]
         [DefaultValue(1)]
         [TypeConverter(typeof(CheckedFirstPageIndexTypeConverter))]
         public int? FirstPageIndex { get; set; }
 
         [Category(Categories.Options)]
-        [Option(ShortOptions.PrelimsPrefix, DefaultValue = Defaults.PrelimsPrefix, ValidationExpression = Validation.PrelimsPrefixValidationExpression)]
+        [Option(ShortOptions.PrelimsPrefix, DefaultValue = Defaults.PrelimsPrefix, ValidationExpression = ValidationExpressions.PrelimsPrefix)]
         [UIOption(ShortOptions.PrelimsPrefix)]
         [DefaultValue(Defaults.PrelimsPrefix)]
         [TypeConverter(typeof(CheckedPrelimsPrefixTypeConverter))]
@@ -196,7 +196,7 @@ namespace Xps2Img.Shared.CommandLine
         }
 
         [Category(Categories.Options)]
-        [Option(ShortOptions.CpuAffinity, DescriptionKey = Properties.Consts.CpuAffinity + DescriptionKeyPostfix, ValidationExpression = Validation.CpuAffinityValidationExpression)]
+        [Option(ShortOptions.CpuAffinity, DescriptionKey = Properties.Consts.CpuAffinity + DescriptionKeyPostfix, ValidationExpression = ValidationExpressions.CpuAffinity)]
         [UIOption(ShortOptions.CpuAffinity)]
         [DefaultValue(null)]
         [Editor(typeof(CpuAffinityUITypeEditor), typeof(UITypeEditor))]

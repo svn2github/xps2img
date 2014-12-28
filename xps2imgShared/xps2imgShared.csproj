@@ -63,6 +63,9 @@
     <Compile Include="CommandLine\Options.ShortOptions.cs">
       <DependentUpon>Options.cs</DependentUpon>
     </Compile>
+    <Compile Include="CommandLine\Options.ValidationExpressions.cs">
+      <DependentUpon>Options.cs</DependentUpon>
+    </Compile>
     <Compile Include="CommandLine\ImageDefs.cs" />
     <Compile Include="CommandLine\Interval.cs" />
     <Compile Include="CommandLine\IntervalUtils.cs" />

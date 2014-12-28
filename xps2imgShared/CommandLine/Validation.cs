@@ -2,8 +2,6 @@
 
 using CommandLine.Validation;
 
-using Xps2Img.Shared.TypeConverters;
-
 namespace Xps2Img.Shared.CommandLine
 {
     public static class Validation
@@ -30,20 +28,7 @@ namespace Xps2Img.Shared.CommandLine
 
         public static bool IsAutoValue(string value)
         {
-            return String.Compare((value ?? String.Empty).Trim(), AutoValue, StringComparison.InvariantCultureIgnoreCase) == 0;
+            return String.Compare((value ?? String.Empty).Trim(), Options.ValidationExpressions.AutoValue, StringComparison.InvariantCultureIgnoreCase) == 0;
         }
-
-        public const string AutoValue = "Auto";
-        public const string AutoValueValidationRegex = @"(^\s*" + AutoValue + @"\s*$)";
-        public const string CpuAffinityValidationExpression = "/" + AutoValueValidationRegex + "|" + Interval.ValidationRegex0 + "/i";
-        public const string DpiValidationExpression = "16-2350";
-        public const string FileNameValidationRegex = @"/^([^\x00-\x1F<>:""/\\|?*])*$/";
-        public const string FirstPageIndexRegex = @"^\s*""?\s*(?<first>[1-9](\d{1,4})?)((\s+|(\s*-\s*))(?<second>[1-9](\d{1,4})?))?\s*""?\s*$";
-        public const string FirstPageIndexValidationExpression = "/" + FirstPageIndexRegex + "/";
-        public const string ImageNameValidationExpression = FileNameValidationRegex;
-        public const string JpegQualityValidationExpression = "10-100";
-        public const string PagesValidationExpression = "/" + Interval.ValidationRegex + "/";
-        public const string PrelimsPrefixValidationExpression = FileNameValidationRegex;
-        public const string RequiredSizeValidationExpression = "/" + @"^$|" + RequiredSizeTypeConverter.ValidationRegex + "/";
     }
 }

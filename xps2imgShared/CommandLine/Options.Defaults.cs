@@ -13,7 +13,7 @@ namespace Xps2Img.Shared.CommandLine
             public const string FirstPageIndex  = "1";
             public const string PrelimsPrefix   = "$";
             public const int    Processors      = ProcessorsNumberTypeConverter.AutoValue;
-            public const string ProcessPriority = Validation.AutoValue;
+            public const string ProcessPriority = ValidationExpressions.AutoValue;
         }
     }
 }

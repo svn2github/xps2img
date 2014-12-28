@@ -10,7 +10,7 @@ namespace Xps2Img.Shared.TypeConverters
     public class CheckedFirstPageIndexTypeConverter : CheckedNullableIntTypeConverter
     {
         public CheckedFirstPageIndexTypeConverter()
-            : base(Validation.FirstPageIndexValidationExpression)
+            : base(Options.ValidationExpressions.FirstPageIndex)
         {
         }
 
@@ -22,7 +22,7 @@ namespace Xps2Img.Shared.TypeConverters
 
             if (!String.IsNullOrEmpty(strVal))
             {
-                var match = Regex.Match(strVal, Validation.FirstPageIndexRegex);
+                var match = Regex.Match(strVal, Options.ValidationExpressions.Regexps.FirstPageIndex);
                 if (match.Success)
                 {
                     var first = int.Parse(match.Groups["first"].Value, CultureInfo.InvariantCulture);

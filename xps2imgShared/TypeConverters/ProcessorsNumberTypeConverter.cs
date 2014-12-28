@@ -49,7 +49,7 @@ namespace Xps2Img.Shared.TypeConverters
 
             return IsProcessorsCountValid(processorsNumber)
                     ? value.ToString()
-                    : Validation.AutoValue;
+                    : Options.ValidationExpressions.AutoValue;
         }
 
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
