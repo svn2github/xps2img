@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Resources;
+
+using CommandLine.Strings;
 
 using Xps2Img.Shared.Localization.TypeConverters;
 
@@ -12,21 +13,21 @@ namespace Xps2Img.Shared.Localization
     {
         private readonly PropertyDescriptor _propertyDescriptor;
         private readonly ILocalizablePropertyDescriptorStrategy _localizablePropertyDescriptorStrategy;
-        private readonly ResourceManager _resourceManager;
+        private readonly StringsSource _stringsSource;
 
         private readonly Dictionary<Type, LocalizableEnumConverter> _typeToLocalizableEnumConverter = new Dictionary<Type, LocalizableEnumConverter>();
 
-        public LocalizablePropertyDescriptor(ResourceManager resourceManager, PropertyDescriptor propertyDescriptor, ILocalizablePropertyDescriptorStrategy localizablePropertyDescriptorStrategy)
+        public LocalizablePropertyDescriptor(Type stringsSourceType, PropertyDescriptor propertyDescriptor, ILocalizablePropertyDescriptorStrategy localizablePropertyDescriptorStrategy)
             : base(propertyDescriptor)
         {
             _propertyDescriptor = propertyDescriptor;
             _localizablePropertyDescriptorStrategy = localizablePropertyDescriptorStrategy;
-            _resourceManager = resourceManager;
+            _stringsSource = new StringsSource(stringsSourceType);
         }
 
         private string GetLocalizedString(string id)
         {
-            var str = _resourceManager.GetString(id);
+            var str = _stringsSource.GetString(id);
             return string.IsNullOrEmpty(str) ? id : str;
         }
 
@@ -98,7 +99,7 @@ namespace Xps2Img.Shared.Localization
                     
                 if(!_typeToLocalizableEnumConverter.TryGetValue(PropertyType, out localizableEnumConverter))
                 {
-                    localizableEnumConverter = new LocalizableEnumConverter(PropertyType, _resourceManager, _localizablePropertyDescriptorStrategy);
+                    localizableEnumConverter = new LocalizableEnumConverter(PropertyType, _stringsSource.Type, _localizablePropertyDescriptorStrategy);
                     _typeToLocalizableEnumConverter[PropertyType] = localizableEnumConverter;
                 }
 

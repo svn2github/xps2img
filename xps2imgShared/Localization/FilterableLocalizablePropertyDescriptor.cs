@@ -7,7 +7,7 @@ namespace Xps2Img.Shared.Localization
     public class FilterableLocalizablePropertyDescriptor : LocalizablePropertyDescriptor
     {
         public FilterableLocalizablePropertyDescriptor(PropertyDescriptor propertyDescriptor)
-            : base(Resources.Strings.ResourceManager, propertyDescriptor, DefaultLocalizablePropertyDescriptorStrategy.Instance)
+            : base(typeof(Resources.Strings), propertyDescriptor, DefaultLocalizablePropertyDescriptorStrategy.Instance)
         {
         }
 

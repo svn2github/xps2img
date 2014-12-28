@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Resources;
+
+using CommandLine.Strings;
 
 namespace Xps2Img.Shared.Localization
 {
@@ -10,13 +11,13 @@ namespace Xps2Img.Shared.Localization
     {
         private readonly List<LocalizablePropertyDescriptor> _customPropertyDescriptors = new List<LocalizablePropertyDescriptor>();
         private readonly ILocalizablePropertyDescriptorStrategy _localizablePropertyDescriptorStrategy;
-        private readonly ResourceManager _resourceManager;
+        private readonly StringsSource _stringsSource;
 
-        public LocalizableTypeDescriptor(ICustomTypeDescriptor parentCustomTypeDescriptor, ResourceManager resourceManager,  ILocalizablePropertyDescriptorStrategy localizablePropertyDescriptorStrategy)
+        public LocalizableTypeDescriptor(ICustomTypeDescriptor parentCustomTypeDescriptor, Type stringsSourceType, ILocalizablePropertyDescriptorStrategy localizablePropertyDescriptorStrategy)
             : base(parentCustomTypeDescriptor)
         {
             _localizablePropertyDescriptorStrategy = localizablePropertyDescriptorStrategy;
-            _resourceManager = resourceManager;
+            _stringsSource = new StringsSource(stringsSourceType);
         }
 
         private List<LocalizablePropertyDescriptor> CustomPropertyDescriptors
@@ -32,7 +33,7 @@ namespace Xps2Img.Shared.Localization
                             continue;
                         }
 
-                        var customPropertyDescriptor = new LocalizablePropertyDescriptor(_resourceManager, propertyDescriptor, _localizablePropertyDescriptorStrategy);
+                        var customPropertyDescriptor = new LocalizablePropertyDescriptor(_stringsSource.Type, propertyDescriptor, _localizablePropertyDescriptorStrategy);
                         _customPropertyDescriptors.Add(customPropertyDescriptor);
                     }
                 }

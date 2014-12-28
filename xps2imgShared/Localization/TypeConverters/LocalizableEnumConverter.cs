@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-using System.Resources;
 using System.Threading;
+
+using CommandLine.Strings;
 
 using Xps2Img.Shared.Utils;
 
@@ -12,15 +13,15 @@ namespace Xps2Img.Shared.Localization.TypeConverters
 {
     public class LocalizableEnumConverter : EnumConverter
     {
-        private readonly ResourceManager _resourceManager;
+        private readonly StringsSource _stringsSource;
         private readonly ILocalizablePropertyDescriptorStrategy _localizablePropertyDescriptorStrategy;
 
         private readonly Dictionary<CultureInfo, Dictionary<string, object>> _cultureInfoToEnumValue = new Dictionary<CultureInfo, Dictionary<string, object>>();
 
-        public LocalizableEnumConverter(Type type, ResourceManager resourceManager, ILocalizablePropertyDescriptorStrategy localizablePropertyDescriptorStrategy)
+        public LocalizableEnumConverter(Type type, Type stringsSourceType, ILocalizablePropertyDescriptorStrategy localizablePropertyDescriptorStrategy)
             : base(type)
         {
-            _resourceManager = resourceManager;
+            _stringsSource = new StringsSource(stringsSourceType);
             _localizablePropertyDescriptorStrategy = localizablePropertyDescriptorStrategy;
         }
 
@@ -46,7 +47,7 @@ namespace Xps2Img.Shared.Localization.TypeConverters
 
         private string GetLocalizedString(object value)
         {
-            return _resourceManager.GetString(_localizablePropertyDescriptorStrategy.GetEnumValueId(EnumType, value)) ?? value.ToString();
+            return _stringsSource.GetString(_localizablePropertyDescriptorStrategy.GetEnumValueId(EnumType, value)) ?? value.ToString();
         }
 
         private object ParseEnum(string value)

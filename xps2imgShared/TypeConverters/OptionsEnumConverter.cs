@@ -6,7 +6,7 @@ namespace Xps2Img.Shared.TypeConverters
     public class OptionsEnumConverter<T> : LocalizableEnumConverter
     {
         public OptionsEnumConverter() :
-            base(typeof(T), Resources.Strings.ResourceManager, DefaultLocalizablePropertyDescriptorStrategy.Instance)
+            base(typeof(T), typeof(Resources.Strings), DefaultLocalizablePropertyDescriptorStrategy.Instance)
         {
         }
     }

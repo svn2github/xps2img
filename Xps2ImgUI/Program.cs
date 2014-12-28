@@ -74,8 +74,8 @@ namespace Xps2ImgUI
             
             PropertyGridEx.ResourceManager = Resources.Strings.ResourceManager;
 
-            LocalizableTypeDescriptionProviderInstaller.AddProvider<Preferences>(Resources.Strings.ResourceManager);
-            LocalizableTypeDescriptionProviderInstaller.AddProvider<UIOptions>(Xps2Img.Shared.Resources.Strings.ResourceManager);
+            LocalizableTypeDescriptionProviderInstaller.AddProvider<Preferences>(typeof(Resources.Strings));
+            LocalizableTypeDescriptionProviderInstaller.AddProvider<UIOptions>(typeof(Xps2Img.Shared.Resources.Strings));
 
             Parser.RegisterStringsSource<Xps2Img.Shared.Resources.Strings>();
 

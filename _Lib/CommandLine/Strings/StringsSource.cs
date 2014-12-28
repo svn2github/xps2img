@@ -15,7 +15,7 @@ namespace CommandLine.Strings
         public string GetString(string key)
         {
             var propertyInfo = Type.GetProperty(key, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
-            return propertyInfo != null ? (string)(propertyInfo.GetGetMethod()).Invoke(null, null) : key;
+            return propertyInfo != null ? (string)(propertyInfo.GetGetMethod(true)).Invoke(null, null) : key;
         }
     }
 }
