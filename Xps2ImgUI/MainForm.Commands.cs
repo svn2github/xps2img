@@ -280,6 +280,11 @@ namespace Xps2ImgUI
 
             var elapsed = _stopwatch.Elapsed;
 
+            if (elapsed == default(TimeSpan))
+            {
+                return;
+            }
+
             var timeAbbrev = Resources.Strings.AbbrevSeconds;
 
             var pagesProcessed = Model.PagesProcessed;

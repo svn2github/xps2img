@@ -129,6 +129,8 @@ namespace Xps2ImgUI
             convertButton.MinimumSize = CultureSpecificConvertButtonSize;
 
             settingsPropertyGrid.RefreshLocalization();
+
+            UpdateElapsedTime();
         }
 
         protected override void OnSizeChanged(EventArgs e)
