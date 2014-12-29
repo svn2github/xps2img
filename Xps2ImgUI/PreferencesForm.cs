@@ -156,6 +156,7 @@ namespace Xps2ImgUI
 
         private void PreferencesPropertyGridPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
+            // ReSharper disable once PossibleNullReferenceException
             var name = e.ChangedItem.PropertyDescriptor.Name;
 
             if (name == Preferences.Properties.ApplicationLanguage)

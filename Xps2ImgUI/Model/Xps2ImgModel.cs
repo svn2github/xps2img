@@ -118,9 +118,9 @@ namespace Xps2ImgUI.Model
             set { OptionsObject.SrcFile = value; }
         }
 
-        public string FirstRequiredOptionLabel
+        public string FirstRequiredPropertyName
         {
-            get { return _optionsHolder.FirstRequiredOptionLabel; }
+            get { return _optionsHolder.FirstRequiredPropertyName; }
         }
 
         public bool IsRunning

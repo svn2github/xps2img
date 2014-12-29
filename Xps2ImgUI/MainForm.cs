@@ -8,9 +8,12 @@ using System.Windows.Forms;
 
 using Windows7.DesktopIntegration;
 
+using Xps2Img.Shared.CommandLine;
+using Xps2Img.Shared.Localization;
 using Xps2Img.Shared.TypeConverters;
 using Xps2Img.Shared.Utils;
 using Xps2Img.Shared.Utils.UI;
+
 using Xps2ImgUI.Localization;
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Settings;
@@ -270,25 +273,32 @@ namespace Xps2ImgUI
 
         private bool FocusFirstRequiredOption(bool showMessage = true)
         {
-            var firstRequiredOptionLabel = Model.FirstRequiredOptionLabel;
-            if (!String.IsNullOrEmpty(firstRequiredOptionLabel))
+            var firstRequiredPropertyName = Model.FirstRequiredPropertyName;
+
+            if (String.IsNullOrEmpty(firstRequiredPropertyName))
             {
-                if (showMessage)
-                {
-                    Activate();
-                    ShowErrorMessageBox(String.Format(Resources.Strings.SpecifyValueFormat, firstRequiredOptionLabel), null, false, firstRequiredOptionLabel, Resources.Strings.ParameterIsRequired, Resources.Strings.EditParameter);
-
-                    Model.ExitCode = ReturnCode.NoArgs;
-
-                    if (Model.IsBatchMode)
-                    {
-                        return true;
-                    }
-                }
-                settingsPropertyGrid.SelectGridItem(firstRequiredOptionLabel, gi => (gi.Label ?? String.Empty).StartsWith(firstRequiredOptionLabel), true);
-                return true;
+                return false;
             }
-            return false;
+
+            var firstRequiredPropertyDescription = Xps2Img.Shared.Resources.Strings.ResourceManager.GetString(DefaultLocalizablePropertyDescriptorStrategy.Instance.GetDisplayNameId(typeof(Options), firstRequiredPropertyName));
+
+            if (showMessage)
+            {
+                Activate();
+
+                ShowErrorMessageBox(String.Format(Resources.Strings.SpecifyValueFormat, firstRequiredPropertyDescription), null, false, firstRequiredPropertyDescription, Resources.Strings.ParameterIsRequired, Resources.Strings.EditParameter);
+
+                Model.ExitCode = ReturnCode.NoArgs;
+
+                if (Model.IsBatchMode)
+                {
+                    return true;
+                }
+            }
+
+            settingsPropertyGrid.SelectGridItem(firstRequiredPropertyName, true, focus: true);
+
+            return true;
         }
 
         private static string GetDragFile(IDataObject dataObject)

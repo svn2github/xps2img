@@ -53,11 +53,13 @@ namespace Xps2ImgUI.Utils.UI
             propertyGrid.SelectedGridItem = gridItem.GridItems[0];
         }
 
-        public static void SelectGridItem(this PropertyGrid propertyGrid, string gridItemLabel, Func<GridItem, bool> searchFunc = null, bool focus = false)
+        public static void SelectGridItem(this PropertyGrid propertyGrid, string labelOrPropertyName, bool searchByPropertyName = false, Func<GridItem, bool> searchFunc = null, bool focus = false)
         {
             if (searchFunc == null)
             {
-                searchFunc = gi => gi.Label == gridItemLabel;
+                searchFunc = gi => searchByPropertyName
+                                    ? gi.PropertyDescriptor != null && gi.PropertyDescriptor.Name == labelOrPropertyName
+                                    : gi.Label == labelOrPropertyName;
             }
 
             var gridItem = FindGridItem(propertyGrid, searchFunc);
@@ -111,7 +113,7 @@ namespace Xps2ImgUI.Utils.UI
         public static string GetCategoryName(this PropertyGrid propertyGrid, GridItem categoryGridItem = null)
         {
             var gridItem = GetGridItem(propertyGrid, categoryGridItem).FindGridItem(g => !g.IsCategory());
-            var categoryAttribute = gridItem.PropertyDescriptor.Attributes.OfType<CategoryAttribute>().FirstOrDefault();
+            var categoryAttribute = gridItem.PropertyDescriptor == null ? null : gridItem.PropertyDescriptor.Attributes.OfType<CategoryAttribute>().FirstOrDefault();
             return categoryAttribute != null ? categoryAttribute.Category : null;
         }
     }

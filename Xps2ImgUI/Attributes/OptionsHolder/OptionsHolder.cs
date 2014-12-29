@@ -51,7 +51,7 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
             return OptionsFormatter.FormatCommandLine(exceptionIfNoRequired, OptionsObject, OptionAttributes, optionsToExclude);
         }
 
-        public string FirstRequiredOptionLabel
+        public string FirstRequiredPropertyName
         {
             get
             {
