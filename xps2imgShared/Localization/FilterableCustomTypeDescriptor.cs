@@ -57,5 +57,15 @@ namespace Xps2Img.Shared.Localization
         {
             return _object;
         }
+
+        public override AttributeCollection GetAttributes()
+        {
+            return ObjectTypeDescriptor.GetAttributes();
+        }
+
+        private ICustomTypeDescriptor ObjectTypeDescriptor
+        {
+            get { return TypeDescriptor.GetProvider(_object).GetTypeDescriptor(_object); }
+        }
     }
 }
