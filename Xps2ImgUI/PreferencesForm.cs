@@ -5,6 +5,8 @@ using System.Windows.Forms;
 
 using CommandLine.Utils;
 
+using Xps2Img.Shared.Utils;
+
 using Xps2ImgUI.Localization;
 using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils.UI;
@@ -83,9 +85,10 @@ namespace Xps2ImgUI
 
             var changesTracker = new ChangesTracker(this);
 
-            preferencesPropertyGrid.ResetByCategory(label, allowFilter);
-
-            changesTracker.NotifyIfChanged(() => preferencesPropertyGrid.SelectGridItem(Resources.Strings.Preferences_GeneralCategory));
+            using (new DisposableActions(() => changesTracker.NotifyIfChanged(() => preferencesPropertyGrid.SelectGridItem(Resources.Strings.Preferences_GeneralCategory))))
+            {
+                preferencesPropertyGrid.ResetByCategory(label, allowFilter);
+            }
 
             EnableReset();
 
@@ -115,15 +118,16 @@ namespace Xps2ImgUI
 
             var changesTracker = new ChangesTracker(this);
 
-            Preferences.Reset();
-
-            if (_isRunning)
+            using (new DisposableActions(() => changesTracker.NotifyIfChanged(() => preferencesPropertyGrid.UpdateToolStripToolTip())))
             {
-                Preferences.ShortenExtension = oldShortenExtension;
-                Preferences.ApplicationLanguage = oldApplicationLanguage;
-            }
+                Preferences.Reset();
 
-            changesTracker.NotifyIfChanged(() => preferencesPropertyGrid.UpdateToolStripToolTip());
+                if (_isRunning)
+                {
+                    Preferences.ShortenExtension = oldShortenExtension;
+                    Preferences.ApplicationLanguage = oldApplicationLanguage;
+                }
+            }
 
             preferencesPropertyGrid.Refresh();
 
