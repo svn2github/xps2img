@@ -15,12 +15,10 @@ namespace Xps2ImgUI
     {
         private readonly bool _isRunning;
 
-        private readonly Preferences.Localizations _originalApplicationLanguage;
-        private readonly bool _originalClassicLook;
-        private readonly bool _originalAlwaysResume;
-
         private readonly Action<Preferences> _classicLookChanged;
         private readonly Action<Preferences> _alwaysResumeChanged;
+
+        private readonly ChangesTracker _changesTracker;
 
         public PreferencesForm(Preferences preferences, bool isRunning, Action<Preferences> classicLookChanged = null, Action<Preferences> alwaysResumeChanged = null)
         {
@@ -28,14 +26,12 @@ namespace Xps2ImgUI
 
             _isRunning = isRunning;
 
-            _originalApplicationLanguage = preferences.ApplicationLanguage;
-            _originalClassicLook = preferences.ClassicLook;
-            _originalAlwaysResume = preferences.AlwaysResume;
-
             Preferences = preferences;
 
             _classicLookChanged = classicLookChanged ?? delegate { };
             _alwaysResumeChanged = alwaysResumeChanged ?? delegate { };
+
+            _changesTracker = new ChangesTracker(this);
 
             this.EnableFormLocalization();
         }
@@ -68,29 +64,12 @@ namespace Xps2ImgUI
         {
             base.OnClosed(e);
 
-            // Reset language on cancel.
             if (DialogResult != DialogResult.Cancel)
             {
                 return;
             }
 
-            if(Preferences.ApplicationLanguage != _originalApplicationLanguage)
-            {
-                Preferences.ApplicationLanguage = _originalApplicationLanguage;
-                ChangeCulture();
-            }
-
-            if(Preferences.ClassicLook != _originalClassicLook)
-            {
-                Preferences.ClassicLook = _originalClassicLook;
-                ChangePropertyGridLook();
-            }
-
-            if (Preferences.AlwaysResume != _originalAlwaysResume)
-            {
-                Preferences.AlwaysResume = _originalAlwaysResume;
-                ChangePropertyAlwaysResume();
-            }
+            _changesTracker.NotifyIfChanged(resetAll: true);
         }
 
         private bool PropertyGridResetGroupCallback(string label, bool check)
@@ -102,27 +81,11 @@ namespace Xps2ImgUI
                 return preferencesPropertyGrid.IsResetByCategoryEnabled(label, allowFilter);
             }
 
-            var oldApplicationLanguage = Preferences.ApplicationLanguage;
-            var oldClassicLook = Preferences.ClassicLook;
-            var oldAlwaysResume = Preferences.AlwaysResume;
+            var changesTracker = new ChangesTracker(this);
 
             preferencesPropertyGrid.ResetByCategory(label, allowFilter);
 
-            if (oldApplicationLanguage != Preferences.ApplicationLanguage)
-            {
-                ChangeCulture();
-                preferencesPropertyGrid.SelectGridItem(Resources.Strings.Preferences_GeneralCategory);
-            }
-
-            if (oldClassicLook != Preferences.ClassicLook)
-            {
-                ChangePropertyGridLook();
-            }
-
-            if (oldAlwaysResume != Preferences.AlwaysResume)
-            {
-                ChangePropertyAlwaysResume();
-            }
+            changesTracker.NotifyIfChanged(() => preferencesPropertyGrid.SelectGridItem(Resources.Strings.Preferences_GeneralCategory));
 
             EnableReset();
 
@@ -149,12 +112,10 @@ namespace Xps2ImgUI
         {
             var oldShortenExtension = Preferences.ShortenExtension;
             var oldApplicationLanguage = Preferences.ApplicationLanguage;
-            var oldClassicLook = Preferences.ClassicLook;
-            var oldAlwaysResume = Preferences.AlwaysResume;
+
+            var changesTracker = new ChangesTracker(this);
 
             Preferences.Reset();
-
-            var newApplicationLanguage = Preferences.ApplicationLanguage;
 
             if (_isRunning)
             {
@@ -162,21 +123,7 @@ namespace Xps2ImgUI
                 Preferences.ApplicationLanguage = oldApplicationLanguage;
             }
 
-            if (oldApplicationLanguage != newApplicationLanguage)
-            {
-                ChangeCulture();
-                preferencesPropertyGrid.UpdateToolStripToolTip();
-            }
-
-            if (oldClassicLook != Preferences.ClassicLook)
-            {
-                ChangePropertyGridLook();
-            }
-
-            if (oldAlwaysResume != Preferences.AlwaysResume)
-            {
-                ChangePropertyAlwaysResume();
-            }
+            changesTracker.NotifyIfChanged(() => preferencesPropertyGrid.UpdateToolStripToolTip());
 
             preferencesPropertyGrid.Refresh();
 
@@ -206,18 +153,18 @@ namespace Xps2ImgUI
             EnableReset();
         }
 
-        private void ChangePropertyGridLook()
+        protected void ChangePropertyGridLook()
         {
             preferencesPropertyGrid.ModernLook = !Preferences.ClassicLook;
             _classicLookChanged(Preferences);
         }
 
-        private void ChangePropertyAlwaysResume()
+        protected void ChangePropertyAlwaysResume()
         {
             _alwaysResumeChanged(Preferences);
         }
 
-        private void ChangeCulture()
+        protected void ChangeCulture()
         {
             LocalizationManager.SetUICulture((int)Preferences.ApplicationLanguage);
         }

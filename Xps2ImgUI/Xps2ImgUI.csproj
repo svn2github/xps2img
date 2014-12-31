@@ -170,6 +170,10 @@
     <Compile Include="PreferencesForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PreferencesForm.ChangesTracker.cs">
+      <DependentUpon>PreferencesForm.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PreferencesForm.Designer.cs">
       <DependentUpon>PreferencesForm.cs</DependentUpon>
     </Compile>

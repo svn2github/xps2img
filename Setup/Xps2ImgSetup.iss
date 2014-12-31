@@ -35,7 +35,7 @@
 
 #define OutputDir               "_Output"
 
-#define VersionInfoCopyright    "Copyright © 2010-2014, Ivan Ivon"
+#define VersionInfoCopyright    "Copyright © 2010-2015, Ivan Ivon"
 #define VersionInfoCompany      AppPublisherURL
 #define VersionInfoDescription  AppName + " Setup"
 
