@@ -156,6 +156,10 @@
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MainForm.UI.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainForm.Grid.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Form</SubType>

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 using Windows7.DesktopIntegration;
@@ -31,8 +30,6 @@ namespace Xps2ImgUI
             InitializeComponent();
 
             Model = new Xps2ImgModel();
-
-            _resumeToolStripMenuItemPosition = convertContextMenuStrip.Items.OfType<ToolStripMenuItem>().ToList().IndexOf(resumeToolStripMenuItem);
 
             _updateManager.CheckCompleted += (s, e) => this.InvokeIfNeeded(() => RegisterIdleHandler(UpdateCheckCompleted));
             _updateManager.InstallationLaunched += (s, e) => this.InvokeIfNeeded(() => RegisterIdleHandler(UpdateInstallationLaunched));
@@ -134,6 +131,7 @@ namespace Xps2ImgUI
             settingsPropertyGrid.RefreshLocalization();
 
             UpdateElapsedTime();
+            UpdateConvertButton();
         }
 
         protected override void OnSizeChanged(EventArgs e)
@@ -377,7 +375,6 @@ namespace Xps2ImgUI
         }
 
         private readonly IUpdateManager _updateManager = UpdateManager.Create();
-        private readonly int _resumeToolStripMenuItemPosition;
 
         private readonly Dictionary<string, Size> _cultureSpecificConvertButtonSize = new Dictionary<string, Size>();
 

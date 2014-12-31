@@ -5,8 +5,6 @@ using System.Windows.Forms;
 
 using CommandLine.Utils;
 
-using Xps2Img.Shared.Utils;
-
 using Xps2ImgUI.Localization;
 using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils.UI;
@@ -19,18 +17,25 @@ namespace Xps2ImgUI
 
         private readonly Preferences.Localizations _originalApplicationLanguage;
         private readonly bool _originalClassicLook;
+        private readonly bool _originalAlwaysResume;
 
-        public event EventHandler ClassicLookChanged;
-        
-        public PreferencesForm(Preferences preferences, bool isRunning)
+        private readonly Action<Preferences> _classicLookChanged;
+        private readonly Action<Preferences> _alwaysResumeChanged;
+
+        public PreferencesForm(Preferences preferences, bool isRunning, Action<Preferences> classicLookChanged = null, Action<Preferences> alwaysResumeChanged = null)
         {
             InitializeComponent();
 
             _isRunning = isRunning;
+
             _originalApplicationLanguage = preferences.ApplicationLanguage;
             _originalClassicLook = preferences.ClassicLook;
+            _originalAlwaysResume = preferences.AlwaysResume;
 
             Preferences = preferences;
+
+            _classicLookChanged = classicLookChanged ?? delegate { };
+            _alwaysResumeChanged = alwaysResumeChanged ?? delegate { };
 
             this.EnableFormLocalization();
         }
@@ -80,6 +85,12 @@ namespace Xps2ImgUI
                 Preferences.ClassicLook = _originalClassicLook;
                 ChangePropertyGridLook();
             }
+
+            if (Preferences.AlwaysResume != _originalAlwaysResume)
+            {
+                Preferences.AlwaysResume = _originalAlwaysResume;
+                ChangePropertyAlwaysResume();
+            }
         }
 
         private bool PropertyGridResetGroupCallback(string label, bool check)
@@ -93,6 +104,7 @@ namespace Xps2ImgUI
 
             var oldApplicationLanguage = Preferences.ApplicationLanguage;
             var oldClassicLook = Preferences.ClassicLook;
+            var oldAlwaysResume = Preferences.AlwaysResume;
 
             preferencesPropertyGrid.ResetByCategory(label, allowFilter);
 
@@ -105,6 +117,11 @@ namespace Xps2ImgUI
             if (oldClassicLook != Preferences.ClassicLook)
             {
                 ChangePropertyGridLook();
+            }
+
+            if (oldAlwaysResume != Preferences.AlwaysResume)
+            {
+                ChangePropertyAlwaysResume();
             }
 
             EnableReset();
@@ -132,6 +149,8 @@ namespace Xps2ImgUI
         {
             var oldShortenExtension = Preferences.ShortenExtension;
             var oldApplicationLanguage = Preferences.ApplicationLanguage;
+            var oldClassicLook = Preferences.ClassicLook;
+            var oldAlwaysResume = Preferences.AlwaysResume;
 
             Preferences.Reset();
 
@@ -147,6 +166,16 @@ namespace Xps2ImgUI
             {
                 ChangeCulture();
                 preferencesPropertyGrid.UpdateToolStripToolTip();
+            }
+
+            if (oldClassicLook != Preferences.ClassicLook)
+            {
+                ChangePropertyGridLook();
+            }
+
+            if (oldAlwaysResume != Preferences.AlwaysResume)
+            {
+                ChangePropertyAlwaysResume();
             }
 
             preferencesPropertyGrid.Refresh();
@@ -169,13 +198,23 @@ namespace Xps2ImgUI
                 ChangePropertyGridLook();
             }
 
+            if (name == Preferences.Properties.AlwaysResume)
+            {
+                ChangePropertyAlwaysResume();
+            }
+
             EnableReset();
         }
 
         private void ChangePropertyGridLook()
         {
             preferencesPropertyGrid.ModernLook = !Preferences.ClassicLook;
-            ClassicLookChanged.SafeInvoke(this);
+            _classicLookChanged(Preferences);
+        }
+
+        private void ChangePropertyAlwaysResume()
+        {
+            _alwaysResumeChanged(Preferences);
         }
 
         private void ChangeCulture()

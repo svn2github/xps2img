@@ -10,6 +10,7 @@ using Xps2Img.Shared.Utils;
 using Xps2Img.Shared.Utils.UI;
 
 using Xps2ImgUI.Model;
+using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils.UI;
 
 using ReturnCode = Xps2Img.Shared.CommandLine.CommandLine.ReturnCode;
@@ -22,6 +23,7 @@ namespace Xps2ImgUI
         {
             settingsPropertyGrid.SelectedObject = Model.OptionsObject;
             Refresh();
+
             UpdateCommandLine();
         }
 
@@ -186,10 +188,13 @@ namespace Xps2ImgUI
 
             if (propertyName == Options.Properties.SrcFile && String.Compare((string)e.OldValue, (string)e.ChangedItem.Value, StringComparison.OrdinalIgnoreCase) != 0)
             {
+                Model.CanResume = false;
+
                 UpdateElapsedTime(true);
             }
 
             UpdateCommandLine(canResume);
+            UpdateConvertButton();
         }
 
         private void SettingsPropertyGridSelectedObjectsChanged(object sender, EventArgs e)
@@ -197,15 +202,27 @@ namespace Xps2ImgUI
             UpdateCommandLine();
         }
 
+        private void ClassicLookChanged(Preferences preferences)
+        {
+            settingsPropertyGrid.ModernLook = !preferences.ClassicLook;
+        }
+
+        private void AlwaysResumeChanged(Preferences preferences)
+        {
+            _activeAlwaysResume = preferences.AlwaysResume;
+            if (!Model.IsRunning)
+            {
+                UpdateConvertButton();
+            }
+        }
+
         private void PreferencesToolStripButtonClick(object sender, EventArgs e)
         {
             using (new ModalGuard())
             {
-                using (var preferencesForm = new PreferencesForm(_preferences, Model.IsRunning))
+                using (new DisposableActions(() => _activeAlwaysResume = null))
                 {
-                    // ReSharper disable AccessToDisposedClosure
-                    using (new DisposableActions(() => preferencesForm.ClassicLookChanged += ClassicLookChanged, () => preferencesForm.ClassicLookChanged -= ClassicLookChanged))
-                    // ReSharper enable AccessToDisposedClosure
+                    using (var preferencesForm = new PreferencesForm(_preferences, Model.IsRunning, ClassicLookChanged, AlwaysResumeChanged))
                     {
                         if (preferencesForm.ShowDialog(this) != DialogResult.OK)
                         {
@@ -218,11 +235,6 @@ namespace Xps2ImgUI
                     }
                 }
             }
-        }
-
-        private void ClassicLookChanged(object sender, EventArgs e)
-        {
-            settingsPropertyGrid.ModernLook = !((PreferencesForm) sender).Preferences.ClassicLook;
         }
 
         private void ShowCommandLineToolStripButtonClick(object sender, EventArgs e)
@@ -249,16 +261,22 @@ namespace Xps2ImgUI
             resumeToolStripMenuItem.Text = Resources.Strings.Resume;
             deleteImagesToolStripMenuItem.Text = Resources.Strings.DeleteImages;
 
-            if(Model.CanResume)
+            var items = new[] { convertToolStripMenuItem, resumeToolStripMenuItem };
+
+            Array.ForEach(items, menu.Items.Remove);
+
+            if(!Model.CanResume)
             {
-                menu.Items.Insert(_resumeToolStripMenuItemPosition, resumeToolStripMenuItem);
+                menu.Items.Insert(0, convertToolStripMenuItem);
+                return;
             }
-            else
-            {
-                menu.Items.Remove(resumeToolStripMenuItem);
-            }
+
+            var index = 0;
+            Array.ForEach(_preferences.AlwaysResume ? items.Reverse().ToArray() : items, i => menu.Items.Insert(index++, i));
         }
 
         private bool _autoClosed;
+
+        private bool? _activeAlwaysResume;       
     }
 }
