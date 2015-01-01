@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 
 using Xps2Img.Shared.Attributes.Options;
+using Xps2Img.Shared.Attributes.UI;
 using Xps2Img.Shared.CommandLine;
 using Xps2Img.Shared.Utils;
 
@@ -28,6 +29,16 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
             var propertyInfo = optionAttribute.PropertyInfo;
 
             TypeConverter typeConverter = null;
+
+            var dynamicPropertyFilterAttribute = (DynamicPropertyFilterAttribute)Attribute.GetCustomAttribute(propertyInfo, typeof(DynamicPropertyFilterAttribute));
+            if (dynamicPropertyFilterAttribute != null)
+            {
+                var propertyValue = boundObject.GetType().GetProperty(dynamicPropertyFilterAttribute.PropertyName).GetValue(boundObject, null);
+                if (!propertyValue.Equals(dynamicPropertyFilterAttribute.ShowOn))
+                {
+                    return null;
+                }
+            }
 
             var typeConverterAttribute = (TypeConverterAttribute)Attribute.GetCustomAttribute(propertyInfo, typeof(TypeConverterAttribute));
             if (typeConverterAttribute != null)
