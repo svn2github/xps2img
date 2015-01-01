@@ -24,19 +24,22 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
             }
         }
 
-        public static string GetOptionValue(bool exceptionIfNoRequired, BaseOptionAttribute optionAttribute, object boundObject)
+        public static string GetOptionValue(bool exceptionIfNoRequired, bool includeFiltered, BaseOptionAttribute optionAttribute, object boundObject)
         {
             var propertyInfo = optionAttribute.PropertyInfo;
 
             TypeConverter typeConverter = null;
 
-            var dynamicPropertyFilterAttribute = (DynamicPropertyFilterAttribute)Attribute.GetCustomAttribute(propertyInfo, typeof(DynamicPropertyFilterAttribute));
-            if (dynamicPropertyFilterAttribute != null)
+            if (!includeFiltered)
             {
-                var propertyValue = boundObject.GetType().GetProperty(dynamicPropertyFilterAttribute.PropertyName).GetValue(boundObject, null);
-                if (!propertyValue.Equals(dynamicPropertyFilterAttribute.ShowOn))
+                var dynamicPropertyFilterAttribute = (DynamicPropertyFilterAttribute)Attribute.GetCustomAttribute(propertyInfo, typeof(DynamicPropertyFilterAttribute));
+                if (dynamicPropertyFilterAttribute != null)
                 {
-                    return null;
+                    var propertyValue = boundObject.GetType().GetProperty(dynamicPropertyFilterAttribute.PropertyName).GetValue(boundObject, null);
+                    if (!propertyValue.Equals(dynamicPropertyFilterAttribute.ShowOn))
+                    {
+                        return null;
+                    }
                 }
             }
 
@@ -44,7 +47,7 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
             if (typeConverterAttribute != null)
             {
                 var converterType = Type.GetType(typeConverterAttribute.ConverterTypeName);
-                if(converterType != null)
+                if (converterType != null)
                 {
                     typeConverter = (TypeConverter)Activator.CreateInstance(converterType);
                 }
@@ -106,9 +109,9 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
                     : optionValue;
         }
 
-        private static string FormatOption(bool exceptionIfNoRequired, object boundObject, BaseOptionAttribute optionAttribute, OptionFormatInfo optionFormatInfo)
+        private static string FormatOption(bool exceptionIfNoRequired, bool includeFiltered, object boundObject, BaseOptionAttribute optionAttribute, OptionFormatInfo optionFormatInfo)
         {
-            var strValue = GetOptionValue(exceptionIfNoRequired, optionAttribute, boundObject);
+            var strValue = GetOptionValue(exceptionIfNoRequired, includeFiltered, optionAttribute, boundObject);
 
             if (strValue == null)
             {
@@ -124,14 +127,14 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
 
         private static readonly OptionFormatInfo CurrentOptionFormatInfo = new OptionFormatInfo("-{0} {1}", "--{0}={1}");
 
-        public static string FormatCommandLine(bool exceptionIfNoRequired, object optionsObject, IEnumerable<BaseOptionAttribute> optionAttributes, params string[] optionsToExclude)
+        public static string FormatCommandLine(bool exceptionIfNoRequired, bool includeFiltered, object optionsObject, IEnumerable<BaseOptionAttribute> optionAttributes, string[] optionsToExclude)
         {
             const string optionsSeparator = " ";
 
             return String.Join(optionsSeparator, optionAttributes
                     .Select(o => optionsToExclude != null && optionsToExclude.Contains(o.Name)
                                     ? String.Empty
-                                    : FormatOption(exceptionIfNoRequired, optionsObject, o, CurrentOptionFormatInfo))
+                                    : FormatOption(exceptionIfNoRequired, includeFiltered, optionsObject, o, CurrentOptionFormatInfo))
                     .Where(f => !String.IsNullOrEmpty(f))
                     .ToArray());
         }

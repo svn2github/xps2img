@@ -87,9 +87,9 @@ namespace Xps2ImgUI.Model
             _isRunning = false;
         }
 
-        public string FormatCommandLine(params string[] optionsToExclude)
+        public string FormatCommandLine(string[] optionsToExclude, bool includeFiltered = false)
         {
-            return _optionsHolder.FormatCommandLine(false, optionsToExclude);
+            return _optionsHolder.FormatCommandLine(false, includeFiltered, optionsToExclude);
         }
 
         public void FireOptionsObjectChanged()

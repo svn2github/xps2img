@@ -27,7 +27,7 @@ namespace Xps2ImgUI
             {
                 PropertySort = settingsPropertyGrid.PropertySort,
                 ShowCommandLine = IsCommandLineVisible,
-                CommandLine = _preferences.AutoSaveSettings ? Model.FormatCommandLine(Options.ExcludedOnSave) : null,
+                CommandLine = _preferences.AutoSaveSettings ? Model.FormatCommandLine(Options.ExcludedOnSave, true) : null,
                 Preferences = _preferences
             };
         }

@@ -53,12 +53,7 @@ namespace Xps2Img.Shared.Attributes.Options
             }
         }
 
-        public BaseOptionAttribute(bool isRequired, string name) :
-            this(isRequired, name, true)
-        {
-        }
-
-        public BaseOptionAttribute(bool isRequired, string name, bool isArgRequired)
+        public BaseOptionAttribute(bool isRequired, string name, bool isArgRequired = true)
         {
             Name = name ?? String.Empty;
             IsRequired = isRequired;

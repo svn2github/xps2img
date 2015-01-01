@@ -46,9 +46,9 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
             }
         }
 
-        public string FormatCommandLine(bool exceptionIfNoRequired, params string[] optionsToExclude)
+        public string FormatCommandLine(bool exceptionIfNoRequired, bool includeFiltered, string[] optionsToExclude)
         {
-            return OptionsFormatter.FormatCommandLine(exceptionIfNoRequired, OptionsObject, OptionAttributes, optionsToExclude);
+            return OptionsFormatter.FormatCommandLine(exceptionIfNoRequired, includeFiltered, OptionsObject, OptionAttributes, optionsToExclude);
         }
 
         public string FirstRequiredPropertyName
@@ -56,7 +56,7 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
             get
             {
                 var requiredAttribute = OptionAttributes.FirstOrDefault(a => a.IsRequired);
-                return requiredAttribute != null && String.IsNullOrEmpty(OptionsFormatter.GetOptionValue(false, requiredAttribute, OptionsObject)) ? requiredAttribute.Name : String.Empty;
+                return requiredAttribute != null && String.IsNullOrEmpty(OptionsFormatter.GetOptionValue(false, false, requiredAttribute, OptionsObject)) ? requiredAttribute.Name : String.Empty;
             }
         }
 
