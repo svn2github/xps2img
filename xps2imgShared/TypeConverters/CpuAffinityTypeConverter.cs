@@ -23,7 +23,7 @@ namespace Xps2Img.Shared.TypeConverters
 
             if (!intPtrValue.HasValue || intPtrValue.Value == IntPtr.Zero)
             {
-                return Options.ValidationExpressions.AutoValue;
+                return Resources.Strings.Auto;
             }
 
             var intervalString = String.Empty;

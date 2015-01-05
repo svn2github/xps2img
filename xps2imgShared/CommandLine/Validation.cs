@@ -28,7 +28,7 @@ namespace Xps2Img.Shared.CommandLine
 
         public static bool IsAutoValue(string value)
         {
-            return String.Compare((value ?? String.Empty).Trim(), Options.ValidationExpressions.AutoValue, StringComparison.InvariantCultureIgnoreCase) == 0;
+            return String.Compare((value ?? String.Empty).Trim(), Resources.Strings.Auto, StringComparison.InvariantCultureIgnoreCase) == 0;
         }
     }
 }

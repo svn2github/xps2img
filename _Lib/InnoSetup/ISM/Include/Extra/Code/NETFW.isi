@@ -30,8 +30,8 @@ const
 
     NETFW_Version11 = 'v1.1.4322';
     NETFW_Version2  = 'v2.0.50727';
-    NETFW_Version3  = 'v3.0';   
-    NETFW_Version35 = 'v3.5';         
+    NETFW_Version3  = 'v3.0';
+    NETFW_Version35 = 'v3.5';
     NETFW_Version4ClientProfile = 'v4\Client';
     NETFW_Version4  = 'v4\Full';
     NETFW_Version45 = 'v4.5';

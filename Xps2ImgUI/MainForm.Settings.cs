@@ -13,7 +13,7 @@ namespace Xps2ImgUI
     public partial class MainForm
     {
         [Serializable]
-        public class Settings
+        private class Settings
         {
             public PropertySort PropertySort { get; set; }
             public bool ShowCommandLine { get; set; }

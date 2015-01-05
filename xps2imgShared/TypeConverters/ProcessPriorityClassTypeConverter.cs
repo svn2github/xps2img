@@ -3,8 +3,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 
-using Xps2Img.Shared.CommandLine;
-
 namespace Xps2Img.Shared.TypeConverters
 {
     public class ProcessPriorityClassTypeConverter : OptionsEnumConverter<ProcessPriorityClass>
@@ -29,13 +27,13 @@ namespace Xps2Img.Shared.TypeConverters
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             return value != null && (ProcessPriorityClass)value == Auto
-                    ? Options.ValidationExpressions.AutoValue
+                    ? Resources.Strings.Auto
                     : base.ConvertTo(context, culture, value, destinationType);
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            return String.CompareOrdinal(Options.ValidationExpressions.AutoValue, value as string) == 0
+            return String.CompareOrdinal(Resources.Strings.Auto, value as string) == 0
                     ? Auto
                     : base.ConvertFrom(context, culture, value);
         }

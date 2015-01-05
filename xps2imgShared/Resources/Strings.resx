@@ -145,6 +145,10 @@
     <value>Specify folder to store images. If not set new folder named as document will be created in folder where document is.</value>
     <comment>Specify folder to store images. If not set new folder named as document will be created in folder where document is.</comment>
   </data>
+  <data name="Auto" xml:space="preserve">
+    <value>Auto</value>
+    <comment>Auto</comment>
+  </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
     <comment>Yes</comment>
