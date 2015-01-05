@@ -157,49 +157,9 @@
     <value>No</value>
     <comment>No</comment>
   </data>
-  <data name="ImageType_PngValue" xml:space="preserve">
-    <value>PNG</value>
-    <comment>NON LOCALIZABLE</comment>
-  </data>
-  <data name="ImageType_JpegValue" xml:space="preserve">
-    <value>JPEG</value>
-    <comment>NON LOCALIZABLE</comment>
-  </data>
-  <data name="ImageType_TiffValue" xml:space="preserve">
-    <value>TIFF</value>
-    <comment>NON LOCALIZABLE</comment>
-  </data>
-  <data name="ImageType_BmpValue" xml:space="preserve">
-    <value>BMP</value>
-    <comment>NON LOCALIZABLE</comment>
-  </data>
-  <data name="ImageType_GifValue" xml:space="preserve">
-    <value>GIF</value>
-    <comment>NON LOCALIZABLE</comment>
-  </data>
   <data name="TiffCompressOption_NoneValue" xml:space="preserve">
     <value>None</value>
     <comment>None</comment>
-  </data>
-  <data name="TiffCompressOption_Ccitt3Value" xml:space="preserve">
-    <value>CCITT3</value>
-    <comment>NON LOCALIZABLE</comment>
-  </data>
-  <data name="TiffCompressOption_Ccitt4Value" xml:space="preserve">
-    <value>CCITT4</value>
-    <comment>NON LOCALIZABLE</comment>
-  </data>
-  <data name="TiffCompressOption_LzwValue" xml:space="preserve">
-    <value>LZW</value>
-    <comment>NON LOCALIZABLE</comment>
-  </data>
-  <data name="TiffCompressOption_RleValue" xml:space="preserve">
-    <value>RLE</value>
-    <comment>NON LOCALIZABLE</comment>
-  </data>
-  <data name="TiffCompressOption_ZipValue" xml:space="preserve">
-    <value>ZIP</value>
-    <comment>NON LOCALIZABLE</comment>
   </data>
   <data name="PostAction_DoNothingValue" xml:space="preserve">
     <value>Do Nothing</value>
@@ -440,5 +400,45 @@
   <data name="Options_OptionsCategory" xml:space="preserve">
     <value>Options</value>
     <comment>Options</comment>
+  </data>
+  <data name="ImageType_PngValue" xml:space="preserve">
+    <value>PNG</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="ImageType_JpegValue" xml:space="preserve">
+    <value>JPEG</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="ImageType_TiffValue" xml:space="preserve">
+    <value>TIFF</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="ImageType_BmpValue" xml:space="preserve">
+    <value>BMP</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="ImageType_GifValue" xml:space="preserve">
+    <value>GIF</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="TiffCompressOption_Ccitt3Value" xml:space="preserve">
+    <value>CCITT3</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="TiffCompressOption_Ccitt4Value" xml:space="preserve">
+    <value>CCITT4</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="TiffCompressOption_LzwValue" xml:space="preserve">
+    <value>LZW</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="TiffCompressOption_RleValue" xml:space="preserve">
+    <value>RLE</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="TiffCompressOption_ZipValue" xml:space="preserve">
+    <value>ZIP</value>
+    <comment>NON LOCALIZABLE</comment>
   </data>
 </root>

@@ -769,14 +769,6 @@ What's new in version {0}
     <value>Updates</value>
     <comment>Updates</comment>
   </data>
-  <data name="Localizations_EnglishValue" xml:space="preserve">
-    <value>English</value>
-    <comment>NON LOCALIZABLE</comment>
-  </data>
-  <data name="Localizations_UkrainianValue" xml:space="preserve">
-    <value>Українська</value>
-    <comment>NON LOCALIZABLE</comment>
-  </data>
   <data name="CheckInterval_NeverValue" xml:space="preserve">
     <value>Never</value>
     <comment>Never</comment>
@@ -804,5 +796,13 @@ What's new in version {0}
   <data name="PropertyGrid_Alphabetical" xml:space="preserve">
     <value>Alphabetical</value>
     <comment>Alphabetical</comment>
+  </data>
+  <data name="Localizations_EnglishValue" xml:space="preserve">
+    <value>English</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="Localizations_UkrainianValue" xml:space="preserve">
+    <value>Українська</value>
+    <comment>NON LOCALIZABLE</comment>
   </data>
 </root>
