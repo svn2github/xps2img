@@ -126,7 +126,7 @@
     <comment>All Files (*.*)|*.*</comment>
   </data>
   <data name="FilterXPSFiles" xml:space="preserve">
-    <value>XPS файли (*.xps)|*.xps|</value>
+    <value>XPS документи (*.xps)|*.xps|</value>
     <comment>XPS Files (*.xps)|*.xps|</comment>
   </data>
   <data name="FilterExeFiles" xml:space="preserve">
@@ -134,7 +134,7 @@
     <comment>Executable Files (*.exe)|*.exe|</comment>
   </data>
   <data name="SelectXpsFile" xml:space="preserve">
-    <value>Оберіть XPS файл</value>
+    <value>Оберіть XPS документ</value>
     <comment>Select XPS File</comment>
   </data>
   <data name="SelectExecutableFile" xml:space="preserve">
@@ -142,7 +142,7 @@
     <comment>Select Executable File</comment>
   </data>
   <data name="SpecifyImagesFolder" xml:space="preserve">
-    <value>Оберіть папку до якої потрібно зберегати картинки. У іншому випадку папка пойменована як документ буде створена за місцем його знаходження.</value>
+    <value>Оберіть папку до якої потрібно зберегати зображення. У іншому випадку папка пойменована як документ буде створена за місцем його знаходження.</value>
     <comment>Specify folder to store images. If not set new folder named as document will be created in folder where document is.</comment>
   </data>
   <data name="Auto" xml:space="preserve">
@@ -158,247 +158,246 @@
     <comment>No</comment>
   </data>
   <data name="TiffCompressOption_NoneValue" xml:space="preserve">
-    <value>Без компресії</value>
+    <value>Не стискати</value>
     <comment>None</comment>
-  </data>
-  <data name="PostAction_DoNothingValue" xml:space="preserve">
-    <value>Нічого</value>
+  </data>  <data name="PostAction_DoNothingValue" xml:space="preserve">
+    <value>Нічого не робити</value>
     <comment>DoNothing</comment>
   </data>
   <data name="PostAction_ShutdownValue" xml:space="preserve">
-    <value>Shutdown</value>
+    <value>Виключити</value>
     <comment>Shutdown</comment>
   </data>
   <data name="PostAction_RebootValue" xml:space="preserve">
-    <value>Reboot</value>
+    <value>Перезавантажити</value>
     <comment>Reboot</comment>
   </data>
   <data name="PostAction_SleepValue" xml:space="preserve">
-    <value>Sleep</value>
+    <value>Заснути</value>
     <comment>Sleep</comment>
   </data>
   <data name="PostAction_HibernateValue" xml:space="preserve">
-    <value>Hibernate</value>
+    <value>Перейти до гибернації</value>
     <comment>Hibernate</comment>
   </data>
   <data name="PostAction_LogOffValue" xml:space="preserve">
-    <value>LogOff</value>
+    <value>Залишити систему</value>
     <comment>LogOff</comment>
   </data>
   <data name="PostAction_ExitValue" xml:space="preserve">
-    <value>Exit</value>
+    <value>Вийти з програми</value>
     <comment>Exit</comment>
   </data>
   <data name="ProcessPriorityClass_AutoValue" xml:space="preserve">
-    <value>Auto</value>
+    <value>Автоматично</value>
     <comment>Auto</comment>
   </data>
   <data name="ProcessPriorityClass_IdleValue" xml:space="preserve">
-    <value>Idle</value>
+    <value>Найнижчий</value>
     <comment>Idle</comment>
   </data>
   <data name="ProcessPriorityClass_BelowNormalValue" xml:space="preserve">
-    <value>Below Normal</value>
+    <value>Нижче звичайного</value>
     <comment>BelowNormal</comment>
   </data>
   <data name="ProcessPriorityClass_NormalValue" xml:space="preserve">
-    <value>Normal</value>
+    <value>Звичайний</value>
     <comment>Normal</comment>
   </data>
   <data name="ProcessPriorityClass_AboveNormalValue" xml:space="preserve">
-    <value>Above Normal</value>
+    <value>Вище звичайного</value>
     <comment>AboveNormal</comment>
   </data>
   <data name="ProcessPriorityClass_HighValue" xml:space="preserve">
-    <value>High</value>
+    <value>Найвищий</value>
     <comment>High</comment>
   </data>
   <data name="Options_Description" xml:space="preserve">
-    <value>&#xA;Converts XPS (XML Paper Specification) document to set of images.</value>
+    <value>&#xA;Перетворює XPS (XML Paper Specification) документ у зображення.</value>
     <comment>&#xA;Converts XPS (XML Paper Specification) document to set of images.</comment>
   </data>
   <data name="Options_SrcFileName" xml:space="preserve">
-    <value>XPS File</value>
+    <value>XPS документ</value>
     <comment>XPS File</comment>
   </data>
   <data name="Options_SrcFileDescription" xml:space="preserve">
-    <value>XPS file to process (required)</value>
+    <value>XPS документ на перетворення (обов'язково)</value>
     <comment>XPS file to process (required)</comment>
   </data>
   <data name="Options_SrcFileCmdDescription" xml:space="preserve">
-    <value>XPS file to process</value>
+    <value>XPS документ на перетворення</value>
     <comment>XPS file to process</comment>
   </data>
   <data name="Options_OutDirName" xml:space="preserve">
-    <value>Output Folder</value>
+    <value>Папка призначення</value>
     <comment>Output Folder</comment>
   </data>
   <data name="Options_OutDirDescription" xml:space="preserve">
-    <value>Output folder&#xA;  new folder named as document will be created in folder where document is by default</value>
+    <value>Папка призначення&#xA;  нова папка пойменована як документ буде створена за місцем його знаходження якщо не задано</value>
     <comment>Output folder&#xA;  new folder named as document will be created in folder where document is by default</comment>
   </data>
   <data name="Options_PostActionName" xml:space="preserve">
-    <value>After Conversion</value>
+    <value>Дія після перетворення</value>
     <comment>After Conversion</comment>
   </data>
   <data name="Options_PostActionDescription" xml:space="preserve">
-    <value>Action to execute after conversion completed</value>
+    <value>Дія після завершення перетворення</value>
     <comment>Action to execute after conversion completed</comment>
   </data>
   <data name="Options_PagesName" xml:space="preserve">
-    <value>Page Number(s)</value>
+    <value>Номера сторінок</value>
     <comment>Page Number(s)</comment>
   </data>
   <data name="Options_PagesDescription" xml:space="preserve">
-    <value>Page number(s)&#xA;  all pages by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;1-&#xA;  single:&#x9;1&#xA;  set:&#x9;&#x9;1,3&#xA;  range:&#x9;1-10 or -10 or 10-&#xA;  combined:&#x9;1,3-5,7-9,15-</value>
+    <value>Номера сторінок&#xA;  всі сторінки якщо не задано&#xA;Синтаксис:&#xA;  всі:&#x9;&#x9;1-&#xA;  одна:&#x9;&#x9;1&#xA;  декілька:&#x9;1,3&#xA;  діапазон:&#x9;1-10 or -10 or 10-&#xA;  комбіновано:&#x9;1,3-5,7-9,15-</value>
     <comment>Page number(s)&#xA;  all pages by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;1-&#xA;  single:&#x9;1&#xA;  set:&#x9;&#x9;1,3&#xA;  range:&#x9;1-10 or -10 or 10-&#xA;  combined:&#x9;1,3-5,7-9,15-</comment>
   </data>
   <data name="Options_FileTypeName" xml:space="preserve">
-    <value>Image Type</value>
+    <value>Тип зображення</value>
     <comment>Image Type</comment>
   </data>
   <data name="Options_FileTypeDescription" xml:space="preserve">
-    <value>Image type</value>
+    <value>Тип зображення</value>
     <comment>Image type</comment>
   </data>
   <data name="Options_JpegQualityName" xml:space="preserve">
-    <value>JPEG Quality</value>
+    <value>Якість JPEG</value>
     <comment>JPEG Quality</comment>
   </data>
   <data name="Options_JpegQualityDescription" xml:space="preserve">
-    <value>JPEG quality level (10-100)</value>
+    <value>Рівень якості JPEG (10-100)</value>
     <comment>JPEG quality level (10-100)</comment>
   </data>
   <data name="Options_TiffCompressionName" xml:space="preserve">
-    <value>TIFF Compression</value>
+    <value>Метод стиску TIFF</value>
     <comment>TIFF Compression</comment>
   </data>
   <data name="Options_TiffCompressionDescription" xml:space="preserve">
-    <value>TIFF compression method&#xA;  CCITT3, CCITT4 and RLE produce black and white images</value>
+    <value>Метод стиску TIFF&#xA;  CCITT3, CCITT4 та RLE використовуються для створення чорно-білих зображень</value>
     <comment>TIFF compression method&#xA;  CCITT3, CCITT4 and RLE produce black and white images</comment>
   </data>
   <data name="Options_RequiredSizeName" xml:space="preserve">
-    <value>Image Size</value>
+    <value>Розмір зображення</value>
     <comment>Image Size</comment>
   </data>
   <data name="Options_RequiredSizeDescription" xml:space="preserve">
-    <value>Desired image size (greater or equal 10)&#xA;  DPI will be ignored if image size is specified &#xA;Syntax:&#xA;  width only:&#x9;2000&#xA;  height only:&#x9;x1000&#xA;  both:&#x9;&#x9;2000x1000&#xA;&#x9;&#x9;width for landscape orientation&#xA;&#x9;&#x9;height for portrait orientation</value>
+    <value>Бажанний розмір зображення. Повинен бути більше або дорівнювати 10&#xA;  DPI зображення ігнорується якщо розмір зображення задано.&#xA;Синтаксис:&#xA;  тільки ширина:&#x9;2000&#xA;  тільки висота:&#x9;x1000&#xA;  ширина та висота:&#x9;2000x1000&#xA;&#x9;&#x9;&#x9;ширина для краєвида&#xA;&#x9;&#x9;&#x9;висота для портретної орієнтації</value>
     <comment>Desired image size (greater or equal 10)&#xA;  DPI will be ignored if image size is specified &#xA;Syntax:&#xA;  width only:&#x9;2000&#xA;  height only:&#x9;x1000&#xA;  both:&#x9;&#x9;2000x1000&#xA;&#x9;&#x9;width for landscape orientation&#xA;&#x9;&#x9;height for portrait orientation</comment>
   </data>
   <data name="Options_DpiName" xml:space="preserve">
-    <value>Image DPI</value>
+    <value>DPI зображення</value>
     <comment>Image DPI</comment>
   </data>
   <data name="Options_DpiDescription" xml:space="preserve">
-    <value>Image DPI (16-2350)&#xA;  DPI will be ignored if image size is specified</value>
+    <value>DPI зображення (16-2350)&#xA;  DPI зображення ігнорується якщо розмір зображення задано</value>
     <comment>Image DPI (16-2350)&#xA;  DPI will be ignored if image size is specified</comment>
   </data>
   <data name="Options_ImageNameName" xml:space="preserve">
-    <value>Image Prefix</value>
+    <value>Префікс імені зображення</value>
     <comment>Image Prefix</comment>
   </data>
   <data name="Options_ImageNameDescription" xml:space="preserve">
-    <value>Image prefix&#xA;  numeric if omitted: 01.png&#xA;  name of src file if empty (-i &quot;&quot;): src_file-01.png</value>
+    <value>Префікс що буде додано до імені зображення&#xA;  ціле число якщо не задано: 01.png&#xA;  ім'я документа якщо пуста строка (-i &quot;&quot;): src_file-01.png</value>
     <comment>Image prefix&#xA;  numeric if omitted: 01.png&#xA;  name of src file if empty (-i &quot;&quot;): src_file-01.png</comment>
   </data>
   <data name="Options_FirstPageIndexName" xml:space="preserve">
-    <value>First Page Index</value>
+    <value>Номер першої сторінки</value>
     <comment>First Page Index</comment>
   </data>
   <data name="Options_FirstPageIndexDescription" xml:space="preserve">
-    <value>Document body first page index or desired and actual page numbers in any order&#xA;  1 by default&#xA;Syntax:&#xA;  numeric: 5&#xA;  desired and actual page numbers: &quot;96 100&quot; or 96-100</value>
+    <value>Номер першої сторінки документа&#xA;  1 якщо не задано&#xA;Синтаксис:&#xA;  сторінка: 5&#xA;  бажаний та актуальний номери сторінок: &quot;96 100&quot; або 96-100</value>
     <comment>Document body first page index or desired and actual page numbers in any order&#xA;  1 by default&#xA;Syntax:&#xA;  numeric: 5&#xA;  desired and actual page numbers: &quot;96 100&quot; or 96-100</comment>
   </data>
   <data name="Options_PrelimsPrefixName" xml:space="preserve">
-    <value>Preliminaries Prefix</value>
+    <value>Префікс попередніх сторінок</value>
     <comment>Preliminaries Prefix</comment>
   </data>
   <data name="Options_PrelimsPrefixDescription" xml:space="preserve">
-    <value>Preliminaries prefix. &lt;&gt;:&quot;/\|?* characters are not allowed</value>
+    <value>Префікс що буде додано до файлів попередніх сторінок. Символи &lt;&gt;:&quot;/\|?* заборонені</value>
     <comment>Preliminaries prefix. &lt;&gt;:&quot;/\|?* characters are not allowed</comment>
   </data>
   <data name="Options_ShortenExtensionDescription" xml:space="preserve">
-    <value>Shorten image extension down to three characters</value>
+    <value>Використовувати короткі розширення для файлів зображень</value>
     <comment>Shorten image extension down to three characters</comment>
   </data>
   <data name="Options_ProcessorsNumberName" xml:space="preserve">
-    <value>Processors</value>
+    <value>Кількість процесів</value>
     <comment>Processors</comment>
   </data>
   <data name="Options_ProcessorsNumberDescription" xml:space="preserve">
-    <value>Number of simultaneously running document processors&#xA;  number of logical CPUs by default</value>
+    <value>Кількість одночасно працюючих процесів перетворення&#xA;  кількість логичих процесорів якщо не задано</value>
     <comment>Number of simultaneously running document processors&#xA;  number of logical CPUs by default</comment>
   </data>
   <data name="Options_ProcessPriorityName" xml:space="preserve">
-    <value>Processors Priority</value>
+    <value>Пріоритет процесів</value>
     <comment>Processors Priority</comment>
   </data>
   <data name="Options_ProcessPriorityDescription" xml:space="preserve">
-    <value>Document processors priority&#xA;  Normal by default</value>
+    <value>Пріоритети процесів перетворення&#xA;  Звичайно якщо не задано</value>
     <comment>Document processors priority&#xA;  Normal by default</comment>
   </data>
   <data name="Options_ProcessPriorityCmdDescription" xml:space="preserve">
-    <value>Process priority&#xA;  normal by default</value>
+    <value>Пріоритети процесів перетворення&#xA;  звичайно якщо не задано</value>
     <comment>Process priority&#xA;  normal by default</comment>
   </data>
   <data name="Options_CpuAffinityName" xml:space="preserve">
-    <value>Processors Affinity</value>
+    <value>Процесорна прив'язка</value>
     <comment>Processors Affinity</comment>
   </data>
   <data name="Options_CpuAffinityDescription" xml:space="preserve">
-    <value>CPUs processors will be executed on&#xA;  all by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;0-&#xA;  single:&#x9;0&#xA;  set:&#x9;&#x9;0,2&#xA;  range:&#x9;0-2 or -2 or 2-&#xA;  combined:&#x9;0,2-</value>
+    <value>Процесори на яких буде виконуватися перетворення&#xA;  всі якщо не задано&#xA;Синтаксис:&#xA;  всі:&#x9;&#x9;0-&#xA;  один:&#x9;&#x9;0&#xA;  декілька:&#x9;0,2&#xA;  діапазон:&#x9;0-2 або -2 або 2-&#xA;  комбіновано:&#x9;0,2-</value>
     <comment>CPUs processors will be executed on&#xA;  all by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;0-&#xA;  single:&#x9;0&#xA;  set:&#x9;&#x9;0,2&#xA;  range:&#x9;0-2 or -2 or 2-&#xA;  combined:&#x9;0,2-</comment>
   </data>
   <data name="Options_CpuAffinityCmdDescription" xml:space="preserve">
-    <value>CPUs process will be executed on&#xA;  all by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;0-&#xA;  single:&#x9;0&#xA;  set:&#x9;&#x9;0,2&#xA;  range:&#x9;0-2 or -2 or 2-&#xA;  combined:&#x9;0,2-</value>
+    <value>Процесори на яких буде виконуватися перетворення&#xA;  всі якщо не задано&#xA;Синтаксис:&#xA;  всі:&#x9;&#x9;0-&#xA;  один:&#x9;&#x9;0&#xA;  декілька:&#x9;0,2&#xA;  діапазон:&#x9;0-2 або -2 або 2-&#xA;  комбіновано:&#x9;0,2-</value>
     <comment>CPUs process will be executed on&#xA;  all by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;0-&#xA;  single:&#x9;0&#xA;  set:&#x9;&#x9;0,2&#xA;  range:&#x9;0-2 or -2 or 2-&#xA;  combined:&#x9;0,2-</comment>
   </data>
   <data name="Options_IgnoreExistingName" xml:space="preserve">
-    <value>Ignore Existing Images</value>
+    <value>Ігнорувати існуючи зображення</value>
     <comment>Ignore Existing Images</comment>
   </data>
   <data name="Options_IgnoreExistingDescription" xml:space="preserve">
-    <value>Do not overwrite existing images. Will be reset in case of any image related property change</value>
+    <value>Не перезаписувати існуючи зображення. Опцію буде скинуто у випадку зміни якого-небудь з параметрів зображення</value>
     <comment>Do not overwrite existing images. Will be reset in case of any image related property change</comment>
   </data>
   <data name="Options_IgnoreExistingCmdDescription" xml:space="preserve">
-    <value>Do not overwrite existing images</value>
+    <value>Не перезаписувати існуючи зображення</value>
     <comment>Do not overwrite existing images</comment>
   </data>
   <data name="Options_IgnoreErrorsName" xml:space="preserve">
-    <value>Ignore Conversion Errors</value>
+    <value>Ігнорувати помилки перетворення</value>
     <comment>Ignore Conversion Errors</comment>
   </data>
   <data name="Options_IgnoreErrorsDescription" xml:space="preserve">
-    <value>Ignore conversion errors</value>
+    <value>Ігнорувати всі можливі помилки, які можуть виникнути під час перетворення</value>
     <comment>Ignore conversion errors</comment>
   </data>
   <data name="Options_SilentName" xml:space="preserve">
-    <value>Silent</value>
+    <value>Робота без повідомлень</value>
     <comment>Silent</comment>
   </data>
   <data name="Options_SilentDescription" xml:space="preserve">
-    <value>Silent mode (no progress will be shown)</value>
+    <value>Робота без повідомлень (прогрес не буде показано)</value>
     <comment>Silent mode (no progress will be shown)</comment>
   </data>
   <data name="Options_TestName" xml:space="preserve">
-    <value>Test Mode</value>
+    <value>Тестовий режим</value>
     <comment>Test Mode</comment>
   </data>
   <data name="Options_TestDescription" xml:space="preserve">
-    <value>Test mode (no files will be written)</value>
+    <value>Тестовий режим (без запису файлів)</value>
     <comment>Test mode (no files will be written)</comment>
   </data>
   <data name="Options_CleanDescription" xml:space="preserve">
-    <value>Clean (delete images)</value>
+    <value>Видалити всі зображення</value>
     <comment>Clean (delete images)</comment>
   </data>
   <data name="Options_ParametersCategory" xml:space="preserve">
-    <value>&#9;Parameters</value>
+    <value>&#9;Параметри</value>
     <comment>&#9;Parameters</comment>
   </data>
   <data name="Options_OptionsCategory" xml:space="preserve">
-    <value>Options</value>
+    <value>Опції</value>
     <comment>Options</comment>
   </data>
 </root>
