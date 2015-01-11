@@ -254,11 +254,11 @@
     <comment>Copy UI Batch Command Line Without &amp;Error Handling To Clipboard</comment>
   </data>
   <data name="ResumeLastConversionSuggestion" xml:space="preserve">
-    <value>Чи бажаєте продовжити попереднє перетворення замість початку нового?</value>
+    <value>Чи бажаєте продовжити попередне перетворення замість початку нового?</value>
     <comment>Would you like to resume last conversion instead of starting new one?</comment>
   </data>
   <data name="CancelToUsePreviousValidValue" xml:space="preserve">
-    <value>\n\n● Відміна встановить попереднє значення.\n● &quot;OK&quot; продовжить редагування.</value>
+    <value>\n\n● Відміна встановить попередне значення.\n● &quot;OK&quot; продовжить редагування.</value>
     <comment>\n\n● Cancel reverts to previous valid value.\n● OK returns to value editing.</comment>
   </data>
   <data name="AutoSaveSettings" xml:space="preserve">
@@ -374,7 +374,7 @@
     <comment>No exception details present.</comment>
   </data>
   <data name="RememberChoiceAndDoNotAskAgain" xml:space="preserve">
-    <value>&amp;Запом'ятати вибір та більше не питати</value>
+    <value>&amp;Запам'ятати вибір та більше не питати</value>
     <comment>&amp;Remember choice and do not ask again</comment>
   </data>
   <data name="CheckForUpdates" xml:space="preserve">
@@ -394,7 +394,7 @@
     <comment>Updates Check Failed</comment>
   </data>
   <data name="WouldYouLikeToCheckForUpdatesManually" xml:space="preserve">
-    <value>Чи ви дійсно бажаєте перевірити оновлення вручну?</value>
+    <value>Чи ви бажаєте перевірити оновлення вручну?</value>
     <comment>Would you like to check for updates manually?</comment>
   </data>
   <data name="YesCheckForUpdatesManually" xml:space="preserve">
