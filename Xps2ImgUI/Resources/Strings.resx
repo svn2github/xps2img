@@ -145,14 +145,6 @@
     <value>Hide command line</value>
     <comment>Hide command line</comment>
   </data>
-  <data name="WindowTitle" xml:space="preserve">
-    <value>XPS to Images Converter</value>
-    <comment>XPS to Images Converter</comment>
-  </data>
-  <data name="WindowTitleProgressFormat" xml:space="preserve">
-    <value>{1}% ({2}) [{3}] - {4} - {0}</value>
-    <comment>{1}% ({2}) [{3}] - {4} - {0}</comment>
-  </data>
   <data name="ClosingConfirmation" xml:space="preserve">
     <value>Currently executing conversion will be aborted.</value>
     <comment>Currently executing conversion will be aborted.</comment>
@@ -217,10 +209,6 @@
     <value>XPS2Img Files (*.x2i)|*.x2i|</value>
     <comment>XPS2Img Files (*.x2i)|*.x2i|</comment>
   </data>
-  <data name="XPS2ImgFileExtension" xml:space="preserve">
-    <value>.x2i</value>
-    <comment>.x2i</comment>
-  </data>
   <data name="ProcessorHasTerminated" xml:space="preserve">
     <value>xps2img.exe processor application has terminated unexpectedly.</value>
     <comment>xps2img.exe processor application has terminated unexpectedly.</comment>
@@ -249,14 +237,6 @@
     <value>Load Settings</value>
     <comment>Load Settings</comment>
   </data>
-  <data name="ElapsedTimeTextTemplate" xml:space="preserve">
-    <value> ● {0:00}:{1:00}:{2:00} ● {6}/{7} ● {3}{4}/{5} ●</value>
-    <comment> ● {0:00}:{1:00}:{2:00} ● {6}/{7} ● {3}{4}/{5} ●</comment>
-  </data>
-  <data name="ElapsedTimeTextTemplateShort" xml:space="preserve">
-    <value> ● {0:00}:{1:00}:{2:00} ● {6}/{7} ●</value>
-    <comment> ● {0:00}:{1:00}:{2:00} ● {6}/{7} ●</comment>
-  </data>
   <data name="ConversionStopConfirmation" xml:space="preserve">
     <value>Conversion will be stopped.</value>
     <comment>Conversion will be stopped.</comment>
@@ -278,8 +258,8 @@
     <comment>Would you like to resume last conversion instead of starting new one?</comment>
   </data>
   <data name="CancelToUsePreviousValidValue" xml:space="preserve">
-    <value>\n\n● Cancel or Esc reverts to previous valid value.\n● OK returns to value editing.</value>
-    <comment>\n\n● Cancel or Esc reverts to previous valid value.\n● OK returns to value editing.</comment>
+    <value>\n\n● Cancel reverts to previous valid value.\n● OK returns to value editing.</value>
+    <comment>\n\n● Cancel reverts to previous valid value.\n● OK returns to value editing.</comment>
   </data>
   <data name="AutoSaveSettings" xml:space="preserve">
     <value>A&amp;uto Save Settings</value>
@@ -509,22 +489,6 @@ What's new in version {0}
 </value>
     <comment>What's new in version {0}</comment>
   </data>
-  <data name="WhatsNewDateFormat" xml:space="preserve">
-    <value>{0} {1:'('d MMMM yyyy'):'}</value>
-    <comment>{0} {1:'('d MMMM yyyy'):'}</comment>
-  </data>
-  <data name="WhatsNewBullet" xml:space="preserve">
-    <value>● </value>
-    <comment>● </comment>
-  </data>
-  <data name="UIBatchCommandLineFormat" xml:space="preserve">
-    <value>start/wait "" {0} -b</value>
-    <comment>start/wait "" {0} -b</comment>
-  </data>
-  <data name="UIBatchCommandLineErrorHandling" xml:space="preserve">
-    <value> &amp; if errorlevel 1 exit /b</value>
-    <comment> &amp; if errorlevel 1 exit /b</comment>
-  </data>
   <data name="ShortenImageExtension" xml:space="preserve">
     <value>S&amp;horten Image Extension</value>
     <comment>S&amp;horten Image Extension</comment>
@@ -536,14 +500,6 @@ What's new in version {0}
   <data name="BrowseImagesFolder" xml:space="preserve">
     <value>Browse I&amp;mages Folder</value>
     <comment>Browse I&amp;mages Folder</comment>
-  </data>
-  <data name="PageOfPagesFormat" xml:space="preserve">
-    <value>{0}/{1}</value>
-    <comment>{0}/{1}</comment>
-  </data>
-  <data name="FilterAllFiles" xml:space="preserve">
-    <value>All Files (*.*)|*.*</value>
-    <comment>All Files (*.*)|*.*</comment>
   </data>
   <data name="DocumentHasNoPages" xml:space="preserve">
     <value>Document has no pages. Nothing to convert.</value>
@@ -557,17 +513,13 @@ What's new in version {0}
     <value>Press {0} button to {1}.</value>
     <comment>Press {0} button to {1}.</comment>
   </data>
-  <data name="PluralFormS" xml:space="preserve">
-    <value>s</value>
-    <comment>s</comment>
-  </data>
   <data name="DoItNowFormat" xml:space="preserve">
     <value>{0} Now!</value>
     <comment>{0} Now!</comment>
   </data>
   <data name="GoingToActionInFormat" xml:space="preserve">
-    <value>Going to {0} in {1} second{2}...</value>
-    <comment>Going to {0} in {1} second{2}...</comment>
+    <value>{0} in {1}...</value>
+    <comment>{0} in {1}...</comment>
   </data>
   <data name="UpdatePageFailedStatus" xml:space="preserve">
     <value>Page #{0} conversion failed: {1}</value>
@@ -612,10 +564,6 @@ What's new in version {0}
   <data name="HelpAbout_CheckForUpdatesLinkLabel" xml:space="preserve">
     <value>Check for Updates</value>
     <comment>Check for Updates</comment>
-  </data>
-  <data name="HelpAbout_Description" xml:space="preserve">
-    <value>XPS to Images Converter Frontend.</value>
-    <comment>XPS to Images Converter Frontend.</comment>
   </data>
   <data name="HelpAbout_HistoryLinkLabel" xml:space="preserve">
     <value>View Revision History</value>
@@ -803,6 +751,50 @@ What's new in version {0}
   </data>
   <data name="Localizations_UkrainianValue" xml:space="preserve">
     <value>Українська</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>XPS to Images Converter</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="WindowTitleProgressFormat" xml:space="preserve">
+    <value>{1}% ({2}) [{3}] - {4} - {0}</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="XPS2ImgFileExtension" xml:space="preserve">
+    <value>.x2i</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="ElapsedTimeTextTemplate" xml:space="preserve">
+    <value> ● {0:00}:{1:00}:{2:00} ● {6}/{7} ● {3}{4}/{5} ●</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="ElapsedTimeTextTemplateShort" xml:space="preserve">
+    <value> ● {0:00}:{1:00}:{2:00} ● {6}/{7} ●</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="WhatsNewDateFormat" xml:space="preserve">
+    <value>{0} {1:'('d MMMM yyyy'):'}</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="WhatsNewBullet" xml:space="preserve">
+    <value>● </value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="UIBatchCommandLineFormat" xml:space="preserve">
+    <value>start/wait "" {0} -b</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="UIBatchCommandLineErrorHandling" xml:space="preserve">
+    <value> &amp; if errorlevel 1 exit /b</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="PageOfPagesFormat" xml:space="preserve">
+    <value>{0}/{1}</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="HelpAbout_Description" xml:space="preserve">
+    <value>XPS to Images Converter Frontend.</value>
     <comment>NON LOCALIZABLE</comment>
   </data>
 </root>

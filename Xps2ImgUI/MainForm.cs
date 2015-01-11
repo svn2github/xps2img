@@ -235,7 +235,7 @@ namespace Xps2ImgUI
         {
             using (new ModalGuard())
             {
-                var action = new PostActionTypeConverter().ConvertToInvariantString(Model.ShutdownType);
+                var action = new PostActionTypeConverter().ConvertToString(Model.ShutdownType);
 
                 using (var confirmForm = new CountdownForm(action, _preferences.WaitForShutdownSeconds)
                 {

@@ -23,7 +23,7 @@ namespace Xps2ImgUI
         private void UpdateLabelText()
         {
             var value = countdownProgressBar.Value;
-            textLabel.Text = String.Format(Resources.Strings.GoingToActionInFormat, _headerText.ToLowerInvariant(), value, value == 1 ? String.Empty : Resources.Strings.PluralFormS);
+            textLabel.Text = String.Format(Resources.Strings.GoingToActionInFormat, _headerText, value);
         }
 
         private readonly string _headerText;

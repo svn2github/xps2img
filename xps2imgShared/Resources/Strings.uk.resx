@@ -233,7 +233,7 @@
     <comment>Output Folder</comment>
   </data>
   <data name="Options_OutDirDescription" xml:space="preserve">
-    <value>Папка призначення&#xA;  нова папка пойменована як документ буде створена за місцем його знаходження якщо не задано</value>
+    <value>Папка призначення&#xA;  нова папка пойменована як документ буде створена за місцем його знаходження, якщо не задано</value>
     <comment>Output folder&#xA;  new folder named as document will be created in folder where document is by default</comment>
   </data>
   <data name="Options_PostActionName" xml:space="preserve">
@@ -249,7 +249,7 @@
     <comment>Page Number(s)</comment>
   </data>
   <data name="Options_PagesDescription" xml:space="preserve">
-    <value>Номера сторінок&#xA;  всі сторінки якщо не задано&#xA;Синтаксис:&#xA;  всі:&#x9;&#x9;1-&#xA;  одна:&#x9;&#x9;1&#xA;  декілька:&#x9;1,3&#xA;  діапазон:&#x9;1-10 or -10 or 10-&#xA;  комбіновано:&#x9;1,3-5,7-9,15-</value>
+    <value>Номера сторінок&#xA;  всі сторінки, якщо не задано&#xA;Синтаксис:&#xA;  всі:&#x9;&#x9;1-&#xA;  одна:&#x9;&#x9;1&#xA;  декілька:&#x9;1,3&#xA;  діапазон:&#x9;1-10 or -10 or 10-&#xA;  комбіновано:&#x9;1,3-5,7-9,15-</value>
     <comment>Page number(s)&#xA;  all pages by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;1-&#xA;  single:&#x9;1&#xA;  set:&#x9;&#x9;1,3&#xA;  range:&#x9;1-10 or -10 or 10-&#xA;  combined:&#x9;1,3-5,7-9,15-</comment>
   </data>
   <data name="Options_FileTypeName" xml:space="preserve">
@@ -281,7 +281,7 @@
     <comment>Image Size</comment>
   </data>
   <data name="Options_RequiredSizeDescription" xml:space="preserve">
-    <value>Бажанний розмір зображення. Повинен бути більше або дорівнювати 10&#xA;  DPI зображення ігнорується якщо розмір зображення задано.&#xA;Синтаксис:&#xA;  тільки ширина:&#x9;2000&#xA;  тільки висота:&#x9;x1000&#xA;  ширина та висота:&#x9;2000x1000&#xA;&#x9;&#x9;&#x9;ширина для краєвида&#xA;&#x9;&#x9;&#x9;висота для портретної орієнтації</value>
+    <value>Бажанний розмір зображення. Повинен бути більше або дорівнювати 10&#xA;  DPI зображення ігнорується, якщо розмір зображення задано.&#xA;Синтаксис:&#xA;  тільки ширина:&#x9;2000&#xA;  тільки висота:&#x9;x1000&#xA;  ширина та висота:&#x9;2000x1000&#xA;&#x9;&#x9;&#x9;ширина для краєвида&#xA;&#x9;&#x9;&#x9;висота для портретної орієнтації</value>
     <comment>Desired image size (greater or equal 10)&#xA;  DPI will be ignored if image size is specified &#xA;Syntax:&#xA;  width only:&#x9;2000&#xA;  height only:&#x9;x1000&#xA;  both:&#x9;&#x9;2000x1000&#xA;&#x9;&#x9;width for landscape orientation&#xA;&#x9;&#x9;height for portrait orientation</comment>
   </data>
   <data name="Options_DpiName" xml:space="preserve">
@@ -289,7 +289,7 @@
     <comment>Image DPI</comment>
   </data>
   <data name="Options_DpiDescription" xml:space="preserve">
-    <value>DPI зображення (16-2350)&#xA;  DPI зображення ігнорується якщо розмір зображення задано</value>
+    <value>DPI зображення (16-2350)&#xA;  DPI зображення ігнорується, якщо розмір зображення задано</value>
     <comment>Image DPI (16-2350)&#xA;  DPI will be ignored if image size is specified</comment>
   </data>
   <data name="Options_ImageNameName" xml:space="preserve">
@@ -297,7 +297,7 @@
     <comment>Image Prefix</comment>
   </data>
   <data name="Options_ImageNameDescription" xml:space="preserve">
-    <value>Префікс що буде додано до імені зображення&#xA;  ціле число якщо не задано: 01.png&#xA;  ім'я документа якщо пуста строка (-i &quot;&quot;): src_file-01.png</value>
+    <value>Префікс що буде додано до імені зображення&#xA;  ціле число, якщо не задано: 01.png&#xA;  ім'я документа, якщо пустий рядок (-i &quot;&quot;): src_file-01.png</value>
     <comment>Image prefix&#xA;  numeric if omitted: 01.png&#xA;  name of src file if empty (-i &quot;&quot;): src_file-01.png</comment>
   </data>
   <data name="Options_FirstPageIndexName" xml:space="preserve">
@@ -305,7 +305,7 @@
     <comment>First Page Index</comment>
   </data>
   <data name="Options_FirstPageIndexDescription" xml:space="preserve">
-    <value>Номер першої сторінки документа&#xA;  1 якщо не задано&#xA;Синтаксис:&#xA;  сторінка: 5&#xA;  бажаний та актуальний номери сторінок: &quot;96 100&quot; або 96-100</value>
+    <value>Номер першої сторінки документа&#xA;  1, якщо не задано&#xA;Синтаксис:&#xA;  сторінка: 5&#xA;  бажаний та актуальний номери сторінок: &quot;96 100&quot; або 96-100</value>
     <comment>Document body first page index or desired and actual page numbers in any order&#xA;  1 by default&#xA;Syntax:&#xA;  numeric: 5&#xA;  desired and actual page numbers: &quot;96 100&quot; or 96-100</comment>
   </data>
   <data name="Options_PrelimsPrefixName" xml:space="preserve">
@@ -313,7 +313,7 @@
     <comment>Preliminaries Prefix</comment>
   </data>
   <data name="Options_PrelimsPrefixDescription" xml:space="preserve">
-    <value>Префікс що буде додано до файлів попередніх сторінок. Символи &lt;&gt;:&quot;/\|?* заборонені</value>
+    <value>Префікс, що буде додано до імен файлів попередніх сторінок. Символи &lt;&gt;:&quot;/\|?* заборонені</value>
     <comment>Preliminaries prefix. &lt;&gt;:&quot;/\|?* characters are not allowed</comment>
   </data>
   <data name="Options_ShortenExtensionDescription" xml:space="preserve">
@@ -325,7 +325,7 @@
     <comment>Processors</comment>
   </data>
   <data name="Options_ProcessorsNumberDescription" xml:space="preserve">
-    <value>Кількість одночасно працюючих процесів перетворення&#xA;  кількість логичих процесорів якщо не задано</value>
+    <value>Кількість одночасно працюючих процесів перетворення&#xA;  кількість логичих процесорів, якщо не задано</value>
     <comment>Number of simultaneously running document processors&#xA;  number of logical CPUs by default</comment>
   </data>
   <data name="Options_ProcessPriorityName" xml:space="preserve">
@@ -333,11 +333,11 @@
     <comment>Processors Priority</comment>
   </data>
   <data name="Options_ProcessPriorityDescription" xml:space="preserve">
-    <value>Пріоритети процесів перетворення&#xA;  Звичайно якщо не задано</value>
+    <value>Пріоритети процесів перетворення&#xA;  Звичайно, якщо не задано</value>
     <comment>Document processors priority&#xA;  Normal by default</comment>
   </data>
   <data name="Options_ProcessPriorityCmdDescription" xml:space="preserve">
-    <value>Пріоритети процесів перетворення&#xA;  звичайно якщо не задано</value>
+    <value>Пріоритети процесів перетворення&#xA;  звичайно, якщо не задано</value>
     <comment>Process priority&#xA;  normal by default</comment>
   </data>
   <data name="Options_CpuAffinityName" xml:space="preserve">
@@ -345,11 +345,11 @@
     <comment>Processors Affinity</comment>
   </data>
   <data name="Options_CpuAffinityDescription" xml:space="preserve">
-    <value>Процесори на яких буде виконуватися перетворення&#xA;  всі якщо не задано&#xA;Синтаксис:&#xA;  всі:&#x9;&#x9;0-&#xA;  один:&#x9;&#x9;0&#xA;  декілька:&#x9;0,2&#xA;  діапазон:&#x9;0-2 або -2 або 2-&#xA;  комбіновано:&#x9;0,2-</value>
+    <value>Процесори на яких буде виконуватися перетворення&#xA;  всі, якщо не задано&#xA;Синтаксис:&#xA;  всі:&#x9;&#x9;0-&#xA;  один:&#x9;&#x9;0&#xA;  декілька:&#x9;0,2&#xA;  діапазон:&#x9;0-2 або -2 або 2-&#xA;  комбіновано:&#x9;0,2-</value>
     <comment>CPUs processors will be executed on&#xA;  all by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;0-&#xA;  single:&#x9;0&#xA;  set:&#x9;&#x9;0,2&#xA;  range:&#x9;0-2 or -2 or 2-&#xA;  combined:&#x9;0,2-</comment>
   </data>
   <data name="Options_CpuAffinityCmdDescription" xml:space="preserve">
-    <value>Процесори на яких буде виконуватися перетворення&#xA;  всі якщо не задано&#xA;Синтаксис:&#xA;  всі:&#x9;&#x9;0-&#xA;  один:&#x9;&#x9;0&#xA;  декілька:&#x9;0,2&#xA;  діапазон:&#x9;0-2 або -2 або 2-&#xA;  комбіновано:&#x9;0,2-</value>
+    <value>Процесори на яких буде виконуватися перетворення&#xA;  всі, якщо не задано&#xA;Синтаксис:&#xA;  всі:&#x9;&#x9;0-&#xA;  один:&#x9;&#x9;0&#xA;  декілька:&#x9;0,2&#xA;  діапазон:&#x9;0-2 або -2 або 2-&#xA;  комбіновано:&#x9;0,2-</value>
     <comment>CPUs process will be executed on&#xA;  all by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;0-&#xA;  single:&#x9;0&#xA;  set:&#x9;&#x9;0,2&#xA;  range:&#x9;0-2 or -2 or 2-&#xA;  combined:&#x9;0,2-</comment>
   </data>
   <data name="Options_IgnoreExistingName" xml:space="preserve">

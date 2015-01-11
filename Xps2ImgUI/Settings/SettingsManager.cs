@@ -18,13 +18,11 @@ namespace Xps2ImgUI.Settings
     {
         public static Xps2ImgModel LoadSettings()
         {
-            if (_loadDialog == null)
-            {
-                InitFileDialog(_loadDialog = new OpenFileDialog { Title = Resources.Strings.LoadSettingsTitle });
-            }
+            var openFileDialog = new OpenFileDialog { Title = Resources.Strings.LoadSettingsTitle };
+            InitFileDialog(openFileDialog);
 
-            return _loadDialog.ShowDialog() == DialogResult.OK
-                        ? LoadSettings(_loadDialog.FileName)
+            return openFileDialog.ShowDialog() == DialogResult.OK
+                        ? LoadSettings(openFileDialog.FileName)
                         : null;
         }
 
@@ -36,18 +34,16 @@ namespace Xps2ImgUI.Settings
 
         public static void SaveSettings(Xps2ImgModel xps2ImgModel)
         {
-            if (_saveDialog == null)
-            {
-                InitFileDialog(_saveDialog = new SaveFileDialog { Title = Resources.Strings.SaveSettingsTitle, AddExtension = true });
-            }
+            var saveFileDialog = new SaveFileDialog { Title = Resources.Strings.SaveSettingsTitle, AddExtension = true };
+            InitFileDialog(saveFileDialog);
 
             #if DEBUG
-            _saveDialog.FileName = DateTime.Now.ToString("x2i-yyyyMMdd-HHmmss");
+            saveFileDialog.FileName = DateTime.Now.ToString("x2i-yyyyMMdd-HHmmss");
             #endif
 
-            if (_saveDialog.ShowDialog() == DialogResult.OK)
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                File.WriteAllText(_saveDialog.FileName, xps2ImgModel.FormatCommandLine(Options.ExcludedOnSave, true));
+                File.WriteAllText(saveFileDialog.FileName, xps2ImgModel.FormatCommandLine(Options.ExcludedOnSave, true));
             }
         }
 
@@ -156,7 +152,7 @@ namespace Xps2ImgUI.Settings
 
         private static void InitFileDialog(FileDialog fileDialog)
         {
-            fileDialog.Filter = Resources.Strings.FilterXPS2ImgFiles + Resources.Strings.FilterAllFiles;
+            fileDialog.Filter = Resources.Strings.FilterXPS2ImgFiles + Xps2Img.Shared.Resources.Strings.FilterAllFiles;
             fileDialog.InitialDirectory = EnsureSettingsFolder();
             fileDialog.RestoreDirectory = true;
         }
@@ -166,9 +162,6 @@ namespace Xps2ImgUI.Settings
 
         private const string PortableSuffix = ".portable";
 
-        private static readonly string DataFolder;
-        
-        private static OpenFileDialog _loadDialog;
-        private static SaveFileDialog _saveDialog;
+        private static readonly string DataFolder;       
     }
 }

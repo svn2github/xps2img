@@ -43,7 +43,7 @@
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(307, 64);
+            this.cancelButton.Location = new System.Drawing.Point(405, 64);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 1;
@@ -55,7 +55,7 @@
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okButton.AutoSize = true;
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(230, 64);
+            this.okButton.Location = new System.Drawing.Point(328, 64);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 0;
@@ -64,7 +64,7 @@
             // 
             // iconPictureBox
             // 
-            this.iconPictureBox.Location = new System.Drawing.Point(8, 8);
+            this.iconPictureBox.Location = new System.Drawing.Point(7, 8);
             this.iconPictureBox.Name = "iconPictureBox";
             this.iconPictureBox.Size = new System.Drawing.Size(32, 32);
             this.iconPictureBox.TabIndex = 2;
@@ -81,14 +81,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.countdownProgressBar.Location = new System.Drawing.Point(8, 48);
             this.countdownProgressBar.Name = "countdownProgressBar";
-            this.countdownProgressBar.Size = new System.Drawing.Size(374, 10);
+            this.countdownProgressBar.Size = new System.Drawing.Size(472, 10);
             this.countdownProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.countdownProgressBar.TabIndex = 4;
             // 
             // textLabel
             // 
             this.textLabel.AutoSize = true;
-            this.textLabel.Location = new System.Drawing.Point(46, 18);
+            this.textLabel.Location = new System.Drawing.Point(45, 18);
             this.textLabel.Name = "textLabel";
             this.textLabel.Size = new System.Drawing.Size(0, 13);
             this.textLabel.TabIndex = 3;
@@ -109,7 +109,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(390, 95);
+            this.ClientSize = new System.Drawing.Size(488, 95);
             this.Controls.Add(this.confirmCheckBox);
             this.Controls.Add(this.countdownProgressBar);
             this.Controls.Add(this.iconPictureBox);

@@ -118,11 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ShowCommandLine" xml:space="preserve">
-    <value>Показати командну строку</value>
+    <value>Показати командний рядок</value>
     <comment>Show command line</comment>
   </data>
+  <data name="HideCommandLine" xml:space="preserve">
+    <value>Сховати командний рядок</value>
+    <comment>Hide command line</comment>
+  </data>
   <data name="ResetOptions" xml:space="preserve">
-    <value>Reset options</value>
+    <value>Скинути опції</value>
     <comment>Reset options</comment>
   </data>
   <data name="Launch" xml:space="preserve">
@@ -138,63 +142,51 @@
     <comment>&amp;Resume</comment>
   </data>
   <data name="DeleteImages" xml:space="preserve">
-    <value>&amp;Видалити всі картинки</value>
+    <value>&amp;Видалити зображення</value>
     <comment>&amp;Delete Images</comment>
   </data>
-  <data name="HideCommandLine" xml:space="preserve">
-    <value>Сховати командну строку</value>
-    <comment>Hide command line</comment>
-  </data>
-  <data name="WindowTitle" xml:space="preserve">
-    <value>XPS to Images Converter</value>
-    <comment>XPS to Images Converter</comment>
-  </data>
-  <data name="WindowTitleProgressFormat" xml:space="preserve">
-    <value>{1}% ({2}) [{3}] - {4} - {0}</value>
-    <comment>{1}% ({2}) [{3}] - {4} - {0}</comment>
-  </data>
   <data name="ClosingConfirmation" xml:space="preserve">
-    <value>Currently executing conversion will be aborted.</value>
+    <value>Поточне перетворення буде зупинено.</value>
     <comment>Currently executing conversion will be aborted.</comment>
   </data>
   <data name="SpecifyValueFormat" xml:space="preserve">
-    <value>{0} parameter is required.</value>
+    <value>{0} є обов'язковим параметром.</value>
     <comment>{0} parameter is required.</comment>
   </data>
   <data name="Xps2ImgNotFountFormat" xml:space="preserve">
-    <value>{1}{0}{0}Please make sure that xps2img.exe utility is present into the application folder.</value>
+    <value>{1}{0}{0}Перевірте наявність xps2img.exe у папці програми.</value>
     <comment>{1}{0}{0}Please make sure that xps2img.exe utility is present into the application folder.</comment>
   </data>
   <data name="BrowseImages" xml:space="preserve">
-    <value>Browse images</value>
+    <value>Переглянути зображення</value>
     <comment>Browse images</comment>
   </data>
   <data name="BrowseXPSFile" xml:space="preserve">
-    <value>Browse &amp;XPS File</value>
+    <value>Перейти до XPS доку&amp;мента</value>
     <comment>Browse &amp;XPS File</comment>
   </data>
   <data name="WindowTitleLaunchingFormat" xml:space="preserve">
-    <value>Launching xps2img... - {0}</value>
+    <value>Запуск xps2img... - {0}</value>
     <comment>Launching xps2img... - {0}</comment>
   </data>
   <data name="ResetParameters" xml:space="preserve">
-    <value>Reset &amp;Parameters</value>
+    <value>Скинути &amp;параметри</value>
     <comment>Reset &amp;Parameters</comment>
   </data>
   <data name="Reset" xml:space="preserve">
-    <value>Reset &amp;Settings</value>
+    <value>Скинути &amp;налаштування</value>
     <comment>Reset &amp;Settings</comment>
   </data>
   <data name="CopyCommandLineToClipboard" xml:space="preserve">
-    <value>&amp;Copy Command Line To Clipboard</value>
+    <value>&amp;Копіювати командну строку до буфера обміну</value>
     <comment>&amp;Copy Command Line To Clipboard</comment>
   </data>
   <data name="CopyXPSFilePathToClipboard" xml:space="preserve">
-    <value>Copy XP&amp;S File Path To Clipboard</value>
+    <value>К&amp;опіювати шлях XPS документа до буфера обміну</value>
     <comment>Copy XP&amp;S File Path To Clipboard</comment>
   </data>
   <data name="CopyImagesFolderPathToClipboard" xml:space="preserve">
-    <value>&amp;Copy Images Folder Path To Clipboard</value>
+    <value>&amp;Копіювати шлях зображень до буфера обміну</value>
     <comment>&amp;Copy Images Folder Path To Clipboard</comment>
   </data>
   <data name="Help" xml:space="preserve">
@@ -206,31 +198,27 @@
     <comment>&amp;About...</comment>
   </data>
   <data name="LoadSettings" xml:space="preserve">
-    <value>Load settings</value>
+    <value>Завантажити налаштування</value>
     <comment>Load settings</comment>
   </data>
   <data name="SaveSettings" xml:space="preserve">
-    <value>&amp;Save Settings...</value>
+    <value>&amp;Зберегти налаштування...</value>
     <comment>&amp;Save Settings...</comment>
   </data>
   <data name="FilterXPS2ImgFiles" xml:space="preserve">
-    <value>XPS2Img Files (*.x2i)|*.x2i|</value>
+    <value>XPS2Img файли (*.x2i)|*.x2i|</value>
     <comment>XPS2Img Files (*.x2i)|*.x2i|</comment>
   </data>
-  <data name="XPS2ImgFileExtension" xml:space="preserve">
-    <value>.x2i</value>
-    <comment>.x2i</comment>
-  </data>
   <data name="ProcessorHasTerminated" xml:space="preserve">
-    <value>xps2img.exe processor application has terminated unexpectedly.</value>
+    <value>xps2img.exe процесор завершився аварійно.</value>
     <comment>xps2img.exe processor application has terminated unexpectedly.</comment>
   </data>
   <data name="DeleteConvertedImagesConfirmation" xml:space="preserve">
-    <value>Converted images will be deleted.</value>
+    <value>Усі зображення буде видалено.</value>
     <comment>Converted images will be deleted.</comment>
   </data>
   <data name="PressToProceedMessage" xml:space="preserve">
-    <value>Press OK to proceed.</value>
+    <value>Натисніть OK щоб продовжити.</value>
     <comment>Press OK to proceed.</comment>
   </data>
   <data name="Preferences" xml:space="preserve">
@@ -238,363 +226,327 @@
     <comment>Preferences</comment>
   </data>
   <data name="ResetToDefaults" xml:space="preserve">
-    <value>За замовченням</value>
+    <value>Встановити всі за замовчуванням</value>
     <comment>Reset to defaults</comment>
   </data>
   <data name="SaveSettingsTitle" xml:space="preserve">
-    <value>Save Settings</value>
+    <value>Зберегти налаштування</value>
     <comment>Save Settings</comment>
   </data>
   <data name="LoadSettingsTitle" xml:space="preserve">
-    <value>Load Settings</value>
+    <value>Завантажити налаштування</value>
     <comment>Load Settings</comment>
   </data>
-  <data name="ElapsedTimeTextTemplate" xml:space="preserve">
-    <value> ● {0:00}:{1:00}:{2:00} ● {6}/{7} ● {3}{4}/{5} ●</value>
-    <comment> ● {0:00}:{1:00}:{2:00} ● {6}/{7} ● {3}{4}/{5} ●</comment>
-  </data>
-  <data name="ElapsedTimeTextTemplateShort" xml:space="preserve">
-    <value> ● {0:00}:{1:00}:{2:00} ● {6}/{7} ●</value>
-    <comment> ● {0:00}:{1:00}:{2:00} ● {6}/{7} ●</comment>
-  </data>
   <data name="ConversionStopConfirmation" xml:space="preserve">
-    <value>Conversion will be stopped.</value>
+    <value>Перетворення буде зупинено.</value>
     <comment>Conversion will be stopped.</comment>
   </data>
   <data name="CopyUICommandLineToClipboard" xml:space="preserve">
-    <value>Copy &amp;UI Command Line To Clipboard</value>
+    <value>К&amp;опіювати командну строку UI до буфера обміну</value>
     <comment>Copy &amp;UI Command Line To Clipboard</comment>
   </data>
   <data name="CopyUIBatchCommandLineToClipboard" xml:space="preserve">
-    <value>Copy UI &amp;Batch Command Line To Clipboard</value>
+    <value>Копіювати UI &amp;пакетну командну строку до буфера обміну</value>
     <comment>Copy UI &amp;Batch Command Line To Clipboard</comment>
   </data>
   <data name="CopyUIBatchCommandLineWithoutErrorHandlingToClipboard" xml:space="preserve">
-    <value>Copy UI Batch Command Line Without &amp;Error Handling To Clipboard</value>
+    <value>Копіювати UI пакетну командну строку &amp;без обробки помилок до буфера обміну</value>
     <comment>Copy UI Batch Command Line Without &amp;Error Handling To Clipboard</comment>
   </data>
   <data name="ResumeLastConversionSuggestion" xml:space="preserve">
-    <value>Would you like to resume last conversion instead of starting new one?</value>
+    <value>Чи бажаєте продовжити попереднє перетворення замість початку нового?</value>
     <comment>Would you like to resume last conversion instead of starting new one?</comment>
   </data>
   <data name="CancelToUsePreviousValidValue" xml:space="preserve">
-    <value>\n\n● Cancel or Esc reverts to previous valid value.\n● OK returns to value editing.</value>
-    <comment>\n\n● Cancel or Esc reverts to previous valid value.\n● OK returns to value editing.</comment>
+    <value>\n\n● Відміна встановить попереднє значення.\n● &quot;OK&quot; продовжить редагування.</value>
+    <comment>\n\n● Cancel reverts to previous valid value.\n● OK returns to value editing.</comment>
   </data>
   <data name="AutoSaveSettings" xml:space="preserve">
-    <value>A&amp;uto Save Settings</value>
+    <value>&amp;Автоматично зберігати налаштування</value>
     <comment>A&amp;uto Save Settings</comment>
   </data>
   <data name="ValidationErrorFormat" xml:space="preserve">
-    <value>{0} Validation Error</value>
+    <value>Помилка валідації {0}</value>
     <comment>{0} Validation Error</comment>
   </data>
   <data name="ValueEdit" xml:space="preserve">
-    <value>&amp;Edit Value</value>
+    <value>&amp;Редагувати значення</value>
     <comment>&amp;Edit Value</comment>
   </data>
   <data name="ValueRevert" xml:space="preserve">
-    <value>&amp;Revert Value</value>
+    <value>&amp;Скинути значення</value>
     <comment>&amp;Revert Value</comment>
   </data>
   <data name="DeleteImagesConfirmation" xml:space="preserve">
-    <value>Delete Images Confirmation</value>
+    <value>Підтвердження видалення зображень</value>
     <comment>Delete Images Confirmation</comment>
   </data>
   <data name="WouldYouLikeToDeleteImages" xml:space="preserve">
-    <value>Would you like to delete images?</value>
+    <value>Чи ви дійсно бажаєте видалити всі зображення?</value>
     <comment>Would you like to delete images?</comment>
   </data>
   <data name="YesDeleteImages" xml:space="preserve">
-    <value>&amp;Yes, Delete Images</value>
+    <value>&amp;Так, видалити всі зображення</value>
     <comment>&amp;Yes, Delete Images</comment>
   </data>
   <data name="NoBackToApplication" xml:space="preserve">
-    <value>&amp;No, Go Back to Application</value>
+    <value>&amp;Ні, повернутися</value>
     <comment>&amp;No, Go Back to Application</comment>
   </data>
   <data name="StopConversionConfirmation" xml:space="preserve">
-    <value>Stop Conversion Confirmation</value>
+    <value>Підтвердження зупинки перетворення</value>
     <comment>Stop Conversion Confirmation</comment>
   </data>
   <data name="WouldYouLikeToStopConversion" xml:space="preserve">
-    <value>Would you like to stop conversion?</value>
+    <value>Чи ви дійсно бажаєте зупинити перетворення?</value>
     <comment>Would you like to stop conversion?</comment>
   </data>
   <data name="YesStopConversion" xml:space="preserve">
-    <value>&amp;Yes, Stop Conversion</value>
+    <value>&amp;Так, зупинити перетворення</value>
     <comment>&amp;Yes, Stop Conversion</comment>
   </data>
   <data name="CloseApplicationConfirmation" xml:space="preserve">
-    <value>Close Application Confirmation</value>
+    <value>Підтвердження завершення програми</value>
     <comment>Close Application Confirmation</comment>
   </data>
   <data name="WouldYouLikeToAbortConversionAndCloseApplication" xml:space="preserve">
-    <value>Would you like to abort conversion and close application?</value>
+    <value>Чи ви дійсно бажаєте зупинити перетворення та завершити програму?</value>
     <comment>Would you like to abort conversion and close application?</comment>
   </data>
   <data name="YesAbortAndClose" xml:space="preserve">
-    <value>&amp;Yes, Abort and Close</value>
+    <value>&amp;Так, зупинити та завершити</value>
     <comment>&amp;Yes, Abort and Close</comment>
   </data>
   <data name="AlwaysConfirmAndDoNotAskAgain" xml:space="preserve">
-    <value>Al&amp;ways confirm and do not ask again</value>
+    <value>З&amp;авжди підтверджувати та більше не питати</value>
     <comment>Al&amp;ways confirm and do not ask again</comment>
   </data>
   <data name="EditParameter" xml:space="preserve">
-    <value>&amp;Edit Parameter</value>
+    <value>&amp;Редагувати</value>
     <comment>&amp;Edit Parameter</comment>
   </data>
   <data name="ParameterIsRequired" xml:space="preserve">
-    <value>This parameter is required and could not be empty.</value>
+    <value>Цей параметер є обов'язковим та має бути задано.</value>
     <comment>This parameter is required and could not be empty.</comment>
   </data>
   <data name="ConversionFailed" xml:space="preserve">
-    <value>Conversion Failed</value>
+    <value>Помилка перетворення</value>
     <comment>Conversion Failed</comment>
   </data>
   <data name="BackToApplication" xml:space="preserve">
-    <value>Go &amp;Back to Application</value>
+    <value>&amp;Повернутися до програми</value>
     <comment>Go &amp;Back to Application</comment>
   </data>
   <data name="ResumeConversionConfirmation" xml:space="preserve">
-    <value>Resume Conversion Confirmation</value>
+    <value>Підтвердження продовження перетворення</value>
     <comment>Resume Conversion Confirmation</comment>
   </data>
   <data name="YesResumeConversion" xml:space="preserve">
-    <value>&amp;Yes, Resume Conversion</value>
+    <value>&amp;Так, продовжити</value>
     <comment>&amp;Yes, Resume Conversion</comment>
   </data>
   <data name="NoStartConversionOver" xml:space="preserve">
-    <value>&amp;No, Start Conversion Over</value>
+    <value>&amp;Ні, розпочати з початку</value>
     <comment>&amp;No, Start Conversion Over</comment>
   </data>
   <data name="UnexpectedResumeIsNotAvailable" xml:space="preserve">
-    <value>Unexpected: Resume is not available.</value>
+    <value>Неочикувана помилка: Продовження перетворення недоступне.</value>
     <comment>Unexpected: Resume is not available.</comment>
   </data>
   <data name="UnexpectedConversionIsInProgress" xml:space="preserve">
-    <value>Unexpected: Conversion is in progress.</value>
+    <value>Неочикувана помилка: Перетворення ще не завершено.</value>
     <comment>Unexpected: Conversion is in progress.</comment>
   </data>
   <data name="UnexpectedErrorOccured" xml:space="preserve">
-    <value>Unexpected Error Occured</value>
+    <value>Неочикувана помилка</value>
     <comment>Unexpected Error Occured</comment>
   </data>
   <data name="HideDetails" xml:space="preserve">
-    <value>Hide &amp;Details</value>
+    <value>Сховати &amp;подробиці</value>
     <comment>Hide &amp;Details</comment>
   </data>
   <data name="ShowDetails" xml:space="preserve">
-    <value>Show &amp;Details</value>
+    <value>Показати &amp;подробиці</value>
     <comment>Show &amp;Details</comment>
   </data>
   <data name="NoExceptionDetailsPresent" xml:space="preserve">
-    <value>No exception details present.</value>
+    <value>Виняток не має додаткової інформації.</value>
     <comment>No exception details present.</comment>
   </data>
   <data name="RememberChoiceAndDoNotAskAgain" xml:space="preserve">
-    <value>&amp;Remember choice and do not ask again</value>
+    <value>&amp;Запом'ятати вибір та більше не питати</value>
     <comment>&amp;Remember choice and do not ask again</comment>
   </data>
   <data name="CheckForUpdates" xml:space="preserve">
-    <value>Check for &amp;Updates</value>
+    <value>Перевірити &amp;оновлення</value>
     <comment>Check for &amp;Updates</comment>
   </data>
   <data name="UpdateNoNewVersionAvailable" xml:space="preserve">
-    <value>There is no new version available at this time.</value>
+    <value>Оновлень немає.</value>
     <comment>There is no new version available at this time.</comment>
   </data>
   <data name="UpdatesCheckFailedWarning" xml:space="preserve">
-    <value>Check for updates failed. Application Web site will be opened.</value>
+    <value>Перевірка оновлень не може бути виконана. Буде відкрито Веб-сторінку програми.</value>
     <comment>Check for updates failed. Application Web site will be opened.</comment>
   </data>
   <data name="UpdatesCheckFailed" xml:space="preserve">
-    <value>Updates Check Failed</value>
+    <value>Помилка перевірки оновлення</value>
     <comment>Updates Check Failed</comment>
   </data>
   <data name="WouldYouLikeToCheckForUpdatesManually" xml:space="preserve">
-    <value>Would you like to check for updates manually?</value>
+    <value>Чи ви дійсно бажаєте перевірити оновлення вручну?</value>
     <comment>Would you like to check for updates manually?</comment>
   </data>
   <data name="YesCheckForUpdatesManually" xml:space="preserve">
-    <value>&amp;Yes, Check for Updates Manually</value>
+    <value>&amp;Так, перевірити</value>
     <comment>&amp;Yes, Check for Updates Manually</comment>
   </data>
   <data name="DownloadFailedWarning" xml:space="preserve">
-    <value>Download failed. Application Web site will be opened.</value>
+    <value>Оновлення не може бути завантажено. Буде відкрита Веб-сторінка програми.</value>
     <comment>Download failed. Application Web site will be opened.</comment>
   </data>
   <data name="DownloadFailed" xml:space="preserve">
-    <value>Download Failed</value>
+    <value>Помилка завантаження</value>
     <comment>Download Failed</comment>
   </data>
   <data name="WouldYouLikeToDownloadUpdateManually" xml:space="preserve">
-    <value>Would you like to download update manually?</value>
+    <value>Чи ви бажаєте завантажити оновлення вручну?</value>
     <comment>Would you like to download update manually?</comment>
   </data>
   <data name="YesDownloadManually" xml:space="preserve">
-    <value>&amp;Yes, Download Update Manually</value>
+    <value>&amp;Так, завантажити вручну</value>
     <comment>&amp;Yes, Download Update Manually</comment>
   </data>
   <data name="UpdateFailedWarning" xml:space="preserve">
-    <value>Update failed. Application Web site will be opened.</value>
+    <value>Оновлення не може бути встановлено. Буде відкрито Веб-сторінку програми.</value>
     <comment>Update failed. Application Web site will be opened.</comment>
   </data>
   <data name="UpdateFailed" xml:space="preserve">
-    <value>Update Failed</value>
+    <value>Помилка оновлення</value>
     <comment>Update Failed</comment>
   </data>
   <data name="WouldYouLikeToDownloadAndUpdateManually" xml:space="preserve">
-    <value>Would you like to download and update manually?</value>
+    <value>Чи ви бажаєте завантажити оновлення та оновити програму вручну?</value>
     <comment>Would you like to download and update manually?</comment>
   </data>
   <data name="YesDownloadAndUpdateManually" xml:space="preserve">
-    <value>&amp;Yes, Download and Update Manually</value>
+    <value>&amp;Так, завантажити та оновити вручну</value>
     <comment>&amp;Yes, Download and Update Manually</comment>
   </data>
   <data name="NewUpdateIsAvailable" xml:space="preserve">
-    <value>New version is available. Application will be updated.</value>
+    <value>Є нова версія програми. Оновлення буде завантажено та встановлено.</value>
     <comment>New version is available. Application will be updated.</comment>
   </data>
   <data name="NewUpdateAvailable" xml:space="preserve">
-    <value>New Version Available</value>
+    <value>Є нова версія</value>
     <comment>New Version Available</comment>
   </data>
   <data name="WouldYouLikeToDownloadItAndUpdateApplication" xml:space="preserve">
-    <value>Would you like to download it and update application?</value>
+    <value>Чи ви бажаєте завантажити оновлення та оновити програму?</value>
     <comment>Would you like to download it and update application?</comment>
   </data>
   <data name="YesDownloadAndUpdate" xml:space="preserve">
-    <value>&amp;Yes, Download and Update</value>
+    <value>&amp;Так, завантажити та оновити</value>
     <comment>&amp;Yes, Download and Update</comment>
   </data>
   <data name="ValueIsNotValidIntegerNumber" xml:space="preserve">
-    <value>Value is not valid integer number</value>
+    <value>Значення не є дозволеним цілим числомnumber</value>
     <comment>Value is not valid integer number</comment>
   </data>
   <data name="AbbrevSeconds" xml:space="preserve">
-    <value>sec</value>
+    <value>сек</value>
     <comment>sec</comment>
   </data>
   <data name="AbbrevMinutes" xml:space="preserve">
-    <value>min</value>
+    <value>хв</value>
     <comment>min</comment>
   </data>
   <data name="AbbrevHours" xml:space="preserve">
-    <value>hr</value>
+    <value>год</value>
     <comment>hr</comment>
   </data>
   <data name="AbbrevDays" xml:space="preserve">
-    <value>d</value>
+    <value>д</value>
     <comment>d</comment>
   </data>
   <data name="AbbrevPages" xml:space="preserve">
-    <value>pp</value>
+    <value>с</value>
     <comment>pp</comment>
   </data>
   <data name="AbbrevPage" xml:space="preserve">
-    <value>p</value>
+    <value>с</value>
     <comment>p</comment>
   </data>
   <data name="VisitDownloadPage" xml:space="preserve">
-    <value>&lt;a href="http://sourceforge.net/projects/xps2img/files/"&gt;Visit download page&lt;/a&gt;</value>
+    <value>&lt;a href="http://sourceforge.net/projects/xps2img/files/"&gt;Відкрити сторінку завантаження&lt;/a&gt;</value>
     <comment>&lt;a href="http://sourceforge.net/projects/xps2img/files/"&gt;Visit download page&lt;/a&gt;</comment>
   </data>
   <data name="WhatsNewFormat" xml:space="preserve">
     <value>
 
-What's new in version {0}
+Що нового у {0}
 
 </value>
     <comment>What's new in version {0}</comment>
   </data>
-  <data name="WhatsNewDateFormat" xml:space="preserve">
-    <value>{0} {1:'('d MMMM yyyy'):'}</value>
-    <comment>{0} {1:'('d MMMM yyyy'):'}</comment>
-  </data>
-  <data name="WhatsNewBullet" xml:space="preserve">
-    <value>● </value>
-    <comment>● </comment>
-  </data>
-  <data name="UIBatchCommandLineFormat" xml:space="preserve">
-    <value>start/wait "" {0} -b</value>
-    <comment>start/wait "" {0} -b</comment>
-  </data>
-  <data name="UIBatchCommandLineErrorHandling" xml:space="preserve">
-    <value> &amp; if errorlevel 1 exit /b</value>
-    <comment> &amp; if errorlevel 1 exit /b</comment>
-  </data>
   <data name="ShortenImageExtension" xml:space="preserve">
-    <value>S&amp;horten Image Extension</value>
+    <value>&amp;Використовувати короткі розширення імен зображень</value>
     <comment>S&amp;horten Image Extension</comment>
   </data>
   <data name="ConversionWasAbortedByUser" xml:space="preserve">
-    <value>Conversion was aborted by user.</value>
+    <value>Перетворення було зупинено користувачем.</value>
     <comment>Conversion was aborted by user.</comment>
   </data>
   <data name="BrowseImagesFolder" xml:space="preserve">
-    <value>Browse I&amp;mages Folder</value>
+    <value>Перейти до папки &amp;зображень</value>
     <comment>Browse I&amp;mages Folder</comment>
   </data>
-  <data name="PageOfPagesFormat" xml:space="preserve">
-    <value>{0}/{1}</value>
-    <comment>{0}/{1}</comment>
-  </data>
-  <data name="FilterAllFiles" xml:space="preserve">
-    <value>All Files (*.*)|*.*</value>
-    <comment>All Files (*.*)|*.*</comment>
-  </data>
   <data name="DocumentHasNoPages" xml:space="preserve">
-    <value>Document has no pages. Nothing to convert.</value>
+    <value>Документ не має жодної сторінки. Перетворення неможливе.</value>
     <comment>Document has no pages. Nothing to convert.</comment>
   </data>
   <data name="PagesSpecifiedAreOutOfRangeFormat" xml:space="preserve">
-    <value>Pages specified are out of document pages range. {0} is the last one.</value>
+    <value>Документ не має заданої кількості сторінок. Сторінка {0} є останньою.</value>
     <comment>Pages specified are out of document pages range. {0} is the last one.</comment>
   </data>
   <data name="PressButtonToProceedFormat" xml:space="preserve">
-    <value>Press {0} button to {1}.</value>
+    <value>Натисніть кнопку {0} щоб {1}.</value>
     <comment>Press {0} button to {1}.</comment>
   </data>
-  <data name="PluralFormS" xml:space="preserve">
-    <value>s</value>
-    <comment>s</comment>
-  </data>
   <data name="DoItNowFormat" xml:space="preserve">
-    <value>{0} Now!</value>
+    <value>{0} зараз!</value>
     <comment>{0} Now!</comment>
   </data>
   <data name="GoingToActionInFormat" xml:space="preserve">
-    <value>Going to {0} in {1} second{2}...</value>
-    <comment>Going to {0} in {1} second{2}...</comment>
+    <value>{0} через {1}...</value>
+    <comment>{0} in {1}...</comment>
   </data>
   <data name="UpdatePageFailedStatus" xml:space="preserve">
-    <value>Page #{0} conversion failed: {1}</value>
+    <value>Перетворення сторінки #{0} не вдалося: {1}</value>
     <comment>Page #{0} conversion failed: {1}</comment>
   </data>
   <data name="ConversionCompletedWithErrors" xml:space="preserve">
-    <value>Conversion completed with errors.</value>
+    <value>Перетворення завершилося із помилками.</value>
     <comment>Conversion completed with errors.</comment>
   </data>
   <data name="NotConvertedPageNumbers" xml:space="preserve">
-    <value> Not converted page numbers: {0}.</value>
+    <value> Наступні сторінки не було перетворено: {0}.</value>
     <comment> Not converted page numbers: {0}.</comment>
   </data>
   <data name="NotConvertedPageNumbersConfirmToCopy" xml:space="preserve">
-    <value> Not converted page numbers: {0}. Confirm to copy them to clipboard.</value>
+    <value> Наступні сторінки не було перетворено: {0}. Підтвердіть для копіювання номерів до буфера обміну.</value>
     <comment> Not converted page numbers: {0}. Confirm to copy them to clipboard.</comment>
   </data>
   <data name="CompletedWithErrors" xml:space="preserve">
-    <value>Completed with Errors</value>
+    <value>Завершено із помилками</value>
     <comment>Completed with Errors</comment>
   </data>
   <data name="WouldYouLikeToCopyPageNumbersToClipboard" xml:space="preserve">
-    <value>Would you like to copy page numbers to clipboard?</value>
+    <value>Чи ви бажаєте скопіювати номера сторінок до буфера обміну?</value>
     <comment>Would you like to copy page numbers to clipboard?</comment>
   </data>
   <data name="YesCopyToClipboard" xml:space="preserve">
-    <value>&amp;Yes, Copy to Clipboard</value>
+    <value>&amp;Так, скопіювати</value>
     <comment>&amp;Yes, Copy to Clipboard</comment>
   </data>
   <data name="Cancel" xml:space="preserve">
@@ -610,23 +562,19 @@ What's new in version {0}
     <comment>Close</comment>
   </data>
   <data name="HelpAbout_CheckForUpdatesLinkLabel" xml:space="preserve">
-    <value>Check for Updates</value>
+    <value>Перевірити оновлення</value>
     <comment>Check for Updates</comment>
   </data>
-  <data name="HelpAbout_Description" xml:space="preserve">
-    <value>XPS to Images Converter Frontend.</value>
-    <comment>XPS to Images Converter Frontend.</comment>
-  </data>
   <data name="HelpAbout_HistoryLinkLabel" xml:space="preserve">
-    <value>View Revision History</value>
+    <value>Історія оновлень</value>
     <comment>View Revision History</comment>
   </data>
   <data name="HelpAbout_SiteLinkLabel" xml:space="preserve">
-    <value>Visit Web Site</value>
+    <value>Переглянути Веб-сторінку</value>
     <comment>Visit Web Site</comment>
   </data>
   <data name="HelpAbout_Title" xml:space="preserve">
-    <value>About {0} {1}</value>
+    <value>Про {0} {1}</value>
     <comment>About {0} {1}</comment>
   </data>
   <data name="Preferences_Title" xml:space="preserve">
@@ -634,7 +582,7 @@ What's new in version {0}
     <comment>Preferences</comment>
   </data>
   <data name="Downloading" xml:space="preserve">
-    <value>{0}% - Завантаження апдейта</value>
+    <value>Завантаження апдейта - {0}%</value>
     <comment>{0}% - Downloading Update</comment>
   </data>
   <data name="Preferences_ApplicationLanguageName" xml:space="preserve">
@@ -646,107 +594,107 @@ What's new in version {0}
     <comment>User interface language.</comment>
   </data>
   <data name="Preferences_AutoCompleteFilenamesName" xml:space="preserve">
-    <value>Auto Complete Filenames</value>
+    <value>Підказка імен файлів</value>
     <comment>Auto Complete Filenames</comment>
   </data>
   <data name="Preferences_AutoCompleteFilenamesDescription" xml:space="preserve">
-    <value>Auto complete filenames in edit boxes.</value>
+    <value>Підказувати імена файлів у полях введення.</value>
     <comment>Auto complete filenames in edit boxes.</comment>
   </data>
   <data name="Preferences_AutoSaveSettingsName" xml:space="preserve">
-    <value>Auto Save Settings</value>
+    <value>Автоматично зберігати налаштування</value>
     <comment>Auto Save Settings</comment>
   </data>
   <data name="Preferences_AutoSaveSettingsDescription" xml:space="preserve">
-    <value>Auto save settings on exit. If not set default settings will be used next time.</value>
+    <value>Автоматично зберігати налаштування при виході. Будуть використані налаштування за замовчуванням, якщо не встановлено.</value>
     <comment>Auto save settings on exit. If not set default settings will be used next time.</comment>
   </data>
   <data name="Preferences_ClassicLookName" xml:space="preserve">
-    <value>Classic Look</value>
+    <value>Класичній вигляд</value>
     <comment>Classic Look</comment>
   </data>
   <data name="Preferences_ClassicLookDescription" xml:space="preserve">
-    <value>Use application system look.</value>
+    <value>Використовувати системний вигляд програми.</value>
     <comment>Use application system look.</comment>
   </data>
   <data name="Preferences_ShowElapsedTimeAndStatisticsName" xml:space="preserve">
-    <value>Show Elapsed Time and Statistics</value>
+    <value>Статистика перетворення</value>
     <comment>Show Elapsed Time and Statistics</comment>
   </data>
   <data name="Preferences_ShowElapsedTimeAndStatisticsDescription" xml:space="preserve">
-    <value>Show time elapsed by last operation and conversion statistics in application title.</value>
+    <value>Показувати статистику останнього перетворення у заголовці програми.</value>
     <comment>Show time elapsed by last operation and conversion statistics in application title.</comment>
   </data>
   <data name="Preferences_FlashWhenCompletedName" xml:space="preserve">
-    <value>Flash When Completed</value>
+    <value>Візуальна індікация</value>
     <comment>Flash When Completed</comment>
   </data>
   <data name="Preferences_FlashWhenCompletedDescription" xml:space="preserve">
-    <value>Flash application window when conversion is completed.</value>
+    <value>Візуальна індікация вікна програми після завершення перетворення.</value>
     <comment>Flash application window when conversion is completed.</comment>
   </data>
   <data name="Preferences_ConfirmOnAfterConversionName" xml:space="preserve">
-    <value>Confirm After Conversion</value>
+    <value>Підтвердження після перетворення</value>
     <comment>Confirm After Conversion</comment>
   </data>
   <data name="Preferences_ConfirmOnAfterConversionDescription" xml:space="preserve">
-    <value>Ask confirmation on after conversion action.</value>
+    <value>Запрашувати підтвердження на дію після перетворення.</value>
     <comment>Ask confirmation on after conversion action.</comment>
   </data>
   <data name="Preferences_ConfirmOnDeleteName" xml:space="preserve">
-    <value>Confirm Delete</value>
+    <value>Підтвердження видалення зображень</value>
     <comment>Confirm Delete</comment>
   </data>
   <data name="Preferences_ConfirmOnDeleteDescription" xml:space="preserve">
-    <value>Ask confirmation on images deletion.</value>
+    <value>Запрашувати підтвердження на видалення зображень.</value>
     <comment>Ask confirmation on images deletion.</comment>
   </data>
   <data name="Preferences_ConfirmOnExitName" xml:space="preserve">
-    <value>Confirm Exit</value>
+    <value>Підтвердження завершення програми</value>
     <comment>Confirm Exit</comment>
   </data>
   <data name="Preferences_ConfirmOnExitDescription" xml:space="preserve">
-    <value>Ask confirmation on application exit if conversion is in progress.</value>
+    <value>Запрашувати підтвердження на завершення програми якщо перетворення ще не завершено.</value>
     <comment>Ask confirmation on application exit if conversion is in progress.</comment>
   </data>
   <data name="Preferences_ConfirmOnStopName" xml:space="preserve">
-    <value>Confirm Stop Conversion</value>
+    <value>Підтвердження зупинки перетворення</value>
     <comment>Confirm Stop Conversion</comment>
   </data>
   <data name="Preferences_ConfirmOnStopDescription" xml:space="preserve">
-    <value>Ask confirmation on conversion stop.</value>
+    <value>Запрашувати підтвердження на зупинку перетворення.</value>
     <comment>Ask confirmation on conversion stop.</comment>
   </data>
   <data name="Preferences_AlwaysResumeName" xml:space="preserve">
-    <value>Always Resume</value>
+    <value>Завжди продовжувати</value>
     <comment>Always Resume</comment>
   </data>
   <data name="Preferences_AlwaysResumeDescription" xml:space="preserve">
-    <value>Always resume last conversion if applicable instead of starting new one.</value>
+    <value>Завжди продовжувати поточне перетворення замість початку нового, якщо це можливо.</value>
     <comment>Always resume last conversion if applicable instead of starting new one.</comment>
   </data>
   <data name="Preferences_SuggestResumeName" xml:space="preserve">
-    <value>Suggest Resume</value>
+    <value>Пропонувати продовження</value>
     <comment>Suggest Resume</comment>
   </data>
   <data name="Preferences_SuggestResumeDescription" xml:space="preserve">
-    <value>Suggest to resume last conversion if applicable instead of starting new one.</value>
+    <value>Пропонувати продовжувати поточне перетворення замість початку нового, якщо це можливо.</value>
     <comment>Suggest to resume last conversion if applicable instead of starting new one.</comment>
   </data>
   <data name="Preferences_ShortenExtensionName" xml:space="preserve">
-    <value>Shorten Image Extension</value>
+    <value>Короткі розширення імен зображень</value>
     <comment>Shorten Image Extension</comment>
   </data>
   <data name="Preferences_ShortenExtensionDescription" xml:space="preserve">
-    <value>Shortens image extension down to three characters.</value>
+    <value>Використовувати короткі розширення імен зображень довжиною не більше трьох символів.</value>
     <comment>Shortens image extension down to three characters.</comment>
   </data>
   <data name="Preferences_CheckForUpdatesName" xml:space="preserve">
-    <value>Check for Updates</value>
+    <value>Перевіряти оновлення</value>
     <comment>Check for Updates</comment>
   </data>
   <data name="Preferences_CheckForUpdatesDescription" xml:space="preserve">
-    <value>Check for updates interval.</value>
+    <value>Період перевірки оновлень.</value>
     <comment>Check for updates interval.</comment>
   </data>
   <data name="Preferences_GeneralCategory" xml:space="preserve">
@@ -758,15 +706,15 @@ What's new in version {0}
     <comment>&#9;&#9;&#9;Interface</comment>
   </data>
   <data name="Preferences_ConversionCategory" xml:space="preserve">
-    <value>&#9;&#9;Conversion</value>
+    <value>&#9;&#9;Перетворення</value>
     <comment>&#9;&#9;Conversion</comment>
   </data>
   <data name="Preferences_ConfirmationsCategory" xml:space="preserve">
-    <value>&#9;Confirmations</value>
+    <value>&#9;Підтвердження</value>
     <comment>&#9;Confirmations</comment>
   </data>
   <data name="Preferences_UpdatesCategory" xml:space="preserve">
-    <value>Updates</value>
+    <value>Оновлення</value>
     <comment>Updates</comment>
   </data>
   <data name="CheckInterval_NeverValue" xml:space="preserve">
@@ -782,7 +730,7 @@ What's new in version {0}
     <comment>Monthly</comment>
   </data>
   <data name="PropertyGrid_ResetItem" xml:space="preserve">
-    <value>&amp;Відкотити {0}</value>
+    <value>&amp;Скинути {0}</value>
     <comment>&amp;Reset {0}</comment>
   </data>
   <data name="PropertyGrid_CloseItem" xml:space="preserve">

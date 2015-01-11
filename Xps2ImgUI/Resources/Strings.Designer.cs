@@ -187,7 +187,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \n\n● Cancel or Esc reverts to previous valid value.\n● OK returns to value editing..
+        ///   Looks up a localized string similar to \n\n● Cancel reverts to previous valid value.\n● OK returns to value editing..
         /// </summary>
         internal static string CancelToUsePreviousValidValue {
             get {
@@ -457,15 +457,6 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All Files (*.*)|*.*.
-        /// </summary>
-        internal static string FilterAllFiles {
-            get {
-                return ResourceManager.GetString("FilterAllFiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to XPS2Img Files (*.x2i)|*.x2i|.
         /// </summary>
         internal static string FilterXPS2ImgFiles {
@@ -475,7 +466,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Going to {0} in {1} second{2}....
+        ///   Looks up a localized string similar to {0} in {1}....
         /// </summary>
         internal static string GoingToActionInFormat {
             get {
@@ -696,15 +687,6 @@ namespace Xps2ImgUI.Resources {
         internal static string ParameterIsRequired {
             get {
                 return ResourceManager.GetString("ParameterIsRequired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to s.
-        /// </summary>
-        internal static string PluralFormS {
-            get {
-                return ResourceManager.GetString("PluralFormS", resourceCulture);
             }
         }
         
