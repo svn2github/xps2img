@@ -378,7 +378,7 @@
     <comment>&amp;Remember choice and do not ask again</comment>
   </data>
   <data name="CheckForUpdates" xml:space="preserve">
-    <value>Перевірити &amp;оновлення</value>
+    <value>Перевірити наявність &amp;оновлень</value>
     <comment>Check for &amp;Updates</comment>
   </data>
   <data name="UpdateNoNewVersionAvailable" xml:space="preserve">
@@ -386,15 +386,15 @@
     <comment>There is no new version available at this time.</comment>
   </data>
   <data name="UpdatesCheckFailedWarning" xml:space="preserve">
-    <value>Перевірка оновлень не може бути виконана. Буде відкрито Веб-сторінку програми.</value>
+    <value>Перевірка наявності оновлень не може бути виконана. Буде відкрито Веб-сторінку програми.</value>
     <comment>Check for updates failed. Application Web site will be opened.</comment>
   </data>
   <data name="UpdatesCheckFailed" xml:space="preserve">
-    <value>Помилка перевірки оновлення</value>
+    <value>Помилка перевірки наявность оновлень</value>
     <comment>Updates Check Failed</comment>
   </data>
   <data name="WouldYouLikeToCheckForUpdatesManually" xml:space="preserve">
-    <value>Чи ви бажаєте перевірити оновлення вручну?</value>
+    <value>Чи ви бажаєте перевірити наявність оновлень вручну?</value>
     <comment>Would you like to check for updates manually?</comment>
   </data>
   <data name="YesCheckForUpdatesManually" xml:space="preserve">
@@ -484,7 +484,7 @@
   <data name="WhatsNewFormat" xml:space="preserve">
     <value>
 
-Що нового у {0}
+Що нового у оновленні {0}
 
 </value>
     <comment>What's new in version {0}</comment>
@@ -562,15 +562,15 @@
     <comment>Close</comment>
   </data>
   <data name="HelpAbout_CheckForUpdatesLinkLabel" xml:space="preserve">
-    <value>Перевірити оновлення</value>
+    <value>Перевірити наявність оновлень</value>
     <comment>Check for Updates</comment>
   </data>
   <data name="HelpAbout_HistoryLinkLabel" xml:space="preserve">
-    <value>Історія оновлень</value>
+    <value>Історія оновлень (Англійскою)</value>
     <comment>View Revision History</comment>
   </data>
   <data name="HelpAbout_SiteLinkLabel" xml:space="preserve">
-    <value>Переглянути Веб-сторінку</value>
+    <value>Переглянути Веб-сторінку (Англійскою)</value>
     <comment>Visit Web Site</comment>
   </data>
   <data name="HelpAbout_Title" xml:space="preserve">
@@ -690,11 +690,11 @@
     <comment>Shortens image extension down to three characters.</comment>
   </data>
   <data name="Preferences_CheckForUpdatesName" xml:space="preserve">
-    <value>Перевіряти оновлення</value>
+    <value>Перевіряти наявність оновлень</value>
     <comment>Check for Updates</comment>
   </data>
   <data name="Preferences_CheckForUpdatesDescription" xml:space="preserve">
-    <value>Період перевірки оновлень.</value>
+    <value>Період перевірки наявності оновлень.</value>
     <comment>Check for updates interval.</comment>
   </data>
   <data name="Preferences_GeneralCategory" xml:space="preserve">
