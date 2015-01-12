@@ -162,7 +162,7 @@ namespace Xps2ImgUI
             }
         }
 
-        private readonly string[] _forceRefreshForProperties = { Options.Properties.FileType, Options.Properties.PostAction };
+        private readonly string[] _forceRefreshForProperties = { Options.Properties.FileType, Options.Properties.PostAction, Options.Properties.UseFileName };
         
         private void SettingsPropertyGridPropertyValueChanged(object sender, PropertyValueChangedEventArgs e)
         {

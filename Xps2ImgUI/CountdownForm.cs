@@ -83,7 +83,7 @@ namespace Xps2ImgUI
 
             countdownTimer.Stop();
 
-            textLabel.Text = String.Format(Resources.Strings.PressButtonToProceedFormat, OKText.Replace(HotkeyMarker, String.Empty), _headerText.ToLowerInvariant());
+            textLabel.Text = String.Format(Resources.Strings.PressToProceedFormat, OKText.Replace(HotkeyMarker, String.Empty), _headerText.ToLowerInvariant());
 
             countdownProgressBar.Visible = false;
         }

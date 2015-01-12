@@ -1006,11 +1006,11 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Press {0} button to {1}..
+        ///   Looks up a localized string similar to Press {0} to {1}..
         /// </summary>
-        internal static string PressButtonToProceedFormat {
+        internal static string PressToProceedFormat {
             get {
-                return ResourceManager.GetString("PressButtonToProceedFormat", resourceCulture);
+                return ResourceManager.GetString("PressToProceedFormat", resourceCulture);
             }
         }
         

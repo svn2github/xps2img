@@ -30,7 +30,7 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
 
             TypeConverter typeConverter = null;
 
-            if (!includeFiltered)
+            if (!optionAttribute.AlwaysFormat && !includeFiltered)
             {
                 var dynamicPropertyFilterAttribute = (DynamicPropertyFilterAttribute)Attribute.GetCustomAttribute(propertyInfo, typeof(DynamicPropertyFilterAttribute));
                 if (dynamicPropertyFilterAttribute != null)

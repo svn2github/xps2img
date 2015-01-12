@@ -14,6 +14,7 @@ namespace Xps2Img.Shared.CommandLine
                 internal const string CpuAffinity           = "CpuAffinity";
                 internal const string IgnoreExisting        = "IgnoreExisting";
                 internal const string FileType              = "FileType";
+                internal const string UseFileName           = "UseFileName";
                 // ReSharper restore MemberHidesStaticFromOuterClass
             }
 
@@ -26,6 +27,7 @@ namespace Xps2Img.Shared.CommandLine
             public static readonly string TiffCompression   = "TiffCompression";
             public static readonly string RequiredSize      = "RequiredSize";
             public static readonly string Dpi               = "Dpi";
+            public static readonly string UseFileName       = Consts.UseFileName;
             public static readonly string ImageName         = "ImageName";
             public static readonly string FirstPageIndex    = "FirstPageIndex";
             public static readonly string PrelimsPrefix     = "PrelimsPrefix";

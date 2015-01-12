@@ -108,9 +108,19 @@ namespace Xps2Img.Shared.CommandLine
         public int? Dpi { get; set; }
 
         [Category(Categories.Options)]
+        [DefaultValue(false)]
+        [TypeConverter(typeof(YesNoConverter))]
+        public bool UseFileName
+        {
+            get { return ImageName == Names.Empty; }
+            set { ImageName = value ? Names.Empty : Defaults.ImageName; }
+        }
+
+        [Category(Categories.Options)]
         [Option(ShortOptions.ImageName, ValidationExpression = ValidationExpressions.ImageName)]
-        [UIOption(ShortOptions.ImageName)]
-        [DefaultValue(null)]
+        [UIOption(ShortOptions.ImageName, AlwaysFormat = true)]
+        [DefaultValue(Defaults.ImageName)]
+        [DynamicPropertyFilter(Properties.Consts.UseFileName, false)]
         [TypeConverter(typeof(CheckedImageNameTypeConverter))]
         public string ImageName { get; set; }
 

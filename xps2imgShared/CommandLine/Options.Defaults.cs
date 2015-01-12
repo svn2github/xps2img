@@ -14,6 +14,7 @@ namespace Xps2Img.Shared.CommandLine
             public const string PrelimsPrefix   = "$";
             public const int    Processors      = ProcessorsNumberTypeConverter.AutoValue;
             public const string ProcessPriority = ValidationExpressions.AutoValue;
+            public const string ImageName       = null;
         }
     }
 }

@@ -10,12 +10,13 @@ namespace Xps2Img.Shared.Attributes.Options
     public class BaseOptionAttribute : Attribute
     {
         public string Name { get; set; }
+        public bool AlwaysFormat { get; set; }
 
-        public readonly bool IsArgRequired;
-        public readonly bool IsRequired;
-        public readonly bool IsNamed;
-        public readonly bool IsUnnamed;
-        public readonly bool IsLongName;
+        public bool IsArgRequired { get; private set; }
+        public bool IsRequired { get; private set; }
+        public bool IsNamed { get; private set; }
+        public bool IsUnnamed { get; private set; }
+        public bool IsLongName { get; private set; }
 
         private PropertyInfo _propertyInfo;
 
