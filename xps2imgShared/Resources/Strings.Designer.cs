@@ -315,9 +315,19 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Image prefix
+        ///   Looks up a localized string similar to Image name prefix
         ///  numeric if omitted: 01.png
         ///  name of src file if empty (-i &quot;&quot;): src_file-01.png.
+        /// </summary>
+        public static string Options_ImageNameCmdDescription {
+            get {
+                return ResourceManager.GetString("Options_ImageNameCmdDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image name prefix
+        ///  numeric if omitted: 01.png.
         /// </summary>
         public static string Options_ImageNameDescription {
             get {
@@ -500,7 +510,7 @@ namespace Xps2Img.Shared.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to Desired image size (greater or equal 10)
-        ///  DPI will be ignored if image size is specified 
+        ///  DPI will be ignored if image size is specified
         ///Syntax:
         ///  width only:	2000
         ///  height only:	x1000
@@ -611,6 +621,24 @@ namespace Xps2Img.Shared.Resources {
         public static string Options_TiffCompressionName {
             get {
                 return ResourceManager.GetString("Options_TiffCompressionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use source file name as image prefix: src_file-01.png.
+        /// </summary>
+        public static string Options_UseFileNameAsImageNameDescription {
+            get {
+                return ResourceManager.GetString("Options_UseFileNameAsImageNameDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Name as Image Prefix.
+        /// </summary>
+        public static string Options_UseFileNameAsImageNameName {
+            get {
+                return ResourceManager.GetString("Options_UseFileNameAsImageNameName", resourceCulture);
             }
         }
         

@@ -9,34 +9,35 @@ namespace Xps2Img.Shared.CommandLine
             internal static class Consts
             {
                 // ReSharper disable MemberHidesStaticFromOuterClass
-                internal const string SrcFile               = "SrcFile";
-                internal const string ProcessPriority       = "ProcessPriority";
-                internal const string CpuAffinity           = "CpuAffinity";
-                internal const string IgnoreExisting        = "IgnoreExisting";
-                internal const string FileType              = "FileType";
-                internal const string UseFileName           = "UseFileName";
+                internal const string SrcFile                   = "SrcFile";
+                internal const string ProcessPriority           = "ProcessPriority";
+                internal const string CpuAffinity               = "CpuAffinity";
+                internal const string IgnoreExisting            = "IgnoreExisting";
+                internal const string FileType                  = "FileType";
+                internal const string UseFileNameAsImageName    = "UseFileNameAsImageName";
+                internal const string ImageName                 = "ImageName";
                 // ReSharper restore MemberHidesStaticFromOuterClass
             }
 
-            public static readonly string SrcFile           = Consts.SrcFile;
-            public static readonly string OutDir            = "OutDir";
-            public static readonly string PostAction        = "PostAction";
-            public static readonly string Pages             = "Pages";
-            public static readonly string FileType          = Consts.FileType;
-            public static readonly string JpegQuality       = "JpegQuality";
-            public static readonly string TiffCompression   = "TiffCompression";
-            public static readonly string RequiredSize      = "RequiredSize";
-            public static readonly string Dpi               = "Dpi";
-            public static readonly string UseFileName       = Consts.UseFileName;
-            public static readonly string ImageName         = "ImageName";
-            public static readonly string FirstPageIndex    = "FirstPageIndex";
-            public static readonly string PrelimsPrefix     = "PrelimsPrefix";
-            public static readonly string ProcessorsNumber  = "ProcessorsNumber";
-            public static readonly string ProcessPriority   = Consts.ProcessPriority;
-            public static readonly string CpuAffinity       = Consts.CpuAffinity;
-            public static readonly string IgnoreExisting    = Consts.IgnoreExisting;
-            public static readonly string IgnoreErrors      = "IgnoreErrors";
-            public static readonly string Test              = "Test";
+            public static readonly string SrcFile               = Consts.SrcFile;
+            public static readonly string OutDir                = "OutDir";
+            public static readonly string PostAction            = "PostAction";
+            public static readonly string Pages                 = "Pages";
+            public static readonly string FileType              = Consts.FileType;
+            public static readonly string JpegQuality           = "JpegQuality";
+            public static readonly string TiffCompression       = "TiffCompression";
+            public static readonly string RequiredSize          = "RequiredSize";
+            public static readonly string Dpi                   = "Dpi";
+            public static readonly string UseFileNameAsImageName= Consts.UseFileNameAsImageName;
+            public static readonly string ImageName             = Consts.ImageName;
+            public static readonly string FirstPageIndex        = "FirstPageIndex";
+            public static readonly string PrelimsPrefix         = "PrelimsPrefix";
+            public static readonly string ProcessorsNumber      = "ProcessorsNumber";
+            public static readonly string ProcessPriority       = Consts.ProcessPriority;
+            public static readonly string CpuAffinity           = Consts.CpuAffinity;
+            public static readonly string IgnoreExisting        = Consts.IgnoreExisting;
+            public static readonly string IgnoreErrors          = "IgnoreErrors";
+            public static readonly string Test                  = "Test";
         }
     }
 }

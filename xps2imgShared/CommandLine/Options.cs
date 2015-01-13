@@ -110,17 +110,17 @@ namespace Xps2Img.Shared.CommandLine
         [Category(Categories.Options)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
-        public bool UseFileName
+        public bool UseFileNameAsImageName
         {
             get { return ImageName == Names.Empty; }
             set { ImageName = value ? Names.Empty : Defaults.ImageName; }
         }
 
         [Category(Categories.Options)]
-        [Option(ShortOptions.ImageName, ValidationExpression = ValidationExpressions.ImageName)]
+        [Option(ShortOptions.ImageName, DescriptionKey = Properties.Consts.ImageName + DescriptionKeyPostfix, ValidationExpression = ValidationExpressions.ImageName)]
         [UIOption(ShortOptions.ImageName, AlwaysFormat = true)]
         [DefaultValue(Defaults.ImageName)]
-        [DynamicPropertyFilter(Properties.Consts.UseFileName, false)]
+        [DynamicPropertyFilter(Properties.Consts.UseFileNameAsImageName, false)]
         [TypeConverter(typeof(CheckedImageNameTypeConverter))]
         public string ImageName { get; set; }
 

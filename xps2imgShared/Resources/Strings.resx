@@ -282,8 +282,8 @@
     <comment>Image Size</comment>
   </data>
   <data name="Options_RequiredSizeDescription" xml:space="preserve">
-    <value>Desired image size (greater or equal 10)&#xA;  DPI will be ignored if image size is specified &#xA;Syntax:&#xA;  width only:&#x9;2000&#xA;  height only:&#x9;x1000&#xA;  both:&#x9;&#x9;2000x1000&#xA;&#x9;&#x9;width for landscape orientation&#xA;&#x9;&#x9;height for portrait orientation</value>
-    <comment>Desired image size (greater or equal 10)&#xA;  DPI will be ignored if image size is specified &#xA;Syntax:&#xA;  width only:&#x9;2000&#xA;  height only:&#x9;x1000&#xA;  both:&#x9;&#x9;2000x1000&#xA;&#x9;&#x9;width for landscape orientation&#xA;&#x9;&#x9;height for portrait orientation</comment>
+    <value>Desired image size (greater or equal 10)&#xA;  DPI will be ignored if image size is specified&#xA;Syntax:&#xA;  width only:&#x9;2000&#xA;  height only:&#x9;x1000&#xA;  both:&#x9;&#x9;2000x1000&#xA;&#x9;&#x9;width for landscape orientation&#xA;&#x9;&#x9;height for portrait orientation</value>
+    <comment>Desired image size (greater or equal 10)&#xA;  DPI will be ignored if image size is specified&#xA;Syntax:&#xA;  width only:&#x9;2000&#xA;  height only:&#x9;x1000&#xA;  both:&#x9;&#x9;2000x1000&#xA;&#x9;&#x9;width for landscape orientation&#xA;&#x9;&#x9;height for portrait orientation</comment>
   </data>
   <data name="Options_DpiName" xml:space="preserve">
     <value>Image DPI</value>
@@ -293,13 +293,25 @@
     <value>Image DPI (16-2350)&#xA;  DPI will be ignored if image size is specified</value>
     <comment>Image DPI (16-2350)&#xA;  DPI will be ignored if image size is specified</comment>
   </data>
+  <data name="Options_UseFileNameAsImageNameName" xml:space="preserve">
+    <value>File Name as Image Prefix</value>
+    <comment>File Name as Image Prefix</comment>
+  </data>
+  <data name="Options_UseFileNameAsImageNameDescription" xml:space="preserve">
+    <value>Use source file name as image prefix: src_file-01.png</value>
+    <comment>Use source file name as image prefix: src_file-01.png</comment>
+  </data>
   <data name="Options_ImageNameName" xml:space="preserve">
     <value>Image Prefix</value>
     <comment>Image Prefix</comment>
   </data>
   <data name="Options_ImageNameDescription" xml:space="preserve">
-    <value>Image prefix&#xA;  numeric if omitted: 01.png&#xA;  name of src file if empty (-i &quot;&quot;): src_file-01.png</value>
-    <comment>Image prefix&#xA;  numeric if omitted: 01.png&#xA;  name of src file if empty (-i &quot;&quot;): src_file-01.png</comment>
+    <value>Image name prefix&#xA;  numeric if omitted: 01.png</value>
+    <comment>Image name prefix&#xA;  numeric if omitted: 01.png</comment>
+  </data>
+  <data name="Options_ImageNameCmdDescription" xml:space="preserve">
+    <value>Image name prefix&#xA;  numeric if omitted: 01.png&#xA;  name of src file if empty (-i &quot;&quot;): src_file-01.png</value>
+    <comment>Image name prefix&#xA;  numeric if omitted: 01.png&#xA;  name of src file if empty (-i &quot;&quot;): src_file-01.png</comment>
   </data>
   <data name="Options_FirstPageIndexName" xml:space="preserve">
     <value>First Page Index</value>
