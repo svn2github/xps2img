@@ -294,8 +294,8 @@
     <comment>Image DPI (16-2350)&#xA;  DPI will be ignored if image size is specified</comment>
   </data>
   <data name="Options_UseFileNameAsImageNameName" xml:space="preserve">
-    <value>File Name as Image Prefix</value>
-    <comment>File Name as Image Prefix</comment>
+    <value>File Name As Image Prefix</value>
+    <comment>File Name As Image Prefix</comment>
   </data>
   <data name="Options_UseFileNameAsImageNameDescription" xml:space="preserve">
     <value>Use source file name as image prefix: src_file-01.png</value>

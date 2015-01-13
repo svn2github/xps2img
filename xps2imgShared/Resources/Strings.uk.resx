@@ -294,7 +294,7 @@
   </data>
   <data name="Options_UseFileNameAsImageNameName" xml:space="preserve">
     <value>Ім'я файла як префікс імені зображення</value>
-    <comment>File Name as Image Prefix</comment>
+    <comment>File Name As Image Prefix</comment>
   </data>
   <data name="Options_UseFileNameAsImageNameDescription" xml:space="preserve">
     <value>Використовувати ім'я файла як префікс імені зображення: src_file-01.png</value>
