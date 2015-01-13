@@ -182,8 +182,8 @@
     <comment>Hibernate</comment>
   </data>
   <data name="PostAction_LogOffValue" xml:space="preserve">
-    <value>LogOff</value>
-    <comment>LogOff</comment>
+    <value>Log Off</value>
+    <comment>Log Off</comment>
   </data>
   <data name="PostAction_ExitValue" xml:space="preserve">
     <value>Exit</value>

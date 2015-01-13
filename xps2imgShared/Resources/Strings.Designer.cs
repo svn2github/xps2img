@@ -642,7 +642,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LogOff.
+        ///   Looks up a localized string similar to Log Off.
         /// </summary>
         public static string PostAction_LogOffValue {
             get {

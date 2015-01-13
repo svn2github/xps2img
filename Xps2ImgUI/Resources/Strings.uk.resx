@@ -509,9 +509,9 @@
     <value>Документ не має заданої кількості сторінок. Сторінка {0} є останньою.</value>
     <comment>Pages specified are out of document pages range. {0} is the last one.</comment>
   </data>
-  <data name="PressToProceedFormat" xml:space="preserve">
-    <value>Натисніть {0} щоб {1} негайно.</value>
-    <comment>Press {0} to {1}.</comment>
+  <data name="PressTheButtonFormat" xml:space="preserve">
+    <value>Натисніть кнопку щоб {0} негайно.</value>
+    <comment>Press the button to {0} immediately.</comment>
   </data>
   <data name="DoItNowFormat" xml:space="preserve">
     <value>{0} зараз!</value>

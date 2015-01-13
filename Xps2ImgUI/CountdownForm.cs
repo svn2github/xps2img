@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Windows.Forms;
 
+using Xps2Img.Shared.Utils;
+
 using Xps2ImgUI.Localization;
 using Xps2ImgUI.Utils.UI;
 
@@ -13,7 +15,7 @@ namespace Xps2ImgUI
         {
             InitializeComponent();
 
-            _headerText = headerText;
+            _headerText = headerText.ToLowerInvariant();
 
             countdownProgressBar.Maximum = countdownProgressBar.Value = countdownSeconds;
 
@@ -23,7 +25,7 @@ namespace Xps2ImgUI
         private void UpdateLabelText()
         {
             var value = countdownProgressBar.Value;
-            textLabel.Text = String.Format(Resources.Strings.GoingToActionInFormat, _headerText, value);
+            textLabel.Text = String.Format(Resources.Strings.GoingToActionInFormat, _headerText.ToUpperFirst(), value);
         }
 
         private readonly string _headerText;
@@ -61,7 +63,9 @@ namespace Xps2ImgUI
         {
             iconPictureBox.Image.Dispose();
             countdownTimer.Dispose();
+
             ManageEvents(false);
+
             base.OnClosed(e);
         }
 
@@ -83,7 +87,7 @@ namespace Xps2ImgUI
 
             countdownTimer.Stop();
 
-            textLabel.Text = String.Format(Resources.Strings.PressToProceedFormat, OKText.Replace(HotkeyMarker, String.Empty), _headerText.ToLowerInvariant());
+            textLabel.Text = String.Format(Resources.Strings.PressTheButtonFormat, _headerText);
 
             countdownProgressBar.Visible = false;
         }

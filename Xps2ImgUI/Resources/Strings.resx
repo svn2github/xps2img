@@ -509,9 +509,9 @@ What's new in version {0}
     <value>Pages specified are out of document pages range. {0} is the last one.</value>
     <comment>Pages specified are out of document pages range. {0} is the last one.</comment>
   </data>
-  <data name="PressToProceedFormat" xml:space="preserve">
-    <value>Press {0} to {1}.</value>
-    <comment>Press {0} to {1}.</comment>
+  <data name="PressTheButtonFormat" xml:space="preserve">
+    <value>Press the button to {0} immediately.</value>
+    <comment>Press the button to {0} immediately.</comment>
   </data>
   <data name="DoItNowFormat" xml:space="preserve">
     <value>{0} Now!</value>
