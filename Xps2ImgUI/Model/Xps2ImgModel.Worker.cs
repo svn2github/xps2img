@@ -38,7 +38,7 @@ namespace Xps2ImgUI.Model
             _progressStarted = false;
             _userCancelled = false;
 
-            _processExitCode = 0;
+            _processExitCode = ExitOK;
             _threadsLeft = 0;
             _pagesProcessed = 0;
 
@@ -156,13 +156,22 @@ namespace Xps2ImgUI.Model
 
         private void WaitAllWorkers(bool checkExitCode)
         {
+            Func<bool> isError = () => checkExitCode && ExitCode != ExitOK;
+            Func<Exception> getException = () => new Exception(Resources.Strings.ProcessorHasTerminated);
+
             while (Interlocked.CompareExchange(ref _threadsLeft, 0, 0) != 0)
             {
-                if (checkExitCode && ExitCode != 0)
+                if (isError())
                 {
-                    throw new Exception(Resources.Strings.ProcessorHasTerminated);
+                    throw getException();
                 }
+
                 Thread.Sleep(1000);
+            }
+
+            if (isError())
+            {
+                throw getException();
             }
 
             CanResume = IsStopPending;
@@ -173,11 +182,11 @@ namespace Xps2ImgUI.Model
             try
             {
                 process.WaitForExit();
-                if (process.ExitCode >= 0)
-                {
-                    ExitCode = process.ExitCode;
-                }
+
+                ExitCode = process.ExitCode;
+
                 Interlocked.Decrement(ref _threadsLeft);
+
                 FreeProcessResources(process);
             }
             // ReSharper disable EmptyGeneralCatchClause

@@ -16,7 +16,7 @@ namespace Xps2Img.Shared.CommandLine
             public const int UserCancelled      = 5;
 
             // Internals.
-            public const int InternalOK         = -1;
+            public const int InternalOK         = 0xDEADBEE;
         }
     }
 }

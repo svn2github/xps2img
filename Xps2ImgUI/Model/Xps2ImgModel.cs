@@ -205,10 +205,12 @@ namespace Xps2ImgUI.Model
             get { return IntervalUtils.FromBitArray(_errorPages); }
         }
 
+        private const int ExitOK = Xps2Img.Shared.CommandLine.CommandLine.ReturnCode.InternalOK;
+
         public int ExitCode
         {
             get { return Interlocked.CompareExchange(ref _processExitCode, 0, 0); }
-            set { Interlocked.CompareExchange(ref _processExitCode, value, 0); }
+            set { Interlocked.CompareExchange(ref _processExitCode, value, ExitOK); }
         }
 
         public event EventHandler<ConversionProgressEventArgs> OutputDataReceived;
