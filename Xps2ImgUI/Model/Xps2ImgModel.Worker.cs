@@ -156,23 +156,21 @@ namespace Xps2ImgUI.Model
 
         private void WaitAllWorkers(bool checkExitCode)
         {
-            Func<bool> isError = () => checkExitCode && ExitCode != ExitOK;
-            Func<Exception> getException = () => new Exception(Resources.Strings.ProcessorHasTerminated);
+            Action throwIfProcessFailed = () =>
+            {
+                if (checkExitCode && ExitCode != ExitOK)
+                {
+                    throw new Exception(Resources.Strings.ProcessorHasTerminated);
+                }
+            };
 
             while (Interlocked.CompareExchange(ref _threadsLeft, 0, 0) != 0)
             {
-                if (isError())
-                {
-                    throw getException();
-                }
-
+                throwIfProcessFailed();
                 Thread.Sleep(1000);
             }
 
-            if (isError())
-            {
-                throw getException();
-            }
+            throwIfProcessFailed();
 
             CanResume = IsStopPending;
         }
