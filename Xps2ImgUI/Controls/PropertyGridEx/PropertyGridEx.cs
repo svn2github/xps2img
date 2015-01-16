@@ -36,22 +36,18 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         private const string ExtendedCategory = "Extended";
 
+        private const BindingFlags InstanceNonPublic = BindingFlags.Instance | BindingFlags.NonPublic;
+
         public PropertyGridEx()
         {
-            const BindingFlags instanceNonPublic = BindingFlags.Instance | BindingFlags.NonPublic;
-
             var controls = Controls.OfType<Control>().ToArray();
 
             _toolStrip = (ToolStrip)controls.FirstOrDefault(c => c is ToolStrip);
             Debug.Assert(_toolStrip != null);
 
-            // ReSharper disable once PossibleNullReferenceException
             var toolStripType = _toolStrip.GetType();
 
-            _currentlyActiveTooltipItem = toolStripType.GetField("currentlyActiveTooltipItem", instanceNonPublic);
-            Debug.Assert(_currentlyActiveTooltipItem != null);
-
-            _updateToolTipMethodInfo = toolStripType.GetMethod("UpdateToolTip", instanceNonPublic);
+            _updateToolTipMethodInfo = toolStripType.GetMethod("UpdateToolTip", InstanceNonPublic);
             Debug.Assert(_updateToolTipMethodInfo != null);
 
             _docComment = controls.FirstOrDefault(c => c.GetType().Name == "DocComment");
@@ -63,7 +59,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             _docLinesPropertyInfo = docCommentType.GetProperty("Lines");
             _docFontPropertyInfo = docCommentType.GetProperty("Font");
 
-            var docUserSizedField = docCommentType.GetField("userSized", instanceNonPublic);
+            var docUserSizedField = docCommentType.GetField("userSized", InstanceNonPublic);
             if (docUserSizedField != null)
             {
                 docUserSizedField.SetValue(_docComment, true);
@@ -75,14 +71,14 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             // ReSharper disable once PossibleNullReferenceException
             var propertyGridViewType = _propertyGridView.GetType();
 
-            _propertyGridViewEdit = (TextBox)propertyGridViewType.GetProperty("Edit", instanceNonPublic).GetValue(_propertyGridView, null);
+            _propertyGridViewEdit = (TextBox)propertyGridViewType.GetProperty("Edit", InstanceNonPublic).GetValue(_propertyGridView, null);
             Debug.Assert(_propertyGridViewEdit != null);
 
             _propertyGridViewEnsurePendingChangesCommitted = propertyGridViewType.GetMethod("EnsurePendingChangesCommitted", BindingFlags.Instance | BindingFlags.Public);
             Debug.Assert(_propertyGridViewEnsurePendingChangesCommitted != null);
 
             // Add a custom service provider to give us control over the property value error dialog shown to the user.
-            var errorDialogField = propertyGridViewType.GetField("serviceProvider", instanceNonPublic);
+            var errorDialogField = propertyGridViewType.GetField("serviceProvider", InstanceNonPublic);
             if (errorDialogField != null)
             {
                 errorDialogField.SetValue(_propertyGridView, new PropertyGridExServiceProvider(this));
@@ -180,6 +176,8 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         public ToolStripSplitButton AddToolStripSplitButton(ToolStripSplitButton toolStripSplitButton, EventHandler eventHandler, params ToolStripButtonItem[] items)
         {
+            toolStripSplitButton.DropDownOpening += (sender, eventArgs) => UpdateToolTip(null);
+
             _toolStrip.Items.Add(toolStripSplitButton);
             toolStripSplitButton.ButtonClick += eventHandler;
 
@@ -331,7 +329,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         {
             if (SelectedObject != null)
             {
-                TypeDescriptor.AddAttributes(SelectedObject, new Attribute[] { new ReadOnlyAttribute(_readOnly) });
+                TypeDescriptor.AddAttributes(SelectedObject, new ReadOnlyAttribute(_readOnly));
                 Refresh();
             }
         }
@@ -410,7 +408,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             ContextMenuStrip.Items[CloseItemName].Text = CloseItemText;
 
             var resetMenuItem = ContextMenuStrip.Items[ResetItemName];
-            var label = SelectedGridItem.Label.Trim();
+            var label = (SelectedGridItem.Label ?? String.Empty).Trim();
 
             resetMenuItem.Text = String.Format(ResetItemText, label);
 
@@ -441,6 +439,11 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             }
 
             var propertyDescriptor = SelectedGridItem.PropertyDescriptor;
+
+            if (propertyDescriptor == null)
+            {
+                return;
+            }
 
             var oldValue = propertyDescriptor.GetValue(SelectedObject);
 
@@ -481,12 +484,18 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             Refresh();
         }
 
+        private void UpdateToolTip(object obj)
+        {
+            _updateToolTipMethodInfo.Invoke(_toolStrip, new[] { obj });
+        }
+
         public void UpdateToolStripToolTip()
         {
-            var oldValue = _currentlyActiveTooltipItem.GetValue(_toolStrip);
+            var oldValue = CurrentlyActiveTooltipItem.GetValue(_toolStrip);
 
-            _currentlyActiveTooltipItem.SetValue(_toolStrip, null);
-            _updateToolTipMethodInfo.Invoke(_toolStrip, new [] { oldValue });
+            CurrentlyActiveTooltipItem.SetValue(_toolStrip, null);
+
+            UpdateToolTip(oldValue);
         }
 
         public new object SelectedObject
@@ -551,9 +560,13 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         private readonly TextBox _propertyGridViewEdit;
         private readonly MethodInfo _propertyGridViewEnsurePendingChangesCommitted;
 
-        private readonly FieldInfo _currentlyActiveTooltipItem;
         private readonly MethodInfo _updateToolTipMethodInfo;
 
         private Color _backColorOriginal;
+
+        private FieldInfo CurrentlyActiveTooltipItem
+        {
+            get { return _toolStrip.GetType().GetField("currentlyActiveTooltipItem", InstanceNonPublic); }
+        }
     }
 }
