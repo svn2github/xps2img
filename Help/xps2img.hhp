@@ -41,6 +41,7 @@ IDH_JPEGQuality=xps2img.chm::/Files\Options.html#jpegquality
 IDH_TIFFCompression=xps2img.chm::/Files\Options.html#tiffcompression
 IDH_ImageSize=xps2img.chm::/Files\Options.html#requiredsize
 IDH_ImageDPI=xps2img.chm::/Files\Options.html#dpi
+IDH_FileNameAsImagePrefix=xps2img.chm::/Files\OptionsGUI.html#fileNameAsImagePrefix
 IDH_ImagePrefix=xps2img.chm::/Files\Options.html#imagename
 IDH_FirstPageIndex=xps2img.chm::/Files\Options.html#firstpageindex
 IDH_PreliminariesPrefix=xps2img.chm::/Files\Options.html#prelimsprefix
@@ -111,3 +112,4 @@ IDH_ApplicationLanguage=xps2img.chm::/Files\Preferences.html#applicationLanguage
 #define IDH_IgnoreExisting		1267
 #define IDH_IgnoreErrors		1268
 #define IDH_ApplicationLanguage		1269
+#define IDH_FileNameAsImagePrefix	1270

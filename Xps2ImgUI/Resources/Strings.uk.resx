@@ -586,7 +586,7 @@
     <comment>{0}% - Downloading Update</comment>
   </data>
   <data name="Preferences_ApplicationLanguageName" xml:space="preserve">
-    <value>Мова</value>
+    <value>Мова програми</value>
     <comment>Application Language</comment>
   </data>
   <data name="Preferences_ApplicationLanguageDescription" xml:space="preserve">

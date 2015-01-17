@@ -51,6 +51,7 @@ namespace Xps2ImgUI.Utils.UI
         private const string HelpTopicIgnoreExistingDisplayName = "1267";
         private const string HelpTopicIgnoreErrorsDisplayName   = "1268";
         private const string HelpTopicApplicationLanguage       = "1269";
+        private const string HelpTopicFileNameAsImagePrefix     = "1270";
 
         private static readonly Dictionary<string, string> CategoryToTopicMap = new Dictionary<string, string>
         {
@@ -69,24 +70,25 @@ namespace Xps2ImgUI.Utils.UI
         private static readonly Dictionary<string, string> PropertyToTopicMap = new Dictionary<string, string>
         {
             // Options.
-            { Options.Properties.SrcFile,            HelpTopicXpsFile },
-            { Options.Properties.OutDir,             HelpTopicOutputFolder },
-            { Options.Properties.PostAction,         HelpTopicPostConversionAction },
-            { Options.Properties.Pages,              HelpTopicPageNumbers },
-            { Options.Properties.FileType,           HelpTopicImageType },
-            { Options.Properties.JpegQuality,        HelpTopicJpegQuality },
-            { Options.Properties.TiffCompression,    HelpTopicTiffCompression },
-            { Options.Properties.RequiredSize,       HelpTopicImageSize },
-            { Options.Properties.Dpi,                HelpTopicImageDpi },
-            { Options.Properties.ImageName,          HelpTopicImagePrefix },
-            { Options.Properties.FirstPageIndex,     HelpTopicFirstPageIndex },
-            { Options.Properties.PrelimsPrefix,      HelpTopicPreliminariesPrefix },
-            { Options.Properties.ProcessorsNumber,   HelpTopicProcessors },
-            { Options.Properties.ProcessPriority,    HelpTopicProcessPriority },
-            { Options.Properties.CpuAffinity,        HelpTopicProcessAffinity },
-            { Options.Properties.IgnoreExisting,     HelpTopicIgnoreExistingDisplayName },
-            { Options.Properties.IgnoreErrors,       HelpTopicIgnoreErrorsDisplayName },
-            { Options.Properties.Test,               HelpTopicTestMode },
+            { Options.Properties.SrcFile,                   HelpTopicXpsFile },
+            { Options.Properties.OutDir,                    HelpTopicOutputFolder },
+            { Options.Properties.PostAction,                HelpTopicPostConversionAction },
+            { Options.Properties.Pages,                     HelpTopicPageNumbers },
+            { Options.Properties.FileType,                  HelpTopicImageType },
+            { Options.Properties.JpegQuality,               HelpTopicJpegQuality },
+            { Options.Properties.TiffCompression,           HelpTopicTiffCompression },
+            { Options.Properties.RequiredSize,              HelpTopicImageSize },
+            { Options.Properties.Dpi,                       HelpTopicImageDpi },
+            { Options.Properties.UseFileNameAsImageName,    HelpTopicFileNameAsImagePrefix },
+            { Options.Properties.ImageName,                 HelpTopicImagePrefix },
+            { Options.Properties.FirstPageIndex,            HelpTopicFirstPageIndex },
+            { Options.Properties.PrelimsPrefix,             HelpTopicPreliminariesPrefix },
+            { Options.Properties.ProcessorsNumber,          HelpTopicProcessors },
+            { Options.Properties.ProcessPriority,           HelpTopicProcessPriority },
+            { Options.Properties.CpuAffinity,               HelpTopicProcessAffinity },
+            { Options.Properties.IgnoreExisting,            HelpTopicIgnoreExistingDisplayName },
+            { Options.Properties.IgnoreErrors,              HelpTopicIgnoreErrorsDisplayName },
+            { Options.Properties.Test,                      HelpTopicTestMode },
 
             // Preferences.
             { Preferences.Properties.ApplicationLanguage,            HelpTopicApplicationLanguage },
