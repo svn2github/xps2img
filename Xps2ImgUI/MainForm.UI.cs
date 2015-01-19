@@ -34,6 +34,22 @@ namespace Xps2ImgUI
             convertButton.ContextMenuStrip = isRunning.Value ? null : convertContextMenuStrip;
         }
 
+        private void UpdateThumbButtons(bool? isRunning = null)
+        {
+            if (!Windows7Taskbar.Supported)
+            {
+                return;
+            }
+
+            _thumbButton.Tooltip = ConvertButtonCleanText;
+            if (isRunning.HasValue)
+            {
+                _thumbButton.Icon = isRunning.Value ? Resources.Icons.Stop : Resources.Icons.Play;
+            }
+
+            _thumbButtonManager.RefreshThumbButtons();
+        }
+
         private void UpdateRunningStatus(bool isRunning)
         {
             if (!isRunning)
@@ -43,13 +59,7 @@ namespace Xps2ImgUI
             }
 
             UpdateConvertButton(isRunning);
-
-            if (Windows7Taskbar.Supported)
-            {
-                _thumbButton.Tooltip = ConvertButtonCleanText;
-                _thumbButton.Icon = isRunning ? Resources.Icons.Stop : Resources.Icons.Play;
-                _thumbButtonManager.RefreshThumbButtons();
-            }
+            UpdateThumbButtons(isRunning);
 
             settingsPropertyGrid.ReadOnly = isRunning;
 

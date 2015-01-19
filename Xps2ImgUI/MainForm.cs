@@ -132,6 +132,7 @@ namespace Xps2ImgUI
 
             UpdateElapsedTime();
             UpdateConvertButton();
+            UpdateThumbButtons();
         }
 
         protected override void OnSizeChanged(EventArgs e)
