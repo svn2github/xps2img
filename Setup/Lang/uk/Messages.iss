@@ -5,7 +5,7 @@
 #define protected MessagesFile                          "compiler:Languages\Ukrainian.isl"
     
 #define protected Help                                  AppName + " Довідка (Англійською)"
-#define protected License                               AppName + " Ліцензія"
+#define protected License                               AppName + " Ліцензія (Англійською)"
 #define protected ViewHelp                              "Показати " + AppName + " довідку (Англійською)"
 #define protected Menu_WebSite                          "%1 в Інтернеті"
     

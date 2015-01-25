@@ -154,6 +154,7 @@
 <Run(filename=AppExe, flags=Utils_RemoveFlag(RunFlag_SkipIfSilent, Common_RunFlags), description=Utils_CmFormat("LaunchProgram", AppName))>
 <Run(filename=AppChm, flags=Common_RunFlags + RunFlag_ShellExec + RunFlag_Unchecked, description=Utils_CmFormat("ViewHelp", AppName))>
 
+<InstallDelete("{app}\*.url")>
 <InstallDelete("{group}", DeleteFlag_FilesAndOrDirs)>
 
 <Debug_ViewTranslation>
