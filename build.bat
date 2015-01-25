@@ -46,6 +46,7 @@ copy "%helpFolder%\xps2img.chm" "%outFolder%" /Y || goto ERROR
 
 @echo off
 if /i "%buildConfig%"=="Release" (
+	call "%mergeResources%" "%outFolder%\CommandLine.dll" || goto ERROR
 	call "%mergeResources%" "%outFolder%\xps2imgShared.dll" || goto ERROR
 	call "%mergeResources%" "%outFolder%\xps2imgUI.exe" || goto ERROR
 

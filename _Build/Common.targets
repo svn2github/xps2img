@@ -27,6 +27,6 @@
   <ReplaceFileText
     Filename="$(ProjectDir)Resources\Strings.Designer.cs"
     MatchExpression="global::System\.Resources\.ResourceManager\(.+typeof\(([^)]+)\)\.Assembly\)"
-    ReplacementText="Xps2Img.Shared.Localization.SingleAssemblyResourceManager(typeof($1))" />
+    ReplacementText="global::CommandLine.Localization.SingleAssemblyResourceManager(typeof($1))" />
 </Target>
 </Project>

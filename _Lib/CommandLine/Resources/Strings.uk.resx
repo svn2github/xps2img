@@ -119,7 +119,7 @@
   </resheader>
   <data name="Format_Alternatives" xml:space="preserve">
     <value>
-One of:
+Одне із:
   {0}</value>
     <comment>
 One of:
@@ -127,62 +127,41 @@ One of:
   </data>
   <data name="Format_DefaultValue" xml:space="preserve">
     <value>
-  {0} by default</value>
+  {0}, якщо не задано</value>
     <comment>
   {0} by default</comment>
   </data>
   <data name="Format_OptionalOptions" xml:space="preserve">
-    <value> [options]</value>
+    <value> [опції]</value>
     <comment> [options]</comment>
   </data>
   <data name="Format_Usage" xml:space="preserve">
-    <value>Usage: {0}</value>
+    <value>Використання: {0}</value>
     <comment>Usage: {0}</comment>
   </data>
   <data name="Message_MandatoryArgs" xml:space="preserve">
-    <value>Mandatory arguments to long options are mandatory for short options too.
+    <value>Обов'язкові аргументи для довгих опцій є обов'язковими також для коротких опцій.
 </value>
     <comment>Mandatory arguments to long options are mandatory for short options too.</comment>
   </data>
   <data name="Message_OptNotSpecified" xml:space="preserve">
-    <value>must be specified</value>
+    <value>повинно бути задано</value>
     <comment>must be specified</comment>
   </data>
   <data name="Validation_EnumValidator" xml:space="preserve">
-    <value>value is not in list</value>
+    <value>значення не належить до списку</value>
     <comment>value is not in list</comment>
   </data>
   <data name="Validation_IntValidator" xml:space="preserve">
-    <value>value should be between {0} and {1}</value>
+    <value>значення повинно бути між {0} та {1}</value>
     <comment>value should be between {0} and {1}</comment>
   </data>
   <data name="Validation_NoValidator" xml:space="preserve">
-    <value>UNEXPECTED: No validator found for validation expression</value>
+    <value>НЕОЧІКУВАННА ПОМИЛКА: Не можу створити валідатор для виразу</value>
     <comment>UNEXPECTED: No validator found for validation expression</comment>
   </data>
   <data name="Validation_RegexValidator" xml:space="preserve">
-    <value>value is not valid. Please refer help for details</value>
+    <value>неприпустиме значення. Перегляньте довідку, буть ласка</value>
     <comment>value is not valid. Please refer help for details</comment>
-  </data>
-  <data name="Format_ShortAndLongOpt" xml:space="preserve">
-    <value>{0}, {1}</value>
-    <comment>NON LOCALIZABLE</comment>
-  </data>
-  <data name="Format_AlternativesSeparator" xml:space="preserve">
-    <value>
-  </value>
-    <comment>NON LOCALIZABLE</comment>
-  </data>
-  <data name="Format_LongOpt" xml:space="preserve">
-    <value>{1}</value>
-    <comment>NON LOCALIZABLE</comment>
-  </data>
-  <data name="Message_OptPadLeft" xml:space="preserve">
-    <value>  </value>
-    <comment>NON LOCALIZABLE</comment>
-  </data>
-  <data name="Format_ShortOptionalAndLongOpt" xml:space="preserve">
-    <value>{0}{2}, {1}</value>
-    <comment>NON LOCALIZABLE</comment>
   </data>
 </root>

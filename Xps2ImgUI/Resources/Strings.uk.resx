@@ -258,7 +258,7 @@
     <comment>Would you like to resume last conversion instead of starting new one?</comment>
   </data>
   <data name="CancelToUsePreviousValidValue" xml:space="preserve">
-    <value>\n\n● Відміна встановить попередне значення.\n● &quot;OK&quot; продовжить редагування.</value>
+    <value>\n\n● Скасувати встановить попередне значення.\n● OK продовжить редагування.</value>
     <comment>\n\n● Cancel reverts to previous valid value.\n● OK returns to value editing.</comment>
   </data>
   <data name="AutoSaveSettings" xml:space="preserve">
@@ -266,7 +266,7 @@
     <comment>A&amp;uto Save Settings</comment>
   </data>
   <data name="ValidationErrorFormat" xml:space="preserve">
-    <value>Помилка валідації {0}</value>
+    <value>{0} - помилка валідації</value>
     <comment>{0} Validation Error</comment>
   </data>
   <data name="ValueEdit" xml:space="preserve">

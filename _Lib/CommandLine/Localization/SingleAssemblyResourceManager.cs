@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Linq;
 using System.Collections;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Resources;
 
-namespace Xps2Img.Shared.Localization
+namespace CommandLine.Localization
 {
     // http://stackoverflow.com/questions/1952638/single-assembly-multi-language-windows-forms-deployment-ilmerge-and-satellite-a
     public class SingleAssemblyResourceManager : ResourceManager

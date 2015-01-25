@@ -88,7 +88,6 @@
     <Compile Include="Localization\LocalizableTypeDescriptionProvider.cs" />
     <Compile Include="Localization\LocalizableTypeDescriptionProviderInstaller.cs" />
     <Compile Include="Localization\LocalizableTypeDescriptor.cs" />
-    <Compile Include="Localization\SingleAssemblyResourceManager.cs" />
     <Compile Include="Properties\ProjectAssemblyInfo.cs" />
     <Compile Include="TypeConverters\CheckedFirstPageIndexTypeConverter.cs" />
     <Compile Include="TypeConverters\FilterableEnumConverter.cs" />

@@ -39,7 +39,7 @@ namespace Xps2Img.Shared.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new Xps2Img.Shared.Localization.SingleAssemblyResourceManager(typeof(Strings));
+                    global::System.Resources.ResourceManager temp = new global::CommandLine.Localization.SingleAssemblyResourceManager(typeof(Strings));
                     resourceMan = temp;
                 }
                 return resourceMan;
