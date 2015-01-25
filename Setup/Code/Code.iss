@@ -111,13 +111,7 @@ const AppSettingsFileTemplate = '<?xml version="1.0"?>' + #13#10 +
 '  </Preferences>' + #13#10 +
 '</Settings>';
 
-function AppLanguageName : String;
-begin
-  Result := 'English';
-  case ExpandConstant('{language}') of
-    'uk': Result := 'Ukrainian';
-  end;
-end;
+function AppLanguageName : String; forward;
 
 procedure CreateAppSettingsFile(const file: String);
 begin

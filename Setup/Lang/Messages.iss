@@ -1,5 +1,11 @@
 #define private LicenseFileLocalized    "Docs\" + ActiveLanguage + "\license.rtf"
 
+#ifndef LanguageSelector
+  #define public LanguageSelector
+#endif
+
+#define public LanguageSelector LanguageSelector + "    '" + ActiveLanguage + "': Result := '" + ActiveLanguageName + "';"
+
 <Language(ActiveLanguage, MessagesFile, LicenseFileLocalized)>
 
 <LocalizedCustomMessage(ActiveLanguage, "Help",               Help)>

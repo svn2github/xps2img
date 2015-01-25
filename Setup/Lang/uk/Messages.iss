@@ -1,4 +1,7 @@
+; See Xps2ImgUI\Settings\Preferences.Localizations.cs for ActiveLanguageName
+
 #define protected ActiveLanguage                        "uk"
+#define protected ActiveLanguageName                    "Ukrainian"
 #define protected MessagesFile                          "compiler:Languages\Ukrainian.isl"
     
 #define protected Help                                  AppName + " Довідка (Англійською)"

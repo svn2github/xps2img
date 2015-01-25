@@ -83,9 +83,10 @@
 
 #define PortableMarkFile    "xps2imgUI.exe.portable"
 
-; Add new languages for AppLanguageName at Code\Code.iss
-#include "Lang\en\Messages.iss"
-#include "Lang\uk\Messages.iss"
+#include "Lang/en/Messages.iss"
+#include "Lang/uk/Messages.iss"
+
+#include "Code/GenCode.iss"
 
 <Message("BeveledLabel", VersionInfoCompany)>
 

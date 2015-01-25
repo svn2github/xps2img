@@ -1,4 +1,7 @@
+; See Xps2ImgUI\Settings\Preferences.Localizations.cs for ActiveLanguageName
+
 #define protected ActiveLanguage                        "en"
+#define protected ActiveLanguageName                    "English"
 #define protected MessagesFile                          "compiler:Default.isl"
 
 #define protected Help                                  AppName + " Help"
