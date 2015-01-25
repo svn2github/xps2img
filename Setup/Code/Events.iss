@@ -1,62 +1,5 @@
 [Code]
 
-var
-  SetupModePage: TInputOptionWizardPage;
-  NoIconsCheckValues: array [0..1] of Boolean;
-  GroupEditValues: array [0..1] of String;
-  TaskDesktopValues: array [0..1] of Boolean;
-  TaskExtensionValues: array [0..1] of Boolean;
-  TaskFirewallValues: array [0..1] of Boolean;
-  DirValues: array [0..1] of String;
-  TaskValuesInit: Boolean;
-  NoIconsCheckValuesInit: Boolean;
-  InstallModeCM: String;
-  UseCurrentDirCheckBox: TNewCheckBox;
-  PreviousDir: String;
-
-function ApplicationData: String;
-begin
-    Result := ExpandConstant(AddBackslash('{userappdata}') + '{#AppName}');
-end;
-
-function TasksList: TNewCheckListBox;
-begin
-  Result := WizardForm.TasksList;
-end;
-
-function GetTasksListIndex(message: String) : Integer;
-begin
-  Result := TasksList.Items.IndexOf(ExpandConstant('{cm:' + message + '}'));
-end;
-
-function TaskDesktopIndex: Integer;
-begin
-  Result := GetTasksListIndex('CreateDesktopIcon');
-end;
-
-function TaskExtensionIndex: Integer;
-begin
-  Result := GetTasksListIndex('Task_RegisterFileAssociations');
-end;
-
-function TaskFirewallIndex: Integer;
-begin
-  Result := GetTasksListIndex('Task_AddWindowsFirewallException');
-  TasksList.ItemEnabled[Result] := WindowsFirewall_IsConfigurable;
-end;
-
-function IsInstallableIndex: Integer;
-begin
-  Result := Convert_BooleanToInteger(IsInstallable);
-end;
-
-procedure UpdateTaskValues(IsInstallableBoolean: Boolean);
-begin
-  TaskDesktopValues[Convert_BooleanToInteger(IsInstallableBoolean)]   := TasksList.Checked[TaskDesktopIndex];
-  TaskExtensionValues[Convert_BooleanToInteger(IsInstallableBoolean)] := TasksList.Checked[TaskExtensionIndex];
-  TaskFirewallValues[Convert_BooleanToInteger(IsInstallableBoolean)]  := TasksList.Checked[TaskFirewallIndex] and TasksList.ItemEnabled[TaskFirewallIndex];
-end;
-
 function InitializeSetup: Boolean;
 var
   errorCode: Integer;
@@ -73,47 +16,6 @@ begin
       ShellExec('open', NETFW_Version35Uri, '', '', SW_SHOWNORMAL, ewNoWait, errorCode);
     Result := msgBoxResult = idCancel;
   end;
-end;
-
-const
-  IndexOfPortable = 0;
-  IndexOfInstall  = 1;
-  
-function UseCurrentDir: Boolean;
-begin
-  Result := UseCurrentDirCheckBox.Visible and UseCurrentDirCheckBox.Checked;
-end;
-  
-procedure UpdateUseCurrentDir;
-begin
-  WizardForm.DirEdit.Enabled := not UseCurrentDir;
-  WizardForm.DirBrowseButton.Enabled := WizardForm.DirEdit.Enabled;
-end;
-
-procedure OnUseCurrentDirCheckBoxClick(Sender: TObject);
-begin
-  if UseCurrentDir then
-  begin
-    PreviousDir := WizardForm.DirEdit.Text;
-    WizardForm.DirEdit.Text := ExpandConstant('{src}') + '\' + ExtractFileName(PreviousDir);
-  end
-  else
-  begin
-    WizardForm.DirEdit.Text := PreviousDir;
-  end;
-  UpdateUseCurrentDir;
-end;
-
-procedure AddUseCurrentDirCheckBox;
-begin
-  UseCurrentDirCheckBox := TNewCheckBox.Create(WizardForm);
-  
-  UseCurrentDirCheckBox.Parent := WizardForm.SelectDirPage;
-  UseCurrentDirCheckBox.Top := WizardForm.DirEdit.Top + WizardForm.DirEdit.Height + 8;
-  UseCurrentDirCheckBox.Width := WizardForm.Width;
-  UseCurrentDirCheckBox.Caption := ExpandConstant('{cm:Msg_InstallToCurrentDirectory}');
-  
-  UseCurrentDirCheckBox.OnClick := @OnUseCurrentDirCheckBoxClick;
 end;
 
 procedure InitializeWizard;
@@ -199,7 +101,7 @@ begin
   end; 
 end;
 
-#define FirewallProcessImageFileName  "ExpandConstant('" + AppExe + "')"
+#define private FirewallProcessImageFileName  "ExpandConstant('" + AppExe + "')"
 
 procedure CurStepChanged(CurStep: TSetupStep);
 begin
@@ -229,22 +131,7 @@ begin
    end;
 end;
 
-procedure UpdateSetupTypeData(CurPageID: Integer);
-begin
-  case CurPageID of
-    wpSelectDir:
-      DirValues[IsInstallableIndex] := WizardForm.DirEdit.Text;
-
-    wpSelectTasks:
-      UpdateTaskValues(IsInstallable);
-
-    wpSelectProgramGroup:
-    begin
-      NoIconsCheckValues[IsInstallableIndex] := WizardForm.NoIconsCheck.Checked;
-      GroupEditValues[IsInstallableIndex] := WizardForm.GroupEdit.Text;
-    end;
-  end;
-end;
+#undef FirewallProcessImageFileName
 
 function BackButtonClick(CurPageID: Integer): Boolean;
 begin
@@ -290,6 +177,20 @@ begin
   if MemoTasksInfo <> '' then S := S + CR + MemoTasksInfo;
  
   Result := S;
+end;
+
+procedure OnUseCurrentDirCheckBoxClick(Sender: TObject);
+begin
+  if UseCurrentDir then
+  begin
+    PreviousDir := WizardForm.DirEdit.Text;
+    WizardForm.DirEdit.Text := ExpandConstant('{src}') + '\' + ExtractFileName(PreviousDir);
+  end
+  else
+  begin
+    WizardForm.DirEdit.Text := PreviousDir;
+  end;
+  UpdateUseCurrentDir;
 end;
 
 [/Code]

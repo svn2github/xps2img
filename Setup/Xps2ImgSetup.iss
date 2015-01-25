@@ -26,6 +26,7 @@
 #define AppNamePart             "{app}\xps2img"
 #define AppExe                  AppNamePart + "UI.exe"
 #define AppChm                  AppNamePart + ".chm"
+#define AppSettingsFile         ChangeFileExt(AppExe, "settings")
 
 #define AppPublisherURL         "http://xps2img.sf.net"
 #define AppUpdatesURL           "http://sourceforge.net/projects/xps2img/files/Releases/"
@@ -71,6 +72,7 @@
 #include ISM_RootDir + "/Include/Extra/Code/NETFW.isi"
 
 #include "Code/Params.iss"
+#include "Code/Code.iss"
 #include "Code/Events.iss"
 
 #include ISM_RootDir + "/Include/IncludeAll.isi"
@@ -95,8 +97,15 @@
 <ApplicationFile("xps2img.exe.config")>
 <ApplicationFile("xps2imgUI.exe.config")>
 <ApplicationFile("xps2img.chm")>
+
 #define Active_Check    "IsPortable"
     <ApplicationFile(PortableMarkFile)>
+<Reset_ActiveCheck>
+
+#define Active_Check    "not FileExists('" + AppSettingsFile + "')"
+#define Active_AfterInstall    "CreateAppSettingsFile('" + AppSettingsFile + "')"
+    <FileStub(AppSettingsFile)>
+<Reset_ActiveAfterInstall>
 <Reset_ActiveCheck>
 
 <UninstallDelete(AddBackslash("{app}") + PortableMarkFile)>
@@ -142,5 +151,7 @@
 
 <Run(filename=AppExe, flags=Utils_RemoveFlag(RunFlag_SkipIfSilent, Common_RunFlags), description=Utils_CmFormat("LaunchProgram", AppName))>
 <Run(filename=AppChm, flags=Common_RunFlags + RunFlag_ShellExec + RunFlag_Unchecked, description=Utils_CmFormat("ViewHelp", AppName))>
+
+<InstallDelete("{group}", DeleteFlag_FilesAndOrDirs)>
 
 <Debug_ViewTranslation>
