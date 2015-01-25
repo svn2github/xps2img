@@ -26,7 +26,7 @@
 #define AppNamePart             "{app}\xps2img"
 #define AppExe                  AppNamePart + "UI.exe"
 #define AppChm                  AppNamePart + ".chm"
-#define AppSettingsFile         ChangeFileExt(AppExe, "settings")
+#define AppSettingsFile         "{code:AppSettingsFilePath}\" + ChangeFileExt(ExtractFileName(AppExe), "settings")
 
 #define AppPublisherURL         "http://xps2img.sf.net"
 #define AppUpdatesURL           "http://sourceforge.net/projects/xps2img/files/Releases/"
@@ -104,8 +104,8 @@
     <ApplicationFile(PortableMarkFile)>
 <Reset_ActiveCheck>
 
-#define Active_Check    "not FileExists('" + AppSettingsFile + "')"
-#define Active_AfterInstall    "CreateAppSettingsFile('" + AppSettingsFile + "')"
+#define Active_Check            "not FileExists(ExpandConstant('" + AppSettingsFile + "'))"
+#define Active_AfterInstall     "CreateAppSettingsFile('" + AppSettingsFile + "')"
     <FileStub(AppSettingsFile)>
 <Reset_ActiveAfterInstall>
 <Reset_ActiveCheck>

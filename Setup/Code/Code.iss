@@ -19,6 +19,14 @@ begin
     Result := ExpandConstant(AddBackslash('{userappdata}') + '{#AppName}');
 end;
 
+function AppSettingsFilePath(Param: String): String;
+begin
+  case IsPortable of
+    True:  Result := ExpandConstant('{app}');
+    False: Result := ApplicationData;
+  end;
+end;
+
 function TasksList: TNewCheckListBox;
 begin
   Result := WizardForm.TasksList;
