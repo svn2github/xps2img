@@ -79,7 +79,7 @@
 
 #define Common_RunFlags     RunFlag_NoWait + RunFlag_PostInstall + RunFlag_SkipIfSilent
 
-#define ApplicationFile(f)  Local[1]=BinariesPath + f, FileExists(Local[1]) ? File(Local[1]) : InstallDelete("{app}\" + f)
+#define ApplicationFile(f)  Local[0]=BinariesPath + f, FileExists(Local[0]) ? File(Local[0]) : InstallDelete("{app}\" + f)
 
 #define PortableMarkFile    "xps2imgUI.exe.portable"
 
