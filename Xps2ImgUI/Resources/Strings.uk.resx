@@ -178,7 +178,7 @@
     <comment>Reset &amp;Settings</comment>
   </data>
   <data name="CopyCommandLineToClipboard" xml:space="preserve">
-    <value>&amp;Копіювати командну строку до буфера обміну</value>
+    <value>&amp;Копіювати командний рядок до буфера обміну</value>
     <comment>&amp;Copy Command Line To Clipboard</comment>
   </data>
   <data name="CopyXPSFilePathToClipboard" xml:space="preserve">
@@ -242,15 +242,15 @@
     <comment>Conversion will be stopped.</comment>
   </data>
   <data name="CopyUICommandLineToClipboard" xml:space="preserve">
-    <value>К&amp;опіювати командну строку UI до буфера обміну</value>
+    <value>К&amp;опіювати UI командний рядок до буфера обміну</value>
     <comment>Copy &amp;UI Command Line To Clipboard</comment>
   </data>
   <data name="CopyUIBatchCommandLineToClipboard" xml:space="preserve">
-    <value>Копіювати UI &amp;пакетну командну строку до буфера обміну</value>
+    <value>Копіювати UI &amp;пакетний командний рядок до буфера обміну</value>
     <comment>Copy UI &amp;Batch Command Line To Clipboard</comment>
   </data>
   <data name="CopyUIBatchCommandLineWithoutErrorHandlingToClipboard" xml:space="preserve">
-    <value>Копіювати UI пакетну командну строку &amp;без обробки помилок до буфера обміну</value>
+    <value>Копіювати UI пакетний командний рядок &amp;без обробки помилок до буфера обміну</value>
     <comment>Copy UI Batch Command Line Without &amp;Error Handling To Clipboard</comment>
   </data>
   <data name="ResumeLastConversionSuggestion" xml:space="preserve">

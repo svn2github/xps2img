@@ -29,7 +29,7 @@ set buildOptions=/p:Configuration="%buildConfig%" /t:Rebuild "/l:FileLogger,Micr
 
 call :isInstalled %msbuild% "Microsoft .NET Framework 4" "http://www.microsoft.com/download/en/details.aspx?id=17851" || goto ERROR
 call :isInstalled %hhc% "HTML Help Workshop" "http://www.microsoft.com/download/en/details.aspx?id=21138" || goto ERROR
-call :isInstalled %isComp% "Inno Setup 5.4.3(a)" "http://www.jrsoftware.org/isdl.php" || goto ERROR
+call :isInstalled %isComp% "Inno Setup 5.5.5(u) or higher" "http://www.jrsoftware.org/isdl.php" || goto ERROR
 
 if not exist "%isFolder%\Include\ISM" (
 	echo Copying "%ismFolder%" to "%isFolder%\Include\ISM"...
