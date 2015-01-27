@@ -174,7 +174,7 @@
     <comment>Reset &amp;Parameters</comment>
   </data>
   <data name="Reset" xml:space="preserve">
-    <value>Повернути &amp;налаштування в початковий стан</value>
+    <value>Повернути параметри та &amp;опції в початковий стан</value>
     <comment>Reset &amp;Settings</comment>
   </data>
   <data name="CopyCommandLineToClipboard" xml:space="preserve">
@@ -198,11 +198,11 @@
     <comment>&amp;About...</comment>
   </data>
   <data name="LoadSettings" xml:space="preserve">
-    <value>Завантажити налаштування</value>
+    <value>Завантажити параметри та опції</value>
     <comment>Load settings</comment>
   </data>
   <data name="SaveSettings" xml:space="preserve">
-    <value>&amp;Зберегти налаштування...</value>
+    <value>&amp;Зберегти параметри та опції...</value>
     <comment>&amp;Save Settings...</comment>
   </data>
   <data name="FilterXPS2ImgFiles" xml:space="preserve">
@@ -230,11 +230,11 @@
     <comment>Reset to defaults</comment>
   </data>
   <data name="SaveSettingsTitle" xml:space="preserve">
-    <value>Зберегти налаштування</value>
+    <value>Зберегти параметри та опції</value>
     <comment>Save Settings</comment>
   </data>
   <data name="LoadSettingsTitle" xml:space="preserve">
-    <value>Завантажити налаштування</value>
+    <value>Завантажити параметри та опції</value>
     <comment>Load Settings</comment>
   </data>
   <data name="ConversionStopConfirmation" xml:space="preserve">
