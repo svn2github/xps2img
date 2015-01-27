@@ -254,11 +254,11 @@
     <comment>Copy UI Batch Command Line Without &amp;Error Handling To Clipboard</comment>
   </data>
   <data name="ResumeLastConversionSuggestion" xml:space="preserve">
-    <value>Чи бажаєте продовжити попередне перетворення замість початку нового?</value>
+    <value>Чи бажаєте продовжити попереднє перетворення замість початку нового?</value>
     <comment>Would you like to resume last conversion instead of starting new one?</comment>
   </data>
   <data name="CancelToUsePreviousValidValue" xml:space="preserve">
-    <value>\n\n● Скасувати встановить попередне значення.\n● OK продовжить редагування.</value>
+    <value>\n\n● Скасувати встановить попереднє значення.\n● OK продовжить редагування.</value>
     <comment>\n\n● Cancel reverts to previous valid value.\n● OK returns to value editing.</comment>
   </data>
   <data name="AutoSaveSettings" xml:space="preserve">
@@ -274,7 +274,7 @@
     <comment>&amp;Edit Value</comment>
   </data>
   <data name="ValueRevert" xml:space="preserve">
-    <value>&amp;Попередне значення</value>
+    <value>&amp;Попереднє значення</value>
     <comment>&amp;Revert Value</comment>
   </data>
   <data name="DeleteImagesConfirmation" xml:space="preserve">
