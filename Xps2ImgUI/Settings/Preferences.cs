@@ -10,7 +10,7 @@ using Xps2Img.Shared.TypeConverters;
 namespace Xps2ImgUI.Settings
 {
     [Serializable]
-    public partial class Preferences : IEquatable<Preferences>
+    public partial class Preferences
     {
         [ReadOnly(false)]
         [Category(Categories.General)]
@@ -120,10 +120,13 @@ namespace Xps2ImgUI.Settings
             LastCheckedForUpdates = lastCheckedForUpdates;
         }
 
-        public bool Equals(Preferences preferences)
+        public bool Equals(Preferences preferences, bool mask)
         {
-            return preferences != null && GetHashCode() == preferences.GetHashCode();
+            return preferences != null &&
+                   (((GetHashCode() ^ preferences.GetHashCode()) & (mask ? FieldsMask : -1)) == 0);
         }
+
+        private const int FieldsMask = ~(-1 << 14);
 
         private IEnumerable<bool> Fields
         {
@@ -139,12 +142,12 @@ namespace Xps2ImgUI.Settings
                 yield return ConfirmOnStop;
                 yield return AlwaysResume;
                 yield return SuggestResume;
-                yield return ShortenExtension;
                 yield return AutoCompleteFilenames;
                 yield return CheckForUpdates == CheckInterval.Never;
                 yield return CheckForUpdates == CheckInterval.Weekly;
                 yield return CheckForUpdates == CheckInterval.Monthly;
-                yield return ApplicationLanguage == Localizations.English;
+                yield return ShortenExtension; // 14th bit. Change FieldsMask if new fields are added before.
+                yield return ApplicationLanguage == Localizations.English; // Add more languages here.
                 yield return ApplicationLanguage == Localizations.Ukrainian;
             }
         }

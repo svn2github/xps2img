@@ -188,7 +188,7 @@ namespace Xps2ImgUI
 
         private void EnableReset()
         {
-            var enableReset = !Preferences.Default.Equals(Preferences);
+            var enableReset = !Preferences.Default.Equals(Preferences, _isRunning);
 
             _resetToolStripButton.Enabled = enableReset;
 

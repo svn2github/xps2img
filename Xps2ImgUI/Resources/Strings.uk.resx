@@ -126,7 +126,7 @@
     <comment>Hide command line</comment>
   </data>
   <data name="ResetOptions" xml:space="preserve">
-    <value>Скинути опції</value>
+    <value>Повернути опції в початковий стан</value>
     <comment>Reset options</comment>
   </data>
   <data name="Launch" xml:space="preserve">
@@ -170,11 +170,11 @@
     <comment>Launching xps2img... - {0}</comment>
   </data>
   <data name="ResetParameters" xml:space="preserve">
-    <value>Скинути &amp;параметри</value>
+    <value>Повернути &amp;параметри в початковий стан</value>
     <comment>Reset &amp;Parameters</comment>
   </data>
   <data name="Reset" xml:space="preserve">
-    <value>Скинути &amp;налаштування</value>
+    <value>Повернути &amp;налаштування в початковий стан</value>
     <comment>Reset &amp;Settings</comment>
   </data>
   <data name="CopyCommandLineToClipboard" xml:space="preserve">
@@ -226,7 +226,7 @@
     <comment>Preferences</comment>
   </data>
   <data name="ResetToDefaults" xml:space="preserve">
-    <value>Встановити всі за замовчуванням</value>
+    <value>Повернути налаштування в початковий стан</value>
     <comment>Reset to defaults</comment>
   </data>
   <data name="SaveSettingsTitle" xml:space="preserve">
@@ -274,7 +274,7 @@
     <comment>&amp;Edit Value</comment>
   </data>
   <data name="ValueRevert" xml:space="preserve">
-    <value>&amp;Скинути значення</value>
+    <value>&amp;Попередне значення</value>
     <comment>&amp;Revert Value</comment>
   </data>
   <data name="DeleteImagesConfirmation" xml:space="preserve">
@@ -606,7 +606,7 @@
     <comment>Auto Save Settings</comment>
   </data>
   <data name="Preferences_AutoSaveSettingsDescription" xml:space="preserve">
-    <value>Автоматично зберігати налаштування при виході. Будуть використані налаштування за замовчуванням, якщо не встановлено.</value>
+    <value>Автоматично зберігати налаштування при виході. В іншому випадку будуть використані початкові значення.</value>
     <comment>Auto save settings on exit. If not set default settings will be used next time.</comment>
   </data>
   <data name="Preferences_ClassicLookName" xml:space="preserve">
@@ -730,7 +730,7 @@
     <comment>Monthly</comment>
   </data>
   <data name="PropertyGrid_ResetItem" xml:space="preserve">
-    <value>&amp;Скинути {0}</value>
+    <value>&amp;Повернути {0} в початковий стан</value>
     <comment>&amp;Reset {0}</comment>
   </data>
   <data name="PropertyGrid_CloseItem" xml:space="preserve">

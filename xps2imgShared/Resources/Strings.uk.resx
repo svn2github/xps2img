@@ -369,7 +369,7 @@
     <comment>Ignore Existing Images</comment>
   </data>
   <data name="Options_IgnoreExistingDescription" xml:space="preserve">
-    <value>Не перезаписувати існуючи зображення. Опцію буде скинуто у випадку зміни якого-небудь з параметрів зображення</value>
+    <value>Не перезаписувати існуючи зображення. Опцію буде повернуто в початковий стан у випадку зміни якого-небудь з параметрів зображення</value>
     <comment>Do not overwrite existing images. Will be reset in case of any image related property change</comment>
   </data>
   <data name="Options_IgnoreExistingCmdDescription" xml:space="preserve">
