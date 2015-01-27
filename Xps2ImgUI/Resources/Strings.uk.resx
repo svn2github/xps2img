@@ -634,7 +634,7 @@
     <comment>Flash application window when conversion is completed.</comment>
   </data>
   <data name="Preferences_ConfirmOnAfterConversionName" xml:space="preserve">
-    <value>Підтвердження після перетворення</value>
+    <value>Підтвердження дії після перетворення</value>
     <comment>Confirm After Conversion</comment>
   </data>
   <data name="Preferences_ConfirmOnAfterConversionDescription" xml:space="preserve">
