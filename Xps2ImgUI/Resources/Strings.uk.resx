@@ -218,7 +218,7 @@
     <comment>Converted images will be deleted.</comment>
   </data>
   <data name="PressToProceedMessage" xml:space="preserve">
-    <value>Натисніть OK щоб продовжити.</value>
+    <value>Натисніть OK, щоб продовжити.</value>
     <comment>Press OK to proceed.</comment>
   </data>
   <data name="Preferences" xml:space="preserve">
@@ -510,7 +510,7 @@
     <comment>Pages specified are out of document pages range. {0} is the last one.</comment>
   </data>
   <data name="PressTheButtonFormat" xml:space="preserve">
-    <value>Натисніть кнопку щоб {0} негайно.</value>
+    <value>Натисніть кнопку, щоб {0} негайно.</value>
     <comment>Press the button to {0} immediately.</comment>
   </data>
   <data name="DoItNowFormat" xml:space="preserve">
