@@ -10,12 +10,11 @@ namespace Xps2Img.Shared.CommandLine
             {
                 // ReSharper disable MemberHidesStaticFromOuterClass
                 public const string FirstPageIndex = @"^\s*""?\s*(?<first>[1-9](\d{1,4})?)((\s+|(\s*-\s*))(?<second>[1-9](\d{1,4})?))?\s*""?\s*$";
-                public const string AutoValue      = @"(^\s*" + ValidationExpressions.AutoValue + @"\s*$)";
                 // ReSharper restore MemberHidesStaticFromOuterClass
             }
 
             public const string AutoValue      = "Auto";
-            public const string CpuAffinity    = "/" + Regexps.AutoValue + "|" + Interval.ValidationRegex0 + "/i";
+            public const string CpuAffinity    = "/" + Interval.ValidationRegex0 + "/i";
             public const string Dpi            = "16-2350";
             public const string FileName       = @"/^([^\x00-\x1F<>:""/\\|?*])*$/";
             public const string FirstPageIndex = "/" + Regexps.FirstPageIndex + "/";
