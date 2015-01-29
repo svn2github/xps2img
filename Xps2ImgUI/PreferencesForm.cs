@@ -22,13 +22,15 @@ namespace Xps2ImgUI
 
         private readonly ChangesTracker _changesTracker;
 
+        private readonly Preferences _originalPreferences;
+
         public PreferencesForm(Preferences preferences, bool isRunning, Action<Preferences> classicLookChanged = null, Action<Preferences> alwaysResumeChanged = null)
         {
             InitializeComponent();
 
             _isRunning = isRunning;
 
-            Preferences = preferences;
+            Preferences = _originalPreferences = preferences;
 
             _classicLookChanged = classicLookChanged ?? delegate { };
             _alwaysResumeChanged = alwaysResumeChanged ?? delegate { };
@@ -57,7 +59,7 @@ namespace Xps2ImgUI
             ReflectionUtils.SetReadOnly<Preferences>(_isRunning, Preferences.Properties.ShortenExtension);
             ReflectionUtils.SetReadOnly<Preferences>(_isRunning, Preferences.Properties.ApplicationLanguage);
 
-            EnableReset();
+            EnableButtons();
 
             base.OnLoad(e);
         }
@@ -90,7 +92,7 @@ namespace Xps2ImgUI
                 preferencesPropertyGrid.ResetByCategory(label, allowFilter);
             }
 
-            EnableReset();
+            EnableButtons();
 
             return true;
         }
@@ -132,6 +134,8 @@ namespace Xps2ImgUI
             preferencesPropertyGrid.Refresh();
 
             ((ToolStripButton)sender).Enabled = false;
+
+            EnableOK();
         }
 
         private void PreferencesPropertyGridPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
@@ -154,7 +158,7 @@ namespace Xps2ImgUI
                 ChangePropertyAlwaysResume();
             }
 
-            EnableReset();
+            EnableButtons();
         }
 
         protected void ChangePropertyGridLook()
@@ -186,9 +190,19 @@ namespace Xps2ImgUI
             private set { preferencesPropertyGrid.SelectedObject = value.DeepClone(); }
         }
 
+        private bool PreferencesDifferFrom(Preferences preferences)
+        {
+            return !Preferences.Equals(preferences, _isRunning);
+        }
+
+        private void EnableOK()
+        {
+            okButton.Enabled = PreferencesDifferFrom(_originalPreferences);
+        }
+
         private void EnableReset()
         {
-            var enableReset = !Preferences.Default.Equals(Preferences, _isRunning);
+            var enableReset = PreferencesDifferFrom(Preferences.Default);
 
             _resetToolStripButton.Enabled = enableReset;
 
@@ -196,6 +210,12 @@ namespace Xps2ImgUI
             {
                 preferencesPropertyGrid.Focus();
             }
+        }
+
+        private void EnableButtons()
+        {
+            EnableOK();
+            EnableReset();
         }
 
         private void ShowHelp()
