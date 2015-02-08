@@ -5,7 +5,9 @@
 #endif
 
 #ifndef BinariesPath
-  #define BinariesPath          "..\_bin\Release\"
+    #define BinariesPath          "..\_bin\Release\"
+#else
+    #define DEBUG
 #endif
 
 #define ISM_RootDir             AddBackslash(CompilerPath) + "Include/ISM"
@@ -99,6 +101,14 @@
 <ApplicationFile("xps2img.exe.config")>
 <ApplicationFile("xps2imgUI.exe.config")>
 <ApplicationFile("xps2img.chm")>
+
+#ifdef DEBUG
+    #define DebugFile(f)        File(BinariesPath + f)
+    #define DebugLangFile(l)    File(BinariesPath + l + "\*", "{app}\" + l)
+    
+    <DebugFile("*.pdb")>
+    <DebugLangFile("uk")>
+#endif
 
 #define Active_Check    "IsPortable"
     <ApplicationFile(PortableMarkFile)>
