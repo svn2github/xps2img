@@ -136,7 +136,7 @@ One of:
     <comment> [options]</comment>
   </data>
   <data name="Format_Usage" xml:space="preserve">
-    <value>Використання: {0}</value>
+    <value>Вживання: {0}</value>
     <comment>Usage: {0}</comment>
   </data>
   <data name="Message_MandatoryArgs" xml:space="preserve">
@@ -157,7 +157,7 @@ One of:
     <comment>value should be between {0} and {1}</comment>
   </data>
   <data name="Validation_NoValidator" xml:space="preserve">
-    <value>НЕОЧІКУВАННА ПОМИЛКА: Не можу створити валідатор для виразу</value>
+    <value>Неочикувана помилка: Неможливо створити валідатор для виразу</value>
     <comment>UNEXPECTED: No validator found for validation expression</comment>
   </data>
   <data name="Validation_RegexValidator" xml:space="preserve">

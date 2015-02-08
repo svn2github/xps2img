@@ -673,7 +673,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pages specified are out of document pages range. {0} is the last one..
+        ///   Looks up a localized string similar to Pages specified are out of document pages range. #{0} is the last one..
         /// </summary>
         internal static string PagesSpecifiedAreOutOfRangeFormat {
             get {
@@ -1326,15 +1326,6 @@ namespace Xps2ImgUI.Resources {
         internal static string ValueEdit {
             get {
                 return ResourceManager.GetString("ValueEdit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Value is not valid integer number.
-        /// </summary>
-        internal static string ValueIsNotValidIntegerNumber {
-            get {
-                return ResourceManager.GetString("ValueIsNotValidIntegerNumber", resourceCulture);
             }
         }
         

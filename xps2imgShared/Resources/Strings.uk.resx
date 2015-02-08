@@ -142,7 +142,7 @@
     <comment>Select Executable File</comment>
   </data>
   <data name="SpecifyImagesFolder" xml:space="preserve">
-    <value>Оберіть папку до якої потрібно зберегати зображення. У іншому випадку папка пойменована як документ буде створена за місцем його знаходження.</value>
+    <value>Оберіть папку, до якої потрібно зберігати зображення. Інакше папка буде створена за місцем знаходження документа та мати його ім'я.</value>
     <comment>Specify folder to store images. If not set new folder named as document will be created in folder where document is.</comment>
   </data>
   <data name="Auto" xml:space="preserve">
@@ -177,7 +177,7 @@
     <comment>Sleep</comment>
   </data>
   <data name="PostAction_HibernateValue" xml:space="preserve">
-    <value>Перейти до гибернації</value>
+    <value>Перейти до гібернації</value>
     <comment>Hibernate</comment>
   </data>
   <data name="PostAction_LogOffValue" xml:space="preserve">
@@ -221,11 +221,11 @@
     <comment>XPS File</comment>
   </data>
   <data name="Options_SrcFileDescription" xml:space="preserve">
-    <value>XPS документ на перетворення (обов'язково)</value>
+    <value>XPS документ до перетворення (обов'язково)</value>
     <comment>XPS file to process (required)</comment>
   </data>
   <data name="Options_SrcFileCmdDescription" xml:space="preserve">
-    <value>XPS документ на перетворення</value>
+    <value>XPS документ до перетворення</value>
     <comment>XPS file to process</comment>
   </data>
   <data name="Options_OutDirName" xml:space="preserve">
@@ -233,7 +233,7 @@
     <comment>Output Folder</comment>
   </data>
   <data name="Options_OutDirDescription" xml:space="preserve">
-    <value>Папка призначення&#xA;  нова папка пойменована як документ буде створена за місцем його знаходження, якщо не задано</value>
+    <value>Папка призначення&#xA;  папка буде створена за місцем знаходження документа та мати його ім'я, якщо не задано</value>
     <comment>Output folder&#xA;  new folder named as document will be created in folder where document is by default</comment>
   </data>
   <data name="Options_PostActionName" xml:space="preserve">
@@ -249,7 +249,7 @@
     <comment>Page Number(s)</comment>
   </data>
   <data name="Options_PagesDescription" xml:space="preserve">
-    <value>Номера сторінок&#xA;  всі сторінки, якщо не задано&#xA;Синтаксис:&#xA;  всі:&#x9;&#x9;1-&#xA;  одна:&#x9;&#x9;1&#xA;  декілька:&#x9;1,3&#xA;  діапазон:&#x9;1-10 or -10 or 10-&#xA;  комбіновано:&#x9;1,3-5,7-9,15-</value>
+    <value>Номера сторінок&#xA;  всі сторінки, якщо не задано&#xA;Синтаксис:&#xA;  всі:&#x9;&#x9;1-&#xA;  одна:&#x9;&#x9;1&#xA;  декілька:&#x9;1,3&#xA;  діапазон:&#x9;1-10 або -10 або 10-&#xA;  комбіновано:&#x9;1,3-5,7-9,15-</value>
     <comment>Page number(s)&#xA;  all pages by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;1-&#xA;  single:&#x9;1&#xA;  set:&#x9;&#x9;1,3&#xA;  range:&#x9;1-10 or -10 or 10-&#xA;  combined:&#x9;1,3-5,7-9,15-</comment>
   </data>
   <data name="Options_FileTypeName" xml:space="preserve">
@@ -281,7 +281,7 @@
     <comment>Image Size</comment>
   </data>
   <data name="Options_RequiredSizeDescription" xml:space="preserve">
-    <value>Бажанний розмір зображення. Повинен бути більше або дорівнювати 10&#xA;  DPI зображення ігнорується, якщо розмір зображення задано&#xA;Синтаксис:&#xA;  тільки ширина:&#x9;2000&#xA;  тільки висота:&#x9;x1000&#xA;  ширина та висота:&#x9;2000x1000&#xA;&#x9;&#x9;&#x9;ширина для краєвида&#xA;&#x9;&#x9;&#x9;висота для портретної орієнтації</value>
+    <value>Бажанний розмір зображення. Повинен бути більше або дорівнювати 10&#xA;  DPI зображення ігнорується, якщо розмір зображення задано&#xA;Синтаксис:&#xA;  тільки ширина:&#x9;2000&#xA;  тільки висота:&#x9;x1000&#xA;  ширина та висота:&#x9;2000x1000&#xA;&#x9;&#x9;&#x9;ширина - для краєвида&#xA;&#x9;&#x9;&#x9;висота - для портретної орієнтації</value>
     <comment>Desired image size (greater or equal 10)&#xA;  DPI will be ignored if image size is specified&#xA;Syntax:&#xA;  width only:&#x9;2000&#xA;  height only:&#x9;x1000&#xA;  both:&#x9;&#x9;2000x1000&#xA;&#x9;&#x9;width for landscape orientation&#xA;&#x9;&#x9;height for portrait orientation</comment>
   </data>
   <data name="Options_DpiName" xml:space="preserve">
@@ -329,7 +329,7 @@
     <comment>Preliminaries prefix. &lt;&gt;:&quot;/\|?* characters are not allowed</comment>
   </data>
   <data name="Options_ShortenExtensionDescription" xml:space="preserve">
-    <value>Використовувати короткі розширення для файлів зображень</value>
+    <value>Використовувати короткі розширення файлів зображень</value>
     <comment>Shorten image extension down to three characters</comment>
   </data>
   <data name="Options_ProcessorsNumberName" xml:space="preserve">
@@ -345,11 +345,11 @@
     <comment>Processors Priority</comment>
   </data>
   <data name="Options_ProcessPriorityDescription" xml:space="preserve">
-    <value>Пріоритети процесів перетворення&#xA;  Звичайно, якщо не задано</value>
+    <value>Пріоритет процесів перетворення&#xA;  Звичайно, якщо не задано</value>
     <comment>Document processors priority&#xA;  Normal by default</comment>
   </data>
   <data name="Options_ProcessPriorityCmdDescription" xml:space="preserve">
-    <value>Пріоритети процесів перетворення&#xA;  звичайно, якщо не задано</value>
+    <value>Пріоритет процесів перетворення&#xA;  звичайно, якщо не задано</value>
     <comment>Process priority&#xA;  normal by default</comment>
   </data>
   <data name="Options_CpuAffinityName" xml:space="preserve">
@@ -389,7 +389,7 @@
     <comment>Silent</comment>
   </data>
   <data name="Options_SilentDescription" xml:space="preserve">
-    <value>Робота без повідомлень (прогрес не буде показано)</value>
+    <value>Робота без повідомлень (хід перетворення не буде показано)</value>
     <comment>Silent mode (no progress will be shown)</comment>
   </data>
   <data name="Options_TestName" xml:space="preserve">
@@ -397,7 +397,7 @@
     <comment>Test Mode</comment>
   </data>
   <data name="Options_TestDescription" xml:space="preserve">
-    <value>Тестовий режим (без запису файлів)</value>
+    <value>Тестовий режим (без створення файлів)</value>
     <comment>Test mode (no files will be written)</comment>
   </data>
   <data name="Options_CleanDescription" xml:space="preserve">

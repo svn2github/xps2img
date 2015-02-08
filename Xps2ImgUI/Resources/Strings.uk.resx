@@ -134,7 +134,7 @@
     <comment>&amp;Convert</comment>
   </data>
   <data name="Stop" xml:space="preserve">
-    <value>С&amp;топ</value>
+    <value>&amp;Зупинити</value>
     <comment>&amp;Stop</comment>
   </data>
   <data name="Resume" xml:space="preserve">
@@ -186,7 +186,7 @@
     <comment>Copy XP&amp;S File Path To Clipboard</comment>
   </data>
   <data name="CopyImagesFolderPathToClipboard" xml:space="preserve">
-    <value>&amp;Копіювати шлях зображень до буфера обміну</value>
+    <value>&amp;Копіювати шлях папки зображень до буфера обміну</value>
     <comment>&amp;Copy Images Folder Path To Clipboard</comment>
   </data>
   <data name="Help" xml:space="preserve">
@@ -218,7 +218,7 @@
     <comment>Converted images will be deleted.</comment>
   </data>
   <data name="PressToProceedMessage" xml:space="preserve">
-    <value>Натисніть OK, щоб продовжити.</value>
+    <value>Натисніть OK щоб продовжити.</value>
     <comment>Press OK to proceed.</comment>
   </data>
   <data name="Preferences" xml:space="preserve">
@@ -254,11 +254,11 @@
     <comment>Copy UI Batch Command Line Without &amp;Error Handling To Clipboard</comment>
   </data>
   <data name="ResumeLastConversionSuggestion" xml:space="preserve">
-    <value>Чи бажаєте продовжити попереднє перетворення замість початку нового?</value>
+    <value>Чи ви бажаєте продовжити попереднє перетворення замість початку нового?</value>
     <comment>Would you like to resume last conversion instead of starting new one?</comment>
   </data>
   <data name="CancelToUsePreviousValidValue" xml:space="preserve">
-    <value>\n\n● Скасувати встановить попереднє значення.\n● OK продовжить редагування.</value>
+    <value>\n\n● Скасувати - встановить попереднє значення.\n● OK - продовжить редагування.</value>
     <comment>\n\n● Cancel reverts to previous valid value.\n● OK returns to value editing.</comment>
   </data>
   <data name="AutoSaveSettings" xml:space="preserve">
@@ -318,7 +318,7 @@
     <comment>&amp;Yes, Abort and Close</comment>
   </data>
   <data name="AlwaysConfirmAndDoNotAskAgain" xml:space="preserve">
-    <value>З&amp;авжди підтверджувати та більше не питати</value>
+    <value>З&amp;авжди підтверджувати та більше не запитувати</value>
     <comment>Al&amp;ways confirm and do not ask again</comment>
   </data>
   <data name="EditParameter" xml:space="preserve">
@@ -374,7 +374,7 @@
     <comment>No exception details present.</comment>
   </data>
   <data name="RememberChoiceAndDoNotAskAgain" xml:space="preserve">
-    <value>&amp;Запам'ятати вибір та більше не питати</value>
+    <value>&amp;Запам'ятати вибір та більше не запитувати</value>
     <comment>&amp;Remember choice and do not ask again</comment>
   </data>
   <data name="CheckForUpdates" xml:space="preserve">
@@ -449,10 +449,6 @@
     <value>&amp;Так, завантажити та оновити</value>
     <comment>&amp;Yes, Download and Update</comment>
   </data>
-  <data name="ValueIsNotValidIntegerNumber" xml:space="preserve">
-    <value>Значення не є дозволеним цілим числомnumber</value>
-    <comment>Value is not valid integer number</comment>
-  </data>
   <data name="AbbrevSeconds" xml:space="preserve">
     <value>сек</value>
     <comment>sec</comment>
@@ -506,11 +502,11 @@
     <comment>Document has no pages. Nothing to convert.</comment>
   </data>
   <data name="PagesSpecifiedAreOutOfRangeFormat" xml:space="preserve">
-    <value>Документ не має заданої кількості сторінок. Сторінка {0} є останньою.</value>
-    <comment>Pages specified are out of document pages range. {0} is the last one.</comment>
+    <value>Документ не має стільки сторінок. Сторінка №{0} є останньою.</value>
+    <comment>Pages specified are out of document pages range. #{0} is the last one.</comment>
   </data>
   <data name="PressTheButtonFormat" xml:space="preserve">
-    <value>Натисніть кнопку, щоб {0} негайно.</value>
+    <value>Натисніть кнопку щоб {0} негайно.</value>
     <comment>Press the button to {0} immediately.</comment>
   </data>
   <data name="DoItNowFormat" xml:space="preserve">
@@ -522,7 +518,7 @@
     <comment>{0} in {1}...</comment>
   </data>
   <data name="UpdatePageFailedStatus" xml:space="preserve">
-    <value>Перетворення сторінки #{0} не вдалося: {1}</value>
+    <value>Перетворення сторінки №{0} не вдалося: {1}</value>
     <comment>Page #{0} conversion failed: {1}</comment>
   </data>
   <data name="ConversionCompletedWithErrors" xml:space="preserve">
@@ -570,7 +566,7 @@
     <comment>View Revision History</comment>
   </data>
   <data name="HelpAbout_SiteLinkLabel" xml:space="preserve">
-    <value>Переглянути Веб-сторінку (Англійскою)</value>
+    <value>Переглянути Веб-сторінку програми (Англійскою)</value>
     <comment>Visit Web Site</comment>
   </data>
   <data name="HelpAbout_Title" xml:space="preserve">
@@ -594,7 +590,7 @@
     <comment>User interface language.</comment>
   </data>
   <data name="Preferences_AutoCompleteFilenamesName" xml:space="preserve">
-    <value>Підказка імен файлів</value>
+    <value>Підказувати імена файлів</value>
     <comment>Auto Complete Filenames</comment>
   </data>
   <data name="Preferences_AutoCompleteFilenamesDescription" xml:space="preserve">
@@ -606,7 +602,7 @@
     <comment>Auto Save Settings</comment>
   </data>
   <data name="Preferences_AutoSaveSettingsDescription" xml:space="preserve">
-    <value>Автоматично зберігати налаштування при виході. В іншому випадку будуть використані початкові значення.</value>
+    <value>Автоматично зберігати налаштування при виході з програми. Інакше будуть використані початкові значення у наступному.</value>
     <comment>Auto save settings on exit. If not set default settings will be used next time.</comment>
   </data>
   <data name="Preferences_ClassicLookName" xml:space="preserve">
@@ -614,11 +610,11 @@
     <comment>Classic Look</comment>
   </data>
   <data name="Preferences_ClassicLookDescription" xml:space="preserve">
-    <value>Використовувати системний вигляд програми.</value>
+    <value>Використовувати системний вигляд для програми.</value>
     <comment>Use application system look.</comment>
   </data>
   <data name="Preferences_ShowElapsedTimeAndStatisticsName" xml:space="preserve">
-    <value>Статистика перетворення</value>
+    <value>Показувати статистику перетворення</value>
     <comment>Show Elapsed Time and Statistics</comment>
   </data>
   <data name="Preferences_ShowElapsedTimeAndStatisticsDescription" xml:space="preserve">
@@ -626,11 +622,11 @@
     <comment>Show time elapsed by last operation and conversion statistics in application title.</comment>
   </data>
   <data name="Preferences_FlashWhenCompletedName" xml:space="preserve">
-    <value>Візуальна індікация</value>
+    <value>Візуальна індикация після перетворення</value>
     <comment>Flash When Completed</comment>
   </data>
   <data name="Preferences_FlashWhenCompletedDescription" xml:space="preserve">
-    <value>Візуальна індікация вікна програми після завершення перетворення.</value>
+    <value>Візуальна індикация вікна програми після завершення перетворення.</value>
     <comment>Flash application window when conversion is completed.</comment>
   </data>
   <data name="Preferences_ConfirmOnAfterConversionName" xml:space="preserve">
@@ -638,7 +634,7 @@
     <comment>Confirm After Conversion</comment>
   </data>
   <data name="Preferences_ConfirmOnAfterConversionDescription" xml:space="preserve">
-    <value>Запрашувати підтвердження на дію після перетворення.</value>
+    <value>Запитувати підтвердження дії після перетворення.</value>
     <comment>Ask confirmation on after conversion action.</comment>
   </data>
   <data name="Preferences_ConfirmOnDeleteName" xml:space="preserve">
@@ -646,15 +642,15 @@
     <comment>Confirm Delete</comment>
   </data>
   <data name="Preferences_ConfirmOnDeleteDescription" xml:space="preserve">
-    <value>Запрашувати підтвердження на видалення зображень.</value>
+    <value>Запитувати підтвердження видалення зображень.</value>
     <comment>Ask confirmation on images deletion.</comment>
   </data>
   <data name="Preferences_ConfirmOnExitName" xml:space="preserve">
-    <value>Підтвердження завершення програми</value>
+    <value>Підтвердження виходу з програми</value>
     <comment>Confirm Exit</comment>
   </data>
   <data name="Preferences_ConfirmOnExitDescription" xml:space="preserve">
-    <value>Запрашувати підтвердження на завершення програми якщо перетворення ще не завершено.</value>
+    <value>Запитувати підтвердження виходу з програми, якщо перетворення ще не завершено.</value>
     <comment>Ask confirmation on application exit if conversion is in progress.</comment>
   </data>
   <data name="Preferences_ConfirmOnStopName" xml:space="preserve">
@@ -662,11 +658,11 @@
     <comment>Confirm Stop Conversion</comment>
   </data>
   <data name="Preferences_ConfirmOnStopDescription" xml:space="preserve">
-    <value>Запрашувати підтвердження на зупинку перетворення.</value>
+    <value>Запитувати підтвердження зупинки перетворення.</value>
     <comment>Ask confirmation on conversion stop.</comment>
   </data>
   <data name="Preferences_AlwaysResumeName" xml:space="preserve">
-    <value>Завжди продовжувати</value>
+    <value>Завжди продовжувати перетворення</value>
     <comment>Always Resume</comment>
   </data>
   <data name="Preferences_AlwaysResumeDescription" xml:space="preserve">
@@ -674,7 +670,7 @@
     <comment>Always resume last conversion if applicable instead of starting new one.</comment>
   </data>
   <data name="Preferences_SuggestResumeName" xml:space="preserve">
-    <value>Пропонувати продовження</value>
+    <value>Пропонувати продовження перетворення</value>
     <comment>Suggest Resume</comment>
   </data>
   <data name="Preferences_SuggestResumeDescription" xml:space="preserve">
