@@ -6,7 +6,9 @@
 
 #ifndef BinariesPath
     #define BinariesPath          "..\_bin\Release\"
-#else
+#endif
+
+#if !Pos("Release\", BinariesPath)
     #define DEBUG
 #endif
 
