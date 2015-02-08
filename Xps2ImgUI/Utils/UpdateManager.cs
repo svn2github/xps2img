@@ -31,7 +31,7 @@ namespace Xps2ImgUI.Utils
         private const string VersionCheck       = @"/Releases/xps2img[^-]*-(?<version>(\.?\d+){4})";
 
         private static readonly string DownloadFolder = String.Format("xps2img-update-{0}", Guid.NewGuid().ToString().Split("-".ToCharArray()).First());
-        private static readonly string SetupCommandLineArguments = String.Format("/dir=\"{0}\" /update /silent /nocancel {1}", AssemblyInfo.ApplicationFolder, GetPortableArguments("/portable", "/tasks=\"\"", "/lang={0}"));
+        private static readonly string SetupCommandLineArguments = String.Format("/dir=\"{0}\" /update /silent /nocancel {1} /lang={{0}}", AssemblyInfo.ApplicationFolder, GetPortableArguments("/portable", "/tasks=\"\""));
 
         private static string GetPortableArguments(params string[] arguments)
         {
