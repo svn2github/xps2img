@@ -16,11 +16,11 @@
 #define protected Msg_InstallToCurrentDirectory         "Встановити у &поточну папку"
     
 #define protected Msg_DotNetIsMissing                   "Програма потребує встановлення Microsoft.NET 3.5%n%nЧи ви бажаєте завантажити його зараз?%n%nНатисніть «Скасувати» для подальшого встановлення. Зверніть увагу, що роботоздатність програми у такому випадку не гарантується."
-#define protected Msg_KeepSettings                      "Бажаєте залишити збережені налаштування програми?"
+#define protected Msg_KeepSettings                      "Чи ви бажаєте залишити збережені налаштування програми?"
     
 #define protected Msg_SetupMode                         "Встановити як"
 #define protected Msg_SetupModeReadyPage                "Встановити програму:"
-#define protected Msg_SetupModeQuestion                 "Бажаєте встановити програму звичайно або портативно?"
+#define protected Msg_SetupModeQuestion                 "Як ви бажаєте встановити програму – звичайно або портативно?"
 #define protected Msg_SetupModeGroupTitle               "Встановити програму:"
 #define protected Msg_SetupModeInstall                  "&Звичайно"
 #define protected Msg_SetupModeInstallUserOnly          "Тільки для &мене. Для звичайного встановлення запустіть програму з правами адміністратора."
