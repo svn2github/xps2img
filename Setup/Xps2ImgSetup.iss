@@ -8,7 +8,7 @@
     #define BinariesPath          "..\_bin\Release\"
 #endif
 
-#if !Pos("Release\", BinariesPath)
+#if !Pos("release\", LowerCase(BinariesPath))
     #define DEBUG
 #endif
 
@@ -25,12 +25,14 @@
 #define AppMutex                "Xps2ImgInnoSetupGuard"
 
 #define AppName                 "XPS to Images Converter"
-#define AppVersion              "4.0.0.0"
 
 #define AppNamePart             "{app}\xps2img"
 #define AppExe                  AppNamePart + "UI.exe"
 #define AppChm                  AppNamePart + ".chm"
-#define AppSettingsFile         "{code:AppSettingsFilePath}\" + ChangeFileExt(ExtractFileName(AppExe), "settings")
+#define AppExeFileName          ExtractFileName(AppExe)
+#define AppSettingsFile         "{code:AppSettingsFilePath}\" + ChangeFileExt(AppExeFileName, "settings")
+
+#define AppVersion              GetFileVersion(BinariesPath + AppExeFileName)
 
 #define AppPublisherURL         "http://xps2img.sf.net"
 #define AppUpdatesURL           "http://sourceforge.net/projects/xps2img/files/Releases/"
@@ -40,7 +42,7 @@
 
 #define OutputDir               "_Output"
 
-#define VersionInfoCopyright    "Copyright © 2010-2015, Ivan Ivon"
+#define VersionInfoCopyright    StringChange("Copyright © 2010-%YEAR%, Ivan Ivon", "%YEAR%", GetDateTimeString("yyyy", "", ""))
 #define VersionInfoCompany      AppPublisherURL
 #define VersionInfoDescription  AppName + " Setup"
 
