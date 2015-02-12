@@ -191,7 +191,7 @@ DefaultDirName={#DefaultDirName}
 #endif
 
 #ifdef VersionInfoDescription
-	VersionInfoDescription={#VersionInfoDescription}
+	VersionInfoDescription={#ISM_Header}{#VersionInfoDescription}
 #endif
 
 #ifdef VersionInfoTextVersion
