@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -404,6 +405,34 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             base.ContextMenuStrip = contextMenuStrip;
         }
 
+        private static readonly string[] CulturesToSkipLowerStripMenuText = { "English" };
+
+        private static string LowerStripMenuText(string text)
+        {
+            var englishCulltureName = Thread.CurrentThread.CurrentUICulture.EnglishName;
+
+            if (String.IsNullOrEmpty(text) || CulturesToSkipLowerStripMenuText.Any(n => englishCulltureName.StartsWith(n)) || String.IsNullOrEmpty(englishCulltureName))
+            {
+                return text;
+            }
+
+            var stringBuilder = new StringBuilder(text.Length);
+
+            for (var i = 0; i < text.Length; i++)
+            {
+                var ch = text[i];
+                if (i >= text.Length - 1)
+                {
+                    stringBuilder.Append(Char.ToLower(ch));
+                    break;
+                }
+                var chNext = text[i+1];
+                stringBuilder.Append(Char.IsUpper(ch) && (Char.IsWhiteSpace(chNext) || Char.IsUpper(chNext)) ? ch : Char.ToLower(ch));
+            }
+
+            return stringBuilder.ToString();
+        }
+
         private void ContextStripMenuOpening(object sender, CancelEventArgs e)
         {
             ContextMenuStrip.Items[CloseItemName].Text = CloseItemText;
@@ -411,9 +440,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             var resetMenuItem = ContextMenuStrip.Items[ResetItemName];
             var label = (SelectedGridItem.Label ?? String.Empty).Trim();
 
-            var toLower = !Thread.CurrentThread.CurrentUICulture.EnglishName.StartsWith("English");
-
-            resetMenuItem.Text = String.Format(ResetItemText, toLower ? label.ToLower() : label);
+            resetMenuItem.Text = String.Format(ResetItemText, LowerStripMenuText(label));
 
             var propertyDescriptor = SelectedGridItem.PropertyDescriptor;
             var hasPropertyDescriptor = propertyDescriptor != null;
