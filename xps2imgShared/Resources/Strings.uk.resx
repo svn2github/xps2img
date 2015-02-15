@@ -365,15 +365,15 @@
     <comment>CPUs process will be executed on&#xA;  all by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;0-&#xA;  single:&#x9;0&#xA;  set:&#x9;&#x9;0,2&#xA;  range:&#x9;0-2 or -2 or 2-&#xA;  combined:&#x9;0,2-</comment>
   </data>
   <data name="Options_IgnoreExistingName" xml:space="preserve">
-    <value>Ігнорувати існуючи зображення</value>
+    <value>Ігнорувати існуючі зображення</value>
     <comment>Ignore Existing Images</comment>
   </data>
   <data name="Options_IgnoreExistingDescription" xml:space="preserve">
-    <value>Не перезаписувати існуючи зображення. Опцію буде повернуто в початковий стан у випадку зміни якого-небудь з параметрів зображення</value>
+    <value>Не перезаписувати існуючі зображення. Опцію буде повернуто в початковий стан у випадку зміни якого-небудь з параметрів зображення</value>
     <comment>Do not overwrite existing images. Will be reset in case of any image related property change</comment>
   </data>
   <data name="Options_IgnoreExistingCmdDescription" xml:space="preserve">
-    <value>Не перезаписувати існуючи зображення</value>
+    <value>Не перезаписувати існуючі зображення</value>
     <comment>Do not overwrite existing images</comment>
   </data>
   <data name="Options_IgnoreErrorsName" xml:space="preserve">
