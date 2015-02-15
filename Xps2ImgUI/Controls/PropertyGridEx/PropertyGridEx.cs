@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
+using System.Threading;
 using System.Windows.Forms;
 
 using CommandLine.Utils;
@@ -410,7 +411,9 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             var resetMenuItem = ContextMenuStrip.Items[ResetItemName];
             var label = (SelectedGridItem.Label ?? String.Empty).Trim();
 
-            resetMenuItem.Text = String.Format(ResetItemText, label);
+            var toLower = !Thread.CurrentThread.CurrentUICulture.EnglishName.StartsWith("English");
+
+            resetMenuItem.Text = String.Format(ResetItemText, toLower ? label.ToLower() : label);
 
             var propertyDescriptor = SelectedGridItem.PropertyDescriptor;
             var hasPropertyDescriptor = propertyDescriptor != null;
