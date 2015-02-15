@@ -606,7 +606,7 @@
     <comment>Auto save settings on exit. If not set default settings will be used next time.</comment>
   </data>
   <data name="Preferences_ClassicLookName" xml:space="preserve">
-    <value>Класичній вигляд</value>
+    <value>Класичний вигляд</value>
     <comment>Classic Look</comment>
   </data>
   <data name="Preferences_ClassicLookDescription" xml:space="preserve">
