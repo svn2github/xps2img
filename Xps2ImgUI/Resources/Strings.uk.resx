@@ -130,7 +130,7 @@
     <comment>Reset options</comment>
   </data>
   <data name="Launch" xml:space="preserve">
-    <value>&amp;Конвертувати</value>
+    <value>&amp;Перетворити</value>
     <comment>&amp;Convert</comment>
   </data>
   <data name="Stop" xml:space="preserve">
