@@ -622,11 +622,11 @@
     <comment>Show time elapsed by last operation and conversion statistics in application title.</comment>
   </data>
   <data name="Preferences_FlashWhenCompletedName" xml:space="preserve">
-    <value>Візуальна індикация після перетворення</value>
+    <value>Візуальна індикація після перетворення</value>
     <comment>Flash When Completed</comment>
   </data>
   <data name="Preferences_FlashWhenCompletedDescription" xml:space="preserve">
-    <value>Візуальна індикация вікна програми після завершення перетворення.</value>
+    <value>Візуальна індикація вікна програми після завершення перетворення.</value>
     <comment>Flash application window when conversion is completed.</comment>
   </data>
   <data name="Preferences_ConfirmOnAfterConversionName" xml:space="preserve">
@@ -740,5 +740,45 @@
   <data name="PropertyGrid_Alphabetical" xml:space="preserve">
     <value>За алфавітом</value>
     <comment>Alphabetical</comment>
+  </data>
+  <data name="PropertyGrid_ResetOutDir" xml:space="preserve">
+    <value>папку призначення</value>
+    <comment>LANGUAGE SPECIFIC</comment>
+  </data>
+  <data name="PropertyGrid_ResetPostAction" xml:space="preserve">
+    <value>дію після перетворення</value>
+    <comment>LANGUAGE SPECIFIC</comment>
+  </data>
+  <data name="PropertyGrid_ResetApplicationLanguage" xml:space="preserve">
+    <value>мову програми</value>
+    <comment>LANGUAGE SPECIFIC</comment>
+  </data>
+  <data name="PropertyGrid_ResetAutoSaveSettings" xml:space="preserve">
+    <value>автоматичне зберігання налаштувань</value>
+    <comment>LANGUAGE SPECIFIC</comment>
+  </data>
+  <data name="PropertyGrid_ResetFlashWhenCompleted" xml:space="preserve">
+    <value>візуальну індикацію після перетворення</value>
+    <comment>LANGUAGE SPECIFIC</comment>
+  </data>
+  <data name="PropertyGrid_ResetAutoCompleteFilenames" xml:space="preserve">
+    <value>підказку імен файлів</value>
+    <comment>LANGUAGE SPECIFIC</comment>
+  </data>
+  <data name="PropertyGrid_ResetShowElapsedTimeAndStatistics" xml:space="preserve">
+    <value>показ статистики перетворення</value>
+    <comment>LANGUAGE SPECIFIC</comment>
+  </data>
+  <data name="PropertyGrid_ResetSuggestResume" xml:space="preserve">
+    <value>пропозицію продовження перетворення</value>
+    <comment>LANGUAGE SPECIFIC</comment>
+  </data>
+  <data name="PropertyGrid_ResetAlwaysResume" xml:space="preserve">
+    <value>постійне продовження перетворення</value>
+    <comment>LANGUAGE SPECIFIC</comment>
+  </data>
+  <data name="PropertyGrid_ResetCheckForUpdates" xml:space="preserve">
+    <value>перевірку наявності оновлень</value>
+    <comment>LANGUAGE SPECIFIC</comment>
   </data>
 </root>

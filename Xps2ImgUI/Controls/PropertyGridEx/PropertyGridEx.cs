@@ -361,6 +361,8 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         private const string CategorizedKey  = "PropertyGrid_Categorized";
         private const string AlphabeticalKey = "PropertyGrid_Alphabetical";
 
+        private const string ResetTextKeyFormat = "PropertyGrid_Reset{0}";
+
         private static string ResetItemText
         {
             get { return GetLocalizedString(ResetItemKey, "&Reset {0}"); }
@@ -407,6 +409,12 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         private static readonly string[] CulturesToSkipLowerStripMenuText = { "English" };
 
+        private static string GetResetText(string propertyName, string text)
+        {
+            var str = GetLocalizedString(String.Format(ResetTextKeyFormat, propertyName), text);
+            return str != text ? str : LowerStripMenuText(str);
+        }
+
         private static string LowerStripMenuText(string text)
         {
             var englishCulltureName = Thread.CurrentThread.CurrentUICulture.EnglishName;
@@ -439,8 +447,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
             var resetMenuItem = ContextMenuStrip.Items[ResetItemName];
             var label = (SelectedGridItem.Label ?? String.Empty).Trim();
-
-            resetMenuItem.Text = String.Format(ResetItemText, LowerStripMenuText(label));
+            var text = label;
 
             var propertyDescriptor = SelectedGridItem.PropertyDescriptor;
             var hasPropertyDescriptor = propertyDescriptor != null;
@@ -449,6 +456,8 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             {
                 label = this.GetCategoryName() ?? label;
             }
+
+            resetMenuItem.Text = String.Format(ResetItemText, GetResetText(hasPropertyDescriptor ? propertyDescriptor.Name : label, text));
 
             resetMenuItem.Enabled = !ReadOnly &&
                                     (

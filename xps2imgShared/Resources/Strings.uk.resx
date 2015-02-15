@@ -353,7 +353,7 @@
     <comment>Process priority&#xA;  normal by default</comment>
   </data>
   <data name="Options_CpuAffinityName" xml:space="preserve">
-    <value>Виконувати на процесорах</value>
+    <value>Використовані процесори</value>
     <comment>Processors Affinity</comment>
   </data>
   <data name="Options_CpuAffinityDescription" xml:space="preserve">
