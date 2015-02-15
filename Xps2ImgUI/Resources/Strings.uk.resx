@@ -749,6 +749,10 @@
     <value>дію після перетворення</value>
     <comment>LANGUAGE SPECIFIC</comment>
   </data>
+  <data name="PropertyGrid_ResetCpuAffinity" xml:space="preserve">
+    <value>використовувані процесори</value>
+    <comment>LANGUAGE SPECIFIC</comment>
+  </data>
   <data name="PropertyGrid_ResetApplicationLanguage" xml:space="preserve">
     <value>мову програми</value>
     <comment>LANGUAGE SPECIFIC</comment>
