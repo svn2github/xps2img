@@ -138,7 +138,7 @@
     <comment>&amp;Stop</comment>
   </data>
   <data name="Resume" xml:space="preserve">
-    <value>&amp;Продовжити</value>
+    <value>Пр&amp;одовжити</value>
     <comment>&amp;Resume</comment>
   </data>
   <data name="DeleteImages" xml:space="preserve">
@@ -166,7 +166,7 @@
     <comment>Browse &amp;XPS File</comment>
   </data>
   <data name="WindowTitleLaunchingFormat" xml:space="preserve">
-    <value>Запуск xps2img... - {0}</value>
+    <value>Виконується запуск xps2img... - {0}</value>
     <comment>Launching xps2img... - {0}</comment>
   </data>
   <data name="ResetParameters" xml:space="preserve">
