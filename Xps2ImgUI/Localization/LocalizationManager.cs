@@ -65,15 +65,10 @@ namespace Xps2ImgUI.Localization
 
         private static void SetDefaultThreadCurrentCulture(CultureInfo culture, bool setCulture = true, bool setUICulture = true)
         {
-            if (setCulture)
-            {
-                UserDefaultCultureFieldInfo.SetValue(null, culture);
-            }
+            Action<FieldInfo, bool> setCultureFor = (f, s) => { if (s) f.SetValue(null, culture); };
 
-            if (setUICulture)
-            {
-                UserDefaultUICultureFieldInfo.SetValue(null, culture);
-            }
+            setCultureFor(UserDefaultCultureFieldInfo, setCulture);
+            setCultureFor(UserDefaultUICultureFieldInfo, setUICulture);
         }
     }
 }
