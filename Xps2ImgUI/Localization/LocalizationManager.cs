@@ -11,6 +11,17 @@ namespace Xps2ImgUI.Localization
     {
         public static event EventHandler UICultureChanged;
 
+        private static readonly FieldInfo UserDefaultCultureFieldInfo;
+        private static readonly FieldInfo UserDefaultUICultureFieldInfo;
+
+        static LocalizationManager()
+        {
+            Func<string, FieldInfo> getUserDefaultCultureFieldInfo = n => typeof(CultureInfo).GetField(n, BindingFlags.Static | BindingFlags.NonPublic);
+
+            UserDefaultCultureFieldInfo   = getUserDefaultCultureFieldInfo("s_userDefaultCulture")   ?? getUserDefaultCultureFieldInfo("m_userDefaultCulture");
+            UserDefaultUICultureFieldInfo = getUserDefaultCultureFieldInfo("s_userDefaultUICulture") ?? getUserDefaultCultureFieldInfo("m_userDefaultUICulture");
+        }
+
         public static CultureInfo ResetUICulture()
         {
             return SetUICulture(DefaultUICulture);
@@ -54,33 +65,15 @@ namespace Xps2ImgUI.Localization
 
         private static void SetDefaultThreadCurrentCulture(CultureInfo culture, bool setCulture = true, bool setUICulture = true)
         {
-            Action<bool, string> setCultureFor = (set, name) =>
+            if (setCulture)
             {
-                if (set)
-                {
-                    typeof (CultureInfo).InvokeMember(name, BindingFlags.SetField | BindingFlags.NonPublic | BindingFlags.Static, null, culture, new object[] { culture });
-                }
-            };
-
-            // ReSharper disable EmptyGeneralCatchClause
-            try
-            {
-                setCultureFor(setCulture, "s_userDefaultCulture");
-                setCultureFor(setUICulture, "s_userDefaultUICulture");
-            }
-            catch
-            {
+                UserDefaultCultureFieldInfo.SetValue(null, culture);
             }
 
-            try
+            if (setUICulture)
             {
-                setCultureFor(setCulture, "m_userDefaultCulture");
-                setCultureFor(setUICulture, "m_userDefaultUICulture");
+                UserDefaultUICultureFieldInfo.SetValue(null, culture);
             }
-            catch
-            {
-            }
-            // ReSharper restore EmptyGeneralCatchClause
         }
     }
 }
