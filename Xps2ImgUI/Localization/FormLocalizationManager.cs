@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
+using Xps2Img.Shared.Localization;
+
 namespace Xps2ImgUI.Localization
 {
     public static class FormLocalizationManager

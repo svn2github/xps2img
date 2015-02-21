@@ -5,7 +5,7 @@ using System.Threading;
 
 using Xps2Img.Shared.Utils;
 
-namespace Xps2ImgUI.Localization
+namespace Xps2Img.Shared.Localization
 {
     public static class LocalizationManager
     {

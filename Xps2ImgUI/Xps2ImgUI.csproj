@@ -204,7 +204,6 @@
     <None Include="Utils\Stubs\UpdateManager.cs" />
     <Compile Include="Utils\Interfaces\IUpdateManager.cs" />
     <Compile Include="Localization\IFormLocalization.cs" />
-    <Compile Include="Localization\LocalizationManager.cs" />
     <Compile Include="Utils\UpdateManager.cs" />
     <Compile Include="Utils\UI\Explorer.cs" />
     <Compile Include="Utils\UI\IconExtractor.cs" />

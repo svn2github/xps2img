@@ -8,10 +8,10 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 
+using Xps2Img.Shared.Localization;
 using Xps2Img.Shared.Utils;
 using Xps2Img.Shared.Utils.System;
 
-using Xps2ImgUI.Localization;
 using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils.UI;
 

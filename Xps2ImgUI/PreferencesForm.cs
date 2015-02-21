@@ -5,6 +5,7 @@ using System.Windows.Forms;
 
 using CommandLine.Utils;
 
+using Xps2Img.Shared.Localization;
 using Xps2Img.Shared.Utils;
 
 using Xps2ImgUI.Localization;
