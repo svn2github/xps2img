@@ -144,6 +144,7 @@
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Strings.uk.resx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Ico\Application.ico" />
@@ -152,10 +153,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)_Build\Common.targets" />
+  <Target Name="BeforeBuild" DependsOnTargets="ReplaceResourceManager" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
   <Target Name="AfterBuild">
   </Target>
   -->
