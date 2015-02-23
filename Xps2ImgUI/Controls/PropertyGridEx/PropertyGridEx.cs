@@ -361,7 +361,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         private const string CategorizedKey  = "PropertyGrid_Categorized";
         private const string AlphabeticalKey = "PropertyGrid_Alphabetical";
 
-        private const string ResetTextKeyFormat = "PropertyGrid_Reset{0}";
+        private const string ResetTextKeyFormat = "PropertyGrid_Reset{0}_{1}";
 
         private static string ResetItemText
         {
@@ -409,9 +409,9 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         private static readonly string[] CulturesToSkipLowerStripMenuText = { "English" };
 
-        private static string GetResetText(string propertyName, string text)
+        private string GetResetText(string propertyName, string text)
         {
-            var str = GetLocalizedString(String.Format(ResetTextKeyFormat, propertyName), text);
+            var str = GetLocalizedString(String.Format(ResetTextKeyFormat, SelectedObject.GetType().Name, propertyName), text);
             return str != text ? str : LowerStripMenuText(str);
         }
 
