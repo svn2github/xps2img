@@ -146,7 +146,7 @@
     <comment>Make sure file is accessible and not read-only.</comment>
   </data>
   <data name="Message_Memory" xml:space="preserve">
-    <value>Зменьшить один або декілька з наступних параметрів: Кількість процесорів / DPI зображення / Розмір зображення.</value>
+    <value>Зменшить одне або декілька з наступного: Кількість процесорів / DPI зображення / Розмір зображення.</value>
     <comment>Please reduce one or some of the following: Processors / Image DPI / Image Size.</comment>
   </data>
 </root>

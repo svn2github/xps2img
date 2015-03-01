@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Windows.Documents;
@@ -17,6 +18,8 @@ namespace Xps2Img.Xps2Img
 {
     public partial class Converter : IDisposable
     {
+        private static readonly PropertyInfo VisualTextHintingModePropertyInfo = typeof(Visual).GetProperty("VisualTextHintingMode", BindingFlags.Instance | BindingFlags.NonPublic);
+
         private readonly XpsDocument _xpsDocument;
         private readonly DocumentPaginator _documentPaginator;
 
@@ -243,6 +246,32 @@ namespace Xps2Img.Xps2Img
             }
         }
 
+        private static void SetVisualProperties(Visual visual)
+        {
+            RenderOptions.SetBitmapScalingMode(visual, BitmapScalingMode.HighQuality);
+
+            if (VisualTextHintingModePropertyInfo != null)
+            {
+                // System.Windows.Media.TextHintingMode.Animated as of .NET 4.0+
+                const int textHintingModeAnimated = 2;
+                // Improves text rendering quality as of .NET 4.0+.
+                VisualTextHintingModePropertyInfo.SetValue(visual, textHintingModeAnimated, null);
+            }
+        }
+
+        private static void RenderPageToBitmapOnce(DocumentPage page, RenderTargetBitmap bitmap)
+        {
+            var visual = page.Visual;
+
+            SetVisualProperties(visual);
+
+            bitmap.Render(visual);
+
+            // Memory leak fix.
+            // http://social.msdn.microsoft.com/Forums/en/wpf/thread/c6511918-17f6-42be-ac4c-459eeac676fd
+            ((FixedPage)visual).UpdateLayout();
+        }
+
         private bool _convertionStarted;
 
         private RenderTargetBitmap RenderPageToBitmap(DocumentPage page, RenderTargetBitmap bitmap)
@@ -257,11 +286,7 @@ namespace Xps2Img.Xps2Img
             {
                 try
                 {
-                    bitmap.Render(page.Visual);
-
-                    // Memory leak fix.
-                    // http://social.msdn.microsoft.com/Forums/en/wpf/thread/c6511918-17f6-42be-ac4c-459eeac676fd
-                    ((FixedPage)page.Visual).UpdateLayout();
+                    RenderPageToBitmapOnce(page, bitmap);
 
                     _convertionStarted = true;
 
