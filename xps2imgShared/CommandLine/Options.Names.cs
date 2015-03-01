@@ -7,9 +7,9 @@
             public const string Empty = "\"\"";
             public const string Clean = " --clean";
 
-            public const string Processors            = "processors-number";
-            public const string Batch                 = "batch";
-            public const string CancellationObjectIds = "cancellation-object-ids";
+            public const string Processors  = "processors-number";
+            public const string Batch       = "batch";
+            public const string Internal    = "internal";
         }
     }
 }

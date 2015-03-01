@@ -51,7 +51,7 @@ namespace Xps2ImgUI.Model
         {
             var splittedIntervals = GetDocumentSplittedIntervals();
 
-            _appMutex = new Mutex(true, _optionsHolder.OptionsObject.ParentAppMutexName);
+            _appMutex = new Mutex(true, _optionsHolder.OptionsObject.InternalParentAppMutexName);
 
             _processLastConvertedPage = null;
 

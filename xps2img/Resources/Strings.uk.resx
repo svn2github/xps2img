@@ -118,39 +118,35 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Error_Header" xml:space="preserve">
-    <value>Error</value>
+    <value>Помилка</value>
     <comment>Error</comment>
   </data>
   <data name="Error_UnknownImageType" xml:space="preserve">
-    <value>Unknown image type '{0}'</value>
+    <value>Тип зображення '{0}' є невідомим</value>
     <comment>Unknown image type '{0}'</comment>
   </data>
   <data name="Template_Progress" xml:space="preserve">
-    <value>[{{4,3}}%] Converting page {0} ({1}/{{2}}) into '{{3}}'...</value>
+    <value>[{{4,3}}%] Перетворюю сторінку {0} ({1}/{{2}}) в '{{3}}'...</value>
     <comment>[{{4,3}}%] Converting page {0} ({1}/{{2}}) into '{{3}}'...</comment>
   </data>
-  <data name="Template_ProgressTitle" xml:space="preserve">
-    <value>{0}% ({1}/{2}) [{3}] - {4} - xps2img</value>
-    <comment>{0}% ({1}/{2}) [{3}] - {4} - xps2img</comment>
-  </data>
   <data name="Error_PagesRange" xml:space="preserve">
-    <value>Pages specified are out of document pages range. {0} is the last one.</value>
+    <value>Документ не має стільки сторінок. Сторінка №{0} є останньою.</value>
     <comment>Pages specified are out of document pages range. {0} is the last one.</comment>
   </data>
   <data name="Template_CleanProgress" xml:space="preserve">
-    <value>[{{4,3}}%] Deleting image {0} ({1}/{{2}}) at '{{3}}'...</value>
+    <value>[{{4,3}}%] Видалення зображення {0} ({1}/{{2}}) у '{{3}}'...</value>
     <comment>[{{4,3}}%] Deleting image {0} ({1}/{{2}}) at '{{3}}'...</comment>
   </data>
   <data name="Message_DiskStorage" xml:space="preserve">
-    <value>Make sure you have enough disk storage available.</value>
+    <value>Недостатньо місця на диску.</value>
     <comment>Make sure you have enough disk storage available.</comment>
   </data>
   <data name="Message_FileAccess" xml:space="preserve">
-    <value>Make sure file is accessible and not read-only.</value>
+    <value>Недостаньо прав або файл захищено від запису.</value>
     <comment>Make sure file is accessible and not read-only.</comment>
   </data>
   <data name="Message_Memory" xml:space="preserve">
-    <value>Please reduce one of the following: Processors / Image DPI / Image Size.</value>
-    <comment>Please reduce one of the following: Processors / Image DPI / Image Size.</comment>
+    <value>Зменьшить один або декілька з наступних параметрів: Кількість процесорів / DPI зображення / Розмір зображення.</value>
+    <comment>Please reduce one or some of the following: Processors / Image DPI / Image Size.</comment>
   </data>
 </root>

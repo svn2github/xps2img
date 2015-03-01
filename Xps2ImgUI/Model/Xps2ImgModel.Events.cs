@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 
+using Xps2Img.Shared.Internal;
+
 namespace Xps2ImgUI.Model
 {
     public partial class Xps2ImgModel
     {
         private static readonly Regex OutputRegex = new Regex(@"^\[\s*(?<percent>\d+)%\][^\d]+(?<page>\d+)\s+\(\s*(?<pages>\d+/\d+)\).+?'(?<file>.+)'");
-        private static readonly Regex ErrorMessageRegex = new Regex(@"^(?<page>[^:]+):\s*(?<message>.+)$");
+        private static readonly Regex ErrorMessageRegex = new Regex(@"^(?<page>[^:]+):\s+(?<message>[\s\S]+)$");
 
         private void OutputDataReceivedHandler(object sender, DataReceivedEventArgs e)
         {
@@ -55,17 +57,19 @@ namespace Xps2ImgUI.Model
                 return;
             }
 
+            var errorMessage = ProcessOutput.Decode(e.Data);
+
             var errorDataReceived = ErrorDataReceived;
             if (errorDataReceived != null)
             {
                 var isErrorReported = _isErrorReported;
                 _isErrorReported = true;
 
-                var match = ErrorMessageRegex.Match(e.Data);
+                var match = ErrorMessageRegex.Match(errorMessage);
 
                 Func<string, string, string> getMatch = (g, d) => match.Success ? match.Groups[g].Value : d;
-                
-                var args = new ConversionErrorEventArgs(getMatch("message", e.Data), getMatch("page", null));
+
+                var args = new ConversionErrorEventArgs(getMatch("message", errorMessage), getMatch("page", null));
 
                 if (OptionsObject.IgnoreErrors && args.Page.HasValue)
                 {

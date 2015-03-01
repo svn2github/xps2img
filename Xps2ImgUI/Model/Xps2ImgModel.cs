@@ -224,7 +224,7 @@ namespace Xps2ImgUI.Model
 
         private EventWaitHandle CancelEvent
         {
-            get { return _cancelEvent ?? (_cancelEvent = new EventWaitHandle(false, EventResetMode.ManualReset, _optionsHolder.OptionsObject.CancellationEventName)); }
+            get { return _cancelEvent ?? (_cancelEvent = new EventWaitHandle(false, EventResetMode.ManualReset, _optionsHolder.OptionsObject.InternalCancelEventName)); }
         }
 
         private bool IsCreationMode

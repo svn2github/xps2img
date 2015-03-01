@@ -4,8 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Design;
-using System.Globalization;
-using System.Linq;
 
 using CommandLine;
 using CommandLine.Utils;
@@ -20,11 +18,6 @@ using UIUnnamedOption = Xps2Img.Shared.Attributes.Options.UnnamedOptionAttribute
 
 namespace Xps2Img.Shared.CommandLine
 {
-    // ReSharper disable ClassNeverInstantiated.Global
-    // ReSharper disable MemberCanBePrivate.Global
-    // ReSharper disable MemberCanBeProtected.Global
-    // ReSharper disable UnusedAutoPropertyAccessor.Global
-    // ReSharper disable UnusedMember.Global
     public partial class Options
     {
         public Options()
@@ -63,12 +56,6 @@ namespace Xps2Img.Shared.CommandLine
         [Editor(typeof(OrdinalUITypeEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(PagesTypeConverter))]
         public List<Interval> Pages { get; set; }
-
-        [Browsable(false)]
-        public List<Interval> SafePages
-        {
-            get { return Pages ?? new List<Interval> { new Interval(begin: 1) }; }
-        }
 
         [Category(Categories.Options)]
         [Option(ShortOptions.FileType, DefaultValue = Defaults.FileType)]
@@ -143,18 +130,6 @@ namespace Xps2Img.Shared.CommandLine
         [UIOption(ShortOptions.ShortenExtension)]
         public bool ShortenExtension { get; set; }
 
-        [Option(ShortOptionType.None10, Flags = OptionFlags.Internal)]
-        [Browsable(false)]
-        public virtual string CancellationObjectIds { get; set; }
-
-        private IEnumerable<string> SyncObjectsNames { get { return CancellationObjectIds.Split('-'); } }
-
-        [Browsable(false)]
-        public string CancellationEventName { get { return SyncObjectsNames.First(); } }
-
-        [Browsable(false)]
-        public string ParentAppMutexName { get { return SyncObjectsNames.Last(); } }
-
         [Category(Categories.Options)]
         [Option(ShortOptionType.None12, ConverterType = typeof(ProcessorsNumberTypeConverter), Flags = OptionFlags.Internal)]
         [UIOption(Names.Processors)]
@@ -162,25 +137,12 @@ namespace Xps2Img.Shared.CommandLine
         [DefaultValue(Defaults.Processors)]
         public int ProcessorsNumber { get; set; }
 
-        [Browsable(false)]       
-        public int SafeProcessorsNumber
-        {
-            get { return ProcessorsNumber == Defaults.Processors ? Environment.ProcessorCount : ProcessorsNumber; }
-        }
-
         [Category(Categories.Options)]
         [Option(ShortOptions.ProcessPriority, DefaultValue = Defaults.ProcessPriority, DescriptionKey = Properties.Consts.ProcessPriority + DescriptionKeyPostfix, ConverterType = typeof(ProcessPriorityClassTypeConverter), Flags = OptionFlags.NoDefaultValueDescription)]
         [UIOption(ShortOptions.ProcessPriority)]
         [TypeConverter(typeof(ProcessPriorityClassTypeConverter))]
         [DefaultValue(ProcessPriorityClassTypeConverter.Auto)]
         public ProcessPriorityClass ProcessPriority { get; set; }
-
-        public static readonly string[] ExcludedOnSave = { Names.CancellationObjectIds, Names.Batch };
-        public static readonly string[] ExcludedUIOptions = { Names.Processors, Names.Batch };
-        public static readonly string[] ExcludedOnLaunch = ExcludedUIOptions.Concat(new[] { ShortOptions.Pages.ToString(CultureInfo.InvariantCulture) }).ToArray();
-        public static readonly string[] ExcludedOnView = ExcludedOnSave.Concat(ExcludedUIOptions).ToArray();
-
-        public static readonly string[] ExcludeOnResumeCheck = { Properties.ProcessorsNumber, Properties.ProcessPriority, Properties.PostAction, Properties.IgnoreExisting, Properties.IgnoreErrors };
 
         private bool _batch;
 

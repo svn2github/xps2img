@@ -27,21 +27,21 @@ namespace Xps2Img.Shared.Localization
             return SetUICulture(DefaultUICulture);
         }
 
-        public static CultureInfo SetUICulture(int culture)
+        public static CultureInfo SetUICulture(int lcid)
         {
-            return SetUICulture(CultureInfo.GetCultureInfo(culture));
+            return SetUICulture(CultureInfo.GetCultureInfo(lcid));
         }
 
-        public static CultureInfo SetUICulture(string culture)
+        public static CultureInfo SetUICulture(string name)
         {
-            var cultureInfo = String.IsNullOrEmpty(culture)
+            var cultureInfo = String.IsNullOrEmpty(name)
                                 ? CultureInfo.InvariantCulture 
-                                : CultureInfo.GetCultureInfo(culture);
+                                : CultureInfo.GetCultureInfo(name);
 
             return SetUICulture(cultureInfo);
         }
 
-        private static CultureInfo SetUICulture(CultureInfo cultureInfo)
+        public static CultureInfo SetUICulture(CultureInfo cultureInfo)
         {
             SetDefaultThreadCurrentCulture(cultureInfo, false);
 

@@ -6,6 +6,7 @@ using System.Windows.Markup;
 using CommandLine;
 
 using Xps2Img.Shared.CommandLine;
+using Xps2Img.Shared.Internal;
 using Xps2Img.Shared.Utils.System;
 
 using ReturnCode = Xps2Img.Shared.CommandLine.CommandLine.ReturnCode;
@@ -25,16 +26,18 @@ namespace Xps2Img.CommandLine
 
         public static bool IsUsageDisplayed<T>(string[] args)
         {
-            if (Parser.IsUsageRequested(args))
+            if (!Parser.IsUsageRequested(args))
             {
-                Console.WriteLine("{1} {2}{0}{0}{3}",
-                                    Environment.NewLine,
-                                    AssemblyInfo.Description.TrimEnd(new[]{ '.' }),
-                                    AssemblyInfo.AssemblyVersion,
-                                    Parser.GetUsageString<T>());
-                return true;
+                return false;
             }
-            return false;
+
+            Console.WriteLine("{1} {2}{0}{0}{3}",
+                              Environment.NewLine,
+                              AssemblyInfo.Description.TrimEnd(new[]{ '.' }),
+                              AssemblyInfo.AssemblyVersion,
+                              Parser.GetUsageString<T>());
+
+            return true;
         }
 
         private static string GetExceptionHint<T>(Exception ex, string message) where T: Exception
@@ -60,20 +63,30 @@ namespace Xps2Img.CommandLine
             var page = launchedAsInternal && conversionException != null && conversionException.InnerException is XamlParseException
                         ? conversionException.ContextData
                         : -1;
-            
-            Console.Error.WriteLine("{0}: {1}" + (String.IsNullOrEmpty(exceptionHint) ? String.Empty : " {2}"),
-                                    launchedAsInternal
-                                        ? page.ToString(CultureInfo.InvariantCulture)
-                                        : Resources.Strings.Error_Header,
-                                    ex
-                                    #if !DEBUG
-                                    .Message
+
+            var exceptionMessage = ex
+                                    #if DEBUG
+                                    .ToString();
+                                    #else
+                                    .Message;
                                     #endif
-                                    , exceptionHint);
+
+            var hintFormat = String.IsNullOrEmpty(exceptionHint)
+                               ? String.Empty
+                               : String.Format((launchedAsInternal ? "{0}{0}" : "\x20") + "{{2}}", Environment.NewLine);
+
+            var message = String.Format("{0}: {1}" + hintFormat,
+                                        launchedAsInternal
+                                            ? page.ToString(CultureInfo.InvariantCulture)
+                                            : Resources.Strings.Error_Header,
+                                        exceptionMessage,
+                                        exceptionHint);
+
+            Console.Error.WriteLine(ProcessOutput.Encode(message, launchedAsInternal));
 
             return !launchedAsInternal || conversionException == null
                     ? ReturnCode.Failed
-                    : page != -1 
+                    : page != -1
                         ? page
                         : conversionException.ContextData;
         }

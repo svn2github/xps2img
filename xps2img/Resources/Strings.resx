@@ -129,10 +129,6 @@
     <value>[{{4,3}}%] Converting page {0} ({1}/{{2}}) into '{{3}}'...</value>
     <comment>[{{4,3}}%] Converting page {0} ({1}/{{2}}) into '{{3}}'...</comment>
   </data>
-  <data name="Template_ProgressTitle" xml:space="preserve">
-    <value>{0}% ({1}/{2}) [{3}] - {4} - xps2img</value>
-    <comment>{0}% ({1}/{2}) [{3}] - {4} - xps2img</comment>
-  </data>
   <data name="Error_PagesRange" xml:space="preserve">
     <value>Pages specified are out of document pages range. {0} is the last one.</value>
     <comment>Pages specified are out of document pages range. {0} is the last one.</comment>
@@ -150,7 +146,11 @@
     <comment>Make sure file is accessible and not read-only.</comment>
   </data>
   <data name="Message_Memory" xml:space="preserve">
-    <value>Please reduce one of the following: Processors / Image DPI / Image Size.</value>
-    <comment>Please reduce one of the following: Processors / Image DPI / Image Size.</comment>
+    <value>Please reduce one or some of the following: Processors / Image DPI / Image Size.</value>
+    <comment>Please reduce one or some of the following: Processors / Image DPI / Image Size.</comment>
+  </data>
+  <data name="Template_ProgressTitle" xml:space="preserve">
+    <value>{0}% ({1}/{2}) [{3}] - {4} - xps2img</value>
+    <comment>NON LOCALIZABLE</comment>
   </data>
 </root>

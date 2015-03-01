@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -12,6 +11,7 @@ using CommandLine;
 using Xps2Img.CommandLine;
 
 using Xps2Img.Shared.CommandLine;
+using Xps2Img.Shared.Localization;
 using Xps2Img.Shared.Setup;
 using Xps2Img.Shared.TypeConverters;
 using Xps2Img.Shared.Utils;
@@ -39,8 +39,6 @@ namespace Xps2Img
 
             Parser.RegisterStringsSource<Shared.Resources.Strings>();
 
-            Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
-
             var conversionStarted = false;
 
             Options options = null;
@@ -60,6 +58,8 @@ namespace Xps2Img
                     return ReturnCode.InvalidArg;
                 }
 
+                LocalizationManager.SetUICulture(options.InternalCulture);
+
                 if (options.ProcessPriority != ProcessPriorityClassTypeConverter.Auto)
                 {
                     Process.GetCurrentProcess().PriorityClass = options.ProcessPriority;
@@ -70,7 +70,7 @@ namespace Xps2Img
                     Process.GetCurrentProcess().ProcessorAffinity = options.CpuAffinity.Value;
                 }
 
-                _launchedAsInternal = !String.IsNullOrEmpty(options.CancellationObjectIds);
+                _launchedAsInternal = options.HasInternal;
 
                 if (_launchedAsInternal)
                 {
@@ -110,8 +110,8 @@ namespace Xps2Img
 
         private static void WaitForCancellationThread(Options options)
         {
-            var parentAppMutex = Mutex.OpenExisting(options.ParentAppMutexName);
-            var cancelEvent = new EventWaitHandle(false, EventResetMode.AutoReset, options.CancellationEventName);
+            var parentAppMutex = Mutex.OpenExisting(options.InternalParentAppMutexName);
+            var cancelEvent = new EventWaitHandle(false, EventResetMode.AutoReset, options.InternalCancelEventName);
 
             // ReSharper disable once EmptyGeneralCatchClause
             try

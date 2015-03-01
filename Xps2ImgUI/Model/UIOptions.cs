@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-
+using System.Globalization;
 using Xps2Img.Shared.CommandLine;
 using Xps2Img.Shared.Localization;
 
@@ -18,12 +18,14 @@ namespace Xps2ImgUI.Model
         }
 
         private static readonly Func<string> GetGuidNamePart = () => Guid.NewGuid().ToString().Substring(0, 8);
-        private static readonly string CancellationObjectIdStatic = String.Format("{0}-{1}", GetGuidNamePart(), GetGuidNamePart());
+        private static readonly Func<string, string, string> JoinInternalParameters = (s1, s2) => String.Join(InternalParametersSeparator.ToString(), new[] { s1, s2 });
 
-        [UIOption(Names.CancellationObjectIds)]
-        public override string CancellationObjectIds
+        private static readonly string CancelObjectIdsStatic = JoinInternalParameters(GetGuidNamePart(), GetGuidNamePart());
+
+        [UIOption(Names.Internal)]
+        public override string Internal
         {
-            get { return CancellationObjectIdStatic; }
+            get { return JoinInternalParameters(CancelObjectIdsStatic, LocalizationManager.CurrentUICulture.LCID.ToString(CultureInfo.InvariantCulture)); }
             set { }
         }
 
