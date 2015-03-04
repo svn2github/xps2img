@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Documents;
@@ -35,15 +37,31 @@ namespace Xps2Img.Xps2Img
             get { return _cancelConversionFunc != null && _cancelConversionFunc(); }
         }
 
+        [DllImport("Kernel32.dll")]
+        private static extern ushort GetUserDefaultUILanguage();
+
+        private static FixedDocumentSequence GetFixedDocumentSequenceFor(XpsDocument xpsDocument)
+        {
+            // Required to fix .NET 4.0+ Windows 7+ x64 memory leak.
+            var currentCulture = Thread.CurrentThread.CurrentUICulture;
+            try
+            {
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(GetUserDefaultUILanguage());
+                return xpsDocument.GetFixedDocumentSequence() ?? new FixedDocumentSequence();
+            }
+            finally
+            {
+                Thread.CurrentThread.CurrentUICulture = currentCulture;
+            }
+        }
+
         private Converter(string xpsFileName, Func<bool> cancelConversionFunc)
         {
             XpsFileName = xpsFileName;
             _cancelConversionFunc = cancelConversionFunc;
 
             _xpsDocument = new XpsDocument(xpsFileName, FileAccess.Read);
-            // ReSharper disable PossibleNullReferenceException
-            _documentPaginator = _xpsDocument.GetFixedDocumentSequence().DocumentPaginator;
-            // ReSharper restore PossibleNullReferenceException
+            _documentPaginator = GetFixedDocumentSequenceFor(_xpsDocument).DocumentPaginator;
 
             ConverterState = new ConverterState();
         }
