@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -87,8 +86,6 @@ namespace Xps2Img.Xps2Img
         
         private void ConverterThread()
         {
-            //Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
-
             while (true)
             {
                 try
@@ -144,7 +141,7 @@ namespace Xps2Img.Xps2Img
 
         private void ConvertInternal(Parameters parameters)
         {
-            //using (new DisposableActions(_currentAction = null))
+            using (new DisposableActions(() => _currentAction = null))
             {
                 ConverterParameters = parameters;
 
