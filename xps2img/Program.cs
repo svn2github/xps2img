@@ -30,7 +30,7 @@ namespace Xps2Img
         private static bool _launchedAsInternal;
 
         [DllImport("kernel32.dll")]
-        private static extern bool SetConsoleCP(int wCodePageID);
+        private static extern bool SetConsoleCP(int codePageId);
 
         [STAThread]
         private static int Main(string[] args)
@@ -147,38 +147,39 @@ namespace Xps2Img
 
                 xps2Img.ConverterState.SetLastAndTotalPages(pages.Last().End, pages.GetTotalLength());
 
-                // Options always have default values set.
-                // ReSharper disable PossibleInvalidOperationException
-                pages.ForEach(interval =>
-                    xps2Img.Convert(
-                        new Converter.Parameters
-                        {
-                            Silent = options.Silent,
-                            IgnoreExisting = options.IgnoreExisting,
-                            IgnoreErrors = options.IgnoreErrors,
-                            Test = options.Test,
-                            StartPage = interval.Begin,
-                            EndPage = interval.End,
-                            ImageType = options.FileType,
-                            ShortenExtension = options.ShortenExtension,
-                            ImageOptions = new ImageOptions(options.JpegQuality.Value, options.TiffCompression),
-                            RequiredSize = options.RequiredSize,
-                            Dpi = options.Dpi.Value,
-                            OutputDir = options.OutDir,
-                            BaseImageName = !String.IsNullOrEmpty(options.ImageName) ?
-                                              options.ImageName :
-                                              (options.ImageName == null ? String.Empty : null),
-                            FirstPageIndex = options.FirstPageIndex.Value,
-                            PrelimsPrefix = options.PrelimsPrefix,
-                            Clean = options.Clean
-                        }
-                    )
-                );
-                // ReSharper restore PossibleInvalidOperationException
+                pages.ForEach(interval => xps2Img.Convert(GetParameters(options, interval)));
 
                 xps2Img.OnProgress -= OnProgress;
                 xps2Img.OnError -= OnError;
             }
+        }
+
+        private static Converter.Parameters GetParameters(Options options, Interval interval)
+        {
+            // Options always have default values set.
+            // ReSharper disable PossibleInvalidOperationException
+            return new Converter.Parameters
+            {
+                OutputDir = options.OutDir,
+                StartPage = interval.Begin,
+                EndPage = interval.End,
+                ImageType = options.FileType,
+                ShortenExtension = options.ShortenExtension,
+                ImageOptions = new ImageOptions(options.JpegQuality.Value, options.TiffCompression),
+                RequiredSize = options.RequiredSize,
+                Dpi = options.Dpi.Value,
+                BaseImageName = !String.IsNullOrEmpty(options.ImageName) ?
+                                    options.ImageName :
+                                    (options.ImageName == null ? String.Empty : null),
+                FirstPageIndex = options.FirstPageIndex.Value,
+                PrelimsPrefix = options.PrelimsPrefix,
+                IgnoreExisting = options.IgnoreExisting,
+                IgnoreErrors = options.IgnoreErrors,
+                Test = options.Test,
+                Silent = options.Silent,
+                Clean = options.Clean
+            };
+            // ReSharper restore PossibleInvalidOperationException
         }
 
         private static string _progressFormatString;
