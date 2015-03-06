@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Documents;
@@ -22,9 +21,6 @@ namespace Xps2Img.Xps2Img
     {
         private static readonly PropertyInfo VisualTextHintingModePropertyInfo = typeof(Visual).GetProperty("VisualTextHintingMode", BindingFlags.Instance | BindingFlags.NonPublic);
 
-        private readonly XpsDocument _xpsDocument;
-        private readonly DocumentPaginator _documentPaginator;
-
         public string XpsFileName { get; private set; }
 
         public ConverterState ConverterState { get; private set; }
@@ -37,36 +33,84 @@ namespace Xps2Img.Xps2Img
             get { return _cancelConversionFunc != null && _cancelConversionFunc(); }
         }
 
-        [DllImport("Kernel32.dll")]
-        private static extern ushort GetUserDefaultUILanguage();
-
-        private static FixedDocumentSequence GetFixedDocumentSequenceFor(XpsDocument xpsDocument)
-        {
-            // Required to fix .NET 4.0+ Windows 7+ x64 memory leak.
-            var currentCulture = Thread.CurrentThread.CurrentUICulture;
-            try
-            {
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo(GetUserDefaultUILanguage());
-                return xpsDocument.GetFixedDocumentSequence() ?? new FixedDocumentSequence();
-            }
-            finally
-            {
-                Thread.CurrentThread.CurrentUICulture = currentCulture;
-            }
-        }
-
         private Converter(string xpsFileName, Func<bool> cancelConversionFunc)
         {
             XpsFileName = xpsFileName;
+
+            //XpsFileName = @"P:\Projects\NET\xps2img_sf\test.xps";
+
             _cancelConversionFunc = cancelConversionFunc;
 
-            _xpsDocument = new XpsDocument(xpsFileName, FileAccess.Read);
-            _documentPaginator = GetFixedDocumentSequenceFor(_xpsDocument).DocumentPaginator;
-
             ConverterState = new ConverterState();
+
+            _currentAction = Init;
+
+            _converterThread = new Thread(ConverterThread);
+            _converterThread.SetApartmentState(ApartmentState.STA);
+            _converterThread.Start();
+
+            WaitConverter();
         }
 
-        public int PageCount { get { return _documentPaginator.PageCount; } }
+        public int PageCount { get; private set; }
+
+        private XpsDocument _xpsDocument;
+        private DocumentPaginator _documentPaginator;
+
+        private readonly Thread _converterThread;
+        private readonly AutoResetEvent _mainEvent = new AutoResetEvent(false);
+        private readonly AutoResetEvent _converterEvent = new AutoResetEvent(false);
+        private Action _currentAction;
+
+        private Exception _exception;
+
+        private void WaitConverter()
+        {
+            _converterEvent.WaitOne();
+            var ex = _exception;
+            _exception = null;
+            if (ex != null)
+            {
+                _currentAction = null;
+                _mainEvent.Set();
+                throw ex;
+            }
+        }
+
+        private void Init()
+        {
+            _xpsDocument = new XpsDocument(XpsFileName, FileAccess.Read);
+            _documentPaginator = (_xpsDocument.GetFixedDocumentSequence() ?? new FixedDocumentSequence()).DocumentPaginator;
+
+            PageCount = _documentPaginator.PageCount;
+        }
+        
+        private void ConverterThread()
+        {
+            //Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
+
+            while (true)
+            {
+                try
+                {
+                    _exception = null;
+                    if (_currentAction == null)
+                    {
+                        _xpsDocument.Close();
+                        return;
+                    }
+                    _currentAction();
+                    _converterEvent.Set();
+                    _mainEvent.WaitOne();
+                }
+                catch (Exception ex)
+                {
+                    _exception = ex;
+                    _converterEvent.Set();
+                    _mainEvent.WaitOne();
+                }
+            }
+        }
 
         public static Converter Create(string xpsFileName, Func<bool> cancelConversionFunc = null)
         {
@@ -78,61 +122,86 @@ namespace Xps2Img.Xps2Img
 
         public void Convert(Parameters parameters)
         {
-            if (IsCancelled)
+            _exception = null;
+
+            _currentAction = () => ConvertInternal(parameters);
+            _mainEvent.Set();
+
+            while (true)
             {
-                return;
+                WaitConverter();
+
+                if (_currentAction == null)
+                {
+                    break;
+                }
+
+                OnProgress.SafeInvoke(this, _progressEventArgs);
+                
+                _mainEvent.Set();
             }
+        }
 
-            ConverterParameters = parameters;
-
-            if (parameters.BaseImageName == null)
+        private void ConvertInternal(Parameters parameters)
+        {
+            //using (new DisposableActions(_currentAction = null))
             {
-                parameters.BaseImageName = Path.GetFileNameWithoutExtension(XpsFileName) + '-';
-            }
+                ConverterParameters = parameters;
 
-            if (String.IsNullOrEmpty(parameters.OutputDir))
-            {
-                // ReSharper disable AssignNullToNotNullAttribute
-                parameters.OutputDir = Path.Combine(Path.GetDirectoryName(XpsFileName), Path.GetFileNameWithoutExtension(XpsFileName));
-                // ReSharper restore AssignNullToNotNullAttribute
-            }
-
-            parameters.OutputDir = parameters.OutputDir
-                                    .Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar)
-                                    .TrimEnd(new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar })
-                                    + Path.DirectorySeparatorChar;
-
-            if (!ConverterState.HasPageCount)
-            {
-                ConverterState.SetLastAndTotalPages(parameters.EndPage, PageCount);
-            }
-
-            var activeDir = parameters.OutputDir;
-            if (!parameters.Test && !parameters.Clean)
-            {
-                Directory.CreateDirectory(activeDir);
-            }
-
-            if (parameters.Clean && !Directory.Exists(activeDir))
-            {
-                return;
-            }
-
-            var numberFormat = PageCount.GetNumberFormat();
-
-            for (var docPageNumber = parameters.StartPage; docPageNumber <= parameters.EndPage; docPageNumber++)
-            {
                 if (IsCancelled)
                 {
                     return;
                 }
 
-                ConverterState.ActivePage = docPageNumber;
+                if (parameters.BaseImageName == null)
+                {
+                    parameters.BaseImageName = Path.GetFileNameWithoutExtension(XpsFileName) + '-';
+                }
 
-                ProcessPage(parameters, activeDir, docPageNumber, numberFormat);
+                if (String.IsNullOrEmpty(parameters.OutputDir))
+                {
+                    // ReSharper disable AssignNullToNotNullAttribute
+                    parameters.OutputDir = Path.Combine(Path.GetDirectoryName(XpsFileName), Path.GetFileNameWithoutExtension(XpsFileName));
+                    // ReSharper restore AssignNullToNotNullAttribute
+                }
+
+                parameters.OutputDir = parameters.OutputDir
+                                        .Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar)
+                                        .TrimEnd(new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar })
+                                        + Path.DirectorySeparatorChar;
+
+                if (!ConverterState.HasPageCount)
+                {
+                    ConverterState.SetLastAndTotalPages(parameters.EndPage, PageCount);
+                }
+
+                var activeDir = parameters.OutputDir;
+                if (!parameters.Test && !parameters.Clean)
+                {
+                    Directory.CreateDirectory(activeDir);
+                }
+
+                if (parameters.Clean && !Directory.Exists(activeDir))
+                {
+                    return;
+                }
+
+                var numberFormat = PageCount.GetNumberFormat();
+
+                for (var docPageNumber = parameters.StartPage; docPageNumber <= parameters.EndPage; docPageNumber++)
+                {
+                    if (IsCancelled)
+                    {
+                        return;
+                    }
+
+                    ConverterState.ActivePage = docPageNumber;
+
+                    ProcessPage(parameters, activeDir, docPageNumber, numberFormat);
+                }
+
+                PostClean(parameters, activeDir);
             }
-
-            PostClean(parameters, activeDir);
         }
 
         private void ProcessPage(Parameters parameters, string activeDir, int docPageNumber, string numberFormat)
@@ -213,11 +282,15 @@ namespace Xps2Img.Xps2Img
             }
         }
 
+        private ProgressEventArgs _progressEventArgs;
+
         private void FireOnProgress(string fileName)
         {
             ConverterState.ActivePageIndex++;
 
-            OnProgress.SafeInvoke(this, new ProgressEventArgs(fileName, ConverterState));
+            _progressEventArgs = new ProgressEventArgs(fileName, ConverterState);
+            _converterEvent.Set();
+            _mainEvent.WaitOne();
         }
 
         private RenderTargetBitmap GetPageBitmap(DocumentPaginator documentPaginator, int pageNumber, Parameters parameters)
@@ -329,7 +402,9 @@ namespace Xps2Img.Xps2Img
 
         public void Dispose()
         {
-            _xpsDocument.Close();
+            _currentAction = null;
+            _mainEvent.Set();
+            _converterThread.Join();
             GC.SuppressFinalize(this);
         }
     }
