@@ -210,8 +210,8 @@
     <comment>XPS2Img Files (*.x2i)|*.x2i|</comment>
   </data>
   <data name="ProcessorHasTerminated" xml:space="preserve">
-    <value>xps2img.exe processor application has terminated unexpectedly.</value>
-    <comment>xps2img.exe processor application has terminated unexpectedly.</comment>
+    <value>Unexpected: xps2img.exe processor application has been terminated.</value>
+    <comment>Unexpected: xps2img.exe processor application has been terminated.</comment>
   </data>
   <data name="DeleteConvertedImagesConfirmation" xml:space="preserve">
     <value>Converted images will be deleted.</value>

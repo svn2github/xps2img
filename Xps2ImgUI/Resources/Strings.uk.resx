@@ -210,8 +210,8 @@
     <comment>XPS2Img Files (*.x2i)|*.x2i|</comment>
   </data>
   <data name="ProcessorHasTerminated" xml:space="preserve">
-    <value>xps2img.exe процесор завершився аварійно.</value>
-    <comment>xps2img.exe processor application has terminated unexpectedly.</comment>
+    <value>Неочікувана помилка: Процес xps2img.exe аварійно завершив роботу.</value>
+    <comment>Unexpected: xps2img.exe processor application has been terminated.</comment>
   </data>
   <data name="DeleteConvertedImagesConfirmation" xml:space="preserve">
     <value>Усі зображення буде видалено.</value>

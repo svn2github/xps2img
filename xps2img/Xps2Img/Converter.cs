@@ -27,6 +27,8 @@ namespace Xps2Img.Xps2Img
 
         private readonly Func<bool> _cancelConversionFunc;
 
+        private readonly Mediator _mediator;
+
         private bool IsCancelled
         {
             get { return _cancelConversionFunc != null && _cancelConversionFunc(); }
@@ -35,20 +37,10 @@ namespace Xps2Img.Xps2Img
         private Converter(string xpsFileName, Func<bool> cancelConversionFunc)
         {
             XpsFileName = xpsFileName;
-
-            //XpsFileName = @"P:\Projects\NET\xps2img_sf\test.xps";
-
-            _cancelConversionFunc = cancelConversionFunc;
-
             ConverterState = new ConverterState();
 
-            _currentAction = Init;
-
-            _converterThread = new Thread(ConverterThread);
-            _converterThread.SetApartmentState(ApartmentState.STA);
-            _converterThread.Start();
-
-            WaitConverter();
+            _cancelConversionFunc = cancelConversionFunc;
+            _mediator = new Mediator(OpenDocument);
         }
 
         public int PageCount { get; private set; }
@@ -56,7 +48,7 @@ namespace Xps2Img.Xps2Img
         private XpsDocument _xpsDocument;
         private DocumentPaginator _documentPaginator;
 
-        private void Init()
+        private void OpenDocument()
         {
             _xpsDocument = new XpsDocument(XpsFileName, FileAccess.Read);
             _documentPaginator = (_xpsDocument.GetFixedDocumentSequence() ?? new FixedDocumentSequence()).DocumentPaginator;
@@ -72,13 +64,25 @@ namespace Xps2Img.Xps2Img
         public event EventHandler<ProgressEventArgs> OnProgress;
         public event EventHandler<ExceptionEventArgs> OnError;
 
-        //public void Convert(Parameters parameters)
-        //{
-        //}
+        private void FireOnProgress(string fileName)
+        {
+            ConverterState.ActivePageIndex++;
+
+            _mediator.FireOnProgress(new ProgressEventArgs(fileName, ConverterState));
+        }
+
+        public void Convert(Parameters parameters)
+        {
+            _mediator.Convert(
+                () => ConvertInternal(parameters),
+                args => OnProgress.SafeInvoke(this, args),
+                args => OnError.SafeInvoke(this, args)
+            );
+        }
 
         private void ConvertInternal(Parameters parameters)
         {
-            using (new DisposableActions(() => _currentAction = null))
+            using (new DisposableActions(() => _mediator.RequestStop()))
             {
                 ConverterParameters = parameters;
 
@@ -179,7 +183,7 @@ namespace Xps2Img.Xps2Img
                     throw;
                 }
 
-                OnError.SafeInvoke(this, new ExceptionEventArgs(ex));
+                _mediator.FireOnError(new ExceptionEventArgs(ex));
             }
         }
 
@@ -215,17 +219,6 @@ namespace Xps2Img.Xps2Img
             {
             }
         }
-
-        private ProgressEventArgs _progressEventArgs;
-
-        //private void FireOnProgress(string fileName)
-        //{
-        //    ConverterState.ActivePageIndex++;
-
-        //    _progressEventArgs = new ProgressEventArgs(fileName, ConverterState);
-        //    _converterEvent.Set();
-        //    _mainEvent.WaitOne();
-        //}
 
         private RenderTargetBitmap GetPageBitmap(DocumentPaginator documentPaginator, int pageNumber, Parameters parameters)
         {
@@ -334,12 +327,10 @@ namespace Xps2Img.Xps2Img
             }
         }
 
-        //public void Dispose()
-        //{
-        //    _currentAction = null;
-        //    _mainEvent.Set();
-        //    _converterThread.Join();
-        //    GC.SuppressFinalize(this);
-        //}
+        public void Dispose()
+        {
+            _mediator.Dispose();
+            GC.SuppressFinalize(this);
+        }
     }
 }

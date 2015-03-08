@@ -1,98 +1,167 @@
 ﻿using System;
 using System.Threading;
 
-using Xps2Img.Shared.Utils;
-
 namespace Xps2Img.Xps2Img
 {
     public partial class Converter
     {
-        //internal class Mediator(Converter converter)
-        //public Mediator(Converter converter)
-        //{
-        private readonly Thread _converterThread;
-        private readonly AutoResetEvent _mainEvent = new AutoResetEvent(false);
-        private readonly AutoResetEvent _converterEvent = new AutoResetEvent(false);
-        private Action _currentAction;
-
-        private Exception _exception;
-
-        private void WaitConverter()
+        internal class Mediator : IDisposable
         {
-            _converterEvent.WaitOne();
-            var ex = _exception;
-            _exception = null;
-            if (ex != null)
+            public Mediator(Action actionCreate)
             {
-                _currentAction = null;
-                _mainEvent.Set();
+                _currentAction = actionCreate;
+
+                _converterThread = new Thread(ConverterThread);
+                _converterThread.SetApartmentState(ApartmentState.STA);
+                _converterThread.Start();
+
+                WaitForWorker();
+            }
+
+            private readonly Thread _converterThread;
+            private readonly AutoResetEvent _mainEvent = new AutoResetEvent(false);
+            private readonly AutoResetEvent _workerEvent = new AutoResetEvent(false);
+
+            private Action _currentAction;
+            private Exception _exception;
+
+            private void ConverterThread()
+            {
+                while (true)
+                {
+                    try
+                    {
+                        _exception = null;
+
+                        if (IsStopRequested)
+                        {
+                            return;
+                        }
+
+                        _currentAction();
+                        SwitchToMainAndWait();
+                    }
+                    catch (Exception ex)
+                    {
+                        _exception = ex;
+                        SwitchToMainAndWait();
+                    }
+                }
+            }
+
+            private void WaitForWorker()
+            {
+                _workerEvent.WaitOne();
+
+                var ex = _exception;
+                _exception = null;
+
+                if (ex == null)
+                {
+                    return;
+                }
+
+                RequestStop();
+                SwitchToWorker();
+
                 throw ex;
             }
-        }
 
-        private void ConverterThread()
-        {
-            while (true)
+            private void SwitchToWorker()
             {
-                try
+                _mainEvent.Set();              
+            }
+
+            private void SwitchToMain()
+            {
+                _workerEvent.Set();
+            }
+
+            private void SwitchToMainAndWait()
+            {
+                SwitchToMain();
+                _mainEvent.WaitOne();
+            }
+
+            public void Convert(Action convertAction, Action<ProgressEventArgs> fireProgress, Action<ExceptionEventArgs> fireError)
+            {
+                _exception = null;
+                _currentAction = convertAction;
+
+                while (true)
                 {
-                    _exception = null;
-                    if (_currentAction == null)
+                    SwitchToWorker();
+                    WaitForWorker();
+
+                    if (IsStopRequested)
                     {
-                        _xpsDocument.Close();
-                        return;
+                        break;
                     }
-                    _currentAction();
-                    _converterEvent.Set();
-                    _mainEvent.WaitOne();
-                }
-                catch (Exception ex)
-                {
-                    _exception = ex;
-                    _converterEvent.Set();
-                    _mainEvent.WaitOne();
+
+                    FireIfNotNull(_progressEventArgs, fireProgress);
+                    FireIfNotNull(_exceptionEventArgs, fireError);
                 }
             }
-        }
 
-        public void Convert(Parameters parameters)
-        {
-            _exception = null;
-
-            _currentAction = () => ConvertInternal(parameters);
-            _mainEvent.Set();
-
-            while (true)
+            public void RequestStop()
             {
-                WaitConverter();
+                _currentAction = null;
+            }
 
-                if (_currentAction == null)
+            private bool IsStopRequested
+            {
+                get { return _currentAction == null; }
+            }
+
+            private ProgressEventArgs _progressEventArgs;
+            private ExceptionEventArgs _exceptionEventArgs;
+
+            private void SetEventArgs(ProgressEventArgs progressEventArgs, ExceptionEventArgs exceptionEventArgs)
+            {
+                _exception = null;
+                _progressEventArgs = progressEventArgs;
+                _exceptionEventArgs = exceptionEventArgs;
+            }
+
+            private void SetEventArgs(ProgressEventArgs progressEventArgs)
+            {
+                SetEventArgs(progressEventArgs, null);
+            }
+
+            private void SetEventArgs(ExceptionEventArgs exceptionEventArgs)
+            {
+                SetEventArgs(null, exceptionEventArgs);
+            }
+
+            public void FireOnProgress(ProgressEventArgs args)
+            {
+                SetEventArgs(args);
+                SwitchToMainAndWait();
+            }
+
+            public void FireOnError(ExceptionEventArgs args)
+            {
+                SetEventArgs(args);
+                SwitchToMainAndWait();
+            }
+
+            private static void FireIfNotNull<T>(T args, Action<T> fireAction) where T : EventArgs
+            {
+                if (args != null)
                 {
-                    break;
+                    fireAction(args);
                 }
+            }
 
-                OnProgress.SafeInvoke(this, _progressEventArgs);
-                
-                _mainEvent.Set();
+            public void Dispose()
+            {
+                RequestStop();
+                SwitchToWorker();
+
+                _converterThread.Join();
+
+                GC.SuppressFinalize(this);
             }
         }
-
-        private void FireOnProgress(string fileName)
-        {
-            ConverterState.ActivePageIndex++;
-
-            _progressEventArgs = new ProgressEventArgs(fileName, ConverterState);
-            _converterEvent.Set();
-            _mainEvent.WaitOne();
-        }
-
-        public void Dispose()
-        {
-            _currentAction = null;
-            _mainEvent.Set();
-            _converterThread.Join();
-            GC.SuppressFinalize(this);
-        }
-    //}
     }
 }
