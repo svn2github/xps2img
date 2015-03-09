@@ -40,13 +40,18 @@ namespace Xps2Img.Xps2Img
             ConverterState = new ConverterState();
 
             _cancelConversionFunc = cancelConversionFunc;
-            _mediator = new Mediator(OpenDocument);
+            _mediator = new Mediator(OpenDocument, CloseDocument);
         }
 
         public int PageCount { get; private set; }
 
         private XpsDocument _xpsDocument;
         private DocumentPaginator _documentPaginator;
+
+        public static Converter Create(string xpsFileName, Func<bool> cancelConversionFunc = null)
+        {
+            return new Converter(xpsFileName, cancelConversionFunc);
+        }
 
         private void OpenDocument()
         {
@@ -55,14 +60,17 @@ namespace Xps2Img.Xps2Img
 
             PageCount = _documentPaginator.PageCount;
         }
-        
-        public static Converter Create(string xpsFileName, Func<bool> cancelConversionFunc = null)
+
+        private void CloseDocument()
         {
-            return new Converter(xpsFileName, cancelConversionFunc);
+            if (_xpsDocument != null)
+            {
+                _xpsDocument.Close();
+            }
         }
 
         public event EventHandler<ProgressEventArgs> OnProgress;
-        public event EventHandler<ExceptionEventArgs> OnError;
+        public event EventHandler<ErrorEventArgs> OnError;
 
         private void FireOnProgress(string fileName)
         {
@@ -73,6 +81,11 @@ namespace Xps2Img.Xps2Img
 
         public void Convert(Parameters parameters)
         {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException("Document is already closed.");
+            }
+
             _mediator.Convert(
                 () => ConvertInternal(parameters),
                 args => OnProgress.SafeInvoke(this, args),
@@ -183,7 +196,7 @@ namespace Xps2Img.Xps2Img
                     throw;
                 }
 
-                _mediator.FireOnError(new ExceptionEventArgs(ex));
+                _mediator.FireOnError(new ErrorEventArgs(ex));
             }
         }
 
@@ -327,10 +340,32 @@ namespace Xps2Img.Xps2Img
             }
         }
 
+        private bool _disposed;
+
+        private void DisposeInternal()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            _disposed = true;
+
+            _mediator.Dispose();
+        }
+
         public void Dispose()
         {
-            _mediator.Dispose();
+            DisposeInternal();
             GC.SuppressFinalize(this);
+        }
+
+        ~Converter()
+        {
+			#if DEBUG
+            System.Diagnostics.Debug.Fail("You are not supposed to be here! Use Dispose instead!");
+			#endif
+            DisposeInternal();
         }
     }
 }

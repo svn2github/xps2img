@@ -214,7 +214,7 @@ namespace Xps2Img
                                 Path.GetFileNameWithoutExtension(converter.XpsFileName));
         }
 
-        private static void OnError(object sender, Converter.ExceptionEventArgs args)
+        private static void OnError(object sender, Converter.ErrorEventArgs args)
         {
             DisplayError(args.Exception);
         }

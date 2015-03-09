@@ -16,11 +16,11 @@ namespace Xps2Img.Xps2Img
             }
         }
 
-        public class ExceptionEventArgs : EventArgs
+        public class ErrorEventArgs : EventArgs
         {
             public Exception Exception { get; private set; }
 
-            public ExceptionEventArgs(Exception exception)
+            public ErrorEventArgs(Exception exception)
             {
                 Exception = exception;
             }

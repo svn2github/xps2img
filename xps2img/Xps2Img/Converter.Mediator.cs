@@ -5,18 +5,9 @@ namespace Xps2Img.Xps2Img
 {
     public partial class Converter
     {
-        internal class Mediator : IDisposable
+        private class Mediator : IDisposable
         {
-            public Mediator(Action actionCreate)
-            {
-                _currentAction = actionCreate;
-
-                _converterThread = new Thread(ConverterThread);
-                _converterThread.SetApartmentState(ApartmentState.STA);
-                _converterThread.Start();
-
-                WaitForWorker();
-            }
+            private readonly Action _actionDispose;
 
             private readonly Thread _converterThread;
             private readonly AutoResetEvent _mainEvent = new AutoResetEvent(false);
@@ -25,7 +16,20 @@ namespace Xps2Img.Xps2Img
             private Action _currentAction;
             private Exception _exception;
 
-            private void ConverterThread()
+            public Mediator(Action actionCreate, Action actionDispose)
+            {
+                _actionDispose = actionDispose;
+
+                _currentAction = actionCreate;
+
+                _converterThread = new Thread(WorkerThread);
+                _converterThread.SetApartmentState(ApartmentState.STA);
+                _converterThread.Start();
+
+                WaitForWorker();
+            }
+
+            private void WorkerThread()
             {
                 while (true)
                 {
@@ -35,6 +39,7 @@ namespace Xps2Img.Xps2Img
 
                         if (IsStopRequested)
                         {
+                            _actionDispose();
                             return;
                         }
 
@@ -83,7 +88,7 @@ namespace Xps2Img.Xps2Img
                 _mainEvent.WaitOne();
             }
 
-            public void Convert(Action convertAction, Action<ProgressEventArgs> fireProgress, Action<ExceptionEventArgs> fireError)
+            public void Convert(Action convertAction, Action<ProgressEventArgs> fireProgress, Action<ErrorEventArgs> fireError)
             {
                 _exception = null;
                 _currentAction = convertAction;
@@ -99,7 +104,7 @@ namespace Xps2Img.Xps2Img
                     }
 
                     FireIfNotNull(_progressEventArgs, fireProgress);
-                    FireIfNotNull(_exceptionEventArgs, fireError);
+                    FireIfNotNull(_errorEventArgs, fireError);
                 }
             }
 
@@ -114,13 +119,13 @@ namespace Xps2Img.Xps2Img
             }
 
             private ProgressEventArgs _progressEventArgs;
-            private ExceptionEventArgs _exceptionEventArgs;
+            private ErrorEventArgs _errorEventArgs;
 
-            private void SetEventArgs(ProgressEventArgs progressEventArgs, ExceptionEventArgs exceptionEventArgs)
+            private void SetEventArgs(ProgressEventArgs progressEventArgs, ErrorEventArgs errorEventArgs)
             {
                 _exception = null;
                 _progressEventArgs = progressEventArgs;
-                _exceptionEventArgs = exceptionEventArgs;
+                _errorEventArgs = errorEventArgs;
             }
 
             private void SetEventArgs(ProgressEventArgs progressEventArgs)
@@ -128,9 +133,9 @@ namespace Xps2Img.Xps2Img
                 SetEventArgs(progressEventArgs, null);
             }
 
-            private void SetEventArgs(ExceptionEventArgs exceptionEventArgs)
+            private void SetEventArgs(ErrorEventArgs errorEventArgs)
             {
-                SetEventArgs(null, exceptionEventArgs);
+                SetEventArgs(null, errorEventArgs);
             }
 
             public void FireOnProgress(ProgressEventArgs args)
@@ -139,7 +144,7 @@ namespace Xps2Img.Xps2Img
                 SwitchToMainAndWait();
             }
 
-            public void FireOnError(ExceptionEventArgs args)
+            public void FireOnError(ErrorEventArgs args)
             {
                 SetEventArgs(args);
                 SwitchToMainAndWait();
@@ -159,7 +164,7 @@ namespace Xps2Img.Xps2Img
                 SwitchToWorker();
 
                 _converterThread.Join();
-
+                
                 GC.SuppressFinalize(this);
             }
         }
