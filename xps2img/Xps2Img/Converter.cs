@@ -362,10 +362,10 @@ namespace Xps2Img.Xps2Img
 
         ~Converter()
         {
-			#if DEBUG
-            System.Diagnostics.Debug.Fail("You are not supposed to be here! Use Dispose instead!");
-			#endif
             DisposeInternal();
+            #if DEBUG
+            System.Diagnostics.Debug.Fail("You are not supposed to be here! Use Dispose instead!");
+            #endif
         }
     }
 }
