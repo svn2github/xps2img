@@ -195,7 +195,7 @@ namespace Xps2Img
                     _progressFormatString = String.Format(
                                                 converter.ConverterParameters.Clean ? Resources.Strings.Template_CleanProgress : Resources.Strings.Template_Progress,
                                                 0.GetNumberFormat(args.ConverterState.LastPage, false),
-                                                1.GetNumberFormat(args.ConverterState.LastPage, false));
+                                                1.GetNumberFormat(args.ConverterState.TotalPages, false));
                 }
 
                 Console.WriteLine(_progressFormatString,
