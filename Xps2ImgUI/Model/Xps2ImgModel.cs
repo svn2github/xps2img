@@ -6,7 +6,8 @@ using System.Threading;
 
 using Xps2Img.Shared.CommandLine;
 using Xps2Img.Shared.TypeConverters;
-using Xps2Img.Shared.Utils;
+
+using Xps2ImgLib.Utils;
 
 using Xps2ImgUI.Attributes.OptionsHolder;
 

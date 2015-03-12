@@ -13,6 +13,8 @@ using Xps2Img.Shared.Dialogs;
 using Xps2Img.Shared.TypeConverters;
 using Xps2Img.Shared.TypeEditors;
 
+using Xps2ImgLib;
+
 using UIOption = Xps2Img.Shared.Attributes.Options.OptionAttribute;
 using UIUnnamedOption = Xps2Img.Shared.Attributes.Options.UnnamedOptionAttribute;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace Xps2Img.Xps2Img
+namespace Xps2ImgLib
 {
     public partial class Converter
     {

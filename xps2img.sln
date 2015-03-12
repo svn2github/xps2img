@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xps2imgTests", "xps2imgTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xps2imgShared", "xps2imgShared\xps2imgShared.csproj", "{98F3CD20-A620-41BE-AA20-DF8568620DEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xps2imgLib", "xps2imgLib\xps2imgLib.csproj", "{71EDCEFE-20CC-4662-BC11-1E4F18D16012}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{98F3CD20-A620-41BE-AA20-DF8568620DEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98F3CD20-A620-41BE-AA20-DF8568620DEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98F3CD20-A620-41BE-AA20-DF8568620DEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71EDCEFE-20CC-4662-BC11-1E4F18D16012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71EDCEFE-20CC-4662-BC11-1E4F18D16012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71EDCEFE-20CC-4662-BC11-1E4F18D16012}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71EDCEFE-20CC-4662-BC11-1E4F18D16012}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

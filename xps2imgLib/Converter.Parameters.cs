@@ -1,8 +1,6 @@
 ﻿using System.Drawing;
 
-using Xps2Img.Shared.CommandLine;
-
-namespace Xps2Img.Xps2Img
+namespace Xps2ImgLib
 {
     public partial class Converter
     {

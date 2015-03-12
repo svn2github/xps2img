@@ -272,6 +272,10 @@
     <Content Include="Resources\Png\Preferences.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\xps2imgLib\xps2imgLib.csproj">
+      <Project>{71EDCEFE-20CC-4662-BC11-1E4F18D16012}</Project>
+      <Name>xps2imgLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\xps2imgShared\xps2imgShared.csproj">
       <Project>{98F3CD20-A620-41BE-AA20-DF8568620DEB}</Project>
       <Name>xps2imgShared</Name>

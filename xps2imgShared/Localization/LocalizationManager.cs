@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Threading;
 
-using Xps2Img.Shared.Utils;
+using Xps2ImgLib.Utils;
 
 namespace Xps2Img.Shared.Localization
 {

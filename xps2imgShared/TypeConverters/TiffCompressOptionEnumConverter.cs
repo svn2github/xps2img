@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
 
-using Xps2Img.Shared.CommandLine;
+using Xps2ImgLib;
 
 namespace Xps2Img.Shared.TypeConverters
 {

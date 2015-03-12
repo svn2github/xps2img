@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Xps2Img.Shared.Utils
+namespace Xps2ImgLib.Utils
 {
     public static class EventUtils
     {

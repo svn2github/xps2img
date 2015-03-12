@@ -9,6 +9,8 @@ using Xps2Img.Shared.CommandLine;
 using Xps2Img.Shared.Internal;
 using Xps2Img.Shared.Utils.System;
 
+using Xps2ImgLib;
+
 using ReturnCode = Xps2Img.Shared.CommandLine.CommandLine.ReturnCode;
 
 // ReSharper disable LocalizableElement
@@ -58,10 +60,10 @@ namespace Xps2Img.CommandLine
         {
             var exceptionHint = GetExceptionHint(ex);
 
-            var conversionException = ex as ConversionException;
+            var conversionException = ex as ConvertException;
 
             var page = launchedAsInternal && conversionException != null && conversionException.InnerException is XamlParseException
-                        ? conversionException.ContextData
+                        ? conversionException.Page
                         : -1;
 
             var exceptionMessage = ex
@@ -88,7 +90,7 @@ namespace Xps2Img.CommandLine
                     ? ReturnCode.Failed
                     : page != -1
                         ? page
-                        : conversionException.ContextData;
+                        : conversionException.Page;
         }
 
         #endregion

@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Media.Imaging;
 
-using Xps2Img.Shared.CommandLine;
-
-using TiffCompressOption = System.Windows.Media.Imaging.TiffCompressOption;
-
-namespace Xps2Img.Xps2Img
+namespace Xps2ImgLib
 {
     public static class ImageWriter
     {
@@ -22,13 +18,13 @@ namespace Xps2Img.Xps2Img
                 case ImageType.Jpeg:
                     return new JpegBitmapEncoder { QualityLevel = imageOptions.JpegQualityLevel };
                 case ImageType.Tiff:
-                    return new TiffBitmapEncoder { Compression = (TiffCompressOption) imageOptions.TiffCompression };
+                    return new TiffBitmapEncoder { Compression = (System.Windows.Media.Imaging.TiffCompressOption) imageOptions.TiffCompression };
                 case ImageType.Bmp:
                     return new BmpBitmapEncoder();
                 case ImageType.Gif:
                     return new GifBitmapEncoder();
                 default:
-                    throw new InvalidOperationException(String.Format(Resources.Strings.Error_UnknownImageType, imageType));
+                    throw new InvalidOperationException(String.Format("Unknown image type '{0}'", imageType));
             }
         }
 

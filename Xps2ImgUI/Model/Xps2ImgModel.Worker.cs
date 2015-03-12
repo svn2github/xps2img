@@ -11,7 +11,8 @@ using System.Windows.Xps.Packaging;
 using CommandLine.Utils;
 
 using Xps2Img.Shared.CommandLine;
-using Xps2Img.Shared.Utils;
+
+using Xps2ImgLib.Utils;
 
 using ReturnCode = Xps2Img.Shared.CommandLine.CommandLine.ReturnCode;
 
@@ -64,7 +65,6 @@ namespace Xps2ImgUI.Model
                                             IntervalUtils.ToString(t),
                                             IsCreationMode ? String.Empty : Options.Names.Clean);
                 var process = StartProcess(processCommandLine);
-                ThreadPool.QueueUserWorkItem(_ => WaitForProcessWorker(process));
                 Interlocked.Increment(ref _threadsLeft);
                 processLastConvertedPage.Add(new ProcessLastPage(process));
             }
@@ -173,25 +173,6 @@ namespace Xps2ImgUI.Model
             throwIfProcessFailed();
 
             CanResume = IsStopPending;
-        }
-
-        private void WaitForProcessWorker(Process process)
-        {
-            try
-            {
-                process.WaitForExit();
-
-                ExitCode = process.ExitCode;
-
-                Interlocked.Decrement(ref _threadsLeft);
-
-                FreeProcessResources(process);
-            }
-            // ReSharper disable EmptyGeneralCatchClause
-            catch
-            {
-            }
-            // ReSharper restore EmptyGeneralCatchClause
         }
 
         private int GetDocumentPageCount()
@@ -308,6 +289,7 @@ namespace Xps2ImgUI.Model
 
             process.OutputDataReceived += OutputDataReceivedHandler;
             process.ErrorDataReceived += ErrorDataReceivedHandler;
+            process.Exited += ExitedHandler;
 
             process.Start();
 

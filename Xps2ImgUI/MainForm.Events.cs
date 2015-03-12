@@ -9,6 +9,8 @@ using Xps2Img.Shared.TypeConverters;
 using Xps2Img.Shared.Utils;
 using Xps2Img.Shared.Utils.UI;
 
+using Xps2ImgLib.Utils;
+
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils.UI;

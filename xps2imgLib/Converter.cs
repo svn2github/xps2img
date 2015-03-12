@@ -10,11 +10,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Xps.Packaging;
 
-using Xps2Img.CommandLine;
+using Xps2ImgLib.Utils;
 
-using Xps2Img.Shared.Utils;
-
-namespace Xps2Img.Xps2Img
+namespace Xps2ImgLib
 {
     public partial class Converter : IDisposable
     {
@@ -22,7 +20,7 @@ namespace Xps2Img.Xps2Img
 
         public string XpsFileName { get; private set; }
 
-        public ConverterState ConverterState { get; private set; }
+        public State ConverterState { get; private set; }
         public Parameters ConverterParameters { get; private set; }
 
         private readonly Func<bool> _cancelConversionFunc;
@@ -37,7 +35,7 @@ namespace Xps2Img.Xps2Img
         private Converter(string xpsFileName, Func<bool> cancelConversionFunc)
         {
             XpsFileName = xpsFileName;
-            ConverterState = new ConverterState();
+            ConverterState = new State();
 
             _cancelConversionFunc = cancelConversionFunc;
             _mediator = new Mediator(OpenDocument, CloseDocument);
@@ -273,7 +271,7 @@ namespace Xps2Img.Xps2Img
             }
             catch (XamlParseException ex)
             {
-                throw new ConversionException(ex.Message, pageNumber+1, ex);
+                throw new ConvertException(ex.Message, pageNumber+1, ex);
             }
         }
 

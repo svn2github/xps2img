@@ -75,7 +75,6 @@
     <Compile Include="CommandLine\Options.ValidationExpressions.cs">
       <DependentUpon>Options.cs</DependentUpon>
     </Compile>
-    <Compile Include="CommandLine\ImageDefs.cs" />
     <Compile Include="CommandLine\Interval.cs" />
     <Compile Include="CommandLine\IntervalUtils.cs" />
     <Compile Include="CommandLine\ReturnCode.cs" />
@@ -109,10 +108,8 @@
     <Compile Include="TypeConverters\RequiredSizeTypeConverter.cs" />
     <Compile Include="TypeEditors\CheckedListBoxUITypeEditor.cs" />
     <Compile Include="TypeEditors\CpuAffinityUITypeEditor.cs" />
-    <Compile Include="Utils\EventUtils.cs" />
     <Compile Include="Utils\SystemManagementUtils.cs" />
     <Compile Include="Utils\System\AssemblyInformation.cs" />
-    <Compile Include="Utils\DisposableActions.cs" />
     <Compile Include="Setup\SetupGuard.cs" />
     <Compile Include="Utils\System\SystemManagement.cs" />
     <Compile Include="Utils\System\SystemManagement.Native.cs" />
@@ -143,6 +140,10 @@
     <Compile Include="CommandLine\Validation.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\xps2imgLib\xps2imgLib.csproj">
+      <Project>{71EDCEFE-20CC-4662-BC11-1E4F18D16012}</Project>
+      <Name>xps2imgLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\_Lib\CommandLine\CommandLine.csproj">
       <Project>{33D069F8-1FB0-475D-B19F-51979CB3E9DD}</Project>
       <Name>CommandLine</Name>

@@ -1,15 +1,15 @@
 ﻿using System;
 
-namespace Xps2Img.Xps2Img
+namespace Xps2ImgLib
 {
     public partial class Converter
     {
         public class ProgressEventArgs : EventArgs
         {
             public string FullFileName { get; private set; }
-            public ConverterState ConverterState { get; private set; }
+            public State ConverterState { get; private set; }
 
-            public ProgressEventArgs(string fullFileName, ConverterState converterState)
+            public ProgressEventArgs(string fullFileName, State converterState)
             {
                 FullFileName = fullFileName;
                 ConverterState = converterState;

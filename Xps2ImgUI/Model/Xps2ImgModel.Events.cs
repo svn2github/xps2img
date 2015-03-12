@@ -91,5 +91,26 @@ namespace Xps2ImgUI.Model
                 Stop();
             }
         }
+
+        private void ExitedHandler(object sender, EventArgs e)
+        {
+            var process = (Process) sender;
+
+            process.Exited -= ExitedHandler;
+
+            try
+            {
+                ExitCode = process.ExitCode;               
+                FreeProcessResources(process);
+            }
+            // ReSharper disable once EmptyGeneralCatchClause
+            catch
+            {
+            }
+            finally
+            {
+                Interlocked.Decrement(ref _threadsLeft);
+            }
+        }
     }
 }

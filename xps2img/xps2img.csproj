@@ -78,31 +78,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandLine\CommandLine.cs" />
-    <Compile Include="CommandLine\ConversionException.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Xps2Img\ImageWriter.cs" />
-    <Compile Include="Xps2Img\ConverterState.cs" />
-    <Compile Include="Xps2Img\Utils.cs" />
-    <Compile Include="Xps2Img\Converter.cs" />
-    <Compile Include="Xps2Img\Converter.EventArgs.cs">
-      <DependentUpon>Converter.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Xps2Img\Converter.Parameters.cs">
-      <DependentUpon>Converter.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Xps2Img\Converter.Mediator.cs">
-      <DependentUpon>Converter.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\ProjectAssemblyInfo.cs" />
-    <Compile Include="Xps2Img\Win32.cs" />
+    <Compile Include="Win32.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\xps2imgLib\xps2imgLib.csproj">
+      <Project>{71EDCEFE-20CC-4662-BC11-1E4F18D16012}</Project>
+      <Name>xps2imgLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\xps2imgShared\xps2imgShared.csproj">
       <Project>{98F3CD20-A620-41BE-AA20-DF8568620DEB}</Project>
       <Name>xps2imgShared</Name>

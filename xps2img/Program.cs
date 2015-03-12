@@ -8,8 +8,6 @@ using System.Threading;
 
 using CommandLine;
 
-using Xps2Img.CommandLine;
-
 using Xps2Img.Shared.CommandLine;
 using Xps2Img.Shared.Localization;
 using Xps2Img.Shared.Setup;
@@ -17,6 +15,9 @@ using Xps2Img.Shared.TypeConverters;
 using Xps2Img.Shared.Utils;
 
 using Xps2Img.Xps2Img;
+
+using Xps2ImgLib;
+using Xps2ImgLib.Utils;
 
 using ReturnCode = Xps2Img.Shared.CommandLine.CommandLine.ReturnCode;
 
@@ -138,7 +139,7 @@ namespace Xps2Img
 
                 if (!pages.LessThan(xps2Img.PageCount))
                 {
-                    throw new ConversionException(String.Format(Resources.Strings.Error_PagesRange, xps2Img.PageCount), ReturnCode.InvalidPages);
+                    throw new ConvertException(String.Format(Resources.Strings.Error_PagesRange, xps2Img.PageCount), ReturnCode.InvalidPages);
                 }
 
                 conversionStarted = true;

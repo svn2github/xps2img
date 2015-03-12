@@ -1,4 +1,6 @@
-﻿namespace Xps2Img.Shared.Utils.UI
+﻿using Xps2ImgLib.Utils;
+
+namespace Xps2Img.Shared.Utils.UI
 {
     public class ModalGuard : DisposableActions
     {

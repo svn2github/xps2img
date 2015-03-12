@@ -11,7 +11,7 @@ if "%targetDir%"=="" (
 
 set ilMerge=%scriptDir%..\Bin\ILMerge.exe
 
-set commonFiles="%targetDir%\CommandLine.dll" "%targetDir%\Gnu.Getopt.dll" "%targetDir%\xps2imgShared.dll"
+set commonFiles="%targetDir%\CommandLine.dll" "%targetDir%\Gnu.Getopt.dll" "%targetDir%\xps2imgShared.dll" "%targetDir%\xps2imgLib.dll"
 set uiFiles="%targetDir%\Microsoft.WindowsAPICodePack.dll"
 
 call :merge xps2img.exe "exe"
