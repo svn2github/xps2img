@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace Xps2Img.Xps2Img
+namespace Xps2Img.Utils
 {
     // ReSharper disable InconsistentNaming
     public static class Win32

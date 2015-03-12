@@ -13,8 +13,7 @@ using Xps2Img.Shared.Localization;
 using Xps2Img.Shared.Setup;
 using Xps2Img.Shared.TypeConverters;
 using Xps2Img.Shared.Utils;
-
-using Xps2Img.Xps2Img;
+using Xps2Img.Utils;
 
 using Xps2ImgLib;
 using Xps2ImgLib.Utils;
@@ -185,19 +184,26 @@ namespace Xps2Img
 
         private static string _progressFormatString;
 
+        private static void InitProgressFormatString(Converter.ProgressEventArgs args, Converter converter)
+        {
+            if (_progressFormatString == null)
+            {
+                _progressFormatString = String.Format(
+                                            converter.ConverterParameters.Clean
+                                                ? Resources.Strings.Template_CleanProgress
+                                                : Resources.Strings.Template_Progress,
+                                            0.GetNumberFormat(args.ConverterState.LastPage, false),
+                                            1.GetNumberFormat(args.ConverterState.TotalPages, false));
+            }
+        }
+
         private static void OnProgress(object sender, Converter.ProgressEventArgs args)
         {
             var converter = (Converter) sender;
 
             if (!converter.ConverterParameters.Silent)
             {
-                if (_progressFormatString == null)
-                {
-                    _progressFormatString = String.Format(
-                                                converter.ConverterParameters.Clean ? Resources.Strings.Template_CleanProgress : Resources.Strings.Template_Progress,
-                                                0.GetNumberFormat(args.ConverterState.LastPage, false),
-                                                1.GetNumberFormat(args.ConverterState.TotalPages, false));
-                }
+                InitProgressFormatString(args, converter);
 
                 Console.WriteLine(_progressFormatString,
                                     args.ConverterState.ActivePage,
