@@ -2,16 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Windows.Xps.Packaging;
 
 using CommandLine.Utils;
 
 using Xps2Img.Shared.CommandLine;
 
+using Xps2ImgLib;
 using Xps2ImgLib.Utils;
 
 using ReturnCode = Xps2Img.Shared.CommandLine.CommandLine.ReturnCode;
@@ -177,10 +176,9 @@ namespace Xps2ImgUI.Model
 
         private int GetDocumentPageCount()
         {
-            using (var xpsDocument = new XpsDocument(OptionsObject.SrcFile, FileAccess.Read))
+            using (var converter = Converter.Create(OptionsObject.SrcFile))
             {
-                var fixedDocumentSequence = xpsDocument.GetFixedDocumentSequence();
-                return fixedDocumentSequence == null ? 0 : fixedDocumentSequence.DocumentPaginator.PageCount;
+                return converter.PageCount;
             }
         }
 
