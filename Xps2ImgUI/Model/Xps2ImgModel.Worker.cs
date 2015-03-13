@@ -25,10 +25,7 @@ namespace Xps2ImgUI.Model
 
             CancelEvent.Reset();
 
-            var workerThread = new Thread(WorkerThread);
-
-            workerThread.SetApartmentState(ApartmentState.STA);
-            workerThread.Start();
+            ThreadPool.QueueUserWorkItem(_ => WorkerThread());
         }
 
         private void WorkerInit()

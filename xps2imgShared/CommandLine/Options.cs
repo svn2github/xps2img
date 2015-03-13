@@ -140,7 +140,7 @@ namespace Xps2Img.Shared.CommandLine
         public int ProcessorsNumber { get; set; }
 
         [Category(Categories.Options)]
-        [Option(ShortOptions.ProcessPriority, DefaultValue = Defaults.ProcessPriority, DescriptionKey = Properties.Consts.ProcessPriority + DescriptionKeyPostfix, ConverterType = typeof(ProcessPriorityClassTypeConverter), Flags = OptionFlags.NoDefaultValueDescription)]
+        [Option(ShortOptions.ProcessPriority, DefaultValue = Defaults.ProcessPriority, ConverterType = typeof(ProcessPriorityClassTypeConverter), Flags = OptionFlags.NoDefaultValueDescription)]
         [UIOption(ShortOptions.ProcessPriority)]
         [TypeConverter(typeof(ProcessPriorityClassTypeConverter))]
         [DefaultValue(ProcessPriorityClassTypeConverter.Auto)]

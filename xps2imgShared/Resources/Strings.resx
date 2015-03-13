@@ -346,12 +346,8 @@
     <comment>Processors Priority</comment>
   </data>
   <data name="Options_ProcessPriorityDescription" xml:space="preserve">
-    <value>Document processors priority&#xA;  Normal by default</value>
-    <comment>Document processors priority&#xA;  Normal by default</comment>
-  </data>
-  <data name="Options_ProcessPriorityCmdDescription" xml:space="preserve">
-    <value>Process priority&#xA;  normal by default</value>
-    <comment>Process priority&#xA;  normal by default</comment>
+    <value>Document processors priority&#xA;  normal by default</value>
+    <comment>Document processors priority&#xA;  normal by default</comment>
   </data>
   <data name="Options_CpuAffinityName" xml:space="preserve">
     <value>Processors Affinity</value>

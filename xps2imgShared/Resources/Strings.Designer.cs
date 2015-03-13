@@ -480,18 +480,8 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Process priority
-        ///  normal by default.
-        /// </summary>
-        public static string Options_ProcessPriorityCmdDescription {
-            get {
-                return ResourceManager.GetString("Options_ProcessPriorityCmdDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Document processors priority
-        ///  Normal by default.
+        ///  normal by default.
         /// </summary>
         public static string Options_ProcessPriorityDescription {
             get {
