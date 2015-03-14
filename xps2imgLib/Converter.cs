@@ -116,7 +116,7 @@ namespace Xps2ImgLib
 
                 parameters.OutputDir = parameters.OutputDir
                                         .Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar)
-                                        .TrimEnd(new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar })
+                                        .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
                                         + Path.DirectorySeparatorChar;
 
                 if (!ConverterState.HasPageCount)
@@ -275,20 +275,27 @@ namespace Xps2ImgLib
             }
         }
 
-        private static void SetVisualProperties(Visual visual)
+        private void SetVisualProperties(Visual visual)
         {
-            RenderOptions.SetBitmapScalingMode(visual, BitmapScalingMode.HighQuality);
+            if (ConverterParameters.XpsRenderOptions == null)
+            {
+                return;
+            }
 
-            if (VisualTextHintingModePropertyInfo != null)
+            if(ConverterParameters.XpsRenderOptions.HighQualityBitmapScalingMode)
+            {
+                RenderOptions.SetBitmapScalingMode(visual, BitmapScalingMode.HighQuality);
+            }
+
+            if (ConverterParameters.XpsRenderOptions.AnimatedVisualTextHintingMode && VisualTextHintingModePropertyInfo != null)
             {
                 // System.Windows.Media.TextHintingMode.Animated as of .NET 4.0+
                 const int textHintingModeAnimated = 2;
-                // Improves text rendering quality as of .NET 4.0+.
                 VisualTextHintingModePropertyInfo.SetValue(visual, textHintingModeAnimated, null);
             }
         }
 
-        private static void RenderPageToBitmapOnce(DocumentPage page, RenderTargetBitmap bitmap)
+        private void RenderPageToBitmapOnce(DocumentPage page, RenderTargetBitmap bitmap)
         {
             var visual = page.Visual;
 

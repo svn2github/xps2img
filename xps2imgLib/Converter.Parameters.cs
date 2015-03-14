@@ -6,6 +6,20 @@ namespace Xps2ImgLib
     {
         public class Parameters
         {
+            public class RenderOptions
+            {
+                public bool HighQualityBitmapScalingMode { get; set; }
+
+                // Improves (sometimes) text rendering quality as of .NET 4.0+.
+                public bool AnimatedVisualTextHintingMode { get; set; }
+
+                public RenderOptions()
+                {
+                    HighQualityBitmapScalingMode = true;
+                    AnimatedVisualTextHintingMode = true;
+                }
+            }
+
             public bool Silent { get; set; }
             public bool IgnoreExisting { get; set; }
             public bool IgnoreErrors { get; set; }
@@ -29,10 +43,13 @@ namespace Xps2ImgLib
 
             public bool Clean { get; set; }
 
+            public RenderOptions XpsRenderOptions { get; set; }
+
             public Parameters()
             {
                 FirstPageIndex = 1;
                 PrelimsPrefix = "$";
+                XpsRenderOptions = new RenderOptions();
             }
         }
     }
