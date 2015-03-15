@@ -454,7 +454,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
             if(SelectedGridItem.IsCategory() && ResetGroupCallback != null)
             {
-                label = this.GetCategoryName() ?? label;
+                label = (this.GetCategoryName() ?? label) + "Category";
             }
 
             resetMenuItem.Text = String.Format(ResetItemText, GetResetText(hasPropertyDescriptor ? propertyDescriptor.Name : label, text));
