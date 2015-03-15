@@ -362,6 +362,8 @@ namespace Xps2ImgUI
                 _model.LaunchFailed -= LaunchFailed;
                 _model.LaunchSucceeded -= LaunchSucceeded;
                 _model.OptionsObjectChanged -= OptionsObjectChanged;
+
+                _model.Dispose();
             }
 
             _model = model;

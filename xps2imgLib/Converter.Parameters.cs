@@ -20,6 +20,31 @@ namespace Xps2ImgLib
                 }
             }
 
+            public class OutOfMemoryStrategy
+            {
+                private int _triesTotal;
+
+                public int TriesSleepInterval { get; set; }
+
+                public int TriesTotal
+                {
+                    get { return _triesTotal; }
+                    set
+                    {
+                        _triesTotal = value;
+                        MaxTries = TriesTotal*10;
+                    }
+                }
+
+                public int MaxTries { get; private set; }
+
+                public OutOfMemoryStrategy()
+                {
+                    TriesSleepInterval = 1000;
+                    TriesTotal = 30;
+                }
+            }
+
             public bool Silent { get; set; }
             public bool IgnoreExisting { get; set; }
             public bool IgnoreErrors { get; set; }
@@ -43,13 +68,21 @@ namespace Xps2ImgLib
 
             public bool Clean { get; set; }
 
+            public bool XpsRenderOptionsEnabled { get; set; }
             public RenderOptions XpsRenderOptions { get; set; }
+
+            public bool OutOfMemoryStrategyEnabled { get; set; }
+            public OutOfMemoryStrategy ConverterOutOfMemoryStrategy { get; set; }
 
             public Parameters()
             {
                 FirstPageIndex = 1;
                 PrelimsPrefix = "$";
+
+                XpsRenderOptionsEnabled = true;
                 XpsRenderOptions = new RenderOptions();
+
+                ConverterOutOfMemoryStrategy = new OutOfMemoryStrategy();
             }
         }
     }

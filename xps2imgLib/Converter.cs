@@ -277,7 +277,7 @@ namespace Xps2ImgLib
 
         private void SetVisualProperties(Visual visual)
         {
-            if (ConverterParameters.XpsRenderOptions == null)
+            if (!ConverterParameters.XpsRenderOptionsEnabled)
             {
                 return;
             }
@@ -312,11 +312,7 @@ namespace Xps2ImgLib
 
         private RenderTargetBitmap RenderPageToBitmap(DocumentPage page, RenderTargetBitmap bitmap)
         {
-            const int triesSleepInterval = 1000;
-            const int triesTotal = 30;
-            const int maxTries = triesTotal * 10;
-
-            var triesCount = triesTotal;
+            var triesCount = ConverterParameters.ConverterOutOfMemoryStrategy.TriesTotal;
 
             while (true)
             {
@@ -335,12 +331,12 @@ namespace Xps2ImgLib
                         return null;
                     }
 
-                    if (--triesCount < 0 && (!_convertionStarted || -triesCount > maxTries))
+                    if (!ConverterParameters.OutOfMemoryStrategyEnabled || (--triesCount < 0 && (!_convertionStarted || -triesCount > ConverterParameters.ConverterOutOfMemoryStrategy.MaxTries)))
                     {
                         throw;
                     }
 
-                    Thread.Sleep(triesSleepInterval);
+                    Thread.Sleep(ConverterParameters.ConverterOutOfMemoryStrategy.TriesSleepInterval);
                 }
             }
         }

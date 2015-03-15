@@ -177,7 +177,8 @@ namespace Xps2Img
                 IgnoreErrors = options.IgnoreErrors,
                 Test = options.Test,
                 Silent = options.Silent,
-                Clean = options.Clean
+                Clean = options.Clean,
+                OutOfMemoryStrategyEnabled = true
             };
             // ReSharper restore PossibleInvalidOperationException
         }

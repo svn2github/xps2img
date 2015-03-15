@@ -13,7 +13,7 @@ using Xps2ImgUI.Attributes.OptionsHolder;
 
 namespace Xps2ImgUI.Model
 {
-    public partial class Xps2ImgModel
+    public partial class Xps2ImgModel : IDisposable
     {
         public Xps2ImgModel()
             : this(null)
@@ -260,5 +260,14 @@ namespace Xps2ImgUI.Model
         }
 
         private OptionsHolder<UIOptions> _optionsHolder;
+
+        public void Dispose()
+        {
+            if (_cancelEvent != null)
+            {
+                _cancelEvent.Close();
+                _cancelEvent = null;
+            }
+        }
     }
 }
