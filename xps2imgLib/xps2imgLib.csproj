@@ -53,10 +53,16 @@
     <Compile Include="Converter.EventArgs.cs">
       <DependentUpon>Converter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Converter.IMediator.cs">
+      <DependentUpon>Converter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Converter.Parameters.cs">
       <DependentUpon>Converter.cs</DependentUpon>
     </Compile>
     <Compile Include="Converter.Mediator.cs">
+      <DependentUpon>Converter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Converter.MediatorThread.cs">
       <DependentUpon>Converter.cs</DependentUpon>
     </Compile>
     <Compile Include="Converter.State.cs">

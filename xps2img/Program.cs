@@ -6,14 +6,16 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
+using Xps2Img.Utils;
+
 using CommandLine;
 
 using Xps2Img.Shared.CommandLine;
+using Xps2Img.Shared.Enums;
 using Xps2Img.Shared.Localization;
 using Xps2Img.Shared.Setup;
 using Xps2Img.Shared.TypeConverters;
 using Xps2Img.Shared.Utils;
-using Xps2Img.Utils;
 
 using Xps2ImgLib;
 using Xps2ImgLib.Utils;

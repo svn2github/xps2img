@@ -1,18 +1,8 @@
-﻿using Xps2Img.Shared.Utils.System;
+﻿using Xps2Img.Shared.Enums;
+using Xps2Img.Shared.Utils.System;
 
 namespace Xps2Img.Shared.TypeConverters
 {
-    public enum PostAction
-    { 
-        DoNothing,
-        Shutdown,
-        Reboot,
-        Sleep,
-        Hibernate,
-        LogOff,
-        Exit
-    };
-
     public class PostActionTypeConverter : FilterableEnumConverter<PostAction>
     {
         public static PostAction ChooseAction(PostAction currentAction, PostAction userAction)

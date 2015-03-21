@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Xps2Img.Shared.Enums;
+
 using Xps2ImgUI.Settings;
 
 namespace Xps2ImgUI
@@ -8,7 +10,7 @@ namespace Xps2ImgUI
     {
         private class ChangesTracker
         {
-            private readonly Preferences.Localizations _originalApplicationLanguage;
+            private readonly LanguagesSupported _originalApplicationLanguage;
             private readonly bool _originalClassicLook;
             private readonly bool _originalAlwaysResume;
 

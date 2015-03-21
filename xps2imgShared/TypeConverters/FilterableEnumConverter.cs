@@ -4,20 +4,23 @@ using System.Linq;
 
 namespace Xps2Img.Shared.TypeConverters
 {
-    public abstract class FilterableEnumConverter<T> : OptionsEnumConverter<T>
+    public class FilterableEnumConverter<T> : OptionsEnumConverter<T>
     {
-        private readonly T[] _names;
+        protected T[] Names;
 
         protected FilterableEnumConverter()
         {
-            _names = Enum.GetValues(typeof(T)).Cast<T>().ToArray();
+            Names = Enum.GetValues(typeof(T)).Cast<T>().ToArray();
         }
 
-        protected abstract bool IsValueVisible(T value);
+        protected virtual bool IsValueVisible(T value)
+        {
+            return true;
+        }
 
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(_names.Where(IsValueVisible).ToArray());
+            return new StandardValuesCollection(Names.Where(IsValueVisible).ToArray());
         }
     }
 }

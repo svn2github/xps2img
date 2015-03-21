@@ -25,20 +25,22 @@ namespace Xps2ImgLib
 
         private readonly Func<bool> _cancelConversionFunc;
 
-        private readonly Mediator _mediator;
+        private readonly IMediator _mediator;
 
         private bool IsCancelled
         {
             get { return _cancelConversionFunc != null && _cancelConversionFunc(); }
         }
 
-        private Converter(string xpsFileName, Func<bool> cancelConversionFunc)
+        private Converter(string xpsFileName, Func<bool> cancelConversionFunc, bool useWorkerThread)
         {
             XpsFileName = xpsFileName;
             ConverterState = new State();
 
             _cancelConversionFunc = cancelConversionFunc;
-            _mediator = new Mediator(OpenDocument, CloseDocument);
+
+            _mediator = useWorkerThread ? (IMediator)new MediatorThread() : new Mediator();           
+            _mediator.Init(OpenDocument, CloseDocument);
         }
 
         public int PageCount { get; private set; }
@@ -46,9 +48,9 @@ namespace Xps2ImgLib
         private XpsDocument _xpsDocument;
         private DocumentPaginator _documentPaginator;
 
-        public static Converter Create(string xpsFileName, Func<bool> cancelConversionFunc = null)
+        public static Converter Create(string xpsFileName, Func<bool> cancelConversionFunc = null, bool useWorkerThread = true)
         {
-            return new Converter(xpsFileName, cancelConversionFunc);
+            return new Converter(xpsFileName, cancelConversionFunc, useWorkerThread);
         }
 
         private void OpenDocument()

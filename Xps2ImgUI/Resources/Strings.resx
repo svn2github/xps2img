@@ -741,14 +741,6 @@ What's new in version {0}
     <value>Alphabetical</value>
     <comment>Alphabetical</comment>
   </data>
-  <data name="Localizations_EnglishValue" xml:space="preserve">
-    <value>English</value>
-    <comment>NON LOCALIZABLE</comment>
-  </data>
-  <data name="Localizations_UkrainianValue" xml:space="preserve">
-    <value>Українська</value>
-    <comment>NON LOCALIZABLE</comment>
-  </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>XPS to Images Converter</value>
     <comment>NON LOCALIZABLE</comment>

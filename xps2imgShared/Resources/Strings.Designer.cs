@@ -142,6 +142,24 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string LanguagesSupported_EnglishValue {
+            get {
+                return ResourceManager.GetString("LanguagesSupported_EnglishValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Українська (Ukrainian).
+        /// </summary>
+        public static string LanguagesSupported_UkrainianValue {
+            get {
+                return ResourceManager.GetString("LanguagesSupported_UkrainianValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string No {

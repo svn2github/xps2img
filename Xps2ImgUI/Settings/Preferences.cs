@@ -5,6 +5,7 @@ using System.Linq;
 
 using CommandLine.Utils;
 
+using Xps2Img.Shared.Enums;
 using Xps2Img.Shared.TypeConverters;
 
 namespace Xps2ImgUI.Settings
@@ -14,8 +15,9 @@ namespace Xps2ImgUI.Settings
     {
         [ReadOnly(false)]
         [Category(Categories.General)]
-        [DefaultValue(Localizations.English)]
-        public Localizations ApplicationLanguage { get; set; }
+        [DefaultValue(LanguagesSupported.English)]
+        [TypeConverter(typeof(OrderedByNameEnumConverter<LanguagesSupported>))]
+        public LanguagesSupported ApplicationLanguage { get; set; }
 
         [Category(Categories.Interface)]
         [DefaultValue(false)]
@@ -147,8 +149,8 @@ namespace Xps2ImgUI.Settings
                 yield return CheckForUpdates == CheckInterval.Weekly;
                 yield return CheckForUpdates == CheckInterval.Monthly;
                 yield return ShortenExtension; // 14th bit. Change FieldsMask if new fields are added before.
-                yield return ApplicationLanguage == Localizations.English; // Add more languages here.
-                yield return ApplicationLanguage == Localizations.Ukrainian;
+                yield return ApplicationLanguage == LanguagesSupported.English; // Add more languages here.
+                yield return ApplicationLanguage == LanguagesSupported.Ukrainian;
             }
         }
 

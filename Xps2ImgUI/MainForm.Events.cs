@@ -5,7 +5,7 @@ using System.Threading;
 using System.Windows.Forms;
 
 using Xps2Img.Shared.CommandLine;
-using Xps2Img.Shared.TypeConverters;
+using Xps2Img.Shared.Enums;
 using Xps2Img.Shared.Utils;
 using Xps2Img.Shared.Utils.UI;
 

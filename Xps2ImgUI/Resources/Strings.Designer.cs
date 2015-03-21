@@ -574,24 +574,6 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to English.
-        /// </summary>
-        internal static string Localizations_EnglishValue {
-            get {
-                return ResourceManager.GetString("Localizations_EnglishValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Українська.
-        /// </summary>
-        internal static string Localizations_UkrainianValue {
-            get {
-                return ResourceManager.GetString("Localizations_UkrainianValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to New Version Available.
         /// </summary>
         internal static string NewUpdateAvailable {

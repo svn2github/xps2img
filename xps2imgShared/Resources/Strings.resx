@@ -449,4 +449,12 @@
     <value>ZIP</value>
     <comment>NON LOCALIZABLE</comment>
   </data>
+  <data name="LanguagesSupported_EnglishValue" xml:space="preserve">
+    <value>English</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="LanguagesSupported_UkrainianValue" xml:space="preserve">
+    <value>Українська (Ukrainian)</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
 </root>

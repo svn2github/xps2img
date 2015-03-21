@@ -15,6 +15,7 @@ using Windows7.Dialogs;
 
 using Xps2Img.Shared.CommandLine;
 using Xps2Img.Shared.Diagnostics;
+using Xps2Img.Shared.Enums;
 using Xps2Img.Shared.Localization;
 using Xps2Img.Shared.Setup;
 using Xps2Img.Shared.Utils;
@@ -22,7 +23,6 @@ using Xps2Img.Shared.Utils.System;
 using Xps2Img.Shared.Utils.UI;
 
 using Xps2ImgUI.Controls.PropertyGridEx;
-using Xps2ImgUI.Localization;
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Settings;
 
@@ -70,7 +70,7 @@ namespace Xps2ImgUI
             ThreadPool.GetMinThreads(out workerThreads, out completionPortThreads);
             ThreadPool.SetMinThreads(workerThreads + Environment.ProcessorCount + 2, completionPortThreads);
 
-            LocalizationManager.SetUICulture((int)Preferences.Localizations.English);
+            LocalizationManager.SetUICulture((int)LanguagesSupported.English);
             
             PropertyGridEx.ResourceManager = Resources.Strings.ResourceManager;
 
@@ -192,7 +192,7 @@ namespace Xps2ImgUI
             ValidateProperties.For<Options>(typeof(Options.Properties));
 
             Debug.Assert(Enum.GetValues(typeof(Preferences.CheckInterval)).Length == 3, "Update fields for CheckInterval enum!");
-            Debug.Assert(Enum.GetValues(typeof(Preferences.Localizations)).Length == 2, "Update fields for Localizations enum!");
+            Debug.Assert(Enum.GetValues(typeof(LanguagesSupported)).Length == 2, "Update fields for Localizations enum!");
         }
     }
 }

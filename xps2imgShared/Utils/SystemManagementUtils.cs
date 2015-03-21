@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Xps2Img.Shared.TypeConverters;
+using Xps2Img.Shared.Enums;
 using Xps2Img.Shared.Utils.System;
 
 namespace Xps2Img.Shared.Utils

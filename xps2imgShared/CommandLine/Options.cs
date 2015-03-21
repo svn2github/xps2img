@@ -10,6 +10,7 @@ using CommandLine.Utils;
 
 using Xps2Img.Shared.Attributes.UI;
 using Xps2Img.Shared.Dialogs;
+using Xps2Img.Shared.Enums;
 using Xps2Img.Shared.TypeConverters;
 using Xps2Img.Shared.TypeEditors;
 

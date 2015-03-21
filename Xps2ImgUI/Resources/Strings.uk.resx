@@ -750,7 +750,7 @@
     <comment>LANGUAGE SPECIFIC</comment>
   </data>
   <data name="PropertyGrid_ResetUIOptions_UseFileNameAsImageName" xml:space="preserve">
-    <value>використання ім'я документа як префіксу імені зображення</value>
+    <value>використання імені документа як префіксу ім'я зображення</value>
     <comment>LANGUAGE SPECIFIC</comment>
   </data>
   <data name="PropertyGrid_ResetUIOptions_IgnoreErrors" xml:space="preserve">
