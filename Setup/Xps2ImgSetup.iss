@@ -99,6 +99,7 @@
 <ApplicationFile("xps2img.exe")>
 <ApplicationFile("xps2imgUI.exe")>
 <ApplicationFile("xps2imgShared.dll")>
+<ApplicationFile("xps2imgLib.dll")>
 <ApplicationFile("CommandLine.dll")>
 <ApplicationFile("Gnu.Getopt.dll")>
 <ApplicationFile("Microsoft.WindowsAPICodePack.dll")>
