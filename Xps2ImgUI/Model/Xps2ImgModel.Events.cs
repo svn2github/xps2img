@@ -45,9 +45,11 @@ namespace Xps2ImgUI.Model
 
             var file = match.Groups["file"].Value;
 
+            var args = new ConversionProgressEventArgs(percent, pages, file);
+
             _progressStarted = true;
 
-            outputDataReceived(this, new ConversionProgressEventArgs(percent, pages, file));
+            outputDataReceived(this, args);
         }
 
         private void ErrorDataReceivedHandler(object sender, DataReceivedEventArgs e)
@@ -65,11 +67,7 @@ namespace Xps2ImgUI.Model
                 var isErrorReported = _isErrorReported;
                 _isErrorReported = true;
 
-                var match = ErrorMessageRegex.Match(errorMessage);
-
-                Func<string, string, string> getMatch = (g, d) => match.Success ? match.Groups[g].Value : d;
-
-                var args = new ConversionErrorEventArgs(getMatch("message", errorMessage), getMatch("page", null));
+                var args = GetConversionErrorEventArgs(errorMessage);
 
                 if (OptionsObject.IgnoreErrors && args.Page.HasValue)
                 {
@@ -90,6 +88,15 @@ namespace Xps2ImgUI.Model
             {
                 Stop();
             }
+        }
+
+        private static ConversionErrorEventArgs GetConversionErrorEventArgs(string errorMessage)
+        {
+            var match = ErrorMessageRegex.Match(errorMessage);
+
+            Func<string, string, string> getMatch = (g, d) => match.Success ? match.Groups[g].Value : d;
+
+            return new ConversionErrorEventArgs(getMatch("message", errorMessage), getMatch("page", null));
         }
 
         private void ExitedHandler(object sender, EventArgs e)
