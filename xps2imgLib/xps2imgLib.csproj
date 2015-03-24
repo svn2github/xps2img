@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConversionFailedException.cs" />
-    <Compile Include="ConversionCanceledException.cs" />
+    <Compile Include="ConversionCancelledException.cs" />
     <Compile Include="ConversionException.cs" />
     <Compile Include="ImageOptions.cs" />
     <Compile Include="ImageType.cs" />

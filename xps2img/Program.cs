@@ -26,8 +26,8 @@ namespace Xps2Img
 {
     internal static class Program
     {
-        private static volatile bool _isCanceled;
-        private static volatile bool _isUserCanceled;
+        private static volatile bool _isCancelled;
+        private static volatile bool _isUserCancelled;
 
         private static bool _launchedAsInternal;
 
@@ -82,12 +82,12 @@ namespace Xps2Img
                     ThreadPool.QueueUserWorkItem(_ => WaitForCancellationThread(options));
                 }
 
-                Win32.SetConsoleCtrlHandler(_ => _isUserCanceled = _isCanceled = true, true);
+                Win32.SetConsoleCtrlHandler(_ => _isUserCancelled = _isCancelled = true, true);
 
-                Convert(options, () => _isCanceled, out conversionStarted);
+                Convert(options, () => _isCancelled, out conversionStarted);
 
-                exitCode = _isUserCanceled
-                                ? ReturnCode.UserCanceled
+                exitCode = _isUserCancelled
+                                ? ReturnCode.UserCancelled
                                 : _launchedAsInternal
                                     ? ReturnCode.InternalOK
                                     : ReturnCode.OK;
@@ -124,7 +124,7 @@ namespace Xps2Img
             {
             }
 
-            _isCanceled = true;
+            _isCancelled = true;
         }
 
         private static void Convert(Options options, Func<bool> cancelConversionFunc, out bool conversionStarted)
@@ -155,7 +155,7 @@ namespace Xps2Img
                 }
                 catch (ConversionException ex)
                 {
-                    if (ex is ConversionCanceledException)
+                    if (ex is ConversionCancelledException)
                     {
                         return;
                     }

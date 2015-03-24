@@ -397,7 +397,7 @@
     <comment>Test mode (no files will be written)</comment>
   </data>
   <data name="Options_CleanDescription" xml:space="preserve">
-    <value>Видалити всі зображення</value>
+    <value>Видалити зображення</value>
     <comment>Clean (delete images)</comment>
   </data>
   <data name="Options_ParametersCategory" xml:space="preserve">

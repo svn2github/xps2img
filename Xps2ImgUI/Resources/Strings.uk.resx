@@ -282,11 +282,11 @@
     <comment>Delete Images Confirmation</comment>
   </data>
   <data name="WouldYouLikeToDeleteImages" xml:space="preserve">
-    <value>Чи ви дійсно бажаєте видалити всі зображення?</value>
+    <value>Чи ви дійсно бажаєте видалити зображення?</value>
     <comment>Would you like to delete images?</comment>
   </data>
   <data name="YesDeleteImages" xml:space="preserve">
-    <value>&amp;Так, видалити всі зображення</value>
+    <value>&amp;Так, видалити зображення</value>
     <comment>&amp;Yes, Delete Images</comment>
   </data>
   <data name="NoBackToApplication" xml:space="preserve">

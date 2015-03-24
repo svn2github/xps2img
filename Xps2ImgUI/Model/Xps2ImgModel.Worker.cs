@@ -109,15 +109,6 @@ namespace Xps2ImgUI.Model
             }
         }
 
-        private void WorkerWait()
-        {
-            LaunchSucceeded.SafeInvoke(this);
-
-            WaitAllWorkers(true);
-
-            Completed.SafeInvoke(this);
-        }
-
         private void WorkerCheckPreconitions()
         {
             if (IsResumeMode && !CanResume)
@@ -138,7 +129,10 @@ namespace Xps2ImgUI.Model
                 WorkerCheckPreconitions();
                 WorkerInit();
                 WorkerStart();
-                WorkerWait();
+
+                LaunchSucceeded.SafeInvoke(this);
+
+                WaitAllWorkers(true);
             }
             catch (Exception ex)
             {
@@ -146,6 +140,10 @@ namespace Xps2ImgUI.Model
             }
             finally
             {
+                CanResume = (_isErrorReported || _userCancelled) && IsCreationMode;
+
+                Completed.SafeInvoke(this);
+
                 WorkerCleanup();
             }
         }
@@ -167,8 +165,6 @@ namespace Xps2ImgUI.Model
             }
 
             throwIfProcessFailed();
-
-            CanResume = IsStopPending;
         }
 
         private int GetDocumentPageCount()

@@ -27,11 +27,11 @@ namespace Xps2ImgLib
 
         private readonly IMediator _mediator;
 
-        private void CheckCanceled()
+        private void CheckCancelled()
         {
             if (_cancelConversionFunc != null && _cancelConversionFunc())
             {
-                throw new ConversionCanceledException();
+                throw new ConversionCancelledException();
             }
         }
 
@@ -102,7 +102,7 @@ namespace Xps2ImgLib
             {
                 ConverterParameters = parameters;
 
-                CheckCanceled();
+                CheckCancelled();
 
                 if (parameters.BaseImageName == null)
                 {
@@ -141,7 +141,7 @@ namespace Xps2ImgLib
 
                 for (var docPageNumber = parameters.StartPage; docPageNumber <= parameters.EndPage; docPageNumber++)
                 {
-                    CheckCanceled();
+                    CheckCancelled();
 
                     ConverterState.ActivePage = docPageNumber;
 
@@ -325,7 +325,7 @@ namespace Xps2ImgLib
                 }
                 catch (OutOfMemoryException)
                 {
-                    CheckCanceled();
+                    CheckCancelled();
 
                     if (!ConverterParameters.OutOfMemoryStrategyEnabled || (--triesCount < 0 && (!_convertionStarted || -triesCount > ConverterParameters.ConverterOutOfMemoryStrategy.MaxTries)))
                     {

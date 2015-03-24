@@ -133,7 +133,6 @@ namespace Xps2ImgUI
 
             UpdateElapsedTime();
             UpdateConvertButton();
-            UpdateThumbButtons();
         }
 
         protected override void OnSizeChanged(EventArgs e)
@@ -220,7 +219,6 @@ namespace Xps2ImgUI
             {
                 var e = m.GetPostMessageData<ConversionProgressEventArgs>();
                 UpdateProgress(e.Percent, e.Pages, e.File);
-                return;
             }
 
             try

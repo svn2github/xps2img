@@ -13,7 +13,7 @@ namespace Xps2Img.Shared.CommandLine
             public const int NoArgs             = 2;
             public const int Failed             = 3;
             public const int InvalidPages       = 4;
-            public const int UserCanceled       = 5;
+            public const int UserCancelled      = 5;
 
             // Internals.
             public const int InternalOK         = 0xDEADBEE;
