@@ -26,8 +26,8 @@ namespace Xps2Img
 {
     internal static class Program
     {
-        private static volatile bool _isCancelled;
-        private static volatile bool _isUserCancelled;
+        private static volatile bool _isCanceled;
+        private static volatile bool _isUserCanceled;
 
         private static bool _launchedAsInternal;
 
@@ -82,12 +82,12 @@ namespace Xps2Img
                     ThreadPool.QueueUserWorkItem(_ => WaitForCancellationThread(options));
                 }
 
-                Win32.SetConsoleCtrlHandler(_ => _isUserCancelled = _isCancelled = true, true);
+                Win32.SetConsoleCtrlHandler(_ => _isUserCanceled = _isCanceled = true, true);
 
-                Convert(options, () => _isCancelled, out conversionStarted);
+                Convert(options, () => _isCanceled, out conversionStarted);
 
-                exitCode = _isUserCancelled
-                                ? ReturnCode.UserCancelled
+                exitCode = _isUserCanceled
+                                ? ReturnCode.UserCanceled
                                 : _launchedAsInternal
                                     ? ReturnCode.InternalOK
                                     : ReturnCode.OK;
@@ -124,7 +124,7 @@ namespace Xps2Img
             {
             }
 
-            _isCancelled = true;
+            _isCanceled = true;
         }
 
         private static void Convert(Options options, Func<bool> cancelConversionFunc, out bool conversionStarted)
@@ -140,7 +140,7 @@ namespace Xps2Img
 
                 if (!pages.LessThan(xps2Img.PageCount))
                 {
-                    throw new ConvertException(String.Format(Resources.Strings.Error_PagesRange, xps2Img.PageCount), ReturnCode.InvalidPages);
+                    throw new ConversionFailedException(String.Format(Resources.Strings.Error_PagesRange, xps2Img.PageCount), ReturnCode.InvalidPages);
                 }
 
                 conversionStarted = true;
@@ -149,10 +149,24 @@ namespace Xps2Img
 
                 xps2Img.ConverterState.SetLastAndTotalPages(pages.Last().End, pages.GetTotalLength());
 
-                pages.ForEach(interval => xps2Img.Convert(GetParameters(options, interval)));
+                try
+                {
+                    pages.ForEach(interval => xps2Img.Convert(GetParameters(options, interval)));
+                }
+                catch (ConversionException ex)
+                {
+                    if (ex is ConversionCanceledException)
+                    {
+                        return;
+                    }
 
-                xps2Img.OnProgress -= OnProgress;
-                xps2Img.OnError -= OnError;
+                    throw;
+                }
+                finally
+                {
+                    xps2Img.OnProgress -= OnProgress;
+                    xps2Img.OnError -= OnError;
+                }
             }
         }
 

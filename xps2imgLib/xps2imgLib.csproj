@@ -42,7 +42,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConvertException.cs" />
+    <Compile Include="ConversionFailedException.cs" />
+    <Compile Include="ConversionCanceledException.cs" />
+    <Compile Include="ConversionException.cs" />
     <Compile Include="ImageOptions.cs" />
     <Compile Include="ImageType.cs" />
     <Compile Include="Utils\DisposableActions.cs" />

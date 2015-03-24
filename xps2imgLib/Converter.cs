@@ -27,9 +27,12 @@ namespace Xps2ImgLib
 
         private readonly IMediator _mediator;
 
-        private bool IsCancelled
+        private void CheckCanceled()
         {
-            get { return _cancelConversionFunc != null && _cancelConversionFunc(); }
+            if (_cancelConversionFunc != null && _cancelConversionFunc())
+            {
+                throw new ConversionCanceledException();
+            }
         }
 
         private Converter(string xpsFileName, Func<bool> cancelConversionFunc, bool useWorkerThread)
@@ -99,10 +102,7 @@ namespace Xps2ImgLib
             {
                 ConverterParameters = parameters;
 
-                if (IsCancelled)
-                {
-                    return;
-                }
+                CheckCanceled();
 
                 if (parameters.BaseImageName == null)
                 {
@@ -141,10 +141,7 @@ namespace Xps2ImgLib
 
                 for (var docPageNumber = parameters.StartPage; docPageNumber <= parameters.EndPage; docPageNumber++)
                 {
-                    if (IsCancelled)
-                    {
-                        return;
-                    }
+                    CheckCanceled();
 
                     ConverterState.ActivePage = docPageNumber;
 
@@ -273,7 +270,7 @@ namespace Xps2ImgLib
             }
             catch (XamlParseException ex)
             {
-                throw new ConvertException(ex.Message, pageNumber+1, ex);
+                throw new ConversionFailedException(ex.Message, pageNumber+1, ex);
             }
         }
 
@@ -328,10 +325,7 @@ namespace Xps2ImgLib
                 }
                 catch (OutOfMemoryException)
                 {
-                    if (IsCancelled)
-                    {
-                        return null;
-                    }
+                    CheckCanceled();
 
                     if (!ConverterParameters.OutOfMemoryStrategyEnabled || (--triesCount < 0 && (!_convertionStarted || -triesCount > ConverterParameters.ConverterOutOfMemoryStrategy.MaxTries)))
                     {

@@ -2,11 +2,11 @@
 
 namespace Xps2ImgLib
 {
-    public class ConvertException: Exception
+    public class ConversionFailedException : ConversionException
     {
         public int Page { get; private set; }
 
-        public ConvertException(string message, int page, Exception innerException = null) :
+        public ConversionFailedException(string message, int page, Exception innerException = null) :
             base(message, innerException)
         {
             Page = page;

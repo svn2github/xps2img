@@ -60,7 +60,7 @@ namespace Xps2Img.CommandLine
         {
             var exceptionHint = GetExceptionHint(ex);
 
-            var conversionException = ex as ConvertException;
+            var conversionException = ex as ConversionFailedException;
 
             var page = launchedAsInternal && conversionException != null && conversionException.InnerException is XamlParseException
                         ? conversionException.Page

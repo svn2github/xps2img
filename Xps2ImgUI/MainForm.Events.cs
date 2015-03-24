@@ -136,7 +136,7 @@ namespace Xps2ImgUI
 
             UnregisterIdleHandler(CloseFormHandler);
 
-            if (Model.IsBatchMode && Model.ExitCode == ReturnCode.UserCancelled)
+            if (Model.IsBatchMode && Model.ExitCode == ReturnCode.UserCanceled)
             {
                 ShowErrorMessageBox(Resources.Strings.ConversionWasAbortedByUser);
             }
