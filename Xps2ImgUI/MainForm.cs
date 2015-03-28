@@ -18,6 +18,7 @@ using Xps2ImgUI.Localization;
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils;
+using Xps2ImgUI.Utils.Interfaces;
 using Xps2ImgUI.Utils.UI;
 
 using ReturnCode = Xps2Img.Shared.CommandLine.CommandLine.ReturnCode;

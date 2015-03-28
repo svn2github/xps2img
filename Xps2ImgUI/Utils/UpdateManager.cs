@@ -14,6 +14,7 @@ using Xps2Img.Shared.Utils.System;
 using Xps2ImgLib.Utils;
 
 using Xps2ImgUI.Settings;
+using Xps2ImgUI.Utils.Interfaces;
 using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI.Utils

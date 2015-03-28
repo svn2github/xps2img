@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using System.ComponentModel;
 
 using Xps2ImgUI.Localization;
-using Xps2ImgUI.Utils;
+using Xps2ImgUI.Utils.Interfaces;
 using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI

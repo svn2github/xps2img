@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Xps2ImgUI.Utils
+namespace Xps2ImgUI.Utils.Interfaces
 {
     public interface IUpdateManager
     {
