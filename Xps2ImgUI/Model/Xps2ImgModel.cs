@@ -77,13 +77,7 @@ namespace Xps2ImgUI.Model
                 return;
             }
 
-            try
-            {
-                CancelEvent.Set();
-            }
-            catch(InvalidOperationException)
-            {
-            }
+            IsStopPending = true;
 
             _isRunning = false;
         }
@@ -137,6 +131,23 @@ namespace Xps2ImgUI.Model
         public bool IsStopPending
         {
             get { return CancelEvent.WaitOne(0); }
+            private set
+            {
+                try
+                {
+                    if(value)
+                    {
+                        CancelEvent.Set();
+                    }
+                    else
+                    {
+                        CancelEvent.Reset();
+                    }               
+                }
+                catch(InvalidOperationException)
+                {
+                }
+            }
         }
 
         public bool IsDeleteMode

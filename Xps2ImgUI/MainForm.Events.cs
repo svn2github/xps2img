@@ -99,10 +99,17 @@ namespace Xps2ImgUI
         {
             if (_conversionFailed)
             {
+                this.InvokeIfNeeded(() => EnableConvertControls());
                 return;
             }
 
-            this.InvokeIfNeeded(() => { UpdateRunningStatus(false); EnableConvertControls(); FlashForm(); HandleErrorPages(); });
+            this.InvokeIfNeeded(() =>
+            {
+                UpdateRunningStatus(false);
+                EnableConvertControls();
+                FlashForm();
+                HandleErrorPages();
+            });
         }
 
         private void LaunchFailed(object sender, ThreadExceptionEventArgs e)
@@ -114,7 +121,11 @@ namespace Xps2ImgUI
                 message = String.Format(Resources.Strings.Xps2ImgNotFountFormat, Environment.NewLine, message);
             }
             
-            this.InvokeIfNeeded(() => { UpdateFailedStatus(message, e.Exception); EnableConvertControls(); });
+            this.InvokeIfNeeded(() =>
+            {
+                UpdateFailedStatus(message, e.Exception);
+                EnableConvertControls();
+            });
         }
 
         private void LaunchSucceeded(object sender, EventArgs e)
@@ -196,7 +207,7 @@ namespace Xps2ImgUI
             }
 
             UpdateCommandLine(canResume);
-            UpdateConvertButton();
+            UpdateConvertButtons();
         }
 
         private void SettingsPropertyGridSelectedObjectsChanged(object sender, EventArgs e)
@@ -214,7 +225,7 @@ namespace Xps2ImgUI
             _activeAlwaysResume = preferences.AlwaysResume;
             if (!Model.IsRunning)
             {
-                UpdateConvertButton();
+                UpdateConvertButtons();
             }
         }
 
@@ -224,7 +235,7 @@ namespace Xps2ImgUI
             {
                 using (new DisposableActions(() => _activeAlwaysResume = null))
                 {
-                    using (var preferencesForm = new PreferencesForm(_preferences, Model.IsRunning, ClassicLookChanged, AlwaysResumeChanged))
+                    using (var preferencesForm = new PreferencesForm(_preferences, Model.IsStopPending || Model.IsRunning, ClassicLookChanged, AlwaysResumeChanged))
                     {
                         if (preferencesForm.ShowDialog(this) != DialogResult.OK)
                         {

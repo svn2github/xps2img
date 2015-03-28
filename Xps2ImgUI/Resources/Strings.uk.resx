@@ -530,8 +530,8 @@
     <comment> Not converted page numbers: {0}.</comment>
   </data>
   <data name="NotConvertedPageNumbersConfirmToCopy" xml:space="preserve">
-    <value> Наступні сторінки не було перетворено: {0}. Підтвердіть для копіювання номерів до буфера обміну.</value>
-    <comment> Not converted page numbers: {0}. Confirm to copy them to clipboard.</comment>
+    <value> Наступні сторінки не було перетворено: {0}. Підтвердіть для копіювання номерів до буфера обміну.&#xA;&#xA;</value>
+    <comment> Not converted page numbers: {0}. Confirm to copy them to clipboard.&#xA;&#xA;</comment>
   </data>
   <data name="CompletedWithErrors" xml:space="preserve">
     <value>Завершено із помилками</value>

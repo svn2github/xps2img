@@ -132,7 +132,7 @@ namespace Xps2ImgUI
             settingsPropertyGrid.RefreshLocalization();
 
             UpdateElapsedTime();
-            UpdateConvertButton();
+            UpdateConvertButtons();
         }
 
         protected override void OnSizeChanged(EventArgs e)

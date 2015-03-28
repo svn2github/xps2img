@@ -23,7 +23,7 @@ namespace Xps2ImgUI.Model
         {
             _conversionType = conversionType;
 
-            CancelEvent.Reset();
+            IsStopPending = false;
 
             ThreadPool.QueueUserWorkItem(_ => WorkerThread());
         }
@@ -71,6 +71,8 @@ namespace Xps2ImgUI.Model
         private void WorkerCleanup()
         {
             _isRunning = false;
+
+            IsStopPending = false;
 
             if (_appMutex != null)
             {
@@ -124,6 +126,8 @@ namespace Xps2ImgUI.Model
 
         private void WorkerThread()
         {
+            var failed = false;
+
             try
             {
                 WorkerCheckPreconitions();
@@ -136,11 +140,12 @@ namespace Xps2ImgUI.Model
             }
             catch (Exception ex)
             {
+                failed = true;
                 WorkerError(ex);
             }
             finally
             {
-                CanResume = (_isErrorReported || _userCancelled) && IsCreationMode;
+                CanResume = (failed || _userCancelled) && IsCreationMode;
 
                 Completed.SafeInvoke(this);
 

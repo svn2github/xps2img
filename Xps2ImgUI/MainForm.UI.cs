@@ -21,7 +21,7 @@ namespace Xps2ImgUI
             this.SetProgressValue(progressBar.Value, progressBar.Maximum);
         }
 
-        private void UpdateConvertButton(bool? isRunning = null)
+        private void UpdateConvertButtons(bool? isRunning = null)
         {
             var isRunningBool = isRunning ?? Model.IsRunning;
 
@@ -57,7 +57,7 @@ namespace Xps2ImgUI
                 UpdateElapsedTime();
             }
 
-            UpdateConvertButton(isRunning);
+            UpdateConvertButtons(isRunning);
 
             settingsPropertyGrid.ReadOnly = isRunning;
 
