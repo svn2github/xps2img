@@ -235,7 +235,7 @@ namespace Xps2ImgUI
             {
                 using (new DisposableActions(() => _activeAlwaysResume = null))
                 {
-                    using (var preferencesForm = new PreferencesForm(_preferences, Model.IsStopPending || Model.IsRunning, ClassicLookChanged, AlwaysResumeChanged))
+                    using (var preferencesForm = new PreferencesForm(_preferences, Model, ClassicLookChanged, AlwaysResumeChanged))
                     {
                         if (preferencesForm.ShowDialog(this) != DialogResult.OK)
                         {

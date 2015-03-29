@@ -10,6 +10,7 @@ using Xps2Img.Shared.Localization;
 using Xps2ImgLib.Utils;
 
 using Xps2ImgUI.Localization;
+using Xps2ImgUI.Model;
 using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils.UI;
 
@@ -17,8 +18,6 @@ namespace Xps2ImgUI
 {
     public partial class PreferencesForm : Form, IFormLocalization
     {
-        private readonly bool _isRunning;
-
         private readonly Action<Preferences> _classicLookChanged;
         private readonly Action<Preferences> _alwaysResumeChanged;
 
@@ -26,11 +25,20 @@ namespace Xps2ImgUI
 
         private readonly Preferences _originalPreferences;
 
-        public PreferencesForm(Preferences preferences, bool isRunning, Action<Preferences> classicLookChanged = null, Action<Preferences> alwaysResumeChanged = null)
+        private readonly Xps2ImgModel _model;
+
+        private bool IsRunning
+        {
+            get { return _model.IsStopPending || _model.IsRunning; }
+        }
+
+        public PreferencesForm(Preferences preferences, Xps2ImgModel model, Action<Preferences> classicLookChanged = null, Action<Preferences> alwaysResumeChanged = null)
         {
             InitializeComponent();
 
-            _isRunning = isRunning;
+            _model = model;
+
+            SubscribeToModelEvents();
 
             Preferences = _originalPreferences = preferences;
 
@@ -40,6 +48,34 @@ namespace Xps2ImgUI
             _changesTracker = new ChangesTracker(this);
 
             this.EnableFormLocalization();
+        }
+
+        private void SubscribeToModelEvents()
+        {
+            _model.Completed += ModelEvent;
+            _model.LaunchFailed += ModelEvent;
+            _model.LaunchSucceeded += ModelEvent;
+        }
+
+        private void UnsubscribeFromModelEvents()
+        {
+            _model.Completed -= ModelEvent;
+            _model.LaunchFailed -= ModelEvent;
+            _model.LaunchSucceeded -= ModelEvent;
+        }
+
+        private void ModelEvent(object sender, EventArgs eventArgs)
+        {
+            SetReadOnly();
+            EnableButtons();
+        }
+
+        private void SetReadOnly()
+        {
+            ReflectionUtils.SetReadOnly<Preferences>(IsRunning, Preferences.Properties.ShortenExtension);
+            ReflectionUtils.SetReadOnly<Preferences>(IsRunning, Preferences.Properties.ApplicationLanguage);
+
+            preferencesPropertyGrid.Refresh();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -58,8 +94,7 @@ namespace Xps2ImgUI
 
             preferencesPropertyGrid.SelectFirstGridItem();
 
-            ReflectionUtils.SetReadOnly<Preferences>(_isRunning, Preferences.Properties.ShortenExtension);
-            ReflectionUtils.SetReadOnly<Preferences>(_isRunning, Preferences.Properties.ApplicationLanguage);
+            SetReadOnly();
 
             EnableButtons();
 
@@ -69,6 +104,8 @@ namespace Xps2ImgUI
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+
+            UnsubscribeFromModelEvents();
 
             if (DialogResult != DialogResult.Cancel)
             {
@@ -80,7 +117,7 @@ namespace Xps2ImgUI
 
         private bool PropertyGridResetGroupCallback(string label, bool check)
         {
-            Func<PropertyInfo, bool> allowFilter = pi => !_isRunning || (pi.Name != Preferences.Properties.ShortenExtension && pi.Name != Preferences.Properties.ApplicationLanguage);
+            Func<PropertyInfo, bool> allowFilter = pi => !IsRunning || (pi.Name != Preferences.Properties.ShortenExtension && pi.Name != Preferences.Properties.ApplicationLanguage);
 
             if (check)
             {
@@ -126,7 +163,7 @@ namespace Xps2ImgUI
             {
                 Preferences.Reset();
 
-                if (_isRunning)
+                if (IsRunning)
                 {
                     Preferences.ShortenExtension = oldShortenExtension;
                     Preferences.ApplicationLanguage = oldApplicationLanguage;
@@ -194,7 +231,7 @@ namespace Xps2ImgUI
 
         private bool PreferencesDifferFrom(Preferences preferences)
         {
-            return !Preferences.Equals(preferences, _isRunning);
+            return !Preferences.Equals(preferences, IsRunning);
         }
 
         private void EnableOK()

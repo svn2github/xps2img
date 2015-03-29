@@ -147,9 +147,9 @@ namespace Xps2ImgUI.Model
             {
                 CanResume = (failed || _userCancelled) && IsCreationMode;
 
-                Completed.SafeInvoke(this);
-
                 WorkerCleanup();
+
+                Completed.SafeInvoke(this);
             }
         }
 
