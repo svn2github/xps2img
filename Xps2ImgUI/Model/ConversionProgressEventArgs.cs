@@ -4,13 +4,15 @@ namespace Xps2ImgUI.Model
 {
     public class ConversionProgressEventArgs: EventArgs
     {
-        public readonly int Percent;
-        public readonly string Pages;
-        public readonly string File;
+        public int Percent { get; private set; }
+        public int Page { get; private set; }
+        public string Pages { get; private set; }
+        public string File { get; private set; }
 
-        public ConversionProgressEventArgs(int percent, string pages, string file)
+        public ConversionProgressEventArgs(int percent, int page, string pages, string file)
         {
             Percent = percent;
+            Page = page;
             Pages = pages;
             File = file;
         }

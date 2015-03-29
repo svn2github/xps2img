@@ -67,41 +67,59 @@ namespace Xps2ImgUI
                     return;
                 }
 
-                bool footerCheckBoxChecked;
-
-                var dialogResult = TaskDialogUtils.Show(
-                                        Handle,
-                                        Resources.Strings.WindowTitle,
-                                        Resources.Strings.ResumeConversionConfirmation,
-                                        Resources.Strings.ResumeLastConversionSuggestion,
-                                        TaskDialogStandardIcon.Warning,
-                                        Resources.Strings.RememberChoiceAndDoNotAskAgain,
-                                        out footerCheckBoxChecked,
-                                        null,
-                                        new TaskDialogCommandInfo(TaskDialogResult.Yes,     Resources.Strings.YesResumeConversion),
-                                        new TaskDialogCommandInfo(TaskDialogResult.No,      Resources.Strings.NoStartConversionOver),
-                                        new TaskDialogCommandInfo(TaskDialogResult.Cancel,  Resources.Strings.BackToApplication));
-
-                if (dialogResult == TaskDialogUtils.NotSupported)
-                {
-                    dialogResult = ShowMessageBox(Resources.Strings.ResumeLastConversionSuggestion, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                }
-
-                if (dialogResult == DialogResult.Cancel)
+                if (!ConfirmResume(ref conversionType))
                 {
                     return;
-                }
-
-                _preferences.SuggestResume = !footerCheckBoxChecked;
-
-                if (dialogResult == DialogResult.Yes)
-                {
-                    conversionType = ConversionType.Resume;
-                    _preferences.AlwaysResume = footerCheckBoxChecked;
                 }
             }
 
             ExecuteConversion(conversionType);
+        }
+
+        private bool ConfirmResume(ref ConversionType conversionType)
+        {
+            bool footerCheckBoxChecked;
+            DialogResult dialogResult;
+
+            if (!ShowConfirmResumeDialog(out footerCheckBoxChecked, out dialogResult))
+            {
+                return false;
+            }
+
+            _preferences.SuggestResume = !footerCheckBoxChecked;
+
+            if (dialogResult != DialogResult.Yes)
+            {
+                return true;
+            }
+
+            conversionType = ConversionType.Resume;
+            _preferences.AlwaysResume = footerCheckBoxChecked;
+
+            return true;
+        }
+
+        private bool ShowConfirmResumeDialog(out bool footerCheckBoxChecked, out DialogResult dialogResult)
+        {
+            dialogResult = TaskDialogUtils.Show(
+                Handle,
+                Resources.Strings.WindowTitle,
+                Resources.Strings.ResumeConversionConfirmation,
+                Resources.Strings.ResumeLastConversionSuggestion,
+                TaskDialogStandardIcon.Warning,
+                Resources.Strings.RememberChoiceAndDoNotAskAgain,
+                out footerCheckBoxChecked,
+                null,
+                new TaskDialogCommandInfo(TaskDialogResult.Yes, Resources.Strings.YesResumeConversion),
+                new TaskDialogCommandInfo(TaskDialogResult.No, Resources.Strings.NoStartConversionOver),
+                new TaskDialogCommandInfo(TaskDialogResult.Cancel, Resources.Strings.BackToApplication));
+
+            if (dialogResult == TaskDialogUtils.NotSupported)
+            {
+                dialogResult = ShowMessageBox(Resources.Strings.ResumeLastConversionSuggestion, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            }
+
+            return dialogResult != DialogResult.Cancel;
         }
 
         private void ExecuteConversion(ConversionType conversionType)

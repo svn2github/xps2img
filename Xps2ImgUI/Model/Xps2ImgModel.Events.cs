@@ -7,6 +7,8 @@ using System.Threading;
 
 using Xps2Img.Shared.Internal;
 
+using Xps2ImgLib.Utils;
+
 namespace Xps2ImgUI.Model
 {
     public partial class Xps2ImgModel
@@ -16,40 +18,55 @@ namespace Xps2ImgUI.Model
 
         private void OutputDataReceivedHandler(object sender, DataReceivedEventArgs e)
         {
-            var outputDataReceived = OutputDataReceived;
-            if (String.IsNullOrEmpty(e.Data) || outputDataReceived == null)
+            if (String.IsNullOrEmpty(e.Data))
             {
                 return;
             }
 
-            var match = OutputRegex.Match(e.Data);
-            if (!match.Success)
+            var args = GetConversionProgressEventArgs(e.Data);
+            if (args == null)
             {
                 return;
             }
 
-            var pageIndex = _pagesProcessedDelta + Interlocked.Increment(ref _pagesProcessed);
-            var percent = pageIndex * 100 / PagesTotal;
-            var pages = String.Format(Resources.Strings.PageOfPagesFormat, pageIndex, PagesTotal);
-
-            if (CanResume)
-            {
-                var lastConvertedPage = _processLastConvertedPage.First(p => ReferenceEquals(p.Process, sender));
-                if (lastConvertedPage.Page != 0)
-                {
-                    _processedIntervals.Set(lastConvertedPage.Page, false);
-                }
-
-                lastConvertedPage.Page = int.Parse(match.Groups["page"].Value, CultureInfo.InvariantCulture);
-            }
-
-            var file = match.Groups["file"].Value;
-
-            var args = new ConversionProgressEventArgs(percent, pages, file);
+            RegisterLastProcessedPage(sender, args.Page);
 
             _progressStarted = true;
 
-            outputDataReceived(this, args);
+            OutputDataReceived.SafeInvoke(this, args);
+        }
+
+        private void RegisterLastProcessedPage(object sender, int page)
+        {
+            if (!CanResume)
+            {
+                return;
+            }
+
+            var lastConvertedPage = _processLastConvertedPage.First(p => ReferenceEquals(p.Process, sender));
+            if (lastConvertedPage.Page != 0)
+            {
+                _processedIntervals.Set(lastConvertedPage.Page, false);
+            }
+
+            lastConvertedPage.Page = page;
+        }
+
+        private ConversionProgressEventArgs GetConversionProgressEventArgs(string data)
+        {
+            var match = OutputRegex.Match(data);
+            if (!match.Success)
+            {
+                return null;
+            }
+
+            var pageIndex = _pagesProcessedDelta + Interlocked.Increment(ref _pagesProcessed);
+            var percent = pageIndex*100 / PagesTotal;
+            var pages = String.Format(Resources.Strings.PageOfPagesFormat, pageIndex, PagesTotal);
+            var page = int.Parse(GetMatchedValue(match, "page", "0"), CultureInfo.InvariantCulture);
+            var file = GetMatchedValue(match, "file", String.Empty);
+
+            return new ConversionProgressEventArgs(percent, page, pages, file);
         }
 
         private void ErrorDataReceivedHandler(object sender, DataReceivedEventArgs e)
@@ -61,27 +78,19 @@ namespace Xps2ImgUI.Model
 
             var errorMessage = ProcessOutput.Decode(e.Data);
 
-            var errorDataReceived = ErrorDataReceived;
-            if (errorDataReceived != null)
+            var isErrorReported = _isErrorReported;
+            _isErrorReported = true;
+
+            var args = GetConversionErrorEventArgs(errorMessage);
+
+            if (FailedPageNumberRegistered(args))
             {
-                var isErrorReported = _isErrorReported;
-                _isErrorReported = true;
+                return;
+            }
 
-                var args = GetConversionErrorEventArgs(errorMessage);
-
-                if (OptionsObject.IgnoreErrors && args.Page.HasValue)
-                {
-                    lock (_errorPages.SyncRoot)
-                    {
-                        _errorPages.Set(args.Page.Value, true);
-                    }
-                    return;
-                }
-
-                if (!isErrorReported)
-                {
-                    errorDataReceived(this, args);
-                }
+            if (!isErrorReported)
+            {
+                ErrorDataReceived.SafeInvoke(this, args);
             }
 
             if (!OptionsObject.IgnoreErrors)
@@ -90,13 +99,30 @@ namespace Xps2ImgUI.Model
             }
         }
 
+        private bool FailedPageNumberRegistered(ConversionErrorEventArgs args)
+        {
+            if (!OptionsObject.IgnoreErrors || !args.Page.HasValue)
+            {
+                return false;
+            }
+
+            lock (_errorPages.SyncRoot)
+            {
+                _errorPages.Set(args.Page.Value, true);
+            }
+
+            return true;
+        }
+
         private static ConversionErrorEventArgs GetConversionErrorEventArgs(string errorMessage)
         {
             var match = ErrorMessageRegex.Match(errorMessage);
+            return new ConversionErrorEventArgs(GetMatchedValue(match, "message", errorMessage), GetMatchedValue(match, "page"));
+        }
 
-            Func<string, string, string> getMatch = (g, d) => match.Success ? match.Groups[g].Value : d;
-
-            return new ConversionErrorEventArgs(getMatch("message", errorMessage), getMatch("page", null));
+        private static string GetMatchedValue(Match match, string groupName, string defaultValue = null)
+        {
+            return match.Success ? match.Groups[groupName].Value : defaultValue;
         }
 
         private void ExitedHandler(object sender, EventArgs e)
