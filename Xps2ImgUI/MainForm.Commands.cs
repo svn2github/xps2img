@@ -108,11 +108,12 @@ namespace Xps2ImgUI
         {
             if (Model.IsRunning)
             {
-                if ((!_preferences.ConfirmOnStop || ShowConfirmationMessageBox(Resources.Strings.ConversionStopConfirmation)) && Model.IsRunning)
+                if ((_preferences.ConfirmOnStop && !ShowConfirmationMessageBox(Resources.Strings.ConversionStopConfirmation)) || !Model.IsRunning)
                 {
-                    EnableConvertControls(ControlState.Default);
-                    Model.Cancel();
+                    return;
                 }
+                EnableConvertControls(ControlState.Default);
+                Model.Cancel();
                 return;
             }
 
@@ -139,7 +140,11 @@ namespace Xps2ImgUI
 
             _convertedImagesFolder = null;
 
-            _stopwatch.Reset();
+            if (conversionType != ConversionType.Resume)
+            {
+                _stopwatch.Reset();
+            }
+
             _stopwatch.Start();
 
             Model.Launch(conversionType);
