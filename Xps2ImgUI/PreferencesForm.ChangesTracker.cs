@@ -32,33 +32,55 @@ namespace Xps2ImgUI
 
             public void NotifyIfChanged(Action afterApplicationLanguageAction = null, bool resetAll = false)
             {
-                if (Preferences.ApplicationLanguage != _originalApplicationLanguage)
+                NotifyIfApplicationLanguageChanged(afterApplicationLanguageAction, resetAll);
+                NotifyIfClassicLookChanged(resetAll);
+                NotifyIfAlwaysResumeChanged(resetAll);
+            }
+
+            private void NotifyIfAlwaysResumeChanged(bool resetAll)
+            {
+                if (Preferences.AlwaysResume == _originalAlwaysResume)
                 {
-                    if (resetAll)
-                    {
-                        Preferences.ApplicationLanguage = _originalApplicationLanguage;
-                    }
-                    _preferencesForm.ChangeCulture();
-                    (afterApplicationLanguageAction ?? delegate { })();
+                    return;
                 }
 
-                if (Preferences.ClassicLook != _originalClassicLook)
+                if (resetAll)
                 {
-                    if (resetAll)
-                    {
-                        Preferences.ClassicLook = _originalClassicLook;
-                    }
-                    _preferencesForm.ChangePropertyGridLook();
+                    Preferences.AlwaysResume = _originalAlwaysResume;
                 }
 
-                if (Preferences.AlwaysResume != _originalAlwaysResume)
+                _preferencesForm.ChangePropertyAlwaysResume();
+            }
+
+            private void NotifyIfClassicLookChanged(bool resetAll)
+            {
+                if (Preferences.ClassicLook == _originalClassicLook)
                 {
-                    if (resetAll)
-                    {
-                        Preferences.AlwaysResume = _originalAlwaysResume;
-                    }
-                    _preferencesForm.ChangePropertyAlwaysResume();
+                    return;
                 }
+
+                if (resetAll)
+                {
+                    Preferences.ClassicLook = _originalClassicLook;
+                }
+
+                _preferencesForm.ChangePropertyGridLook();
+            }
+
+            private void NotifyIfApplicationLanguageChanged(Action afterApplicationLanguageAction, bool resetAll)
+            {
+                if (Preferences.ApplicationLanguage == _originalApplicationLanguage)
+                {
+                    return;
+                }
+
+                if (resetAll)
+                {
+                    Preferences.ApplicationLanguage = _originalApplicationLanguage;
+                }
+
+                _preferencesForm.ChangeCulture();
+                (afterApplicationLanguageAction ?? delegate { })();
             }
         }
     }
