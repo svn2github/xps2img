@@ -80,6 +80,7 @@ namespace Xps2ImgUI
                 }
 
                 _preferencesForm.ChangeCulture();
+
                 (afterApplicationLanguageAction ?? delegate { })();
             }
         }
