@@ -68,10 +68,10 @@ end;
 
 function _WindowsFirewall_IsVistaAndAbove: Boolean;
 var
-  windVer: TWindowsVersion;
+  windowsVersion: TWindowsVersion;
 begin
-  GetWindowsVersionEx(windVer);
-  Result := windVer.NTPlatform and (windVer.Major >= 6);
+  GetWindowsVersionEx(windowsVersion);
+  Result := windowsVersion.NTPlatform and (windowsVersion.Major >= 6);
 end;
 
 function WindowsFirewall_IsConfigurable: Boolean;
