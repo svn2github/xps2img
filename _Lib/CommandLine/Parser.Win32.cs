@@ -65,9 +65,7 @@ namespace CommandLine
         }
 
         [DllImport("shell32.dll")]
-        private static extern IntPtr CommandLineToArgvW(
-            [MarshalAs(UnmanagedType.LPWStr)] string lpCmdLine,
-            out int pNumArgs);
+        private static extern IntPtr CommandLineToArgvW([MarshalAs(UnmanagedType.LPWStr)] string lpCmdLine, out int pNumArgs);
 
         [DllImport("kernel32.dll")]
         private static extern IntPtr LocalFree(IntPtr hMem);
