@@ -32,7 +32,7 @@ namespace Xps2ImgUI
         private void BatchLaunchIdle(object sender, EventArgs eventArgs)
         {
             UnregisterIdleHandler(BatchLaunchIdle);
-            if (Model.OptionsObject.Clean)
+            if (Model.Clean)
             {
                 ExecuteDeleteImages();
             }
@@ -64,7 +64,6 @@ namespace Xps2ImgUI
         private void OutputDataReceived(object sender, ConversionProgressEventArgs e)
         {
             _handle.PostMessage(WmProgress, e);
-            ConvertedImagesFolder = e.File;
         }
 
         private void ErrorDataReceived(object sender, ConversionErrorEventArgs e)
@@ -188,9 +187,9 @@ namespace Xps2ImgUI
             var forceRefresh = false;
             var canResume = hasOneOf(Options.ExcludeOnResumeCheck);
 
-            if (!canResume && propertyName != Options.Properties.IgnoreExisting && Model.OptionsObject.IgnoreExisting)
+            if (!canResume && propertyName != Options.Properties.IgnoreExisting && Model.IgnoreExisting)
             {
-                Model.OptionsObject.IgnoreExisting = false;
+                Model.IgnoreExisting = false;
                 forceRefresh = true;
             }
 

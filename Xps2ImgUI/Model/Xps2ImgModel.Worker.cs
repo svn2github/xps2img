@@ -39,7 +39,7 @@ namespace Xps2ImgUI.Model
             _threadsLeft = 0;
             _pagesProcessed = 0;
 
-            _threadsCount = IsCreationMode ? OptionsObject.SafeProcessorsNumber : 1;
+            _threadsCount = IsCreationMode ? ProcessorsNumber : 1;
 
             _errorPages = new BitArray(1);
         }
@@ -174,7 +174,7 @@ namespace Xps2ImgUI.Model
 
         private int GetDocumentPageCount()
         {
-            using (var converter = Converter.Create(OptionsObject.SrcFile))
+            using (var converter = Converter.Create(SrcFile))
             {
                 return converter.PageCount;
             }
@@ -182,7 +182,7 @@ namespace Xps2ImgUI.Model
 
         private List<Interval> GetDocumentIntervals()
         {
-            var intervals = OptionsObject.SafePages.DeepClone();
+            var intervals = Pages.DeepClone();
 
             var pageCount = GetDocumentPageCount();
 
@@ -245,7 +245,7 @@ namespace Xps2ImgUI.Model
                 {
                     _originalProcessPriorityClass = process.PriorityClass;
 
-                    switch (OptionsObject.ProcessPriority)
+                    switch (ProcessPriority)
                     {
                         case ProcessPriorityClass.Normal:
                             processPriorityClass = ProcessPriorityClass.AboveNormal;

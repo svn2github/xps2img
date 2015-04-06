@@ -42,7 +42,8 @@ namespace Xps2ImgUI
             _shortenExtensionToolStripMenuItem.CheckedChanged += (s, e) =>
             {
                 _preferences.ShortenExtension = _shortenExtensionToolStripMenuItem.Checked;
-                Model.OptionsObject.ShortenExtension = _preferences.ShortenExtension;
+                Model.ShortenExtension = _preferences.ShortenExtension;
+                //AlwaysResumeChanged(_preferences);
                 UpdateCommandLine();
             };
 

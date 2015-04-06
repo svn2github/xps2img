@@ -26,9 +26,9 @@ namespace Xps2ImgUI.Model
 
             _optionsHolder.OptionsObject = options ?? new UIOptions();
 
-            if (OptionsObject.ImageName == String.Empty)
+            if (ImageName == String.Empty)
             {
-                OptionsObject.ImageName = Options.Names.Empty;
+                ImageName = Options.Names.Empty;
             }
         }
 
@@ -111,6 +111,54 @@ namespace Xps2ImgUI.Model
         {
             get { return OptionsObject.SrcFile; }
             set { OptionsObject.SrcFile = value; }
+        }
+
+        public string OutDir
+        {
+            get { return OptionsObject.OutDir; }
+        }
+
+        public bool ShortenExtension
+        {
+            get { return OptionsObject.ShortenExtension; }
+            set { OptionsObject.ShortenExtension = value; }
+        }
+
+        public bool IgnoreExisting
+        {
+            get { return OptionsObject.IgnoreExisting; }
+            set { OptionsObject.IgnoreExisting = value; }
+        }
+
+        public bool Clean
+        {
+            get { return OptionsObject.Clean; }
+        }
+
+        private List<Interval> Pages
+        {
+            get { return OptionsObject.SafePages; }
+        }
+
+        private int ProcessorsNumber
+        {
+            get { return OptionsObject.SafeProcessorsNumber; }
+        }
+
+        private ProcessPriorityClass ProcessPriority
+        {
+            get { return OptionsObject.ProcessPriority; }
+        }
+
+        private string ImageName
+        {
+            get { return OptionsObject.ImageName; }
+            set { OptionsObject.ImageName = value; }
+        }
+
+        private bool IgnoreErrors
+        {
+            get { return OptionsObject.IgnoreErrors; }
         }
 
         public string FirstRequiredPropertyName

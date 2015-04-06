@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Threading;
 
 using Windows7.DesktopIntegration;
 
@@ -199,19 +198,24 @@ namespace Xps2ImgUI
             }
         }
 
-        private string _convertedImagesFolder;
-
         private string ConvertedImagesFolder
         {
             get
             {
-                return Interlocked.CompareExchange(ref _convertedImagesFolder, null, null)
-                        ?? (!String.IsNullOrEmpty(Model.SrcFile) ? Path.GetDirectoryName(Model.SrcFile) : null)
-                        ?? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            }
-            set
-            {
-                Interlocked.CompareExchange(ref _convertedImagesFolder, Path.GetDirectoryName(value), null);
+                Func<string, Func<string, string>, string> getFolder = (f, e) =>
+                {
+                    var folder = String.IsNullOrEmpty(f) ? null : e(f);
+                    if(folder != null)
+                    {
+                        // ReSharper disable once EmptyGeneralCatchClause
+                        try { Directory.CreateDirectory(folder); } catch { }
+                    }
+                    return folder;
+                };
+
+                return  getFolder(Model.OutDir, _ => _) ??
+                        (File.Exists(Model.SrcFile) ? getFolder(Model.SrcFile, Path.GetDirectoryName) : null) ??
+                        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             }
         }
 

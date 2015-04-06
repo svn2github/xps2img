@@ -93,7 +93,7 @@ namespace Xps2ImgUI.Model
                 ErrorDataReceived.SafeInvoke(this, args);
             }
 
-            if (!OptionsObject.IgnoreErrors)
+            if (!IgnoreErrors)
             {
                 Stop();
             }
@@ -101,7 +101,7 @@ namespace Xps2ImgUI.Model
 
         private bool FailedPageNumberRegistered(ConversionErrorEventArgs args)
         {
-            if (!OptionsObject.IgnoreErrors || !args.Page.HasValue)
+            if (!IgnoreErrors || !args.Page.HasValue)
             {
                 return false;
             }

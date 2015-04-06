@@ -156,8 +156,6 @@ namespace Xps2ImgUI
 
             this.SetProgressState(Windows7Taskbar.ThumbnailProgressState.Indeterminate);
 
-            _convertedImagesFolder = null;
-
             if (conversionType != ConversionType.Resume)
             {
                 _stopwatch.Reset();
@@ -207,15 +205,15 @@ namespace Xps2ImgUI
 
             convertContextMenuStrip.RenderMode = settingsPropertyGrid.ContextMenuStrip.RenderMode;
 
-            var canResume = Model.OptionsObject.ShortenExtension == _preferences.ShortenExtension;
+            var canResume = Model.ShortenExtension == _preferences.ShortenExtension;
 
             if (Model.IsBatchMode)
             {
-                _preferences.ShortenExtension = Model.OptionsObject.ShortenExtension;
+                _preferences.ShortenExtension = Model.ShortenExtension;
             }
             else
             {
-                Model.OptionsObject.ShortenExtension = _preferences.ShortenExtension;
+                Model.ShortenExtension = _preferences.ShortenExtension;
             }
 
             UpdateCommandLine(byUser && canResume);
