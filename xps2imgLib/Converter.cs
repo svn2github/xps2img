@@ -42,8 +42,17 @@ namespace Xps2ImgLib
 
             _cancelConversionFunc = cancelConversionFunc;
 
-            _mediator = useWorkerThread ? (IMediator)new MediatorThread() : new Mediator();           
-            _mediator.Init(OpenDocument, CloseDocument);
+            _mediator = useWorkerThread ? (IMediator)new MediatorThread() : new Mediator();
+
+            try
+            {
+                _mediator.Init(OpenDocument, CloseDocument);
+            }
+            catch
+            {
+                Dispose();
+                throw;
+            }
         }
 
         public int PageCount { get; private set; }
