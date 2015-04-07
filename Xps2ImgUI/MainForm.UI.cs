@@ -214,7 +214,7 @@ namespace Xps2ImgUI
                 };
 
                 return  getFolder(Model.OutDir, _ => _) ??
-                        (File.Exists(Model.SrcFile) ? getFolder(Model.SrcFile, Path.GetDirectoryName) : null) ??
+                        (File.Exists(Model.SrcFile) ? getFolder(Model.SrcFile, f => Path.ChangeExtension(f, String.Empty).TrimEnd(new []{ '.' })) : null) ??
                         Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             }
         }
