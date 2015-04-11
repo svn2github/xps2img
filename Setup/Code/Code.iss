@@ -128,13 +128,12 @@ function ManageAppSettingsFile(const file: String) : Boolean;
 var
   fileName, text: String;
   xmlDoc, node: Variant;
-  size: Integer;
 begin
   Result := False;
   
   fileName := ExpandConstant(file);
   
-  if not FileSize(fileName, size) or (size < 50) then
+  if not FileExists(fileName) then
   begin
     SaveStringToFile(fileName, Format(AppSettingsFileTemplate, [ AppLanguageName ]), False);
     Exit;
