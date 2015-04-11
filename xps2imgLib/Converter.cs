@@ -37,6 +37,11 @@ namespace Xps2ImgLib
 
         private Converter(string xpsFileName, Func<bool> cancelConversionFunc, bool useWorkerThread)
         {
+            if (String.IsNullOrEmpty(xpsFileName))
+            {
+                throw new ArgumentNullException("xpsFileName");
+            }
+
             XpsFileName = xpsFileName;
             ConverterState = new State();
 
@@ -105,6 +110,35 @@ namespace Xps2ImgLib
             );
         }
 
+        public static string GetOutputDirFor(string xpsFileName, string outputDir, bool create = false)
+        {
+            var isOutputDirEmpty = String.IsNullOrEmpty(outputDir);
+
+            if (isOutputDirEmpty && String.IsNullOrEmpty(xpsFileName))
+            {
+                return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            }
+
+            if (isOutputDirEmpty)
+            {
+                // ReSharper disable AssignNullToNotNullAttribute
+                outputDir = Path.Combine(Path.GetDirectoryName(xpsFileName), Path.GetFileNameWithoutExtension(xpsFileName));
+                // ReSharper restore AssignNullToNotNullAttribute
+            }
+
+            outputDir = outputDir
+                            .Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar)
+                            .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+                            + Path.DirectorySeparatorChar;
+
+            if (create)
+            {
+                Directory.CreateDirectory(outputDir);
+            }
+
+            return outputDir;
+        }
+
         private void ConvertInternal(Parameters parameters)
         {
             using (new DisposableActions(() => _mediator.RequestStop()))
@@ -118,30 +152,14 @@ namespace Xps2ImgLib
                     parameters.BaseImageName = Path.GetFileNameWithoutExtension(XpsFileName) + '-';
                 }
 
-                if (String.IsNullOrEmpty(parameters.OutputDir))
-                {
-                    // ReSharper disable AssignNullToNotNullAttribute
-                    parameters.OutputDir = Path.Combine(Path.GetDirectoryName(XpsFileName), Path.GetFileNameWithoutExtension(XpsFileName));
-                    // ReSharper restore AssignNullToNotNullAttribute
-                }
-
-                parameters.OutputDir = parameters.OutputDir
-                                        .Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar)
-                                        .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
-                                        + Path.DirectorySeparatorChar;
+                var outputDir = parameters.OutputDir = GetOutputDirFor(XpsFileName, parameters.OutputDir, !parameters.Test && !parameters.Clean);
 
                 if (!ConverterState.HasPageCount)
                 {
                     ConverterState.SetLastAndTotalPages(parameters.EndPage, PageCount);
                 }
 
-                var activeDir = parameters.OutputDir;
-                if (!parameters.Test && !parameters.Clean)
-                {
-                    Directory.CreateDirectory(activeDir);
-                }
-
-                if (parameters.Clean && !Directory.Exists(activeDir))
+                if (parameters.Clean && !Directory.Exists(outputDir))
                 {
                     return;
                 }
@@ -154,10 +172,10 @@ namespace Xps2ImgLib
 
                     ConverterState.ActivePage = docPageNumber;
 
-                    ProcessPage(parameters, activeDir, docPageNumber, numberFormat);
+                    ProcessPage(parameters, outputDir, docPageNumber, numberFormat);
                 }
 
-                PostClean(parameters, activeDir);
+                PostClean(parameters, outputDir);
             }
         }
 

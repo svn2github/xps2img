@@ -79,7 +79,7 @@ namespace Xps2Img.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Make sure you have enough disk storage available..
+        ///   Looks up a localized string similar to Make sure you have sufficient drive access rights and enough storage space..
         /// </summary>
         internal static string Message_DiskStorage {
             get {

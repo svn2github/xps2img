@@ -134,8 +134,8 @@
     <comment>[{{4,3}}%] Deleting image {0} ({1}/{{2}}) at '{{3}}'...</comment>
   </data>
   <data name="Message_DiskStorage" xml:space="preserve">
-    <value>Недостатньо місця на диску.</value>
-    <comment>Make sure you have enough disk storage available.</comment>
+    <value>Переконайтеся, що ви маєте достатньо прав та місця на диску.</value>
+    <comment>Make sure you have sufficient drive access rights and enough storage space.</comment>
   </data>
   <data name="Message_FileAccess" xml:space="preserve">
     <value>Недостатньо прав або файл захищено від запису.</value>

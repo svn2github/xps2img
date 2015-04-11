@@ -202,20 +202,7 @@ namespace Xps2ImgUI
         {
             get
             {
-                Func<string, Func<string, string>, string> getFolder = (f, e) =>
-                {
-                    var folder = String.IsNullOrEmpty(f) ? null : e(f);
-                    if(folder != null)
-                    {
-                        // ReSharper disable once EmptyGeneralCatchClause
-                        try { Directory.CreateDirectory(folder); } catch { }
-                    }
-                    return folder;
-                };
-
-                return  getFolder(Model.OutDir, _ => _) ??
-                        (File.Exists(Model.SrcFile) ? getFolder(Model.SrcFile, f => Path.ChangeExtension(f, String.Empty).TrimEnd(new []{ '.' })) : null) ??
-                        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                return Xps2ImgLib.Converter.GetOutputDirFor(Model.SrcFile, Model.OutDir, true);
             }
         }
 
