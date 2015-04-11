@@ -146,7 +146,9 @@ begin
     node := MSXML_GetSingleNode(xmlDoc, ApplicationLanguageXPath);
     text := node.text;
     
-    if ((text <> '') and (text <> AppLanguageName)) or ((text = '') and (AppLanguageName <> DefaultAppLanguageName)) then
+    if text = '' then text := DefaultAppLanguageName;
+    
+    if text <> AppLanguageName then
     begin
       node.text := AppLanguageName;
       MSXML_SaveWithIndent(xmlDoc, fileName);
