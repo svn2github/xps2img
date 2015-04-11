@@ -111,7 +111,10 @@ begin
   end;
 end;
 
-const AppSettingsFileTemplate = '<?xml version="1.0"?>' + #13#10 +
+const
+  ApplicationLanguageXPath = '//Settings/Preferences/ApplicationLanguage';
+  DefaultAppLanguageName   = 'English';
+  AppSettingsFileTemplate  = '<?xml version="1.0"?>' + #13#10 +
 '<Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">' + #13#10 +
 '  <PropertySort>Categorized</PropertySort>' + #13#10 +
 '  <Preferences>' + #13#10 +
@@ -121,9 +124,35 @@ const AppSettingsFileTemplate = '<?xml version="1.0"?>' + #13#10 +
 
 function AppLanguageName : String; forward;
 
-procedure CreateAppSettingsFile(const file: String);
+function ManageAppSettingsFile(const file: String) : Boolean;
+var
+  fileName, text: String;
+  xmlDoc, node: Variant;
+  size: Integer;
 begin
-  SaveStringToFile(ExpandConstant(file), Format(AppSettingsFileTemplate, [ AppLanguageName ]), False);
+  Result := False;
+  
+  fileName := ExpandConstant(file);
+  
+  if not FileSize(fileName, size) or (size < 50) then
+  begin
+    SaveStringToFile(fileName, Format(AppSettingsFileTemplate, [ AppLanguageName ]), False);
+    Exit;
+  end;
+  
+  try
+    xmlDoc := MSXML_Open(fileName); 
+   
+    node := MSXML_GetSingleNode(xmlDoc, ApplicationLanguageXPath);
+    text := node.text;
+    
+    if ((text <> '') and (text <> AppLanguageName)) or ((text = '') and (AppLanguageName <> DefaultAppLanguageName)) then
+    begin
+      node.text := AppLanguageName;
+      MSXML_SaveWithIndent(xmlDoc, fileName);
+    end;
+  except
+  end
 end;
 
 [/Code]

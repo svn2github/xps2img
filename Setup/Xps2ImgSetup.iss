@@ -76,6 +76,7 @@
 #include ISM_RootDir + "/Include/Extra/Code/CmdLine.isi"
 #include ISM_RootDir + "/Include/Extra/Code/Convert.isi"
 #include ISM_RootDir + "/Include/Extra/Code/NETFW.isi"
+#include ISM_RootDir + "/Include/Extra/Code/MSXML.isi"
 
 #include "Code/Params.iss"
 #include "Code/Code.iss"
@@ -119,10 +120,8 @@
     <ApplicationFile(PortableMarkFile)>
 <Reset_ActiveCheck>
 
-#define Active_Check            "not FileExists(ExpandConstant('" + AppSettingsFile + "'))"
-#define Active_AfterInstall     "CreateAppSettingsFile('" + AppSettingsFile + "')"
+#define Active_Check     "ManageAppSettingsFile('" + AppSettingsFile + "')"
     <FileStub(AppSettingsFile)>
-<Reset_ActiveAfterInstall>
 <Reset_ActiveCheck>
 
 <UninstallDelete(AddBackslash("{app}") + PortableMarkFile)>

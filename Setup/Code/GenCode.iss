@@ -2,7 +2,7 @@
 
 function AppLanguageName : String;
 begin
-  Result := 'English';
+  Result := DefaultAppLanguageName;
   case ExpandConstant('{language}') of
     #emit LanguageSelector
   end;

@@ -1,0 +1,39 @@
+#ifndef __ISM_EXTRA_CODE_STRING_ISI__
+#define __ISM_EXTRA_CODE_STRING_ISI__
+
+[Code]
+  
+function String_Split(const text: String; const separator: String) : TArrayOfString;
+var
+  i, p, separatorLength: Integer;
+  splittedStrings: TArrayOfString;
+begin
+
+  i := 0;
+  separatorLength := Length(separator);
+  
+  repeat
+    SetArrayLength(splittedStrings, i+1);
+    p := Pos(Separator, text);
+    if p > 0 then
+    begin
+      if p > separatorLength then
+      begin
+        splittedStrings[i] := Copy(text, 1, p-1);
+        Inc(i);
+      end;
+      text := Copy(text, p + separatorLength, Length(text));
+    end
+    else
+    begin
+      splittedStrings[i] := text;
+      text := '';
+    end;
+  until Length(text) = 0;
+  
+  Result := splittedStrings;
+end;
+
+[/Code]
+
+#endif

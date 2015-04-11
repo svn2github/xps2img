@@ -1,0 +1,80 @@
+#ifndef __ISM_EXTRA_CODE_MSXML_ISI__
+#define __ISM_EXTRA_CODE_MSXML_ISI__
+
+#include "String.isi"
+
+[Code]
+  
+const
+  _MSXML_XPathSeparator = '/';
+
+function _MSXML_GetObjectNameFor(const progID: String) : String;
+begin
+  Result := 'MSXML2.' + progID + '.6.0';
+end;
+
+function MSXML_Open(const xmlFile: String) : Variant;
+var
+  xmlDoc: Variant;
+begin
+  xmlDoc := CreateOleObject(_MSXML_GetObjectNameFor('DOMDocument')); 
+ 
+  xmlDoc.async := false;
+  xmlDoc.resolveExternals := false;
+  xmlDoc.load(xmlFile);
+  
+  if xmlDoc.parseError.errorCode <> 0 then
+    RaiseException('Error parsing ''' + xmlDoc.parseError.url + ''' at ' + IntToStr(xmlDoc.parseError.line) + ',' + IntToStr(xmlDoc.parseError.linepos) + ' with reason: ' + xmlDoc.parseError.reason);
+    
+  Result := xmlDoc;
+end;
+
+function MSXML_GetSingleNode(xmlDoc: Variant; const xPath: String) : Variant;
+var
+  i: Integer;
+  tagName, currentPath, prevPath: String;
+  tags: TArrayOfString;
+begin
+
+  tags := String_Split(xPath, _MSXML_XPathSeparator);
+  
+  prevPath := _MSXML_XPathSeparator;
+  currentPath := _MSXML_XPathSeparator;
+    
+  for i := 1 to GetArrayLength(tags) do
+  begin
+    tagName := tags[i-1];   
+    currentPath := currentPath + _MSXML_XPathSeparator + tagName;
+    
+    try
+      xmlDoc.selectSingleNode(currentPath).hasChildNodes();
+    except
+      xmlDoc.selectSingleNode(prevPath).appendChild(xmlDoc.createElement(tagName));
+    end;
+    
+    prevPath := currentPath;
+  end;
+  
+  Result := xmlDoc.selectSingleNode(xPath);
+end;
+
+procedure MSXML_SaveWithIndent(xmlDoc: Variant; const fileName: String);
+var
+  xmlReader, xmlWriter: Variant;
+begin
+  xmlWriter := CreateOleObject(_MSXML_GetObjectNameFor('MXXMLWriter'));
+  xmlReader := CreateOleObject(_MSXML_GetObjectNameFor('SAXXMLReader'));
+   
+  xmlWriter.indent := true;
+  xmlWriter.encoding := 'utf-8';
+  xmlWriter.omitXMLDeclaration := false;
+  
+  xmlReader.contentHandler := xmlWriter;
+  xmlReader.parse(xmlDoc);
+  
+  SaveStringsToUTF8File(fileName, [xmlWriter.output], false);
+end;
+
+[/Code]
+
+#endif

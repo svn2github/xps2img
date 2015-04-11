@@ -37,19 +37,19 @@
 [Code]
 procedure ShellLink_Create(const Filename, Description, ShortcutTo, Parameters, WorkingDir, IconFilename: String; const IconIndex, ShowCmd: Integer);
 begin
-    try
-        CreateShellLink(
-            ExpandConstant(Filename),
-            ExpandConstant(Description),
-            ExpandConstant(ShortcutTo),
-            ExpandConstant(Parameters),
-            ExpandConstant(WorkingDir),
-            ExpandConstant(IconFilename),
-            IconIndex,
-            ShowCmd
-        );
-    except
-    end;
+  try
+    CreateShellLink(
+        ExpandConstant(Filename),
+        ExpandConstant(Description),
+        ExpandConstant(ShortcutTo),
+        ExpandConstant(Parameters),
+        ExpandConstant(WorkingDir),
+        ExpandConstant(IconFilename),
+        IconIndex,
+        ShowCmd
+    );
+  except
+  end;
 end;
 [/Code]
 

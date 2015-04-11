@@ -5,50 +5,50 @@
 
 function _CmdLine_GetParamName(const paramName: String) : String;
 begin
-    Result := '/' + Lowercase(paramName);
+  Result := '/' + Lowercase(paramName);
 end;
 
 function _CmdLine_GetParamNameEqual(const paramName: String) : String;
 begin
-    Result := _CmdLine_GetParamName(paramName) + '=';
+  Result := _CmdLine_GetParamName(paramName) + '=';
 end;
 
 function CmdLine_HasParam(const paramName: String) : Boolean;
 var
-    i: Integer;
-    lowerParamStr, fullParamName, fullParamNameEqual: String;
+  i: Integer;
+  lowerParamStr, fullParamName, fullParamNameEqual: String;
 begin
-    Result := False;
+  Result := False;
 
-    fullParamName := _CmdLine_GetParamName(paramName);
-    fullParamNameEqual := _CmdLine_GetParamNameEqual(paramName);
+  fullParamName := _CmdLine_GetParamName(paramName);
+  fullParamNameEqual := _CmdLine_GetParamNameEqual(paramName);
 
-    for i := 1 to ParamCount do
-    begin
-        lowerParamStr := Lowercase(ParamStr(i));
-        Result := (lowerParamStr = fullParamName) or (Pos(fullParamNameEqual, lowerParamStr) = 1);
-        if Result then Exit;
-    end;
+  for i := 1 to ParamCount do
+  begin
+    lowerParamStr := Lowercase(ParamStr(i));
+    Result := (lowerParamStr = fullParamName) or (Pos(fullParamNameEqual, lowerParamStr) = 1);
+    if Result then Exit;
+  end;
 end;
 
 function CmdLine_GetParam(const paramName: String) : String;
 var
-    i: Integer;
-    paramString, fullParamNameEqual: String;
+  i: Integer;
+  paramString, fullParamNameEqual: String;
 begin
-    Result := '';
+  Result := '';
 
-    fullParamNameEqual := _CmdLine_GetParamNameEqual(paramName);
+  fullParamNameEqual := _CmdLine_GetParamNameEqual(paramName);
 
-    for i := 1 to ParamCount do
+  for i := 1 to ParamCount do
+  begin
+    paramString := ParamStr(i);
+    if Pos(fullParamNameEqual, Lowercase(paramString)) = 1 then
     begin
-        paramString := ParamStr(i);
-        if Pos(fullParamNameEqual, Lowercase(paramString)) = 1 then
-        begin
-            Result := Trim(RemoveQuotes(Copy(paramString, Length(fullParamNameEqual)+1, MaxInt)));
-            Exit;
-        end;
+      Result := Trim(RemoveQuotes(Copy(paramString, Length(fullParamNameEqual)+1, MaxInt)));
+      Exit;
     end;
+  end;
 end;
 
 [/Code]

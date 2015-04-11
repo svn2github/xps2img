@@ -38,19 +38,19 @@ function _WindowsFirewall_GetFwRuleForVista(const AppName, FileName, Grouping: S
 var
   firewallRule: Variant;
 begin
-    firewallRule := CreateOleObject('HNetCfg.FWRule');
-    firewallRule.Action := NET_FW_ACTION_ALLOW;
-    firewallRule.Description := AppName;
-    firewallRule.ApplicationName := FileName;
-    firewallRule.Grouping := Grouping;
-    firewallRule.Enabled := True;
-    firewallRule.InterfaceTypes := 'All';
-    firewallRule.Name := AppName;
-    case IsInbound of
-      True:   firewallRule.Direction := NET_FW_RULE_DIR_IN;
-      False:  firewallRule.Direction := NET_FW_RULE_DIR_OUT;
-    end;
-    Result := firewallRule;
+  firewallRule := CreateOleObject('HNetCfg.FWRule');
+  firewallRule.Action := NET_FW_ACTION_ALLOW;
+  firewallRule.Description := AppName;
+  firewallRule.ApplicationName := FileName;
+  firewallRule.Grouping := Grouping;
+  firewallRule.Enabled := True;
+  firewallRule.InterfaceTypes := 'All';
+  firewallRule.Name := AppName;
+  case IsInbound of
+    True:   firewallRule.Direction := NET_FW_RULE_DIR_IN;
+    False:  firewallRule.Direction := NET_FW_RULE_DIR_OUT;
+  end;
+  Result := firewallRule;
 end;
 
 procedure _WindowsFirewall_AddExceptionVista(const AppName, FileName, Grouping: String);
