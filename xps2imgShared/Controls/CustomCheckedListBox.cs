@@ -10,6 +10,10 @@ namespace Xps2Img.Shared.Controls
         protected override void OnEnter(EventArgs e)
         {
             ExitedByEscape = false;
+            if (Items.Count > 0)
+            {
+                SelectedIndex = 0;
+            }
             base.OnEnter(e);
         }
 
