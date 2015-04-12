@@ -95,8 +95,8 @@ namespace Xps2ImgUI
             );
 
             // Reset Settings button.
-            _resetToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.Eraser, () => Resources.Strings.ResetOptions, (s, e) => ResetByCategory(Options.Categories.Options),
-                new ToolStripButtonItem(() => Resources.Strings.ResetParameters, (s, e) => ResetByCategory(Options.Categories.Parameters)),
+            _resetToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.Eraser, () => Resources.Strings.ResetOptions, (s, e) => ResetByCategoryLabel(Xps2Img.Shared.Resources.Strings.Options_OptionsCategory),
+                new ToolStripButtonItem(() => Resources.Strings.ResetParameters, (s, e) => ResetByCategoryLabel(Xps2Img.Shared.Resources.Strings.Options_ParametersCategory)),
                 new ToolStripButtonItem(),
                 new ToolStripButtonItem(() => Resources.Strings.Reset, (s, e) => Model.Reset())
              );

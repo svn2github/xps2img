@@ -109,6 +109,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                 return;
             }
 
+            // ReSharper disable once PossibleNullReferenceException
             var selectedPropName = SelectedGridItem.HasPropertyDescriptor() ? SelectedGridItem.PropertyDescriptor.Name : String.Empty;
 
             var autoCompleteSettings = AutoCompleteSettings.FirstOrDefault(editAutoComplete => selectedPropName == editAutoComplete.PropName);
@@ -412,7 +413,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         {
             var englishCulltureName = Thread.CurrentThread.CurrentUICulture.EnglishName;
 
-            if (String.IsNullOrEmpty(text) || CulturesToSkipLowerStripMenuText.Any(n => englishCulltureName.StartsWith(n)) || String.IsNullOrEmpty(englishCulltureName))
+            if (String.IsNullOrEmpty(text) || CulturesToSkipLowerStripMenuText.Any(englishCulltureName.StartsWith) || String.IsNullOrEmpty(englishCulltureName))
             {
                 return text;
             }
@@ -504,15 +505,22 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             });
         }
 
-        public void ResetByCategory(string category, Func<PropertyInfo, bool> allowFilter = null)
+        public void ResetByCategoryLabel(string categoryLabel, Func<PropertyInfo, bool> allowFilter = null)
         {
             // ReSharper disable once AccessToModifiedClosure
-            category = this.GetCategoryName(this.FindGridItem(g => g.Label == category && g.IsCategory())) ?? category;
+            var gridItem = this.FindGridItem(g => g.Label == categoryLabel && g.IsCategory());
+            if (gridItem == null)
+            {
+                return;
+            }
+            
+            categoryLabel = this.GetCategoryName(gridItem);
 
             ReflectionUtils.SetDefaultValues(SelectedObject, pi =>  
-                category == pi.FirstOrNewAttribute<CategoryAttribute>().Category &&
+                categoryLabel == pi.FirstOrNewAttribute<CategoryAttribute>().Category &&
                 (allowFilter == null || allowFilter(pi))
             );
+
             Refresh();
         }
 
