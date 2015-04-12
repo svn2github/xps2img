@@ -24,7 +24,12 @@ namespace Xps2ImgUI
                 new PropertyGridEx.EditAutoComplete(Options.Properties.OutDir, AutoCompleteSource.FileSystemDirectories)
             };
 
-            settingsPropertyGrid.AddF4OnDoubleClickProperties(Options.Properties.CpuAffinity);
+            settingsPropertyGrid.UseF4OnDoubleClickForProperties = new[]
+            {
+                Options.Properties.SrcFile,
+                Options.Properties.OutDir,
+                Options.Properties.CpuAffinity
+            };
             
             settingsPropertyGrid.DragDrop += MainFormDragDrop;
             settingsPropertyGrid.DragEnter += MainFormDragEnter;

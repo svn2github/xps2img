@@ -582,19 +582,25 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             }
         }
 
-        public void AddF4OnDoubleClickProperties(params string[] propertyNames)
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public IEnumerable<string> UseF4OnDoubleClickForProperties
         {
-            if (_f4OnDoubleClickProperties == null)
+            get { return _useF4OnDoubleClickForProperties; }
+            set
             {
-                _f4OnDoubleClickProperties = new HashSet<string>();
-            }
+                if (_useF4OnDoubleClickForProperties == null)
+                {
+                    _useF4OnDoubleClickForProperties = new HashSet<string>();
+                }
 
-            foreach (var propertyName in propertyNames)
-            {
-                _f4OnDoubleClickProperties.Add(propertyName);
-            }
+                foreach (var propertyName in value)
+                {
+                    _useF4OnDoubleClickForProperties.Add(propertyName);
+                }
 
-            AddOrRemoveMessageFilter(true);
+                AddOrRemoveMessageFilter(true);
+            }
         }
 
         private bool ShouldApplyFilter(Message m)
@@ -605,7 +611,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         private bool ProcessLeftDoubleClick()
         {
             var propertyDescriptor = SelectedGridItem.PropertyDescriptor;
-            if (propertyDescriptor != null && _f4OnDoubleClickProperties != null && _f4OnDoubleClickProperties.Contains(propertyDescriptor.Name))
+            if (propertyDescriptor != null && _useF4OnDoubleClickForProperties != null && _useF4OnDoubleClickForProperties.Contains(propertyDescriptor.Name))
             {
                 SendKeys.Send("{F4}");
                 return true;
@@ -658,7 +664,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         private Color _backColorOriginal;
 
         private IMessageFilter _messageFilter;
-        private HashSet<string> _f4OnDoubleClickProperties;
+        private HashSet<string> _useF4OnDoubleClickForProperties;
 
         private FieldInfo CurrentlyActiveTooltipItem
         {
