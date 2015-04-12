@@ -102,6 +102,14 @@
     </Compile>
     <Compile Include="Controls\PropertyGridEx\PropertyGridExUIService.cs" />
     <Compile Include="Controls\PropertyGridEx\PropertyGridExServiceProvider.cs" />
+    <Compile Include="Controls\PropertyGridEx\PropertyGridEx.MessageFilter.cs">
+      <DependentUpon>PropertyGridEx.cs</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\PropertyGridEx\PropertyGridEx.EditAutoComplete.cs">
+      <DependentUpon>PropertyGridEx.cs</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\PropertyGridEx\PropertyGridEx.cs">
       <SubType>Component</SubType>
     </Compile>

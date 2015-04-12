@@ -18,26 +18,10 @@ using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI.Controls.PropertyGridEx
 {
-    public class PropertyGridEx : PropertyGrid
+    public partial class PropertyGridEx : PropertyGrid
     {
-        public class EditAutoComplete
-        {
-            public EditAutoComplete(string propName, AutoCompleteSource autoCompleteSource, AutoCompleteMode autoCompleteMode = AutoCompleteMode.SuggestAppend)
-            {
-                PropName = propName;
-                AutoCompleteMode = autoCompleteMode;
-                AutoCompleteSource = autoCompleteSource;
-            }
-
-            public readonly string PropName;
-            public readonly AutoCompleteMode AutoCompleteMode;
-            public readonly AutoCompleteSource AutoCompleteSource;
-        }
-
-        private const bool UseAutoToolTip = false;
-
-        private const string ExtendedCategory = "Extended";
-
+        private const bool         UseAutoToolTip    = false;
+        private const string       ExtendedCategory  = "Extended";
         private const BindingFlags InstanceNonPublic = BindingFlags.Instance | BindingFlags.NonPublic;
 
         public PropertyGridEx()
@@ -90,12 +74,21 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
+
             _backColorOriginal = BackColor;
+        }
+
+        protected override void OnHandleDestroyed(EventArgs e)
+        {
+            AddOrRemoveMessageFilter(false);
+
+            base.OnHandleDestroyed(e);
         }
 
         protected override void OnSelectedObjectsChanged(EventArgs e)
         {
             SetSelectedObjectReadOnly();
+
             base.OnSelectedObjectsChanged(e);
         }
 
@@ -589,6 +582,67 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             }
         }
 
+        public void AddF4OnDoubleClickProperties(params string[] propertyNames)
+        {
+            if (_f4OnDoubleClickProperties == null)
+            {
+                _f4OnDoubleClickProperties = new HashSet<string>();
+            }
+
+            foreach (var propertyName in propertyNames)
+            {
+                _f4OnDoubleClickProperties.Add(propertyName);
+            }
+
+            AddOrRemoveMessageFilter(true);
+        }
+
+        private bool ShouldApplyFilter(Message m)
+        {
+            return _propertyGridView.Handle == m.HWnd;
+        }
+
+        private bool ProcessLeftDoubleClick()
+        {
+            var propertyDescriptor = SelectedGridItem.PropertyDescriptor;
+            if (propertyDescriptor != null && _f4OnDoubleClickProperties != null && _f4OnDoubleClickProperties.Contains(propertyDescriptor.Name))
+            {
+                SendKeys.Send("{F4}");
+                return true;
+            }
+
+            return false;
+        }
+
+        private void AddOrRemoveMessageFilter(bool add)
+        {
+            if (_messageFilter == null)
+            {
+                if (!add)
+                {
+                    return;
+                }
+                _messageFilter = new MessageFilter(ShouldApplyFilter, ProcessLeftDoubleClick);
+            }
+            else
+            {
+                if (add)
+                {
+                    return;
+                }
+            }
+
+            if (add)
+            {
+                Application.AddMessageFilter(_messageFilter);
+            }
+            else
+            {
+                Application.RemoveMessageFilter(_messageFilter);
+                _messageFilter = null;
+            }
+        }
+
         [Browsable(false)]
         public static ResourceManager ResourceManager { get; set; }
 
@@ -602,6 +656,9 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         private readonly MethodInfo _updateToolTipMethodInfo;
 
         private Color _backColorOriginal;
+
+        private IMessageFilter _messageFilter;
+        private HashSet<string> _f4OnDoubleClickProperties;
 
         private FieldInfo CurrentlyActiveTooltipItem
         {
