@@ -21,7 +21,7 @@ namespace Xps2ImgUI
             settingsPropertyGrid.AutoCompleteSettings = new[]
             {
                 new PropertyGridEx.EditAutoComplete(Options.Properties.SrcFile, AutoCompleteSource.FileSystem),
-                new PropertyGridEx.EditAutoComplete(Options.Properties.OutDir, AutoCompleteSource.FileSystemDirectories)
+                new PropertyGridEx.EditAutoComplete(Options.Properties.OutDir,  AutoCompleteSource.FileSystemDirectories)
             };
 
             settingsPropertyGrid.UseF4OnDoubleClickForProperties = new[]
