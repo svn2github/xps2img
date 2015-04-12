@@ -47,7 +47,7 @@ namespace Xps2ImgLib
             return extension;
         }
 
-        public static void Write(Func<string, bool> shouldWriteFileFunc, string fileName, ImageType imageType, bool shortenExtension, ImageOptions imageOptions, bool forceGetBitmapSourceIfNoWrite, Func<BitmapSource> getBitmapSourceFunc, Action<string> writeCallback)
+        public static void Write(Func<string, bool> shouldWriteFileFunc, string fileName, ImageType imageType, bool shortenExtension, ImageOptions imageOptions, bool forceGetBitmapSourceIfNoWrite, Func<BitmapSource> getBitmapSourceFunc, Action<string> writeCallback, Action checkIfCancelled)
         {
             var bitmapEncoder = CreateEncoder(imageType, imageOptions);
             var fullFileName = fileName + GetImageExtension(imageType, shortenExtension);
@@ -61,15 +61,19 @@ namespace Xps2ImgLib
             {
                 if (forceGetBitmapSourceIfNoWrite)
                 {
+                    checkIfCancelled();
                     getBitmapSourceFunc();
                 }
                 return;
             }
 
-            using (var stream = new FileStream(fullFileName, FileMode.Create, FileAccess.Write, FileShare.None))
+            checkIfCancelled();
+            bitmapEncoder.Frames.Add(BitmapFrame.Create(getBitmapSourceFunc()));
+            checkIfCancelled();
+
+            using (var fileStream = new FileStream(fullFileName, FileMode.Create, FileAccess.Write, FileShare.None))
             {
-                bitmapEncoder.Frames.Add(BitmapFrame.Create(getBitmapSourceFunc()));
-                bitmapEncoder.Save(stream);
+                bitmapEncoder.Save(fileStream);
             }
         }
     }

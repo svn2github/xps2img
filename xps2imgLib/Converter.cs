@@ -27,7 +27,7 @@ namespace Xps2ImgLib
 
         private readonly IMediator _mediator;
 
-        private void CheckCancelled()
+        private void CheckIfCancelled()
         {
             if (_cancelConversionFunc != null && _cancelConversionFunc())
             {
@@ -145,7 +145,7 @@ namespace Xps2ImgLib
             {
                 ConverterParameters = parameters;
 
-                CheckCancelled();
+                CheckIfCancelled();
 
                 if (parameters.BaseImageName == null)
                 {
@@ -168,7 +168,7 @@ namespace Xps2ImgLib
 
                 for (var docPageNumber = parameters.StartPage; docPageNumber <= parameters.EndPage; docPageNumber++)
                 {
-                    CheckCancelled();
+                    CheckIfCancelled();
 
                     ConverterState.ActivePage = docPageNumber;
 
@@ -210,7 +210,7 @@ namespace Xps2ImgLib
                 // Render page.
                 ImageWriter.Write(f => !parameters.Test && (!parameters.IgnoreExisting || !File.Exists(f)), fileName,
                                   parameters.ImageType, parameters.ShortenExtension, parameters.ImageOptions, parameters.Test,
-                                  () => GetPageBitmap(_documentPaginator, docPageNumber - 1, parameters), FireOnProgress);
+                                  () => GetPageBitmap(_documentPaginator, docPageNumber - 1, parameters), FireOnProgress, CheckIfCancelled);
             }
             catch(Exception ex)
             {
@@ -352,7 +352,7 @@ namespace Xps2ImgLib
                 }
                 catch (OutOfMemoryException)
                 {
-                    CheckCancelled();
+                    CheckIfCancelled();
 
                     if (!ConverterParameters.OutOfMemoryStrategyEnabled || (--triesCount < 0 && (!_convertionStarted || -triesCount > ConverterParameters.ConverterOutOfMemoryStrategy.MaxTries)))
                     {
@@ -375,7 +375,10 @@ namespace Xps2ImgLib
 
             _disposed = true;
 
-            _mediator.Dispose();
+            if (_mediator != null)
+            {
+                _mediator.Dispose();
+            }
         }
 
         public void Dispose()

@@ -26,8 +26,13 @@ namespace Xps2Img
 {
     internal static class Program
     {
+        private const int ForceExitAfterSecondsPassed = 5;
+
         private static volatile bool _isCancelled;
         private static volatile bool _isUserCancelled;
+
+        // ReSharper disable once NotAccessedField.Local
+        private static Timer _cancellationTimer;
 
         private static bool _launchedAsInternal;
 
@@ -82,15 +87,11 @@ namespace Xps2Img
                     ThreadPool.QueueUserWorkItem(_ => WaitForCancellationThread(options));
                 }
 
-                Win32.SetConsoleCtrlHandler(_ => _isUserCancelled = _isCancelled = true, true);
+                Win32.SetConsoleCtrlHandler(_ => RequestCancellation(true), true);
 
                 Convert(options, () => _isCancelled, out conversionStarted);
 
-                exitCode = _isUserCancelled
-                                ? ReturnCode.UserCancelled
-                                : _launchedAsInternal
-                                    ? ReturnCode.InternalOK
-                                    : ReturnCode.OK;
+                exitCode = ExitCode;
             }
             catch (Exception ex)
             {
@@ -110,6 +111,26 @@ namespace Xps2Img
             return CommandLine.CommandLine.DisplayError(ex, _launchedAsInternal);
         }
 
+        private static bool RequestCancellation(bool isUserCancelled = false)
+        {
+            _isCancelled = true;
+            _isUserCancelled = isUserCancelled;
+            _cancellationTimer = new Timer(_ => Environment.Exit(ExitCode), null, (long)TimeSpan.FromSeconds(ForceExitAfterSecondsPassed).TotalMilliseconds, Timeout.Infinite);
+            return true;
+        }
+
+        private static int ExitCode
+        {
+            get
+            {
+                return _isUserCancelled
+                    ? ReturnCode.UserCancelled
+                    : _launchedAsInternal
+                        ? ReturnCode.InternalOK
+                        : ReturnCode.OK;
+            }
+        }
+
         private static void WaitForCancellationThread(Options options)
         {
             var parentAppMutex = Mutex.OpenExisting(options.InternalParentAppMutexName);
@@ -124,7 +145,7 @@ namespace Xps2Img
             {
             }
 
-            _isCancelled = true;
+            RequestCancellation();
         }
 
         private static void Convert(Options options, Func<bool> cancelConversionFunc, out bool conversionStarted)
