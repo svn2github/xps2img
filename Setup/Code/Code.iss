@@ -124,12 +124,18 @@ const
 
 function AppLanguageName : String; forward;
 
+var
+  IsManageAppSettingsFileCalled : Boolean;
+
 function ManageAppSettingsFile(const file: String) : Boolean;
 var
   fileName, text: String;
   xmlDoc, node: Variant;
 begin
   Result := False;
+  
+  if IsManageAppSettingsFileCalled then Exit;
+  IsManageAppSettingsFileCalled := True;
   
   fileName := ExpandConstant(file);
   
