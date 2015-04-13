@@ -92,6 +92,7 @@ namespace Xps2ImgUI
             preferencesPropertyGrid.DocLines = 5;
             preferencesPropertyGrid.MoveSplitterByPercent(50);
 
+            preferencesPropertyGrid.ExpandAllGridItems();
             preferencesPropertyGrid.SelectFirstGridItem();
 
             SetReadOnly();

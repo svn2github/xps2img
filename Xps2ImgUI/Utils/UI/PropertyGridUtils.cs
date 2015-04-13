@@ -50,6 +50,8 @@ namespace Xps2ImgUI.Utils.UI
                 return;
             }
 
+            gridItem.Expanded = true;
+
             propertyGrid.SelectedGridItem = gridItem.GridItems[0];
         }
 
