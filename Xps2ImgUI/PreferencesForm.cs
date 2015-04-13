@@ -129,7 +129,7 @@ namespace Xps2ImgUI
 
             using (new DisposableActions(() => changesTracker.NotifyIfChanged(() => preferencesPropertyGrid.SelectGridItem(Resources.Strings.Preferences_GeneralCategory))))
             {
-                preferencesPropertyGrid.ResetByCategoryLabel(label, allowFilter);
+                preferencesPropertyGrid.ResetByCategory(label, allowFilter: allowFilter);
             }
 
             EnableButtons();

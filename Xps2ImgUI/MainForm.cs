@@ -48,7 +48,7 @@ namespace Xps2ImgUI
                 return settingsPropertyGrid.IsResetByCategoryEnabled(label);
             }
 
-            ResetByCategoryLabel(label);
+            ResetByCategory(label);
 
             return true;
         }

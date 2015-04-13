@@ -508,19 +508,23 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             });
         }
 
-        public void ResetByCategoryLabel(string categoryLabel, Func<PropertyInfo, bool> allowFilter = null)
+        public void ResetByCategory(string category, bool isLabel = true, Func<PropertyInfo, bool> allowFilter = null)
         {
-            // ReSharper disable once AccessToModifiedClosure
-            var gridItem = this.FindGridItem(g => g.Label == categoryLabel && g.IsCategory());
-            if (gridItem == null)
-            {
-                return;
-            }
-            
-            categoryLabel = this.GetCategoryName(gridItem);
+            var categoryName = category;
 
-            ReflectionUtils.SetDefaultValues(SelectedObject, pi =>  
-                categoryLabel == pi.FirstOrNewAttribute<CategoryAttribute>().Category &&
+            if (isLabel)
+            {
+                var gridItem = this.FindGridItem(g => g.Label == category && g.IsCategory());
+                if (gridItem == null)
+                {
+                    return;
+                }
+
+                categoryName = this.GetCategoryName(gridItem);
+            }
+
+            ReflectionUtils.SetDefaultValues(SelectedObject, pi =>
+                categoryName == pi.FirstOrNewAttribute<CategoryAttribute>().Category &&
                 (allowFilter == null || allowFilter(pi))
             );
 

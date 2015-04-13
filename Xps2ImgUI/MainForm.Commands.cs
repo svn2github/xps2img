@@ -189,9 +189,9 @@ namespace Xps2ImgUI
             }
         }
 
-        private void ResetByCategoryLabel(string category)
+        private void ResetByCategory(string category, bool isLabel = true)
         {
-            settingsPropertyGrid.ResetByCategoryLabel(category);
+            settingsPropertyGrid.ResetByCategory(category, isLabel);
 
             Model.FireOptionsObjectChanged();
 
