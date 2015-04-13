@@ -18,11 +18,14 @@ using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI.Controls.PropertyGridEx
 {
-    public partial class PropertyGridEx : PropertyGrid
+    public partial class PropertyGridEx : PropertyGrid, IMessageFilter
     {
         private const bool         UseAutoToolTip    = false;
         private const string       ExtendedCategory  = "Extended";
         private const BindingFlags InstanceNonPublic = BindingFlags.Instance | BindingFlags.NonPublic;
+
+        // ReSharper disable once InconsistentNaming
+        private const int          WM_LBUTTONDBLCLK  = 0x0203;
 
         public PropertyGridEx()
         {
@@ -611,13 +614,13 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             }
         }
 
-        private bool ShouldApplyFilter(Message m)
+        public bool PreFilterMessage(ref Message m)
         {
-            return _propertyGridView.Handle == m.HWnd;
-        }
+            if (m.Msg != WM_LBUTTONDBLCLK || _propertyGridView.Handle != m.HWnd)
+            {
+                return false;
+            }
 
-        private bool ProcessLeftDoubleClick()
-        {
             var propertyDescriptor = SelectedGridItem.PropertyDescriptor;
             if (propertyDescriptor != null && _useF4OnDoubleClickForProperties != null && _useF4OnDoubleClickForProperties.Contains(propertyDescriptor.Name))
             {
@@ -630,31 +633,26 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         private void AddOrRemoveMessageFilter(bool add)
         {
-            if (_messageFilter == null)
+            if (_isMessageFilterAdded && add)
             {
-                if (!add)
-                {
-                    return;
-                }
-                _messageFilter = new MessageFilter(ShouldApplyFilter, ProcessLeftDoubleClick);
+                return;
             }
-            else
+
+            if (!_isMessageFilterAdded && !add)
             {
-                if (add)
-                {
-                    return;
-                }
+                return;
             }
 
             if (add)
             {
-                Application.AddMessageFilter(_messageFilter);
+                Application.AddMessageFilter(this);
             }
             else
             {
-                Application.RemoveMessageFilter(_messageFilter);
-                _messageFilter = null;
+                Application.RemoveMessageFilter(this);
             }
+
+            _isMessageFilterAdded = add;
         }
 
         [Browsable(false)]
@@ -671,7 +669,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         private Color _backColorOriginal;
 
-        private IMessageFilter _messageFilter;
+        private bool _isMessageFilterAdded;
         private HashSet<string> _useF4OnDoubleClickForProperties;
 
         private FieldInfo CurrentlyActiveTooltipItem
