@@ -69,7 +69,7 @@ namespace Xps2ImgUI
             this.settingsSplitContainer.Panel2.Controls.Add(this.commandLineTextBox);
             this.settingsSplitContainer.Panel2Collapsed = true;
             this.settingsSplitContainer.Size = new System.Drawing.Size(704, 505);
-            this.settingsSplitContainer.SplitterDistance = 428;
+            this.settingsSplitContainer.SplitterDistance = 444;
             this.settingsSplitContainer.TabIndex = 7;
             // 
             // commandLineTextBox
@@ -80,7 +80,7 @@ namespace Xps2ImgUI
             this.commandLineTextBox.Multiline = true;
             this.commandLineTextBox.Name = "commandLineTextBox";
             this.commandLineTextBox.ReadOnly = true;
-            this.commandLineTextBox.Size = new System.Drawing.Size(150, 46);
+            this.commandLineTextBox.Size = new System.Drawing.Size(704, 57);
             this.commandLineTextBox.TabIndex = 0;
             // 
             // progressBar
@@ -173,7 +173,7 @@ namespace Xps2ImgUI
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(720, 542);
+            this.ClientSize = new System.Drawing.Size(720, 541);
             this.Controls.Add(this.settingsSplitContainer);
             this.Controls.Add(this.progressTableLayoutPanel);
             this.Name = "MainForm";
