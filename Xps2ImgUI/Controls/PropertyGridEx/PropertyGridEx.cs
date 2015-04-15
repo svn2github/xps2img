@@ -24,8 +24,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         private const string       ExtendedCategory  = "Extended";
         private const BindingFlags InstanceNonPublic = BindingFlags.Instance | BindingFlags.NonPublic;
 
-        // ReSharper disable once InconsistentNaming
-        private const int          WM_LBUTTONDBLCLK  = 0x0203;
+        protected static readonly Point InvalidPosition = new Point(int.MinValue, int.MinValue);
 
         public PropertyGridEx()
         {
@@ -63,8 +62,14 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             _propertyGridViewEdit = (TextBox)propertyGridViewType.GetProperty("Edit", InstanceNonPublic).GetValue(_propertyGridView, null);
             Debug.Assert(_propertyGridViewEdit != null);
 
-            _propertyGridViewEnsurePendingChangesCommitted = propertyGridViewType.GetMethod("EnsurePendingChangesCommitted", BindingFlags.Instance | BindingFlags.Public);
-            Debug.Assert(_propertyGridViewEnsurePendingChangesCommitted != null);
+            _propertyGridViewEnsurePendingChangesCommittedMethodInfo = propertyGridViewType.GetMethod("EnsurePendingChangesCommitted", BindingFlags.Instance | BindingFlags.Public);
+            Debug.Assert(_propertyGridViewEnsurePendingChangesCommittedMethodInfo != null);
+
+            _propertyGridViewFindPositionMethodInfo = propertyGridViewType.GetMethod("FindPosition", InstanceNonPublic);
+            Debug.Assert(_propertyGridViewFindPositionMethodInfo != null);
+
+            _propertyGridViewGetGridEntryFromRowMethodInfo = propertyGridViewType.GetMethod("GetGridEntryFromRow", InstanceNonPublic);
+            Debug.Assert(_propertyGridViewGetGridEntryFromRowMethodInfo != null);
 
             // Add a custom service provider to give us control over the property value error dialog shown to the user.
             var errorDialogField = propertyGridViewType.GetField("serviceProvider", InstanceNonPublic);
@@ -253,13 +258,13 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         public void EnsurePendingChangesCommitted()
         {
-            _propertyGridViewEnsurePendingChangesCommitted.Invoke(_propertyGridView, new object[0]);
+            _propertyGridViewEnsurePendingChangesCommittedMethodInfo.Invoke(_propertyGridView, new object[0]);
         }
 
         public new bool Validate()
         {
             HasErrors = false;
-            _propertyGridViewEnsurePendingChangesCommitted.Invoke(_propertyGridView, new object[0]);
+            _propertyGridViewEnsurePendingChangesCommittedMethodInfo.Invoke(_propertyGridView, new object[0]);
             var isValid = !HasErrors;
             HasErrors = false;
             return isValid;
@@ -440,6 +445,12 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         private void ContextStripMenuOpening(object sender, CancelEventArgs e)
         {
+            if (!IsSelectedGridItemUnderCursor())
+            {
+                e.Cancel = true;
+                return;
+            }
+
             ContextMenuStrip.Items[CloseItemName].Text = CloseItemText;
 
             var resetMenuItem = ContextMenuStrip.Items[ResetItemName];
@@ -618,13 +629,41 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             }
         }
 
-        public bool PreFilterMessage(ref Message m)
+        private static Point GetPoint(IntPtr lParam)
         {
-            if (m.Msg != WM_LBUTTONDBLCLK || _propertyGridView.Handle != m.HWnd)
+            return new Point(GetInt(lParam));
+        }
+
+        private static int GetInt(IntPtr ptr)
+        {
+            return IntPtr.Size == 8 ? unchecked((int)ptr.ToInt64()) : ptr.ToInt32();
+        }
+
+        private bool IsSelectedGridItemUnderCursor(Point? screenPoint = null)
+        {
+            var point = screenPoint ?? _propertyGridView.PointToClient(Cursor.Position);
+
+            point = (Point)_propertyGridViewFindPositionMethodInfo.Invoke(_propertyGridView, new object[] { point.X, point.Y });
+            if (point == InvalidPosition)
             {
                 return false;
             }
 
+            var gridEntry = _propertyGridViewGetGridEntryFromRowMethodInfo.Invoke(_propertyGridView, new object[] { point.Y });
+
+            return ReferenceEquals(SelectedGridItem, gridEntry);
+        }
+
+        public bool PreFilterMessage(ref Message m)
+        {
+            // ReSharper disable once InconsistentNaming
+            const int WM_LBUTTONDBLCLK = 0x0203;
+
+            if (m.Msg != WM_LBUTTONDBLCLK || _propertyGridView.Handle != m.HWnd || !IsSelectedGridItemUnderCursor(GetPoint(m.LParam)))
+            {
+                return false;
+            }
+            
             var propertyDescriptor = SelectedGridItem.PropertyDescriptor;
             if (propertyDescriptor != null && _useF4OnDoubleClickForProperties != null && _useF4OnDoubleClickForProperties.Contains(propertyDescriptor.Name))
             {
@@ -667,7 +706,10 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         private readonly Control _propertyGridView;
         private readonly TextBox _propertyGridViewEdit;
-        private readonly MethodInfo _propertyGridViewEnsurePendingChangesCommitted;
+
+        private readonly MethodInfo _propertyGridViewEnsurePendingChangesCommittedMethodInfo;
+        private readonly MethodInfo _propertyGridViewFindPositionMethodInfo;
+        private readonly MethodInfo _propertyGridViewGetGridEntryFromRowMethodInfo;
 
         private readonly MethodInfo _updateToolTipMethodInfo;
 
