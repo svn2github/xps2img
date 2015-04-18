@@ -203,7 +203,7 @@ namespace Xps2ImgUI
             settingsPropertyGrid.ModernLook = !_preferences.ClassicLook;
             settingsPropertyGrid.AllowAutoComplete = _preferences.AutoCompleteFilenames;
 
-            convertContextMenuStrip.RenderMode = settingsPropertyGrid.ContextMenuStrip.RenderMode;
+            convertContextMenuStrip.RenderMode = settingsPropertyGrid.ContextMenuStripRenderMode;
 
             var canResume = Model.ShortenExtension == _preferences.ShortenExtension;
 
