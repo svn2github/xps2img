@@ -106,6 +106,10 @@
       <DependentUpon>PropertyGridEx.cs</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\PropertyGridEx\PropertyGridEx.Win32.cs">
+      <DependentUpon>PropertyGridEx.cs</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\PropertyGridEx\PropertyGridEx.cs">
       <SubType>Component</SubType>
     </Compile>

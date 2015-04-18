@@ -24,7 +24,8 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         private const string       ExtendedCategory  = "Extended";
         private const BindingFlags InstanceNonPublic = BindingFlags.Instance | BindingFlags.NonPublic;
 
-        protected static readonly Point InvalidPosition = new Point(int.MinValue, int.MinValue);
+        private static readonly Point InvalidPosition  = new Point(int.MinValue, int.MinValue);
+        private static readonly Point NegativePosition = new Point(-1, -1);
 
         public PropertyGridEx()
         {
@@ -277,6 +278,11 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             OnResize(EventArgs.Empty);
         }
 
+        public new void Focus()
+        {
+            _propertyGridView.Focus();
+        }
+
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public override bool Focused
@@ -445,7 +451,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         private void ContextStripMenuOpening(object sender, CancelEventArgs e)
         {
-            if (!IsSelectedGridItemUnderCursor())
+            if (!_isContextMenuKeyboardOpened && !IsSelectedGridItemUnderCursor())
             {
                 e.Cancel = true;
                 return;
@@ -629,16 +635,6 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             }
         }
 
-        private static Point GetPoint(IntPtr lParam)
-        {
-            return new Point(GetInt(lParam));
-        }
-
-        private static int GetInt(IntPtr ptr)
-        {
-            return IntPtr.Size == 8 ? unchecked((int)ptr.ToInt64()) : ptr.ToInt32();
-        }
-
         private bool IsSelectedGridItemUnderCursor(Point? screenPoint = null)
         {
             var point = screenPoint ?? _propertyGridView.PointToClient(Cursor.Position);
@@ -654,11 +650,17 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             return ReferenceEquals(SelectedGridItem, gridEntry);
         }
 
-        public bool PreFilterMessage(ref Message m)
+        protected override void WndProc(ref Message m)
         {
-            // ReSharper disable once InconsistentNaming
-            const int WM_LBUTTONDBLCLK = 0x0203;
+            if (m.Msg == WM_CONTEXTMENU)
+            {
+                _isContextMenuKeyboardOpened = GetPoint(m.LParam) == NegativePosition;
+            }
+            base.WndProc(ref m);
+        }
 
+        bool IMessageFilter.PreFilterMessage(ref Message m)
+        {
             if (m.Msg != WM_LBUTTONDBLCLK || _propertyGridView.Handle != m.HWnd || !IsSelectedGridItemUnderCursor(GetPoint(m.LParam)))
             {
                 return false;
@@ -717,6 +719,8 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         private bool _isMessageFilterAdded;
         private HashSet<string> _useF4OnDoubleClickForProperties;
+
+        private bool _isContextMenuKeyboardOpened;
 
         private FieldInfo CurrentlyActiveTooltipItem
         {
