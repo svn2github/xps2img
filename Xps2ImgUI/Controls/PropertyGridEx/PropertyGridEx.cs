@@ -90,9 +90,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         protected override void OnHandleDestroyed(EventArgs e)
         {
             AddMessageFilter(false);
-
             CleanupContextMenuStrip();
-
             base.OnHandleDestroyed(e);
         }
 
@@ -404,7 +402,8 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                 return;
             }
 
-            contextMenuStrip.Opening -= ContextStripMenuOpening;
+            contextMenuStrip.Opening -= ContextMenuStripOpening;
+            contextMenuStrip.Closed  -= ContextMenuStripClosed;
 
             foreach (var contextMenuItem in _contextMenuItems)
             {
@@ -435,7 +434,8 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
             var contextMenuStrip = new ContextMenuStrip { RenderMode = ContextMenuStripRenderMode };
 
-            contextMenuStrip.Opening += ContextStripMenuOpening;
+            contextMenuStrip.Opening += ContextMenuStripOpening;
+            contextMenuStrip.Closed  += ContextMenuStripClosed;
 
             var resetMenuItem = RegisterContextMenuItem(ResetItemName, ResetMenuItemClick);
             var closeMenuItem = RegisterContextMenuItem(CloseItemName, null);
@@ -502,9 +502,14 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             return stringBuilder.ToString();
         }
 
-        private void ContextStripMenuOpening(object sender, CancelEventArgs e)
+        private void ContextMenuStripOpening(object sender, CancelEventArgs e)
         {
             e.Cancel = !_isContextMenuKeyboardOpened && !IsSelectedGridItemUnderCursor();
+        }
+        
+        private void ContextMenuStripClosed(object sender, ToolStripDropDownClosedEventArgs e)
+        {
+            CleanupContextMenuStrip();
         }
 
         private void ResetMenuItemClick(object sender, EventArgs e)
