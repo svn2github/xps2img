@@ -91,6 +91,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         {
             AddMessageFilter(false);
             CleanupContextMenuStrip();
+
             base.OnHandleDestroyed(e);
         }
 
