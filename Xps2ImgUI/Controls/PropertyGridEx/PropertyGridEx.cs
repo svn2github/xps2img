@@ -352,7 +352,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public override ContextMenuStrip ContextMenuStrip
         {
-            get { throw new InvalidOperationException("Internal use"); }
+            get { return base.ContextMenuStrip; }
             set { throw new InvalidOperationException("Internal use"); }
         }
 
@@ -403,7 +403,6 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             }
 
             contextMenuStrip.Opening -= ContextMenuStripOpening;
-            contextMenuStrip.Closed  -= ContextMenuStripClosed;
 
             foreach (var contextMenuItem in _contextMenuItems)
             {
@@ -435,7 +434,6 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             var contextMenuStrip = new ContextMenuStrip { RenderMode = ContextMenuStripRenderMode };
 
             contextMenuStrip.Opening += ContextMenuStripOpening;
-            contextMenuStrip.Closed  += ContextMenuStripClosed;
 
             var resetMenuItem = RegisterContextMenuItem(ResetItemName, ResetMenuItemClick);
             var closeMenuItem = RegisterContextMenuItem(CloseItemName, null);
@@ -507,11 +505,6 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             e.Cancel = !_isContextMenuKeyboardOpened && !IsSelectedGridItemUnderCursor();
         }
         
-        private void ContextMenuStripClosed(object sender, ToolStripDropDownClosedEventArgs e)
-        {
-            CleanupContextMenuStrip();
-        }
-
         private void ResetMenuItemClick(object sender, EventArgs e)
         {
             if (!SelectedGridItem.HasPropertyDescriptor())
