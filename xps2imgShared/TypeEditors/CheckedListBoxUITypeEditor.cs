@@ -10,11 +10,11 @@ using Xps2Img.Shared.Controls;
 
 namespace Xps2Img.Shared.TypeEditors
 {
-    public abstract class CheckedListBoxUITypeEditor<TV> : UITypeEditor
+    public abstract class CheckedListBoxUITypeEditor<T> : UITypeEditor
     {
         protected class ListItem
         {
-            public TV Item { get; set; }
+            public T Item { get; set; }
             public bool Checked { get; set; }
             public override string ToString()
             {
@@ -24,7 +24,12 @@ namespace Xps2Img.Shared.TypeEditors
 
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
-            var windowsFormsEditorService = (IWindowsFormsEditorService) provider.GetService(typeof(IWindowsFormsEditorService));
+            if (provider == null)
+            {
+                return DefaultValue;
+            }
+
+            var windowsFormsEditorService = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
             if (windowsFormsEditorService == null)
             {
                 return DefaultValue;
