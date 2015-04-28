@@ -34,7 +34,7 @@ namespace Xps2ImgUI.Utils.UI
                       .FirstOrDefault(g => g != null);
         }
 
-        public static void SelectFirstGridItem(this PropertyGrid propertyGrid)
+        public static void SelectFirstGridItem(this PropertyGrid propertyGrid, bool focus = true)
         {
             Func<GridItem, bool> isEmpty = n => n == null || n.GridItems.Count == 0;
 
@@ -53,6 +53,8 @@ namespace Xps2ImgUI.Utils.UI
             gridItem.Expanded = true;
 
             propertyGrid.SelectedGridItem = gridItem.GridItems[0];
+
+            propertyGrid.FocusSelectedGridItem(focus);
         }
 
         public static void SelectGridItem(this PropertyGrid propertyGrid, string labelOrPropertyName, bool searchByPropertyName = false, Func<GridItem, bool> searchFunc = null, bool focus = false)
@@ -78,13 +80,21 @@ namespace Xps2ImgUI.Utils.UI
 
             propertyGrid.SelectedGridItem = gridItem;
 
-            if (focus)
+            propertyGrid.FocusSelectedGridItem(focus);
+        }
+
+        public static void FocusSelectedGridItem(this PropertyGrid propertyGrid, bool focus = true)
+        {
+            if (!focus)
             {
-                propertyGrid.Focus();
-                propertyGrid.Select();
-                propertyGrid.SelectedGridItem.Select();
-                SendKeys.SendWait("{TAB}");
+                return;
             }
+
+            propertyGrid.Focus();
+            propertyGrid.Select();
+            propertyGrid.SelectedGridItem.Select();
+
+            //SendKeys.Send("{TAB}");
         }
 
         private static GridItem GetGridItem(PropertyGrid propertyGrid, GridItem gridItem)
