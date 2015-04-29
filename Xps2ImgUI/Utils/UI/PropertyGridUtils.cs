@@ -34,7 +34,7 @@ namespace Xps2ImgUI.Utils.UI
                       .FirstOrDefault(g => g != null);
         }
 
-        public static void SelectFirstGridItem(this PropertyGrid propertyGrid, bool focus = true)
+        public static void SelectFirstGridItem(this PropertyGrid propertyGrid, bool focus = true, bool focusEdit = true)
         {
             Func<GridItem, bool> isEmpty = n => n == null || n.GridItems.Count == 0;
 
@@ -54,10 +54,10 @@ namespace Xps2ImgUI.Utils.UI
 
             propertyGrid.SelectedGridItem = gridItem.GridItems[0];
 
-            propertyGrid.FocusSelectedGridItem(focus);
+            propertyGrid.FocusSelectedGridItem(focus, focusEdit);
         }
 
-        public static void SelectGridItem(this PropertyGrid propertyGrid, string labelOrPropertyName, bool searchByPropertyName = false, Func<GridItem, bool> searchFunc = null, bool focus = false)
+        public static void SelectGridItem(this PropertyGrid propertyGrid, string labelOrPropertyName, bool searchByPropertyName = false, Func<GridItem, bool> searchFunc = null, bool focus = false, bool focusEdit = true)
         {
             if (searchFunc == null)
             {
@@ -80,10 +80,10 @@ namespace Xps2ImgUI.Utils.UI
 
             propertyGrid.SelectedGridItem = gridItem;
 
-            propertyGrid.FocusSelectedGridItem(focus);
+            propertyGrid.FocusSelectedGridItem(focus, focusEdit);
         }
 
-        public static void FocusSelectedGridItem(this PropertyGrid propertyGrid, bool focus = true)
+        public static void FocusSelectedGridItem(this PropertyGrid propertyGrid, bool focus = true, bool focusEdit = true)
         {
             if (!focus)
             {
@@ -92,9 +92,11 @@ namespace Xps2ImgUI.Utils.UI
 
             propertyGrid.Focus();
             propertyGrid.Select();
-            propertyGrid.SelectedGridItem.Select();
 
-            //SendKeys.Send("{TAB}");
+            if (focusEdit)
+            {
+                propertyGrid.BeginInvoke(new Action(() => { Application.DoEvents(); SendKeys.Send("{BACKSPACE}"); }));
+            }
         }
 
         private static GridItem GetGridItem(PropertyGrid propertyGrid, GridItem gridItem)

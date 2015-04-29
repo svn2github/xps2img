@@ -93,7 +93,7 @@ namespace Xps2ImgUI
             preferencesPropertyGrid.MoveSplitterByPercent(50);
 
             preferencesPropertyGrid.ExpandAllGridItems();
-            preferencesPropertyGrid.SelectFirstGridItem();
+            preferencesPropertyGrid.SelectFirstGridItem(focusEdit: false);
 
             SetReadOnly();
 
