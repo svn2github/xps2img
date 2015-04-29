@@ -274,8 +274,8 @@
     <comment>TIFF Compression</comment>
   </data>
   <data name="Options_TiffCompressionDescription" xml:space="preserve">
-    <value>TIFF compression method&#xA;  CCITT3, CCITT4 and RLE produce black and white images</value>
-    <comment>TIFF compression method&#xA;  CCITT3, CCITT4 and RLE produce black and white images</comment>
+    <value>TIFF compression method&#xA;  CCITT G3, CCITT G4 and RLE produce black and white images</value>
+    <comment>TIFF compression method&#xA;  CCITT G3, CCITT G4 and RLE produce black and white images</comment>
   </data>
   <data name="Options_RequiredSizeName" xml:space="preserve">
     <value>Image Size</value>
@@ -430,11 +430,11 @@
     <comment>NON LOCALIZABLE</comment>
   </data>
   <data name="TiffCompressOption_Ccitt3Value" xml:space="preserve">
-    <value>CCITT3</value>
+    <value>CCITT G3</value>
     <comment>NON LOCALIZABLE</comment>
   </data>
   <data name="TiffCompressOption_Ccitt4Value" xml:space="preserve">
-    <value>CCITT4</value>
+    <value>CCITT G4</value>
     <comment>NON LOCALIZABLE</comment>
   </data>
   <data name="TiffCompressOption_LzwValue" xml:space="preserve">

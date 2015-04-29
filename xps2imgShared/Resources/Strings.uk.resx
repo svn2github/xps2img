@@ -273,8 +273,8 @@
     <comment>TIFF Compression</comment>
   </data>
   <data name="Options_TiffCompressionDescription" xml:space="preserve">
-    <value>Метод стиску TIFF&#xA;  CCITT3, CCITT4 та RLE використовуються для створення чорно-білих зображень</value>
-    <comment>TIFF compression method&#xA;  CCITT3, CCITT4 and RLE produce black and white images</comment>
+    <value>Метод стиску TIFF&#xA;  CCITT G3, CCITT G4 та RLE використовуються для створення чорно-білих зображень</value>
+    <comment>TIFF compression method&#xA;  CCITT G3, CCITT G4 and RLE produce black and white images</comment>
   </data>
   <data name="Options_RequiredSizeName" xml:space="preserve">
     <value>Розмір зображення</value>
