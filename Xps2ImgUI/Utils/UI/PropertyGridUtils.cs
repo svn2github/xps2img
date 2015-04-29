@@ -95,7 +95,11 @@ namespace Xps2ImgUI.Utils.UI
 
             if (focusEdit)
             {
-                propertyGrid.BeginInvoke(new Action(() => { Application.DoEvents(); SendKeys.Send("{BACKSPACE}"); }));
+                propertyGrid.BeginInvoke(new Action(() =>
+                {
+                    Application.DoEvents();
+                    SendKeys.Send("{TAB}");
+                }));
             }
         }
 

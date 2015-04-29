@@ -135,13 +135,12 @@ begin
   Result := False;
   
   if IsManageAppSettingsFileCalled then Exit;
-  IsManageAppSettingsFileCalled := True;
   
   fileName := ExpandConstant(file);
   
   if not FileExists(fileName) then
   begin
-    SaveStringToFile(fileName, Format(AppSettingsFileTemplate, [ AppLanguageName ]), False);
+    IsManageAppSettingsFileCalled := SaveStringToFile(fileName, Format(AppSettingsFileTemplate, [ AppLanguageName ]), False);
     Exit;
   end;
   
@@ -157,6 +156,7 @@ begin
     begin
       node.text := AppLanguageName;
       MSXML_SaveWithIndent(xmlDoc, fileName);
+      IsManageAppSettingsFileCalled := True;
     end;
   except
   end
