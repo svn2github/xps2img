@@ -43,7 +43,31 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
             private const string HotkeyChar = "&";
 
-            public static bool TryGetHotKey(string text, out char ch)
+            public IEnumerable<string> AssignHotKeysFor(IEnumerable<string> texts, params string[] exclude)
+            {
+                return AssignHotKeysFor(texts, GetHotKeysFor(exclude).ToArray());
+            }
+
+            public IEnumerable<string> AssignHotKeysFor(IEnumerable<string> texts, params char[] exclude)
+            {
+                var excluded = new HashSet<char>(exclude ?? new char[0], _caseInsensitiveCharEqualityComparer);
+
+                return texts.Select(t => TestHotKeyFor(t, excluded) ? t : SetHotKeyFor(t.Replace(HotkeyChar, String.Empty), excluded));
+            }
+
+            private static IEnumerable<char> GetHotKeysFor(IEnumerable<string> exclude)
+            {
+                var list = new List<char>();
+                
+                foreach (var text in exclude)
+                {
+                    TestHotKeyFor(text, list);
+                }
+
+                return list;
+            }
+
+            private static bool TryGetHotKey(string text, out char ch)
             {
                 var index = text.IndexOf(HotkeyChar, StringComparison.Ordinal);
                 if (index < 0 || index == text.Length - 1)
@@ -57,59 +81,21 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                 return true;
             }
 
-            public void AssignHotKeysFor(IList<string> texts, params string[] exclude)
-            {
-                AssignHotKeysFor(texts, GetHotKeysFor(exclude).ToArray());
-            }
-
-            public void AssignHotKeysFor(IList<string> texts, params char[] exclude)
-            {
-                var excluded = new HashSet<char>(exclude ?? new char[0], _caseInsensitiveCharEqualityComparer);
-
-                for (var i = 0; i < texts.Count; i++)
-                {
-                    var text = texts[i];
-
-                    if (TestHotKey(excluded, text))
-                    {
-                        continue;
-                    }
-
-                    texts[i] = SetHotKey(text.Replace(HotkeyChar, string.Empty), excluded);
-                }
-            }
-
-            private static IEnumerable<char> GetHotKeysFor(IEnumerable<string> exclude)
-            {
-                var list = new List<char>();
-                
-                foreach (var text in exclude)
-                {
-                    TestHotKey(list, text);
-                }
-
-                return list;
-            }
-
-            private static bool TestHotKey(ICollection<char> excluded, string text)
+            private static bool TestHotKeyFor(string text, ICollection<char> excluded)
             {
                 char ch;
 
-                if (!TryGetHotKey(text, out ch))
+                if (!TryGetHotKey(text, out ch) || excluded.Contains(ch))
                 {
                     return false;
                 }
 
-                if (!excluded.Contains(ch))
-                {
-                    excluded.Add(ch);
-                    return true;
-                }
+                excluded.Add(ch);
 
-                return false;
+                return true;
             }
 
-            private static string SetHotKey(string text, ICollection<char> excluded)
+            private static string SetHotKeyFor(string text, ICollection<char> excluded)
             {
                 for (var ci = 0; ci < text.Length; ci++)
                 {
