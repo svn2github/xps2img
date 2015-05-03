@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -24,14 +25,30 @@ namespace Xps2ImgUI.Utils.UI
             return FindGridItem(GetParentGridItem(propertyGrid), findGridItem);
         }
 
+        public static IEnumerable<GridItem> FindGridItems(this PropertyGrid propertyGrid, Func<GridItem, bool> findGridItem)
+        {
+            return FindGridItems(GetParentGridItem(propertyGrid), findGridItem);
+        }
+
         public static GridItem FindGridItem(this GridItem gridItem, Func<GridItem, bool> findGridItem)
         {
-            return findGridItem(gridItem) ?
-                    gridItem :
-                    gridItem.GridItems
-                      .Cast<GridItem>()
-                      .Select(g => FindGridItem(g, findGridItem))
-                      .FirstOrDefault(g => g != null);
+            return FindGridItems(gridItem, findGridItem).FirstOrDefault();
+        }
+
+        public static IEnumerable<GridItem> FindGridItems(this GridItem gridItem, Func<GridItem, bool> findGridItem)
+        {
+            if (findGridItem(gridItem))
+            {
+                yield return gridItem;
+            }
+
+            foreach(GridItem g in gridItem.GridItems)
+            {
+                foreach(var gg in FindGridItems(g, findGridItem))
+                {
+                    yield return gg;
+                }
+            }
         }
 
         public static void SelectFirstGridItem(this PropertyGrid propertyGrid, bool focus = true, bool focusEdit = true)
