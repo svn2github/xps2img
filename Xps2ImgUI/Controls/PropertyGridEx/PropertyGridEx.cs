@@ -337,11 +337,13 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         private void SetSelectedObjectReadOnly()
         {
-            if (SelectedObject != null)
+            if (!HasSelectedObject)
             {
-                TypeDescriptor.AddAttributes(SelectedObject, new ReadOnlyAttribute(_readOnly));
-                Refresh();
+                return;
             }
+
+            TypeDescriptor.AddAttributes(SelectedObject, new ReadOnlyAttribute(_readOnly));
+            Refresh();
         }
 
         [Browsable(false)]
@@ -356,11 +358,20 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         // bool check   - check requested if true; otherwise reset should be executed
         public Func<string, bool, bool> ResetGroupCallback { get; set; }
 
+        public bool IsResetAllEnabled(Func<PropertyInfo, bool> allowFilter = null)
+        {
+            return IsResetByCategoryEnabled(null, allowFilter);
+        }
+
         public bool IsResetByCategoryEnabled(string category, Func<PropertyInfo, bool> allowFilter = null)
         {
+            var useCategory = !String.IsNullOrEmpty(category);
+
             return !ReflectionUtils.ForEachPropertyInfo(SelectedObject, pi =>
             {
-                if(category != pi.FirstOrNewAttribute<CategoryAttribute>().Category || (allowFilter != null && !allowFilter(pi)))
+                if ((useCategory
+                        ? category != pi.FirstOrNewAttribute<CategoryAttribute>().Category
+                        : pi.FirstOrDefaultAttribute<CategoryAttribute>() == null) || (allowFilter != null && !allowFilter(pi)))
                 {
                     return true;
                 }
@@ -372,11 +383,18 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             });
         }
 
+        public void ResetAll()
+        {
+            ResetByCategory(null);
+        }
+
         public void ResetByCategory(string category, bool isLabel = true, Func<PropertyInfo, bool> allowFilter = null)
         {
             var categoryName = category;
 
-            if (isLabel)
+            var useCategory = !String.IsNullOrEmpty(category);
+
+            if (useCategory && isLabel)
             {
                 var gridItem = this.FindGridItem(g => g.Label == category && g.IsCategory());
                 if (gridItem == null)
@@ -388,7 +406,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             }
 
             ReflectionUtils.SetDefaultValues(SelectedObject, pi =>
-                categoryName == pi.FirstOrNewAttribute<CategoryAttribute>().Category &&
+                (!useCategory || categoryName == pi.FirstOrNewAttribute<CategoryAttribute>().Category) &&
                 (allowFilter == null || allowFilter(pi))
             );
 
@@ -409,6 +427,11 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             UpdateToolTip(oldValue);
         }
 
+        public bool HasSelectedObject
+        {
+            get { return SelectedObject != null; }
+        }
+        
         public new object SelectedObject
         {
             get { return base.SelectedObject; }
@@ -552,8 +575,6 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         private bool _isMessageFilterAdded;
         private HashSet<string> _useF4OnDoubleClickForProperties;
-
-        private readonly Dictionary<string, EventHandler> _contextMenuItems = new Dictionary<string, EventHandler>();
 
         private FieldInfo CurrentlyActiveTooltipItem
         {

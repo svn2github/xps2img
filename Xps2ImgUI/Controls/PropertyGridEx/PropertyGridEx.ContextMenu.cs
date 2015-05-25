@@ -17,25 +17,26 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         private static readonly Point InvalidPosition  = new Point(int.MinValue, int.MinValue);
         private static readonly Point NegativePosition = new Point(-1, -1);
 
-        private const string ResetItemName = "reset";
-        private const string CloseItemName = "close";
+        private const string ResetItemName    = "PropertyGrid_ResetMenuItem";
+        private const string ResetAllItemName = "PropertyGrid_ResetAllMenuItem";
 
-        private const string ResetItemKey = "PropertyGrid_ResetItem";
-        private const string CloseItemKey = "PropertyGrid_CloseItem";
+        private const string ResetItemKey     = "PropertyGrid_ResetItem";
+        private const string ResetAllItemKey  = "PropertyGrid_ResetAllItem";
 
         private const string CategorizedKey  = "PropertyGrid_Categorized";
         private const string AlphabeticalKey = "PropertyGrid_Alphabetical";
 
-        private const string ResetTextKeyFormat = "PropertyGrid_Reset{0}_{1}";
+        private const string ResetTextKeyFormat    = "PropertyGrid_Reset{0}_{1}";
+        private const string ResetAllTextKeyFormat = "PropertyGrid_ResetAll{0}";
 
         private static string ResetItemText
         {
             get { return GetLocalizedString(ResetItemKey, "&Reset {0}"); }
         }
 
-        private static string CloseItemText
+        private static string ResetAllItemText
         {
-            get { return GetLocalizedString(CloseItemKey, "&Close"); }
+            get { return GetLocalizedString(ResetAllItemKey, "Reset &All {0}"); }
         }
 
         private static string GetLocalizedString(string key, string defaultValue)
@@ -59,24 +60,16 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                 return;
             }
 
-            foreach (var contextMenuItem in _contextMenuItems)
-            {
-                contextMenuStrip.Items[contextMenuItem.Key].Click -= contextMenuItem.Value;
-            }
-
-            _contextMenuItems.Clear();
-
             base.ContextMenuStrip = null;
         }
 
-        private ToolStripItem RegisterContextMenuItem(string name, EventHandler eventHandler)
+        private static ToolStripItem CreateContextMenuItem(string name, EventHandler eventHandler)
         {
             var menuItem = new ToolStripMenuItem(name) { Name = name };
 
             if (eventHandler != null)
             {
                 menuItem.Click += eventHandler;
-                _contextMenuItems[name] = eventHandler;
             }
 
             return menuItem;
@@ -101,12 +94,6 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             CleanupContextMenuStrip();
 
             var contextMenuGridItems = GetContextMenuGridItems(isContextMenuKeyboardOpened).ToArray();
-
-            if(!contextMenuGridItems.Any())
-            {
-                return null;
-            }
-
             var contextMenuStrip = new ContextMenuStrip { RenderMode = ContextMenuStripRenderMode };
             
             var menuItems = new List<ToolStripItem>();
@@ -114,7 +101,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             foreach (var gridItem in contextMenuGridItems)
             {
                 var gridItemClosure = gridItem;
-                var resetMenuItem = RegisterContextMenuItem(ResetItemName, (s, e) => ResetMenuItemClickFor(gridItemClosure));
+                var resetMenuItem = CreateContextMenuItem(ResetItemName, (s, e) => ResetMenuItemClickFor(gridItemClosure));
 
                 SetupResetMenuItem(gridItem, resetMenuItem);
 
@@ -123,14 +110,24 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                 contextMenuStrip.Items.Add(resetMenuItem);
             }
 
-            var closeMenuItem = RegisterContextMenuItem(CloseItemName, null);
-            closeMenuItem.Text = CloseItemText;
+            var resetAllMenuItem = CreateContextMenuItem(ResetAllItemName, (s, e) => ResetAll());
+            SetupResetMenuItem(null, resetAllMenuItem);
 
-            contextMenuStrip.Items.Add("-");
-            contextMenuStrip.Items.Add(closeMenuItem);
+            var isGridContextMenu = !contextMenuGridItems.Contains(SelectedGridItem);
+            if (isGridContextMenu)
+            {
+                if (contextMenuGridItems.Any())
+                {
+                    contextMenuStrip.Items.Add("-");
+                }
+
+                resetAllMenuItem.Enabled = HasSelectedObject && !ReadOnly && IsResetAllEnabled();
+
+                contextMenuStrip.Items.Add(resetAllMenuItem);
+            }
 
             var i = 0;
-            foreach(var text in (new HotKeyAssigner()).AssignHotKeysFor(menuItems.Select(m => m.Text), CloseItemText))
+            foreach (var text in (new HotKeyAssigner()).AssignHotKeysFor(menuItems.Select(m => m.Text), isGridContextMenu ? resetAllMenuItem.Text : String.Empty))
             {
                 menuItems[i++].Text = text;
             }
@@ -140,6 +137,15 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         private void SetupResetMenuItem(GridItem gridItem, ToolStripItem resetMenuItem)
         {
+            if (gridItem == null)
+            {
+                resetMenuItem.Text = String.Format(ResetAllItemText,
+                                                   HasSelectedObject
+                                                       ? GetLocalizedString(String.Format(ResetAllTextKeyFormat, SelectedObject.GetType().Name), String.Empty)
+                                                       : String.Empty);
+                return;
+            }
+
             var label = (gridItem.Label ?? String.Empty).Trim();
             var text = label;
 
@@ -151,12 +157,11 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                 label = this.GetCategoryName(gridItem) ?? label;
             }
 
-            resetMenuItem.Text = String.Format(ResetItemText,
-                GetResetText(hasPropertyDescriptor ? propertyDescriptor.Name : label + "Category", text));
+            resetMenuItem.Text = String.Format(ResetItemText, GetResetText(hasPropertyDescriptor ? propertyDescriptor.Name : label + "Category", text));
 
             resetMenuItem.Enabled = !ReadOnly && (
                 hasPropertyDescriptor
-                    ? propertyDescriptor.CanResetValue(SelectedObject)
+                    ? HasSelectedObject && propertyDescriptor.CanResetValue(SelectedObject)
                     : ResetGroupCallback != null && ResetGroupCallback(label, true));
         }
 

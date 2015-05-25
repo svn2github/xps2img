@@ -245,11 +245,11 @@
     <comment>Action to execute after conversion completed</comment>
   </data>
   <data name="Options_PagesName" xml:space="preserve">
-    <value>Номера сторінок</value>
+    <value>Номери сторінок</value>
     <comment>Page Number(s)</comment>
   </data>
   <data name="Options_PagesDescription" xml:space="preserve">
-    <value>Номера сторінок&#xA;  всі сторінки, якщо не задано&#xA;Синтаксис:&#xA;  всі:&#x9;&#x9;1-&#xA;  одна:&#x9;&#x9;1&#xA;  декілька:&#x9;1,3&#xA;  діапазон:&#x9;1-10 або -10 або 10-&#xA;  комбіновано:&#x9;1,3-5,7-9,15-</value>
+    <value>Номери сторінок&#xA;  всі сторінки, якщо не задано&#xA;Синтаксис:&#xA;  всі:&#x9;&#x9;1-&#xA;  одна:&#x9;&#x9;1&#xA;  декілька:&#x9;1,3&#xA;  діапазон:&#x9;1-10 або -10 або 10-&#xA;  комбіновано:&#x9;1,3-5,7-9,15-</value>
     <comment>Page number(s)&#xA;  all pages by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;1-&#xA;  single:&#x9;1&#xA;  set:&#x9;&#x9;1,3&#xA;  range:&#x9;1-10 or -10 or 10-&#xA;  combined:&#x9;1,3-5,7-9,15-</comment>
   </data>
   <data name="Options_FileTypeName" xml:space="preserve">

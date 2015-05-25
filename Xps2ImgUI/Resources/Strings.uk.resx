@@ -538,7 +538,7 @@
     <comment>Completed with Errors</comment>
   </data>
   <data name="WouldYouLikeToCopyPageNumbersToClipboard" xml:space="preserve">
-    <value>Чи ви бажаєте скопіювати номера сторінок до буфера обміну?</value>
+    <value>Чи ви бажаєте скопіювати номери сторінок до буфера обміну?</value>
     <comment>Would you like to copy page numbers to clipboard?</comment>
   </data>
   <data name="YesCopyToClipboard" xml:space="preserve">
@@ -729,9 +729,17 @@
     <value>&amp;Повернути {0} в початковий стан</value>
     <comment>&amp;Reset {0}</comment>
   </data>
-  <data name="PropertyGrid_CloseItem" xml:space="preserve">
-    <value>&amp;Закрити</value>
-    <comment>&amp;Close</comment>
+  <data name="PropertyGrid_ResetAllItem" xml:space="preserve">
+    <value>Повернути {0} в початковий &amp;стан</value>
+    <comment>Reset &amp;All {0}</comment>
+  </data>
+  <data name="PropertyGrid_ResetAllUIOptions" xml:space="preserve">
+    <value>параметри та опції</value>
+    <comment>Parameters and Options</comment>
+  </data>
+  <data name="PropertyGrid_ResetAllPreferences" xml:space="preserve">
+    <value>налаштування</value>
+    <comment>Preferences</comment>
   </data>
   <data name="PropertyGrid_Categorized" xml:space="preserve">
     <value>За категоріями</value>

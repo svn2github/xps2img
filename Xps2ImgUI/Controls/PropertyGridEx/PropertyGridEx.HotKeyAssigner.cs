@@ -7,7 +7,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 {
     public partial class PropertyGridEx
     {
-        public class HotKeyAssigner
+        private class HotKeyAssigner
         {
             private class CaseInsensitiveCharEqualityComparer : IEqualityComparer<char>
             {

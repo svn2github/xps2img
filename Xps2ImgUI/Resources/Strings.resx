@@ -729,9 +729,17 @@ What's new in version {0}
     <value>&amp;Reset {0}</value>
     <comment>&amp;Reset {0}</comment>
   </data>
-  <data name="PropertyGrid_CloseItem" xml:space="preserve">
-    <value>&amp;Close</value>
-    <comment>&amp;Close</comment>
+  <data name="PropertyGrid_ResetAllItem" xml:space="preserve">
+    <value>Reset &amp;All {0}</value>
+    <comment>Reset &amp;All {0}</comment>
+  </data>
+  <data name="PropertyGrid_ResetAllUIOptions" xml:space="preserve">
+    <value>Parameters and Options</value>
+    <comment>Parameters and Options</comment>
+  </data>
+  <data name="PropertyGrid_ResetAllPreferences" xml:space="preserve">
+    <value>Preferences</value>
+    <comment>Preferences</comment>
   </data>
   <data name="PropertyGrid_Categorized" xml:space="preserve">
     <value>Categorized</value>
