@@ -5,80 +5,111 @@
 // Windows Versions.
 //
 
+#define private VersionWithoutBuild(v)  (Local[0] = RPos('.', v)) ? Copy(v, 1, Local[0] - 1) : v
+
 // Windows 95
-#define Windows95           '4.0.950'
+#define Windows95Exact                  '4.0.950'
+#define Windows95                       VersionWithoutBuild(Windows95Exact)
 
 // Windows 95 OSR 2
-#define Windows95OSR2       '4.0.1111'
+#define Windows95OSR2Exact              '4.0.1111'
+#define Windows95OSR2                   VersionWithoutBuild(Windows95OSR2Exact)
 
 // Windows 95 OSR 2.1
-#define Windows95OSR2_1      '4.0.1111'
+#define Windows95OSR2_1Exact            '4.0.1111'
+#define Windows95OSR2_1                 VersionWithoutBuild(Windows95OSR2_1Exact)
 
 // Windows 95 OSR 2.5
-#define Windows95OSR2_5      '4.0.1212'
+#define Windows95OSR2_5Exact            '4.0.1212'
+#define Windows95OSR2_5                 VersionWithoutBuild(Windows95OSR2_5Exact)
 
 // Windows 98
-#define Windows98            '4.1.1998'
+#define Windows98Exact                  '4.1.1998'
+#define Windows98                       VersionWithoutBuild(Windows98Exact)
 
 // Windows 98 Second Edition
-#define Windows98SE          '4.1.2222'
+#define Windows98SEExact                '4.1.2222'
+#define Windows98SE                     VersionWithoutBuild(Windows98SEExact)
 
 // Windows Me
-#define WindowsME            '4.9.3000'
+#define WindowsMEExact                  '4.9.3000'
+#define WindowsME                       VersionWithoutBuild(WindowsMEExact)
 
 // Windows NT 4.0
-#define WindowsNT4_0         '4.0.1381'
+#define WindowsNT4_0Exact               '4.0.1381'
+#define WindowsNT4_0                    VersionWithoutBuild(WindowsNT4_0Exact)
 
 // Windows 2000
-#define Windows2000          '5.0.2195'
+#define Windows2000Exact                '5.0.2195'
+#define Windows2000                     VersionWithoutBuild(Windows2000Exact)
 
 // Windows XP
-#define WindowsXP            '5.1.2600'
+#define WindowsXPExact                  '5.1.2600'
+#define WindowsXP                       VersionWithoutBuild(WindowsXPExact)
 
 // Windows XP 64-Bit Edition Version 2002 (Itanium)
-#define WindowsXPx64v2002    '5.1.2600'
+#define WindowsXPx64v2002Exact          '5.1.2600'
+#define WindowsXPx64v2002               VersionWithoutBuild(WindowsXPx64v2002Exact)
 
 // Windows Server 2003
-#define Windows2003          '5.2.3790'
+#define Windows2003Exact                '5.2.3790'
+#define Windows2003                     VersionWithoutBuild(Windows2003Exact)
 
 // Windows XP x64 Edition (AMD64/EM64T)
-#define WindowsXPx64         '5.2.3790'
+#define WindowsXPx64Exact               '5.2.3790'
+#define WindowsXPx64                    VersionWithoutBuild(WindowsXPx64Exact)
 
 // Windows XP 64-Bit Edition Version 2003 (Itanium)
-#define WindowsXPx64v2003    '5.2.3790'
+#define WindowsXPx64v2003Exact          '5.2.3790'
+#define WindowsXPx64v2003               VersionWithoutBuild(WindowsXPx64v2003Exact)
 
 // Windows Vista
-#define WindowsVista         '6.0.6000'
+#define WindowsVistaExact               '6.0.6000'
+#define WindowsVista                    VersionWithoutBuild(WindowsVistaExact)
 
 // Windows 7
-#define Windows7             '6.1.7600'
+#define Windows7Exact                   '6.1.7600'
+#define Windows7                        VersionWithoutBuild(Windows7Exact)
 
 // Windows Server 2008 R2
-#define WindowsServer2008R2  '6.1.7600'
+#define WindowsServer2008R2Exact        '6.1.7600'
+#define WindowsServer2008R2             VersionWithoutBuild(WindowsServer2008R2Exact)
 
 // Windows 7 with Service Pack 1
-#define Windows7SP1             '6.1.7601'
+#define Windows7SP1Exact                '6.1.7601'
+#define Windows7SP1                     VersionWithoutBuild(Windows7SP1Exact)
 
 // Windows Server 2008 R2 with Service Pack 1
-#define WindowsServer2008R2SP1  '6.1.7601'
+#define WindowsServer2008R2SP1Exact     '6.1.7601'
+#define WindowsServer2008R2SP1          VersionWithoutBuild(WindowsServer2008R2SP1Exact)
 
 // Windows 8 Release Preview
-#define Windows8ReleasePreview  '6.2.8400'
+#define Windows8ReleasePreviewExact     '6.2.8400'
+#define Windows8ReleasePreview          VersionWithoutBuild(Windows8ReleasePreviewExact)
 
 // Windows 8
-#define Windows8  				'6.2.9200'
+#define Windows8Exact                   '6.2.9200'
+#define Windows8                        VersionWithoutBuild(Windows8Exact)
 
 // Windows Server 2012
-#define WindowsServer2012  		'6.2.9200'
+#define WindowsServer2012Exact          '6.2.9200'
+#define WindowsServer2012               VersionWithoutBuild(WindowsServer2012Exact)
 
 // Windows 8.1
-#define Windows8_1  			'6.3.9200'
+#define Windows8_1Exact                 '6.3.9200'
+#define Windows8_1                      VersionWithoutBuild(Windows8_1Exact)
 
 // Windows Server 2012
-#define WindowsServer2012R2  	'6.3.9200'
+#define WindowsServer2012R2Exact        '6.3.9200'
+#define WindowsServer2012R2             VersionWithoutBuild(WindowsServer2012R2Exact)
 
 // Windows 8.1 with Update 1
-#define Windows8_1Update1  		'6.3.9600'
+#define Windows8_1Update1Exact          '6.3.9600'
+#define Windows8_1Update1               VersionWithoutBuild(Windows8_1Update1Exact)
+
+// Windows 10
+#define Windows10Exact                  '10.0.10240'
+#define Windows10                       VersionWithoutBuild(Windows10Exact)
 
 //
 // Windows Service Packs.

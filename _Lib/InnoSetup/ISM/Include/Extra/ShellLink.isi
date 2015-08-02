@@ -2,34 +2,34 @@
 #define __ISM_EXTRA_SHELL_LINK_ISI__
 
 #ifndef __ISM_SECTIONS_ISI__
-	#error "Sections.isi" must be included first
+    #error "Sections.isi" must be included first
 #endif
 
 #ifndef __ISM_COMMON_EMIT_CODE_ISI__
-	#error "Common/EmitCode.isi" must be included first
+    #error "Common/EmitCode.isi" must be included first
 #endif
 
-#define ShellLinkFlag_Defaults	FileFlag_IgnoreVersion + FileFlag_OverwriteReadOnly
+#define ShellLinkFlag_Defaults  FileFlag_IgnoreVersion + FileFlag_OverwriteReadOnly
 
 #define ShellLink(str name, str filename, str parameters='', str workingDir='', str comment='', str flags=ShellLinkFlag_Defaults, str iconFilename='', int iconIndex=0, int showCmd=SW_SHOWNORMAL) \
-	Local[0]=ChangeFileExt(name, 'lnk'), \
-	Local[1]="ShellLink_Create('" + Local[0] + "', '" + comment + "', '" + filename + "', '" + parameters + "', '" + (Str_IsNotBlank(workingDir) ? workingDir : ExtractFilePath(filename)) + "', '" + iconFilename + "', " + Str(iconIndex) + ", " + Str(showCmd) + ")", \
-	Local[2]='_ShellLink_AfterInstall_', \
+    Local[0]=ChangeFileExt(name, 'lnk'), \
+    Local[1]="ShellLink_Create('" + Local[0] + "', '" + comment + "', '" + filename + "', '" + parameters + "', '" + (Str_IsNotBlank(workingDir) ? workingDir : ExtractFilePath(filename)) + "', '" + iconFilename + "', " + Str(iconIndex) + ", " + Str(showCmd) + ")", \
+    Local[2]='_ShellLink_AfterInstall_', \
     EmitCode_Proc(Local[2], Local[1], Active_AfterInstall) + \
     Section_Start('Files') + \
-		Utils_AddParam(Const_EmptyFile, 'Source') + \
-		Utils_AddParam(ExtractFilePath(Local[0]), 'DestDir') + \
-		Utils_AddParam(ExtractFileName(Local[0]), 'DestName') + \
-  		Utils_AddParam(flags, 'Flags', False) + \
-		Utils_AddParam(Active_Components, 'Components') + \
-		Utils_AddParam(Active_Tasks, 'Tasks') + \
-		Utils_AddParam(Active_BeforeInstall, 'BeforeInstall', False) + \
-		Utils_AddParam(Local[2], 'AfterInstall', False) + \
-		Utils_AddParam(Active_Check, 'Check', False) + \
-		Utils_AddParam(Active_Languages, 'Languages', False) + \
-		Utils_AddParam(Active_MinVersion, 'MinVersion', False) + \
-		Utils_AddParam(Active_OnlyBelowVersion, 'OnlyBelowVersion', False) + \
-	Section_End('Files')
+        Utils_AddParam(Const_EmptyFile, 'Source') + \
+        Utils_AddParam(ExtractFilePath(Local[0]), 'DestDir') + \
+        Utils_AddParam(ExtractFileName(Local[0]), 'DestName') + \
+        Utils_AddParam(flags, 'Flags', False) + \
+        Utils_AddParam(Active_Components, 'Components') + \
+        Utils_AddParam(Active_Tasks, 'Tasks') + \
+        Utils_AddParam(Active_BeforeInstall, 'BeforeInstall', False) + \
+        Utils_AddParam(Local[2], 'AfterInstall', False) + \
+        Utils_AddParam(Active_Check, 'Check', False) + \
+        Utils_AddParam(Active_Languages, 'Languages', False) + \
+        Utils_AddParam(Active_MinVersion, 'MinVersion', False) + \
+        Utils_AddParam(Active_OnlyBelowVersion, 'OnlyBelowVersion', False) + \
+    Section_End('Files')
 
 #ifndef __ISM_EXTRA_SHELL_LINK_CODE_INCLUDED_ISI__
 #define __ISM_EXTRA_SHELL_LINK_CODE_INCLUDED_ISI__

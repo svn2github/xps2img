@@ -2,21 +2,21 @@
 #define __ISM_VERSION_ISI__
 
 // ISM version.
-#define ISM_Version					EncodeVer(5, 5, 5, 0)
-#define ISM_VersionString			DecodeVer(ISM_Version)
+#define ISM_Version                 EncodeVer(5, 5, 6, 0)
+#define ISM_VersionString           DecodeVer(ISM_Version)
 
 // Preprocessor version required.
-#define ISM_PreprocVer				EncodeVer(5, 5, 5, 0)
-#define ISM_PreprocVerString		DecodeVer(ISM_PreprocVer)
+#define ISM_PreprocVer              EncodeVer(5, 5, 6, 0)
+#define ISM_PreprocVerString        DecodeVer(ISM_PreprocVer)
 
 #define private __ISM_VersionWarning__(str app, str version) "[ISM] " + app + " " + version + " or higher is required"
 
 #if ISM_Version > Ver
-	#pragma warning __ISM_VersionWarning__("Inno Setup", ISM_VersionString)
+    #pragma warning __ISM_VersionWarning__("Inno Setup", ISM_VersionString)
 #endif
 
 #if ISM_PreprocVer > PREPROCVER
-	#pragma warning __ISM_VersionWarning__("Inno Setup Preprocessor", ISM_PreprocVerString)
+    #pragma warning __ISM_VersionWarning__("Inno Setup Preprocessor", ISM_PreprocVerString)
 #endif
 
 #endif

@@ -53,24 +53,24 @@
 #endif
 
 #sub Debug_ViewTranslation
-	#ifdef ISM_Debug_ViewTranslationIncluded
-		#error Debug_ViewTranslation is already used. Only one Debug_ViewTranslation call is allowed
-	#else
-		#define public ISM_Debug_ViewTranslationIncluded
-		#ifndef ISM_NoTranslation
-			#expr SaveToFile(ISM_TranslatedScriptName)
-			#ifdef ISM_OnViewTranslation
-				#pragma message "Translated script will be open in external editor.."
-				#expr Exec(ISM_ScriptEditor, ISM_TranslatedScriptName, null, 0)
-			#elif defined(ISM_OnViewCleanTranslation)
-				#pragma message "Performing script cleaning.."
-				#ifdef ISM_CompileCleanScriptOnly
-					#pragma message "Cleaned script will be compiled and opened in new window"
-				#endif
-				#expr Exec(ISM_ClearScript, ISM_ScriptCleaningCommandLine, SourcePath, 0)
-			#endif
-		#endif
-	#endif
+    #ifdef ISM_Debug_ViewTranslationIncluded
+        #error Debug_ViewTranslation is already used. Only one Debug_ViewTranslation call is allowed
+    #else
+        #define public ISM_Debug_ViewTranslationIncluded
+        #ifndef ISM_NoTranslation
+            #expr SaveToFile(ISM_TranslatedScriptName)
+            #ifdef ISM_OnViewTranslation
+                #pragma message "Translated script will be open in external editor.."
+                #expr Exec(ISM_ScriptEditor, ISM_TranslatedScriptName, null, 0)
+            #elif defined(ISM_OnViewCleanTranslation)
+                #pragma message "Performing script cleaning.."
+                #ifdef ISM_CompileCleanScriptOnly
+                    #pragma message "Cleaned script will be compiled and opened in new window"
+                #endif
+                #expr Exec(ISM_ClearScript, ISM_ScriptCleaningCommandLine, SourcePath, 0)
+            #endif
+        #endif
+    #endif
 #endsub
 
 #ifdef ISM_ExitSetupWithoutUserConfirmation

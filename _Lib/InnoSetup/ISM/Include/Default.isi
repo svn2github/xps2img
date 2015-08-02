@@ -2,43 +2,43 @@
 #define __ISM_DEFAULT_ISI__
 
 #ifndef WizardImageStretch
-	#define	WizardImageStretch 'no'
+    #define WizardImageStretch 'no'
 #endif
 
 #ifdef DEBUG
-	#define SetupLogging       'yes'
+    #define SetupLogging       'yes'
 #endif
 
 #if defined(DiskSpanning)
-	#if LowerCase(DiskSpanning) == 'yes'
-		#define   ISM_OnDiskSpanning
-	#else
-		#undef    ISM_OnDiskSpanning
-	#endif
+    #if LowerCase(DiskSpanning) == 'yes'
+        #define   ISM_OnDiskSpanning
+    #else
+        #undef    ISM_OnDiskSpanning
+    #endif
 #endif
 
 #ifdef ISM_OnDiskSpanning
-	#define DiskSpanning	'yes'
-	#ifndef SlicesPerDisk
-		#define SlicesPerDisk	'1'
-	#endif
+    #define DiskSpanning    'yes'
+    #ifndef SlicesPerDisk
+        #define SlicesPerDisk   '1'
+    #endif
 #endif
 
 #ifndef OutputDir
-	#define OutputDir	'..\_Output'
+    #define OutputDir   '..\_Output'
 #endif
 
 #ifdef DEBUG
-	#define Compression				    'none'
-	#define InternalCompressLevel	'none'
+    #define Compression                 'none'
+    #define InternalCompressLevel   'none'
 #else
-	#ifndef Compression
-		#define Compression       'lzma2/ultra64'
-		#define SolidCompression	'yes'
-	#endif
-	#ifndef InternalCompressLevel
-		#define InternalCompressLevel	'ultra64'
-	#endif
+    #ifndef Compression
+        #define Compression       'lzma2/ultra64'
+        #define SolidCompression    'yes'
+    #endif
+    #ifndef InternalCompressLevel
+        #define InternalCompressLevel   'ultra64'
+    #endif
 #endif
 
 #endif

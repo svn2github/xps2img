@@ -2,7 +2,7 @@
 #define __ISM_EXTRA_REGISTER_DOCUMENT_EXTENSION_ISI__
 
 #ifndef __ISM_SECTIONS_ISI__
-	#error "Sections.isi" must be included first
+    #error "Sections.isi" must be included first
 #endif
 
 #define RegisterDocumentExtension(int forAll, str extension, str description, str appName=AppName, str appExe=AppExe) \

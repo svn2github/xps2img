@@ -2,19 +2,19 @@
 #define __ISM_EXTRA_ICON_LAUNCH_ISI__
 
 #ifndef __ISM_SECTIONS_ISI__
-	#error "Sections.isi" must be included first
+    #error "Sections.isi" must be included first
 #endif
 
 #include "ShellLink.isi"
 
 #define Base_IconLaunch(str name, str filename, str parameters='', str workingDir='', str comment='', str flags='', str hotKey='', str iconFilename='', int iconIndex=0, int showCmd=SW_SHOWNORMAL) \
-				Local[0]='{app}\' + ExtractFileName(name), \
+                Local[0]='{app}\' + ExtractFileName(name), \
                 Icon(name, filename, Str_Replace(parameters, '"', '""'), workingDir, comment ? Utils_CmFormat('LaunchProgram', comment) : '', flags, hotKey, iconFilename, iconIndex) + \
-				( \
+                ( \
                     Str_IsNotBlank(parameters) ? \
                         ShellLink(Local[0], filename, parameters, workingDir, comment, ShellLinkFlag_Defaults, iconFilename, iconIndex, showCmd) : \
                         '' \
-				)
+                )
 
 #define IconRun(str name, str filename, str parameters='', str workingDir='', str comment='', str flags='', str hotKey='', str iconFilename='', int iconIndex=0, int showCmd=SW_SHOWNORMAL) \
             Base_IconLaunch(name, filename, parameters, workingDir, comment, flags, hotKey, iconFilename, iconIndex, showCmd)

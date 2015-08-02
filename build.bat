@@ -22,14 +22,17 @@ if "%PFx86%"=="" set PFx86=%PROGRAMFILES%
 
 set msbuild="%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe"
 set hhc="%PFx86%\HTML Help Workshop\hhc.exe"
+
 set isFolder=%PFx86%\Inno Setup 5
-set isComp="%isFolder%\iscc.exe"
+set isCompiler="%isFolder%\iscc.exe"
+set isVersion=Inno Setup 5.5.6(u) or higher
+set isDownload=http://www.jrsoftware.org/isdl.php
 
 set buildOptions=/p:Configuration="%buildConfig%" /t:Rebuild "/l:FileLogger,Microsoft.Build.Engine;logfile=%logFile%;append=true;encoding=utf-8"
 
 call :isInstalled %msbuild% "Microsoft .NET Framework 4" "http://www.microsoft.com/download/en/details.aspx?id=17851" || goto ERROR
 call :isInstalled %hhc% "HTML Help Workshop" "http://www.microsoft.com/download/en/details.aspx?id=21138" || goto ERROR
-call :isInstalled %isComp% "Inno Setup 5.5.5(u) or higher" "http://www.jrsoftware.org/isdl.php" || goto ERROR
+call :isInstalled %isCompiler% "%isVersion%" "%isDownload%" || goto ERROR
 
 if not exist "%isFolder%\Include\ISM" (
 	echo Copying "%ismFolder%" to "%isFolder%\Include\ISM"...
@@ -55,7 +58,7 @@ if /i "%buildConfig%"=="Release" (
 )
 @echo on
 
-%isComp% /cc "%setupFolder%\Xps2ImgSetup.iss" /dBinariesPath=..\_bin\%buildConfig%\ || goto IS_ERROR
+%isCompiler% /dBinariesPath=..\_bin\%buildConfig%\ "%setupFolder%\Xps2ImgSetup.iss" || goto IS_ERROR
 copy "%setupFolder%\_Output\Xps2ImgSetup.exe" "%outFolder%" /Y || goto ERROR
 
 @echo off
@@ -69,6 +72,7 @@ exit /b 0
 echo.
 echo.
 echo IMPORTANT: Execute setup-ism.bat first!
+echo %isVersion% is required. Download at %isDownload%
 
 :ERROR
 @echo off

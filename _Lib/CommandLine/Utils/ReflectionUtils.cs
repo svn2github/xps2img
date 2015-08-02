@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -38,9 +39,10 @@ namespace CommandLine.Utils
             var defaultValueAttribute = propertyInfo.FirstOrDefaultAttribute<DefaultValueAttribute>();
             if (defaultValueAttribute != null)
             {
+                var str = defaultValueAttribute.Value as string;
                 propertyInfo.SetValue(obj,
-                    defaultValueAttribute.Value is string
-                        ? GetTypeConverter(propertyInfo).ConvertFromInvariantString(defaultValueAttribute.Value as string)
+                    str!= null
+                        ? GetTypeConverter(propertyInfo).ConvertFromInvariantString(str)
                         : defaultValueAttribute.Value,
                     null);
             }
@@ -57,9 +59,19 @@ namespace CommandLine.Utils
             return optionsObject.GetType().GetProperties(bindingFlags).All(propertyInfoAction);
         }
 
+        public static bool HasAttribute<T>(this MemberInfo memberInfo) where T : Attribute
+        {
+            return FirstOrDefaultAttribute<T>(memberInfo) != null;
+        }
+
+        public static IEnumerable<T> GetCustomAttributes<T>(this MemberInfo memberInfo, bool inherit = true) where T : Attribute
+        {
+            return memberInfo.GetCustomAttributes(typeof(T), inherit).OfType<T>();
+        }
+
         public static T FirstOrDefaultAttribute<T>(this MemberInfo memberInfo) where T : Attribute
         {
-            return (T)memberInfo.GetCustomAttributes(typeof(T), true).FirstOrDefault();
+            return memberInfo.GetCustomAttributes<T>().FirstOrDefault();
         }
 
         public static T FirstOrNewAttribute<T>(this MemberInfo memberInfo) where T : Attribute, new ()
@@ -74,8 +86,9 @@ namespace CommandLine.Utils
 
         public static string GetPropertyName(Expression<Func<object>> propertyExpression)
         {
-            var body = propertyExpression.Body is UnaryExpression
-                            ? (MemberExpression) ((UnaryExpression) propertyExpression.Body).Operand
+            var unaryExpression = propertyExpression.Body as UnaryExpression;
+            var body = unaryExpression != null
+                            ? (MemberExpression) unaryExpression.Operand
                             : (MemberExpression) propertyExpression.Body;
 
             return body.Member.Name;

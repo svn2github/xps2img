@@ -1,14 +1,14 @@
 // Consts.
 
 #ifndef __ISM_CONSTS_ISI__
-#define	__ISM_CONSTS_ISI__
+#define __ISM_CONSTS_ISI__
 
 #ifndef Const_DefaultDestDir
-	#define Const_DefaultDestDir	'{app}\'
+    #define Const_DefaultDestDir    '{app}\'
 #endif
 
 #ifndef Const_DefaultVerb
-	#define Const_DefaultVerb       'open'
+    #define Const_DefaultVerb       'open'
 #endif
 
 #ifndef ISM_RootDir
@@ -19,9 +19,9 @@
 
 #define Const_NewLine               "#13#10"
 
-#define Const_UndefinedIntValue		-1
+#define Const_UndefinedIntValue     -1
 
-#define Const_UninstallGroup		"{group}\{code:UninstallAppTitle}\"
+#define Const_UninstallGroup        "{group}\{code:UninstallAppTitle}\"
 
 [Code]
 

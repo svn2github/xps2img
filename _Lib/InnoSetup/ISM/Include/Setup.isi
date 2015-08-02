@@ -14,10 +14,10 @@
 // Setup.
 
 #ifdef DEBUG
-	#define private ISM_Header '[DEBUG] '
-	#define ISM_ExitSetupWithoutUserConfirmation
+    #define private ISM_Header '[DEBUG] '
+    #define ISM_ExitSetupWithoutUserConfirmation
 #else
-	#define private ISM_Header ''
+    #define private ISM_Header ''
 #endif
 
 #ifdef ISM_OnFileStub
@@ -27,73 +27,73 @@
 #endif
 
 #ifndef ISM_DefaultDirName
-	#ifdef DEBUG
-		#define private ISM_DefaultDirName '{src}'
-	#else
-		#define private ISM_DefaultDirName '{pf}'
-	#endif
+    #ifdef DEBUG
+        #define private ISM_DefaultDirName '{src}'
+    #else
+        #define private ISM_DefaultDirName '{pf}'
+    #endif
 #endif
 
 #ifndef AppDirName
-	#define private AppDirName AppName
+    #define private AppDirName AppName
 #endif
 
 #ifdef AppVersion
-	#define private ISM_AppVersionHeader ' ' + AppVersion
+    #define private ISM_AppVersionHeader ' ' + AppVersion
 #else
-	#define private ISM_AppVersionHeader ''
+    #define private ISM_AppVersionHeader ''
 #endif
 
 #ifndef DefaultDirName
-	#define DefaultDirName ISM_DefaultDirName + '\' + AppDirName
+    #define DefaultDirName ISM_DefaultDirName + '\' + AppDirName
 #endif
 
 #if defined(ISM_UseInnoSetupImageFiles) || defined(ISM_UseInnoSetupImageFilesXP)
-	#if defined(ISM_UseInnoSetupImageFiles) && defined(ISM_UseInnoSetupImageFilesXP)
-		#error Only one of ISM_UseInnoSetupImageFiles or ISM_UseInnoSetupImageFilesXP must be defined.
-	#endif
-	#ifdef ISM_UseInnoSetupImageFiles
-		#ifndef WizardImageFile
-			#define WizardImageFile       'compiler:WizModernImage.bmp'
-		#endif
-		#ifndef WizardSmallImageFile
-			#define WizardSmallImageFile  'compiler:WizModernSmallImage.bmp'
-		#endif
-	#elif defined(ISM_UseInnoSetupImageFilesXP)
-		#ifndef WizardImageFile
-			#define WizardImageFile       'compiler:WizModernImage-IS.bmp'
-		#endif
-		#ifndef WizardSmallImageFile
-			#define WizardSmallImageFile  'compiler:WizModernSmallImage-IS.bmp'
-		#endif
-	#endif
+    #if defined(ISM_UseInnoSetupImageFiles) && defined(ISM_UseInnoSetupImageFilesXP)
+        #error Only one of ISM_UseInnoSetupImageFiles or ISM_UseInnoSetupImageFilesXP must be defined.
+    #endif
+    #ifdef ISM_UseInnoSetupImageFiles
+        #ifndef WizardImageFile
+            #define WizardImageFile       'compiler:WizModernImage.bmp'
+        #endif
+        #ifndef WizardSmallImageFile
+            #define WizardSmallImageFile  'compiler:WizModernSmallImage.bmp'
+        #endif
+    #elif defined(ISM_UseInnoSetupImageFilesXP)
+        #ifndef WizardImageFile
+            #define WizardImageFile       'compiler:WizModernImage-IS.bmp'
+        #endif
+        #ifndef WizardSmallImageFile
+            #define WizardSmallImageFile  'compiler:WizModernSmallImage-IS.bmp'
+        #endif
+    #endif
 #endif
 
-// 680M	- 713031680 bytes.
-// 690M	- 723517440 bytes.
-// 700M	- 734003200 bytes.
-// DVD4	- 1566000000 bytes.
+// 680M - 713031680 bytes.
+// 690M - 723517440 bytes.
+// 700M - 734003200 bytes.
+// DVD4 - 1566000000 bytes.
 #ifndef DiskSliceSize
-	#ifdef ISM_UseDiskSliceSize680M
-		#define DiskSliceSize	'713031680'
-	#elif defined(ISM_UseDiskSliceSize690M)
-		#define DiskSliceSize	'723517440'
-	#elif defined(ISM_UseDiskSliceSize700M)
-		#define DiskSliceSize	'734003200'
-	#elif defined(ISM_UseDiskSliceSizeDVD4)
-		#define DiskSliceSize	'1566000000'
-	#else
-		// 700M by default.
-		#define DiskSliceSize	'734003200'
-	#endif
+    #ifdef ISM_UseDiskSliceSize680M
+        #define DiskSliceSize   '713031680'
+    #elif defined(ISM_UseDiskSliceSize690M)
+        #define DiskSliceSize   '723517440'
+    #elif defined(ISM_UseDiskSliceSize700M)
+        #define DiskSliceSize   '734003200'
+    #elif defined(ISM_UseDiskSliceSizeDVD4)
+        #define DiskSliceSize   '1566000000'
+    #else
+        // 700M by default.
+        #define DiskSliceSize   '734003200'
+    #endif
 #endif
 
 #ifndef VersionInfoTextVersion
-	#define VersionInfoTextVersion AppVersion
+    #define VersionInfoTextVersion AppVersion
 #endif
 
 #ifndef VersionInfoVersion
-	#define VersionInfoVersion AppVersion
+    #define VersionInfoVersion AppVersion
 #endif
 
 [Setup]
@@ -101,9 +101,9 @@
 AppName={#ISM_FileStubHeader}{#ISM_Header}{#AppName}
 
 #ifdef AppVerName
-	AppVerName={#AppVerName}
+    AppVerName={#AppVerName}
 #else
-	AppVerName={#AppName}{#ISM_AppVersionHeader}
+    AppVerName={#AppName}{#ISM_AppVersionHeader}
 #endif
 
 DefaultDirName={#DefaultDirName}
@@ -111,95 +111,95 @@ DefaultDirName={#DefaultDirName}
 // Compiler-related
 
 #ifdef Compression
-	Compression={#Compression}
+    Compression={#Compression}
 #endif
 
 #ifdef CompressionThreads
-	CompressionThreads={#CompressionThreads}
+    CompressionThreads={#CompressionThreads}
 #endif
 
 #ifdef SolidCompression
-	SolidCompression={#SolidCompression}
+    SolidCompression={#SolidCompression}
 #endif
 
 #ifdef InternalCompressLevel
-	InternalCompressLevel={#InternalCompressLevel}
+    InternalCompressLevel={#InternalCompressLevel}
 #endif
 
 #ifdef DiskSpanning
-	DiskSpanning={#DiskSpanning}
+    DiskSpanning={#DiskSpanning}
 #endif
 
 #ifdef DiskSpanning
-	#if LowerCase(DiskSpanning)=="yes"
-    	#ifdef SlicesPerDisk
-        	SlicesPerDisk={#SlicesPerDisk}
+    #if LowerCase(DiskSpanning)=="yes"
+        #ifdef SlicesPerDisk
+            SlicesPerDisk={#SlicesPerDisk}
         #endif
 
-		#ifdef DiskClusterSize
-			DiskClusterSize={#DiskClusterSize}
-		#endif
+        #ifdef DiskClusterSize
+            DiskClusterSize={#DiskClusterSize}
+        #endif
 
-		#ifdef DiskSliceSize
-			DiskSliceSize={#DiskSliceSize}
-		#endif
-	#endif
+        #ifdef DiskSliceSize
+            DiskSliceSize={#DiskSliceSize}
+        #endif
+    #endif
 #endif
 
 #ifdef Encryption
-	Encryption={#Encryption}
+    Encryption={#Encryption}
 #endif
 
 #ifdef MergeDuplicateFiles
-	MergeDuplicateFiles={#MergeDuplicateFiles}
+    MergeDuplicateFiles={#MergeDuplicateFiles}
 #endif
 
 #ifdef OutputBaseFilename
-	OutputBaseFilename={#OutputBaseFilename}
+    OutputBaseFilename={#OutputBaseFilename}
 #endif
 
 #ifdef OutputDir
-	OutputDir={#OutputDir}
+    OutputDir={#OutputDir}
 #endif
 
 #ifdef OutputManifestFile
-	OutputManifestFile={#OutputManifestFile}
+    OutputManifestFile={#OutputManifestFile}
 #endif
 
 #ifdef ReserveBytes
-	ReserveBytes={#ReserveBytes}
+    ReserveBytes={#ReserveBytes}
 #endif
 
 #ifdef SourceDir
-	SourceDir={#SourceDir}
+    SourceDir={#SourceDir}
 #endif
 
 #ifdef TerminalServicesAware
-	TerminalServicesAware={#TerminalServicesAware}
+    TerminalServicesAware={#TerminalServicesAware}
 #endif
 
 #ifdef UseSetupLdr
-	UseSetupLdr={#UseSetupLdr}
+    UseSetupLdr={#UseSetupLdr}
 #endif
 
 #ifdef VersionInfoCompany
-	VersionInfoCompany={#VersionInfoCompany}
+    VersionInfoCompany={#VersionInfoCompany}
 #endif
 
 #ifdef VersionInfoCopyright
-	VersionInfoCopyright={#VersionInfoCopyright}
+    VersionInfoCopyright={#VersionInfoCopyright}
 #endif
 
 #ifdef VersionInfoDescription
-	VersionInfoDescription={#ISM_Header}{#VersionInfoDescription}
+    VersionInfoDescription={#ISM_Header}{#VersionInfoDescription}
 #endif
 
 #ifdef VersionInfoTextVersion
-	VersionInfoTextVersion={#VersionInfoTextVersion}
+    VersionInfoTextVersion={#VersionInfoTextVersion}
 #endif
 
 #ifdef VersionInfoVersion
-	VersionInfoVersion={#VersionInfoVersion}
+    VersionInfoVersion={#VersionInfoVersion}
 #endif
 
 // Installer-related
@@ -207,373 +207,381 @@ DefaultDirName={#DefaultDirName}
 // Functional: These directives affect the operation of the Setup program, or are saved and used later by the uninstaller.
 
 #ifdef AllowCancelDuringInstall
-	AllowCancelDuringInstall={#AllowCancelDuringInstall}
+    AllowCancelDuringInstall={#AllowCancelDuringInstall}
 #endif
 
 #ifdef AllowNoIcons
-	AllowNoIcons={#AllowNoIcons}
+    AllowNoIcons={#AllowNoIcons}
 #endif
 
 #ifdef AllowRootDirectory
-	AllowRootDirectory={#AllowRootDirectory}
+    AllowRootDirectory={#AllowRootDirectory}
 #endif
 
 #ifdef AllowUNCPath
-	AllowUNCPath={#AllowUNCPath}
+    AllowUNCPath={#AllowUNCPath}
 #endif
 
 #ifdef AlwaysRestart
-	AlwaysRestart={#AlwaysRestart}
+    AlwaysRestart={#AlwaysRestart}
 #endif
 
 #ifdef AlwaysShowComponentsList
-	AlwaysShowComponentsList={#AlwaysShowComponentsList}
+    AlwaysShowComponentsList={#AlwaysShowComponentsList}
 #endif
 
 #ifdef AlwaysShowDirOnReadyPage
-	AlwaysShowDirOnReadyPage={#AlwaysShowDirOnReadyPage}
+    AlwaysShowDirOnReadyPage={#AlwaysShowDirOnReadyPage}
 #endif
 
 #ifdef AlwaysShowGroupOnReadyPage
-	AlwaysShowGroupOnReadyPage={#AlwaysShowGroupOnReadyPage}
+    AlwaysShowGroupOnReadyPage={#AlwaysShowGroupOnReadyPage}
 #endif
 
 #ifdef AlwaysUsePersonalGroup
-	AlwaysUsePersonalGroup={#AlwaysUsePersonalGroup}
+    AlwaysUsePersonalGroup={#AlwaysUsePersonalGroup}
 #endif
 
 #ifdef AppendDefaultDirName
-	AppendDefaultDirName={#AppendDefaultDirName}
+    AppendDefaultDirName={#AppendDefaultDirName}
 #endif
 
 #ifdef AppendDefaultGroupName
-	AppendDefaultGroupName={#AppendDefaultGroupName}
+    AppendDefaultGroupName={#AppendDefaultGroupName}
 #endif
 
 #ifdef AppComments
-	AppComments={#AppComments}
+    AppComments={#AppComments}
 #endif
 
 #ifdef AppContact
-	AppContact={#AppContact}
+    AppContact={#AppContact}
 #endif
 
 #ifdef AppId
-	AppId={#AppId}
+    AppId={#AppId}
 #endif
 
 #ifdef AppModifyPath
-	AppModifyPath={#AppModifyPath}
+    AppModifyPath={#AppModifyPath}
 #endif
 
 #ifdef AppMutex
-	AppMutex={#AppMutex}
+    AppMutex={#AppMutex}
 #endif
 
 #ifdef AppPublisher
-	AppPublisher={#AppPublisher}
+    AppPublisher={#AppPublisher}
 #endif
 
 #ifdef AppPublisherURL
-	AppPublisherURL={#AppPublisherURL}
+    AppPublisherURL={#AppPublisherURL}
 #endif
 
 #ifdef AppReadmeFile
-	AppReadmeFile={#AppReadmeFile}
+    AppReadmeFile={#AppReadmeFile}
 #endif
 
 #ifdef AppSupportPhone
-	AppSupportPhone={#AppSupportPhone}
+    AppSupportPhone={#AppSupportPhone}
 #endif
 
 #ifdef AppSupportURL
-	AppSupportURL={#AppSupportURL}
+    AppSupportURL={#AppSupportURL}
 #endif
 
 #ifdef AppUpdatesURL
-	AppUpdatesURL={#AppUpdatesURL}
+    AppUpdatesURL={#AppUpdatesURL}
 #endif
 
 #ifdef AppVersion
-	AppVersion={#AppVersion}
+    AppVersion={#AppVersion}
 #endif
 
 #ifdef ArchitecturesAllowed
-	ArchitecturesAllowed={#ArchitecturesAllowed}
+    ArchitecturesAllowed={#ArchitecturesAllowed}
 #endif
 
 #ifdef ArchitecturesInstallIn64BitMode
-	ArchitecturesInstallIn64BitMode={#ArchitecturesInstallIn64BitMode}
+    ArchitecturesInstallIn64BitMode={#ArchitecturesInstallIn64BitMode}
 #endif
 
 #ifdef ChangesAssociations
-	ChangesAssociations={#ChangesAssociations}
+    ChangesAssociations={#ChangesAssociations}
 #endif
 
 #ifdef ChangesEnvironment
-	ChangesEnvironment={#ChangesEnvironment}
+    ChangesEnvironment={#ChangesEnvironment}
 #endif
 
 #ifdef CreateAppDir
-	CreateAppDir={#CreateAppDir}
+    CreateAppDir={#CreateAppDir}
 #endif
 
 #ifdef CreateUninstallRegKey
-	CreateUninstallRegKey={#CreateUninstallRegKey}
+    CreateUninstallRegKey={#CreateUninstallRegKey}
 #endif
 
 #ifdef DefaultGroupName
-	DefaultGroupName={#DefaultGroupName}
+    DefaultGroupName={#DefaultGroupName}
 #else
-	DefaultGroupName={#AppName}
+    DefaultGroupName={#AppName}
 #endif
 
 #ifdef DefaultUserInfoName
-	DefaultUserInfoName={#DefaultUserInfoName}
+    DefaultUserInfoName={#DefaultUserInfoName}
 #endif
 
 #ifdef DefaultUserInfoOrg
-	DefaultUserInfoOrg={#DefaultUserInfoOrg}
+    DefaultUserInfoOrg={#DefaultUserInfoOrg}
 #endif
 
 #ifdef DefaultUserInfoSerial
-	DefaultUserInfoSerial={#DefaultUserInfoSerial}
+    DefaultUserInfoSerial={#DefaultUserInfoSerial}
 #endif
 
 #ifdef DirExistsWarning
-	DirExistsWarning={#DirExistsWarning}
+    DirExistsWarning={#DirExistsWarning}
 #endif
 
 #ifdef DisableDirPage
-	DisableDirPage={#DisableDirPage}
+    DisableDirPage={#DisableDirPage}
 #endif
 
 #ifdef DisableFinishedPage
-	DisableFinishedPage={#DisableFinishedPage}
+    DisableFinishedPage={#DisableFinishedPage}
 #endif
 
 #ifdef DisableProgramGroupPage
-	DisableProgramGroupPage={#DisableProgramGroupPage}
+    DisableProgramGroupPage={#DisableProgramGroupPage}
 #endif
 
 #ifdef DisableReadyMemo
-	DisableReadyMemo={#DisableReadyMemo}
+    DisableReadyMemo={#DisableReadyMemo}
 #endif
 
 #ifdef DisableReadyPage
-	DisableReadyPage={#DisableReadyPage}
+    DisableReadyPage={#DisableReadyPage}
 #endif
 
 #ifdef DisableStartupPrompt
-	DisableStartupPrompt={#DisableStartupPrompt}
+    DisableStartupPrompt={#DisableStartupPrompt}
 #endif
 
 #ifdef EnableDirDoesntExistWarning
-	EnableDirDoesntExistWarning={#EnableDirDoesntExistWarning}
+    EnableDirDoesntExistWarning={#EnableDirDoesntExistWarning}
 #endif
 
 #ifdef ExtraDiskSpaceRequired
-	ExtraDiskSpaceRequired={#ExtraDiskSpaceRequired}
+    ExtraDiskSpaceRequired={#ExtraDiskSpaceRequired}
 #endif
 
 #ifdef InfoAfterFile
-	InfoAfterFile={#InfoAfterFile}
+    InfoAfterFile={#InfoAfterFile}
 #endif
 
 #ifdef InfoBeforeFile
-	InfoBeforeFile={#InfoBeforeFile}
+    InfoBeforeFile={#InfoBeforeFile}
 #endif
 
 #ifdef LanguageDetectionMethod
-	LanguageDetectionMethod={#LanguageDetectionMethod}
+    LanguageDetectionMethod={#LanguageDetectionMethod}
 #endif
 
 #ifdef LicenseFile
-	LicenseFile={#LicenseFile}
+    LicenseFile={#LicenseFile}
 #endif
 
 #ifdef MinVersion
-	MinVersion={#MinVersion}
+    MinVersion={#MinVersion}
 #endif
 
 #ifdef OnlyBelowVersion
-	OnlyBelowVersion={#OnlyBelowVersion}
+    OnlyBelowVersion={#OnlyBelowVersion}
 #endif
 
 #ifdef Password
-	Password={#Password}
+    Password={#Password}
 #endif
 
 #ifdef PrivilegesRequired
-	PrivilegesRequired={#PrivilegesRequired}
+    PrivilegesRequired={#PrivilegesRequired}
 #endif
 
 #ifdef RestartIfNeededByRun
-	RestartIfNeededByRun={#RestartIfNeededByRun}
+    RestartIfNeededByRun={#RestartIfNeededByRun}
+#endif
+
+#ifdef SetupMutex
+    SetupMutex={#SetupMutex}
 #endif
 
 #ifdef SetupLogging
-	SetupLogging={#SetupLogging}
+    SetupLogging={#SetupLogging}
 #endif
 
 #ifdef ShowLanguageDialog
-	ShowLanguageDialog={#ShowLanguageDialog}
+    ShowLanguageDialog={#ShowLanguageDialog}
 #endif
 
 #ifdef ShowUndisplayableLanguages
-	ShowUndisplayableLanguages={#ShowUndisplayableLanguages}
+    ShowUndisplayableLanguages={#ShowUndisplayableLanguages}
+#endif
+
+#ifdef SignToolRetryCount
+    SignToolRetryCount={#SignToolRetryCount}
 #endif
 
 #ifdef SignedUninstaller
-	SignedUninstaller={#SignedUninstaller}
+    SignedUninstaller={#SignedUninstaller}
 #endif
 
 #ifdef SignedUninstallerDir
-	SignedUninstallerDir={#SignedUninstallerDir}
+    SignedUninstallerDir={#SignedUninstallerDir}
 #endif
 
 #ifdef TimeStampRounding
-	TimeStampRounding={#TimeStampRounding}
+    TimeStampRounding={#TimeStampRounding}
 #endif
 
 #ifdef TimeStampsInUTC
-	TimeStampsInUTC={#TimeStampsInUTC}
+    TimeStampsInUTC={#TimeStampsInUTC}
 #endif
 
 #ifdef TouchDate
-	TouchDate={#TouchDate}
+    TouchDate={#TouchDate}
 #endif
 
 #ifdef TouchTime
-	TouchTime={#TouchTime}
+    TouchTime={#TouchTime}
 #endif
 
 #ifdef Uninstallable
-	Uninstallable={#Uninstallable}
+    Uninstallable={#Uninstallable}
 #endif
 
 #ifdef UninstallDisplayIcon
-	UninstallDisplayIcon={#UninstallDisplayIcon}
+    UninstallDisplayIcon={#UninstallDisplayIcon}
 #endif
 
 #ifdef UninstallDisplayName
-	UninstallDisplayName={#UninstallDisplayName}
+    UninstallDisplayName={#UninstallDisplayName}
 #endif
 
 #ifdef UninstallFilesDir
-	UninstallFilesDir={#UninstallFilesDir}
+    UninstallFilesDir={#UninstallFilesDir}
 #endif
 
 #ifdef UninstallLogMode
-	UninstallLogMode={#UninstallLogMode}
+    UninstallLogMode={#UninstallLogMode}
 #endif
 
 #ifdef UninstallRestartComputer
-	UninstallRestartComputer={#UninstallRestartComputer}
+    UninstallRestartComputer={#UninstallRestartComputer}
 #endif
 
 #ifdef UpdateUninstallLogAppName
-	UpdateUninstallLogAppName={#UpdateUninstallLogAppName}
+    UpdateUninstallLogAppName={#UpdateUninstallLogAppName}
 #endif
 
 #ifdef UsePreviousAppDir
-	UsePreviousAppDir={#UsePreviousAppDir}
+    UsePreviousAppDir={#UsePreviousAppDir}
 #endif
 
 #ifdef UsePreviousGroup
-	UsePreviousGroup={#UsePreviousGroup}
+    UsePreviousGroup={#UsePreviousGroup}
 #endif
 
 #ifdef UsePreviousSetupType
-	UsePreviousSetupType={#UsePreviousSetupType}
+    UsePreviousSetupType={#UsePreviousSetupType}
 #endif
 
 #ifdef UsePreviousTasks
-	UsePreviousTasks={#UsePreviousTasks}
+    UsePreviousTasks={#UsePreviousTasks}
 #endif
 
 #ifdef UsePreviousUserInfo
-	UsePreviousUserInfo={#UsePreviousUserInfo}
+    UsePreviousUserInfo={#UsePreviousUserInfo}
 #endif
 
 #ifdef UserInfoPage
-	UserInfoPage={#UserInfoPage}
+    UserInfoPage={#UserInfoPage}
 #endif
 
 // Cosmetic: These directives only affect the appearance of the Setup program.
 
 #ifdef AppCopyright
-	AppCopyright={#AppCopyright}
+    AppCopyright={#AppCopyright}
 #endif
 
 #ifdef BackColor
-	BackColor={#BackColor}
+    BackColor={#BackColor}
 #endif
 
 #ifdef BackColor2
-	BackColor2={#BackColor2}
+    BackColor2={#BackColor2}
 #endif
 
 #ifdef BackColorDirection
-	BackColorDirection={#BackColorDirection}
+    BackColorDirection={#BackColorDirection}
 #endif
 
 #ifdef BackSolid
-	BackSolid={#BackSolid}
+    BackSolid={#BackSolid}
 #endif
 
 #ifdef FlatComponentsList
-	FlatComponentsList={#FlatComponentsList}
+    FlatComponentsList={#FlatComponentsList}
 #endif
 
 #ifdef SetupIconFile
-	SetupIconFile={#SetupIconFile}
+    SetupIconFile={#SetupIconFile}
 #endif
 
 #ifdef ShowComponentSizes
-	ShowComponentSizes={#ShowComponentSizes}
+    ShowComponentSizes={#ShowComponentSizes}
 #endif
 
 #ifdef ShowTasksTreeLines
-	ShowTasksTreeLines={#ShowTasksTreeLines}
+    ShowTasksTreeLines={#ShowTasksTreeLines}
 #endif
 
 #ifdef WindowShowCaption
-	WindowShowCaption={#WindowShowCaption}
+    WindowShowCaption={#WindowShowCaption}
 #endif
 
 #ifdef WindowStartMaximized
-	WindowStartMaximized={#WindowStartMaximized}
+    WindowStartMaximized={#WindowStartMaximized}
 #endif
 
 #ifdef WindowResizable
-	WindowResizable={#WindowResizable}
+    WindowResizable={#WindowResizable}
 #endif
 
 #ifdef WindowVisible
-	WindowVisible={#WindowVisible}
+    WindowVisible={#WindowVisible}
 #endif
 
 #ifdef WizardImageBackColor
-	WizardImageBackColor={#WizardImageBackColor}
+    WizardImageBackColor={#WizardImageBackColor}
 #endif
 
 #ifdef WizardImageFile
-	WizardImageFile={#WizardImageFile}
+    WizardImageFile={#WizardImageFile}
 #endif
 
 #ifdef WizardImageStretch
-	WizardImageStretch={#WizardImageStretch}
+    WizardImageStretch={#WizardImageStretch}
 #endif
 
 #ifdef WizardSmallImageFile
-	WizardSmallImageFile={#WizardSmallImageFile}
+    WizardSmallImageFile={#WizardSmallImageFile}
 #endif
 
 [/Setup]
 
 [Messages]
-AboutSetupNote=Inno Setup Preprocessor home page:%nhttp://ispp.sourceforge.net/%n%nInno Setup Meta (ISM) SVN:%nhttps://svn.code.sf.net/p/xps2img/code/trunk/_Lib/InnoSetup/ISM%nCopyright (C) 2007-2014, Ivan Ivon (ivan.ivon@gmail.com)
+AboutSetupNote=Inno Setup Preprocessor home page:%nhttp://ispp.sourceforge.net/%n%nInno Setup Meta (ISM) SVN:%nhttps://svn.code.sf.net/p/xps2img/code/trunk/_Lib/InnoSetup/ISM%nCopyright (C) 2007-2015, Ivan Ivon (ivan.ivon@gmail.com)
 [/Messages]
 
 #endif

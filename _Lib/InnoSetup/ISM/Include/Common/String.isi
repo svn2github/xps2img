@@ -8,41 +8,41 @@
     
 // Retruns quote char.
 
-#define Str_GetQuoteChar(int quote=True)	quote ? '"' : ''
+#define Str_GetQuoteChar(int quote=True)    quote ? '"' : ''
 
 // Quotes string.
 
 #define Str_Quote(str value, int useDouble=True) \
-	Local[0]=useDouble ? '""' : "'", \
-	Local[0] + value + Local[0]
+    Local[0]=useDouble ? '""' : "'", \
+    Local[0] + value + Local[0]
 
 // Returns left part of string before first delim. Returns value if delim is not found.
 
 #define Str_GetLeft(str value, str delim) \
-	!(Local[0] = Pos(delim, value)) ? \
-	value : \
-	Copy(value, 1, Local[0] - 1)
+    !(Local[0] = Pos(delim, value)) ? \
+    value : \
+    Copy(value, 1, Local[0] - 1)
 
 // Returns right part of string after first delim. Returns value if delim is not found.
 
 #define Str_GetRight(str value, str delim) \
-	!(Local[0] = Pos(delim, value)) ? \
-	value : \
-	Copy(value, Local[0] + Len(delim))
-	
+    !(Local[0] = Pos(delim, value)) ? \
+    value : \
+    Copy(value, Local[0] + Len(delim))
+    
 // Returns left part of string before last delim. Returns value if delim is not found.
 
 #define Str_GetLeftLast(str value, str delim) \
-	!(Local[0] = RPos(delim, value)) ? \
-	value : \
-	Copy(value, 1, Local[0] - 1)
+    !(Local[0] = RPos(delim, value)) ? \
+    value : \
+    Copy(value, 1, Local[0] - 1)
 
 // Returns right part of string after last delim. Returns value if delim is not found.
 
 #define Str_GetRightLast(str value, str delim) \
-	!(Local[0] = RPos(delim, value)) ? \
-	value : \
-	Copy(value, Local[0] + Len(delim))
+    !(Local[0] = RPos(delim, value)) ? \
+    value : \
+    Copy(value, Local[0] + Len(delim))
 
 // Reverse string.
 
@@ -79,10 +79,10 @@
 // Emptyness check.
 
 #define Str_IsEmpty(str value) \
-	!Len(value)
+    !Len(value)
 
 #define Str_IsNotEmpty(str value) \
-	!Str_IsEmpty(value)
+    !Str_IsEmpty(value)
     
 // String blank/empty check.
 
@@ -92,27 +92,27 @@
 
 #define Str_IsCharSpace(str value) \
         !Len(value) \
-		|| (Local[0]=Str_CharAt(value, 1))=='\x20' \
-		|| Local[0]=='\t' \
-		|| Local[0]=='\v' \
-		|| Local[0]=='\r' \
-		|| Local[0]=='\n'
+        || (Local[0]=Str_CharAt(value, 1))=='\x20' \
+        || Local[0]=='\t' \
+        || Local[0]=='\v' \
+        || Local[0]=='\r' \
+        || Local[0]=='\n'
 
 #define Str_IsBlank(str value) \
-	Str_IsEmpty(value) ? True : \
-    	Str_IsCharSpace(value) ? Str_IsBlank(Copy(value, 2)) : False
+    Str_IsEmpty(value) ? True : \
+        Str_IsCharSpace(value) ? Str_IsBlank(Copy(value, 2)) : False
 
 #define Str_IsNotBlank(str value) \
-	!Str_IsBlank(value)
+    !Str_IsBlank(value)
 
 #pragma parseroption -p+
 
 // Starts/ends with.
 
 #define Str_StartsWith(str value, str with) \
-		(value==with) || Pos(with, value)==1
+        (value==with) || Pos(with, value)==1
 
 #define Str_EndsWith(str value, str with) \
-		(value==with) || (Len(value)-RPos(with, value)==Len(with)+1)
+        (value==with) || (Len(value)-RPos(with, value)==Len(with)+1)
 
 #endif

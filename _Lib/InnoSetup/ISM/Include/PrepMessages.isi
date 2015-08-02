@@ -1,128 +1,128 @@
 // Preprocessing messages.
 
 #ifndef __ISM_PREP_MESSAGES_ISI__
-#define	__ISM_PREP_MESSAGES_ISI__
+#define __ISM_PREP_MESSAGES_ISI__
 
 // Debug.
 
 #ifdef DEBUG
-	#pragma message "[ON]  Debug mode [DEBUG]"
+    #pragma message "[ON]  Debug mode [DEBUG]"
 #endif
 
 // Sections.
 
 #ifdef ISM_NoSections
-	#pragma message "[OFF] All sections except [Setup] [ISM_NoSections]"
+    #pragma message "[OFF] All sections except [Setup] [ISM_NoSections]"
 #endif
 
 #if defined(ISM_NoSectionTypes) || defined (ISM_NoSections)
-	#pragma message "[OFF] [Types] section [ISM_NoSectionTypes]"
+    #pragma message "[OFF] [Types] section [ISM_NoSectionTypes]"
 #endif
 
 #if defined(ISM_NoSectionComponents) || defined (ISM_NoSections)
-	#pragma message "[OFF] [Components] section [ISM_NoSectionComponents]"
+    #pragma message "[OFF] [Components] section [ISM_NoSectionComponents]"
 #endif
 
 #if defined(ISM_NoSectionTasks) || defined (ISM_NoSections)
-	#pragma message "[OFF] [Tasks] section [ISM_NoSectionTasks]"
+    #pragma message "[OFF] [Tasks] section [ISM_NoSectionTasks]"
 #endif
 
 #if defined(ISM_NoSectionDirs) || defined (ISM_NoSections)
-	#pragma message "[OFF] [Dirs] section [ISM_NoSectionDirs]"
+    #pragma message "[OFF] [Dirs] section [ISM_NoSectionDirs]"
 #endif
 
 #if defined(ISM_NoSectionFiles) || defined (ISM_NoSections)
-	#pragma message "[OFF] [Files] section [ISM_NoSectionFiles]"
+    #pragma message "[OFF] [Files] section [ISM_NoSectionFiles]"
 #endif
 
 #if defined(ISM_NoSectionIcons) || defined (ISM_NoSections)
-	#pragma message "[OFF] [Icons] section [ISM_NoSectionIcons]"
+    #pragma message "[OFF] [Icons] section [ISM_NoSectionIcons]"
 #endif
 
 #if defined(ISM_NoSectionIni) || defined (ISM_NoSections)
-	#pragma message "[OFF] [INI] section [ISM_NoSectionIni]"
+    #pragma message "[OFF] [INI] section [ISM_NoSectionIni]"
 #endif
 
 #if defined(ISM_NoSectionLanguages) || defined (ISM_NoSections)
-	#pragma message "[OFF] [Languages] section [ISM_NoSectionLanguages]"
+    #pragma message "[OFF] [Languages] section [ISM_NoSectionLanguages]"
 #endif
 
 #if defined(ISM_NoSectionLangOptions) || defined (ISM_NoSections)
-	#pragma message "[OFF] [LangOptions] section [ISM_NoSectionLangOptions]"
+    #pragma message "[OFF] [LangOptions] section [ISM_NoSectionLangOptions]"
 #endif
 
 #if defined(ISM_NoSectionMessages) || defined (ISM_NoSections)
-	#pragma message "[OFF] [Messages] section [ISM_NoSectionMessages]"
+    #pragma message "[OFF] [Messages] section [ISM_NoSectionMessages]"
 #endif
 
 #if defined(ISM_NoSectionCustomMessages) || defined (ISM_NoSections)
-	#pragma message "[OFF] [CustomMessages] section [ISM_NoSectionCustomMessages]"
+    #pragma message "[OFF] [CustomMessages] section [ISM_NoSectionCustomMessages]"
 #endif
 
 #if defined(ISM_NoSectionRegistry) || defined (ISM_NoSections)
-	#pragma message "[OFF] [Registry] section [ISM_NoSectionRegistry]"
+    #pragma message "[OFF] [Registry] section [ISM_NoSectionRegistry]"
 #endif
 
 #if defined(ISM_NoSectionInstallDelete) || defined (ISM_NoSections)
-	#pragma message "[OFF] [InstallDelete] section [ISM_NoSectionInstallDelete]"
+    #pragma message "[OFF] [InstallDelete] section [ISM_NoSectionInstallDelete]"
 #endif
 
 #if defined(ISM_NoSectionUninstallDelete) || defined (ISM_NoSections)
-	#pragma message "[OFF] [UninstallDelete] section [ISM_NoSectionUninstallDelete]"
+    #pragma message "[OFF] [UninstallDelete] section [ISM_NoSectionUninstallDelete]"
 #endif
 
 #if defined(ISM_NoSectionRun) || defined (ISM_NoSections)
-	#pragma message "[OFF] [Run] section [ISM_NoSectionRun]"
+    #pragma message "[OFF] [Run] section [ISM_NoSectionRun]"
 #endif
 
 #if defined(ISM_NoSectionUninstallRun) || defined (ISM_NoSections)
-	#pragma message "[OFF] [UninstallRun] section [ISM_NoSectionUninstallRun]"
+    #pragma message "[OFF] [UninstallRun] section [ISM_NoSectionUninstallRun]"
 #endif
 
 // Test settings.
 
 #ifdef ISM_OnFileStub
-	#pragma message "[ON]  Files stubs generation [ISM_OnFileStub]"
+    #pragma message "[ON]  Files stubs generation [ISM_OnFileStub]"
 #endif
 
 // Setup settings.
 
 #ifdef ISM_OnDiskSpanning
-	#pragma message "[ON]  Disk spanning [ISM_OnDiskSpanning]"
+    #pragma message "[ON]  Disk spanning [ISM_OnDiskSpanning]"
 #endif
 
 // Wizard images.
 
 #ifdef ISM_UseInnoSetupImageFiles
-	#pragma message "[ON]  Standard embedded wizard images [ISM_UseInnoSetupImageFiles]"
+    #pragma message "[ON]  Standard embedded wizard images [ISM_UseInnoSetupImageFiles]"
 #endif
 
 #ifdef ISM_UseInnoSetupImageFilesXP
-	#pragma message "[ON]  XP look standard embedded wizard images [ISM_UseInnoSetupImageFilesXP]"
+    #pragma message "[ON]  XP look standard embedded wizard images [ISM_UseInnoSetupImageFilesXP]"
 #endif
 
 // Extra code settings.
 
 #ifdef ISM_ExitSetupWithoutUserConfirmation
-	#pragma message "[ON]  Immediate setup exit on Cancel or Close without confirmation [ISM_ExitSetupWithoutUserConfirmation]"
+    #pragma message "[ON]  Immediate setup exit on Cancel or Close without confirmation [ISM_ExitSetupWithoutUserConfirmation]"
 #endif
 
 // Script cleaning and compilation.
 
 #ifdef ISM_NoTranslation
-	#pragma message "[OFF] No translation actions [ISM_NoTranslation]"
+    #pragma message "[OFF] No translation actions [ISM_NoTranslation]"
 #endif
 
 #ifdef ISM_ClearScript
-	#pragma message "[ON]  Perform translated script cleaning [ISM_ClearScript]"
+    #pragma message "[ON]  Perform translated script cleaning [ISM_ClearScript]"
 #endif
 
 #ifdef ISM_CompileCleanScriptOnly
-	#pragma message "[ON]  Compile and open cleaned script in external editor [ISM_CompileCleanScriptOnly]"
+    #pragma message "[ON]  Compile and open cleaned script in external editor [ISM_CompileCleanScriptOnly]"
 #endif
 
 #ifdef ISM_OnViewTranslation
-	#pragma message "[ON]  Open translated script in external editor [ISM_OnViewTranslation]"
+    #pragma message "[ON]  Open translated script in external editor [ISM_OnViewTranslation]"
 #endif
 
 #endif
