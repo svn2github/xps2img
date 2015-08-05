@@ -368,6 +368,10 @@ DefaultDirName={#DefaultDirName}
     DisableStartupPrompt={#DisableStartupPrompt}
 #endif
 
+#ifdef DisableWelcomePage
+    DisableWelcomePage={#DisableWelcomePage}
+#endif
+
 #ifdef EnableDirDoesntExistWarning
     EnableDirDoesntExistWarning={#EnableDirDoesntExistWarning}
 #endif

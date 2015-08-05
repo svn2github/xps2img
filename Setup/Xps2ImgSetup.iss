@@ -56,6 +56,10 @@
 
 #define AllowNoIcons            "yes"
 
+#define DisableWelcomePage      "no"
+#define DisableDirPage          "no"
+#define DisableProgramGroupPage "no"
+
 #define SetupIconFile           "Icons/Application.ico"
 
 #define WizardImageFile         "Images/WizardImage.bmp"
@@ -86,7 +90,7 @@
 
 #define Common_RunFlags     RunFlag_NoWait + RunFlag_PostInstall + RunFlag_SkipIfSilent
 
-#define ApplicationFile(f)  Local[0]=BinariesPath + f, FileExists(Local[0]) ? File(Local[0]) : InstallDelete("{app}\" + f)
+#define ApplicationFile(name, indexing=false)  Local[0]=BinariesPath + name, FileExists(Local[0]) ? File(source=Local[0], flags=FileFlag_Defaults + (indexing ? '' : FileFlag_NotContentIndexed)) : InstallDelete("{app}\" + name)
 
 #define PortableMarkFile    "xps2imgUI.exe.portable"
 
@@ -97,8 +101,8 @@
 
 <Message("BeveledLabel", VersionInfoCompany)>
 
-<ApplicationFile("xps2img.exe")>
-<ApplicationFile("xps2imgUI.exe")>
+<ApplicationFile("xps2img.exe", true)>
+<ApplicationFile("xps2imgUI.exe", true)>
 <ApplicationFile("xps2imgShared.dll")>
 <ApplicationFile("xps2imgLib.dll")>
 <ApplicationFile("CommandLine.dll")>
@@ -106,7 +110,7 @@
 <ApplicationFile("Microsoft.WindowsAPICodePack.dll")>
 <ApplicationFile("xps2img.exe.config")>
 <ApplicationFile("xps2imgUI.exe.config")>
-<ApplicationFile("xps2img.chm")>
+<ApplicationFile("xps2img.chm", true)>
 
 #ifdef DEBUG
     #define DebugFile(f)        File(BinariesPath + f)

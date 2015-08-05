@@ -147,6 +147,12 @@
 #define DirFlag_SetNtfsCompression      ' setntfscompression'
 #define DirFlag_UnsetNtfsCompression    ' unsetntfscompression'
 
+#if VER >= 0x05050700
+    #define DirFlag_NotContentIndexed   ' notcontentindexed'
+#else
+    #define DirFlag_NotContentIndexed   ''
+#endif
+
 #define DirFlag_Defauls     DirFlag_UninsAlwaysUninstall
 
 #ifdef ISM_NoSectionDirs
@@ -200,6 +206,12 @@
 #define FileFlag_UninsNeverunInstall        ' uninsneveruninstall'
 #define FileFlag_SetNtfsCompression         ' setntfscompression'
 #define FileFlag_UnsetNtfsCompression       ' unsetntfscompression'
+
+#if VER >= 0x05050700
+    #define FileFlag_NotContentIndexed      ' notcontentindexed'
+#else
+    #define FileFlag_NotContentIndexed      ''
+#endif
 
 #define FileFlag_Defaults                   FileFlag_Touch + FileFlag_IgnoreVersion + FileFlag_OverwriteReadOnly
 
