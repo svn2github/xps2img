@@ -11,6 +11,10 @@
 
 // Sections.
 
+#ifdef ISM_PortableSupport
+    #pragma message "[ON]  Portable setup support"
+#endif
+
 #ifdef ISM_NoSections
     #pragma message "[OFF] All sections except [Setup] [ISM_NoSections]"
 #endif

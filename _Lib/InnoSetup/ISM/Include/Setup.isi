@@ -96,6 +96,32 @@
     #define VersionInfoVersion AppVersion
 #endif
 
+#define private ISM_PortableSupportWarn(m) "[WARN] ISM_PortableSupport: " + m + " is already set, resetting"
+
+#ifdef ISM_PortableSupport
+    #ifdef DisableWelcomePage
+        #pragma message ISM_PortableSupportWarn("DisableWelcomePage")
+    #endif
+    #undef DisableWelcomePage
+    #define DisableWelcomePage  "no"
+#endif
+
+#ifdef ISM_PortableSupport
+    #ifdef DisableDirPage
+        #pragma message ISM_PortableSupportWarn("DisableDirPage")
+    #endif
+    #undef DisableDirPage
+    #define DisableDirPage  "no"
+#endif
+
+#ifdef ISM_PortableSupport
+    #ifdef DisableProgramGroupPage
+        #pragma message ISM_PortableSupportWarn("DisableProgramGroupPage")
+    #endif
+    #undef DisableProgramGroupPage
+    #define DisableProgramGroupPage  "no"
+#endif
+
 [Setup]
 
 AppName={#ISM_FileStubHeader}{#ISM_Header}{#AppName}

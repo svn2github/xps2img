@@ -60,12 +60,12 @@
         #ifndef ISM_NoTranslation
             #expr SaveToFile(ISM_TranslatedScriptName)
             #ifdef ISM_OnViewTranslation
-                #pragma message "Translated script will be open in external editor.."
+                #pragma message "[MSG] Translated script will be open in external editor.."
                 #expr Exec(ISM_ScriptEditor, ISM_TranslatedScriptName, null, 0)
             #elif defined(ISM_OnViewCleanTranslation)
-                #pragma message "Performing script cleaning.."
+                #pragma message "[MSG] Performing script cleaning.."
                 #ifdef ISM_CompileCleanScriptOnly
-                    #pragma message "Cleaned script will be compiled and opened in new window"
+                    #pragma message "[MSG] Cleaned script will be compiled and opened in new window"
                 #endif
                 #expr Exec(ISM_ClearScript, ISM_ScriptCleaningCommandLine, SourcePath, 0)
             #endif

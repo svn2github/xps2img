@@ -9,7 +9,7 @@
 #define ISM_PreprocVer              EncodeVer(5, 5, 6, 0)
 #define ISM_PreprocVerString        DecodeVer(ISM_PreprocVer)
 
-#define private __ISM_VersionWarning__(str app, str version) "[ISM] " + app + " " + version + " or higher is required"
+#define private __ISM_VersionWarning__(str app, str version) "[WARN] " + app + " " + version + " or higher is required"
 
 #if ISM_Version > Ver
     #pragma warning __ISM_VersionWarning__("Inno Setup", ISM_VersionString)

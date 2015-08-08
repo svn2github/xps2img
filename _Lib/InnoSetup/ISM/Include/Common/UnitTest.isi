@@ -1,10 +1,8 @@
 #ifndef __ISM_COMMON_UNITTEST_ISI__
 #define __ISM_COMMON_UNITTEST_ISI__
 
-#define UnitTest_MsgHeader  "[UnitTest] "
-
-#define UnitTest_MsgFailed  UnitTest_MsgHeader + "Test failed"
-#define UnitTest_MsgPassed  UnitTest_MsgHeader + "All OK"
+#define UnitTest_MsgFailed  UnitTest_MsgHeader + "[MSG] Test failed"
+#define UnitTest_MsgPassed  UnitTest_MsgHeader + "[ERR] All OK"
 
 #define UnitTest_Equal(any a, any b) \
     a == b
