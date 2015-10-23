@@ -1,8 +1,9 @@
-#define ISM_CleanTranslationOnly
+#define ISM_RequiredVersion       "5.5.6.0"
+#define ISM_RequiredUnicode
 
-#ifndef UNICODE
-    #error Unicode InnoSetup required
-#endif
+#define ISM_PortableSupport
+
+#define ISM_CleanTranslationOnly
 
 #ifndef BinariesPath
     #define BinariesPath          "..\_bin\Release\"
@@ -55,10 +56,6 @@
 #define CreateUninstallRegKey   "IsInstallable"
 
 #define AllowNoIcons            "yes"
-
-#define DisableWelcomePage      "no"
-#define DisableDirPage          "no"
-#define DisableProgramGroupPage "no"
 
 #define SetupIconFile           "Icons/Application.ico"
 

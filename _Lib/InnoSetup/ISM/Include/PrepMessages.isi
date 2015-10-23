@@ -3,6 +3,31 @@
 #ifndef __ISM_PREP_MESSAGES_ISI__
 #define __ISM_PREP_MESSAGES_ISI__
 
+// Version.
+
+#define ISM_DeleteToFirstPeriod(str *S) \
+  Local[0] = Pos(".", S), \
+  (Local[0] \
+    ? (Local[1] = Copy(S, 1, Local[0] - 1), S = Copy(S, Local[0] + 1)) \
+    : (Local[1] = S, S = "") \
+   ), Local[1]
+
+#define ISM_ParseVersionPart(str* version) Int(ISM_DeleteToFirstPeriod(version), 0)
+
+#define ISM_ParseVersion(str version) \
+  Local[0] = version, \
+  EncodeVer(ISM_ParseVersionPart(Local[0]), ISM_ParseVersionPart(Local[0]), ISM_ParseVersionPart(Local[0]), ISM_ParseVersionPart(Local[0]))
+
+#ifdef ISM_RequiredVersion 
+    #if ISM_ParseVersion(ISM_RequiredVersion) > Ver
+        #pragma error "InnoSetup " + ISM_RequiredVersion + " required"
+    #endif
+#endif
+
+#if defined(ISM_RequiredUnicode) && !defined(UNICODE)
+    #error Unicode InnoSetup required
+#endif
+
 // Debug.
 
 #ifdef DEBUG
