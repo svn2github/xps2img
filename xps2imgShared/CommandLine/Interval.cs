@@ -6,7 +6,7 @@ using System.Linq;
 namespace Xps2Img.Shared.CommandLine
 {
     [Serializable]
-    public class Interval
+    public class Interval : IEquatable<Interval>
     {
         public const string ValidationRegex  = @"(^\s*$)|(^(\s*,)*\s*((\s*[1-9](\d{1,4})?\s*)|(\s*-\s*[1-9](\d{1,4})?\s*)|(\s*[1-9](\d{1,4})?\s*-\s*[1-9](\d{1,4})?\s*)|(\s*[1-9](\d{1,4})?\s*-\s*))(\s*(\s*,\s*)+\s*((\s*[1-9](\d{1,4})?\s*)|(\s*-\s*[1-9](\d{1,4})?\s*)|(\s*[1-9](\d{1,4})?\s*-\s*[1-9](\d{1,4})?\s*)|(\s*[1-9](\d{1,4})?\s*-\s*)))*(\s*,)*\s*$)";
         public const string ValidationRegex0 = @"(^\s*$)|(^(\s*,)*\s*((\s*[0-9](\d{1,4})?\s*)|(\s*-\s*[0-9](\d{1,4})?\s*)|(\s*[0-9](\d{1,4})?\s*-\s*[0-9](\d{1,4})?\s*)|(\s*[0-9](\d{1,4})?\s*-\s*))(\s*(\s*,\s*)+\s*((\s*[0-9](\d{1,4})?\s*)|(\s*-\s*[0-9](\d{1,4})?\s*)|(\s*[0-9](\d{1,4})?\s*-\s*[0-9](\d{1,4})?\s*)|(\s*[0-9](\d{1,4})?\s*-\s*)))*(\s*,)*\s*$)";
@@ -36,7 +36,7 @@ namespace Xps2Img.Shared.CommandLine
 
             Func<string, int> toInt = s => int.Parse(s, CultureInfo.InvariantCulture);
 
-            var set = intervalString.Split(new[] { '-' }).Select(s => s.Trim()).ToArray();
+            var set = intervalString.Split('-').Select(s => s.Trim()).ToArray();
 
             if (set.Length == 0 || set.Length > 2)
             {
@@ -127,6 +127,22 @@ namespace Xps2Img.Shared.CommandLine
             }
 
             ActualMaxValue = endValue;
+        }
+
+        public bool Equals(Interval other)
+        {
+            return other.Begin == Begin && other.End == End;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var interval = obj as Interval;
+            return obj == this || (interval != null && Equals(interval));
+        }
+
+        public override int GetHashCode()
+        {
+            return Begin * 31 + End;
         }
 
         public override string ToString()
