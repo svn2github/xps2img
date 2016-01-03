@@ -11,6 +11,10 @@
 #include "WinVer.isi"
 #include "CommonParams.isi"
 
+// Versions.
+
+#define private VER_557 0x05050700
+
 // Section definition.
 
 #sub ISM_SubSectionStart
@@ -147,7 +151,7 @@
 #define DirFlag_SetNtfsCompression      ' setntfscompression'
 #define DirFlag_UnsetNtfsCompression    ' unsetntfscompression'
 
-#if VER >= 0x05050700
+#if VER >= VER_557
     #define DirFlag_NotContentIndexed   ' notcontentindexed'
 #else
     #define DirFlag_NotContentIndexed   ''
@@ -207,17 +211,17 @@
 #define FileFlag_SetNtfsCompression         ' setntfscompression'
 #define FileFlag_UnsetNtfsCompression       ' unsetntfscompression'
 
-#if VER >= 0x05050700
-    #define FileFlag_NotContentIndexed      ' notcontentindexed'
-#else
-    #define FileFlag_NotContentIndexed      ''
-#endif
-
 #define FileFlag_Defaults                   FileFlag_Touch + FileFlag_IgnoreVersion + FileFlag_OverwriteReadOnly
 
 #define FileAttr_ReadOnly   ' readonly'
 #define FileAttr_Hidden     ' hidden'
 #define FileAttr_System     ' system'
+
+#if VER >= VER_557
+    #define FileAttr_NotContentIndexed      ' notcontentindexed'
+#else
+    #define FileAttr_NotContentIndexed      ''
+#endif
 
 #ifndef ISM_RootDir
     #define ISM_RootDir "..\"

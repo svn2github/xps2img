@@ -25,7 +25,7 @@ set hhc="%PFx86%\HTML Help Workshop\hhc.exe"
 
 set isFolder=%PFx86%\Inno Setup 5
 set isCompiler="%isFolder%\iscc.exe"
-set isVersion=Inno Setup 5.5.6(u) or higher
+set isVersion=Inno Setup 5.5.7(u) or higher
 set isDownload=http://www.jrsoftware.org/isdl.php
 
 set buildOptions=/p:Configuration="%buildConfig%" /t:Rebuild "/l:FileLogger,Microsoft.Build.Engine;logfile=%logFile%;append=true;encoding=utf-8"

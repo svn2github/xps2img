@@ -1,4 +1,4 @@
-#define ISM_RequiredVersion       "5.5.6.0"
+#define ISM_RequiredVersion       "5.5.7.0"
 #define ISM_RequiredUnicode
 
 #define ISM_PortableSupport
@@ -87,7 +87,7 @@
 
 #define Common_RunFlags     RunFlag_NoWait + RunFlag_PostInstall + RunFlag_SkipIfSilent
 
-#define ApplicationFile(name, indexing=false)  Local[0]=BinariesPath + name, FileExists(Local[0]) ? File(source=Local[0], flags=FileFlag_Defaults + (indexing ? '' : FileFlag_NotContentIndexed)) : InstallDelete("{app}\" + name)
+#define ApplicationFile(name, indexing=false)  Local[0]=BinariesPath + name, FileExists(Local[0]) ? File(source=Local[0], flags=FileFlag_Defaults, attribs=(indexing ? '' : FileAttr_NotContentIndexed)) : InstallDelete("{app}\" + name)
 
 #define PortableMarkFile    "xps2imgUI.exe.portable"
 
