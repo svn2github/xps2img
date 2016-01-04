@@ -611,7 +611,7 @@ DefaultDirName={#DefaultDirName}
 [/Setup]
 
 [Messages]
-AboutSetupNote=Inno Setup Preprocessor home page:%nhttp://ispp.sourceforge.net/%n%nInno Setup Meta (ISM) SVN:%nhttps://svn.code.sf.net/p/xps2img/code/trunk/_Lib/InnoSetup/ISM%nCopyright (C) 2007-2015, Ivan Ivon (ivan.ivon@gmail.com)
+AboutSetupNote=Inno Setup Preprocessor home page:%nhttp://ispp.sourceforge.net/%n%nInno Setup Meta (ISM) SVN:%nhttps://svn.code.sf.net/p/xps2img/code/trunk/_Lib/InnoSetup/ISM%nCopyright (C) 2007-2016, Ivan Ivon (ivan.ivon@gmail.com)
 [/Messages]
 
 #endif

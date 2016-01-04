@@ -19,17 +19,17 @@
 
 #sub ISM_SubSectionStart
     #define public ISM_SectionStarted
-#endsub 
+#endsub
 
 #sub ISM_SubSectionCheck
     #ifdef ISM_SectionStarted
         #error Section must be closed before starting new section
     #endif
-#endsub 
+#endsub
 
 #sub ISM_SubSectionEnd
     #undef public ISM_SectionStarted
-#endsub 
+#endsub
 
 #pragma parseroption -p-
 
@@ -151,12 +151,6 @@
 #define DirFlag_SetNtfsCompression      ' setntfscompression'
 #define DirFlag_UnsetNtfsCompression    ' unsetntfscompression'
 
-#if VER >= VER_557
-    #define DirFlag_NotContentIndexed   ' notcontentindexed'
-#else
-    #define DirFlag_NotContentIndexed   ''
-#endif
-
 #define DirFlag_Defauls     DirFlag_UninsAlwaysUninstall
 
 #ifdef ISM_NoSectionDirs
@@ -220,8 +214,14 @@
 #if VER >= VER_557
     #define FileAttr_NotContentIndexed      ' notcontentindexed'
 #else
+    #pragma warning "File/dir attribute 'notcontentindexed' is supported by InnoSetup 5.5.7 or above"
     #define FileAttr_NotContentIndexed      ''
 #endif
+
+#define DirAttr_ReadOnly           FileAttr_ReadOnly
+#define DirAttr_Hidden             FileAttr_Hidden
+#define DirAttr_System             FileAttr_System
+#define DirAttr_NotContentIndexed  FileAttr_NotContentIndexed
 
 #ifndef ISM_RootDir
     #define ISM_RootDir "..\"
@@ -249,7 +249,7 @@
         #ifndef ISM_UserFileStub
             #define ISM_UserFileStub(str ext, str flags) ''
         #endif
-        
+
         #ifndef ISM_FileStubDir
             #define ISM_FileStubDir Str_Replace(ISM_RootDir, CompilerPath, 'compiler:')
         #endif
@@ -277,13 +277,13 @@
                     (Local[1]=ISM_UserFileStub(Local[0], flags)) != '' ? Local[1] : 'txt' \
                 ) \
             )
-    
+
         #define File(str source, str destDir=Const_DefaultDestDir, str flags=FileFlag_Defaults, str destName='', str attribs='', str permissions='', int externalSize=Const_UndefinedIntValue, str excludes='', str fontInstall='') \
             Base_File(Stub_GetDummy(source, flags), destDir, flags, Str_IsNotBlank(destName) ? destName : (!Stub_ContainsWildcards(source, flags) ? ExtractFileName(source) : ''), attribs, permissions, externalSize, excludes, fontInstall)
     #else
         #define File(str source, str destDir=Const_DefaultDestDir, str flags=FileFlag_Defaults, str destName='', str attribs='', str permissions='', int externalSize=Const_UndefinedIntValue, str excludes='', str fontInstall='') \
             Base_File(source, destDir, flags, destName, attribs, permissions, externalSize, excludes, fontInstall)
-    
+
     #endif
 #endif
 
@@ -338,7 +338,7 @@
             Active_Commons() + \
         Section_End('INI')
 #endif
-    
+
 // [Languages]
 
 #ifdef ISM_NoSectionLanguages
@@ -354,7 +354,7 @@
             Active_Commons() + \
         Section_End('Languages')
 #endif
-    
+
 // [LangOptions]
 
 #ifdef ISM_NoSectionLangOptions
@@ -400,7 +400,7 @@
 
     #define LocalizedCustomMessage(str language, str id, str message) CustomMessage(language + "." + id, message)
 #endif
-    
+
 // [Registry]
 
 #define RegFlag_CreateValueIfDoesntExist    ' createvalueifdoesntexist'
@@ -431,7 +431,7 @@
             Active_Commons() + \
         Section_End('Registry')
 #endif
-    
+
 // [InstallDelete]
 // [UninstallDelete]
 
