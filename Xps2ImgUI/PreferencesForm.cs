@@ -230,6 +230,19 @@ namespace Xps2ImgUI
             private set { preferencesPropertyGrid.SelectedObject = value.DeepClone(); }
         }
 
+        public PropertySort PreferencesPropertySort
+        {
+            get { return preferencesPropertyGrid.PropertySort; }
+            set
+            {
+                if (value != PropertySort.NoSort)
+                {
+                    preferencesPropertyGrid.PropertySort = value;
+                }
+            }
+        }
+
+
         private bool PreferencesDifferFrom(Preferences preferences)
         {
             return !Preferences.Equals(preferences, IsRunning);

@@ -234,9 +234,13 @@ namespace Xps2ImgUI
             {
                 using (new DisposableActions(() => _activeAlwaysResume = null))
                 {
-                    using (var preferencesForm = new PreferencesForm(_preferences, Model, ClassicLookChanged, AlwaysResumeChanged))
+                    using (var preferencesForm = new PreferencesForm(_preferences, Model, ClassicLookChanged, AlwaysResumeChanged) { PreferencesPropertySort = _preferencesPropertySort })
                     {
-                        if (preferencesForm.ShowDialog(this) != DialogResult.OK)
+                        var dialogResult = preferencesForm.ShowDialog(this);
+
+                        _preferencesPropertySort = preferencesForm.PreferencesPropertySort;
+
+                        if (dialogResult != DialogResult.OK)
                         {
                             return;
                         }

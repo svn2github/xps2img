@@ -16,6 +16,7 @@ namespace Xps2ImgUI
         public class Settings
         {
             public PropertySort PropertySort { get; set; }
+            public PropertySort PreferencesPropertySort { get; set; }
             public bool ShowCommandLine { get; set; }
             public string CommandLine { get; set; }
             public Preferences Preferences { get; set; }
@@ -26,6 +27,7 @@ namespace Xps2ImgUI
             return new Settings
             {
                 PropertySort = settingsPropertyGrid.PropertySort,
+                PreferencesPropertySort = _preferencesPropertySort,
                 ShowCommandLine = IsCommandLineVisible,
                 CommandLine = _preferences.AutoSaveSettings ? Model.FormatCommandLine(Options.ExcludedOnSave, true) : null,
                 Preferences = _preferences
@@ -36,6 +38,7 @@ namespace Xps2ImgUI
         {
             var settings = (Settings)serialized;
             settingsPropertyGrid.PropertySort = settings.PropertySort;
+            _preferencesPropertySort = settings.PreferencesPropertySort;
             IsCommandLineVisible = settings.ShowCommandLine;
             _preferences = settings.Preferences ?? new Preferences();
             if (!String.IsNullOrEmpty(settings.CommandLine))
@@ -48,6 +51,8 @@ namespace Xps2ImgUI
         {
             return typeof(Settings);
         }
+
+        private PropertySort _preferencesPropertySort;
 
         private Preferences _preferences = new Preferences();
     }
