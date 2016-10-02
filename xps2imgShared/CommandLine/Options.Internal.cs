@@ -10,7 +10,7 @@ namespace Xps2Img.Shared.CommandLine
 {
     public partial class Options
     {
-        [Option(ShortOptionType.None10, Flags = OptionFlags.Internal)]
+        [Option(ShortOptionType.None3, Flags = OptionFlags.Internal)]
         [Browsable(false)]
         public virtual string Internal { get; set; }
 

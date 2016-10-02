@@ -126,8 +126,8 @@
     <comment>Hide command line</comment>
   </data>
   <data name="ResetOptions" xml:space="preserve">
-    <value>Повернути опції в початковий стан</value>
-    <comment>Reset options</comment>
+    <value>Повернути &amp;опції в початковий стан</value>
+    <comment>Reset &amp;Options</comment>
   </data>
   <data name="Launch" xml:space="preserve">
     <value>&amp;Перетворити</value>
@@ -174,8 +174,8 @@
     <comment>Reset &amp;Parameters</comment>
   </data>
   <data name="Reset" xml:space="preserve">
-    <value>Повернути параметри та &amp;опції в початковий стан</value>
-    <comment>Reset &amp;Settings</comment>
+    <value>Повернути параметри та опції в початковий стан</value>
+    <comment>Reset Settings</comment>
   </data>
   <data name="CopyCommandLineToClipboard" xml:space="preserve">
     <value>&amp;Копіювати командний рядок до буфера обміну</value>

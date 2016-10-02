@@ -41,7 +41,7 @@ namespace Xps2Img.Shared.Dialogs
                 }
             }
 
-            return value ?? String.Empty;
+            return value;
         }
     }
 }

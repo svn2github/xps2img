@@ -35,6 +35,12 @@ namespace Xps2ImgUI.Model
             set { }
         }
 
+        public override bool Test
+        {
+            get { return false; }
+            set { base.Test = value; }
+        }
+
         #region ICustomTypeDescriptor
 
         public AttributeCollection GetAttributes() { return _facade.GetAttributes(); }

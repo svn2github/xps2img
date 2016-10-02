@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Resources;
 
 namespace Xps2Img.Shared.Localization
 {

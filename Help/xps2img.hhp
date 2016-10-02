@@ -50,7 +50,6 @@ IDH_ProcessPriority=xps2img.chm::/Files\Options.html#processpriority
 IDH_ProcessAffinity=xps2img.chm::/Files\Options.html#affinity
 IDH_IgnoreExisting=xps2img.chm::/Files\Options.html#ignoreExisting
 IDH_IgnoreErrors=xps2img.chm::/Files\Options.html#ignoreErrors
-IDH_TestMode=xps2img.chm::/Files\Options.html#test
 IDH_General=xps2img.chm::/Files\Preferences.html#general
 IDH_Interface=xps2img.chm::/Files\Preferences.html#interface
 IDH_AutoCompleteFilenames=xps2img.chm::/Files\Preferences.html#autoCompleteFilenames
@@ -90,7 +89,6 @@ IDH_ApplicationLanguage=xps2img.chm::/Files\Preferences.html#applicationLanguage
 #define IDH_Processors             	1212
 #define IDH_ProcessPriority		1213
 #define IDH_ProcessAffinity		1214
-#define IDH_TestMode			1215
 #define IDH_General			1249
 #define IDH_Interface			1250
 #define IDH_AutoCompleteFilenames	1251

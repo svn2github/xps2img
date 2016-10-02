@@ -134,7 +134,7 @@ namespace Xps2Img.Shared.CommandLine
         public bool ShortenExtension { get; set; }
 
         [Category(Categories.Options)]
-        [Option(ShortOptionType.None12, ConverterType = typeof(ProcessorsNumberTypeConverter), Flags = OptionFlags.Internal)]
+        [Option(ShortOptionType.None1, ConverterType = typeof(ProcessorsNumberTypeConverter), Flags = OptionFlags.Internal)]
         [UIOption(Names.Processors)]
         [TypeConverter(typeof(ProcessorsNumberTypeConverter))]
         [DefaultValue(Defaults.Processors)]
@@ -194,17 +194,20 @@ namespace Xps2Img.Shared.CommandLine
 
         [Option(ShortOptions.SilentMode, ArgumentExpectancy.No)]
         [Browsable(false)]
+        [DefaultValue(false)]
         public virtual bool Silent { get; set; }
 
         [Category(Categories.Options)]
+        [Browsable(false)]
         [Option(ShortOptions.Test, ArgumentExpectancy.No)]
         [UIOption(ShortOptions.Test)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
-        public bool Test { get; set; }
+        public virtual bool Test { get; set; }
 
-        [Option(ShortOptionType.None1, ArgumentExpectancy.No)]
+        [Option(ShortOptionType.None2, ArgumentExpectancy.No)]
         [Browsable(false)]
+        [DefaultValue(false)]
         public bool Clean { get; set; }
     }
 }

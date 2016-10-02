@@ -29,7 +29,6 @@ namespace Xps2ImgUI.Utils.UI
         private const string HelpTopicProcessors                = "1212";
         private const string HelpTopicProcessPriority           = "1213";
         private const string HelpTopicProcessAffinity           = "1214";
-        private const string HelpTopicTestMode                  = "1215";
         private const string HelpTopicGeneral                   = "1249";
         private const string HelpTopicInterface                 = "1250";
         private const string HelpTopicAutoCompleteFilenames     = "1251";
@@ -88,7 +87,6 @@ namespace Xps2ImgUI.Utils.UI
             { Options.Properties.CpuAffinity,               HelpTopicProcessAffinity },
             { Options.Properties.IgnoreExisting,            HelpTopicIgnoreExistingDisplayName },
             { Options.Properties.IgnoreErrors,              HelpTopicIgnoreErrorsDisplayName },
-            { Options.Properties.Test,                      HelpTopicTestMode },
 
             // Preferences.
             { Preferences.Properties.ApplicationLanguage,            HelpTopicApplicationLanguage },
