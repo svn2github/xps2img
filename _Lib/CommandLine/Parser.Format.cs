@@ -12,11 +12,16 @@ namespace CommandLine
 {
     public static partial class Parser
     {
-        public static readonly string EntryAssemblyLocation = Assembly.GetEntryAssembly().Location;
+        public static readonly string EntryAssemblyLocation = (Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly()).Location;
         public static readonly string ApplicationName = Path.GetFileNameWithoutExtension(EntryAssemblyLocation);
 
         public static string ToCommandLine(object optionsObject)
         {
+            if(optionsObject == null)
+            {
+                throw new ArgumentNullException("optionsObject");
+            }
+
             var longOpts = GetOptionsList(optionsObject, true);
             var stringBuilder = new StringBuilder(longOpts.Count * 4);
 
