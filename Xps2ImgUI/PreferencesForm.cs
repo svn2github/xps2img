@@ -99,6 +99,8 @@ namespace Xps2ImgUI
 
             EnableButtons();
 
+            preferencesPropertyGrid.PropertySort = _preferencesPropertySort;
+
             base.OnLoad(e);
         }
 
@@ -230,18 +232,13 @@ namespace Xps2ImgUI
             private set { preferencesPropertyGrid.SelectedObject = value.DeepClone(); }
         }
 
+        private PropertySort _preferencesPropertySort;
+
         public PropertySort PreferencesPropertySort
         {
             get { return preferencesPropertyGrid.PropertySort; }
-            set
-            {
-                if (value != PropertySort.NoSort)
-                {
-                    preferencesPropertyGrid.PropertySort = value;
-                }
-            }
+            set { _preferencesPropertySort = value != PropertySort.NoSort ? value : PreferencesPropertySort; }
         }
-
 
         private bool PreferencesDifferFrom(Preferences preferences)
         {
