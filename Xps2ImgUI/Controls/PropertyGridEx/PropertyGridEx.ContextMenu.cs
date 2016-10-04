@@ -113,7 +113,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             var resetAllMenuItem = CreateContextMenuItem(ResetAllItemName, (s, e) => ResetAll());
             SetupResetMenuItem(null, resetAllMenuItem);
 
-            var isGridContextMenu = !contextMenuGridItems.Contains(SelectedGridItem);
+            var isGridContextMenu = contextMenuGridItems.Length > 1 || !contextMenuGridItems.Contains(SelectedGridItem);
             if (isGridContextMenu)
             {
                 if (contextMenuGridItems.Any())
