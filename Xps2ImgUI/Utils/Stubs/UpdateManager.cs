@@ -49,13 +49,13 @@ namespace Xps2ImgUI.Utils.Stubs
 
         public void CheckAsync(string version, bool silent = false)
         {
-            CheckCompleted(this, EventArgs.Empty);
+            CheckCompleted.SafeInvoke(this, EventArgs.Empty);
         }
 
         public void DownloadAsync()
         {
-            DownloadProgressChanged(this, new ProgressChangedEventArgs(100, null));
-            DownloadFileCompleted(this, new AsyncCompletedEventArgs(null, false, null));
+            DownloadProgressChanged.SafeInvoke(this, new ProgressChangedEventArgs(100, null));
+            DownloadFileCompleted.SafeInvoke(this, new AsyncCompletedEventArgs(null, false, null));
         }
 
         public void CancelDownload()
@@ -65,7 +65,7 @@ namespace Xps2ImgUI.Utils.Stubs
         public void InstallAsync()
         {
             Utils.UpdateManager.CheckAccessAndInstall(Path.Combine(AssemblyInfo.ApplicationFolder, "Xps2ImgSetup.exe"));
-            InstallationLaunched(this, EventArgs.Empty);
+            InstallationLaunched.SafeInvoke(this, EventArgs.Empty);
         }
     }
 }

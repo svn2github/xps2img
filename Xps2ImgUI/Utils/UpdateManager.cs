@@ -126,10 +126,7 @@ namespace Xps2ImgUI.Utils
                 _useProxy = false;
             }
 
-            if (CheckCompleted != null)
-            {
-                CheckCompleted(this, EventArgs.Empty);
-            }
+            CheckCompleted.SafeInvoke(this);
         }
 
         private void CheckInternal(string version)

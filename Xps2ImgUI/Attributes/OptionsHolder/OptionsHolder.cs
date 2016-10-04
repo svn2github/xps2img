@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using CommandLine.Utils;
 
 using Xps2Img.Shared.Attributes.Options;
+using Xps2ImgLib.Utils;
 
 namespace Xps2ImgUI.Attributes.OptionsHolder
 {
@@ -40,10 +41,7 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
             OptionAttributes = optionAttributes;
             _optionsObject = optionsObject;
 
-            if (OptionsObjectChanged != null)
-            {
-                OptionsObjectChanged(this, EventArgs.Empty);
-            }
+            OptionsObjectChanged.SafeInvoke(this);
         }
 
         public string FormatCommandLine(bool exceptionIfNoRequired, bool includeFiltered, string[] optionsToExclude)
