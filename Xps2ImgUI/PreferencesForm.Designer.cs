@@ -63,7 +63,6 @@
             this.preferencesPropertyGrid.BackColor = System.Drawing.SystemColors.Control;
             this.preferencesPropertyGrid.Location = new System.Drawing.Point(7, 1);
             this.preferencesPropertyGrid.Name = "preferencesPropertyGrid";
-            this.preferencesPropertyGrid.ResetGroupCallback = null;
             this.preferencesPropertyGrid.Size = new System.Drawing.Size(470, 429);
             this.preferencesPropertyGrid.TabIndex = 0;
             this.preferencesPropertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.PreferencesPropertyGridPropertyValueChanged);

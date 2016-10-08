@@ -330,6 +330,8 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             }
         }
 
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ToolStripRenderMode ContextMenuStripRenderMode
         {
             get { return ModernLook ? ToolStripRenderMode.ManagerRenderMode : ToolStripRenderMode.System; }
@@ -356,22 +358,32 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         // string label - property label
         // bool check   - check requested if true; otherwise reset should be executed
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Func<string, bool, bool> ResetGroupCallback { get; set; }
 
-        public bool IsResetAllEnabled(Func<PropertyInfo, bool> allowFilter = null)
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public Action ResetAllAction { get; set; }
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public Func<PropertyInfo, bool> ResetByCategoryFilter { get; set; }
+
+        public bool IsResetAllEnabled()
         {
-            return IsResetByCategoryEnabled(null, allowFilter);
+            return IsResetByCategoryEnabled(null);
         }
 
-        public bool IsResetByCategoryEnabled(string category, Func<PropertyInfo, bool> allowFilter = null)
+        public bool IsResetByCategoryEnabled(string category)
         {
             var useCategory = !String.IsNullOrEmpty(category);
 
             return !ReflectionUtils.ForEachPropertyInfo(SelectedObject, pi =>
             {
-                if ((useCategory
-                        ? category != pi.FirstOrNewAttribute<CategoryAttribute>().Category
-                        : pi.FirstOrDefaultAttribute<CategoryAttribute>() == null) || (allowFilter != null && !allowFilter(pi)))
+                var categoryAttribute = pi.FirstOrDefaultAttribute<CategoryAttribute>();
+
+                if (categoryAttribute == null || (useCategory && category != categoryAttribute.Category) || (ResetByCategoryFilter != null && !ResetByCategoryFilter(pi)))
                 {
                     return true;
                 }
@@ -385,10 +397,17 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         public void ResetAll()
         {
+            var resetAllAction = ResetAllAction;
+            if (resetAllAction != null)
+            {
+                resetAllAction();
+                return;
+            }
+
             ResetByCategory(null);
         }
 
-        public void ResetByCategory(string category, bool isLabel = true, Func<PropertyInfo, bool> allowFilter = null)
+        public void ResetByCategory(string category, bool isLabel = true)
         {
             var categoryName = category;
 
@@ -407,7 +426,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
             ReflectionUtils.SetDefaultValues(SelectedObject, pi =>
                 (!useCategory || categoryName == pi.FirstOrNewAttribute<CategoryAttribute>().Category) &&
-                (allowFilter == null || allowFilter(pi))
+                (ResetByCategoryFilter == null || ResetByCategoryFilter(pi))
             );
 
             Refresh();
@@ -427,6 +446,8 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             UpdateToolTip(oldValue);
         }
 
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool HasSelectedObject
         {
             get { return SelectedObject != null; }

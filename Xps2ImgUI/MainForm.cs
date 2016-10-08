@@ -33,8 +33,8 @@ namespace Xps2ImgUI
 
             Model = new Xps2ImgModel();
 
-            _updateManager.CheckCompleted += (s, e) => this.InvokeIfNeeded(() => RegisterIdleHandler(UpdateCheckCompleted));
-            _updateManager.InstallationLaunched += (s, e) => this.InvokeIfNeeded(() => RegisterIdleHandler(UpdateInstallationLaunched));
+            _updateManager.CheckCompleted += (_, __) => this.InvokeIfNeeded(() => RegisterIdleHandler(UpdateCheckCompleted));
+            _updateManager.InstallationLaunched += (_, __) => this.InvokeIfNeeded(() => RegisterIdleHandler(UpdateInstallationLaunched));
 
             settingsPropertyGrid.ResetGroupCallback = PropertyGridResetGroupCallback;
 
@@ -207,7 +207,7 @@ namespace Xps2ImgUI
             if (m.Msg == Windows7Taskbar.WM_TaskbarButtonCreated)
             {
                 _thumbButtonManager = new ThumbButtonManager(Handle);
-                _thumbButton = _thumbButtonManager.CreateThumbButton(Resources.Icons.Play, ConvertButtonCleanText, (s, e) => ExecuteConversion(ExecuteFlags.Convert | ExecuteFlags.ActivateWindow));
+                _thumbButton = _thumbButtonManager.CreateThumbButton(Resources.Icons.Play, ConvertButtonCleanText, (_, __) => ExecuteConversion(ExecuteFlags.Convert | ExecuteFlags.ActivateWindow));
                 _thumbButtonManager.AddThumbButtons(_thumbButton);
             }
 

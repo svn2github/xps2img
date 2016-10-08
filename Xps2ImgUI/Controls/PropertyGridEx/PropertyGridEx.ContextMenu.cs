@@ -101,7 +101,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             foreach (var gridItem in contextMenuGridItems)
             {
                 var gridItemClosure = gridItem;
-                var resetMenuItem = CreateContextMenuItem(ResetItemName, (s, e) => ResetMenuItemClickFor(gridItemClosure));
+                var resetMenuItem = CreateContextMenuItem(ResetItemName, (_, __) => ResetMenuItemClickFor(gridItemClosure));
 
                 SetupResetMenuItem(gridItem, resetMenuItem);
 
@@ -110,7 +110,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                 contextMenuStrip.Items.Add(resetMenuItem);
             }
 
-            var resetAllMenuItem = CreateContextMenuItem(ResetAllItemName, (s, e) => ResetAll());
+            var resetAllMenuItem = CreateContextMenuItem(ResetAllItemName, (_, __) => ResetAll());
             SetupResetMenuItem(null, resetAllMenuItem);
 
             var isGridContextMenu = contextMenuGridItems.Length > 1 || !contextMenuGridItems.Contains(SelectedGridItem);

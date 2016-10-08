@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Reflection;
 using System.Windows.Forms;
 
 using CommandLine.Utils;
@@ -83,11 +82,13 @@ namespace Xps2ImgUI
             this.RemoveSystemMenuDisabledItems();
 
             preferencesPropertyGrid.ResetGroupCallback = PropertyGridResetGroupCallback;
+            preferencesPropertyGrid.ResetAllAction = ResetAll;
+            preferencesPropertyGrid.ResetByCategoryFilter = pi => !IsRunning || (pi.Name != Preferences.Properties.ShortenExtension && pi.Name != Preferences.Properties.ApplicationLanguage);
 
             preferencesPropertyGrid.ModernLook = !Preferences.ClassicLook;
             preferencesPropertyGrid.RemoveLastToolStripItem();
 
-            _resetToolStripButton = preferencesPropertyGrid.AddToolStripButton(Resources.Images.Eraser, () => Resources.Strings.ResetToDefaults, ResetToolStripButtonClick);
+            _resetToolStripButton = preferencesPropertyGrid.AddToolStripButton(Resources.Images.Eraser, () => Resources.Strings.ResetToDefaults, (_, __) => preferencesPropertyGrid.ResetAllAction());
 
             preferencesPropertyGrid.DocLines = 5;
             preferencesPropertyGrid.MoveSplitterByPercent(50);
@@ -120,18 +121,16 @@ namespace Xps2ImgUI
 
         private bool PropertyGridResetGroupCallback(string label, bool check)
         {
-            Func<PropertyInfo, bool> allowFilter = pi => !IsRunning || (pi.Name != Preferences.Properties.ShortenExtension && pi.Name != Preferences.Properties.ApplicationLanguage);
-
             if (check)
             {
-                return preferencesPropertyGrid.IsResetByCategoryEnabled(label, allowFilter);
+                return preferencesPropertyGrid.IsResetByCategoryEnabled(label);
             }
 
             var changesTracker = new ChangesTracker(this);
 
             using (new DisposableActions(() => changesTracker.NotifyIfChanged(() => preferencesPropertyGrid.SelectGridItem(Resources.Strings.Preferences_GeneralCategory))))
             {
-                preferencesPropertyGrid.ResetByCategory(label, allowFilter: allowFilter);
+                preferencesPropertyGrid.ResetByCategory(label);
             }
 
             EnableButtons();
@@ -155,7 +154,7 @@ namespace Xps2ImgUI
             preferencesPropertyGrid.RefreshLocalization();
         }
 
-        private void ResetToolStripButtonClick(object sender, EventArgs e)
+        private void ResetAll()
         {
             var oldShortenExtension = Preferences.ShortenExtension;
             var oldApplicationLanguage = Preferences.ApplicationLanguage;
@@ -175,7 +174,7 @@ namespace Xps2ImgUI
 
             preferencesPropertyGrid.Refresh();
 
-            ((ToolStripButton)sender).Enabled = false;
+            _resetToolStripButton.Enabled = false;
 
             EnableOK();
         }
