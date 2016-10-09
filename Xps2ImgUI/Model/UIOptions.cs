@@ -37,7 +37,7 @@ namespace Xps2ImgUI.Model
 
         public override bool Test
         {
-            get { return !false; }
+            get { return false; }
             set { base.Test = value; }
         }
 
