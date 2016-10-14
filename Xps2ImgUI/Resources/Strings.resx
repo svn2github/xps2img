@@ -121,10 +121,6 @@
     <value>Show command line</value>
     <comment>Show command line</comment>
   </data>
-  <data name="ResetOptions" xml:space="preserve">
-    <value>Reset &amp;Options</value>
-    <comment>Reset &amp;Options</comment>
-  </data>
   <data name="Launch" xml:space="preserve">
     <value>&amp;Convert</value>
     <comment>&amp;Convert</comment>
@@ -168,10 +164,6 @@
   <data name="WindowTitleLaunchingFormat" xml:space="preserve">
     <value>Launching xps2img... - {0}</value>
     <comment>Launching xps2img... - {0}</comment>
-  </data>
-  <data name="ResetParameters" xml:space="preserve">
-    <value>Reset &amp;Parameters</value>
-    <comment>Reset &amp;Parameters</comment>
   </data>
   <data name="Reset" xml:space="preserve">
     <value>Reset Settings</value>
@@ -226,8 +218,8 @@
     <comment>Preferences</comment>
   </data>
   <data name="ResetToDefaults" xml:space="preserve">
-    <value>Reset to defaults</value>
-    <comment>Reset to defaults</comment>
+    <value>Reset All Preferences</value>
+    <comment>Reset All Preferences</comment>
   </data>
   <data name="SaveSettingsTitle" xml:space="preserve">
     <value>Save Settings</value>

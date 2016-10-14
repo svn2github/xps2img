@@ -196,6 +196,7 @@ namespace Xps2ImgUI
             Model.FireOptionsObjectChanged();
 
             UpdateConvertButtons();
+            UpdateCategoryReset();
         }
 
         private void ApplyPreferences(bool byUser = false)

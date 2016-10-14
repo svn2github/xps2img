@@ -125,10 +125,6 @@
     <value>Сховати командний рядок</value>
     <comment>Hide command line</comment>
   </data>
-  <data name="ResetOptions" xml:space="preserve">
-    <value>Повернути &amp;опції в початковий стан</value>
-    <comment>Reset &amp;Options</comment>
-  </data>
   <data name="Launch" xml:space="preserve">
     <value>&amp;Перетворити</value>
     <comment>&amp;Convert</comment>
@@ -168,10 +164,6 @@
   <data name="WindowTitleLaunchingFormat" xml:space="preserve">
     <value>Виконується запуск xps2img... - {0}</value>
     <comment>Launching xps2img... - {0}</comment>
-  </data>
-  <data name="ResetParameters" xml:space="preserve">
-    <value>Повернути &amp;параметри в початковий стан</value>
-    <comment>Reset &amp;Parameters</comment>
   </data>
   <data name="Reset" xml:space="preserve">
     <value>Повернути параметри та опції в початковий стан</value>
@@ -227,7 +219,7 @@
   </data>
   <data name="ResetToDefaults" xml:space="preserve">
     <value>Повернути налаштування в початковий стан</value>
-    <comment>Reset to defaults</comment>
+    <comment>Reset All Preferences</comment>
   </data>
   <data name="SaveSettingsTitle" xml:space="preserve">
     <value>Зберегти параметри та опції</value>

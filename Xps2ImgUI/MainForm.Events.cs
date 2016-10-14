@@ -175,6 +175,14 @@ namespace Xps2ImgUI
         }
 
         private readonly string[] _forceRefreshForProperties = { Options.Properties.FileType, Options.Properties.PostAction, Options.Properties.UseFileNameAsImageName };
+
+        private void UpdateCategoryReset()
+        {
+            if (_resetToolStripButton != null)
+            {
+                _resetToolStripButton.Enabled = settingsPropertyGrid.IsResetByCategoryEnabled(Options.Categories.Options) || settingsPropertyGrid.IsResetByCategoryEnabled(Options.Categories.Parameters);
+            }
+        }
         
         private void SettingsPropertyGridPropertyValueChanged(object sender, PropertyValueChangedEventArgs e)
         {
@@ -207,11 +215,13 @@ namespace Xps2ImgUI
 
             UpdateCommandLine(canResume);
             UpdateConvertButtons();
+            UpdateCategoryReset();
         }
 
         private void SettingsPropertyGridSelectedObjectsChanged(object sender, EventArgs e)
         {
             UpdateCommandLine();
+            UpdateCategoryReset();
         }
 
         private void ClassicLookChanged(Preferences preferences)

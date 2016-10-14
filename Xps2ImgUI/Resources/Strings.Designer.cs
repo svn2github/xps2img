@@ -1089,25 +1089,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset &amp;Options.
-        /// </summary>
-        internal static string ResetOptions {
-            get {
-                return ResourceManager.GetString("ResetOptions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reset &amp;Parameters.
-        /// </summary>
-        internal static string ResetParameters {
-            get {
-                return ResourceManager.GetString("ResetParameters", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reset to defaults.
+        ///   Looks up a localized string similar to Reset All Preferences.
         /// </summary>
         internal static string ResetToDefaults {
             get {

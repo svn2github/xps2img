@@ -214,9 +214,9 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             return toolStripButton;
         }
 
-        public void AddToolStripSeparator()
+        public void AddToolStripSeparator(bool alignRight = false)
         {
-            _toolStrip.Items.Add(new ToolStripSeparator());
+            _toolStrip.Items.Add(new ToolStripSeparator { Alignment = alignRight ? ToolStripItemAlignment.Right : ToolStripItemAlignment.Left });
         }
 
         private void MoveSplitterTo(int x)
@@ -397,10 +397,9 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         public void ResetAll()
         {
-            var resetAllAction = ResetAllAction;
-            if (resetAllAction != null)
+            if (ResetAllAction != null)
             {
-                resetAllAction();
+                ResetAllAction();
                 return;
             }
 
