@@ -594,7 +594,7 @@
     <comment>Auto Save Parameters And Options</comment>
   </data>
   <data name="Preferences_AutoSaveSettingsDescription" xml:space="preserve">
-    <value>Автоматично зберігати параметри та опції при виході з програми, інакше після запуску будуть використані початкові значення.</value>
+    <value>Автоматично зберігати параметри та опції після завершення програми; в іншому випадку наступного разу будуть використані початкові значення.</value>
     <comment>Auto save parameters and options on exit. If not set default parameters and options will be used next time.</comment>
   </data>
   <data name="Preferences_ClassicLookName" xml:space="preserve">
