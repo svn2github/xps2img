@@ -370,8 +370,8 @@
     <comment>&amp;Remember choice and do not ask again</comment>
   </data>
   <data name="CheckForUpdates" xml:space="preserve">
-    <value>Check for &amp;Updates</value>
-    <comment>Check for &amp;Updates</comment>
+    <value>Check For &amp;Updates</value>
+    <comment>Check For &amp;Updates</comment>
   </data>
   <data name="UpdateNoNewVersionAvailable" xml:space="preserve">
     <value>There is no new version available at this time.</value>
@@ -390,8 +390,8 @@
     <comment>Would you like to check for updates manually?</comment>
   </data>
   <data name="YesCheckForUpdatesManually" xml:space="preserve">
-    <value>&amp;Yes, Check for Updates Manually</value>
-    <comment>&amp;Yes, Check for Updates Manually</comment>
+    <value>&amp;Yes, Check For Updates Manually</value>
+    <comment>&amp;Yes, Check For Updates Manually</comment>
   </data>
   <data name="DownloadFailedWarning" xml:space="preserve">
     <value>Download failed. Application Web site will be opened.</value>
@@ -550,8 +550,8 @@ What's new in version {0}
     <comment>Close</comment>
   </data>
   <data name="HelpAbout_CheckForUpdatesLinkLabel" xml:space="preserve">
-    <value>Check for Updates</value>
-    <comment>Check for Updates</comment>
+    <value>Check For Updates</value>
+    <comment>Check For Updates</comment>
   </data>
   <data name="HelpAbout_HistoryLinkLabel" xml:space="preserve">
     <value>View Revision History</value>
@@ -606,8 +606,8 @@ What's new in version {0}
     <comment>Use application system look.</comment>
   </data>
   <data name="Preferences_ShowElapsedTimeAndStatisticsName" xml:space="preserve">
-    <value>Show Elapsed Time and Statistics</value>
-    <comment>Show Elapsed Time and Statistics</comment>
+    <value>Show Elapsed Time And Statistics</value>
+    <comment>Show Elapsed Time And Statistics</comment>
   </data>
   <data name="Preferences_ShowElapsedTimeAndStatisticsDescription" xml:space="preserve">
     <value>Show time elapsed by last operation and conversion statistics in application title.</value>
@@ -678,8 +678,8 @@ What's new in version {0}
     <comment>Shortens image extension down to three characters.</comment>
   </data>
   <data name="Preferences_CheckForUpdatesName" xml:space="preserve">
-    <value>Check for Updates</value>
-    <comment>Check for Updates</comment>
+    <value>Check For Updates</value>
+    <comment>Check For Updates</comment>
   </data>
   <data name="Preferences_CheckForUpdatesDescription" xml:space="preserve">
     <value>Check for updates interval.</value>
@@ -726,8 +726,8 @@ What's new in version {0}
     <comment>&amp;Reset {0}</comment>
   </data>
   <data name="PropertyGrid_ResetAllUIOptions" xml:space="preserve">
-    <value>Parameters and Options</value>
-    <comment>Parameters and Options</comment>
+    <value>Parameters And Options</value>
+    <comment>Parameters And Options</comment>
   </data>
   <data name="PropertyGrid_ResetAllPreferences" xml:space="preserve">
     <value>Preferences</value>

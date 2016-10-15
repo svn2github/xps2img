@@ -371,7 +371,7 @@
   </data>
   <data name="CheckForUpdates" xml:space="preserve">
     <value>Перевірити наявність &amp;оновлень</value>
-    <comment>Check for &amp;Updates</comment>
+    <comment>Check For &amp;Updates</comment>
   </data>
   <data name="UpdateNoNewVersionAvailable" xml:space="preserve">
     <value>Оновлень немає.</value>
@@ -391,7 +391,7 @@
   </data>
   <data name="YesCheckForUpdatesManually" xml:space="preserve">
     <value>&amp;Так, перевірити</value>
-    <comment>&amp;Yes, Check for Updates Manually</comment>
+    <comment>&amp;Yes, Check For Updates Manually</comment>
   </data>
   <data name="DownloadFailedWarning" xml:space="preserve">
     <value>Оновлення не може бути завантажено. Буде відкрита Веб-сторінка програми.</value>
@@ -551,7 +551,7 @@
   </data>
   <data name="HelpAbout_CheckForUpdatesLinkLabel" xml:space="preserve">
     <value>Перевірити наявність оновлень</value>
-    <comment>Check for Updates</comment>
+    <comment>Check For Updates</comment>
   </data>
   <data name="HelpAbout_HistoryLinkLabel" xml:space="preserve">
     <value>Історія оновлень (Англійскою)</value>
@@ -607,7 +607,7 @@
   </data>
   <data name="Preferences_ShowElapsedTimeAndStatisticsName" xml:space="preserve">
     <value>Показувати статистику перетворення</value>
-    <comment>Show Elapsed Time and Statistics</comment>
+    <comment>Show Elapsed Time And Statistics</comment>
   </data>
   <data name="Preferences_ShowElapsedTimeAndStatisticsDescription" xml:space="preserve">
     <value>Показувати статистику останнього перетворення у заголовці програми.</value>
@@ -679,7 +679,7 @@
   </data>
   <data name="Preferences_CheckForUpdatesName" xml:space="preserve">
     <value>Перевіряти наявність оновлень</value>
-    <comment>Check for Updates</comment>
+    <comment>Check For Updates</comment>
   </data>
   <data name="Preferences_CheckForUpdatesDescription" xml:space="preserve">
     <value>Період перевірки наявності оновлень.</value>
@@ -727,7 +727,7 @@
   </data>
   <data name="PropertyGrid_ResetAllUIOptions" xml:space="preserve">
     <value>параметри та опції</value>
-    <comment>Parameters and Options</comment>
+    <comment>Parameters And Options</comment>
   </data>
   <data name="PropertyGrid_ResetAllPreferences" xml:space="preserve">
     <value>налаштування</value>

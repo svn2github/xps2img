@@ -196,7 +196,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check for &amp;Updates.
+        ///   Looks up a localized string similar to Check For &amp;Updates.
         /// </summary>
         internal static string CheckForUpdates {
             get {
@@ -484,7 +484,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check for Updates.
+        ///   Looks up a localized string similar to Check For Updates.
         /// </summary>
         internal static string HelpAbout_CheckForUpdatesLinkLabel {
             get {
@@ -765,7 +765,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check for Updates.
+        ///   Looks up a localized string similar to Check For Updates.
         /// </summary>
         internal static string Preferences_CheckForUpdatesName {
             get {
@@ -945,7 +945,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Elapsed Time and Statistics.
+        ///   Looks up a localized string similar to Show Elapsed Time And Statistics.
         /// </summary>
         internal static string Preferences_ShowElapsedTimeAndStatisticsName {
             get {
@@ -1053,7 +1053,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parameters and Options.
+        ///   Looks up a localized string similar to Parameters And Options.
         /// </summary>
         internal static string PropertyGrid_ResetAllUIOptions {
             get {
@@ -1489,7 +1489,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Yes, Check for Updates Manually.
+        ///   Looks up a localized string similar to &amp;Yes, Check For Updates Manually.
         /// </summary>
         internal static string YesCheckForUpdatesManually {
             get {
