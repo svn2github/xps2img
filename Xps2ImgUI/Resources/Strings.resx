@@ -190,12 +190,12 @@
     <comment>&amp;About...</comment>
   </data>
   <data name="LoadSettings" xml:space="preserve">
-    <value>Load settings</value>
-    <comment>Load settings</comment>
+    <value>Load parameters and options</value>
+    <comment>Load parameters and options</comment>
   </data>
   <data name="SaveSettings" xml:space="preserve">
-    <value>&amp;Save Settings...</value>
-    <comment>&amp;Save Settings...</comment>
+    <value>&amp;Save Parameters And Options...</value>
+    <comment>&amp;Save Parameters And Options...</comment>
   </data>
   <data name="FilterXPS2ImgFiles" xml:space="preserve">
     <value>XPS2Img Files (*.x2i)|*.x2i|</value>
@@ -222,12 +222,12 @@
     <comment>Reset preferences</comment>
   </data>
   <data name="SaveSettingsTitle" xml:space="preserve">
-    <value>Save Settings</value>
-    <comment>Save Settings</comment>
+    <value>Save Parameters And Options</value>
+    <comment>Save Parameters And Options</comment>
   </data>
   <data name="LoadSettingsTitle" xml:space="preserve">
-    <value>Load Settings</value>
-    <comment>Load Settings</comment>
+    <value>Load Parameters And Options</value>
+    <comment>Load Parameters And Options</comment>
   </data>
   <data name="ConversionStopConfirmation" xml:space="preserve">
     <value>Conversion will be stopped.</value>
@@ -254,8 +254,8 @@
     <comment>\n\n● Cancel reverts to previous valid value.\n● OK returns to value editing.</comment>
   </data>
   <data name="AutoSaveSettings" xml:space="preserve">
-    <value>A&amp;uto Save Settings</value>
-    <comment>A&amp;uto Save Settings</comment>
+    <value>A&amp;uto Save Parameters And Options</value>
+    <comment>A&amp;uto Save Parameters And Options</comment>
   </data>
   <data name="ValidationErrorFormat" xml:space="preserve">
     <value>{0} Validation Error</value>
@@ -590,12 +590,12 @@ What's new in version {0}
     <comment>Auto complete filenames in edit boxes.</comment>
   </data>
   <data name="Preferences_AutoSaveSettingsName" xml:space="preserve">
-    <value>Auto Save Settings</value>
-    <comment>Auto Save Settings</comment>
+    <value>Auto Save Parameters And Options</value>
+    <comment>Auto Save Parameters And Options</comment>
   </data>
   <data name="Preferences_AutoSaveSettingsDescription" xml:space="preserve">
-    <value>Auto save settings on exit. If not set default settings will be used next time.</value>
-    <comment>Auto save settings on exit. If not set default settings will be used next time.</comment>
+    <value>Auto save parameters and options on exit. If not set default parameters and options will be used next time.</value>
+    <comment>Auto save parameters and options on exit. If not set default parameters and options will be used next time.</comment>
   </data>
   <data name="Preferences_ClassicLookName" xml:space="preserve">
     <value>Classic Look</value>

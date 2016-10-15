@@ -133,7 +133,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A&amp;uto Save Settings.
+        ///   Looks up a localized string similar to A&amp;uto Save Parameters And Options.
         /// </summary>
         internal static string AutoSaveSettings {
             get {
@@ -556,7 +556,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Load settings.
+        ///   Looks up a localized string similar to Load parameters and options.
         /// </summary>
         internal static string LoadSettings {
             get {
@@ -565,7 +565,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Load Settings.
+        ///   Looks up a localized string similar to Load Parameters And Options.
         /// </summary>
         internal static string LoadSettingsTitle {
             get {
@@ -738,7 +738,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Auto save settings on exit. If not set default settings will be used next time..
+        ///   Looks up a localized string similar to Auto save parameters and options on exit. If not set default parameters and options will be used next time..
         /// </summary>
         internal static string Preferences_AutoSaveSettingsDescription {
             get {
@@ -747,7 +747,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Auto Save Settings.
+        ///   Looks up a localized string similar to Auto Save Parameters And Options.
         /// </summary>
         internal static string Preferences_AutoSaveSettingsName {
             get {
@@ -1125,7 +1125,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Save Settings....
+        ///   Looks up a localized string similar to &amp;Save Parameters And Options....
         /// </summary>
         internal static string SaveSettings {
             get {
@@ -1134,7 +1134,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save Settings.
+        ///   Looks up a localized string similar to Save Parameters And Options.
         /// </summary>
         internal static string SaveSettingsTitle {
             get {
