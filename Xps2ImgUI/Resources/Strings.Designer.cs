@@ -1035,7 +1035,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset &amp;All {0}.
+        ///   Looks up a localized string similar to &amp;Reset {0}.
         /// </summary>
         internal static string PropertyGrid_ResetAllItem {
             get {
@@ -1062,7 +1062,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Reset {0}.
+        ///   Looks up a localized string similar to Reset {0}.
         /// </summary>
         internal static string PropertyGrid_ResetItem {
             get {
@@ -1080,7 +1080,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset Settings.
+        ///   Looks up a localized string similar to Reset parameters and options.
         /// </summary>
         internal static string Reset {
             get {
@@ -1089,7 +1089,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset All Preferences.
+        ///   Looks up a localized string similar to Reset preferences.
         /// </summary>
         internal static string ResetToDefaults {
             get {

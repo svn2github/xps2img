@@ -164,10 +164,15 @@ namespace Xps2ImgUI
             _uiCommandLine = FormatCommandLine(true);
         }
 
+        private string GetShowCommandLineToolTipText()
+        {
+            return IsCommandLineVisible ? Resources.Strings.HideCommandLine : Resources.Strings.ShowCommandLine;
+        }
+
         private void UpdateShowCommandLineCommand()
         {
             _showCommandLineToolStripButton.Image = IsCommandLineVisible ? Resources.Images.CommandLineHide : Resources.Images.CommandLine;
-            _showCommandLineToolStripButton.ToolTipText = IsCommandLineVisible ? Resources.Strings.HideCommandLine : Resources.Strings.ShowCommandLine;
+            _showCommandLineToolStripButton.ToolTipText = GetShowCommandLineToolTipText();
 
             settingsPropertyGrid.UpdateToolStripToolTip();
         }

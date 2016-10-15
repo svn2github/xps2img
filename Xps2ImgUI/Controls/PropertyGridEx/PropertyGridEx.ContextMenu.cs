@@ -31,12 +31,12 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         private static string ResetItemText
         {
-            get { return GetLocalizedString(ResetItemKey, "&Reset {0}"); }
+            get { return GetLocalizedString(ResetItemKey, "Reset {0}"); }
         }
 
         private static string ResetAllItemText
         {
-            get { return GetLocalizedString(ResetAllItemKey, "Reset &All {0}"); }
+            get { return GetLocalizedString(ResetAllItemKey, "&Reset {0}"); }
         }
 
         private static string GetLocalizedString(string key, string defaultValue)

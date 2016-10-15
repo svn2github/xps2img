@@ -166,8 +166,8 @@
     <comment>Launching xps2img... - {0}</comment>
   </data>
   <data name="Reset" xml:space="preserve">
-    <value>Reset Settings</value>
-    <comment>Reset Settings</comment>
+    <value>Reset parameters and options</value>
+    <comment>Reset parameters and options</comment>
   </data>
   <data name="CopyCommandLineToClipboard" xml:space="preserve">
     <value>&amp;Copy Command Line To Clipboard</value>
@@ -218,8 +218,8 @@
     <comment>Preferences</comment>
   </data>
   <data name="ResetToDefaults" xml:space="preserve">
-    <value>Reset All Preferences</value>
-    <comment>Reset All Preferences</comment>
+    <value>Reset preferences</value>
+    <comment>Reset preferences</comment>
   </data>
   <data name="SaveSettingsTitle" xml:space="preserve">
     <value>Save Settings</value>
@@ -718,12 +718,12 @@ What's new in version {0}
     <comment>Monthly</comment>
   </data>
   <data name="PropertyGrid_ResetItem" xml:space="preserve">
-    <value>&amp;Reset {0}</value>
-    <comment>&amp;Reset {0}</comment>
+    <value>Reset {0}</value>
+    <comment>Reset {0}</comment>
   </data>
   <data name="PropertyGrid_ResetAllItem" xml:space="preserve">
-    <value>Reset &amp;All {0}</value>
-    <comment>Reset &amp;All {0}</comment>
+    <value>&amp;Reset {0}</value>
+    <comment>&amp;Reset {0}</comment>
   </data>
   <data name="PropertyGrid_ResetAllUIOptions" xml:space="preserve">
     <value>Parameters and Options</value>

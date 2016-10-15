@@ -167,7 +167,7 @@
   </data>
   <data name="Reset" xml:space="preserve">
     <value>Повернути параметри та опції в початковий стан</value>
-    <comment>Reset Settings</comment>
+    <comment>Reset parameters and options</comment>
   </data>
   <data name="CopyCommandLineToClipboard" xml:space="preserve">
     <value>&amp;Копіювати командний рядок до буфера обміну</value>
@@ -219,7 +219,7 @@
   </data>
   <data name="ResetToDefaults" xml:space="preserve">
     <value>Повернути налаштування в початковий стан</value>
-    <comment>Reset All Preferences</comment>
+    <comment>Reset preferences</comment>
   </data>
   <data name="SaveSettingsTitle" xml:space="preserve">
     <value>Зберегти параметри та опції</value>
@@ -718,12 +718,12 @@
     <comment>Monthly</comment>
   </data>
   <data name="PropertyGrid_ResetItem" xml:space="preserve">
-    <value>&amp;Повернути {0} в початковий стан</value>
-    <comment>&amp;Reset {0}</comment>
+    <value>Повернути {0} в початковий стан</value>
+    <comment>Reset {0}</comment>
   </data>
   <data name="PropertyGrid_ResetAllItem" xml:space="preserve">
-    <value>Повернути {0} в початковий &amp;стан</value>
-    <comment>Reset &amp;All {0}</comment>
+    <value>&amp;Повернути {0} в початковий стан</value>
+    <comment>&amp;Reset {0}</comment>
   </data>
   <data name="PropertyGrid_ResetAllUIOptions" xml:space="preserve">
     <value>параметри та опції</value>

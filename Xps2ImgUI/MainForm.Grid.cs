@@ -48,7 +48,7 @@ namespace Xps2ImgUI
 
             _resetToolStripButton = settingsPropertyGrid.AddToolStripButton(Resources.Images.Eraser, () => Resources.Strings.Reset, (_, __) => settingsPropertyGrid.ResetAllAction());
 
-            // Load/save settings.
+            // Load/save Settings.
             _loadToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.LoadSettings, () => Resources.Strings.LoadSettings, (_, __) => modalAction(() => Model = SettingsManager.LoadSettings()),
                 new ToolStripButtonItem(() => Resources.Strings.SaveSettings, (_, __) => modalAction(() => SettingsManager.SaveSettings(Model)))
             );
@@ -121,7 +121,7 @@ namespace Xps2ImgUI
             settingsPropertyGrid.AddToolStripSeparator(true);
 
             // Show Command Line.
-            _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.CommandLine, () => Resources.Strings.ShowCommandLine, ShowCommandLineToolStripButtonClick,
+            _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.CommandLine, GetShowCommandLineToolTipText, ShowCommandLineToolStripButtonClick,
                 new ToolStripButtonItem(() => Resources.Strings.CopyCommandLineToClipboard, (_, __) => ClipboardUtils.CopyToClipboard(commandLineTextBox.Text)),
                 new ToolStripButtonItem(() => Resources.Strings.CopyUICommandLineToClipboard, (_, __) => ClipboardUtils.CopyToClipboard(_uiCommandLine)),
                 new ToolStripButtonItem(),
