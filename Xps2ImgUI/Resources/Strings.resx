@@ -282,8 +282,8 @@
     <comment>&amp;Yes, Delete Images</comment>
   </data>
   <data name="NoBackToApplication" xml:space="preserve">
-    <value>&amp;No, Go Back to Application</value>
-    <comment>&amp;No, Go Back to Application</comment>
+    <value>&amp;No, Back To Application</value>
+    <comment>&amp;No, Back To Application</comment>
   </data>
   <data name="StopConversionConfirmation" xml:space="preserve">
     <value>Stop Conversion Confirmation</value>
@@ -326,8 +326,8 @@
     <comment>Conversion Failed</comment>
   </data>
   <data name="BackToApplication" xml:space="preserve">
-    <value>Go &amp;Back to Application</value>
-    <comment>Go &amp;Back to Application</comment>
+    <value>&amp;Back To Application</value>
+    <comment>&amp;Back to Application</comment>
   </data>
   <data name="ResumeConversionConfirmation" xml:space="preserve">
     <value>Resume Conversion Confirmation</value>

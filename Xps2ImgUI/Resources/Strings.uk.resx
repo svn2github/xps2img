@@ -283,7 +283,7 @@
   </data>
   <data name="NoBackToApplication" xml:space="preserve">
     <value>&amp;Ні, повернутися</value>
-    <comment>&amp;No, Go Back to Application</comment>
+    <comment>&amp;No, Back to Application</comment>
   </data>
   <data name="StopConversionConfirmation" xml:space="preserve">
     <value>Підтвердження зупинки перетворення</value>
@@ -327,7 +327,7 @@
   </data>
   <data name="BackToApplication" xml:space="preserve">
     <value>&amp;Повернутися до програми</value>
-    <comment>Go &amp;Back to Application</comment>
+    <comment>&amp;Back To Application</comment>
   </data>
   <data name="ResumeConversionConfirmation" xml:space="preserve">
     <value>Підтвердження продовження перетворення</value>

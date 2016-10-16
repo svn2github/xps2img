@@ -142,7 +142,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Go &amp;Back to Application.
+        ///   Looks up a localized string similar to &amp;Back To Application.
         /// </summary>
         internal static string BackToApplication {
             get {
@@ -592,7 +592,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;No, Go Back to Application.
+        ///   Looks up a localized string similar to &amp;No, Back To Application.
         /// </summary>
         internal static string NoBackToApplication {
             get {
