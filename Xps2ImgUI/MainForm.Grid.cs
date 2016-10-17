@@ -44,7 +44,7 @@ namespace Xps2ImgUI
             settingsPropertyGrid.RemoveLastToolStripItem();
 
             // Reset Settings.
-            settingsPropertyGrid.ResetAllAction = Model.Reset;
+            settingsPropertyGrid.ResetAllAction = () => Model.Reset();
 
             _resetToolStripButton = settingsPropertyGrid.AddToolStripButton(Resources.Images.Eraser, () => Resources.Strings.Reset, (_, __) => settingsPropertyGrid.ResetAllAction());
 
