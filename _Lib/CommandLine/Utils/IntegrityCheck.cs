@@ -106,7 +106,7 @@ namespace CommandLine.Utils
                         errors.Add(String.Format("'Name' is identical for {0} and {1}", formatLongOptEx(longOptEx), formatLongOptEx(longOptExInt)));
                     }
 
-                    if (!isUnnamed && longOptEx.Val == longOptExInt.Val && !longOptEx.IsShortOptionNone)
+                    if (!isUnnamed && longOptEx.Val == longOptExInt.Val)
                     {
                         errors.Add(String.Format("'Val' is identical for {0} and {1}", formatLongOptEx(longOptEx), formatLongOptEx(longOptExInt)));
                     }
