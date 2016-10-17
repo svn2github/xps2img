@@ -283,6 +283,8 @@ namespace Xps2ImgUI
         {
             var menu = (ContextMenuStrip) sender;
 
+            menu.Renderer = settingsPropertyGrid.ToolStripRenderer;
+            
             convertToolStripMenuItem.Text = Resources.Strings.Launch;
             resumeToolStripMenuItem.Text = Resources.Strings.Resume;
             deleteImagesToolStripMenuItem.Text = Resources.Strings.DeleteImages;

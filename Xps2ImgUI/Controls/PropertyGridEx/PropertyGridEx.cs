@@ -447,6 +447,13 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public new ToolStripRenderer ToolStripRenderer
+        {
+            get { return base.ToolStripRenderer; }
+        }
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool HasSelectedObject
         {
             get { return SelectedObject != null; }

@@ -132,6 +132,8 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                 menuItems[i++].Text = text;
             }
 
+            contextMenuStrip.Renderer = ToolStripRenderer;
+
             return contextMenuStrip;
         }
 
