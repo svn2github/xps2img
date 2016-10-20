@@ -169,10 +169,25 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             }
         }
 
-        public ToolStripSplitButton AddToolStripSplitButton(Image image, Func<string> toolTipText, EventHandler eventHandler, params ToolStripButtonItem[] items)
+        public ToolStripSplitButton AddToolStripSplitButton(Func<string> updateText, Func<string> updateToolTipText, Func<Image> updateImage, EventHandler eventHandler, params ToolStripButtonItem[] items)
         {
-            var toolStripSplitButton = new ToolStripSplitButtonEx(toolTipText) { Image = image, AutoToolTip = UseAutoToolTip, ImageScaling = ToolStripItemImageScaling.None };
+            return AddToolStripSplitButton(updateImage != null ? updateImage() : null, updateText, updateToolTipText, updateImage, eventHandler, items);
+        }
+
+        public ToolStripSplitButton AddToolStripSplitButton(Image image, Func<string> updateText, Func<string> updateToolTipText, Func<Image> updateImage, EventHandler eventHandler, params ToolStripButtonItem[] items)
+        {
+            var toolStripSplitButton = new ToolStripSplitButtonEx(updateText, updateToolTipText, updateImage)
+            {
+                Image = image,
+                AutoToolTip = UseAutoToolTip,
+                ImageScaling = ToolStripItemImageScaling.None
+            };
             return AddToolStripSplitButton(toolStripSplitButton, eventHandler, items);
+        }
+
+        public ToolStripSplitButton AddToolStripSplitButton(Image image, Func<string> updateToolTipText, EventHandler eventHandler, params ToolStripButtonItem[] items)
+        {
+            return AddToolStripSplitButton(image, null, updateToolTipText, null, eventHandler, items);
         }
 
         public ToolStripSplitButton AddToolStripSplitButton(ToolStripSplitButton toolStripSplitButton, EventHandler eventHandler, params ToolStripButtonItem[] items)

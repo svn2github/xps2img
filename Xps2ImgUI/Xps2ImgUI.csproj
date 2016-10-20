@@ -276,6 +276,8 @@
     <Content Include="Resources\Png\CommandLine.png" />
     <Content Include="Resources\Png\CommandLineHide.png" />
     <Content Include="Resources\Png\Eraser.png" />
+    <Content Include="Resources\Png\Flags\English.png" />
+    <Content Include="Resources\Png\Flags\Ukrainian.png" />
     <Content Include="Resources\Png\Help.png" />
     <Content Include="Resources\Png\LoadSettings.png" />
     <Content Include="Resources\Png\Preferences.png" />

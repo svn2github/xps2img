@@ -8,7 +8,6 @@
             public const string Confirmations = "Confirmations";
             public const string Conversion    = "Conversion";
             public const string Updates       = "Updates";
-            public const string General       = "General";
         }
     }
 }

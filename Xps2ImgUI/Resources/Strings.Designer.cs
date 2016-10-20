@@ -900,15 +900,6 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 				General.
-        /// </summary>
-        internal static string Preferences_GeneralCategory {
-            get {
-                return ResourceManager.GetString("Preferences_GeneralCategory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to 			Interface.
         /// </summary>
         internal static string Preferences_InterfaceCategory {

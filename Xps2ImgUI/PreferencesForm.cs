@@ -1,13 +1,17 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 using CommandLine.Utils;
 
+using Xps2Img.Shared.Enums;
 using Xps2Img.Shared.Localization;
 
 using Xps2ImgLib.Utils;
 
+using Xps2ImgUI.Controls.PropertyGridEx.ToolStripEx;
 using Xps2ImgUI.Localization;
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Settings;
@@ -72,7 +76,6 @@ namespace Xps2ImgUI
         private void SetReadOnly()
         {
             ReflectionUtils.SetReadOnly<Preferences>(IsRunning, Preferences.Properties.ShortenExtension);
-            ReflectionUtils.SetReadOnly<Preferences>(IsRunning, Preferences.Properties.ApplicationLanguage);
 
             preferencesPropertyGrid.Refresh();
         }
@@ -83,12 +86,26 @@ namespace Xps2ImgUI
 
             preferencesPropertyGrid.ResetGroupCallback = PropertyGridResetGroupCallback;
             preferencesPropertyGrid.ResetAllAction = ResetAll;
-            preferencesPropertyGrid.ResetByCategoryFilter = pi => !IsRunning || (pi.Name != Preferences.Properties.ShortenExtension && pi.Name != Preferences.Properties.ApplicationLanguage);
+            preferencesPropertyGrid.ResetByCategoryFilter = pi => pi.Name != Preferences.Properties.ApplicationLanguage && (!IsRunning || pi.Name != Preferences.Properties.ShortenExtension);
 
             preferencesPropertyGrid.ModernLook = !Preferences.ClassicLook;
             preferencesPropertyGrid.RemoveLastToolStripItem();
 
+            // Reset.
             _resetToolStripButton = preferencesPropertyGrid.AddToolStripButton(Resources.Images.Eraser, () => Resources.Strings.ResetToDefaults, (_, __) => preferencesPropertyGrid.ResetAllAction());
+
+            // Languages.
+            var languageToolStripSplitButton = preferencesPropertyGrid.AddToolStripSplitButton(
+                () => GetLanguageName(Preferences.ApplicationLanguage), () => Resources.Strings.Preferences_ApplicationLanguageName, () => GetLanguageImage(Preferences.ApplicationLanguage),
+                (sender, _) =>
+                {
+                    var toolStripSplitButton = (ToolStripSplitButton)sender;
+                    UpdateLanguagesList(toolStripSplitButton);
+                    toolStripSplitButton.DropDown.Show();
+                });
+            languageToolStripSplitButton.Enabled = !IsRunning;
+            languageToolStripSplitButton.Alignment = ToolStripItemAlignment.Right;
+            languageToolStripSplitButton.DropDownOpening += (_, __) => UpdateLanguagesList(languageToolStripSplitButton);
 
             preferencesPropertyGrid.DocLines = 5;
             preferencesPropertyGrid.MoveSplitterByPercent(50);
@@ -103,6 +120,34 @@ namespace Xps2ImgUI
             preferencesPropertyGrid.PropertySort = _preferencesPropertySort;
 
             base.OnLoad(e);
+        }
+
+        private static string GetLanguageName(LanguagesSupported languageSupported)
+        {
+            return Xps2Img.Shared.Resources.Strings.ResourceManager.GetString(String.Format("LanguagesSupported_{0}Value", languageSupported));
+        }
+
+        private static Image GetLanguageImage(LanguagesSupported languageSupported)
+        {
+            return (Image)Resources.Images.ResourceManager.GetObject(languageSupported.ToString());
+        }
+
+        private void UpdateLanguagesList(ToolStripDropDownItem toolStripSplitButton)
+        {
+            toolStripSplitButton.DropDown.Items.Clear();
+
+            foreach (var languageSupported in Enum.GetValues(typeof(LanguagesSupported)).Cast<LanguagesSupported>().Where(ls => ls != Preferences.ApplicationLanguage))
+            {
+                var toolStripMenuItemEx = new ToolStripMenuItemEx(() => GetLanguageName(languageSupported), updateImage: () => GetLanguageImage(languageSupported));
+                toolStripMenuItemEx.Click += (_, __) =>
+                {
+                    Preferences.ApplicationLanguage = languageSupported;
+                    ChangeCulture();
+                    EnableButtons();
+                };
+
+                toolStripSplitButton.DropDown.Items.Add(toolStripMenuItemEx);
+            }
         }
 
         protected override void OnClosed(EventArgs e)
@@ -128,7 +173,7 @@ namespace Xps2ImgUI
 
             var changesTracker = new ChangesTracker(this);
 
-            using (new DisposableActions(() => changesTracker.NotifyIfChanged(() => preferencesPropertyGrid.SelectGridItem(Resources.Strings.Preferences_GeneralCategory))))
+            using (new DisposableActions(() => changesTracker.NotifyIfChanged(() => preferencesPropertyGrid.SelectGridItem(Resources.Strings.Preferences_InterfaceCategory))))
             {
                 preferencesPropertyGrid.ResetByCategory(label);
             }
@@ -157,18 +202,16 @@ namespace Xps2ImgUI
         private void ResetAll()
         {
             var oldShortenExtension = Preferences.ShortenExtension;
-            var oldApplicationLanguage = Preferences.ApplicationLanguage;
 
             var changesTracker = new ChangesTracker(this);
 
             using (new DisposableActions(() => changesTracker.NotifyIfChanged(() => preferencesPropertyGrid.UpdateToolStripToolTip())))
             {
-                Preferences.Reset();
+                Preferences.Reset(pi => pi.Name != Preferences.Properties.ApplicationLanguage);
 
                 if (IsRunning)
                 {
                     Preferences.ShortenExtension = oldShortenExtension;
-                    Preferences.ApplicationLanguage = oldApplicationLanguage;
                 }
             }
 
@@ -183,11 +226,6 @@ namespace Xps2ImgUI
         {
             // ReSharper disable once PossibleNullReferenceException
             var name = e.ChangedItem.PropertyDescriptor.Name;
-
-            if (name == Preferences.Properties.ApplicationLanguage)
-            {
-                ChangeCulture();
-            }
 
             if (name == Preferences.Properties.ClassicLook)
             {
@@ -251,9 +289,9 @@ namespace Xps2ImgUI
 
         private void EnableReset()
         {
-            var enableReset = PreferencesDifferFrom(Preferences.Default);
+            var enableReset = preferencesPropertyGrid.IsResetAllEnabled();
 
-            _resetToolStripButton.Enabled = enableReset;
+            _resetToolStripButton.Enabled = preferencesPropertyGrid.IsResetAllEnabled();
 
             if (!enableReset)
             {

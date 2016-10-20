@@ -685,10 +685,6 @@ What's new in version {0}
     <value>Check for updates interval.</value>
     <comment>Check for updates interval.</comment>
   </data>
-  <data name="Preferences_GeneralCategory" xml:space="preserve">
-    <value>&#9;&#9;&#9;&#9;General</value>
-    <comment>&#9;&#9;&#9;&#9;General</comment>
-  </data>
   <data name="Preferences_InterfaceCategory" xml:space="preserve">
     <value>&#9;&#9;&#9;Interface</value>
     <comment>&#9;&#9;&#9;Interface</comment>

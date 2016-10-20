@@ -29,7 +29,6 @@ namespace Xps2ImgUI.Utils.UI
         private const string HelpTopicProcessors                = "1212";
         private const string HelpTopicProcessPriority           = "1213";
         private const string HelpTopicProcessAffinity           = "1214";
-        private const string HelpTopicGeneral                   = "1249";
         private const string HelpTopicInterface                 = "1250";
         private const string HelpTopicAutoCompleteFilenames     = "1251";
         private const string HelpTopicAutoSaveSettings          = "1252";
@@ -59,7 +58,6 @@ namespace Xps2ImgUI.Utils.UI
             { Options.Categories.Options,           HelpTopicPageNumbers },
 
             // Preferences.
-            { Preferences.Categories.General,       HelpTopicGeneral },
             { Preferences.Categories.Interface,     HelpTopicInterface },
             { Preferences.Categories.Confirmations, HelpTopicConfirmations },
             { Preferences.Categories.Conversion,    HelpTopicConversion },
@@ -89,7 +87,6 @@ namespace Xps2ImgUI.Utils.UI
             { Options.Properties.IgnoreErrors,              HelpTopicIgnoreErrorsDisplayName },
 
             // Preferences.
-            { Preferences.Properties.ApplicationLanguage,            HelpTopicApplicationLanguage },
             { Preferences.Properties.AutoCompleteFilenames,          HelpTopicAutoCompleteFilenames },
             { Preferences.Properties.AutoSaveSettings,               HelpTopicAutoSaveSettings },
             { Preferences.Properties.ClassicLook,                    HelpTopicClassicLook },

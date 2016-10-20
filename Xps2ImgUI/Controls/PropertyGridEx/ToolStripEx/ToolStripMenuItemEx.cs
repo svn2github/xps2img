@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Xps2ImgUI.Controls.PropertyGridEx.ToolStripEx
@@ -7,9 +8,9 @@ namespace Xps2ImgUI.Controls.PropertyGridEx.ToolStripEx
     {
         private readonly LocalizableToolStripItem _localizableToolStripItem;
 
-        public ToolStripMenuItemEx(Func<string> textFunc)
+        public ToolStripMenuItemEx(Func<string> updateText, Func<string> updateToolTipText = null, Func<Image> updateImage = null)
         {
-            _localizableToolStripItem = new LocalizableToolStripItem(this, textFunc);
+            _localizableToolStripItem = new LocalizableToolStripItem(this, updateText, updateToolTipText, updateImage);
         }
 
         public void RefreshLocalization()

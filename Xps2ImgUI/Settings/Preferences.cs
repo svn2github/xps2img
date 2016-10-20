@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-
+using System.Reflection;
 using CommandLine.Utils;
 
 using Xps2Img.Shared.Enums;
@@ -13,10 +13,8 @@ namespace Xps2ImgUI.Settings
     [Serializable]
     public partial class Preferences
     {
-        [ReadOnly(false)]
-        [Category(Categories.General)]
         [DefaultValue(LanguagesSupported.English)]
-        [TypeConverter(typeof(OrderedByNameEnumConverter<LanguagesSupported>))]
+        [Browsable(false)]
         public LanguagesSupported ApplicationLanguage { get; set; }
 
         [Category(Categories.Interface)]
@@ -115,10 +113,10 @@ namespace Xps2ImgUI.Settings
             Reset();
         }
 
-        public void Reset()
+        public void Reset(Func<PropertyInfo, bool> propertyFilter = null)
         {
             var lastCheckedForUpdates = LastCheckedForUpdates;
-            ReflectionUtils.SetDefaultValues(this);
+            ReflectionUtils.SetDefaultValues(this, propertyFilter);
             LastCheckedForUpdates = lastCheckedForUpdates;
         }
 

@@ -7,9 +7,9 @@ namespace Xps2ImgUI.Controls.PropertyGridEx.ToolStripEx
     {
         private readonly LocalizableToolStripItem _localizableToolStripItem;
 
-        public ToolStripButtonEx(Func<string> textFunc)
+        public ToolStripButtonEx(Func<string> updateToolTipText)
         {
-            _localizableToolStripItem = new LocalizableToolStripItem(this, textFunc, false);
+            _localizableToolStripItem = new LocalizableToolStripItem(this, updateToolTipText : updateToolTipText);
         }
 
         public void RefreshLocalization()
