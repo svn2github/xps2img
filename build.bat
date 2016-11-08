@@ -15,6 +15,7 @@ set outFolder=%slnFolder%_bin\%buildConfig%
 set ismFolder=%slnFolder%_Lib\InnoSetup\ISM
 set buildScripts=%slnFolder%_Build\Scripts
 set mergeResources=%buildScripts%\MergeResources.bat
+set editBin=%buildScripts%\EditBin.bat
 set mergeBin=%buildScripts%\MergeBin.bat
 
 set PFx86=%PROGRAMFILES(x86)%
@@ -55,6 +56,7 @@ if /i "%buildConfig%"=="Release" (
 	call "%mergeResources%" "%outFolder%\xps2imgUI.exe" || goto ERROR
 
 	call "%mergeBin%" "%outFolder%" || goto ERROR
+	call "%editBin%"  "%outFolder%\xps2img.exe" || goto ERROR
 )
 @echo on
 
