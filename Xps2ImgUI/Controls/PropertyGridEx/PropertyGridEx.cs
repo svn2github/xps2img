@@ -559,6 +559,11 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         bool IMessageFilter.PreFilterMessage(ref Message m)
         {
+            if (_readOnly && m.Msg == WM_KEYDOWN && m.WParam.ToInt32() == VK_DELETE)
+            {
+                return true;
+            }
+
             if (m.Msg != WM_LBUTTONDBLCLK || _propertyGridView.Handle != m.HWnd || !IsSelectedGridItemUnderCursor(GetPoint(m.LParam)))
             {
                 return false;
