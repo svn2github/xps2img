@@ -80,14 +80,23 @@ namespace Xps2ImgLib
 
         private void CloseDocument()
         {
-            if (_xpsDocument != null)
+            try
             {
-                _xpsDocument.Close();
+                if (_xpsDocument != null)
+                {
+                    _xpsDocument.Close();
+                }
+            }
+            catch
+            {
+                // ignored
             }
         }
 
+        // ReSharper disable EventNeverSubscribedTo.Global
         public event EventHandler<ProgressEventArgs> OnProgress;
         public event EventHandler<ErrorEventArgs> OnError;
+        // ReSharper restore EventNeverSubscribedTo.Global
 
         private void FireOnProgress(string fileName)
         {

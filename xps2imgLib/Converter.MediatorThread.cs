@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Windows.Threading;
 
 namespace Xps2ImgLib
 {
@@ -41,6 +42,7 @@ namespace Xps2ImgLib
                         if (IsStopRequested)
                         {
                             _actionDispose();
+                            Dispatcher.CurrentDispatcher.InvokeShutdown();
                             return;
                         }
 
@@ -164,8 +166,15 @@ namespace Xps2ImgLib
                 RequestStop();
                 SwitchToWorker();
 
-                _converterThread.Join();
-                
+                try
+                {
+                    _converterThread.Join();
+                }
+                catch
+                {
+                    // ignored
+                }
+
                 GC.SuppressFinalize(this);
             }
         }
