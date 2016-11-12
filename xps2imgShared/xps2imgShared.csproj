@@ -101,7 +101,6 @@
     <Compile Include="Localization\LocalizationManager.cs" />
     <Compile Include="Properties\ProjectAssemblyInfo.cs" />
     <Compile Include="TypeConverters\CheckedFirstPageIndexTypeConverter.cs" />
-    <Compile Include="TypeConverters\OrderedByNameEnumConverter.cs" />
     <Compile Include="TypeConverters\FilterableEnumConverter.cs" />
     <Compile Include="TypeConverters\OptionsEnumConverter.cs" />
     <Compile Include="Enums\PostAction.cs" />

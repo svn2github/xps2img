@@ -37,9 +37,16 @@ namespace Xps2ImgUI.Settings
             var saveFileDialog = new SaveFileDialog { Title = Resources.Strings.SaveSettingsTitle, AddExtension = true };
             InitFileDialog(saveFileDialog);
 
-            #if DEBUG
-            saveFileDialog.FileName = DateTime.Now.ToString("x2i-yyyyMMdd-HHmmss");
-            #endif
+            var srcFile = (xps2ImgModel.SrcFile ?? String.Empty).Trim();
+            if (!String.IsNullOrEmpty(srcFile))
+            {
+                var optionsObject = xps2ImgModel.OptionsObject;
+                saveFileDialog.FileName = String.Format("{0}-{1}-{2}-{3:yyyyMMdd-HHmmss}",
+                                                        Path.GetFileNameWithoutExtension(srcFile),
+                                                        optionsObject.FileType.ToString().ToUpperInvariant(),
+                                                        optionsObject.Pages != null ? "AllPages" : "SelectedPages",
+                                                        DateTime.Now);
+            }
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
