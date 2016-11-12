@@ -737,6 +737,22 @@
     <value>За алфавітом</value>
     <comment>Alphabetical</comment>
   </data>
+  <data name="SettingsManager_NamePartAllPages" xml:space="preserve">
+    <value>Всі</value>
+    <comment>All</comment>
+  </data>
+  <data name="SettingsManager_NamePartSomePages" xml:space="preserve">
+    <value>Деякі</value>
+    <comment>Some</comment>
+  </data>
+  <data name="SettingsManager_NamePartDpi" xml:space="preserve">
+    <value>Dpi</value>
+    <comment>Dpi</comment>
+  </data>
+  <data name="SettingsManager_NamePartSize" xml:space="preserve">
+    <value>Розм</value>
+    <comment>Sz</comment>
+  </data>
   <data name="PropertyGrid_ResetUIOptions_OutDir" xml:space="preserve">
     <value>папку призначення</value>
     <comment>LANGUAGE SPECIFIC</comment>

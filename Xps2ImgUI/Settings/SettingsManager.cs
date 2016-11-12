@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -8,8 +10,8 @@ using System.Xml.Serialization;
 using CommandLine;
 
 using Xps2Img.Shared.CommandLine;
+using Xps2Img.Shared.TypeConverters;
 using Xps2Img.Shared.Utils;
-
 using Xps2ImgUI.Model;
 
 namespace Xps2ImgUI.Settings
@@ -32,21 +34,43 @@ namespace Xps2ImgUI.Settings
             return new Xps2ImgModel(Parser.Parse<UIOptions>(commandLine, true));
         }
 
+        private static string ConvertToStringWith<T>(object value, string prefix = null, bool convert = true) where T : TypeConverter, new()
+        {
+            return convert ? prefix + (new T()).ConvertToString(value) : null;
+        }
+
+        private static IEnumerable<string> GetSettingsFileNameParts(Xps2ImgModel xps2ImgModel)
+        {
+            var srcFile = Path.GetFileNameWithoutExtension((xps2ImgModel.SrcFile ?? String.Empty).Trim());
+            if (String.IsNullOrEmpty(srcFile))
+            {
+                yield break;
+            }
+
+            var optionsObject = xps2ImgModel.OptionsObject;
+            var requiredSize  = optionsObject.RequiredSize;
+            var dpi           = optionsObject.Dpi;
+
+            yield return srcFile;
+            yield return ConvertToStringWith<OptionsEnumConverter<Xps2ImgLib.ImageType>>(optionsObject.FileType);
+            yield return optionsObject.Pages == null ? Resources.Strings.SettingsManager_NamePartAllPages : Resources.Strings.SettingsManager_NamePartSomePages;
+            yield return ConvertToStringWith<CheckedDpiTypeConverter>(dpi, Resources.Strings.SettingsManager_NamePartDpi, dpi.HasValue && !requiredSize.HasValue && dpi != Options.Defaults.DpiValue);
+            yield return ConvertToStringWith<RequiredSizeTypeConverter>(requiredSize, Resources.Strings.SettingsManager_NamePartSize, requiredSize.HasValue);
+            yield return DateTime.Now.ToString(Resources.Strings.SettingsManager_NamePartTimestamp);
+        }
+
+        private static string GetSettingsFileName(Xps2ImgModel xps2ImgModel)
+        {
+            var parts = GetSettingsFileNameParts(xps2ImgModel).Where(p => p != null).ToArray();
+            return parts.Any() ? String.Join(Resources.Strings.SettingsManager_NamePartSeparator, parts) : null;
+        }
+
         public static void SaveSettings(Xps2ImgModel xps2ImgModel)
         {
             var saveFileDialog = new SaveFileDialog { Title = Resources.Strings.SaveSettingsTitle, AddExtension = true };
             InitFileDialog(saveFileDialog);
 
-            var srcFile = (xps2ImgModel.SrcFile ?? String.Empty).Trim();
-            if (!String.IsNullOrEmpty(srcFile))
-            {
-                var optionsObject = xps2ImgModel.OptionsObject;
-                saveFileDialog.FileName = String.Format("{0}-{1}-{2}-{3:yyyyMMdd-HHmmss}",
-                                                        Path.GetFileNameWithoutExtension(srcFile),
-                                                        optionsObject.FileType.ToString().ToUpperInvariant(),
-                                                        optionsObject.Pages != null ? "AllPages" : "SelectedPages",
-                                                        DateTime.Now);
-            }
+            saveFileDialog.FileName = GetSettingsFileName(xps2ImgModel);
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {

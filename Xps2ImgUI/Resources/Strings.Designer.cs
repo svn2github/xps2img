@@ -1134,6 +1134,60 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        internal static string SettingsManager_NamePartAllPages {
+            get {
+                return ResourceManager.GetString("SettingsManager_NamePartAllPages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dpi.
+        /// </summary>
+        internal static string SettingsManager_NamePartDpi {
+            get {
+                return ResourceManager.GetString("SettingsManager_NamePartDpi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to +.
+        /// </summary>
+        internal static string SettingsManager_NamePartSeparator {
+            get {
+                return ResourceManager.GetString("SettingsManager_NamePartSeparator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sz.
+        /// </summary>
+        internal static string SettingsManager_NamePartSize {
+            get {
+                return ResourceManager.GetString("SettingsManager_NamePartSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Some.
+        /// </summary>
+        internal static string SettingsManager_NamePartSomePages {
+            get {
+                return ResourceManager.GetString("SettingsManager_NamePartSomePages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yyMMdd-HHmmss.
+        /// </summary>
+        internal static string SettingsManager_NamePartTimestamp {
+            get {
+                return ResourceManager.GetString("SettingsManager_NamePartTimestamp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S&amp;horten Image Extension.
         /// </summary>
         internal static string ShortenImageExtension {

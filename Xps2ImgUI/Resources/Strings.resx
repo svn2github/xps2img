@@ -737,6 +737,30 @@ What's new in version {0}
     <value>Alphabetical</value>
     <comment>Alphabetical</comment>
   </data>
+  <data name="SettingsManager_NamePartAllPages" xml:space="preserve">
+    <value>All</value>
+    <comment>All</comment>
+  </data>
+  <data name="SettingsManager_NamePartSomePages" xml:space="preserve">
+    <value>Some</value>
+    <comment>Some</comment>
+  </data>
+  <data name="SettingsManager_NamePartDpi" xml:space="preserve">
+    <value>Dpi</value>
+    <comment>Dpi</comment>
+  </data>
+  <data name="SettingsManager_NamePartSize" xml:space="preserve">
+    <value>Sz</value>
+    <comment>Sz</comment>
+  </data>
+  <data name="SettingsManager_NamePartTimestamp" xml:space="preserve">
+    <value>yyMMdd-HHmmss</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+  <data name="SettingsManager_NamePartSeparator" xml:space="preserve">
+    <value>+</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>XPS to Images Converter</value>
     <comment>NON LOCALIZABLE</comment>
