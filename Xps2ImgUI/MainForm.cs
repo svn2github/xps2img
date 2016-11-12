@@ -76,6 +76,11 @@ namespace Xps2ImgUI
 
             RegisterCultureSpecificConvertButtonSize();
 
+            commandLineTextBox.SizeChanged += AdjustTextBoxVerticalScrollBarVisibility;
+            commandLineTextBox.TextChanged += AdjustTextBoxVerticalScrollBarVisibility;
+
+            AdjustTextBoxVerticalScrollBarVisibility(commandLineTextBox);
+
             convertButton.ContextMenuStrip = convertContextMenuStrip;
 
             var isCommandLineVisible = IsCommandLineVisible;

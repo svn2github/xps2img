@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.ComponentModel;
+using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -301,6 +302,21 @@ namespace Xps2ImgUI
 
             var index = 0;
             Array.ForEach(_preferences.AlwaysResume ? items.Reverse().ToArray() : items, i => menu.Items.Insert(index++, i));
+        }
+
+        private static void AdjustTextBoxVerticalScrollBarVisibility(object sender, EventArgs eventArgs = null)
+        {
+            var textBox = (TextBox)sender;
+            var textBoxRect = TextRenderer.MeasureText(textBox.Text, textBox.Font, new Size(textBox.Width, int.MaxValue), TextFormatFlags.WordBreak | TextFormatFlags.TextBoxControl);
+            try
+            {
+                textBox.ScrollBars = textBoxRect.Height > textBox.ClientSize.Height ? ScrollBars.Vertical : ScrollBars.None;
+            }
+            catch (Win32Exception)
+            {
+                // This sometimes throws a "failure to create window handle" error.
+                // It might happen if the TextBox is invisible and/or too small to display a toolbar.
+            }
         }
 
         private bool _autoClosed;
