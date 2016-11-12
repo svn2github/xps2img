@@ -610,8 +610,8 @@ What's new in version {0}
     <comment>Show Elapsed Time And Statistics</comment>
   </data>
   <data name="Preferences_ShowElapsedTimeAndStatisticsDescription" xml:space="preserve">
-    <value>Show time elapsed by last operation and conversion statistics in application title.</value>
-    <comment>Show time elapsed by last operation and conversion statistics in application title.</comment>
+    <value>Show last operation elapsed time and conversion statistics in application title.</value>
+    <comment>Show last operation elapsed time and conversion statistics in application title.</comment>
   </data>
   <data name="Preferences_FlashWhenCompletedName" xml:space="preserve">
     <value>Flash When Completed</value>
@@ -666,16 +666,16 @@ What's new in version {0}
     <comment>Suggest Resume</comment>
   </data>
   <data name="Preferences_SuggestResumeDescription" xml:space="preserve">
-    <value>Suggest to resume last conversion if applicable instead of starting new one.</value>
-    <comment>Suggest to resume last conversion if applicable instead of starting new one.</comment>
+    <value>Suggest resuming last conversion if applicable instead of starting new one.</value>
+    <comment>Suggest resuming last conversion if applicable instead of starting new one.</comment>
   </data>
   <data name="Preferences_ShortenExtensionName" xml:space="preserve">
     <value>Shorten Image Extension</value>
     <comment>Shorten Image Extension</comment>
   </data>
   <data name="Preferences_ShortenExtensionDescription" xml:space="preserve">
-    <value>Shortens image extension down to three characters.</value>
-    <comment>Shortens image extension down to three characters.</comment>
+    <value>Shorten image extension down to three characters.</value>
+    <comment>Shorten image extension down to three characters.</comment>
   </data>
   <data name="Preferences_CheckForUpdatesName" xml:space="preserve">
     <value>Check For Updates</value>

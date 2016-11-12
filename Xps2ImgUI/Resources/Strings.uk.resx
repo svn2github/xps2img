@@ -611,7 +611,7 @@
   </data>
   <data name="Preferences_ShowElapsedTimeAndStatisticsDescription" xml:space="preserve">
     <value>Показувати статистику останнього перетворення у заголовці програми.</value>
-    <comment>Show time elapsed by last operation and conversion statistics in application title.</comment>
+    <comment>Show last operation elapsed time and conversion statistics in application title.</comment>
   </data>
   <data name="Preferences_FlashWhenCompletedName" xml:space="preserve">
     <value>Візуальна індикація після перетворення</value>
@@ -667,7 +667,7 @@
   </data>
   <data name="Preferences_SuggestResumeDescription" xml:space="preserve">
     <value>Пропонувати продовжувати поточне перетворення замість початку нового, якщо це можливо.</value>
-    <comment>Suggest to resume last conversion if applicable instead of starting new one.</comment>
+    <comment>Suggest resuming last conversion if applicable instead of starting new one.</comment>
   </data>
   <data name="Preferences_ShortenExtensionName" xml:space="preserve">
     <value>Короткі розширення імен зображень</value>
@@ -675,7 +675,7 @@
   </data>
   <data name="Preferences_ShortenExtensionDescription" xml:space="preserve">
     <value>Використовувати короткі розширення імен зображень довжиною не більше трьох символів.</value>
-    <comment>Shortens image extension down to three characters.</comment>
+    <comment>Shorten image extension down to three characters.</comment>
   </data>
   <data name="Preferences_CheckForUpdatesName" xml:space="preserve">
     <value>Перевіряти наявність оновлень</value>
