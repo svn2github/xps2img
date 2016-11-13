@@ -307,7 +307,7 @@ namespace Xps2ImgUI
         private static void AdjustTextBoxVerticalScrollBarVisibility(object sender, EventArgs eventArgs = null)
         {
             var textBox = (TextBox)sender;
-            var textBoxRect = TextRenderer.MeasureText(textBox.Text, textBox.Font, new Size(textBox.Width, int.MaxValue), TextFormatFlags.WordBreak | TextFormatFlags.TextBoxControl);
+            var textBoxRect = TextRenderer.MeasureText(textBox.Text, textBox.Font, new Size(textBox.ClientSize.Width - SystemInformation.VerticalScrollBarWidth, int.MaxValue), TextFormatFlags.WordBreak | TextFormatFlags.TextBoxControl);
             try
             {
                 textBox.ScrollBars = textBoxRect.Height > textBox.ClientSize.Height ? ScrollBars.Vertical : ScrollBars.None;
