@@ -165,19 +165,19 @@
     <comment>DoNothing</comment>
   </data>
   <data name="PostAction_ShutdownValue" xml:space="preserve">
-    <value>Виключити</value>
+    <value>Вимкнути комп'ютер</value>
     <comment>Shutdown</comment>
   </data>
   <data name="PostAction_RebootValue" xml:space="preserve">
-    <value>Перезавантажити</value>
+    <value>Перезавантажити комп'ютер</value>
     <comment>Reboot</comment>
   </data>
   <data name="PostAction_SleepValue" xml:space="preserve">
-    <value>Заснути</value>
+    <value>Перейти до сплячого режиму комп'ютера</value>
     <comment>Sleep</comment>
   </data>
   <data name="PostAction_HibernateValue" xml:space="preserve">
-    <value>Перейти до гібернації</value>
+    <value>Перейти до режиму гібернації комп'ютера</value>
     <comment>Hibernate</comment>
   </data>
   <data name="PostAction_LogOffValue" xml:space="preserve">
