@@ -189,13 +189,9 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             for (var i = 0; i < text.Length; i++)
             {
                 var ch = text[i];
-                if (i >= text.Length - 1)
-                {
-                    stringBuilder.Append(Char.ToLower(ch));
-                    break;
-                }
-                var chNext = text[i+1];
-                stringBuilder.Append(Char.IsUpper(ch) && (Char.IsWhiteSpace(chNext) || Char.IsUpper(chNext)) ? ch : Char.ToLower(ch));
+                var chPrev = i != 0 ? text[i - 1] : Char.MinValue;
+                var chNext = i < text.Length - 1 ? text[i + 1] : Char.MinValue;
+                stringBuilder.Append(Char.IsUpper(ch) && (Char.IsWhiteSpace(chNext) || Char.IsUpper(chNext) || Char.IsUpper(chPrev)) ? ch : Char.ToLower(ch));
             }
 
             return stringBuilder.ToString();
