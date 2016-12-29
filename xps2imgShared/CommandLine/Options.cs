@@ -100,6 +100,7 @@ namespace Xps2Img.Shared.CommandLine
         [Category(Categories.Options)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
+        [Editor(typeof(CheckBoxTypeEditor), typeof(UITypeEditor))]
         public bool UseFileNameAsImageName
         {
             get { return ImageName == Names.Empty; }
@@ -131,6 +132,7 @@ namespace Xps2Img.Shared.CommandLine
         [Option(ShortOptions.ShortenExtension, ArgumentExpectancy.No)]
         [Browsable(false)]
         [UIOption(ShortOptions.ShortenExtension)]
+        [Editor(typeof(CheckBoxTypeEditor), typeof(UITypeEditor))]
         public bool ShortenExtension { get; set; }
 
         [Category(Categories.Options)]
@@ -183,6 +185,7 @@ namespace Xps2Img.Shared.CommandLine
         [UIOption(ShortOptions.IgnoreExisting)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
+        [Editor(typeof(CheckBoxTypeEditor), typeof(UITypeEditor))]
         public bool IgnoreExisting { get; set; }
 
         [Category(Categories.Options)]
@@ -190,6 +193,7 @@ namespace Xps2Img.Shared.CommandLine
         [UIOption(ShortOptions.IgnoreErrors)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
+        [Editor(typeof(CheckBoxTypeEditor), typeof(UITypeEditor))]
         public bool IgnoreErrors { get; set; }
 
         [Option(ShortOptions.SilentMode, ArgumentExpectancy.No)]

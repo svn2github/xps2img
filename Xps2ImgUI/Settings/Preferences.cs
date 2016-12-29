@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing.Design;
 using System.Linq;
 using System.Reflection;
 using CommandLine.Utils;
 
 using Xps2Img.Shared.Enums;
 using Xps2Img.Shared.TypeConverters;
+using Xps2Img.Shared.TypeEditors;
 
 namespace Xps2ImgUI.Settings
 {
@@ -20,62 +22,74 @@ namespace Xps2ImgUI.Settings
         [Category(Categories.Interface)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
+        [Editor(typeof(CheckBoxTypeEditor), typeof(UITypeEditor))]
         public bool AutoCompleteFilenames { get; set; }
 
         [Category(Categories.Interface)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
+        [Editor(typeof(CheckBoxTypeEditor), typeof(UITypeEditor))]
         public bool AutoSaveSettings { get; set; }
 
         [Category(Categories.Interface)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
+        [Editor(typeof(CheckBoxTypeEditor), typeof(UITypeEditor))]
         public bool ClassicLook { get; set; }
 
         [Category(Categories.Interface)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
+        [Editor(typeof(CheckBoxTypeEditor), typeof(UITypeEditor))]
         public bool ShowElapsedTimeAndStatistics { get; set; }
 
         [Category(Categories.Interface)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
+        [Editor(typeof(CheckBoxTypeEditor), typeof(UITypeEditor))]
         public bool FlashWhenCompleted { get; set; }
 
         [Category(Categories.Confirmations)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
+        [Editor(typeof(CheckBoxTypeEditor), typeof(UITypeEditor))]
         public bool ConfirmOnAfterConversion { get; set; }
 
         [Category(Categories.Confirmations)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
+        [Editor(typeof(CheckBoxTypeEditor), typeof(UITypeEditor))]
         public bool ConfirmOnDelete { get; set; }
 
         [Category(Categories.Confirmations)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
+        [Editor(typeof(CheckBoxTypeEditor), typeof(UITypeEditor))]
         public bool ConfirmOnExit { get; set; }
 
         [Category(Categories.Confirmations)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
+        [Editor(typeof(CheckBoxTypeEditor), typeof(UITypeEditor))]
         public bool ConfirmOnStop { get; set; }
 
         [Category(Categories.Conversion)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
+        [Editor(typeof(CheckBoxTypeEditor), typeof(UITypeEditor))]
         public bool AlwaysResume { get; set; }
 
         [Category(Categories.Conversion)]
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
+        [Editor(typeof(CheckBoxTypeEditor), typeof(UITypeEditor))]
         public bool SuggestResume { get; set; }
 
         [ReadOnly(false)]
         [Category(Categories.Conversion)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
+        [Editor(typeof(CheckBoxTypeEditor), typeof(UITypeEditor))]
         public bool ShortenExtension { get; set; }
 
         [Category(Categories.Updates)]

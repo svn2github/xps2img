@@ -100,6 +100,11 @@
     <Compile Include="Localization\LocalizableTypeDescriptor.cs" />
     <Compile Include="Localization\LocalizationManager.cs" />
     <Compile Include="Properties\ProjectAssemblyInfo.cs" />
+    <Compile Include="Resources\Images.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Images.resx</DependentUpon>
+    </Compile>
     <Compile Include="TypeConverters\CheckedFirstPageIndexTypeConverter.cs" />
     <Compile Include="TypeConverters\FilterableEnumConverter.cs" />
     <Compile Include="TypeConverters\OptionsEnumConverter.cs" />
@@ -109,6 +114,7 @@
     <Compile Include="TypeConverters\IntervalTypeConverter.cs" />
     <Compile Include="TypeConverters\RequiredSizeTypeConverter.cs" />
     <Compile Include="TypeEditors\CheckedListBoxUITypeEditor.cs" />
+    <Compile Include="TypeEditors\CheckBoxTypeEditor.cs" />
     <Compile Include="TypeEditors\CpuAffinityUITypeEditor.cs" />
     <Compile Include="Utils\SystemManagementUtils.cs" />
     <Compile Include="Utils\System\AssemblyInformation.cs" />
@@ -152,6 +158,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Images.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Images.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
@@ -161,7 +171,12 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Unchecked.png" />
+    <None Include="Resources\Checked.png" />
+    <Content Include="Resources\Png\Checked.png" />
+    <Content Include="Resources\Png\Unchecked.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)_Build\Common.targets" />
   <Target Name="BeforeBuild" DependsOnTargets="ReplaceResourceManager" />
