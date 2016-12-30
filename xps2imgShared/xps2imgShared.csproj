@@ -161,6 +161,7 @@
     <EmbeddedResource Include="Resources\Images.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Images.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -172,8 +173,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Unchecked.png" />
-    <None Include="Resources\Checked.png" />
     <Content Include="Resources\Png\Checked.png" />
     <Content Include="Resources\Png\Unchecked.png" />
   </ItemGroup>
