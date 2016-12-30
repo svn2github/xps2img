@@ -36,9 +36,9 @@ namespace Xps2Img.Shared.TypeEditors
             }
         }
 
-        private PropertyInfo _isValueEditablePropertyInfo;
+        private static PropertyInfo _isValueEditablePropertyInfo;
 
-        private bool IsValueEditable(object context)
+        private static bool IsValueEditable(object context)
         {
             if (_isValueEditablePropertyInfo == null)
             {
