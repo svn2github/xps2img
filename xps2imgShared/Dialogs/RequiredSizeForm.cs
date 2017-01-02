@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-using Xps2Img.Shared.Localization;
 using Xps2Img.Shared.Localization.Forms;
 
 namespace Xps2Img.Shared.Dialogs
@@ -33,7 +32,7 @@ namespace Xps2Img.Shared.Dialogs
             Close(false);
         }
 
-        public Size? RequiredSize { get; set; }
+        public Size? Value { get; set; }
 
         public void UICultureChanged()
         {

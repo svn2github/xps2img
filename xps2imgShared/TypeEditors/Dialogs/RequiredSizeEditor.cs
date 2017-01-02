@@ -24,7 +24,7 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
                 return value;
             }
 
-            using (var requiredSizeForm = new RequiredSizeForm { RequiredSize = (Size?)value })
+            using (var requiredSizeForm = new RequiredSizeForm { Value = (Size?)value })
             {
                 CancelEventHandler requiredSizeFormClosing = delegate { windowsFormsEditorService.CloseDropDown(); };
 
@@ -32,12 +32,7 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
                 windowsFormsEditorService.DropDownControl(requiredSizeForm);
                 requiredSizeForm.Closing -= requiredSizeFormClosing;
 
-                if (requiredSizeForm.DialogResult != DialogResult.OK)
-                {
-                    return value;
-                }
-
-                return value;
+                return requiredSizeForm.DialogResult == DialogResult.OK ? value : requiredSizeForm.Value;
             }
         }
 

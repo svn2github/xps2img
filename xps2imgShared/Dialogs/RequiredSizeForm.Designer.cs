@@ -36,7 +36,7 @@
             // okButton
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.Location = new System.Drawing.Point(152, 299);
+            this.okButton.Location = new System.Drawing.Point(153, 299);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 1;
@@ -67,7 +67,7 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.ScrollAlwaysVisible = true;
             this.listBox1.Size = new System.Drawing.Size(300, 267);
-            this.listBox1.TabIndex = 3;
+            this.listBox1.TabIndex = 0;
             // 
             // RequiredSizeForm
             // 
