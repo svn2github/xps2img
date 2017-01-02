@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Xps2Img.Shared.TypeEditors
 {
-    public class CheckBoxTypeEditor : UITypeEditor
+    public class CheckBoxGlyphEditor : UITypeEditor
     {
         public override bool GetPaintValueSupported(ITypeDescriptorContext context)
         {

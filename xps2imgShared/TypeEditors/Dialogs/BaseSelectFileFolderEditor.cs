@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing.Design;
 
-namespace Xps2Img.Shared.Dialogs
+namespace Xps2Img.Shared.TypeEditors.Dialogs
 {
     public class BaseSelectFileFolderEditor : UITypeEditor
     {

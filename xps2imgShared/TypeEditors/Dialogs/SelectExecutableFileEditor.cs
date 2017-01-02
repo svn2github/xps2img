@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Xps2Img.Shared.Dialogs
+namespace Xps2Img.Shared.TypeEditors.Dialogs
 {
     public class SelectExecutableFileEditor : SelectFileEditor
     {

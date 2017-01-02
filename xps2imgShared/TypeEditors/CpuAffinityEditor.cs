@@ -7,7 +7,7 @@ using Xps2Img.Shared.TypeConverters;
 
 namespace Xps2Img.Shared.TypeEditors
 {
-    public class CpuAffinityUITypeEditor : CheckedListBoxUITypeEditor<string>
+    public class CpuAffinityEditor : CheckedListBoxEditor<string>
     {
         private static IEnumerable<ListItem> NewItems(bool check = true)
         {
@@ -16,7 +16,7 @@ namespace Xps2Img.Shared.TypeEditors
                     .Select(x => new ListItem { Item = x.ToString(CultureInfo.InvariantCulture), Checked = check });
         }
 
-        protected CpuAffinityUITypeEditor()
+        protected CpuAffinityEditor()
         {
             _items = NewItems();
         }

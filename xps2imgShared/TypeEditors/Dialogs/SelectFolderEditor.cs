@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 using Xps2Img.Shared.Utils.UI;
 
-namespace Xps2Img.Shared.Dialogs
+namespace Xps2Img.Shared.TypeEditors.Dialogs
 {
     public class SelectFolderEditor : BaseSelectFileFolderEditor
     {

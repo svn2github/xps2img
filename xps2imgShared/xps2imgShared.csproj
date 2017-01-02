@@ -82,12 +82,18 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Diagnostics\ValidateProperties.cs" />
-    <Compile Include="Dialogs\BaseSelectFileFolderEditor.cs" />
-    <Compile Include="Dialogs\SelectExecutableFileEditor.cs" />
-    <Compile Include="Dialogs\SelectFileEditor.cs" />
-    <Compile Include="Dialogs\SelectFolderEditor.cs" />
-    <Compile Include="Dialogs\SelectXpsFileEditor.cs" />
-    <Compile Include="Dialogs\SelectXpsFolderEditor.cs" />
+    <Compile Include="TypeEditors\Dialogs\BaseSelectFileFolderEditor.cs" />
+    <Compile Include="TypeEditors\Dialogs\SelectExecutableFileEditor.cs" />
+    <Compile Include="TypeEditors\Dialogs\SelectFileEditor.cs" />
+    <Compile Include="TypeEditors\Dialogs\SelectFolderEditor.cs" />
+    <Compile Include="TypeEditors\Dialogs\SelectXpsFileEditor.cs" />
+    <Compile Include="TypeEditors\Dialogs\SelectXpsFolderEditor.cs" />
+    <Compile Include="Dialogs\RequiredSizeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\RequiredSizeForm.Designer.cs">
+      <DependentUpon>RequiredSizeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Enums\LanguagesSupported.cs" />
     <Compile Include="Internal\ProcessOutput.cs" />
     <Compile Include="Localization\DefaultLocalizablePropertyDescriptorStrategy.cs" />
@@ -113,9 +119,10 @@
     <Compile Include="Localization\TypeConverters\LocalizableEnumConverter.cs" />
     <Compile Include="TypeConverters\IntervalTypeConverter.cs" />
     <Compile Include="TypeConverters\RequiredSizeTypeConverter.cs" />
-    <Compile Include="TypeEditors\CheckedListBoxUITypeEditor.cs" />
-    <Compile Include="TypeEditors\CheckBoxTypeEditor.cs" />
-    <Compile Include="TypeEditors\CpuAffinityUITypeEditor.cs" />
+    <Compile Include="TypeEditors\CheckedListBoxEditor.cs" />
+    <Compile Include="TypeEditors\CheckBoxGlyphEditor.cs" />
+    <Compile Include="TypeEditors\Dialogs\RequiredSizeEditor.cs" />
+    <Compile Include="TypeEditors\CpuAffinityEditor.cs" />
     <Compile Include="Utils\SystemManagementUtils.cs" />
     <Compile Include="Utils\System\AssemblyInformation.cs" />
     <Compile Include="Setup\SetupGuard.cs" />
@@ -144,7 +151,7 @@
     <Compile Include="TypeConverters\ProcessPriorityClassTypeConverter.cs" />
     <Compile Include="TypeConverters\TrimStringTypeConverter.cs" />
     <Compile Include="TypeConverters\YesNoConverter.cs" />
-    <Compile Include="TypeEditors\OrdinalUITypeEditor.cs" />
+    <Compile Include="TypeEditors\OrdinalEditor.cs" />
     <Compile Include="CommandLine\Validation.cs" />
   </ItemGroup>
   <ItemGroup>

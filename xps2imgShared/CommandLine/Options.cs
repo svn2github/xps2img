@@ -9,10 +9,10 @@ using CommandLine;
 using CommandLine.Utils;
 
 using Xps2Img.Shared.Attributes.UI;
-using Xps2Img.Shared.Dialogs;
 using Xps2Img.Shared.Enums;
 using Xps2Img.Shared.TypeConverters;
 using Xps2Img.Shared.TypeEditors;
+using Xps2Img.Shared.TypeEditors.Dialogs;
 
 using Xps2ImgLib;
 
@@ -56,7 +56,7 @@ namespace Xps2Img.Shared.CommandLine
         [Option(ShortOptions.Pages, ConverterType = typeof(PagesTypeConverter), ValidationExpression = ValidationExpressions.Pages)]
         [UIOption(ShortOptions.Pages)]
         [DefaultValue(null)]
-        [Editor(typeof(OrdinalUITypeEditor), typeof(UITypeEditor))]
+        [Editor(typeof(OrdinalEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(PagesTypeConverter))]
         public List<Interval> Pages { get; set; }
 
@@ -88,6 +88,7 @@ namespace Xps2Img.Shared.CommandLine
         [UIOption(ShortOptions.RequiredSize)]
         [DefaultValue(null)]
         [TypeConverter(typeof(CheckedRequiredSizeTypeConverter))]
+        [Editor(typeof(RequiredSizeEditor), typeof(UITypeEditor))]
         public Size? RequiredSize { get; set; }
 
         [Category(Categories.Options)]
@@ -100,7 +101,7 @@ namespace Xps2Img.Shared.CommandLine
         [Category(Categories.Options)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
-        [Editor(typeof(CheckBoxTypeEditor), typeof(UITypeEditor))]
+        [Editor(typeof(CheckBoxGlyphEditor), typeof(UITypeEditor))]
         public bool UseFileNameAsImageName
         {
             get { return ImageName == Names.Empty; }
@@ -132,7 +133,7 @@ namespace Xps2Img.Shared.CommandLine
         [Option(ShortOptions.ShortenExtension, ArgumentExpectancy.No)]
         [Browsable(false)]
         [UIOption(ShortOptions.ShortenExtension)]
-        [Editor(typeof(CheckBoxTypeEditor), typeof(UITypeEditor))]
+        [Editor(typeof(CheckBoxGlyphEditor), typeof(UITypeEditor))]
         public bool ShortenExtension { get; set; }
 
         [Category(Categories.Options)]
@@ -176,7 +177,7 @@ namespace Xps2Img.Shared.CommandLine
         [Option(ShortOptions.CpuAffinity, DescriptionKey = Properties.Consts.CpuAffinity + DescriptionKeyPostfix, ValidationExpression = ValidationExpressions.CpuAffinity)]
         [UIOption(ShortOptions.CpuAffinity)]
         [DefaultValue(null)]
-        [Editor(typeof(CpuAffinityUITypeEditor), typeof(UITypeEditor))]
+        [Editor(typeof(CpuAffinityEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(CpuAffinityTypeConverter))]
         public IntPtr? CpuAffinity { get; set; }
 
@@ -185,7 +186,7 @@ namespace Xps2Img.Shared.CommandLine
         [UIOption(ShortOptions.IgnoreExisting)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
-        [Editor(typeof(CheckBoxTypeEditor), typeof(UITypeEditor))]
+        [Editor(typeof(CheckBoxGlyphEditor), typeof(UITypeEditor))]
         public bool IgnoreExisting { get; set; }
 
         [Category(Categories.Options)]
@@ -193,7 +194,7 @@ namespace Xps2Img.Shared.CommandLine
         [UIOption(ShortOptions.IgnoreErrors)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
-        [Editor(typeof(CheckBoxTypeEditor), typeof(UITypeEditor))]
+        [Editor(typeof(CheckBoxGlyphEditor), typeof(UITypeEditor))]
         public bool IgnoreErrors { get; set; }
 
         [Option(ShortOptions.SilentMode, ArgumentExpectancy.No)]

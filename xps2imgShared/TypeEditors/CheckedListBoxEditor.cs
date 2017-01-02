@@ -10,7 +10,7 @@ using Xps2Img.Shared.Controls;
 
 namespace Xps2Img.Shared.TypeEditors
 {
-    public abstract class CheckedListBoxUITypeEditor<T> : UITypeEditor
+    public abstract class CheckedListBoxEditor<T> : UITypeEditor
     {
         protected class ListItem
         {

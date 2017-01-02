@@ -1,4 +1,4 @@
-﻿namespace Xps2Img.Shared.Dialogs
+﻿namespace Xps2Img.Shared.TypeEditors.Dialogs
 {
     public class SelectXpsFolderEditor : SelectFolderEditor
     {
