@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
 using System.Windows.Forms;
-using System.Windows.Forms.Design;
 
 using Xps2Img.Shared.Dialogs;
 
@@ -13,12 +12,7 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
     {
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
-            if (provider == null)
-            {
-                return value;
-            }
-
-            var windowsFormsEditorService = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
+            var windowsFormsEditorService = provider.GetWindowsFormsEditorService();
             if (windowsFormsEditorService == null)
             {
                 return value;
@@ -32,7 +26,7 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
                 windowsFormsEditorService.DropDownControl(requiredSizeForm);
                 requiredSizeForm.Closing -= requiredSizeFormClosing;
 
-                return requiredSizeForm.DialogResult == DialogResult.OK ? value : requiredSizeForm.Value;
+                return requiredSizeForm.DialogResult == DialogResult.OK ? requiredSizeForm.Value : value;
             }
         }
 

@@ -125,6 +125,7 @@
     <Compile Include="TypeEditors\CheckBoxGlyphEditor.cs" />
     <Compile Include="TypeEditors\Dialogs\RequiredSizeEditor.cs" />
     <Compile Include="TypeEditors\CpuAffinityEditor.cs" />
+    <Compile Include="TypeEditors\Utils.cs" />
     <Compile Include="Utils\SystemManagementUtils.cs" />
     <Compile Include="Utils\System\AssemblyInformation.cs" />
     <Compile Include="Setup\SetupGuard.cs" />

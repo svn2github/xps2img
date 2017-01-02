@@ -29,6 +29,8 @@ namespace Xps2ImgUI
             {
                 Options.Properties.SrcFile,
                 Options.Properties.OutDir,
+                Options.Properties.Pages,
+                Options.Properties.RequiredSize,
                 Options.Properties.CpuAffinity
             };
             

@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Forms.Design;
 
 using Xps2Img.Shared.Controls;
 
@@ -24,12 +23,7 @@ namespace Xps2Img.Shared.TypeEditors
 
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
-            if (provider == null)
-            {
-                return DefaultValue;
-            }
-
-            var windowsFormsEditorService = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
+            var windowsFormsEditorService = provider.GetWindowsFormsEditorService();
             if (windowsFormsEditorService == null)
             {
                 return DefaultValue;
