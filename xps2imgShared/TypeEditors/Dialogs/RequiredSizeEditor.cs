@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Drawing.Design;
+using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
 using Xps2Img.Shared.Dialogs;
@@ -13,21 +15,30 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
         {
             if (provider == null)
             {
-                return null;
+                return value;
             }
 
             var windowsFormsEditorService = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
             if (windowsFormsEditorService == null)
             {
-                return null;
+                return value;
             }
 
-            using (var requiredSizeForm = new RequiredSizeForm())
+            using (var requiredSizeForm = new RequiredSizeForm { RequiredSize = (Size?)value })
             {
-                windowsFormsEditorService.DropDownControl(requiredSizeForm);
-            }
+                CancelEventHandler requiredSizeFormClosing = delegate { windowsFormsEditorService.CloseDropDown(); };
 
-            return null;
+                requiredSizeForm.Closing += requiredSizeFormClosing;
+                windowsFormsEditorService.DropDownControl(requiredSizeForm);
+                requiredSizeForm.Closing -= requiredSizeFormClosing;
+
+                if (requiredSizeForm.DialogResult != DialogResult.OK)
+                {
+                    return value;
+                }
+
+                return value;
+            }
         }
 
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)

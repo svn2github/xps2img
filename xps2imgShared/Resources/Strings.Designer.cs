@@ -70,6 +70,15 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Files (*.*)|*.*.
         /// </summary>
         public static string FilterAllFiles {
@@ -169,6 +178,15 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clean (delete images).
         /// </summary>
         public static string Options_CleanDescription {
@@ -194,7 +212,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CPUs processors will be executed on
+        ///   Looks up a localized string similar to CPUs document processors will be executed on
         ///  all by default
         ///Syntax:
         ///  all:		0-
@@ -615,7 +633,7 @@ namespace Xps2Img.Shared.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to TIFF compression method
-        ///  CCITT3, CCITT4 and RLE produce black and white images.
+        ///  CCITT G3, CCITT G4 and RLE produce black and white images.
         /// </summary>
         public static string Options_TiffCompressionDescription {
             get {
@@ -795,7 +813,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CCITT3.
+        ///   Looks up a localized string similar to CCITT G3.
         /// </summary>
         public static string TiffCompressOption_Ccitt3Value {
             get {
@@ -804,7 +822,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CCITT4.
+        ///   Looks up a localized string similar to CCITT G4.
         /// </summary>
         public static string TiffCompressOption_Ccitt4Value {
             get {

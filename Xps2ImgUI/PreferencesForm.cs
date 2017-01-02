@@ -8,11 +8,11 @@ using CommandLine.Utils;
 
 using Xps2Img.Shared.Enums;
 using Xps2Img.Shared.Localization;
-
+using Xps2Img.Shared.Localization.Forms;
 using Xps2ImgLib.Utils;
 
 using Xps2ImgUI.Controls.PropertyGridEx.ToolStripEx;
-using Xps2ImgUI.Localization;
+
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Settings;
 using Xps2ImgUI.Utils.UI;
@@ -138,10 +138,11 @@ namespace Xps2ImgUI
 
             foreach (var languageSupported in Enum.GetValues(typeof(LanguagesSupported)).Cast<LanguagesSupported>().Where(ls => ls != Preferences.ApplicationLanguage))
             {
-                var toolStripMenuItemEx = new ToolStripMenuItemEx(() => GetLanguageName(languageSupported), updateImage: () => GetLanguageImage(languageSupported));
+                var languageSupportedLocal = languageSupported;
+                var toolStripMenuItemEx = new ToolStripMenuItemEx(() => GetLanguageName(languageSupportedLocal), updateImage: () => GetLanguageImage(languageSupportedLocal));
                 toolStripMenuItemEx.Click += (_, __) =>
                 {
-                    Preferences.ApplicationLanguage = languageSupported;
+                    Preferences.ApplicationLanguage = languageSupportedLocal;
                     ChangeCulture();
                     EnableButtons();
                 };
@@ -193,8 +194,8 @@ namespace Xps2ImgUI
         {
             Text = Resources.Strings.Preferences_Title;
 
-            okButton.Text = Resources.Strings.OK;
-            cancelButton.Text = Resources.Strings.Cancel;
+            okButton.Text = Xps2Img.Shared.Resources.Strings.OK;
+            cancelButton.Text = Xps2Img.Shared.Resources.Strings.Cancel;
 
             preferencesPropertyGrid.RefreshLocalization();
         }

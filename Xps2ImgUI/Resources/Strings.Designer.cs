@@ -178,15 +178,6 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        internal static string Cancel {
-            get {
-                return ResourceManager.GetString("Cancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to \n\n● Cancel reverts to previous valid value.\n● OK returns to value editing..
         /// </summary>
         internal static string CancelToUsePreviousValidValue {
@@ -635,15 +626,6 @@ namespace Xps2ImgUI.Resources {
         internal static string NotConvertedPageNumbersConfirmToCopy {
             get {
                 return ResourceManager.GetString("NotConvertedPageNumbersConfirmToCopy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to OK.
-        /// </summary>
-        internal static string OK {
-            get {
-                return ResourceManager.GetString("OK", resourceCulture);
             }
         }
         

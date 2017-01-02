@@ -408,4 +408,12 @@
     <value>Опції</value>
     <comment>Options</comment>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>ОК</value>
+    <comment>OK</comment>
+  </data>
 </root>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Xps2ImgUI.Localization
+namespace Xps2Img.Shared.Localization.Forms
 {
     public interface IFormLocalization
     {

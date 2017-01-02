@@ -82,6 +82,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Diagnostics\ValidateProperties.cs" />
+    <Compile Include="Localization\Forms\FormLocalizationManager.cs" />
+    <Compile Include="Localization\Forms\IFormLocalization.cs" />
     <Compile Include="TypeEditors\Dialogs\BaseSelectFileFolderEditor.cs" />
     <Compile Include="TypeEditors\Dialogs\SelectExecutableFileEditor.cs" />
     <Compile Include="TypeEditors\Dialogs\SelectFileEditor.cs" />

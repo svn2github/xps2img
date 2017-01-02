@@ -537,14 +537,6 @@ What's new in version {0}
     <value>&amp;Yes, Copy to Clipboard</value>
     <comment>&amp;Yes, Copy to Clipboard</comment>
   </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
-    <comment>Cancel</comment>
-  </data>
-  <data name="OK" xml:space="preserve">
-    <value>OK</value>
-    <comment>OK</comment>
-  </data>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
     <comment>Close</comment>

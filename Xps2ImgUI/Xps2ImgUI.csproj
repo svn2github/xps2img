@@ -89,7 +89,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\PropertyGridEx\ToolStripEx\LocalizableToolStripItem.cs" />
-    <Compile Include="Localization\FormLocalizationManager.cs" />
     <Compile Include="MainForm.Events.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Form</SubType>
@@ -212,7 +211,6 @@
     </None>
     <None Include="Utils\Stubs\UpdateManager.cs" />
     <Compile Include="Utils\Interfaces\IUpdateManager.cs" />
-    <Compile Include="Localization\IFormLocalization.cs" />
     <Compile Include="Utils\UpdateManager.cs" />
     <Compile Include="Utils\UI\Explorer.cs" />
     <Compile Include="Utils\UI\IconExtractor.cs" />

@@ -2,7 +2,8 @@
 using System.Windows.Forms;
 using System.ComponentModel;
 
-using Xps2ImgUI.Localization;
+using Xps2Img.Shared.Localization.Forms;
+
 using Xps2ImgUI.Utils.Interfaces;
 using Xps2ImgUI.Utils.UI;
 
@@ -80,7 +81,7 @@ namespace Xps2ImgUI
         {
             _textFormat = Resources.Strings.Downloading;
 
-            cancelButton.Text = Resources.Strings.Cancel;
+            cancelButton.Text = Xps2Img.Shared.Resources.Strings.Cancel;
 
             SetTitle(0);
         }

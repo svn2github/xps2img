@@ -2,9 +2,9 @@
 using System.Drawing;
 using System.Windows.Forms;
 
+using Xps2Img.Shared.Localization.Forms;
 using Xps2Img.Shared.Utils;
 
-using Xps2ImgUI.Localization;
 using Xps2ImgUI.Utils.UI;
 
 namespace Xps2ImgUI
@@ -107,8 +107,8 @@ namespace Xps2ImgUI
 
         public void UICultureChanged()
         {
-            okButton.Text = Resources.Strings.OK;
-            cancelButton.Text = Resources.Strings.Cancel;
+            okButton.Text = Xps2Img.Shared.Resources.Strings.OK;
+            cancelButton.Text = Xps2Img.Shared.Resources.Strings.Cancel;
 
             UpdateLabelText();
         }
