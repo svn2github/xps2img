@@ -42,7 +42,6 @@
             this.okButton.TabIndex = 1;
             this.okButton.Text = "okButton";
             this.okButton.UseVisualStyleBackColor = true;
-            this.okButton.Click += new System.EventHandler(this.OKButtonClick);
             // 
             // cancelButton
             // 
@@ -54,7 +53,6 @@
             this.cancelButton.TabIndex = 2;
             this.cancelButton.Text = "cancelButton";
             this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.CancelButtonClick);
             // 
             // listBox1
             // 
@@ -76,13 +74,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(314, 330);
-            this.ControlBox = false;
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "RequiredSizeForm";
-            this.ShowInTaskbar = false;
             this.ResumeLayout(false);
 
         }

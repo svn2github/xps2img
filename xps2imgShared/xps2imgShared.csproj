@@ -82,6 +82,15 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Diagnostics\ValidateProperties.cs" />
+    <Compile Include="Dialogs\BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ListForm.Designer.cs">
+      <DependentUpon>ListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Localization\Forms\FormLocalizationManager.cs" />
     <Compile Include="Localization\Forms\IFormLocalization.cs" />
     <Compile Include="TypeEditors\Dialogs\BaseSelectFileFolderEditor.cs" />

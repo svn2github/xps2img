@@ -1,43 +1,19 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-
-using Xps2Img.Shared.Localization.Forms;
+﻿using System.Drawing;
 
 namespace Xps2Img.Shared.Dialogs
 {
-    public partial class RequiredSizeForm : Form, IFormLocalization
+    public partial class RequiredSizeForm : BaseForm
     {
-        public RequiredSizeForm()
-        {
-            TopLevel = false;
-            InitializeComponent();
-
-            this.EnableFormLocalization();
-        }
-
-        private void Close(bool ok)
-        {
-            DialogResult = ok ? DialogResult.OK : DialogResult.Cancel;
-            Close();
-        }
-
-        private void OKButtonClick(object sender, EventArgs e)
-        {
-            Close(true);
-        }
-
-        private void CancelButtonClick(object sender, EventArgs e)
-        {
-            Close(false);
-        }
-
         public Size? Value { get; set; }
 
-        public void UICultureChanged()
+        public RequiredSizeForm()
         {
-            okButton.Text = Resources.Strings.OK;
-            cancelButton.Text = Resources.Strings.Cancel;
+            InitializeComponent();
+        }
+
+        public override void UICultureChanged()
+        {
+            base.UICultureChanged();
         }
     }
 }
