@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing.Design;
+using System.Globalization;
 using System.Windows.Forms;
 
 using Xps2Img.Shared.Dialogs;
@@ -20,11 +21,15 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
             using (var listForm = new ListForm())
             {
                 listForm.DefaultValue = DefaultValue;
+
                 listForm.Value = (int?) value;
+
                 listForm.MinValue = MinValue;
                 listForm.MaxValue = MaxValue;
                 listForm.Values = Values;
+
                 listForm.Title = context != null ? context.PropertyDescriptor.DisplayName : String.Empty;
+
                 listForm.TrackBarTickFrequency = TrackBarTickFrequency;
                 listForm.TrackBarLargeChange = TrackBarLargeChange;
 
@@ -46,6 +51,11 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
         public override bool IsDropDownResizable
         {
             get { return true; }
+        }
+
+        protected static int IntToString(string value)
+        {
+            return Int32.Parse(value, CultureInfo.InvariantCulture);
         }
 
         public abstract int DefaultValue { get; }

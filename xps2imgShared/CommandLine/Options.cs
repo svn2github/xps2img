@@ -73,6 +73,7 @@ namespace Xps2Img.Shared.CommandLine
         [DefaultValue(85)]
         [DynamicPropertyFilter(Properties.Consts.FileType, ImageType.Jpeg)]
         [TypeConverter(typeof(JpegNullableIntTypeConverter))]
+        [Editor(typeof(JpegQualityEditor), typeof(UITypeEditor))]
         public int? JpegQuality { get; set; }
 
         [Category(Categories.Options)]
@@ -96,7 +97,7 @@ namespace Xps2Img.Shared.CommandLine
         [UIOption(ShortOptions.Dpi)]
         [DefaultValue(Defaults.DpiValue)]
         [TypeConverter(typeof(CheckedDpiTypeConverter))]
-        [Editor(typeof(DpiListFormEditor), typeof(UITypeEditor))]
+        [Editor(typeof(DpiEditor), typeof(UITypeEditor))]
         public int? Dpi { get; set; }
 
         [Category(Categories.Options)]

@@ -36,11 +36,19 @@ namespace Xps2Img.Shared.Dialogs
                 UICultureChanged();
             }
         }
+        
+        protected virtual bool CanClose(bool ok)
+        {
+            return true;
+        }
 
         private void Close(bool ok)
         {
             DialogResult = ok ? DialogResult.OK : DialogResult.Cancel;
-            Close();
+            if (CanClose(ok))
+            {
+                Close();
+            }
         }
 
         private void OKButtonClick(object sender, EventArgs e)

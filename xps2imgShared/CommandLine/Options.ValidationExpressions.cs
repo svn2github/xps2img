@@ -15,11 +15,15 @@ namespace Xps2Img.Shared.CommandLine
 
             public const string AutoValue      = "Auto";
             public const string CpuAffinity    = "/" + Interval.ValidationRegex0 + "/i";
-            public const string Dpi            = "16-2350";
+            public const string MinDpi         = "16";
+            public const string MaxDpi         = "2350";
+            public const string Dpi            = MinDpi + "-" + MaxDpi;
             public const string FileName       = @"/^([^\x00-\x1F<>:""/\\|?*])*$/";
             public const string FirstPageIndex = "/" + Regexps.FirstPageIndex + "/";
             public const string ImageName      = FileName;
-            public const string JpegQuality    = "10-100";
+            public const string MinJpegQuality = "10";
+            public const string MaxJpegQuality = "100";
+            public const string JpegQuality    = MinJpegQuality + "-" + MaxJpegQuality;
             public const string Pages          = "/" + Interval.ValidationRegex + "/";
             public const string PrelimsPrefix  = FileName;
             public const string RequiredSize   = "/" + @"^$|" + RequiredSizeTypeConverter.ValidationRegex + "/";

@@ -11,8 +11,6 @@ namespace Xps2Img.Shared.TypeConverters
         {
         }
 
-        private static readonly int[] JpegQuality = { 10, 15, 25, 35, 45, 55, 65, 75, 85, 95, 100 };
-
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
         {
             return true;
@@ -20,7 +18,7 @@ namespace Xps2Img.Shared.TypeConverters
 
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(JpegQuality);
+            return new StandardValuesCollection(Options.Defaults.JpegQualityValues);
         }
     }
 }
