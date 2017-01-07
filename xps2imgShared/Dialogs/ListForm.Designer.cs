@@ -120,6 +120,7 @@
             this.valueTrackBar.Name = "valueTrackBar";
             this.valueTrackBar.Size = new System.Drawing.Size(317, 45);
             this.valueTrackBar.TabIndex = 2;
+            this.valueTrackBar.ValueChanged += new System.EventHandler(this.valueTrackBar_ValueChanged);
             // 
             // valueComboBox
             // 

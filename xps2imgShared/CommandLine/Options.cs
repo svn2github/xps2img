@@ -96,6 +96,7 @@ namespace Xps2Img.Shared.CommandLine
         [UIOption(ShortOptions.Dpi)]
         [DefaultValue(Defaults.DpiValue)]
         [TypeConverter(typeof(CheckedDpiTypeConverter))]
+        [Editor(typeof(DpiListFormEditor), typeof(UITypeEditor))]
         public int? Dpi { get; set; }
 
         [Category(Categories.Options)]

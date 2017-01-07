@@ -91,9 +91,12 @@
     <Compile Include="Dialogs\ListForm.Designer.cs">
       <DependentUpon>ListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\IFormValue.cs" />
     <Compile Include="Localization\Forms\FormLocalizationManager.cs" />
     <Compile Include="Localization\Forms\IFormLocalization.cs" />
     <Compile Include="TypeEditors\Dialogs\BaseSelectFileFolderEditor.cs" />
+    <Compile Include="TypeEditors\Dialogs\DpiListFormEditor.cs" />
+    <Compile Include="TypeEditors\Dialogs\ListFormEditorBase.cs" />
     <Compile Include="TypeEditors\Dialogs\SelectExecutableFileEditor.cs" />
     <Compile Include="TypeEditors\Dialogs\SelectFileEditor.cs" />
     <Compile Include="TypeEditors\Dialogs\SelectFolderEditor.cs" />
@@ -177,6 +180,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Dialogs\ListForm.resx">
+      <DependentUpon>ListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Images.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Images.Designer.cs</LastGenOutput>

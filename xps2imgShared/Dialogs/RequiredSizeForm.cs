@@ -2,10 +2,8 @@
 
 namespace Xps2Img.Shared.Dialogs
 {
-    public partial class RequiredSizeForm : BaseForm
+    public partial class RequiredSizeForm : BaseForm, IFormValue<Size?>
     {
-        public Size? Value { get; set; }
-
         public RequiredSizeForm()
         {
             InitializeComponent();
@@ -15,5 +13,7 @@ namespace Xps2Img.Shared.Dialogs
         {
             base.UICultureChanged();
         }
+
+        public Size? Value { get; set; }
     }
 }
