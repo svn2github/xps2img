@@ -11,10 +11,10 @@ namespace Xps2Img.Shared.Dialogs
         protected BaseForm()
         {
             TopLevel = false;
-            FormBorderStyle = FormBorderStyle.None;
 
             if (!DesignMode)
             {
+                FormBorderStyle = FormBorderStyle.None;
                 this.EnableFormLocalization();
             }
         }

@@ -45,7 +45,7 @@
             // okButton
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.Location = new System.Drawing.Point(281, 55);
+            this.okButton.Location = new System.Drawing.Point(183, 55);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 1;
@@ -56,7 +56,7 @@
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(358, 55);
+            this.cancelButton.Location = new System.Drawing.Point(260, 55);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 2;
@@ -77,7 +77,7 @@
             this.tableLayoutPanel.Name = "tableLayoutPanel";
             this.tableLayoutPanel.RowCount = 1;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(430, 47);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(332, 47);
             this.tableLayoutPanel.TabIndex = 0;
             // 
             // labelPanel
@@ -109,7 +109,7 @@
             this.controlsPanel.Location = new System.Drawing.Point(70, 0);
             this.controlsPanel.Margin = new System.Windows.Forms.Padding(0);
             this.controlsPanel.Name = "controlsPanel";
-            this.controlsPanel.Size = new System.Drawing.Size(360, 47);
+            this.controlsPanel.Size = new System.Drawing.Size(262, 47);
             this.controlsPanel.TabIndex = 1;
             // 
             // valueTrackBar
@@ -118,7 +118,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.valueTrackBar.Location = new System.Drawing.Point(76, 1);
             this.valueTrackBar.Name = "valueTrackBar";
-            this.valueTrackBar.Size = new System.Drawing.Size(282, 45);
+            this.valueTrackBar.Size = new System.Drawing.Size(184, 45);
             this.valueTrackBar.TabIndex = 2;
             this.valueTrackBar.ValueChanged += new System.EventHandler(this.ValueTrackBarValueChanged);
             // 
@@ -139,7 +139,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(440, 80);
+            this.ClientSize = new System.Drawing.Size(342, 81);
             this.Controls.Add(this.tableLayoutPanel);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
