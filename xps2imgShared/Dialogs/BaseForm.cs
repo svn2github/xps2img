@@ -45,7 +45,7 @@ namespace Xps2Img.Shared.Dialogs
         private void Close(bool ok)
         {
             DialogResult = ok ? DialogResult.OK : DialogResult.Cancel;
-            if (CanClose(ok))
+            if (!ok || CanClose())
             {
                 Close();
             }
