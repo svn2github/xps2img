@@ -8,15 +8,10 @@ using Xps2Img.Shared.Utils.UI;
 
 namespace Xps2Img.Shared.TypeEditors.Dialogs
 {
-    public class SelectFileEditor : BaseSelectFileFolderEditor
+    public class SelectFileEditor : SelectFileFolderEditorBase
     {
         public Func<string> Filter { get; set; }
         public string InitialDirectory { get; set; }
-
-        public SelectFileEditor()
-            : this(null, null)
-        {
-        }
 
         public SelectFileEditor(Func<string> filter)
             : this(filter, null)

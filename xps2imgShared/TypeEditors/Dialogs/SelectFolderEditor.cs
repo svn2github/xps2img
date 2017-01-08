@@ -7,7 +7,7 @@ using Xps2Img.Shared.Utils.UI;
 
 namespace Xps2Img.Shared.TypeEditors.Dialogs
 {
-    public class SelectFolderEditor : BaseSelectFileFolderEditor
+    public class SelectFolderEditor : SelectFileFolderEditorBase
     {
         public string Description { get; set; }
 

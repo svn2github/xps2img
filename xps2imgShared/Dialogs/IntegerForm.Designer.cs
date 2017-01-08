@@ -1,6 +1,6 @@
 ﻿namespace Xps2Img.Shared.Dialogs
 {
-    partial class ListForm
+    partial class IntegerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -133,7 +133,7 @@
             this.valueComboBox.TextUpdate += new System.EventHandler(this.ValueComboBoxTextUpdate);
             this.valueComboBox.SelectedValueChanged += new System.EventHandler(this.ValueComboBoxSelectedValueChanged);
             // 
-            // ListForm
+            // IntegerForm
             // 
             this.AcceptButton = this.okButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -143,7 +143,7 @@
             this.Controls.Add(this.tableLayoutPanel);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
-            this.Name = "ListForm";
+            this.Name = "IntegerForm";
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             this.labelPanel.ResumeLayout(false);

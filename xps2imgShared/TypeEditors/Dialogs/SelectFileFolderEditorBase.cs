@@ -3,11 +3,11 @@ using System.Drawing.Design;
 
 namespace Xps2Img.Shared.TypeEditors.Dialogs
 {
-    public class BaseSelectFileFolderEditor : UITypeEditor
+    public class SelectFileFolderEditorBase : UITypeEditor
     {
-        public Func<string> Title { get; set; }
+        protected Func<string> Title { get; set; }
 
-        public string DefaultFolder
+        protected static string DefaultFolder
         {
             #if DEBUG
             get { return System.Windows.Forms.Application.ExecutablePath; }

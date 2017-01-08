@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace Xps2Img.Shared.Dialogs
 {
-    public partial class ListForm : BaseForm, IFormValue<int?>
+    public partial class IntegerForm : BaseForm, IFormValue<int?>
     {
-        public ListForm()
+        public IntegerForm()
         {
             InitializeComponent();
         }
