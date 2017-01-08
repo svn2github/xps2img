@@ -29,7 +29,7 @@ namespace Xps2Img.Shared.Dialogs
             base.OnLoad(e);
         }
 
-        protected override bool CanClose(bool ok)
+        protected override bool CanClose()
         {
             Value = valueTrackBar.Value;
             return true;

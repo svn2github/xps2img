@@ -19,7 +19,7 @@ namespace Xps2Img.Shared.Dialogs
             }
         }
 
-        protected new bool DesignMode
+        private new bool DesignMode
         {
             get { return base.DesignMode || LicenseManager.UsageMode == LicenseUsageMode.Designtime; }
         }
@@ -37,7 +37,7 @@ namespace Xps2Img.Shared.Dialogs
             }
         }
         
-        protected virtual bool CanClose(bool ok)
+        protected virtual bool CanClose()
         {
             return true;
         }
