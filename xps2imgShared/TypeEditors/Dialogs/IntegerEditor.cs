@@ -11,12 +11,11 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
         protected override void InitForm(IntegerForm form, ITypeDescriptorContext context, int? value)
         {
             form.DefaultValue = DefaultValue;
-
             form.Value = value;
+            form.Values = Values;
 
             form.MinValue = MinValue;
             form.MaxValue = MaxValue;
-            form.Values = Values;
 
             form.Title = context != null ? context.PropertyDescriptor.DisplayName : String.Empty;
 
