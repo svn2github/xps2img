@@ -19,7 +19,8 @@ namespace Xps2Img.Shared.Dialogs
             valueTrackBar.Minimum = MinValue;
             valueTrackBar.Maximum = MaxValue;
 
-            valueTrackBar.Value = Value ?? DefaultValue;
+            var value = Value ?? DefaultValue;
+            valueTrackBar.Value = IsValueInRange(value) ? value : MinValue;
 
             valueTrackBar.TickFrequency = TrackBarTickFrequency;
             valueTrackBar.LargeChange = TrackBarLargeChange;
