@@ -13,14 +13,19 @@ namespace Xps2Img.Shared.Dialogs
 
         protected override void OnLoad(EventArgs e)
         {
-            valueComboBox.Text = IntToString(Value ?? DefaultValue);
+            var value = Value ?? DefaultValue;
+            if (!IsValueInRange(value))
+            {
+                value = MinValue;
+            }
+
+            valueComboBox.Text = IntToString(value);
             valueComboBox.Items.AddRange(Values.Select(v => IntToString(v)).Cast<object>().ToArray());
 
             valueTrackBar.Minimum = MinValue;
             valueTrackBar.Maximum = MaxValue;
 
-            var value = Value ?? DefaultValue;
-            valueTrackBar.Value = IsValueInRange(value) ? value : MinValue;
+            valueTrackBar.Value = value;
 
             valueTrackBar.TickFrequency = TrackBarTickFrequency;
             valueTrackBar.LargeChange = TrackBarLargeChange;
