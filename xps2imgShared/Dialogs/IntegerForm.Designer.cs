@@ -116,9 +116,9 @@
             // 
             this.valueTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.valueTrackBar.Location = new System.Drawing.Point(76, 1);
+            this.valueTrackBar.Location = new System.Drawing.Point(63, 1);
             this.valueTrackBar.Name = "valueTrackBar";
-            this.valueTrackBar.Size = new System.Drawing.Size(184, 45);
+            this.valueTrackBar.Size = new System.Drawing.Size(197, 45);
             this.valueTrackBar.TabIndex = 2;
             this.valueTrackBar.ValueChanged += new System.EventHandler(this.ValueTrackBarValueChanged);
             // 
@@ -128,8 +128,9 @@
             this.valueComboBox.Location = new System.Drawing.Point(0, 5);
             this.valueComboBox.MaxDropDownItems = 15;
             this.valueComboBox.Name = "valueComboBox";
-            this.valueComboBox.Size = new System.Drawing.Size(75, 21);
+            this.valueComboBox.Size = new System.Drawing.Size(59, 21);
             this.valueComboBox.TabIndex = 1;
+            this.valueComboBox.DropDown += new System.EventHandler(this.ValueComboBoxDropDown);
             this.valueComboBox.TextUpdate += new System.EventHandler(this.ValueComboBoxTextUpdate);
             this.valueComboBox.SelectedValueChanged += new System.EventHandler(this.ValueComboBoxSelectedValueChanged);
             // 

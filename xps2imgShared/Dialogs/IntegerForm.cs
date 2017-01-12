@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
@@ -20,12 +21,11 @@ namespace Xps2Img.Shared.Dialogs
             }
 
             valueComboBox.Text = IntToString(value);
-            valueComboBox.Items.AddRange(Values.Select(v => IntToString(v)).Cast<object>().ToArray());
 
             valueTrackBar.Minimum = MinValue;
             valueTrackBar.Maximum = MaxValue;
 
-            valueTrackBar.Value = value;
+            SelectedValue = value;
 
             valueTrackBar.TickFrequency = TrackBarTickFrequency;
             valueTrackBar.LargeChange = TrackBarLargeChange;
@@ -37,7 +37,7 @@ namespace Xps2Img.Shared.Dialogs
 
         protected override bool CanClose()
         {
-            Value = valueTrackBar.Value;
+            Value = SelectedValue;
             return true;
         }
 
@@ -58,7 +58,7 @@ namespace Xps2Img.Shared.Dialogs
         {
             if (!_fromComboBox)
             {
-                valueComboBox.Text = IntToString(valueTrackBar.Value);
+                valueComboBox.Text = IntToString(SelectedValue);
             }
         }
 
@@ -77,26 +77,54 @@ namespace Xps2Img.Shared.Dialogs
             int intValue;
             return Int32.TryParse(strValue, NumberStyles.None, CultureInfo.InvariantCulture, out intValue) && IsValueInRange(intValue)
                      ? intValue
-                     : valueTrackBar.Value;
+                     : SelectedValue;
+        }
+
+        private int SelectedValue
+        {
+            get { return valueTrackBar.Value; }
+            set { valueTrackBar.Value = value; }
         }
 
         private bool _fromComboBox;
 
-        private void ComboBoxValue()
+        private void SetSelectedValueFromComboBox()
         {
             _fromComboBox = true;
-            valueTrackBar.Value = AdjustValue(valueComboBox.Text);
+            SelectedValue = AdjustValue(valueComboBox.Text);
             _fromComboBox = false;
         }
 
         private void ValueComboBoxSelectedValueChanged(object sender, EventArgs e)
         {
-            ComboBoxValue();
+            SetSelectedValueFromComboBox();
         }
 
         private void ValueComboBoxTextUpdate(object sender, EventArgs e)
         {
-            ComboBoxValue();
+            SetSelectedValueFromComboBox();
+        }
+
+        private IEnumerable<object> GetValueComboBoxItems(int insertIndex, int value)
+        {
+            for (var i = 0; i < Values.Length; i++)
+            {
+                if (i == insertIndex)
+                {
+                    yield return value;
+                }
+                yield return Values[i];
+            }
+        }
+
+        private void ValueComboBoxDropDown(object sender, EventArgs e)
+        {
+            var selectedValue = SelectedValue;
+            var index = IsValueInRange(selectedValue) ? Array.BinarySearch(Values, selectedValue) : 0;
+            index = index < 0 ? ~index : -1;
+
+            valueComboBox.Items.Clear();
+            valueComboBox.Items.AddRange(GetValueComboBoxItems(index, selectedValue).ToArray());
         }
     }
 }
