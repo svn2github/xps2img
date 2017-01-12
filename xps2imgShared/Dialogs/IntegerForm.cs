@@ -54,12 +54,22 @@ namespace Xps2Img.Shared.Dialogs
 
         public int[] Values { get; set; }
 
-        private void ValueTrackBarValueChanged(object sender, EventArgs e)
+        private void SetSelectedValueFromTrackBar()
         {
             if (!_fromComboBox)
             {
                 valueComboBox.Text = IntToString(SelectedValue);
             }
+        }
+
+        private void ValueTrackBarEnter(object sender, EventArgs e)
+        {
+            SetSelectedValueFromTrackBar();
+        }
+
+        private void ValueTrackBarValueChanged(object sender, EventArgs e)
+        {
+            SetSelectedValueFromTrackBar();
         }
 
         private bool IsValueInRange(int intValue)

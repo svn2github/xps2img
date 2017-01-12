@@ -121,6 +121,7 @@
             this.valueTrackBar.Size = new System.Drawing.Size(197, 45);
             this.valueTrackBar.TabIndex = 2;
             this.valueTrackBar.ValueChanged += new System.EventHandler(this.ValueTrackBarValueChanged);
+            this.valueTrackBar.Enter += new System.EventHandler(this.ValueTrackBarEnter);
             // 
             // valueComboBox
             // 
