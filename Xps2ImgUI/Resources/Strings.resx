@@ -566,8 +566,8 @@ What's new in version {0}
     <comment>{0}% - Downloading Update</comment>
   </data>
   <data name="Preferences_ApplicationLanguageName" xml:space="preserve">
-    <value>Application Language</value>
-    <comment>Application Language</comment>
+    <value>Application language</value>
+    <comment>Application language</comment>
   </data>
   <data name="Preferences_ApplicationLanguageDescription" xml:space="preserve">
     <value>User interface language.</value>

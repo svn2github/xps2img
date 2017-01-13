@@ -567,7 +567,7 @@
   </data>
   <data name="Preferences_ApplicationLanguageName" xml:space="preserve">
     <value>Мова програми</value>
-    <comment>Application Language</comment>
+    <comment>Application language</comment>
   </data>
   <data name="Preferences_ApplicationLanguageDescription" xml:space="preserve">
     <value>Мова програми.</value>
