@@ -149,18 +149,11 @@
     <value>Автоматично</value>
     <comment>Auto</comment>
   </data>
-  <data name="Yes" xml:space="preserve">
-    <value>Так</value>
-    <comment>Yes</comment>
-  </data>
-  <data name="No" xml:space="preserve">
-    <value>Ні</value>
-    <comment>No</comment>
-  </data>
   <data name="TiffCompressOption_NoneValue" xml:space="preserve">
     <value>Не стискати</value>
     <comment>None</comment>
-  </data>  <data name="PostAction_DoNothingValue" xml:space="preserve">
+  </data>
+  <data name="PostAction_DoNothingValue" xml:space="preserve">
     <value>Нічого не робити</value>
     <comment>DoNothing</comment>
   </data>

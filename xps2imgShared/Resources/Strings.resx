@@ -149,14 +149,6 @@
     <value>Auto</value>
     <comment>Auto</comment>
   </data>
-  <data name="Yes" xml:space="preserve">
-    <value>Yes</value>
-    <comment>Yes</comment>
-  </data>
-  <data name="No" xml:space="preserve">
-    <value>No</value>
-    <comment>No</comment>
-  </data>
   <data name="TiffCompressOption_NoneValue" xml:space="preserve">
     <value>None</value>
     <comment>None</comment>
@@ -416,6 +408,14 @@
   <data name="OK" xml:space="preserve">
     <value>OK</value>
     <comment>OK</comment>
+  </data>
+    <data name="Yes" xml:space="preserve">
+    <value>&#8203;</value>
+    <comment>NON LOCALIZABLE</comment>
+  </data>
+    <data name="No" xml:space="preserve">
+    <value>&#8203;&#8203;</value>
+    <comment>NON LOCALIZABLE</comment>
   </data>
   <data name="ImageType_PngValue" xml:space="preserve">
     <value>PNG</value>
