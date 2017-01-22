@@ -198,7 +198,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Png\Checked.png" />
+    <Content Include="Resources\Png\CheckedDefault.png" />
     <Content Include="Resources\Png\Unchecked.png" />
+    <Content Include="Resources\Png\UncheckedDefault.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)_Build\Common.targets" />

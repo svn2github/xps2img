@@ -67,9 +67,23 @@ namespace Xps2Img.Shared.Resources {
             }
         }
         
+        internal static System.Drawing.Bitmap CheckedDefault {
+            get {
+                object obj = ResourceManager.GetObject("CheckedDefault", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Unchecked {
             get {
                 object obj = ResourceManager.GetObject("Unchecked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap UncheckedDefault {
+            get {
+                object obj = ResourceManager.GetObject("UncheckedDefault", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
