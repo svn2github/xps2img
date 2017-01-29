@@ -55,8 +55,8 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             // ReSharper disable once PossibleNullReferenceException
             var propertyGridViewType = _propertyGridView.GetType();
 
-            _propertyGridViewEdit = (TextBox)propertyGridViewType.GetProperty("Edit", InstanceNonPublic).GetValue(_propertyGridView, null);
-            Debug.Assert(_propertyGridViewEdit != null);
+            Editor = (TextBox)propertyGridViewType.GetProperty("Edit", InstanceNonPublic).GetValue(_propertyGridView, null);
+            Debug.Assert(Editor != null);
 
             _propertyGridViewEnsurePendingChangesCommittedMethodInfo = propertyGridViewType.GetMethod("EnsurePendingChangesCommitted", BindingFlags.Instance | BindingFlags.Public);
             Debug.Assert(_propertyGridViewEnsurePendingChangesCommittedMethodInfo != null);
@@ -106,8 +106,8 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         private void UpdateAutoComplete()
         {
-            _propertyGridViewEdit.AutoCompleteMode   = AutoCompleteMode.None;
-            _propertyGridViewEdit.AutoCompleteSource = AutoCompleteSource.None;
+            Editor.AutoCompleteMode   = AutoCompleteMode.None;
+            Editor.AutoCompleteSource = AutoCompleteSource.None;
 
             if (!AllowAutoComplete || AutoCompleteSettings == null)
             {
@@ -123,8 +123,8 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                 return;
             }
 
-            _propertyGridViewEdit.AutoCompleteMode   = autoCompleteSettings.AutoCompleteMode;
-            _propertyGridViewEdit.AutoCompleteSource = autoCompleteSettings.AutoCompleteSource;
+            Editor.AutoCompleteMode   = autoCompleteSettings.AutoCompleteMode;
+            Editor.AutoCompleteSource = autoCompleteSettings.AutoCompleteSource;
         }
 
         public void RefreshLocalization()
@@ -298,7 +298,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public override bool Focused
         {
-            get { return base.Focused || _propertyGridView.Focused || _propertyGridViewEdit.Focused; }
+            get { return base.Focused || _propertyGridView.Focused || Editor.Focused; }
         }
 
         [Browsable(false)]
@@ -369,6 +369,13 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         {
             get { return base.ContextMenuStrip; }
             set { throw new InvalidOperationException("Internal use"); }
+        }
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public TextBox Editor
+        {
+            get; private set;
         }
 
         // string label - property label
@@ -610,7 +617,6 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         private readonly Control _docComment;
 
         private readonly Control _propertyGridView;
-        private readonly TextBox _propertyGridViewEdit;
 
         private readonly MethodInfo _propertyGridViewEnsurePendingChangesCommittedMethodInfo;
         private readonly MethodInfo _propertyGridViewFindPositionMethodInfo;
