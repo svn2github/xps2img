@@ -15,22 +15,6 @@ namespace Xps2Img.Shared.TypeEditors
             return true;
         }
 
-        private static Bitmap GetStateImage(object context, bool value)
-        {
-            var attributeCollection = ReflectionUtils.GetPropertyValue<AttributeCollection>(context, "Attributes");
-            var defaultAttribute = attributeCollection != null ? attributeCollection.OfType<DefaultValueAttribute>().FirstOrDefault() : null;
-
-            var grid = ReflectionUtils.GetPropertyValue(context, "OwnerGrid", false);
-            var gridEdit = ReflectionUtils.GetPropertyValue(grid, "Editor", false);
-            var filterOpened = ReflectionUtils.GetPropertyValue<bool>(gridEdit, "Filter", false);
-
-            var defaultValue = filterOpened || (defaultAttribute != null && (bool)defaultAttribute.Value == value);
-
-            return value
-                     ? (defaultValue ? Resources.Images.CheckedDefault : Resources.Images.Checked)
-                     : (defaultValue ? Resources.Images.UncheckedDefault : Resources.Images.Unchecked);
-        }
-
         public override void PaintValue(PaintValueEventArgs e)
         {
             var bounds   = e.Bounds;
@@ -54,9 +38,25 @@ namespace Xps2Img.Shared.TypeEditors
             }
         }
 
+        private static Bitmap GetStateImage(object context, bool value)
+        {
+            var attributeCollection = ReflectionUtils.GetPropertyValue<AttributeCollection>(context, "Attributes");
+            var defaultAttribute = attributeCollection != null ? attributeCollection.OfType<DefaultValueAttribute>().FirstOrDefault() : null;
+
+            var grid = ReflectionUtils.GetPropertyValue(context, "OwnerGrid", false);
+            var gridEdit = ReflectionUtils.GetPropertyValue(grid, "Editor", false);
+            var filterOpened = ReflectionUtils.GetPropertyValue<bool>(gridEdit, "Filter", false);
+
+            var defaultValue = filterOpened || (defaultAttribute != null && (bool)defaultAttribute.Value == value);
+
+            return value
+                     ? (defaultValue ? Resources.Images.CheckedDefault : Resources.Images.Checked)
+                     : (defaultValue ? Resources.Images.UncheckedDefault : Resources.Images.Unchecked);
+        }
+
         private static bool IsValueEditable(object context)
         {
-            return ReflectionUtils.GetPropertyValue<bool?>(context, "IsValueEditable", false) ?? true;
+            return ReflectionUtils.GetPropertyValue<bool>(context, "IsValueEditable", false);
         }
     }
 }
