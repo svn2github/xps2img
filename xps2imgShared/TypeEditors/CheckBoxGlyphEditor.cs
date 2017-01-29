@@ -15,13 +15,8 @@ namespace Xps2Img.Shared.TypeEditors
             return true;
         }
 
-        public override void PaintValue(PaintValueEventArgs e)
+        private static Bitmap GetStateImage(object context, bool value)
         {
-            var bounds   = e.Bounds;
-            var context  = e.Context;
-            var graphics = e.Graphics;
-            var value    = (bool)e.Value;
-
             var attributeCollection = ReflectionUtils.GetPropertyValue<AttributeCollection>(context, "Attributes");
             var defaultAttribute = attributeCollection != null ? attributeCollection.OfType<DefaultValueAttribute>().FirstOrDefault() : null;
 
@@ -30,10 +25,19 @@ namespace Xps2Img.Shared.TypeEditors
             var filterOpened = ReflectionUtils.GetPropertyValue<bool>(gridEdit, "Filter", false);
 
             var defaultValue = filterOpened || (defaultAttribute != null && (bool)defaultAttribute.Value == value);
-            
-            var stateImage = value
-                                ? (defaultValue ? Resources.Images.CheckedDefault   : Resources.Images.Checked)
-                                : (defaultValue ? Resources.Images.UncheckedDefault : Resources.Images.Unchecked);
+
+            return value
+                     ? (defaultValue ? Resources.Images.CheckedDefault : Resources.Images.Checked)
+                     : (defaultValue ? Resources.Images.UncheckedDefault : Resources.Images.Unchecked);
+        }
+
+        public override void PaintValue(PaintValueEventArgs e)
+        {
+            var bounds   = e.Bounds;
+            var context  = e.Context;
+            var graphics = e.Graphics;
+
+            var stateImage = GetStateImage(context, (bool)e.Value);
 
             if (IsValueEditable(context))
             {
