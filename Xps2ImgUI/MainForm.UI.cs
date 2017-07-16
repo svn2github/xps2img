@@ -5,7 +5,6 @@ using System.IO;
 
 using Windows7.DesktopIntegration;
 
-using Xps2Img.Shared.CommandLine;
 using Xps2Img.Shared.Utils;
 
 namespace Xps2ImgUI
@@ -180,7 +179,7 @@ namespace Xps2ImgUI
         private string FormatCommandLine(bool isUi)
         {
             _srcFileDisplayName = Path.GetFileNameWithoutExtension(Model.SrcFile);
-            var commandLine = Model.FormatCommandLine(isUi ? Options.ExcludedOnSave : Options.ExcludedOnView);
+            var commandLine = Model.FormatCommandLine(isUi ? _model.OptionsObject.ExcludedOnSave : _model.OptionsObject.ExcludedOnView);
             var separator = String.IsNullOrEmpty(commandLine) ? String.Empty : StringUtils.SpaceString;
             return String.Format("\"{0}\"{1}{2}", isUi ? Program.Xps2ImgUIExecutable : Program.Xps2ImgExecutable, separator, commandLine);
         }

@@ -74,7 +74,7 @@ namespace Xps2ImgUI.Settings
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                File.WriteAllText(saveFileDialog.FileName, xps2ImgModel.FormatCommandLine(Options.ExcludedOnSave, true));
+                File.WriteAllText(saveFileDialog.FileName, xps2ImgModel.FormatCommandLineForSave());
             }
         }
 

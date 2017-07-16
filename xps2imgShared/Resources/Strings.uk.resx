@@ -269,6 +269,14 @@
     <value>Метод стиску TIFF&#xA;  CCITT G3, CCITT G4 та RLE використовуються для створення чорно-білих зображень</value>
     <comment>TIFF compression method&#xA;  CCITT G3, CCITT G4 and RLE produce black and white images</comment>
   </data>
+  <data name="Options_PreferDpiOverSizeName" xml:space="preserve">
+    <value>Використовувати DPI зображення замість розміру</value>
+    <comment>Prefer Image DPI Over Size</comment>
+  </data>
+  <data name="Options_PreferDpiOverSizeDescription" xml:space="preserve">
+    <value>Використовувати DPI зображення замість розміру</value>
+    <comment>Prefer image DPI over size</comment>
+  </data>
   <data name="Options_RequiredSizeName" xml:space="preserve">
     <value>Розмір зображення</value>
     <comment>Image Size</comment>

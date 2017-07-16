@@ -48,8 +48,8 @@ namespace Xps2ImgUI.Utils.UI
         private const string HelpTopicCheckForUpdates           = "1266";
         private const string HelpTopicIgnoreExistingDisplayName = "1267";
         private const string HelpTopicIgnoreErrorsDisplayName   = "1268";
-        private const string HelpTopicApplicationLanguage       = "1269";
         private const string HelpTopicFileNameAsImagePrefix     = "1270";
+        private const string HelpTopicPreferDpiOverSize         = "1271";
 
         private static readonly Dictionary<string, string> CategoryToTopicMap = new Dictionary<string, string>
         {
@@ -74,6 +74,7 @@ namespace Xps2ImgUI.Utils.UI
             { Options.Properties.FileType,                  HelpTopicImageType },
             { Options.Properties.JpegQuality,               HelpTopicJpegQuality },
             { Options.Properties.TiffCompression,           HelpTopicTiffCompression },
+            { Options.Properties.PreferDpiOverSize,         HelpTopicPreferDpiOverSize },           
             { Options.Properties.RequiredSize,              HelpTopicImageSize },
             { Options.Properties.Dpi,                       HelpTopicImageDpi },
             { Options.Properties.UseFileNameAsImageName,    HelpTopicFileNameAsImagePrefix },

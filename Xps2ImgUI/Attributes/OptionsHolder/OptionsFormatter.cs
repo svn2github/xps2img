@@ -122,7 +122,7 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
                     strValue :
                     String.Format(
                       optionAttribute.IsLongName ? optionFormatInfo.Long : optionFormatInfo.Short,
-                      optionAttribute.Name, strValue).TrimEnd();
+                      optionAttribute.Name, strValue).TrimEnd('\x20', '=');
         }
 
         private static readonly OptionFormatInfo CurrentOptionFormatInfo = new OptionFormatInfo("-{0} {1}", "--{0}={1}");

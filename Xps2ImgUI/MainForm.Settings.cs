@@ -29,7 +29,7 @@ namespace Xps2ImgUI
                 PropertySort = settingsPropertyGrid.PropertySort,
                 PreferencesPropertySort = _preferencesPropertySort,
                 ShowCommandLine = IsCommandLineVisible,
-                CommandLine = _preferences.AutoSaveSettings ? Model.FormatCommandLine(Options.ExcludedOnSave, true) : null,
+                CommandLine = _preferences.AutoSaveSettings ? Model.FormatCommandLineForSave() : null,
                 Preferences = _preferences
             };
         }

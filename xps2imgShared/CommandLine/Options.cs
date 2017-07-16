@@ -23,6 +23,7 @@ namespace Xps2Img.Shared.CommandLine
 {
     public partial class Options
     {
+        // ReSharper disable once MemberCanBeProtected.Global
         public Options()
         {
             ReflectionUtils.SetDefaultValues(this);
@@ -85,17 +86,39 @@ namespace Xps2Img.Shared.CommandLine
         public TiffCompressOption TiffCompression { get; set; }
 
         [Category(Categories.Options)]
-        [Option(ShortOptions.RequiredSize, ConverterType = typeof(CheckedRequiredSizeTypeConverter), ValidationExpression = ValidationExpressions.RequiredSize)]
+        [Option(ShortOptionType.None1, ArgumentExpectancy.No, Flags = OptionFlags.Internal)]
+        [DefaultValue(true)]
+        [TypeConverter(typeof(YesNoConverter))]
+        [Editor(typeof(CheckBoxGlyphEditor), typeof(UITypeEditor))]
+        public bool PreferDpiOverSize
+        {
+            get; set;
+        }
+
+        private Size? _requiredSize;
+
+        [Category(Categories.Options)]
+        [Option(ShortOptions.RequiredSize, ConverterType = typeof (CheckedRequiredSizeTypeConverter), ValidationExpression = ValidationExpressions.RequiredSize)]
         [UIOption(ShortOptions.RequiredSize)]
         [DefaultValue(null)]
-        [TypeConverter(typeof(CheckedRequiredSizeTypeConverter))]
-        [Editor(typeof(RequiredSizeEditor), typeof(UITypeEditor))]
-        public Size? RequiredSize { get; set; }
+        [DynamicPropertyFilter(Properties.Consts.PreferDpiOverSize, false)]
+        [TypeConverter(typeof (CheckedRequiredSizeTypeConverter))]
+        [Editor(typeof (RequiredSizeEditor), typeof (UITypeEditor))]
+        public Size? RequiredSize
+        {
+            get { return _requiredSize; }
+            set
+            {
+                _requiredSize = value;
+                PreferDpiOverSize = !_requiredSize.HasValue;
+            }
+        }
 
         [Category(Categories.Options)]
         [Option(ShortOptions.Dpi, DefaultValue = Defaults.Dpi, ValidationExpression = ValidationExpressions.Dpi)]
         [UIOption(ShortOptions.Dpi)]
         [DefaultValue(Defaults.DpiValue)]
+        [DynamicPropertyFilter(Properties.Consts.PreferDpiOverSize, true)]
         [TypeConverter(typeof(CheckedDpiTypeConverter))]
         [Editor(typeof(DpiEditor), typeof(UITypeEditor))]
         public int? Dpi { get; set; }
@@ -139,7 +162,7 @@ namespace Xps2Img.Shared.CommandLine
         public bool ShortenExtension { get; set; }
 
         [Category(Categories.Options)]
-        [Option(ShortOptionType.None1, ConverterType = typeof(ProcessorsNumberTypeConverter), Flags = OptionFlags.Internal)]
+        [Option(ShortOptionType.None2, ConverterType = typeof(ProcessorsNumberTypeConverter), Flags = OptionFlags.Internal)]
         [UIOption(Names.Processors)]
         [TypeConverter(typeof(ProcessorsNumberTypeConverter))]
         [DefaultValue(Defaults.Processors)]
@@ -204,6 +227,7 @@ namespace Xps2Img.Shared.CommandLine
         [DefaultValue(false)]
         public virtual bool Silent { get; set; }
 
+        // ReSharper disable once MemberCanBeProtected.Global
         [Category(Categories.Options)]
         [Browsable(false)]
         [Option(ShortOptions.Test, ArgumentExpectancy.No)]
@@ -212,7 +236,7 @@ namespace Xps2Img.Shared.CommandLine
         [TypeConverter(typeof(YesNoConverter))]
         public virtual bool Test { get; set; }
 
-        [Option(ShortOptionType.None2, ArgumentExpectancy.No)]
+        [Option(ShortOptionType.None4, ArgumentExpectancy.No)]
         [Browsable(false)]
         [DefaultValue(false)]
         public bool Clean { get; set; }
