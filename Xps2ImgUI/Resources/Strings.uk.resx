@@ -753,6 +753,10 @@
     <value>дію після перетворення</value>
     <comment>LANGUAGE SPECIFIC</comment>
   </data>
+  <data name="PropertyGrid_ResetUIOptions_PreferDpiOverSize" xml:space="preserve">
+    <value>використання DPI зображення замість розміру</value>
+    <comment>LANGUAGE SPECIFIC</comment>
+  </data>
   <data name="PropertyGrid_ResetUIOptions_UseFileNameAsImageName" xml:space="preserve">
     <value>використання імені документа як префіксу ім'я зображення</value>
     <comment>LANGUAGE SPECIFIC</comment>
