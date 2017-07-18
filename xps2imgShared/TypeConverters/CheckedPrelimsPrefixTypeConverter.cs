@@ -18,5 +18,15 @@ namespace Xps2Img.Shared.TypeConverters
             Validation.ValidateProperty(value, Options.ValidationExpressions.PrelimsPrefix);
             return value as string;
         }
+
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
+        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+        {
+            return new StandardValuesCollection(Options.Defaults.PrelimsPrefixValues);
+        }
     }
 }

@@ -17,9 +17,10 @@ namespace Xps2Img.Shared.CommandLine
             public const string ProcessPriority = ValidationExpressions.AutoValue;
             public const string ImageName       = null;
 
-            public static readonly int[] DpiValues = { 72, 96, 120, 150, 300, 600, 900, 1200, 1600, 1800, 2350 };
-            public static readonly int[] JpegQualityValues = { 10, 15, 25, 35, 45, 55, 65, 75, 85, 95, 100 };
+            public static readonly int[] DpiValues              = { 72, 96, 120, 150, 300, 600, 900, 1200, 1600, 1800, 2350 };
+            public static readonly int[] JpegQualityValues      = { 10, 15, 25, 35, 45, 55, 65, 75, 85, 95, 100 };
 
+            public static readonly string[] PrelimsPrefixValues = { "!", "#", "$", "-", "." };
         }
     }
 }
