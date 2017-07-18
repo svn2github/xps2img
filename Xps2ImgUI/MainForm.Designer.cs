@@ -144,6 +144,7 @@ namespace Xps2ImgUI
             // settingsPropertyGrid
             // 
             this.settingsPropertyGrid.AllowDrop = true;
+            this.settingsPropertyGrid.LineColor = System.Drawing.SystemColors.InactiveBorder;
             this.settingsPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.settingsPropertyGrid.Location = new System.Drawing.Point(0, 0);
             this.settingsPropertyGrid.Name = "settingsPropertyGrid";

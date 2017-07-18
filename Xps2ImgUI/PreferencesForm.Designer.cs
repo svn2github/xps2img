@@ -60,7 +60,7 @@
             this.preferencesPropertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.preferencesPropertyGrid.BackColor = System.Drawing.SystemColors.Control;
+            this.preferencesPropertyGrid.LineColor = System.Drawing.SystemColors.InactiveBorder;
             this.preferencesPropertyGrid.Location = new System.Drawing.Point(7, 1);
             this.preferencesPropertyGrid.Name = "preferencesPropertyGrid";
             this.preferencesPropertyGrid.Size = new System.Drawing.Size(497, 397);
