@@ -75,7 +75,7 @@
             // 
             this.commandLineTextPanel.Controls.Add(this.commandLineTextBox);
             this.commandLineTextPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.commandLineTextPanel.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.commandLineTextPanel.BackColor = System.Drawing.SystemColors.ControlDark;
             this.commandLineTextPanel.Name = "commandLineTextPanel";
             // 
             // commandLineTextBox
