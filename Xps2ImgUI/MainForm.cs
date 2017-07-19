@@ -31,6 +31,9 @@ namespace Xps2ImgUI
         {
             InitializeComponent();
 
+            var borderSize = SystemInformation.BorderSize;
+            commandLineTextPanel.Padding = new Padding(borderSize.Width, borderSize.Height, borderSize.Width, borderSize.Height);
+
             Model = new Xps2ImgModel();
 
             _updateManager.CheckCompleted += (_, __) => this.InvokeIfNeeded(() => RegisterIdleHandler(UpdateCheckCompleted));
@@ -75,11 +78,6 @@ namespace Xps2ImgUI
             _handle = Handle;
 
             RegisterCultureSpecificConvertButtonSize();
-
-            commandLineTextBox.SizeChanged += AdjustTextBoxVerticalScrollBarVisibility;
-            commandLineTextBox.TextChanged += AdjustTextBoxVerticalScrollBarVisibility;
-
-            AdjustTextBoxVerticalScrollBarVisibility(commandLineTextBox);
 
             convertButton.ContextMenuStrip = convertContextMenuStrip;
 

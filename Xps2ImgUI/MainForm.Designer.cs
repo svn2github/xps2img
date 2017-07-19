@@ -1,6 +1,4 @@
-﻿using Xps2ImgUI.Controls;
-
-namespace Xps2ImgUI
+﻿namespace Xps2ImgUI
 {
   partial class MainForm
   {
@@ -32,7 +30,8 @@ namespace Xps2ImgUI
     {
             this.components = new System.ComponentModel.Container();
             this.settingsSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.commandLineTextBox = new System.Windows.Forms.TextBox();
+            this.commandLineTextPanel = new System.Windows.Forms.Panel();
+            this.commandLineTextBox = new System.Windows.Forms.RichTextBox();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.convertContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.convertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,15 +65,23 @@ namespace Xps2ImgUI
             // 
             // settingsSplitContainer.Panel2
             // 
-            this.settingsSplitContainer.Panel2.Controls.Add(this.commandLineTextBox);
+            this.settingsSplitContainer.Panel2.Controls.Add(this.commandLineTextPanel);
             this.settingsSplitContainer.Panel2Collapsed = true;
             this.settingsSplitContainer.Size = new System.Drawing.Size(704, 489);
             this.settingsSplitContainer.SplitterDistance = 428;
             this.settingsSplitContainer.TabIndex = 7;
             // 
+            // commandLineTextPanel
+            // 
+            this.commandLineTextPanel.Controls.Add(this.commandLineTextBox);
+            this.commandLineTextPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.commandLineTextPanel.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.commandLineTextPanel.Name = "commandLineTextPanel";
+            // 
             // commandLineTextBox
             // 
             this.commandLineTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.commandLineTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.commandLineTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.commandLineTextBox.Location = new System.Drawing.Point(0, 0);
             this.commandLineTextBox.Multiline = true;
@@ -195,7 +202,8 @@ namespace Xps2ImgUI
     #endregion
 
     private Controls.PropertyGridEx.PropertyGridEx settingsPropertyGrid;
-    private System.Windows.Forms.TextBox commandLineTextBox;
+    private System.Windows.Forms.RichTextBox commandLineTextBox;
+    private System.Windows.Forms.Panel commandLineTextPanel;
     private System.Windows.Forms.SplitContainer settingsSplitContainer;
     private wyDay.Controls.SplitButton convertButton;
     private System.Windows.Forms.ProgressBar progressBar;
