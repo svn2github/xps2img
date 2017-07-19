@@ -30,6 +30,9 @@ namespace Xps2ImgUI
 
         private readonly Xps2ImgModel _model;
 
+        private ToolStripButton _resetToolStripButton;
+        private ToolStripSplitButton _languageToolStripSplitButton;
+
         private bool IsRunning
         {
             get { return _model.IsStopPending || _model.IsRunning; }
@@ -76,6 +79,7 @@ namespace Xps2ImgUI
         private void SetReadOnly()
         {
             ReflectionUtils.SetReadOnly<Preferences>(IsRunning, Preferences.Properties.ShortenExtension);
+            _languageToolStripSplitButton.Enabled = !IsRunning;
 
             preferencesPropertyGrid.Refresh();
         }
@@ -95,7 +99,7 @@ namespace Xps2ImgUI
             _resetToolStripButton = preferencesPropertyGrid.AddToolStripButton(Resources.Images.Eraser, () => Resources.Strings.ResetToDefaults, (_, __) => preferencesPropertyGrid.ResetAllAction());
 
             // Languages.
-            var languageToolStripSplitButton = preferencesPropertyGrid.AddToolStripSplitButton(
+            _languageToolStripSplitButton = preferencesPropertyGrid.AddToolStripSplitButton(
                 () => GetLanguageName(Preferences.ApplicationLanguage), () => Resources.Strings.Preferences_ApplicationLanguageName, () => GetLanguageImage(Preferences.ApplicationLanguage),
                 (sender, _) =>
                 {
@@ -103,9 +107,8 @@ namespace Xps2ImgUI
                     UpdateLanguagesList(toolStripSplitButton);
                     toolStripSplitButton.DropDown.Show();
                 });
-            languageToolStripSplitButton.Enabled = !IsRunning;
-            languageToolStripSplitButton.Alignment = ToolStripItemAlignment.Right;
-            languageToolStripSplitButton.DropDownOpening += (_, __) => UpdateLanguagesList(languageToolStripSplitButton);
+            _languageToolStripSplitButton.Alignment = ToolStripItemAlignment.Right;
+            _languageToolStripSplitButton.DropDownOpening += (_, __) => UpdateLanguagesList(_languageToolStripSplitButton);
 
             preferencesPropertyGrid.DocLines = 5;
             preferencesPropertyGrid.MoveSplitterByPercent(50);
@@ -283,6 +286,7 @@ namespace Xps2ImgUI
             return !Preferences.Equals(preferences, IsRunning);
         }
 
+        // ReSharper disable once InconsistentNaming
         private void EnableOK()
         {
             okButton.Enabled = PreferencesDifferFrom(_originalPreferences);
@@ -313,7 +317,5 @@ namespace Xps2ImgUI
                 HelpUtils.ShowHelpTopicId(HelpUtils.HelpTopicPreferences);
             }
         }
-
-        private ToolStripButton _resetToolStripButton;
     }
 }
