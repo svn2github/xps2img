@@ -566,7 +566,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         bool IMessageFilter.PreFilterMessage(ref Message m)
         {
-            if (_readOnly && m.Msg == WM_KEYDOWN && m.WParam.ToInt32() == VK_DELETE)
+            if (_readOnly && m.Msg == WM_KEYDOWN && m.WParam.ToInt32() == VK_DELETE && Focused)
             {
                 return true;
             }
