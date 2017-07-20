@@ -31,9 +31,6 @@ namespace Xps2ImgUI
         {
             InitializeComponent();
 
-            var borderSize = SystemInformation.BorderSize;
-            commandLineTextPanel.Padding = new Padding(borderSize.Width, borderSize.Height, borderSize.Width, borderSize.Height);
-
             Model = new Xps2ImgModel();
 
             _updateManager.CheckCompleted += (_, __) => this.InvokeIfNeeded(() => RegisterIdleHandler(UpdateCheckCompleted));

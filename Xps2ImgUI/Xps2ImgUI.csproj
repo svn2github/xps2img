@@ -77,6 +77,9 @@
     </Compile>
     <Compile Include="Attributes\OptionsHolder\OptionsFormatter.cs" />
     <Compile Include="Attributes\OptionsHolder\OptionsHolder.cs" />
+    <Compile Include="Controls\Border.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\ProjectAssemblyInfo.cs" />
     <Compile Include="Controls\PropertyGridEx\ToolStripEx\ToolStripButtonEx.cs">
       <SubType>Component</SubType>
