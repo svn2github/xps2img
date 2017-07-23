@@ -556,9 +556,9 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == WM_CONTEXTMENU)
+            if (m.Msg == Win32.Messages.WM_CONTEXTMENU)
             {
-                base.ContextMenuStrip = CreateContextMenuStrip(GetPoint(m.LParam) == NegativePosition);
+                base.ContextMenuStrip = CreateContextMenuStrip(Win32.GetPoint(m.LParam) == NegativePosition);
             }
 
             base.WndProc(ref m);
@@ -566,12 +566,12 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
 
         bool IMessageFilter.PreFilterMessage(ref Message m)
         {
-            if (_readOnly && m.Msg == WM_KEYDOWN && m.WParam.ToInt32() == VK_DELETE && Focused)
+            if (_readOnly && m.Msg == Win32.Messages.WM_KEYDOWN && m.WParam.ToInt32() == Win32.Keys.VK_DELETE && Focused)
             {
                 return true;
             }
 
-            if (m.Msg != WM_LBUTTONDBLCLK || _propertyGridView.Handle != m.HWnd || !IsSelectedGridItemUnderCursor(GetPoint(m.LParam)))
+            if (m.Msg != Win32.Messages.WM_LBUTTONDBLCLK || _propertyGridView.Handle != m.HWnd || !IsSelectedGridItemUnderCursor(Win32.GetPoint(m.LParam)))
             {
                 return false;
             }

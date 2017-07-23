@@ -80,6 +80,9 @@
     <Compile Include="Controls\Border.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\RichTextBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\ProjectAssemblyInfo.cs" />
     <Compile Include="Controls\PropertyGridEx\ToolStripEx\ToolStripButtonEx.cs">
       <SubType>Component</SubType>
@@ -116,13 +119,10 @@
       <DependentUpon>PropertyGridEx.cs</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\PropertyGridEx\PropertyGridEx.Win32.cs">
-      <DependentUpon>PropertyGridEx.cs</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controls\PropertyGridEx\PropertyGridEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\Win32.cs"/>
     <Compile Include="Controls\SplitButton.cs">
       <SubType>Component</SubType>
     </Compile>

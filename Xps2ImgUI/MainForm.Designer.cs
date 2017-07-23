@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.settingsSplitContainer = new System.Windows.Forms.SplitContainer();
             this.commandLineTextBorder = new Xps2ImgUI.Controls.Border();
-            this.commandLineTextBox = new System.Windows.Forms.RichTextBox();
+            this.commandLineTextBox = new Xps2ImgUI.Controls.RichTextBoxEx();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.convertContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.convertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -201,7 +201,7 @@
     #endregion
 
     private Controls.PropertyGridEx.PropertyGridEx settingsPropertyGrid;
-    private System.Windows.Forms.RichTextBox commandLineTextBox;
+    private Xps2ImgUI.Controls.RichTextBoxEx commandLineTextBox;
     private Xps2ImgUI.Controls.Border commandLineTextBorder;
     private System.Windows.Forms.SplitContainer settingsSplitContainer;
     private wyDay.Controls.SplitButton convertButton;

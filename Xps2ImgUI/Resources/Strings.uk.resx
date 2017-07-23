@@ -169,9 +169,17 @@
     <value>Повернути параметри та опції в початковий стан</value>
     <comment>Reset parameters and options</comment>
   </data>
+  <data name="ClipboardCopy" xml:space="preserve">
+    <value>&amp;Копіювати</value>
+    <comment>&amp;Copy</comment>
+  </data>
+  <data name="ClipboardSelectAll" xml:space="preserve">
+    <value>Виділити &amp;все</value>
+    <comment>Select &amp;All</comment>
+  </data>
   <data name="CopyCommandLineToClipboard" xml:space="preserve">
-    <value>&amp;Копіювати командний рядок до буфера обміну</value>
-    <comment>&amp;Copy Command Line To Clipboard</comment>
+    <value>К&amp;опіювати командний рядок до буфера обміну</value>
+    <comment>C&amp;opy Command Line To Clipboard</comment>
   </data>
   <data name="CopyXPSFilePathToClipboard" xml:space="preserve">
     <value>К&amp;опіювати шлях XPS документа до буфера обміну</value>
@@ -234,7 +242,7 @@
     <comment>Conversion will be stopped.</comment>
   </data>
   <data name="CopyUICommandLineToClipboard" xml:space="preserve">
-    <value>К&amp;опіювати UI командний рядок до буфера обміну</value>
+    <value>Копіюв&amp;ати UI командний рядок до буфера обміну</value>
     <comment>Copy &amp;UI Command Line To Clipboard</comment>
   </data>
   <data name="CopyUIBatchCommandLineToClipboard" xml:space="preserve">

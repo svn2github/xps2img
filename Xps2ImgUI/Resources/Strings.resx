@@ -169,9 +169,17 @@
     <value>Reset parameters and options</value>
     <comment>Reset parameters and options</comment>
   </data>
+  <data name="ClipboardCopy" xml:space="preserve">
+    <value>&amp;Copy</value>
+    <comment>&amp;Copy</comment>
+  </data>
+  <data name="ClipboardSelectAll" xml:space="preserve">
+    <value>Select &amp;All</value>
+    <comment>Select &amp;All</comment>
+  </data>
   <data name="CopyCommandLineToClipboard" xml:space="preserve">
-    <value>&amp;Copy Command Line To Clipboard</value>
-    <comment>&amp;Copy Command Line To Clipboard</comment>
+    <value>C&amp;opy Command Line To Clipboard</value>
+    <comment>C&amp;opy Command Line To Clipboard</comment>
   </data>
   <data name="CopyXPSFilePathToClipboard" xml:space="preserve">
     <value>Copy XP&amp;S File Path To Clipboard</value>
@@ -782,7 +790,7 @@ What's new in version {0}
     <comment>NON LOCALIZABLE</comment>
   </data>
   <data name="UIBatchCommandLineFormat" xml:space="preserve">
-    <value>start/wait "" {0} -b</value>
+    <value>start/wait "xps2imgUI batch" {0} -b</value>
     <comment>NON LOCALIZABLE</comment>
   </data>
   <data name="UIBatchCommandLineErrorHandling" xml:space="preserve">

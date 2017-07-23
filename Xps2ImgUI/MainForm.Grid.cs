@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 using Windows7.DesktopIntegration;
@@ -59,8 +61,6 @@ namespace Xps2ImgUI
             settingsPropertyGrid.AddToolStripSeparator();
 
             // Explorer/Browse.
-            Func<bool, string> copyBatch = eh => String.Format(Resources.Strings.UIBatchCommandLineFormat + (eh ? Resources.Strings.UIBatchCommandLineErrorHandling : String.Empty), _uiCommandLine);
-
             ToolStripButtonItem xpsCopyButton, xpsBrowseButton;
             settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.BrowseImages, () => Resources.Strings.BrowseImages, BrowseConvertedImagesToolStripButtonClick,
                 new ToolStripButtonItem(() => Resources.Strings.BrowseImagesFolder, (_, __) => Explorer.Select(ConvertedImagesFolder)),
@@ -124,12 +124,10 @@ namespace Xps2ImgUI
 
             // Show Command Line.
             _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.CommandLine, GetShowCommandLineToolTipText, ShowCommandLineToolStripButtonClick,
-                new ToolStripButtonItem(() => Resources.Strings.CopyCommandLineToClipboard, (_, __) => ClipboardUtils.CopyToClipboard(commandLineTextBox.Text)),
-                new ToolStripButtonItem(() => Resources.Strings.CopyUICommandLineToClipboard, (_, __) => ClipboardUtils.CopyToClipboard(_uiCommandLine)),
-                new ToolStripButtonItem(),
-                new ToolStripButtonItem(() => Resources.Strings.CopyUIBatchCommandLineToClipboard, (_, __) => ClipboardUtils.CopyToClipboard(() => copyBatch(true))),
-                new ToolStripButtonItem(() => Resources.Strings.CopyUIBatchCommandLineWithoutErrorHandlingToClipboard, (_, __) => ClipboardUtils.CopyToClipboard(() => copyBatch(false)))
-             );
+                CommandLineMenu.Select(kvp => kvp.Key == null ? new ToolStripButtonItem() : new ToolStripButtonItem(kvp.Key, (_, __) => kvp.Value())).ToArray()
+            );
+
+            commandLineTextBox.ContextMenuStripItems = CommandLineTextBoxMenu.Concat(CommandLineMenu);
 
             _showCommandLineToolStripButton.Alignment = ToolStripItemAlignment.Right;
 
@@ -138,7 +136,32 @@ namespace Xps2ImgUI
 
             CheckForUpdatesEnabled = Model.IsUserMode;
         }
-        
+
+        private IEnumerable<KeyValuePair<Func<string>, Action>> CommandLineTextBoxMenu
+        {
+            get
+            {
+                yield return new KeyValuePair<Func<string>, Action>(() => Resources.Strings.ClipboardCopy, commandLineTextBox.SelectionLength > 0 ? () => ClipboardUtils.CopyToClipboard(commandLineTextBox.SelectedText) : (Action)null);
+                yield return new KeyValuePair<Func<string>, Action>(null, null);
+                yield return new KeyValuePair<Func<string>, Action>(() => Resources.Strings.ClipboardSelectAll, commandLineTextBox.SelectionLength != commandLineTextBox.TextLength ? () => commandLineTextBox.SelectAll() : (Action)null);
+                yield return new KeyValuePair<Func<string>, Action>(null, null);
+            }
+        }
+
+        private IEnumerable<KeyValuePair<Func<string>, Action>> CommandLineMenu
+        {
+            get
+            {
+                Func<bool, string> copyBatch = eh => String.Format(Resources.Strings.UIBatchCommandLineFormat + (eh ? Resources.Strings.UIBatchCommandLineErrorHandling : String.Empty), _uiCommandLine);
+
+                yield return new KeyValuePair<Func<string>, Action>(() => Resources.Strings.CopyCommandLineToClipboard, () => ClipboardUtils.CopyToClipboard(commandLineTextBox.Text));
+                yield return new KeyValuePair<Func<string>, Action>(() => Resources.Strings.CopyUICommandLineToClipboard, () => ClipboardUtils.CopyToClipboard(_uiCommandLine));
+                yield return new KeyValuePair<Func<string>, Action>(null, null);
+                yield return new KeyValuePair<Func<string>, Action>(() => Resources.Strings.CopyUIBatchCommandLineToClipboard, () => ClipboardUtils.CopyToClipboard(() => copyBatch(true)));
+                yield return new KeyValuePair<Func<string>, Action>(() => Resources.Strings.CopyUIBatchCommandLineWithoutErrorHandlingToClipboard, () => ClipboardUtils.CopyToClipboard(() => copyBatch(false)));
+            }
+        }
+
         private ToolStripItem _resetToolStripButton;
         private ToolStripButtonItem _updatesToolStripButtonItem;
         private ToolStripSplitButton _loadToolStripButton;
