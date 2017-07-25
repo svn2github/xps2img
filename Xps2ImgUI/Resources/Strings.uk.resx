@@ -174,7 +174,7 @@
     <comment>&amp;Copy</comment>
   </data>
   <data name="ClipboardSelectAll" xml:space="preserve">
-    <value>Виділити &amp;все</value>
+    <value>Вибрати &amp;все</value>
     <comment>Select &amp;All</comment>
   </data>
   <data name="CopyCommandLineToClipboard" xml:space="preserve">
