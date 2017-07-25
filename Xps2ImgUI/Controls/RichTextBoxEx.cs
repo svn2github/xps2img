@@ -32,12 +32,23 @@ namespace Xps2ImgUI.Controls
             {
                 var hasEventHandler = contextMenuStripItem.Value != null;
                 var isMenuItem = contextMenuStripItem.Key != null;
-                var toolStripItem = ContextMenuStrip.Items.Add(isMenuItem ? contextMenuStripItem.Key() : "-", null, hasEventHandler ? (_, __) => contextMenuStripItem.Value() : (EventHandler)null);
+                var item = contextMenuStripItem;
+                var toolStripItem = ContextMenuStrip.Items.Add(isMenuItem ? contextMenuStripItem.Key() : "-", null, hasEventHandler ? (_, __) => item.Value() : (EventHandler)null);
                 toolStripItem.Enabled = !isMenuItem || hasEventHandler;
+            }
+
+            if (ToolStripRendererGetter != null)
+            {
+                ContextMenuStrip.Renderer = ToolStripRendererGetter();
             }
         }
 
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IEnumerable<KeyValuePair<Func<string>, Action>> ContextMenuStripItems { get; set; }
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public Func<ToolStripRenderer> ToolStripRendererGetter { get; set; }
     }
 }

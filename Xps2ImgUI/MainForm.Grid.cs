@@ -128,6 +128,7 @@ namespace Xps2ImgUI
             );
 
             commandLineTextBox.ContextMenuStripItems = CommandLineTextBoxMenu.Concat(CommandLineMenu);
+            commandLineTextBox.ToolStripRendererGetter = () => settingsPropertyGrid.ToolStripRenderer;
 
             _showCommandLineToolStripButton.Alignment = ToolStripItemAlignment.Right;
 
