@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 
@@ -12,29 +11,22 @@ namespace Xps2ImgUI.Controls
             if (m.Msg == Win32.Messages.WM_CONTEXTMENU)
             {
                 Focus();
-                BuildContextMenu();
+                ApplyContextMenu();
             }
 
             base.WndProc(ref m);
         }
 
-        private void BuildContextMenu()
+        private void ApplyContextMenu()
         {
-            ContextMenuStrip = ContextMenuStrip ?? new ContextMenuStrip();
-            ContextMenuStrip.Items.Clear();
-
-            if (ContextMenuStripItems == null)
+            if (ContextMenuStripGetter != null)
             {
-                return;
-            }
+                if(ContextMenuStrip != null)
+                {
+                    ContextMenuStrip.Dispose();
+                }
 
-            foreach (var contextMenuStripItem in ContextMenuStripItems)
-            {
-                var hasEventHandler = contextMenuStripItem.Value != null;
-                var isMenuItem = contextMenuStripItem.Key != null;
-                var item = contextMenuStripItem;
-                var toolStripItem = ContextMenuStrip.Items.Add(isMenuItem ? contextMenuStripItem.Key() : "-", null, hasEventHandler ? (_, __) => item.Value() : (EventHandler)null);
-                toolStripItem.Enabled = !isMenuItem || hasEventHandler;
+                ContextMenuStrip = ContextMenuStripGetter();
             }
 
             if (ToolStripRendererGetter != null)
@@ -45,10 +37,10 @@ namespace Xps2ImgUI.Controls
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public IEnumerable<KeyValuePair<Func<string>, Action>> ContextMenuStripItems { get; set; }
+        public Func<ToolStripRenderer> ToolStripRendererGetter { get; set; }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Func<ToolStripRenderer> ToolStripRendererGetter { get; set; }
+        public Func<ContextMenuStrip> ContextMenuStripGetter { get; set; }
     }
 }

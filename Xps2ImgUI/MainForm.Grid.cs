@@ -9,6 +9,7 @@ using Xps2Img.Shared.CommandLine;
 using Xps2Img.Shared.Utils.UI;
 
 using Xps2ImgUI.Controls;
+using Xps2ImgUI.Controls.Data;
 using Xps2ImgUI.Controls.PropertyGridEx;
 using Xps2ImgUI.Controls.PropertyGridEx.ToolStripEx;
 
@@ -124,10 +125,10 @@ namespace Xps2ImgUI
 
             // Show Command Line.
             _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.CommandLine, GetShowCommandLineToolTipText, ShowCommandLineToolStripButtonClick,
-                CommandLineMenu.Select(kvp => kvp.Key == null ? new ToolStripButtonItem() : new ToolStripButtonItem(kvp.Key, (_, __) => kvp.Value())).ToArray()
+                CommandLineMenuItems.Select(mid => mid.IsSeparator ? new ToolStripButtonItem() : new ToolStripButtonItem(mid.Title, (_, __) => mid.Command())).ToArray()
             );
 
-            commandLineTextBox.ContextMenuStripItems = CommandLineTextBoxMenu.Concat(CommandLineMenu);
+            commandLineTextBox.ContextMenuStripGetter  = GetCommandLineTextBoxContextMenuStrip;
             commandLineTextBox.ToolStripRendererGetter = () => settingsPropertyGrid.ToolStripRenderer;
 
             _showCommandLineToolStripButton.Alignment = ToolStripItemAlignment.Right;
@@ -138,28 +139,42 @@ namespace Xps2ImgUI
             CheckForUpdatesEnabled = Model.IsUserMode;
         }
 
-        private IEnumerable<KeyValuePair<Func<string>, Action>> CommandLineTextBoxMenu
+        private ContextMenuStrip GetCommandLineTextBoxContextMenuStrip()
+        {
+            var contextMenuStrip = new ContextMenuStrip();
+
+            foreach (var menuItemDescriptor in CommandLineTextBoxMenuItems.Concat(CommandLineMenuItems))
+            {
+                var mid = menuItemDescriptor;
+                var toolStripItem = contextMenuStrip.Items.Add(mid.IsSeparator ? "-" : menuItemDescriptor.Title(), null, mid.Enabled ? (_, __) => mid.Command() : (EventHandler)null);
+                toolStripItem.Enabled = mid.Enabled;
+            }
+
+            return contextMenuStrip;
+        }
+
+        private IEnumerable<MenuItemDescriptor> CommandLineTextBoxMenuItems
         {
             get
             {
-                yield return new KeyValuePair<Func<string>, Action>(() => Resources.Strings.ClipboardCopy, commandLineTextBox.SelectionLength > 0 ? () => ClipboardUtils.CopyToClipboard(commandLineTextBox.SelectedText) : (Action)null);
-                yield return new KeyValuePair<Func<string>, Action>(null, null);
-                yield return new KeyValuePair<Func<string>, Action>(() => Resources.Strings.ClipboardSelectAll, commandLineTextBox.SelectionLength != commandLineTextBox.TextLength ? () => commandLineTextBox.SelectAll() : (Action)null);
-                yield return new KeyValuePair<Func<string>, Action>(null, null);
+                yield return new MenuItemDescriptor(() => Resources.Strings.ClipboardCopy, commandLineTextBox.SelectionLength > 0 ? () => ClipboardUtils.CopyToClipboard(commandLineTextBox.SelectedText) : (Action)null);
+                yield return new MenuItemDescriptor();
+                yield return new MenuItemDescriptor(() => Resources.Strings.ClipboardSelectAll, commandLineTextBox.SelectionLength != commandLineTextBox.TextLength ? () => commandLineTextBox.SelectAll() : (Action)null);
+                yield return new MenuItemDescriptor();
             }
         }
 
-        private IEnumerable<KeyValuePair<Func<string>, Action>> CommandLineMenu
+        private IEnumerable<MenuItemDescriptor> CommandLineMenuItems
         {
             get
             {
                 Func<bool, string> copyBatch = eh => String.Format(Resources.Strings.UIBatchCommandLineFormat + (eh ? Resources.Strings.UIBatchCommandLineErrorHandling : String.Empty), _uiCommandLine);
 
-                yield return new KeyValuePair<Func<string>, Action>(() => Resources.Strings.CopyCommandLineToClipboard, () => ClipboardUtils.CopyToClipboard(commandLineTextBox.Text));
-                yield return new KeyValuePair<Func<string>, Action>(() => Resources.Strings.CopyUICommandLineToClipboard, () => ClipboardUtils.CopyToClipboard(_uiCommandLine));
-                yield return new KeyValuePair<Func<string>, Action>(null, null);
-                yield return new KeyValuePair<Func<string>, Action>(() => Resources.Strings.CopyUIBatchCommandLineToClipboard, () => ClipboardUtils.CopyToClipboard(() => copyBatch(true)));
-                yield return new KeyValuePair<Func<string>, Action>(() => Resources.Strings.CopyUIBatchCommandLineWithoutErrorHandlingToClipboard, () => ClipboardUtils.CopyToClipboard(() => copyBatch(false)));
+                yield return new MenuItemDescriptor(() => Resources.Strings.CopyCommandLineToClipboard, () => ClipboardUtils.CopyToClipboard(commandLineTextBox.Text));
+                yield return new MenuItemDescriptor(() => Resources.Strings.CopyUICommandLineToClipboard, () => ClipboardUtils.CopyToClipboard(_uiCommandLine));
+                yield return new MenuItemDescriptor();
+                yield return new MenuItemDescriptor(() => Resources.Strings.CopyUIBatchCommandLineToClipboard, () => ClipboardUtils.CopyToClipboard(() => copyBatch(true)));
+                yield return new MenuItemDescriptor(() => Resources.Strings.CopyUIBatchCommandLineWithoutErrorHandlingToClipboard, () => ClipboardUtils.CopyToClipboard(() => copyBatch(false)));
             }
         }
 
