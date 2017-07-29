@@ -182,7 +182,7 @@
     <comment>C&amp;opy Command Line To Clipboard</comment>
   </data>
   <data name="CopyCommandUseFullExePathName" xml:space="preserve">
-    <value>Показувати повний &amp;шлях у командному рядку</value>
+    <value>Використовувати повний &amp;шлях у командному рядку</value>
     <comment>Use &amp;Full Executable Path At Command Line</comment>
   </data>
   <data name="CopyXPSFilePathToClipboard" xml:space="preserve">
@@ -630,7 +630,7 @@
     <comment>Use Full Executable Path At Command Line</comment>
   </data>
   <data name="Preferences_UseFullExePathDescription" xml:space="preserve">
-    <value>Показувати повний шлях у командному рядку.</value>
+    <value>Використовувати повний шлях у командному рядку.</value>
     <comment>Use full executable path at command line.</comment>
   </data>
   <data name="Preferences_ConfirmOnAfterConversionName" xml:space="preserve">
