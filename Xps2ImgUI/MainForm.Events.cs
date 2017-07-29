@@ -9,7 +9,7 @@ using Xps2Img.Shared.Enums;
 using Xps2Img.Shared.Utils;
 using Xps2Img.Shared.Utils.UI;
 
-using Xps2ImgLib.Utils;
+using Xps2ImgLib.Utils.Disposables;
 
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Settings;
@@ -248,25 +248,22 @@ namespace Xps2ImgUI
         {
             using (new ModalGuard())
             {
-                using (new DisposableActions(() => _activeAlwaysResume = null))
+                using (new DisposableActions(() => _activeAlwaysResume = null, () => _useFullExePath = null))
                 {
-                    using (new DisposableActions(() => _useFullExePath = null))
+                    using (var preferencesForm = new PreferencesForm(_preferences, Model, ClassicLookChanged, AlwaysResumeChanged, UseFullExePathChanged) { PreferencesPropertySort = _preferencesPropertySort })
                     {
-                        using (var preferencesForm = new PreferencesForm(_preferences, Model, ClassicLookChanged, AlwaysResumeChanged, UseFullExePathChanged) { PreferencesPropertySort = _preferencesPropertySort })
+                        var dialogResult = preferencesForm.ShowDialog(this);
+
+                        _preferencesPropertySort = preferencesForm.PreferencesPropertySort;
+
+                        if (dialogResult != DialogResult.OK)
                         {
-                            var dialogResult = preferencesForm.ShowDialog(this);
-
-                            _preferencesPropertySort = preferencesForm.PreferencesPropertySort;
-
-                            if (dialogResult != DialogResult.OK)
-                            {
-                                return;
-                            }
-
-                            _preferences = preferencesForm.Preferences;
-
-                            ApplyPreferences(true);
+                            return;
                         }
+
+                        _preferences = preferencesForm.Preferences;
+
+                        ApplyPreferences(true);
                     }
                 }
             }

@@ -9,7 +9,8 @@ using CommandLine.Utils;
 using Xps2Img.Shared.Enums;
 using Xps2Img.Shared.Localization;
 using Xps2Img.Shared.Localization.Forms;
-using Xps2ImgLib.Utils;
+
+using Xps2ImgLib.Utils.Disposables;
 
 using Xps2ImgUI.Controls.PropertyGridEx.ToolStripEx;
 
@@ -179,7 +180,7 @@ namespace Xps2ImgUI
 
             var changesTracker = new ChangesTracker(this);
 
-            using (new DisposableActions(() => changesTracker.NotifyIfChanged(() => preferencesPropertyGrid.SelectGridItem(Resources.Strings.Preferences_InterfaceCategory))))
+            using (new DisposableAction(() => changesTracker.NotifyIfChanged(() => preferencesPropertyGrid.SelectGridItem(Resources.Strings.Preferences_InterfaceCategory))))
             {
                 preferencesPropertyGrid.ResetByCategory(label);
             }
@@ -211,7 +212,7 @@ namespace Xps2ImgUI
 
             var changesTracker = new ChangesTracker(this);
 
-            using (new DisposableActions(() => changesTracker.NotifyIfChanged(() => preferencesPropertyGrid.UpdateToolStripToolTip())))
+            using (new DisposableAction(() => changesTracker.NotifyIfChanged(() => preferencesPropertyGrid.UpdateToolStripToolTip())))
             {
                 Preferences.Reset(pi => pi.Name != Preferences.Properties.ApplicationLanguage);
 

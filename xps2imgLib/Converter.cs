@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Xps.Packaging;
 
 using Xps2ImgLib.Utils;
+using Xps2ImgLib.Utils.Disposables;
 
 namespace Xps2ImgLib
 {
@@ -150,7 +151,7 @@ namespace Xps2ImgLib
 
         private void ConvertInternal(Parameters parameters)
         {
-            using (new DisposableActions(() => _mediator.RequestStop()))
+            using (new DisposableAction(() => _mediator.RequestStop()))
             {
                 ConverterParameters = parameters;
 

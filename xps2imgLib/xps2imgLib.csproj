@@ -47,7 +47,9 @@
     <Compile Include="ConversionException.cs" />
     <Compile Include="ImageOptions.cs" />
     <Compile Include="ImageType.cs" />
-    <Compile Include="Utils\DisposableActions.cs" />
+    <Compile Include="Utils\Disposables\DisposableAction.cs" />
+    <Compile Include="Utils\Disposables\DisposableActions.cs" />
+    <Compile Include="Utils\Disposables\EnterLeaveDisposableActions.cs" />
     <Compile Include="Utils\EventUtils.cs" />
     <Compile Include="TiffCompressOption.cs" />
     <Compile Include="ImageWriter.cs" />

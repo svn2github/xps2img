@@ -13,7 +13,7 @@ using Xps2Img.Shared.Localization.Forms;
 using Xps2Img.Shared.TypeConverters;
 using Xps2Img.Shared.Utils.UI;
 
-using Xps2ImgLib.Utils;
+using Xps2ImgLib.Utils.Disposables;
 
 using Xps2ImgUI.Model;
 using Xps2ImgUI.Settings;
@@ -245,7 +245,7 @@ namespace Xps2ImgUI
                 })
                 {
                     // ReSharper disable AccessToDisposedClosure
-                    using (new DisposableActions(() => confirmForm.TopMost = true, () => confirmForm.TopMost = false))
+                    using (new EnterLeaveDisposableActions(() => confirmForm.TopMost = true, () => confirmForm.TopMost = false))
                     // ReSharper restore AccessToDisposedClosure
                     {
                         if (confirmForm.ShowDialog(this) != DialogResult.OK)

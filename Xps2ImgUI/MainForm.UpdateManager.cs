@@ -5,7 +5,7 @@ using Xps2Img.Shared.Setup;
 using Xps2Img.Shared.Utils.System;
 using Xps2Img.Shared.Utils.UI;
 
-using Xps2ImgLib.Utils;
+using Xps2ImgLib.Utils.Disposables;
 
 using Xps2ImgUI.Utils;
 using Xps2ImgUI.Utils.UI;
@@ -40,7 +40,7 @@ namespace Xps2ImgUI
                 return;
             }
 
-            using (new DisposableActions(() => CheckForUpdatesEnabled = true))
+            using (new DisposableAction(() => CheckForUpdatesEnabled = true))
             {
                 if (Model.ShutdownRequested)
                 {
