@@ -20,6 +20,7 @@ namespace Xps2ImgUI.Settings
             public static readonly string SuggestResume                 = "SuggestResume";
             public static readonly string ShortenExtension              = "ShortenExtension";
             public static readonly string CheckForUpdates               = "CheckForUpdates";
+            public static readonly string UseFullExePath                = "UseFullExePath";
         }
     }
 }

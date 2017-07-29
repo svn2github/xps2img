@@ -23,6 +23,7 @@ namespace Xps2ImgUI
     {
         private readonly Action<Preferences> _classicLookChanged;
         private readonly Action<Preferences> _alwaysResumeChanged;
+        private readonly Action<Preferences> _useFullExePathChanged;
 
         private readonly ChangesTracker _changesTracker;
 
@@ -38,7 +39,7 @@ namespace Xps2ImgUI
             get { return _model.IsStopPending || _model.IsRunning; }
         }
 
-        public PreferencesForm(Preferences preferences, Xps2ImgModel model, Action<Preferences> classicLookChanged = null, Action<Preferences> alwaysResumeChanged = null)
+        public PreferencesForm(Preferences preferences, Xps2ImgModel model, Action<Preferences> classicLookChanged, Action<Preferences> alwaysResumeChanged, Action<Preferences> useFullExePathChanged)
         {
             InitializeComponent();
 
@@ -50,6 +51,7 @@ namespace Xps2ImgUI
 
             _classicLookChanged = classicLookChanged ?? delegate { };
             _alwaysResumeChanged = alwaysResumeChanged ?? delegate { };
+            _useFullExePathChanged = useFullExePathChanged ?? delegate { };
 
             _changesTracker = new ChangesTracker(this);
 
@@ -241,21 +243,31 @@ namespace Xps2ImgUI
                 ChangePropertyAlwaysResume();
             }
 
+            if (name == Preferences.Properties.UseFullExePath)
+            {
+                ChangePropertyUseFullExePath();
+            }
+
             EnableButtons();
         }
 
-        protected void ChangePropertyGridLook()
+        private void ChangePropertyGridLook()
         {
             preferencesPropertyGrid.ModernLook = !Preferences.ClassicLook;
             _classicLookChanged(Preferences);
         }
 
-        protected void ChangePropertyAlwaysResume()
+        private void ChangePropertyAlwaysResume()
         {
             _alwaysResumeChanged(Preferences);
         }
 
-        protected void ChangeCulture()
+        private void ChangePropertyUseFullExePath()
+        {
+            _useFullExePathChanged(Preferences);
+        }
+
+        private void ChangeCulture()
         {
             LocalizationManager.SetUICulture((int)Preferences.ApplicationLanguage);
         }

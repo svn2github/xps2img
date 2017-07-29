@@ -11,8 +11,10 @@ namespace Xps2ImgUI
         private class ChangesTracker
         {
             private readonly LanguagesSupported _originalApplicationLanguage;
+
             private readonly bool _originalClassicLook;
             private readonly bool _originalAlwaysResume;
+            private readonly bool _originalUseFullExePath;
 
             private readonly PreferencesForm _preferencesForm;
 
@@ -28,6 +30,7 @@ namespace Xps2ImgUI
                 _originalApplicationLanguage = Preferences.ApplicationLanguage;
                 _originalClassicLook = Preferences.ClassicLook;
                 _originalAlwaysResume = Preferences.AlwaysResume;
+                _originalUseFullExePath = Preferences.UseFullExePath;
             }
 
             public void NotifyIfChanged(Action afterApplicationLanguageAction = null, bool resetAll = false)
@@ -35,6 +38,7 @@ namespace Xps2ImgUI
                 NotifyIfApplicationLanguageChanged(afterApplicationLanguageAction, resetAll);
                 NotifyIfClassicLookChanged(resetAll);
                 NotifyIfAlwaysResumeChanged(resetAll);
+                NotifyIfUseFullExePathChanged(resetAll);
             }
 
             private void NotifyIfAlwaysResumeChanged(bool resetAll)
@@ -65,6 +69,21 @@ namespace Xps2ImgUI
                 }
 
                 _preferencesForm.ChangePropertyGridLook();
+            }
+
+            private void NotifyIfUseFullExePathChanged(bool resetAll)
+            {
+                if (Preferences.UseFullExePath == _originalUseFullExePath)
+                {
+                    return;
+                }
+
+                if (resetAll)
+                {
+                    Preferences.UseFullExePath = _originalUseFullExePath;
+                }
+
+                _preferencesForm.ChangePropertyUseFullExePath();
             }
 
             private void NotifyIfApplicationLanguageChanged(Action afterApplicationLanguageAction, bool resetAll)

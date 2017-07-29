@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -125,8 +126,18 @@ namespace Xps2ImgUI
 
             // Show Command Line.
             _showCommandLineToolStripButton = settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.CommandLine, GetShowCommandLineToolTipText, ShowCommandLineToolStripButtonClick,
-                CommandLineMenuItems.Select(mid => mid.IsSeparator ? new ToolStripButtonItem() : new ToolStripButtonItem(mid.Title, (_, __) => mid.Command())).ToArray()
+                CommandLineMenuItems
+                    .TakeWhile(mid => !mid.Checkable)
+                    .Select(mid => mid.IsSeparator ? new ToolStripButtonItem() : new ToolStripButtonItem(mid.Title, mid.Command))
+                    .ToArray()
             );
+
+            var useFullExePathMenuItemDescriptor = CommandLineMenuItems.Last();
+            Debug.Assert(useFullExePathMenuItemDescriptor != null && useFullExePathMenuItemDescriptor.Checkable);
+            var useFullExePathToolStripMenuItem  = new ToolStripMenuItemEx(useFullExePathMenuItemDescriptor.Title);
+
+            _showCommandLineToolStripButton.DropDownItems.Add(useFullExePathToolStripMenuItem);
+            useFullExePathMenuItemDescriptor.SetupChecked(useFullExePathToolStripMenuItem);
 
             commandLineTextBox.ContextMenuStripGetter  = GetCommandLineTextBoxContextMenuStrip;
             commandLineTextBox.ToolStripRendererGetter = () => settingsPropertyGrid.ToolStripRenderer;
@@ -146,8 +157,9 @@ namespace Xps2ImgUI
             foreach (var menuItemDescriptor in CommandLineTextBoxMenuItems.Concat(CommandLineMenuItems))
             {
                 var mid = menuItemDescriptor;
-                var toolStripItem = contextMenuStrip.Items.Add(mid.IsSeparator ? "-" : menuItemDescriptor.Title(), null, mid.Enabled ? (_, __) => mid.Command() : (EventHandler)null);
+                var toolStripItem = contextMenuStrip.Items.Add(mid.IsSeparator ? "-" : menuItemDescriptor.Title(), null, mid.Command);
                 toolStripItem.Enabled = mid.Enabled;
+                mid.SetupChecked(toolStripItem);
             }
 
             return contextMenuStrip;
@@ -175,13 +187,15 @@ namespace Xps2ImgUI
                 yield return new MenuItemDescriptor();
                 yield return new MenuItemDescriptor(() => Resources.Strings.CopyUIBatchCommandLineToClipboard, () => ClipboardUtils.CopyToClipboard(() => copyBatch(true)));
                 yield return new MenuItemDescriptor(() => Resources.Strings.CopyUIBatchCommandLineWithoutErrorHandlingToClipboard, () => ClipboardUtils.CopyToClipboard(() => copyBatch(false)));
+                yield return new MenuItemDescriptor();
+                yield return new MenuItemDescriptor(() => Resources.Strings.CopyCommandUseFullExePathName, null, () => _preferences.UseFullExePath, b => { _preferences.UseFullExePath = b; UpdateCommandLine(true); });
             }
         }
 
         private ToolStripItem _resetToolStripButton;
         private ToolStripButtonItem _updatesToolStripButtonItem;
         private ToolStripSplitButton _loadToolStripButton;
-        private ToolStripItem _showCommandLineToolStripButton;
+        private ToolStripSplitButton _showCommandLineToolStripButton;
         private ToolStripMenuItem _shortenExtensionToolStripMenuItem;
 
         private ThumbButtonManager _thumbButtonManager;

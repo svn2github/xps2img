@@ -238,26 +238,35 @@ namespace Xps2ImgUI
             }
         }
 
+        private void UseFullExePathChanged(Preferences preferences)
+        {
+            _useFullExePath = preferences.UseFullExePath;
+            UpdateCommandLine(true);
+        }
+
         private void PreferencesToolStripButtonClick(object sender, EventArgs e)
         {
             using (new ModalGuard())
             {
                 using (new DisposableActions(() => _activeAlwaysResume = null))
                 {
-                    using (var preferencesForm = new PreferencesForm(_preferences, Model, ClassicLookChanged, AlwaysResumeChanged) { PreferencesPropertySort = _preferencesPropertySort })
+                    using (new DisposableActions(() => _useFullExePath = null))
                     {
-                        var dialogResult = preferencesForm.ShowDialog(this);
-
-                        _preferencesPropertySort = preferencesForm.PreferencesPropertySort;
-
-                        if (dialogResult != DialogResult.OK)
+                        using (var preferencesForm = new PreferencesForm(_preferences, Model, ClassicLookChanged, AlwaysResumeChanged, UseFullExePathChanged) { PreferencesPropertySort = _preferencesPropertySort })
                         {
-                            return;
+                            var dialogResult = preferencesForm.ShowDialog(this);
+
+                            _preferencesPropertySort = preferencesForm.PreferencesPropertySort;
+
+                            if (dialogResult != DialogResult.OK)
+                            {
+                                return;
+                            }
+
+                            _preferences = preferencesForm.Preferences;
+
+                            ApplyPreferences(true);
                         }
-
-                        _preferences = preferencesForm.Preferences;
-
-                        ApplyPreferences(true);
                     }
                 }
             }
@@ -305,6 +314,7 @@ namespace Xps2ImgUI
 
         private bool _autoClosed;
 
-        private bool? _activeAlwaysResume;       
+        private bool? _activeAlwaysResume;
+        private bool? _useFullExePath;
     }
 }

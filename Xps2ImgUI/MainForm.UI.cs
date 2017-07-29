@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 
 using Windows7.DesktopIntegration;
 
@@ -181,7 +182,14 @@ namespace Xps2ImgUI
             _srcFileDisplayName = Path.GetFileNameWithoutExtension(Model.SrcFile);
             var commandLine = Model.FormatCommandLine(isUi ? _model.OptionsObject.ExcludedOnSave : _model.OptionsObject.ExcludedOnView);
             var separator = String.IsNullOrEmpty(commandLine) ? String.Empty : StringUtils.SpaceString;
-            return String.Format("\"{0}\"{1}{2}", isUi ? Program.Xps2ImgUIExecutable : Program.Xps2ImgExecutable, separator, commandLine);
+
+            var exe = isUi ? Program.Xps2ImgUIExecutable : Program.Xps2ImgExecutable;
+            if (!(_useFullExePath ?? _preferences.UseFullExePath))
+            {
+                exe = Path.GetFileName(exe) ?? exe;
+            }
+
+            return String.Format((exe.Any(Char.IsWhiteSpace) ? "\"{0}\"" : "{0}") + "{1}{2}", exe, separator, commandLine);
         }
 
         private void EnableConvertControls(ControlState controlState = ControlState.EnabledAndFocused)

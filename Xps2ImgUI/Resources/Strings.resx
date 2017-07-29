@@ -181,6 +181,10 @@
     <value>C&amp;opy Command Line To Clipboard</value>
     <comment>C&amp;opy Command Line To Clipboard</comment>
   </data>
+  <data name="CopyCommandUseFullExePathName" xml:space="preserve">
+    <value>Use &amp;Full Executable Path At Command Line</value>
+    <comment>Use &amp;Full Executable Path At Command Line</comment>
+  </data>
   <data name="CopyXPSFilePathToClipboard" xml:space="preserve">
     <value>Copy XP&amp;S File Path To Clipboard</value>
     <comment>Copy XP&amp;S File Path To Clipboard</comment>
@@ -620,6 +624,14 @@ What's new in version {0}
   <data name="Preferences_FlashWhenCompletedDescription" xml:space="preserve">
     <value>Flash application window when conversion is completed.</value>
     <comment>Flash application window when conversion is completed.</comment>
+  </data>
+  <data name="Preferences_UseFullExePathName" xml:space="preserve">
+    <value>Use Full Executable Path At Command Line</value>
+    <comment>Use Full Executable Path At Command Line</comment>
+  </data>
+  <data name="Preferences_UseFullExePathDescription" xml:space="preserve">
+    <value>Use full executable path at command line.</value>
+    <comment>Use full executable path at command line.</comment>
   </data>
   <data name="Preferences_ConfirmOnAfterConversionName" xml:space="preserve">
     <value>Confirm After Conversion</value>

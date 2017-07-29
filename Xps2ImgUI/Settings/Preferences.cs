@@ -33,6 +33,12 @@ namespace Xps2ImgUI.Settings
         public bool AutoSaveSettings { get; set; }
 
         [Category(Categories.Interface)]
+        [DefaultValue(true)]
+        [TypeConverter(typeof(YesNoConverter))]
+        [Editor(typeof(CheckBoxGlyphEditor), typeof(UITypeEditor))]
+        public bool UseFullExePath { get; set; }
+
+        [Category(Categories.Interface)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         [Editor(typeof(CheckBoxGlyphEditor), typeof(UITypeEditor))]
@@ -141,7 +147,7 @@ namespace Xps2ImgUI.Settings
                    (((GetHashCode() ^ preferences.GetHashCode()) & (mask ? FieldsMask : -1)) == 0);
         }
 
-        private const int FieldsMask = ~(-1 << 14);
+        private const int FieldsMask = ~(-1 << 15);
 
         private IEnumerable<bool> Fields
         {
@@ -161,7 +167,8 @@ namespace Xps2ImgUI.Settings
                 yield return CheckForUpdates == CheckInterval.Never;
                 yield return CheckForUpdates == CheckInterval.Weekly;
                 yield return CheckForUpdates == CheckInterval.Monthly;
-                yield return ShortenExtension; // 14th bit. Change FieldsMask if new fields are added before.
+                yield return UseFullExePath;
+                yield return ShortenExtension; // 15th bit. Change FieldsMask if new fields are added before.
                 yield return ApplicationLanguage == LanguagesSupported.English; // Add more languages here.
                 yield return ApplicationLanguage == LanguagesSupported.Ukrainian;
             }
