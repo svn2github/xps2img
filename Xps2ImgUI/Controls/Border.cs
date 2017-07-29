@@ -9,6 +9,8 @@ namespace Xps2ImgUI.Controls
         {
             var borderSize = SystemInformation.BorderSize;
             Padding = new Padding(borderSize.Width, borderSize.Height, borderSize.Width, borderSize.Height);
+
+            SetStyle(ControlStyles.ResizeRedraw | ControlStyles.AllPaintingInWmPaint, true);
         }
 
         protected override void OnPaint(PaintEventArgs e)
