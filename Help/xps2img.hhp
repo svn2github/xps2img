@@ -56,6 +56,7 @@ IDH_AutoSaveSettings=xps2img.chm::/Files\Preferences.html#autoSaveSettings
 IDH_ClassicLook=xps2img.chm::/Files\Preferences.html#classicLook
 IDH_FlashWhenCompleted=xps2img.chm::/Files\Preferences.html#flash
 IDH_ShowElapsedTime=xps2img.chm::/Files\Preferences.html#showElapsedTime
+IDH_UseFullExePath=xps2img.chm::/Files\Preferences.html#useFullExePath
 IDH_Confirmations=xps2img.chm::/Files\Preferences.html#confirmations
 IDH_ConfirmAfterConversion=xps2img.chm::/Files\Preferences.html#confirmAfterConversion
 IDH_ConfirmDelete=xps2img.chm::/Files\Preferences.html#confirmDelete
@@ -109,3 +110,4 @@ IDH_PreferDpiOverSize=xps2img.chm::/Files\OptionsGUI.html#preferDpiOverSize
 #define IDH_IgnoreErrors		1268
 #define IDH_FileNameAsImagePrefix	1270
 #define IDH_PreferDpiOverSize	        1271
+#define IDH_UseFullExePath	        1272

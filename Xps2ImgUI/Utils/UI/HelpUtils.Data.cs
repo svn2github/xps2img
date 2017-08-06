@@ -50,6 +50,7 @@ namespace Xps2ImgUI.Utils.UI
         private const string HelpTopicIgnoreErrorsDisplayName   = "1268";
         private const string HelpTopicFileNameAsImagePrefix     = "1270";
         private const string HelpTopicPreferDpiOverSize         = "1271";
+        private const string HelpTopicUseFullExePath            = "1272";
 
         private static readonly Dictionary<string, string> CategoryToTopicMap = new Dictionary<string, string>
         {
@@ -100,7 +101,8 @@ namespace Xps2ImgUI.Utils.UI
             { Preferences.Properties.AlwaysResume,                   HelpTopicAlwaysResume },
             { Preferences.Properties.SuggestResume,                  HelpTopicSuggestResume },
             { Preferences.Properties.ShortenExtension,               HelpTopicShortenImageExtension },
-            { Preferences.Properties.CheckForUpdates,                HelpTopicCheckForUpdates }
+            { Preferences.Properties.CheckForUpdates,                HelpTopicCheckForUpdates },
+            { Preferences.Properties.UseFullExePath,                 HelpTopicUseFullExePath }
         };
     }
 }
