@@ -40,6 +40,12 @@ namespace Xps2Img.Shared.Controls
             set { valueTrackBar.Value = value; }
         }
 
+        [Browsable(false)]
+        public IntControl VerticalPair
+        {
+            get; set;
+        }
+
         public IntControl()
         {
             InitializeComponent();
@@ -47,6 +53,8 @@ namespace Xps2Img.Shared.Controls
 
         protected override void OnLoad(EventArgs e)
         {
+            base.OnLoad(e);
+
             var value = Value ?? DefaultValue;
             if (!IsValueInRange(value))
             {
@@ -65,7 +73,24 @@ namespace Xps2Img.Shared.Controls
 
             headerLabel.Text = Title;
 
-            base.OnLoad(e);
+            if (VerticalPair != null)
+            {
+                VerticalPair.headerLabel.Resize += VerticalPairHeaderLabelResize;
+            }
+        }
+
+        private void VerticalPairHeaderLabelResize(object sender, EventArgs eventArgs)
+        {
+            var verticalPairHeaderLabel = (Label)sender;
+
+            verticalPairHeaderLabel.Resize -= VerticalPairHeaderLabelResize;
+
+            var headerLabelShorter = headerLabel.Width < verticalPairHeaderLabel.Width;
+            var mainHeaderLabel = headerLabelShorter ? verticalPairHeaderLabel : headerLabel;
+            var adjustedHeaderLabel = headerLabelShorter ? headerLabel : verticalPairHeaderLabel;
+
+            adjustedHeaderLabel.AutoSize = false;
+            adjustedHeaderLabel.Width = mainHeaderLabel.Width;
         }
 
         private void SetSelectedValueFromTrackBar()

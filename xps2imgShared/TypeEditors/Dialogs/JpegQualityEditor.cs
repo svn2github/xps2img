@@ -4,14 +4,14 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
 {
     public class JpegQualityEditor : IntegerEditor
     {
-        public override int DefaultValue { get { return IntToString(Options.Defaults.JpegQuality); } }
+        protected override int DefaultValue { get { return Options.Defaults.JpegQualityValue; } }
 
-        public override int MinValue { get { return IntToString(Options.ValidationExpressions.MinJpegQuality); } }
-        public override int MaxValue { get { return IntToString(Options.ValidationExpressions.MaxJpegQuality); } }
+        protected override int MinValue { get { return Options.ValidationExpressions.MinJpegQualityValue; } }
+        protected override int MaxValue { get { return Options.ValidationExpressions.MaxJpegQualityValue; } }
 
-        public override int TrackBarTickFrequency { get { return 5; } }
-        public override int TrackBarLargeChange { get { return 5; } }
+        protected override int TrackBarTickFrequency { get { return 5; } }
+        protected override int TrackBarLargeChange { get { return 5; } }
 
-        public override int[] Values { get { return Options.Defaults.JpegQualityValues; } }
+        protected override int[] Values { get { return Options.Defaults.JpegQualityValues; } }
     }
 }

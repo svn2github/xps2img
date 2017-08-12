@@ -23,18 +23,13 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
             form.TrackBarLargeChange = TrackBarLargeChange;
         }
 
-        protected static int IntToString(string value)
-        {
-            return Int32.Parse(value, CultureInfo.InvariantCulture);
-        }
+        protected abstract int DefaultValue { get; }
+        protected abstract int MaxValue { get; }
+        protected abstract int MinValue { get; }
 
-        public abstract int DefaultValue { get; }
-        public abstract int MaxValue { get; }
-        public abstract int MinValue { get; }
+        protected abstract int[] Values { get; }
 
-        public abstract int[] Values { get; }
-
-        public abstract int TrackBarLargeChange { get; }
-        public abstract int TrackBarTickFrequency { get; }
+        protected abstract int TrackBarLargeChange { get; }
+        protected abstract int TrackBarTickFrequency { get; }
     }
 }

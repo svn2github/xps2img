@@ -23,7 +23,6 @@ namespace Xps2Img.Shared.CommandLine
         [Browsable(false)]
         public string InternalParentAppMutexName { get { return GetInternalParamerterAt(1); } }
 
-        // ReSharper disable once InconsistentNaming
         [Browsable(false)]
         public CultureInfo InternalCulture
         {
@@ -42,6 +41,11 @@ namespace Xps2Img.Shared.CommandLine
         private string GetInternalParamerterAt(int index)
         {
             return InternalParameters.Skip(index).First();
+        }
+
+        private static int IntToString(string value)
+        {
+            return Int32.Parse(value, CultureInfo.InvariantCulture);
         }
     }
 }

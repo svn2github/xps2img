@@ -705,6 +705,15 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Paper Size.
+        /// </summary>
+        public static string PaperSize {
+            get {
+                return ResourceManager.GetString("PaperSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do Nothing.
         /// </summary>
         public static string PostAction_DoNothingValue {

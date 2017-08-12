@@ -425,4 +425,8 @@
     <value>&amp;Вжити</value>
     <comment>&amp;Apply</comment>
   </data>
+  <data name="PaperSize" xml:space="preserve">
+    <value>Розмір паперу</value>
+    <comment>Paper Size</comment>
+  </data>
 </root>

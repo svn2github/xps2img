@@ -30,17 +30,25 @@
         {
             this.okButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
-            this.intControl1 = new Xps2Img.Shared.Controls.IntControl();
-            this.intControl2 = new Xps2Img.Shared.Controls.IntControl();
+            this.paperTypeIntControl = new Xps2Img.Shared.Controls.IntControl();
+            this.dpiIntControl = new Xps2Img.Shared.Controls.IntControl();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.widthNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.heightNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.widthNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.heightNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // okButton
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.Location = new System.Drawing.Point(201, 111);
+            this.okButton.Location = new System.Drawing.Point(201, 139);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
-            this.okButton.TabIndex = 2;
+            this.okButton.TabIndex = 8;
             this.okButton.Text = "okButton";
             this.okButton.UseVisualStyleBackColor = true;
             // 
@@ -48,46 +56,98 @@
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(278, 111);
+            this.cancelButton.Location = new System.Drawing.Point(278, 139);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 3;
+            this.cancelButton.TabIndex = 9;
             this.cancelButton.Text = "cancelButton";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
-            // intControl1
+            // paperTypeIntControl
             // 
-            this.intControl1.DefaultValue = 0;
-            this.intControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.intControl1.Location = new System.Drawing.Point(0, 0);
-            this.intControl1.MaxValue = 0;
-            this.intControl1.MinValue = 0;
-            this.intControl1.Name = "intControl1";
-            this.intControl1.SelectedValue = 0;
-            this.intControl1.Size = new System.Drawing.Size(358, 55);
-            this.intControl1.TabIndex = 0;
-            this.intControl1.Title = null;
-            this.intControl1.TrackBarLargeChange = 0;
-            this.intControl1.TrackBarTickFrequency = 0;
-            this.intControl1.Value = null;
-            this.intControl1.Values = null;
+            this.paperTypeIntControl.DefaultValue = 0;
+            this.paperTypeIntControl.Dock = System.Windows.Forms.DockStyle.Top;
+            this.paperTypeIntControl.Location = new System.Drawing.Point(0, 0);
+            this.paperTypeIntControl.MaxValue = 0;
+            this.paperTypeIntControl.MinValue = 0;
+            this.paperTypeIntControl.Name = "paperTypeIntControl";
+            this.paperTypeIntControl.SelectedValue = 0;
+            this.paperTypeIntControl.Size = new System.Drawing.Size(358, 55);
+            this.paperTypeIntControl.TabIndex = 0;
+            this.paperTypeIntControl.Title = null;
+            this.paperTypeIntControl.TrackBarLargeChange = 0;
+            this.paperTypeIntControl.TrackBarTickFrequency = 0;
+            this.paperTypeIntControl.Value = null;
+            this.paperTypeIntControl.Values = null;
             // 
-            // intControl2
+            // dpiIntControl
             // 
-            this.intControl2.DefaultValue = 0;
-            this.intControl2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.intControl2.Location = new System.Drawing.Point(0, 55);
-            this.intControl2.MaxValue = 0;
-            this.intControl2.MinValue = 0;
-            this.intControl2.Name = "intControl2";
-            this.intControl2.SelectedValue = 0;
-            this.intControl2.Size = new System.Drawing.Size(358, 55);
-            this.intControl2.TabIndex = 1;
-            this.intControl2.Title = null;
-            this.intControl2.TrackBarLargeChange = 0;
-            this.intControl2.TrackBarTickFrequency = 0;
-            this.intControl2.Value = null;
-            this.intControl2.Values = null;
+            this.dpiIntControl.DefaultValue = 0;
+            this.dpiIntControl.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dpiIntControl.Location = new System.Drawing.Point(0, 55);
+            this.dpiIntControl.MaxValue = 0;
+            this.dpiIntControl.MinValue = 0;
+            this.dpiIntControl.Name = "dpiIntControl";
+            this.dpiIntControl.SelectedValue = 0;
+            this.dpiIntControl.Size = new System.Drawing.Size(358, 55);
+            this.dpiIntControl.TabIndex = 1;
+            this.dpiIntControl.Title = null;
+            this.dpiIntControl.TrackBarLargeChange = 0;
+            this.dpiIntControl.TrackBarTickFrequency = 0;
+            this.dpiIntControl.Value = null;
+            this.dpiIntControl.Values = null;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(5, 115);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(19, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "←";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(122, 115);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(19, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "↑";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(98, 115);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(19, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "→";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(215, 114);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(19, 13);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "↓";
+            // 
+            // widthNumericUpDown
+            // 
+            this.widthNumericUpDown.Location = new System.Drawing.Point(24, 112);
+            this.widthNumericUpDown.Name = "widthNumericUpDown";
+            this.widthNumericUpDown.Size = new System.Drawing.Size(69, 20);
+            this.widthNumericUpDown.TabIndex = 3;
+            this.widthNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // heightNumericUpDown
+            // 
+            this.heightNumericUpDown.Location = new System.Drawing.Point(143, 112);
+            this.heightNumericUpDown.Name = "heightNumericUpDown";
+            this.heightNumericUpDown.Size = new System.Drawing.Size(69, 20);
+            this.heightNumericUpDown.TabIndex = 6;
+            this.heightNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // RequiredSizeForm
             // 
@@ -95,13 +155,22 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(358, 141);
-            this.Controls.Add(this.intControl2);
-            this.Controls.Add(this.intControl1);
+            this.ClientSize = new System.Drawing.Size(358, 169);
+            this.Controls.Add(this.heightNumericUpDown);
+            this.Controls.Add(this.widthNumericUpDown);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.dpiIntControl);
+            this.Controls.Add(this.paperTypeIntControl);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
             this.Name = "RequiredSizeForm";
+            ((System.ComponentModel.ISupportInitialize)(this.widthNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.heightNumericUpDown)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -109,7 +178,13 @@
 
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Button cancelButton;
-        private Controls.IntControl intControl1;
-        private Controls.IntControl intControl2;
+        private Controls.IntControl paperTypeIntControl;
+        private Controls.IntControl dpiIntControl;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown widthNumericUpDown;
+        private System.Windows.Forms.NumericUpDown heightNumericUpDown;
     }
 }
