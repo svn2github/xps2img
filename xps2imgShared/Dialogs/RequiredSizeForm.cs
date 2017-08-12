@@ -27,7 +27,6 @@ namespace Xps2Img.Shared.Dialogs
             dpiIntControl.Values = Options.Defaults.DpiValues;
 
             dpiIntControl.Value = Options.Defaults.DpiValue;
-            dpiIntControl.VerticalPair = paperTypeIntControl;
         }
 
         private void InitializePaperTypeIntControl()

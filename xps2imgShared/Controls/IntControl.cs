@@ -9,6 +9,8 @@ namespace Xps2Img.Shared.Controls
 {
     public partial class IntControl : UserControl
     {
+        private const string TrackingCategory = "Tracking";
+
         [Browsable(false)]
         [DefaultValue(0)]
         public int DefaultValue { get; set; }
@@ -49,7 +51,7 @@ namespace Xps2Img.Shared.Controls
             set { valueTrackBar.Value = value; }
         }
 
-        [Category("Tracking")]
+        [Category(TrackingCategory)]
         [Description("Defines whether combo box is editable.")]
         [DefaultValue(true)]
         public bool ComboBoxEditable
@@ -58,11 +60,22 @@ namespace Xps2Img.Shared.Controls
             set { valueComboBox.DropDownStyle = value ? ComboBoxStyle.DropDown : ComboBoxStyle.DropDownList; }
         }
 
-        [Browsable(false)]
+        private IntControl _alignTitleWidthWith;
+
+        [Category(TrackingCategory)]
+        [Description("Control with which title widths will be aligned.")]
         [DefaultValue(null)]
-        public IntControl VerticalPair
+        public IntControl AlignTitleWidthWith
         {
-            get; set;
+            get { return _alignTitleWidthWith; }
+            set
+            {
+                if(value == this)
+                {
+                    throw new InvalidOperationException("Could not use self as assignment source. Choose another IntControl.");
+                }
+                _alignTitleWidthWith = value;
+            }
         }
 
         public IntControl()
@@ -92,21 +105,21 @@ namespace Xps2Img.Shared.Controls
 
             headerLabel.Text = Title;
 
-            if (VerticalPair != null)
+            if (AlignTitleWidthWith != null)
             {
-                VerticalPair.headerLabel.Resize += VerticalPairHeaderLabelResize;
+                AlignTitleWidthWith.headerLabel.Resize += AlignTitleWidthWithHeaderLabelResize;
             }
         }
 
-        private void VerticalPairHeaderLabelResize(object sender, EventArgs eventArgs)
+        private void AlignTitleWidthWithHeaderLabelResize(object sender, EventArgs eventArgs)
         {
-            var verticalPairHeaderLabel = (Label)sender;
+            var alignTitleWidthWithHeaderLabel = (Label)sender;
 
-            verticalPairHeaderLabel.Resize -= VerticalPairHeaderLabelResize;
+            alignTitleWidthWithHeaderLabel.Resize -= AlignTitleWidthWithHeaderLabelResize;
 
-            var headerLabelShorter = headerLabel.Width < verticalPairHeaderLabel.Width;
-            var mainHeaderLabel = headerLabelShorter ? verticalPairHeaderLabel : headerLabel;
-            var adjustedHeaderLabel = headerLabelShorter ? headerLabel : verticalPairHeaderLabel;
+            var headerLabelShorter = headerLabel.Width < alignTitleWidthWithHeaderLabel.Width;
+            var mainHeaderLabel = headerLabelShorter ? alignTitleWidthWithHeaderLabel : headerLabel;
+            var adjustedHeaderLabel = headerLabelShorter ? headerLabel : alignTitleWidthWithHeaderLabel;
 
             adjustedHeaderLabel.AutoSize = false;
             adjustedHeaderLabel.Width = mainHeaderLabel.Width;

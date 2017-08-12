@@ -74,6 +74,7 @@
             // 
             // dpiIntControl
             // 
+            this.dpiIntControl.AlignTitleWidthWith = this.paperTypeIntControl;
             this.dpiIntControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.dpiIntControl.Location = new System.Drawing.Point(0, 55);
             this.dpiIntControl.Name = "dpiIntControl";
