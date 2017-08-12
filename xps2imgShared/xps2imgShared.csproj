@@ -81,6 +81,12 @@
     <Compile Include="Controls\CustomCheckedListBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\IntControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\IntControl.Designer.cs">
+      <DependentUpon>IntControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Diagnostics\ValidateProperties.cs" />
     <Compile Include="Dialogs\BaseForm.cs">
       <SubType>Form</SubType>

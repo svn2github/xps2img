@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-
-namespace Xps2Img.Shared.Dialogs
+﻿namespace Xps2Img.Shared.Dialogs
 {
     public partial class IntegerForm : BaseForm, IFormValue<int?>
     {
@@ -12,129 +7,51 @@ namespace Xps2Img.Shared.Dialogs
             InitializeComponent();
         }
 
-        protected override void OnLoad(EventArgs e)
-        {
-            var value = Value ?? DefaultValue;
-            if (!IsValueInRange(value))
-            {
-                value = MinValue;
-            }
-
-            valueComboBox.Text = IntToString(value);
-
-            valueTrackBar.Minimum = MinValue;
-            valueTrackBar.Maximum = MaxValue;
-
-            SelectedValue = value;
-
-            valueTrackBar.TickFrequency = TrackBarTickFrequency;
-            valueTrackBar.LargeChange = TrackBarLargeChange;
-
-            headerLabel.Text = Title;
-
-            base.OnLoad(e);
-        }
-
         protected override bool CanClose()
         {
-            Value = SelectedValue;
+            Value = intControl.SelectedValue;
             return true;
         }
 
-        public int DefaultValue { get; set; }
-        public int? Value { get; set; }
-
-        public int MaxValue { get; set; }
-        public int MinValue { get; set; }
-
-        public int TrackBarLargeChange { get; set; }
-        public int TrackBarTickFrequency { get; set; }
-
-        public string Title { get; set; }
-
-        public int[] Values { get; set; }
-
-        private void SetSelectedValueFromTrackBar()
+        public int DefaultValue
         {
-            if (!_fromComboBox)
-            {
-                valueComboBox.Text = IntToString(SelectedValue);
-            }
+            set { intControl.DefaultValue = value; }
         }
 
-        private void ValueTrackBarEnter(object sender, EventArgs e)
+        public int? Value
         {
-            SetSelectedValueFromTrackBar();
+            get { return intControl.Value; }
+            set { intControl.Value = value; }
         }
 
-        private void ValueTrackBarValueChanged(object sender, EventArgs e)
+        public int MinValue
         {
-            SetSelectedValueFromTrackBar();
+            set { intControl.MinValue = value; }
         }
 
-        private bool IsValueInRange(int intValue)
+        public int MaxValue
         {
-            return intValue >= MinValue && intValue <= MaxValue;
+            set { intControl.MaxValue = value; }
         }
 
-        private string IntToString(int? value)
+        public int TrackBarLargeChange
         {
-            return value.HasValue && IsValueInRange(value.Value) ? value.Value.ToString(CultureInfo.InvariantCulture) : String.Empty;
+            set { intControl.TrackBarLargeChange = value; }
         }
 
-        private int AdjustValue(string strValue)
+        public int TrackBarTickFrequency
         {
-            int intValue;
-            return Int32.TryParse(strValue, NumberStyles.None, CultureInfo.InvariantCulture, out intValue) && IsValueInRange(intValue)
-                     ? intValue
-                     : SelectedValue;
+            set { intControl.TrackBarTickFrequency = value; }
         }
-
-        private int SelectedValue
+        
+        public string Title
         {
-            get { return valueTrackBar.Value; }
-            set { valueTrackBar.Value = value; }
+            set { intControl.Title = value; }
         }
-
-        private bool _fromComboBox;
-
-        private void SetSelectedValueFromComboBox()
+        
+        public int[] Values
         {
-            _fromComboBox = true;
-            SelectedValue = AdjustValue(valueComboBox.Text);
-            _fromComboBox = false;
-        }
-
-        private void ValueComboBoxSelectedValueChanged(object sender, EventArgs e)
-        {
-            SetSelectedValueFromComboBox();
-        }
-
-        private void ValueComboBoxTextUpdate(object sender, EventArgs e)
-        {
-            SetSelectedValueFromComboBox();
-        }
-
-        private IEnumerable<object> GetValueComboBoxItems(int insertIndex, int value)
-        {
-            for (var i = 0; i < Values.Length; i++)
-            {
-                if (i == insertIndex)
-                {
-                    yield return value;
-                }
-                yield return Values[i];
-            }
-        }
-
-        private void ValueComboBoxDropDown(object sender, EventArgs e)
-        {
-            var selectedValue = SelectedValue;
-            var index = IsValueInRange(selectedValue) ? Array.BinarySearch(Values, selectedValue) : 0;
-            index = index < 0 ? ~index : -1;
-
-            valueComboBox.Items.Clear();
-            valueComboBox.Items.AddRange(GetValueComboBoxItems(index, selectedValue).ToArray());
+            set { intControl.Values = value; }
         }
     }
 }
