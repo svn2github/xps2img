@@ -32,6 +32,8 @@ namespace Xps2Img.Shared.Dialogs
 
         private void InitializePaperTypeIntControl()
         {
+            paperTypeIntControl.ComboBoxEditable = false;
+
             paperTypeIntControl.Title = Resources.Strings.PaperSize;
 
             paperTypeIntControl.MinValue = Options.ValidationExpressions.MinDpiValue;

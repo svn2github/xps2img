@@ -56,20 +56,12 @@
             // 
             // intControl
             // 
-            this.intControl.DefaultValue = 0;
             this.intControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.intControl.Location = new System.Drawing.Point(0, 0);
-            this.intControl.MaxValue = 0;
-            this.intControl.MinValue = 0;
             this.intControl.Name = "intControl";
-            this.intControl.SelectedValue = 0;
             this.intControl.Size = new System.Drawing.Size(342, 51);
             this.intControl.TabIndex = 0;
-            this.intControl.Title = "";
-            this.intControl.TrackBarLargeChange = 0;
-            this.intControl.TrackBarTickFrequency = 0;
-            this.intControl.Value = null;
-            this.intControl.Values = null;
+
             // 
             // IntegerForm
             // 

@@ -65,39 +65,19 @@
             // 
             // paperTypeIntControl
             // 
-            this.paperTypeIntControl.DefaultValue = 0;
             this.paperTypeIntControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.paperTypeIntControl.Location = new System.Drawing.Point(0, 0);
-            this.paperTypeIntControl.MaxValue = 0;
-            this.paperTypeIntControl.MinValue = 0;
             this.paperTypeIntControl.Name = "paperTypeIntControl";
-            this.paperTypeIntControl.SelectedValue = 0;
             this.paperTypeIntControl.Size = new System.Drawing.Size(358, 55);
             this.paperTypeIntControl.TabIndex = 0;
-            this.paperTypeIntControl.Title = null;
-            this.paperTypeIntControl.TrackBarLargeChange = 0;
-            this.paperTypeIntControl.TrackBarTickFrequency = 0;
-            this.paperTypeIntControl.Value = null;
-            this.paperTypeIntControl.Values = null;
-            this.paperTypeIntControl.VerticalPair = null;
             // 
             // dpiIntControl
             // 
-            this.dpiIntControl.DefaultValue = 0;
             this.dpiIntControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.dpiIntControl.Location = new System.Drawing.Point(0, 55);
-            this.dpiIntControl.MaxValue = 0;
-            this.dpiIntControl.MinValue = 0;
             this.dpiIntControl.Name = "dpiIntControl";
-            this.dpiIntControl.SelectedValue = 0;
             this.dpiIntControl.Size = new System.Drawing.Size(358, 55);
             this.dpiIntControl.TabIndex = 1;
-            this.dpiIntControl.Title = null;
-            this.dpiIntControl.TrackBarLargeChange = 0;
-            this.dpiIntControl.TrackBarTickFrequency = 0;
-            this.dpiIntControl.Value = null;
-            this.dpiIntControl.Values = null;
-            this.dpiIntControl.VerticalPair = null;
             // 
             // label1
             // 

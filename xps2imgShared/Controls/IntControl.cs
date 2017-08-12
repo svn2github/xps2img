@@ -10,30 +10,39 @@ namespace Xps2Img.Shared.Controls
     public partial class IntControl : UserControl
     {
         [Browsable(false)]
+        [DefaultValue(0)]
         public int DefaultValue { get; set; }
 
         [Browsable(false)]
+        [DefaultValue(null)]
         public int? Value { get; set; }
 
         [Browsable(false)]
+        [DefaultValue(0)]
         public int MinValue { get; set; }
 
         [Browsable(false)]
+        [DefaultValue(0)]
         public int MaxValue { get; set; }
 
         [Browsable(false)]
+        [DefaultValue(0)]
         public int TrackBarLargeChange { get; set; }
 
         [Browsable(false)]
+        [DefaultValue(0)]
         public int TrackBarTickFrequency { get; set; }
 
         [Browsable(false)]
+        [DefaultValue(null)]
         public string Title { get; set; }
 
         [Browsable(false)]
+        [DefaultValue(null)]
         public int[] Values { get; set; }
 
         [Browsable(false)]
+        [DefaultValue(0)]
         public int SelectedValue
         {
             get { return valueTrackBar.Value; }
@@ -41,6 +50,15 @@ namespace Xps2Img.Shared.Controls
         }
 
         [Browsable(false)]
+        [DefaultValue(true)]
+        public bool ComboBoxEditable
+        {
+            get { return valueComboBox.DropDownStyle == ComboBoxStyle.DropDown; }
+            set { valueComboBox.DropDownStyle = value ? ComboBoxStyle.DropDown : ComboBoxStyle.DropDownList; }
+        }
+
+        [Browsable(false)]
+        [DefaultValue(null)]
         public IntControl VerticalPair
         {
             get; set;
