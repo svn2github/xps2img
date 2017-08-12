@@ -90,12 +90,7 @@ namespace Xps2Img.Shared.CommandLine
         [DefaultValue(true)]
         [TypeConverter(typeof(YesNoConverter))]
         [Editor(typeof(CheckBoxGlyphEditor), typeof(UITypeEditor))]
-        public bool PreferDpiOverSize
-        {
-            get; set;
-        }
-
-        private Size? _requiredSize;
+        public bool PreferDpiOverSize { get; set; }
 
         [Category(Categories.Options)]
         [Option(ShortOptions.RequiredSize, ConverterType = typeof (CheckedRequiredSizeTypeConverter), ValidationExpression = ValidationExpressions.RequiredSize)]
@@ -104,15 +99,7 @@ namespace Xps2Img.Shared.CommandLine
         [DynamicPropertyFilter(Properties.Consts.PreferDpiOverSize, false)]
         [TypeConverter(typeof (CheckedRequiredSizeTypeConverter))]
         [Editor(typeof (RequiredSizeEditor), typeof (UITypeEditor))]
-        public Size? RequiredSize
-        {
-            get { return _requiredSize; }
-            set
-            {
-                _requiredSize = value;
-                PreferDpiOverSize = !_requiredSize.HasValue;
-            }
-        }
+        public Size? RequiredSize { get; set; }
 
         [Category(Categories.Options)]
         [Option(ShortOptions.Dpi, DefaultValue = Defaults.Dpi, ValidationExpression = ValidationExpressions.Dpi)]

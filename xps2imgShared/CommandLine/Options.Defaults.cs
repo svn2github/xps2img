@@ -21,6 +21,7 @@ namespace Xps2Img.Shared.CommandLine
             public static readonly int[] JpegQualityValues      = { 10, 15, 25, 35, 45, 55, 65, 75, 85, 95, 100 };
 
             public static readonly string[] PrelimsPrefixValues = { "!", "#", "$", ".", "!!!", "###", "$$$", "..." };
+            public static readonly string[] ImageNameValues     = PrelimsPrefixValues;
         }
     }
 }
