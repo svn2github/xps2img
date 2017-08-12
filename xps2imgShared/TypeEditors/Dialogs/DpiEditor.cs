@@ -2,7 +2,7 @@
 
 namespace Xps2Img.Shared.TypeEditors.Dialogs
 {
-    public class DpiEditor : IntegerEditor
+    public class DpiEditor : IntEditor
     {
         protected override int DefaultValue { get { return Options.Defaults.DpiValue; } }
 

@@ -49,7 +49,8 @@ namespace Xps2Img.Shared.Controls
             set { valueTrackBar.Value = value; }
         }
 
-        [Browsable(false)]
+        [Category("Tracking")]
+        [Description("Defines whether combo box is editable.")]
         [DefaultValue(true)]
         public bool ComboBoxEditable
         {

@@ -2,7 +2,7 @@
 
 namespace Xps2Img.Shared.TypeEditors.Dialogs
 {
-    public class JpegQualityEditor : IntegerEditor
+    public class JpegQualityEditor : IntEditor
     {
         protected override int DefaultValue { get { return Options.Defaults.JpegQualityValue; } }
 

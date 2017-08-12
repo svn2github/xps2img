@@ -1,6 +1,6 @@
 ﻿namespace Xps2Img.Shared.Dialogs
 {
-    partial class IntegerForm
+    partial class IntForm
     {
         /// <summary>
         /// Required designer variable.
@@ -63,7 +63,7 @@
             this.intControl.TabIndex = 0;
 
             // 
-            // IntegerForm
+            // IntForm
             // 
             this.AcceptButton = this.okButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -73,7 +73,7 @@
             this.Controls.Add(this.intControl);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
-            this.Name = "IntegerForm";
+            this.Name = "IntForm";
             this.ResumeLayout(false);
 
         }

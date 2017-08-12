@@ -1,14 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Globalization;
 
 using Xps2Img.Shared.Dialogs;
 
 namespace Xps2Img.Shared.TypeEditors.Dialogs
 {
-    public abstract class IntegerEditor : FormEditorBase<IntegerForm, int?>
+    public abstract class IntEditor : FormEditorBase<IntForm, int?>
     {
-        protected override void InitForm(IntegerForm form, ITypeDescriptorContext context, int? value)
+        protected override void InitForm(IntForm form, ITypeDescriptorContext context, int? value)
         {
             form.DefaultValue = DefaultValue;
             form.Value = value;

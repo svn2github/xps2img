@@ -1,8 +1,8 @@
 ﻿namespace Xps2Img.Shared.Dialogs
 {
-    public partial class IntegerForm : BaseForm, IFormValue<int?>
+    public partial class IntForm : BaseForm, IFormValue<int?>
     {
-        public IntegerForm()
+        public IntForm()
         {
             InitializeComponent();
         }
