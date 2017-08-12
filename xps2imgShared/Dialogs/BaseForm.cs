@@ -65,8 +65,8 @@ namespace Xps2Img.Shared.Dialogs
         {
             if (IsHandleCreated)
             {
-                ((Button)AcceptButton).Text = Resources.Strings.OK;
-                ((Button)CancelButton).Text = Resources.Strings.Cancel;
+                ((Button)AcceptButton).Text = Resources.Strings.Apply;
+                ((Button)CancelButton).Text = Resources.Strings.Close;
             }
         }
     }

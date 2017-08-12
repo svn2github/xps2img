@@ -9,11 +9,6 @@ namespace Xps2Img.Shared.Dialogs
             InitializeComponent();
         }
 
-        public override void UICultureChanged()
-        {
-            base.UICultureChanged();
-        }
-
         public Size? Value { get; set; }
     }
 }

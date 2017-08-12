@@ -30,16 +30,17 @@
         {
             this.okButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.intControl1 = new Xps2Img.Shared.Controls.IntControl();
+            this.intControl2 = new Xps2Img.Shared.Controls.IntControl();
             this.SuspendLayout();
             // 
             // okButton
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.Location = new System.Drawing.Point(153, 299);
+            this.okButton.Location = new System.Drawing.Point(201, 111);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
-            this.okButton.TabIndex = 1;
+            this.okButton.TabIndex = 2;
             this.okButton.Text = "okButton";
             this.okButton.UseVisualStyleBackColor = true;
             // 
@@ -47,25 +48,46 @@
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(230, 299);
+            this.cancelButton.Location = new System.Drawing.Point(278, 111);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 2;
+            this.cancelButton.TabIndex = 3;
             this.cancelButton.Text = "cancelButton";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
-            // listBox1
+            // intControl1
             // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.IntegralHeight = false;
-            this.listBox1.Location = new System.Drawing.Point(6, 22);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.ScrollAlwaysVisible = true;
-            this.listBox1.Size = new System.Drawing.Size(300, 267);
-            this.listBox1.TabIndex = 0;
+            this.intControl1.DefaultValue = 0;
+            this.intControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.intControl1.Location = new System.Drawing.Point(0, 0);
+            this.intControl1.MaxValue = 0;
+            this.intControl1.MinValue = 0;
+            this.intControl1.Name = "intControl1";
+            this.intControl1.SelectedValue = 0;
+            this.intControl1.Size = new System.Drawing.Size(358, 55);
+            this.intControl1.TabIndex = 0;
+            this.intControl1.Title = null;
+            this.intControl1.TrackBarLargeChange = 0;
+            this.intControl1.TrackBarTickFrequency = 0;
+            this.intControl1.Value = null;
+            this.intControl1.Values = null;
+            // 
+            // intControl2
+            // 
+            this.intControl2.DefaultValue = 0;
+            this.intControl2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.intControl2.Location = new System.Drawing.Point(0, 55);
+            this.intControl2.MaxValue = 0;
+            this.intControl2.MinValue = 0;
+            this.intControl2.Name = "intControl2";
+            this.intControl2.SelectedValue = 0;
+            this.intControl2.Size = new System.Drawing.Size(358, 55);
+            this.intControl2.TabIndex = 1;
+            this.intControl2.Title = null;
+            this.intControl2.TrackBarLargeChange = 0;
+            this.intControl2.TrackBarTickFrequency = 0;
+            this.intControl2.Value = null;
+            this.intControl2.Values = null;
             // 
             // RequiredSizeForm
             // 
@@ -73,8 +95,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(314, 330);
-            this.Controls.Add(this.listBox1);
+            this.ClientSize = new System.Drawing.Size(358, 141);
+            this.Controls.Add(this.intControl2);
+            this.Controls.Add(this.intControl1);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
             this.Name = "RequiredSizeForm";
@@ -86,6 +109,7 @@
 
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Button cancelButton;
-        private System.Windows.Forms.ListBox listBox1;
+        private Controls.IntControl intControl1;
+        private Controls.IntControl intControl2;
     }
 }

@@ -413,8 +413,16 @@
     <value>Скасувати</value>
     <comment>Cancel</comment>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрити</value>
+    <comment>Close</comment>
+  </data>
   <data name="OK" xml:space="preserve">
     <value>ОК</value>
     <comment>OK</comment>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>&amp;Вжити</value>
+    <comment>&amp;Apply</comment>
   </data>
 </root>

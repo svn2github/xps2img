@@ -413,11 +413,19 @@
     <value>Cancel</value>
     <comment>Cancel</comment>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+    <comment>Close</comment>
+  </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
     <comment>OK</comment>
   </data>
-    <data name="Yes" xml:space="preserve">
+  <data name="Apply" xml:space="preserve">
+    <value>&amp;Apply</value>
+    <comment>&amp;Apply</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
     <value>&#8203;</value>
     <comment>NON LOCALIZABLE</comment>
   </data>
