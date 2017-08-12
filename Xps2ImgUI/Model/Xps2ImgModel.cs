@@ -24,7 +24,7 @@ namespace Xps2ImgUI.Model
         {
             InitOptionsHolder();
 
-            _optionsHolder.OptionsObject = options ?? new UIOptions();
+            (_optionsHolder.OptionsObject = options ?? new UIOptions()).Adjust();
 
             if (ImageName == String.Empty)
             {

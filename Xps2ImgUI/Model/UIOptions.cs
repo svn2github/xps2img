@@ -17,6 +17,11 @@ namespace Xps2ImgUI.Model
             _facade = new FilterableCustomTypeDescriptor(this);
         }
 
+        public void Adjust()
+        {
+            PreferDpiOverSize = !RequiredSize.HasValue;
+        }
+
         private static readonly Func<string> GetGuidNamePart = () => Guid.NewGuid().ToString().Substring(0, 8);
         private static readonly Func<string, string, string> JoinInternalParameters = (s1, s2) => String.Join(InternalParametersSeparator.ToString(), new[] { s1, s2 });
 
