@@ -8,7 +8,7 @@ namespace CommandLine.Validation.Validators
 {
     public class IntValidator : ValidatorBase
     {
-        private static readonly Regex Filter = new Regex(@"^\s*(?<lowerBound>\d+)\s*-\s*(?<upperBound>\d+)\s*$");
+        private static readonly Regex Filter = new Regex(@"^\s*(?<lowerBound>[1-9]\d{1,7})\s*-\s*(?<upperBound>[1-9]\d{1,7})\s*$");
 
         public static IValidator Create(object validation)
         {
