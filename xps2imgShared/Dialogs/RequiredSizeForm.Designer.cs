@@ -45,7 +45,7 @@
             // okButton
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.Location = new System.Drawing.Point(201, 139);
+            this.okButton.Location = new System.Drawing.Point(201, 145);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 8;
@@ -56,7 +56,7 @@
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(278, 139);
+            this.cancelButton.Location = new System.Drawing.Point(278, 145);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 9;
@@ -84,7 +84,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(2, 115);
+            this.label1.Location = new System.Drawing.Point(3, 130);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(19, 13);
             this.label1.TabIndex = 2;
@@ -93,7 +93,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(120, 115);
+            this.label2.Location = new System.Drawing.Point(140, 111);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(19, 13);
             this.label2.TabIndex = 5;
@@ -102,7 +102,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(94, 115);
+            this.label3.Location = new System.Drawing.Point(95, 130);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(19, 13);
             this.label3.TabIndex = 4;
@@ -111,7 +111,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(213, 114);
+            this.label4.Location = new System.Drawing.Point(140, 150);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(19, 13);
             this.label4.TabIndex = 7;
@@ -119,7 +119,7 @@
             // 
             // widthNumericUpDown
             // 
-            this.widthNumericUpDown.Location = new System.Drawing.Point(22, 112);
+            this.widthNumericUpDown.Location = new System.Drawing.Point(23, 127);
             this.widthNumericUpDown.Name = "widthNumericUpDown";
             this.widthNumericUpDown.Size = new System.Drawing.Size(69, 20);
             this.widthNumericUpDown.TabIndex = 3;
@@ -127,7 +127,7 @@
             // 
             // heightNumericUpDown
             // 
-            this.heightNumericUpDown.Location = new System.Drawing.Point(141, 112);
+            this.heightNumericUpDown.Location = new System.Drawing.Point(122, 127);
             this.heightNumericUpDown.Name = "heightNumericUpDown";
             this.heightNumericUpDown.Size = new System.Drawing.Size(69, 20);
             this.heightNumericUpDown.TabIndex = 6;
@@ -139,7 +139,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(358, 169);
+            this.ClientSize = new System.Drawing.Size(358, 175);
             this.Controls.Add(this.heightNumericUpDown);
             this.Controls.Add(this.widthNumericUpDown);
             this.Controls.Add(this.label4);
