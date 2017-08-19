@@ -65,7 +65,6 @@
             // 
             // paperTypeIntControl
             // 
-            this.paperTypeIntControl.ComboBoxEditable = false;
             this.paperTypeIntControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.paperTypeIntControl.Location = new System.Drawing.Point(0, 0);
             this.paperTypeIntControl.Name = "paperTypeIntControl";

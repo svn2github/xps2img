@@ -30,14 +30,9 @@ namespace Xps2Img.Shared.Dialogs
         {
             paperTypeIntControl.Title = Resources.Strings.PaperSize;
 
-            paperTypeIntControl.MinValue = Shared.Controls.Settings.Dpi.MinValue;
-            paperTypeIntControl.MaxValue = Shared.Controls.Settings.Dpi.MaxValue;
-
-            paperTypeIntControl.TrackBarTickFrequency = Shared.Controls.Settings.Dpi.TrackBarTickFrequency;
-            paperTypeIntControl.TrackBarLargeChange = Shared.Controls.Settings.Dpi.TrackBarLargeChange;
-
-            paperTypeIntControl.Values = Shared.Controls.Settings.Dpi.Values;
-            paperTypeIntControl.Value = Shared.Controls.Settings.Dpi.DefaultValue;
+            paperTypeIntControl.Objects = new [] { "A0", "A1", "A2", "A3", "A4", "A5", "A6", "B0", "B1", "B2", "B3", "B4", "B5", "B6", "C0", "C1", "C2", "C3", "C4", "C5", "C6" };
+            paperTypeIntControl.TrackBarLargeChange = 7; // Num of papers.
+            paperTypeIntControl.Value = 4; // A4
         }
 
         public Size? Value { get; set; }

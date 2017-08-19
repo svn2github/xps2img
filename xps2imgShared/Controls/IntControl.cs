@@ -43,21 +43,39 @@ namespace Xps2Img.Shared.Controls
         [DefaultValue(null)]
         public int[] Values { get; set; }
 
+        private object[] _objects;
+
+        [Browsable(false)]
+        [DefaultValue(null)]
+        public object[] Objects
+        {
+            get { return _objects; }
+            set
+            {
+                valueComboBox.DropDown -= ValueComboBoxDropDown;
+
+                valueComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+
+                valueComboBox.Items.Clear();
+                valueComboBox.Items.AddRange(_objects = value);
+
+                Values = Enumerable.Range(0, _objects.Length).ToArray();
+
+                MinValue = Values.First();
+                MaxValue = Values.Last();
+
+                TrackBarTickFrequency = 1;               
+            }
+        }
+
+        private bool HasObjects { get { return Objects != null; } }
+
         [Browsable(false)]
         [DefaultValue(0)]
         public int SelectedValue
         {
             get { return valueTrackBar.Value; }
             set { valueTrackBar.Value = value; }
-        }
-
-        [Category(TrackingCategory)]
-        [Description("Defines whether combo box is editable.")]
-        [DefaultValue(true)]
-        public bool ComboBoxEditable
-        {
-            get { return valueComboBox.DropDownStyle == ComboBoxStyle.DropDown; }
-            set { valueComboBox.DropDownStyle = value ? ComboBoxStyle.DropDown : ComboBoxStyle.DropDownList; }
         }
 
         private IntControl _alignTitleWidthWith;
@@ -93,7 +111,7 @@ namespace Xps2Img.Shared.Controls
                 value = MinValue;
             }
 
-            valueComboBox.Text = IntToString(value);
+            SetComboBoxValue(value);
 
             valueTrackBar.Minimum = MinValue;
             valueTrackBar.Maximum = MaxValue;
@@ -108,6 +126,18 @@ namespace Xps2Img.Shared.Controls
             if (AlignTitleWidthWith != null)
             {
                 AlignTitleWidthWith.headerLabel.Resize += AlignTitleWidthWithHeaderLabelResize;
+            }
+        }
+
+        private void SetComboBoxValue(int value)
+        {
+            if (HasObjects)
+            {
+                valueComboBox.SelectedIndex = AdjustValue(value);
+            }
+            else
+            {
+                valueComboBox.Text = IntToString(value);
             }
         }
 
@@ -129,7 +159,7 @@ namespace Xps2Img.Shared.Controls
         {
             if (!_fromComboBox)
             {
-                valueComboBox.Text = IntToString(SelectedValue);
+                SetComboBoxValue(SelectedValue);
             }
         }
 
@@ -156,9 +186,13 @@ namespace Xps2Img.Shared.Controls
         private int AdjustValue(string strValue)
         {
             int intValue;
-            return Int32.TryParse(strValue, NumberStyles.None, CultureInfo.InvariantCulture, out intValue) && IsValueInRange(intValue)
-                     ? intValue
-                     : SelectedValue;
+            var isValueValid = Int32.TryParse(strValue, NumberStyles.None, CultureInfo.InvariantCulture, out intValue);
+            return AdjustValue(intValue, isValueValid);
+        }
+
+        private int AdjustValue(int intValue, bool isValueValid = true)
+        {
+            return isValueValid && IsValueInRange(intValue) ? intValue : SelectedValue;
         }
 
         private bool _fromComboBox;
@@ -166,7 +200,7 @@ namespace Xps2Img.Shared.Controls
         private void SetSelectedValueFromComboBox()
         {
             _fromComboBox = true;
-            SelectedValue = AdjustValue(valueComboBox.Text);
+            SelectedValue = HasObjects ? AdjustValue(valueComboBox.SelectedIndex) : AdjustValue(valueComboBox.Text);
             _fromComboBox = false;
         }
 
