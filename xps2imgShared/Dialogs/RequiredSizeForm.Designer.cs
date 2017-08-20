@@ -36,10 +36,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.widthNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.heightNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.widthNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.heightNumericUpDown)).BeginInit();
+            this.widthTextBox = new System.Windows.Forms.TextBox();
+            this.heightTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // okButton
@@ -92,7 +90,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(140, 111);
+            this.label2.Location = new System.Drawing.Point(148, 111);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(19, 13);
             this.label2.TabIndex = 5;
@@ -110,27 +108,31 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(140, 150);
+            this.label4.Location = new System.Drawing.Point(148, 150);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(19, 13);
             this.label4.TabIndex = 7;
             this.label4.Text = "↓";
             // 
-            // widthNumericUpDown
+            // widthTextBox
             // 
-            this.widthNumericUpDown.Location = new System.Drawing.Point(23, 127);
-            this.widthNumericUpDown.Name = "widthNumericUpDown";
-            this.widthNumericUpDown.Size = new System.Drawing.Size(69, 20);
-            this.widthNumericUpDown.TabIndex = 3;
-            this.widthNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.widthTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.widthTextBox.Location = new System.Drawing.Point(23, 127);
+            this.widthTextBox.Name = "widthTextBox";
+            this.widthTextBox.ReadOnly = true;
+            this.widthTextBox.Size = new System.Drawing.Size(69, 20);
+            this.widthTextBox.TabIndex = 3;
+            this.widthTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // heightNumericUpDown
+            // heightTextBox
             // 
-            this.heightNumericUpDown.Location = new System.Drawing.Point(122, 127);
-            this.heightNumericUpDown.Name = "heightNumericUpDown";
-            this.heightNumericUpDown.Size = new System.Drawing.Size(69, 20);
-            this.heightNumericUpDown.TabIndex = 6;
-            this.heightNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.heightTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.heightTextBox.Location = new System.Drawing.Point(122, 127);
+            this.heightTextBox.Name = "heightTextBox";
+            this.heightTextBox.ReadOnly = true;
+            this.heightTextBox.Size = new System.Drawing.Size(69, 20);
+            this.heightTextBox.TabIndex = 6;
+            this.heightTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // RequiredSizeForm
             // 
@@ -139,8 +141,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(358, 175);
-            this.Controls.Add(this.heightNumericUpDown);
-            this.Controls.Add(this.widthNumericUpDown);
+            this.Controls.Add(this.heightTextBox);
+            this.Controls.Add(this.widthTextBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
@@ -150,8 +152,6 @@
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
             this.Name = "RequiredSizeForm";
-            ((System.ComponentModel.ISupportInitialize)(this.widthNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.heightNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -167,7 +167,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown widthNumericUpDown;
-        private System.Windows.Forms.NumericUpDown heightNumericUpDown;
+        private System.Windows.Forms.TextBox widthTextBox;
+        private System.Windows.Forms.TextBox heightTextBox;
     }
 }

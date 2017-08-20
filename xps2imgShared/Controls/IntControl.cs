@@ -111,10 +111,10 @@ namespace Xps2Img.Shared.Controls
                 value = MinValue;
             }
 
-            SetComboBoxValue(value);
-
             valueTrackBar.Minimum = MinValue;
             valueTrackBar.Maximum = MaxValue;
+
+            SetComboBoxValue(value);
 
             SelectedValue = value;
 
