@@ -55,7 +55,7 @@ namespace Xps2ImgUI.Controls.Data
             var contextMenuStrip = toolStripMenuItem.Owner as ContextMenuStrip;
             if (contextMenuStrip != null)
             {
-                contextMenuStrip.Opening += (_, __) => toolStripMenuItem.Checked = CheckedGetter();
+                toolStripMenuItem.Checked = CheckedGetter();
             }
             else
             {

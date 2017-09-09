@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Xps2ImgUI.Controls
@@ -19,19 +20,20 @@ namespace Xps2ImgUI.Controls
 
         private void ApplyContextMenu()
         {
-            if (ContextMenuStripGetter != null)
+            if (ContextMenuStrip == null)
             {
-                if(ContextMenuStrip != null)
-                {
-                    ContextMenuStrip.Dispose();
-                }
+                ContextMenuStrip = new ContextMenuStrip();
 
-                ContextMenuStrip = ContextMenuStripGetter();
+                if (ToolStripRendererGetter != null)
+                {
+                    ContextMenuStrip.Renderer = ToolStripRendererGetter();
+                }
             }
 
-            if (ToolStripRendererGetter != null)
+            if (ContextMenuStripGetter != null)
             {
-                ContextMenuStrip.Renderer = ToolStripRendererGetter();
+                ContextMenuStrip.Items.Clear();
+                ContextMenuStrip.Items.AddRange(ContextMenuStripGetter().Items.Cast<ToolStripItem>().ToArray());
             }
         }
 
