@@ -23,17 +23,17 @@ namespace Xps2ImgUI.Controls
             if (ContextMenuStrip == null)
             {
                 ContextMenuStrip = new ContextMenuStrip();
-
-                if (ToolStripRendererGetter != null)
-                {
-                    ContextMenuStrip.Renderer = ToolStripRendererGetter();
-                }
             }
 
             if (ContextMenuStripGetter != null)
             {
                 ContextMenuStrip.Items.Clear();
                 ContextMenuStrip.Items.AddRange(ContextMenuStripGetter().Items.Cast<ToolStripItem>().ToArray());
+            }
+
+            if (ToolStripRendererGetter != null)
+            {
+                ContextMenuStrip.Renderer = ToolStripRendererGetter();
             }
         }
 
