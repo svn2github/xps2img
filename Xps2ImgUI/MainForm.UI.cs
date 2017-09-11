@@ -37,7 +37,7 @@ namespace Xps2ImgUI
 
         private void UpdateThumbButton(bool isRunning)
         {
-            if (!Windows7Taskbar.Supported)
+            if (_thumbButton == null)
             {
                 return;
             }
