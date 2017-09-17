@@ -11,15 +11,15 @@
     <h1>Command-line Options</h1>
 
     <h2>Usage</h2>
-	<pre><span class="kwd">xps2img</span> <span class="str">src-file</span> <span class="sym">[</span><span class="var">out-dir</span><span class="sym">]</span> <span class="sym">[</span><span class="var">options</span><span class="sym">]</span></pre>
+    <pre><span class="kwd">xps2img</span> <span class="str">src-file</span> <span class="sym">[</span><span class="var">out-dir</span><span class="sym">]</span> <span class="sym">[</span><span class="var">options</span><span class="sym">]</span></pre>
 
     <p>Mandatory arguments to long options are mandatory for short options too.</p>
 
     <p>See also <a href="ExitCodes.html">exit codes</a>.</p>
 
-    <a class="anchor" name="srcfile" /><h2>XPS File</h2>
+    <a class="anchor" name="srcfile" /><h2>XPS Document</h2>
     <h3>src-file</h3>
-    <p>XPS file to process. Required.</p>
+    <p>XPS document to process. Required.</p>
 
     <a class="anchor" name="outdir" /><h2>Output Folder</h2>
     <h3>[out-dir]</h3>
@@ -41,9 +41,9 @@
     </ul>
     <p class="note">If conversion fails on startup error message will be shown and no action executed. Active only during conversion session.</p>
 
-    <a class="anchor" name="pages" /><h2>Page Number(s)</h2>
+    <a class="anchor" name="pages" /><h2>Pages</h2>
     <h3>-p, --pages=pages</h3>
-    <p>Page number(s)</p>
+    <p>Pages</p>
     <p class="default">all pages by default.</p>
     <dl>
         <dt>1-</dt><dd>all</dd>
@@ -169,7 +169,7 @@
     <a class="anchor" name="ignoreExisting" /><h2>Ignore Existing Images</h2>
     <h3>-k, --ignore-existing</h3>
     <p>Do not overwrite existing images.</p>
-	<p class="note">Will be reset in case of any image related property change.</p>
+    <p class="note">Will be reset in case of any image related property change.</p>
 
     <a class="anchor" name="ignoreErrors" /><h2>Ignore Conversion Errors</h2>
     <h3>-g, --ignore-errors</h3>

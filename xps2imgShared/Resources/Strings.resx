@@ -126,16 +126,16 @@
     <comment>All Files (*.*)|*.*</comment>
   </data>
   <data name="FilterXPSFiles" xml:space="preserve">
-    <value>XPS Files (*.xps)|*.xps|</value>
-    <comment>XPS Files (*.xps)|*.xps|</comment>
+    <value>XPS Documents (*.xps)|*.xps|</value>
+    <comment>XPS Documents (*.xps)|*.xps|</comment>
   </data>
   <data name="FilterExeFiles" xml:space="preserve">
     <value>Executable Files (*.exe)|*.exe|</value>
     <comment>Executable Files (*.exe)|*.exe|</comment>
   </data>
   <data name="SelectXpsFile" xml:space="preserve">
-    <value>Select XPS File</value>
-    <comment>Select XPS File</comment>
+    <value>Select XPS Document</value>
+    <comment>Select XPS Document</comment>
   </data>
   <data name="SelectExecutableFile" xml:space="preserve">
     <value>Select Executable File</value>
@@ -210,16 +210,16 @@
     <comment>&#xA;Converts XPS (XML Paper Specification) document to set of images.</comment>
   </data>
   <data name="Options_SrcFileName" xml:space="preserve">
-    <value>XPS File</value>
-    <comment>XPS File</comment>
+    <value>XPS Document</value>
+    <comment>XPS Document</comment>
   </data>
   <data name="Options_SrcFileDescription" xml:space="preserve">
-    <value>XPS file to process (required)</value>
-    <comment>XPS file to process (required)</comment>
+    <value>XPS document to process. Required</value>
+    <comment>XPS document to process. Required</comment>
   </data>
   <data name="Options_SrcFileCmdDescription" xml:space="preserve">
-    <value>XPS file to process</value>
-    <comment>XPS file to process</comment>
+    <value>XPS document to process</value>
+    <comment>XPS document to process</comment>
   </data>
   <data name="Options_OutDirName" xml:space="preserve">
     <value>Output Folder</value>
@@ -238,12 +238,12 @@
     <comment>Action to execute after conversion completed</comment>
   </data>
   <data name="Options_PagesName" xml:space="preserve">
-    <value>Page Number(s)</value>
-    <comment>Page Number(s)</comment>
+    <value>Pages</value>
+    <comment>Pages</comment>
   </data>
   <data name="Options_PagesDescription" xml:space="preserve">
-    <value>Page number(s)&#xA;  all pages by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;1-&#xA;  single:&#x9;1&#xA;  set:&#x9;&#x9;1,3&#xA;  range:&#x9;1-10 or -10 or 10-&#xA;  combined:&#x9;1,3-5,7-9,15-</value>
-    <comment>Page number(s)&#xA;  all pages by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;1-&#xA;  single:&#x9;1&#xA;  set:&#x9;&#x9;1,3&#xA;  range:&#x9;1-10 or -10 or 10-&#xA;  combined:&#x9;1,3-5,7-9,15-</comment>
+    <value>Pages&#xA;  all by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;1-&#xA;  single:&#x9;1&#xA;  set:&#x9;&#x9;1,3&#xA;  range:&#x9;1-10 or -10 or 10-&#xA;  combined:&#x9;1,3-5,7-9,15-</value>
+    <comment>Pages&#xA;  all by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;1-&#xA;  single:&#x9;1&#xA;  set:&#x9;&#x9;1,3&#xA;  range:&#x9;1-10 or -10 or 10-&#xA;  combined:&#x9;1,3-5,7-9,15-</comment>
   </data>
   <data name="Options_FileTypeName" xml:space="preserve">
     <value>Image Type</value>
@@ -270,12 +270,12 @@
     <comment>TIFF compression method&#xA;  CCITT G3, CCITT G4 and RLE produce black and white images</comment>
   </data>
   <data name="Options_PreferDpiOverSizeName" xml:space="preserve">
-    <value>Prefer Image DPI Over Size</value>
-    <comment>Prefer Image DPI Over Size</comment>
+    <value>Image DPI Instead Of Size</value>
+    <comment>Image DPI Instead Of Size</comment>
   </data>
   <data name="Options_PreferDpiOverSizeDescription" xml:space="preserve">
-    <value>Prefer image DPI over size</value>
-    <comment>Prefer image DPI over size</comment>
+    <value>Use image DPI instead of size</value>
+    <comment>Use image DPI instead of size</comment>
   </data>
   <data name="Options_RequiredSizeName" xml:space="preserve">
     <value>Image Size</value>
@@ -294,12 +294,12 @@
     <comment>Image DPI (16-2350)&#xA;  DPI will be ignored if image size is specified</comment>
   </data>
   <data name="Options_UseFileNameAsImageNameName" xml:space="preserve">
-    <value>File Name As Image Prefix</value>
-    <comment>File Name As Image Prefix</comment>
+    <value>Image Prefix Incudes Document Name</value>
+    <comment>Image Prefix Incudes Document Name</comment>
   </data>
   <data name="Options_UseFileNameAsImageNameDescription" xml:space="preserve">
-    <value>Use source file name as image prefix: src_file-01.png</value>
-    <comment>Use source file name as image prefix: src_file-01.png</comment>
+    <value>Image prefix incudes document name: src_file-01.png</value>
+    <comment>Image prefix incudes document name: src_file-01.png</comment>
   </data>
   <data name="Options_ImageNameName" xml:space="preserve">
     <value>Image Prefix</value>

@@ -158,8 +158,8 @@
     <comment>Browse images</comment>
   </data>
   <data name="BrowseXPSFile" xml:space="preserve">
-    <value>Browse &amp;XPS File</value>
-    <comment>Browse &amp;XPS File</comment>
+    <value>Browse &amp;XPS Document</value>
+    <comment>Browse &amp;XPS Document</comment>
   </data>
   <data name="WindowTitleLaunchingFormat" xml:space="preserve">
     <value>Launching xps2img... - {0}</value>
@@ -186,8 +186,8 @@
     <comment>Use &amp;Full Executable Path At Command Line</comment>
   </data>
   <data name="CopyXPSFilePathToClipboard" xml:space="preserve">
-    <value>Copy XP&amp;S File Path To Clipboard</value>
-    <comment>Copy XP&amp;S File Path To Clipboard</comment>
+    <value>Copy XP&amp;S Document Path To Clipboard</value>
+    <comment>Copy XP&amp;S Document Path To Clipboard</comment>
   </data>
   <data name="CopyImagesFolderPathToClipboard" xml:space="preserve">
     <value>&amp;Copy Images Folder Path To Clipboard</value>

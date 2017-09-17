@@ -159,7 +159,7 @@
 		</OBJECT>
 	<UL>
 		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="XPS File">
+			<param name="Name" value="XPS Document">
 			<param name="Local" value="Files\Options.html#srcfile">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
@@ -181,7 +181,7 @@
 			<param name="Local" value="Files\OptionsGUI.html#batch">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Page Number(s)">
+			<param name="Name" value="Pages">
 			<param name="Local" value="Files\Options.html#pages">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
@@ -197,7 +197,7 @@
 			<param name="Local" value="Files\Options.html#tiffcompression">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Prefer Image DPI Over Size">
+			<param name="Name" value="Image DPI Instead Of Size">
 			<param name="Local" value="Files\OptionsGUI.html#preferDpiOverSize">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
@@ -209,7 +209,7 @@
 			<param name="Local" value="Files\Options.html#requiredsize">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="File Name As Image Prefix">
+			<param name="Name" value="Image Prefix Incudes Document Name">
 			<param name="Local" value="Files\OptionsGUI.html#fileNameAsImagePrefix">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
@@ -258,10 +258,6 @@
 		<param name="Local" value="Files\OptionsGUI.html#batch">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="File Name As Image Prefix">
-		<param name="Local" value="Files\OptionsGUI.html#fileNameAsImagePrefix">
-		</OBJECT>
-	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="First Page Index">
 		<param name="Local" value="Files\Options.html#firstpageindex">
 		</OBJECT>
@@ -278,8 +274,16 @@
 		<param name="Local" value="Files\Options.html#dpi">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Image DPI Instead Of Size">
+		<param name="Local" value="Files\OptionsGUI.html#preferDpiOverSize">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Image Prefix">
 		<param name="Local" value="Files\Options.html#imagename">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Image Prefix Incudes Document Name">
+		<param name="Local" value="Files\OptionsGUI.html#fileNameAsImagePrefix">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Image Size">
@@ -298,12 +302,8 @@
 		<param name="Local" value="Files\Options.html#outdir">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="Page Number(s)">
+		<param name="Name" value="Pages">
 		<param name="Local" value="Files\Options.html#pages">
-		</OBJECT>
-	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="Prefer Image DPI Over Size">
-		<param name="Local" value="Files\OptionsGUI.html#preferDpiOverSize">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Preliminaries Prefix">
@@ -334,7 +334,7 @@
 		<param name="Local" value="Files\Options.html#tiffcompression">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="XPS File">
+		<param name="Name" value="XPS Document">
 		<param name="Local" value="Files\Options.html#srcfile">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">

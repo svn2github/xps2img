@@ -115,7 +115,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XPS Files (*.xps)|*.xps|.
+        ///   Looks up a localized string similar to XPS Documents (*.xps)|*.xps|.
         /// </summary>
         public static string FilterXPSFiles {
             get {
@@ -445,8 +445,8 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Page number(s)
-        ///  all pages by default
+        ///   Looks up a localized string similar to Pages
+        ///  all by default
         ///Syntax:
         ///  all:		1-
         ///  single:	1
@@ -461,7 +461,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Page Number(s).
+        ///   Looks up a localized string similar to Pages.
         /// </summary>
         public static string Options_PagesName {
             get {
@@ -497,7 +497,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prefer image DPI over size.
+        ///   Looks up a localized string similar to Use image DPI instead of size.
         /// </summary>
         public static string Options_PreferDpiOverSizeDescription {
             get {
@@ -506,7 +506,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prefer Image DPI Over Size.
+        ///   Looks up a localized string similar to Image DPI Instead Of Size.
         /// </summary>
         public static string Options_PreferDpiOverSizeName {
             get {
@@ -623,7 +623,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XPS file to process.
+        ///   Looks up a localized string similar to XPS document to process.
         /// </summary>
         public static string Options_SrcFileCmdDescription {
             get {
@@ -632,7 +632,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XPS file to process (required).
+        ///   Looks up a localized string similar to XPS document to process. Required.
         /// </summary>
         public static string Options_SrcFileDescription {
             get {
@@ -641,7 +641,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XPS File.
+        ///   Looks up a localized string similar to XPS Document.
         /// </summary>
         public static string Options_SrcFileName {
             get {
@@ -687,7 +687,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use source file name as image prefix: src_file-01.png.
+        ///   Looks up a localized string similar to Image prefix incudes document name: src_file-01.png.
         /// </summary>
         public static string Options_UseFileNameAsImageNameDescription {
             get {
@@ -696,7 +696,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File Name As Image Prefix.
+        ///   Looks up a localized string similar to Image Prefix Incudes Document Name.
         /// </summary>
         public static string Options_UseFileNameAsImageNameName {
             get {
@@ -840,7 +840,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select XPS File.
+        ///   Looks up a localized string similar to Select XPS Document.
         /// </summary>
         public static string SelectXpsFile {
             get {

@@ -159,7 +159,7 @@
   </data>
   <data name="BrowseXPSFile" xml:space="preserve">
     <value>Перейти до XPS доку&amp;мента</value>
-    <comment>Browse &amp;XPS File</comment>
+    <comment>Browse &amp;XPS Document</comment>
   </data>
   <data name="WindowTitleLaunchingFormat" xml:space="preserve">
     <value>Виконується запуск xps2img... - {0}</value>
@@ -187,7 +187,7 @@
   </data>
   <data name="CopyXPSFilePathToClipboard" xml:space="preserve">
     <value>К&amp;опіювати шлях XPS документа до буфера обміну</value>
-    <comment>Copy XP&amp;S File Path To Clipboard</comment>
+    <comment>Copy XP&amp;S Document Path To Clipboard</comment>
   </data>
   <data name="CopyImagesFolderPathToClipboard" xml:space="preserve">
     <value>&amp;Копіювати шлях папки зображень до буфера обміну</value>
