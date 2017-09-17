@@ -371,7 +371,7 @@ namespace Xps2Img.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Image name prefix. &lt;&gt;:&quot;/\|?* characters are not allowed
         ///  numeric if omitted: 01.png
-        ///  name of src file if empty (-i &quot;&quot;): src_file-01.png.
+        ///  name of document if empty (-i &quot;&quot;): document-01.png.
         /// </summary>
         public static string Options_ImageNameCmdDescription {
             get {
@@ -687,7 +687,7 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Image prefix incudes document name: src_file-01.png.
+        ///   Looks up a localized string similar to Image prefix incudes document name: document-01.png.
         /// </summary>
         public static string Options_UseFileNameAsImageNameDescription {
             get {
