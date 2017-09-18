@@ -6,13 +6,13 @@ namespace Xps2Img.Shared.CommandLine
 {
     public partial class Options
     {
-        public static readonly string[] _excludedOnSave   = { Names.Internal, Names.Batch };
-
+        // ReSharper disable once InconsistentNaming
         public static readonly string[] ExcludedUIOptions = { Names.Processors, Names.Batch };
         public static readonly string[] ExcludedOnLaunch  = ExcludedUIOptions.Concat(new[] { ShortOptions.Pages.ToString(CultureInfo.InvariantCulture) }).ToArray();
 
         public static readonly string[] ExcludeOnResumeCheck =
         {
+            Properties.PreferDpiOverSize,
             Properties.ProcessorsNumber,
             Properties.ProcessPriority,
             Properties.PostAction,
@@ -33,7 +33,7 @@ namespace Xps2Img.Shared.CommandLine
         {
             get
             {
-                return _excludedOnSave.Concat(new[] { ExcludePreferDpiOverSize }).ToArray();
+                return new [] { Names.Internal, Names.Batch }.Concat(new[] { ExcludePreferDpiOverSize }).ToArray();
             }
         }
 
