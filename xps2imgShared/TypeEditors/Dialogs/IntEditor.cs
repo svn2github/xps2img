@@ -16,7 +16,7 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
             form.MinValue = MinValue;
             form.MaxValue = MaxValue;
 
-            form.Title = context != null ? context.PropertyDescriptor.DisplayName : String.Empty;
+            form.Title = context != null && context.PropertyDescriptor != null ? context.PropertyDescriptor.DisplayName ?? String.Empty : String.Empty;
 
             form.TrackBarTickFrequency = TrackBarTickFrequency;
             form.TrackBarLargeChange = TrackBarLargeChange;

@@ -214,7 +214,7 @@
     <comment>XPS Document</comment>
   </data>
   <data name="Options_SrcFileDescription" xml:space="preserve">
-    <value>XPS документ до перетворення (обов'язково)</value>
+    <value>XPS документ до перетворення. Є обов'язковим</value>
     <comment>XPS document to process. Required</comment>
   </data>
   <data name="Options_SrcFileCmdDescription" xml:space="preserve">
