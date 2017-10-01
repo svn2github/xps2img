@@ -155,7 +155,7 @@ namespace Xps2ImgUI.Utils
                     var versionMatch = (new Regex(VersionCheck, RegexOptions.IgnoreCase)).Match(page);
                     if (!versionMatch.Success)
                     {
-                        return;
+                        throw new InvalidDataException();
                     }
 
                     var newVersion = versionMatch.Groups[VersionGroup].Value;

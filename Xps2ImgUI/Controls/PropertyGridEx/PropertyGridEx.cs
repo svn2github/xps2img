@@ -246,19 +246,12 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             MoveSplitterTo(_propertyGridView.Width * percent / 100);
         }
 
+        private static readonly string[] MonospaceFontFamilies = { "Consolas", "Lucida Console", "Lucida Sans Typewriter", "Courier New" };
+        
         public void SetDocMonospaceFont()
         {
-            var fonts = new[]
+            foreach (var newFont in MonospaceFontFamilies.Select(font => new Font(font, DocFont.Size, DocFont.Style, DocFont.Unit)))
             {
-                new { Name = "Consolas",                Scale = 1.005 },
-                new { Name = "Lucida Sans Typewriter",  Scale = 1.0   },
-                new { Name = "Courier New",             Scale = 1.0   },
-                new { Name = "Lucida Console",          Scale = 1.001 }
-            };
-
-            foreach (var font in fonts)
-            {
-                var newFont = new Font(font.Name, (float)(DocFont.Size * font.Scale), DocFont.Style, DocFont.Unit);
                 if (newFont.Name != "Microsoft Sans Serif")
                 {
                     DocFont = newFont;
