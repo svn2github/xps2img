@@ -1,30 +1,30 @@
-; See Xps2ImgUI\Settings\Preferences.Localizations.cs for ActiveLanguageName
+п»ї; See Xps2ImgUI\Settings\Preferences.Localizations.cs for ActiveLanguageName
 
 #define protected ActiveLanguage                        "uk"
 #define protected ActiveLanguageName                    "Ukrainian"
 #define protected MessagesFile                          "compiler:Languages\Ukrainian.isl"
     
-#define protected Help                                  AppName + " Довідка (Англійською)"
-#define protected License                               AppName + " Ліцензія (Англійською)"
-#define protected ViewHelp                              "Показати " + AppName + " довідку (Англійською)"
-#define protected Menu_WebSite                          "%1 в Інтернеті"
+#define protected Help                                  AppName + " Р”РѕРІС–РґРєР° (РђРЅРіР»С–Р№СЃСЊРєРѕСЋ)"
+#define protected License                               AppName + " Р›С–С†РµРЅР·С–СЏ (РђРЅРіР»С–Р№СЃСЊРєРѕСЋ)"
+#define protected ViewHelp                              "РџРѕРєР°Р·Р°С‚Рё " + AppName + " РґРѕРІС–РґРєСѓ (РђРЅРіР»С–Р№СЃСЊРєРѕСЋ)"
+#define protected Menu_WebSite                          "%1 РІ Р†РЅС‚РµСЂРЅРµС‚С–"
     
-#define protected Task_RegisterFileAssociations         "Р&еєструвати файлові асоціації"
-#define protected Task_AddWindowsFirewallException      "Додати &виняток до Windows Firewall"
-#define protected Task_SystemIntegrationTitle           "Системна інтеграція:"
+#define protected Task_RegisterFileAssociations         "Р &РµС”СЃС‚СЂСѓРІР°С‚Рё С„Р°Р№Р»РѕРІС– Р°СЃРѕС†С–Р°С†С–С—"
+#define protected Task_AddWindowsFirewallException      "Р”РѕРґР°С‚Рё &РІРёРЅСЏС‚РѕРє РґРѕ Windows Firewall"
+#define protected Task_SystemIntegrationTitle           "РЎРёСЃС‚РµРјРЅР° С–РЅС‚РµРіСЂР°С†С–СЏ:"
 
-#define protected Msg_InstallToCurrentDirectory         "Встановити у &поточну папку"
+#define protected Msg_InstallToCurrentDirectory         "Р’СЃС‚Р°РЅРѕРІРёС‚Рё Сѓ &РїРѕС‚РѕС‡РЅСѓ РїР°РїРєСѓ"
     
-#define protected Msg_DotNetIsMissing                   "Програма потребує встановлення Microsoft.NET 3.5%n%nЧи ви бажаєте завантажити його зараз?%n%nНатисніть «Скасувати» для подальшого встановлення. Зверніть увагу, що роботоздатність програми у такому випадку не гарантується."
-#define protected Msg_KeepSettings                      "Чи ви бажаєте залишити збережені налаштування програми?"
+#define protected Msg_DotNetIsMissing                   "РџСЂРѕРіСЂР°РјР° РїРѕС‚СЂРµР±СѓС” РІСЃС‚Р°РЅРѕРІР»РµРЅРЅСЏ Microsoft.NET 3.5%n%nР§Рё РІРё Р±Р°Р¶Р°С”С‚Рµ Р·Р°РІР°РЅС‚Р°Р¶РёС‚Рё Р№РѕРіРѕ Р·Р°СЂР°Р·?%n%nРќР°С‚РёСЃРЅС–С‚СЊ В«РЎРєР°СЃСѓРІР°С‚РёВ» РґР»СЏ РїРѕРґР°Р»СЊС€РѕРіРѕ РІСЃС‚Р°РЅРѕРІР»РµРЅРЅСЏ. Р—РІРµСЂРЅС–С‚СЊ СѓРІР°РіСѓ, С‰Рѕ СЂРѕР±РѕС‚РѕР·РґР°С‚РЅС–СЃС‚СЊ РїСЂРѕРіСЂР°РјРё Сѓ С‚Р°РєРѕРјСѓ РІРёРїР°РґРєСѓ РЅРµ РіР°СЂР°РЅС‚СѓС”С‚СЊСЃСЏ."
+#define protected Msg_KeepSettings                      "Р§Рё РІРё Р±Р°Р¶Р°С”С‚Рµ Р·Р°Р»РёС€РёС‚Рё Р·Р±РµСЂРµР¶РµРЅС– РЅР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ РїСЂРѕРіСЂР°РјРё?"
     
-#define protected Msg_SetupMode                         "Встановити як"
-#define protected Msg_SetupModeReadyPage                "Встановити програму:"
-#define protected Msg_SetupModeQuestion                 "Як ви бажаєте встановити програму – звичайно або портативно?"
-#define protected Msg_SetupModeGroupTitle               "Встановити програму:"
-#define protected Msg_SetupModeInstall                  "&Звичайно"
-#define protected Msg_SetupModeInstallUserOnly          "Тільки для &мене. Для звичайного встановлення запустіть програму з правами адміністратора."
-#define protected Msg_SetupModePortable                 "&Портативно"
+#define protected Msg_SetupMode                         "Р’СЃС‚Р°РЅРѕРІРёС‚Рё СЏРє"
+#define protected Msg_SetupModeReadyPage                "Р’СЃС‚Р°РЅРѕРІРёС‚Рё РїСЂРѕРіСЂР°РјСѓ:"
+#define protected Msg_SetupModeQuestion                 "РЇРє РІРё Р±Р°Р¶Р°С”С‚Рµ РІСЃС‚Р°РЅРѕРІРёС‚Рё РїСЂРѕРіСЂР°РјСѓ вЂ“ Р·РІРёС‡Р°Р№РЅРѕ Р°Р±Рѕ РїРѕСЂС‚Р°С‚РёРІРЅРѕ?"
+#define protected Msg_SetupModeGroupTitle               "Р’СЃС‚Р°РЅРѕРІРёС‚Рё РїСЂРѕРіСЂР°РјСѓ:"
+#define protected Msg_SetupModeInstall                  "&Р—РІРёС‡Р°Р№РЅРѕ"
+#define protected Msg_SetupModeInstallUserOnly          "РўС–Р»СЊРєРё РґР»СЏ &РјРµРЅРµ. Р”Р»СЏ Р·РІРёС‡Р°Р№РЅРѕРіРѕ РІСЃС‚Р°РЅРѕРІР»РµРЅРЅСЏ Р·Р°РїСѓСЃС‚С–С‚СЊ РїСЂРѕРіСЂР°РјСѓ Р· РїСЂР°РІР°РјРё Р°РґРјС–РЅС–СЃС‚СЂР°С‚РѕСЂР°."
+#define protected Msg_SetupModePortable                 "&РџРѕСЂС‚Р°С‚РёРІРЅРѕ"
 
 #include "../Messages.iss"
 

@@ -208,15 +208,29 @@ ScriptCleaner.IsSectionCode = function(sectionName)
 ScriptCleaner.prototype.ReadScript = function (stream)
 {
 	var currentSection = null;
-	
+	var isFirstLine = true;
+
 	try
 	{
 		while (!stream.AtEndOfStream)
 		{
 			var isCode = ScriptCleaner.IsSectionCode(currentSection);
 			var rawLine = stream.ReadLine();
-			// Remove leading and trailing spaces,
+			// Remove leading and trailing spaces.
 			var line = rawLine.trim();
+
+			if(isFirstLine)
+			{
+				var utfBOM = "\xEF\xBB\xBF";
+
+				if(line.indexOf(utfBOM) == 0)
+				{
+					this.BOM = utfBOM;
+					line = line.substr(this.BOM.length);
+				}
+
+				isFirstLine = false;
+			}
 			if(
 				// Preserve blank lines and comments in [Code] section.
 				(!isCode && line == "") ||
@@ -300,6 +314,11 @@ ScriptCleaner.prototype.WriteScript = function(stream)
 	try
 	{
 		var includedSectionsArray = this.GetIncludedSectionsArray();
+
+		if(this.BOM)
+		{
+			stream.Write(this.BOM);
+		}
 
 		for(var sectionKey in includedSectionsArray)
 		{	

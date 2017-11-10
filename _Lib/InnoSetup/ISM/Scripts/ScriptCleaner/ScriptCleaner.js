@@ -14,4 +14,5 @@ function ScriptCleaner(inFileName, outFileName, options, progress)
 	this.inFileName		=	inFileName;
 	this.outFileName	=	outFileName;
 	this.options		=	options;
+	this.BOM		=	null;
 }
