@@ -218,7 +218,6 @@ ScriptCleaner.prototype.ReadScript = function (stream)
 			var rawLine = stream.ReadLine();
 			// Remove leading and trailing spaces.
 			var line = rawLine.trim();
-
 			if(isFirstLine)
 			{
 				var utfBOM = "\xEF\xBB\xBF";
@@ -339,6 +338,7 @@ ScriptCleaner.prototype.WriteScript = function(stream)
 				var line = lines
 							.join("\n")
 							// Compact 3 or more empty lines in one.
+							.replace(/^(end;)\s*$/g, "$1\n\n")
 							.replace(/(\s*\n){3,}/g, "\n\n")
 							// Remove last \n. stream.WriteLine will add one \n.
 							.replace(/\n{2,}$/, "");
