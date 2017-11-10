@@ -34,7 +34,7 @@ end;
 
 function GetTasksListIndex(message: String) : Integer;
 begin
-  Result := TasksList.Items.IndexOf(ExpandConstant('{cm:' + message + '}'));
+  Result := TasksList.Items.IndexOf(CustomMessage(message));
 end;
 
 function TaskDesktopIndex: Integer;
@@ -89,7 +89,7 @@ begin
   UseCurrentDirCheckBox.Parent := WizardForm.SelectDirPage;
   UseCurrentDirCheckBox.Top := WizardForm.DirEdit.Top + WizardForm.DirEdit.Height + 8;
   UseCurrentDirCheckBox.Width := WizardForm.Width;
-  UseCurrentDirCheckBox.Caption := ExpandConstant('{cm:Msg_InstallToCurrentDirectory}');
+  UseCurrentDirCheckBox.Caption := CustomMessage('Msg_InstallToCurrentDirectory');
   
   UseCurrentDirCheckBox.OnClick := @OnUseCurrentDirCheckBoxClick;
 end;

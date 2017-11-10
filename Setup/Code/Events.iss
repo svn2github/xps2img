@@ -11,7 +11,7 @@ begin
   // .NET 3.5+ framework check.
   if not NETFW_IsDetectedNoSP(NETFW_Version35) and not NETFW_IsDetectedNoSP(NETFW_Version4) and not NETFW_IsDetectedNoSP(NETFW_Version45) then
   begin
-    msgBoxResult := MsgBox(ExpandConstant('{cm:Msg_DotNetIsMissing}'), mbConfirmation, MB_YESNOCANCEL);
+    msgBoxResult := MsgBox(CustomMessage('Msg_DotNetIsMissing'), mbConfirmation, MB_YESNOCANCEL);
     if msgBoxResult = idYes then
       ShellExec('open', NETFW_Version35Uri, '', '', SW_SHOWNORMAL, ewNoWait, errorCode);
     Result := msgBoxResult = idCancel;
@@ -29,13 +29,13 @@ begin
   case IsAdminLoggedOn of
     True:
     begin
-      InstallModeCM := '{cm:Msg_SetupModeInstall}';
+      InstallModeCM := 'Msg_SetupModeInstall';
       DirValues[IndexOfInstall] := WizardForm.DirEdit.Text;
     end;
 
     False:
     begin
-      InstallModeCM := '{cm:Msg_SetupModeInstallUserOnly}';
+      InstallModeCM := 'Msg_SetupModeInstallUserOnly';
       DirValues[IndexOfInstall] := DirValues[IndexOfPortable];
     end;
   end;
@@ -47,13 +47,13 @@ begin
   end;
   
   SetupModePage := CreateInputOptionPage(wpWelcome,
-    ExpandConstant('{cm:Msg_SetupMode}'),
-    ExpandConstant('{cm:Msg_SetupModeQuestion}'),
-    ExpandConstant('{cm:Msg_SetupModeGroupTitle}'),
+    CustomMessage('Msg_SetupMode'),
+    CustomMessage('Msg_SetupModeQuestion'),
+    CustomMessage('Msg_SetupModeGroupTitle'),
     True, False);
 
-  SetupModePage.Add(ExpandConstant(InstallModeCM));
-  SetupModePage.Add(ExpandConstant('{cm:Msg_SetupModePortable}'));
+  SetupModePage.Add(CustomMessage(InstallModeCM));
+  SetupModePage.Add(CustomMessage('Msg_SetupModePortable'));
 
   SetupModePage.SelectedValueIndex := Convert_BooleanToInteger(IsPortable);
 end;
@@ -126,7 +126,7 @@ begin
     end;
 
     usUninstall:
-      if DirExists(ApplicationData) and (UninstallSilent or (MsgBox(ExpandConstant('{cm:Msg_KeepSettings}'), mbConfirmation, MB_YESNO) = idNo)) then
+      if DirExists(ApplicationData) and (UninstallSilent or (MsgBox(CustomMessage('Msg_KeepSettings'), mbConfirmation, MB_YESNO) = idNo)) then
         DelTree(ApplicationData, True, True, True);
    end;
 end;
@@ -160,14 +160,14 @@ var
 begin
   CR := NewLine + NewLine;
   
-  S := ExpandConstant('{cm:Msg_SetupModeReadyPage}') + NewLine + Space;
+  S := CustomMessage('Msg_SetupModeReadyPage') + NewLine + Space;
 
   case IsPortable of
-    True:   InstallMode := '{cm:Msg_SetupModePortable}';
+    True:   InstallMode := 'Msg_SetupModePortable';
     False:  InstallMode := InstallModeCM;
   end;
   
-  S := S + ExpandConstant(InstallMode);
+  S := S + CustomMessage(InstallMode);
   
   StringChangeEx(S, '&', '', True);
   
