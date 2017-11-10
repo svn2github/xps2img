@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 using FluentAssertions;
 
@@ -9,7 +9,7 @@ using Xps2Img.Shared.CommandLine;
 
 namespace Xps2ImgTests
 {
-    [TestClass]
+    [TestFixture]
     public class IntervalsUnitTest
     {
         private static void IntervalsSplitByAndAssert(IEnumerable<Interval> intervals, int splitBy, IList<List<Interval>> expectedIntervals)
@@ -29,7 +29,7 @@ namespace Xps2ImgTests
             intervals.Should().BeEquivalentTo(expectedIntervals);
         }
 
-        [TestMethod]
+        [Test]
         public void Intervals_Split_AreEqual()
         {
             IntervalsSplitByAndAssert(new[] { new Interval(211, 413) }, 4, new List<List<Interval>> { new List<Interval> { new Interval(211, 260) }, new List<Interval> { new Interval(261, 310) }, new List<Interval> { new Interval(311, 360) }, new List<Interval> { new Interval(361, 413) } });
@@ -48,7 +48,7 @@ namespace Xps2ImgTests
             IntervalsSplitByAndAssert(new[] { new Interval(1, 101) }, 0, new List<List<Interval>> { new List<Interval> { new Interval(1, 101) } });
         }
 
-        [TestMethod]
+        [Test]
         public void Intervals_FromBitArray_AreEqual()
         {
             IntervalsFromBitArrayAndAssert(new[] {new Interval(2), new Interval(8), new Interval(10, 13)},
