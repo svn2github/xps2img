@@ -54,8 +54,10 @@ if not exist "%isFolder%\Include\ISM" (
 %msbuild% "%slnFolder%Xps2Img.sln" %buildOptions% || goto ERROR
 %msbuild% "%slnFolder%Xps2ImgUI.sln" %buildOptions% || goto ERROR
 
-if not "%buildHelp%"==""  %hhc% "%helpFolder%\xps2img.hhp" && goto ERROR
-if not "%buildSetup%"=="" copy "%helpFolder%\xps2img.chm" "%outFolder%" /Y || goto ERROR
+if not "%buildHelp%"=="" (
+	%hhc% "%helpFolder%\xps2img.hhp" && goto ERROR
+	copy "%helpFolder%\xps2img.chm" "%outFolder%" /Y || goto ERROR
+)
 
 @echo off
 if /i "%buildConfig%"=="Release" (
@@ -66,11 +68,14 @@ if /i "%buildConfig%"=="Release" (
 
 	call "%mergeBin%" "%outFolder%" || goto ERROR
 	call "%editBin%"  "%outFolder%\xps2img.exe" || goto ERROR
+	call "%editBin%"  "%outFolder%\xps2imgUI.exe" || goto ERROR
 )
 @echo on
 
-%isCompiler% /dBinariesPath=..\_bin\%buildConfig%\ "%setupFolder%\Xps2ImgSetup.iss" || goto IS_ERROR
-copy "%setupFolder%\_Output\Xps2ImgSetup.exe" "%outFolder%" /Y || goto ERROR
+if not "%buildSetup%"=="" (
+	%isCompiler% /dBinariesPath=..\_bin\%buildConfig%\ "%setupFolder%\Xps2ImgSetup.iss" || goto IS_ERROR
+	copy "%setupFolder%\_Output\Xps2ImgSetup.exe" "%outFolder%" /Y || goto ERROR
+)
 
 @echo off
 

@@ -1,5 +1,7 @@
 @echo off
 
+set scriptDir=%~dp0
+
 set vsvars=
 
 set PFx86=%PROGRAMFILES(x86)%
@@ -32,6 +34,10 @@ call "%vsvars%" || exit 1
 set execEditBin=editbin.exe /NOLOGO /LARGEADDRESSAWARE %target%
 echo %execEditBin%
 %execEditBin% || exit 1
+
+set execPatch="%scriptDir%..\Bin\gsar.exe" "-sSystem.Drawing, Version=4.0.0.0" "-rSystem.Drawing, Version=2.0.0.0" -o %target%
+echo %execPatch%...
+%execPatch% || exit 1
 
 exit /b 0
 
