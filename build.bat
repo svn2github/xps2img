@@ -1,6 +1,12 @@
 @echo off
 
+:: First command line parameter. Valid values: Debug, Release
 set buildConfig=Release
+
+:: If empty removes corresponding checks and build steps.
+set checkHelpAndSetup=1
+set buildHelp=1
+set buildSetup=1
 
 set logFile=build.log
 
@@ -32,8 +38,11 @@ set isDownload=http://www.jrsoftware.org/isdl.php
 set buildOptions=/p:Configuration="%buildConfig%" /t:Rebuild "/l:FileLogger,Microsoft.Build.Engine;logfile=%logFile%;append=true;encoding=utf-8"
 
 call :isInstalled %msbuild% "Microsoft .NET Framework 4" "http://www.microsoft.com/download/en/details.aspx?id=17851" || goto ERROR
-call :isInstalled %hhc% "HTML Help Workshop" "http://www.microsoft.com/download/en/details.aspx?id=21138" || goto ERROR
-call :isInstalled %isCompiler% "%isVersion%" "%isDownload%" || goto ERROR
+
+if not "%checkHelpAndSetup%"=="" (
+	call :isInstalled %hhc% "HTML Help Workshop" "http://www.microsoft.com/download/en/details.aspx?id=21138" || goto ERROR
+	call :isInstalled %isCompiler% "%isVersion%" "%isDownload%" || goto ERROR
+)
 
 if not exist "%isFolder%\Include\ISM" (
 	echo Copying "%ismFolder%" to "%isFolder%\Include\ISM"...
@@ -45,8 +54,8 @@ if not exist "%isFolder%\Include\ISM" (
 %msbuild% "%slnFolder%Xps2Img.sln" %buildOptions% || goto ERROR
 %msbuild% "%slnFolder%Xps2ImgUI.sln" %buildOptions% || goto ERROR
 
-%hhc% "%helpFolder%\xps2img.hhp" && goto ERROR
-copy "%helpFolder%\xps2img.chm" "%outFolder%" /Y || goto ERROR
+if not "%buildHelp%"==""  %hhc% "%helpFolder%\xps2img.hhp" && goto ERROR
+if not "%buildSetup%"=="" copy "%helpFolder%\xps2img.chm" "%outFolder%" /Y || goto ERROR
 
 @echo off
 if /i "%buildConfig%"=="Release" (
