@@ -54,12 +54,13 @@ if not exist "%isFolder%\Include\ISM" (
 %msbuild% "%slnFolder%Xps2Img.sln" %buildOptions% || goto ERROR
 %msbuild% "%slnFolder%Xps2ImgUI.sln" %buildOptions% || goto ERROR
 
-if not "%buildHelp%"=="" (
-	%hhc% "%helpFolder%\xps2img.hhp" && goto ERROR
-	copy "%helpFolder%\xps2img.chm" "%outFolder%" /Y || goto ERROR
-)
+@if "%buildHelp%"=="" goto NO_HELP
+%hhc% "%helpFolder%\xps2img.hhp" && goto ERROR
+copy "%helpFolder%\xps2img.chm" "%outFolder%" /Y || goto ERROR
 
+:NO_HELP
 @echo off
+
 if /i "%buildConfig%"=="Release" (
 	call "%mergeResources%" "%outFolder%\CommandLine.dll" || goto ERROR
 	call "%mergeResources%" "%outFolder%\xps2imgShared.dll" || goto ERROR
@@ -70,15 +71,15 @@ if /i "%buildConfig%"=="Release" (
 	call "%editBin%"  "%outFolder%\xps2img.exe" || goto ERROR
 	call "%editBin%"  "%outFolder%\xps2imgUI.exe" || goto ERROR
 )
+
+@if "%buildSetup%"=="" goto NO_SETUP
+
 @echo on
-
-if not "%buildSetup%"=="" (
-	%isCompiler% /dBinariesPath=..\_bin\%buildConfig%\ "%setupFolder%\Xps2ImgSetup.iss" || goto IS_ERROR
-	copy "%setupFolder%\_Output\Xps2ImgSetup.exe" "%outFolder%" /Y || goto ERROR
-)
-
+%isCompiler% /dBinariesPath=..\_bin\%buildConfig%\ "%setupFolder%\Xps2ImgSetup.iss" || goto IS_ERROR
+copy "%setupFolder%\_Output\Xps2ImgSetup.exe" "%outFolder%" /Y || goto ERROR
 @echo off
 
+:NO_SETUP
 echo.
 echo All OK. Output folder is '%outFolder%'
 exit /b 0
