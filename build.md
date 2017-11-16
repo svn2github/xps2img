@@ -15,7 +15,7 @@
 
 # Output #
 
-Can be found under solution dir ```_bin``` folder.
+Can be found under solution dir `_bin` folder.
 
 # Troubleshooting #
 
