@@ -119,11 +119,11 @@
   </resheader>
   <data name="ShowCommandLine" xml:space="preserve">
     <value>Показати командний рядок</value>
-    <comment>Show command line</comment>
+    <comment>Show Command Line</comment>
   </data>
   <data name="HideCommandLine" xml:space="preserve">
     <value>Сховати командний рядок</value>
-    <comment>Hide command line</comment>
+    <comment>Hide Command Line</comment>
   </data>
   <data name="Launch" xml:space="preserve">
     <value>&amp;Перетворити</value>
@@ -155,7 +155,7 @@
   </data>
   <data name="BrowseImages" xml:space="preserve">
     <value>Переглянути зображення</value>
-    <comment>Browse images</comment>
+    <comment>Browse Images</comment>
   </data>
   <data name="BrowseXPSFile" xml:space="preserve">
     <value>Перейти до XPS доку&amp;мента</value>
@@ -167,7 +167,7 @@
   </data>
   <data name="Reset" xml:space="preserve">
     <value>Повернути параметри та опції в початковий стан</value>
-    <comment>Reset parameters and options</comment>
+    <comment>Reset Parameters And Options</comment>
   </data>
   <data name="ClipboardCopy" xml:space="preserve">
     <value>&amp;Копіювати</value>
@@ -203,7 +203,7 @@
   </data>
   <data name="LoadSettings" xml:space="preserve">
     <value>Завантажити параметри та опції</value>
-    <comment>Load parameters and options</comment>
+    <comment>Load Parameters And Options</comment>
   </data>
   <data name="SaveSettings" xml:space="preserve">
     <value>&amp;Зберегти параметри та опції...</value>
@@ -231,7 +231,7 @@
   </data>
   <data name="ResetToDefaults" xml:space="preserve">
     <value>Повернути налаштування в початковий стан</value>
-    <comment>Reset preferences</comment>
+    <comment>Reset Preferences</comment>
   </data>
   <data name="SaveSettingsTitle" xml:space="preserve">
     <value>Зберегти параметри та опції</value>
@@ -295,7 +295,7 @@
   </data>
   <data name="NoBackToApplication" xml:space="preserve">
     <value>&amp;Ні, повернутися</value>
-    <comment>&amp;No, Back to Application</comment>
+    <comment>&amp;No, Back To Application</comment>
   </data>
   <data name="StopConversionConfirmation" xml:space="preserve">
     <value>Підтвердження зупинки перетворення</value>
@@ -579,7 +579,7 @@
   </data>
   <data name="Preferences_ApplicationLanguageName" xml:space="preserve">
     <value>Мова програми</value>
-    <comment>Application language</comment>
+    <comment>Application Language</comment>
   </data>
   <data name="Preferences_ApplicationLanguageDescription" xml:space="preserve">
     <value>Мова програми.</value>

@@ -19,7 +19,7 @@ namespace Xps2ImgUI.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Strings {
@@ -151,7 +151,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Browse images.
+        ///   Looks up a localized string similar to Browse Images.
         /// </summary>
         internal static string BrowseImages {
             get {
@@ -547,7 +547,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hide command line.
+        ///   Looks up a localized string similar to Hide Command Line.
         /// </summary>
         internal static string HideCommandLine {
             get {
@@ -574,7 +574,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Load parameters and options.
+        ///   Looks up a localized string similar to Load Parameters And Options.
         /// </summary>
         internal static string LoadSettings {
             get {
@@ -720,7 +720,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Application language.
+        ///   Looks up a localized string similar to Application Language.
         /// </summary>
         internal static string Preferences_ApplicationLanguageName {
             get {
@@ -1098,7 +1098,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset parameters and options.
+        ///   Looks up a localized string similar to Reset Parameters And Options.
         /// </summary>
         internal static string Reset {
             get {
@@ -1107,7 +1107,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset preferences.
+        ///   Looks up a localized string similar to Reset Preferences.
         /// </summary>
         internal static string ResetToDefaults {
             get {
@@ -1224,7 +1224,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show command line.
+        ///   Looks up a localized string similar to Show Command Line.
         /// </summary>
         internal static string ShowCommandLine {
             get {

@@ -118,8 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ShowCommandLine" xml:space="preserve">
-    <value>Show command line</value>
-    <comment>Show command line</comment>
+    <value>Show Command Line</value>
+    <comment>Show Command Line</comment>
+  </data>
+  <data name="HideCommandLine" xml:space="preserve">
+    <value>Hide Command Line</value>
+    <comment>Hide Command Line</comment>
   </data>
   <data name="Launch" xml:space="preserve">
     <value>&amp;Convert</value>
@@ -137,10 +141,6 @@
     <value>&amp;Delete Images</value>
     <comment>&amp;Delete Images</comment>
   </data>
-  <data name="HideCommandLine" xml:space="preserve">
-    <value>Hide command line</value>
-    <comment>Hide command line</comment>
-  </data>
   <data name="ClosingConfirmation" xml:space="preserve">
     <value>Currently executing conversion will be aborted.</value>
     <comment>Currently executing conversion will be aborted.</comment>
@@ -154,8 +154,8 @@
     <comment>{1}{0}{0}Please make sure that xps2img.exe utility is present into the application folder.</comment>
   </data>
   <data name="BrowseImages" xml:space="preserve">
-    <value>Browse images</value>
-    <comment>Browse images</comment>
+    <value>Browse Images</value>
+    <comment>Browse Images</comment>
   </data>
   <data name="BrowseXPSFile" xml:space="preserve">
     <value>Browse &amp;XPS Document</value>
@@ -166,8 +166,8 @@
     <comment>Launching xps2img... - {0}</comment>
   </data>
   <data name="Reset" xml:space="preserve">
-    <value>Reset parameters and options</value>
-    <comment>Reset parameters and options</comment>
+    <value>Reset Parameters And Options</value>
+    <comment>Reset Parameters And Options</comment>
   </data>
   <data name="ClipboardCopy" xml:space="preserve">
     <value>&amp;Copy</value>
@@ -202,8 +202,8 @@
     <comment>&amp;About...</comment>
   </data>
   <data name="LoadSettings" xml:space="preserve">
-    <value>Load parameters and options</value>
-    <comment>Load parameters and options</comment>
+    <value>Load Parameters And Options</value>
+    <comment>Load Parameters And Options</comment>
   </data>
   <data name="SaveSettings" xml:space="preserve">
     <value>&amp;Save Parameters And Options...</value>
@@ -230,8 +230,8 @@
     <comment>Preferences</comment>
   </data>
   <data name="ResetToDefaults" xml:space="preserve">
-    <value>Reset preferences</value>
-    <comment>Reset preferences</comment>
+    <value>Reset Preferences</value>
+    <comment>Reset Preferences</comment>
   </data>
   <data name="SaveSettingsTitle" xml:space="preserve">
     <value>Save Parameters And Options</value>
@@ -339,7 +339,7 @@
   </data>
   <data name="BackToApplication" xml:space="preserve">
     <value>&amp;Back To Application</value>
-    <comment>&amp;Back to Application</comment>
+    <comment>&amp;Back To Application</comment>
   </data>
   <data name="ResumeConversionConfirmation" xml:space="preserve">
     <value>Resume Conversion Confirmation</value>
@@ -578,8 +578,8 @@ What's new in version {0}
     <comment>{0}% - Downloading Update</comment>
   </data>
   <data name="Preferences_ApplicationLanguageName" xml:space="preserve">
-    <value>Application language</value>
-    <comment>Application language</comment>
+    <value>Application Language</value>
+    <comment>Application Language</comment>
   </data>
   <data name="Preferences_ApplicationLanguageDescription" xml:space="preserve">
     <value>User interface language.</value>
