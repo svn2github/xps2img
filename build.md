@@ -17,7 +17,6 @@
 
 Can be found under solution dir ```_bin``` folder.
 
-
 # Troubleshooting #
 
 ## Error MSB3091: Task failed because "resgen.exe" was not found ##
