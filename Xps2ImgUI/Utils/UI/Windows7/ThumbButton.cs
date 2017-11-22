@@ -36,7 +36,7 @@ namespace Windows7.DesktopIntegration
             {
                 if (value)
                 {
-                    Flags &= ~(THBFLAGS.THBF_HIDDEN);
+                    Flags &= ~THBFLAGS.THBF_HIDDEN;
                 }
                 else
                 {
@@ -70,9 +70,10 @@ namespace Windows7.DesktopIntegration
 
         internal void FireClick()
         {
-            if (Clicked != null)
+            var clicked = Clicked;
+            if (clicked != null)
             {
-                Clicked(this, EventArgs.Empty);
+                clicked(this, EventArgs.Empty);
             }
         }
 

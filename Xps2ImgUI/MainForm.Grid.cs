@@ -64,7 +64,7 @@ namespace Xps2ImgUI
 
             // Explorer/Browse.
             ToolStripButtonItem xpsCopyButton, xpsBrowseButton;
-            settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.BrowseImages, () => Resources.Strings.BrowseImages, BrowseConvertedImagesToolStripButtonClick,
+            settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.BrowseImages, () => BrowseImagesButtonText, BrowseConvertedImagesToolStripButtonClick,
                 new ToolStripButtonItem(() => Resources.Strings.BrowseImagesFolder, (_, __) => Explorer.Select(ConvertedImagesFolder)),
                 xpsBrowseButton = new ToolStripButtonItem(() => Resources.Strings.BrowseXPSFile, (_, __) => Explorer.Select(Model.SrcFile)),
                 new ToolStripButtonItem(),
@@ -199,6 +199,8 @@ namespace Xps2ImgUI
         private ToolStripMenuItem _shortenExtensionToolStripMenuItem;
 
         private ThumbButtonManager _thumbButtonManager;
+
         private ThumbButton _thumbButton;
+        private ThumbButton _thumbButtonBrowse;
     }
 }

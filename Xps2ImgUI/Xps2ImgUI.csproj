@@ -272,6 +272,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Ico\Application.ico" />
+    <Content Include="Resources\Ico\BrowseImages.ico" />
     <Content Include="Resources\Ico\Play.ico" />
     <Content Include="Resources\Ico\Stop.ico" />
     <Content Include="Resources\Png\BrowseImages.png" />

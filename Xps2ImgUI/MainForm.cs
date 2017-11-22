@@ -207,8 +207,11 @@ namespace Xps2ImgUI
             if (m.Msg == Windows7Taskbar.WM_TaskbarButtonCreated)
             {
                 _thumbButtonManager = new ThumbButtonManager(Handle);
-                _thumbButton = _thumbButtonManager.CreateThumbButton(Resources.Icons.Play, ConvertButtonCleanText, (_, __) => ExecuteConversion(ExecuteFlags.Convert | ExecuteFlags.ActivateWindow));
-                _thumbButtonManager.AddThumbButtons(_thumbButton);
+
+                _thumbButton       = _thumbButtonManager.CreateThumbButton(Resources.Icons.Play, ConvertButtonCleanText, (_, __) => ExecuteConversion(ExecuteFlags.Convert | ExecuteFlags.ActivateWindow));
+                _thumbButtonBrowse = _thumbButtonManager.CreateThumbButton(Resources.Icons.BrowseImages, BrowseImagesButtonText, BrowseConvertedImagesToolStripButtonClick);
+
+                _thumbButtonManager.AddThumbButtons(_thumbButton, _thumbButtonBrowse);
             }
 
             if (_thumbButtonManager != null)
@@ -317,6 +320,11 @@ namespace Xps2ImgUI
         private string ConvertButtonCleanText
         {
             get { return convertButton.Text.Replace("&", String.Empty); }
+        }
+
+        private static string BrowseImagesButtonText
+        {
+            get { return Resources.Strings.BrowseImages; }
         }
 
         private bool IsCommandLineVisible

@@ -32,18 +32,20 @@ namespace Xps2ImgUI
 
             convertButton.ContextMenuStrip = isRunningBool ? null : convertContextMenuStrip;
 
-            UpdateThumbButton(isRunningBool);
+            UpdateThumbButtons(isRunningBool);
         }
 
-        private void UpdateThumbButton(bool isRunning)
+        private void UpdateThumbButtons(bool isRunning)
         {
-            if (_thumbButton == null)
+            if (_thumbButtonManager == null || _thumbButton == null || _thumbButtonBrowse == null)
             {
                 return;
             }
 
             _thumbButton.Tooltip = ConvertButtonCleanText;
             _thumbButton.Icon = isRunning ? Resources.Icons.Stop : Resources.Icons.Play;
+
+            _thumbButtonBrowse.Tooltip = BrowseImagesButtonText;
 
             _thumbButtonManager.RefreshThumbButtons();
         }
