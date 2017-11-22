@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Reflection;
 
 using CommandLine.GetOpt;
+using CommandLine.Interfaces;
 
 namespace CommandLine
 {
@@ -82,12 +83,31 @@ namespace CommandLine
             _longOptEx.IsInternal = IsInternal;
             _longOptEx.IsNoDefaultValueDescription = IsNoDefaultValueDescription;
 
-            _longOptEx.Validator = IsNoValidation
-                                     ? null
-                                     : Validation.Parser.Parse((String.IsNullOrEmpty(ValidationExpression) && _longOptEx.IsEnum)
-                                       ? propertyInfo.PropertyType
-                                       : (object)ValidationExpression);
+            _longOptEx.Validator = CreateValidator(propertyInfo.PropertyType);
+
             return _longOptEx;
+        }
+
+        private IValidator CreateValidator(Type propertyType)
+        {
+            if (IsNoValidation || ValidationExpression == null)
+            {
+                return null;
+            }
+
+            var validationType = ValidationExpression as Type;
+            if (validationType != null)
+            {
+                return (IValidator)Activator.CreateInstance(validationType);
+            }
+
+            var validationExpression = ValidationExpression as string;
+            if (!String.IsNullOrEmpty(validationExpression))
+            {
+                return Validation.Parser.Parse(_longOptEx.IsEnum ? propertyType : ValidationExpression);
+            }
+
+            throw new InvalidCastException("Only 'string' or 'Type' types are supported");
         }
 
         public string DescriptionKey { get; set; }
@@ -96,7 +116,7 @@ namespace CommandLine
 
         public OptionFlags Flags { get; set; }
 
-        public string ValidationExpression { get; set; }
+        public object ValidationExpression { get; set; }
 
         public bool IsInternal { get { return (Flags & OptionFlags.Internal) != 0; } }
         public bool IsNoValidation { get { return (Flags & OptionFlags.NoValidation) != 0; } }

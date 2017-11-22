@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Xps2Img.Shared.CommandLine
 {
@@ -170,10 +171,15 @@ namespace Xps2Img.Shared.CommandLine
             }
 
             return Optimize(
-                        intervalString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                        Adjust(intervalString).Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                             .Where(s => !String.IsNullOrEmpty(s.Trim()))
                             .Select(interval => new Interval(interval, minValue)).ToList(),
                         minValue);
+        }
+
+        public static string Adjust(string intervalString)
+        {
+            return Regex.Replace(intervalString, @"\s*([\-,]|\s+)\s*", m => String.IsNullOrEmpty(m.Value.Trim()) ? ",".PadRight(m.Value.Length) : m.Value);
         }
 
         private static List<Interval> Optimize(IList<Interval> intervals, int minValue = MinValue)

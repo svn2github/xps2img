@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 using CommandLine.Interfaces;
 
@@ -8,21 +9,52 @@ namespace CommandLine.Validation.Validators
     {
         private static readonly Regex Filter = new Regex(@"^/(?<regex>[\s\S]+?)/(?<options>[ims]*)$");
 
+        private Regex _validator;
+
         public static IValidator Create(object validation)
         {
-            var val = validation as string;
-            if (val == null)
+            try
+            {
+                return new RegexValidator(validation as string);
+            }
+            catch
             {
                 return null;
             }
-
-            var match = Filter.Match(val);
-            return match.Success ? new RegexValidator(match.Groups["regex"].Value, match.Groups["options"].Value) : null;
         }
 
-        private readonly Regex _validator;
+        public RegexValidator(string validation)
+        {
+            if (validation == null)
+            {
+                throw new ArgumentNullException("validation");
+            }
+
+            var match = Filter.Match(validation);
+            if (!match.Success)
+            {
+                throw new ArgumentException("Invalid validation string");
+            }
+
+            Init(match.Groups["regex"].Value, match.Groups["options"].Value);
+        }
 
         public RegexValidator(string regexp, string options)
+        {
+            var regexOptions = RegexOptions.None;
+            foreach (var option in (options ?? String.Empty).ToCharArray())
+            {
+                switch (option)
+                {
+                    case 'i': regexOptions |= RegexOptions.IgnoreCase; break;
+                    case 'm': regexOptions |= RegexOptions.Multiline; break;
+                    case 's': regexOptions |= RegexOptions.Singleline; break;
+                }
+            }
+
+            _validator = new Regex(regexp, regexOptions);
+        }
+        private void Init(string regexp, string options)
         {
             var regexOptions = RegexOptions.None;
             foreach (var option in options.ToCharArray())

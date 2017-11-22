@@ -54,7 +54,7 @@ namespace Xps2Img.Shared.CommandLine
         public PostAction PostAction { get; set; }
 
         [Category(Categories.Options)]
-        [Option(ShortOptions.Pages, ConverterType = typeof(PagesTypeConverter), ValidationExpression = ValidationExpressions.Pages)]
+        [Option(ShortOptions.Pages, ConverterType = typeof(PagesTypeConverter), ValidationExpression = typeof(PagesValidator))]
         [UIOption(ShortOptions.Pages)]
         [DefaultValue(null)]
         [Editor(typeof(OrdinalEditor), typeof(UITypeEditor))]

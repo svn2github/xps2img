@@ -17,7 +17,14 @@ namespace CommandLine.Validation
 
         public static IValidator Parse(object validationExpression)
         {
-            if (validationExpression == null || (validationExpression is string && String.IsNullOrEmpty(validationExpression as string)))
+            var validatorType = validationExpression as Type;
+            if (validatorType != null)
+            {
+                return (IValidator)Activator.CreateInstance(validatorType);
+            }
+
+            var validationExpressionString = validationExpression as string;
+            if (String.IsNullOrEmpty(validationExpressionString))
             {
                 return null;
             }

@@ -6,7 +6,7 @@ namespace Xps2Img.Shared.CommandLine
 {
     public static class Validation
     {
-        public static void ValidateProperty(object propertyValue, string validatorExpresion, Func<string, bool> predicate = null)
+        public static void ValidateProperty(object propertyValue, object validatorExpresion, Func<string, bool> predicate = null)
         {
             if (String.IsNullOrEmpty(propertyValue as string))
             {
