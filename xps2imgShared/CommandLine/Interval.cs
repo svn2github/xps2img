@@ -12,6 +12,8 @@ namespace Xps2Img.Shared.CommandLine
         public const string ValidationRegex  = @"(^\s*$)|(^(\s*,)*\s*((\s*[1-9](\d{1,4})?\s*)|(\s*-\s*[1-9](\d{1,4})?\s*)|(\s*[1-9](\d{1,4})?\s*-\s*[1-9](\d{1,4})?\s*)|(\s*[1-9](\d{1,4})?\s*-\s*))(\s*(\s*,\s*)+\s*((\s*[1-9](\d{1,4})?\s*)|(\s*-\s*[1-9](\d{1,4})?\s*)|(\s*[1-9](\d{1,4})?\s*-\s*[1-9](\d{1,4})?\s*)|(\s*[1-9](\d{1,4})?\s*-\s*)))*(\s*,)*\s*$)";
         public const string ValidationRegex0 = @"(^\s*$)|(^(\s*,)*\s*((\s*[0-9](\d{1,4})?\s*)|(\s*-\s*[0-9](\d{1,4})?\s*)|(\s*[0-9](\d{1,4})?\s*-\s*[0-9](\d{1,4})?\s*)|(\s*[0-9](\d{1,4})?\s*-\s*))(\s*(\s*,\s*)+\s*((\s*[0-9](\d{1,4})?\s*)|(\s*-\s*[0-9](\d{1,4})?\s*)|(\s*[0-9](\d{1,4})?\s*-\s*[0-9](\d{1,4})?\s*)|(\s*[0-9](\d{1,4})?\s*-\s*)))*(\s*,)*\s*$)";
 
+        private static readonly Regex AdjustRegex = new Regex(@"\s*([\-,]|\s+)\s*");
+
         public Interval(int point)
         {
             Begin = End = point;
@@ -179,7 +181,7 @@ namespace Xps2Img.Shared.CommandLine
 
         public static string Adjust(string intervalString)
         {
-            return Regex.Replace(intervalString, @"\s*([\-,]|\s+)\s*", m => String.IsNullOrEmpty(m.Value.Trim()) ? ",".PadRight(m.Value.Length) : m.Value);
+            return AdjustRegex.Replace(intervalString, m => String.IsNullOrEmpty(m.Value.Trim()) ? ",".PadRight(m.Value.Length) : m.Value);
         }
 
         private static List<Interval> Optimize(IList<Interval> intervals, int minValue = MinValue)
