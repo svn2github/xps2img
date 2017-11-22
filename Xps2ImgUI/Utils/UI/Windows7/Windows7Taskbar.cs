@@ -47,6 +47,9 @@ namespace Windows7.DesktopIntegration
                 if (_uTBBCMsg == 0)
                 {
                     _uTBBCMsg = RegisterWindowMessage("TaskbarButtonCreated");
+
+                    ChangeWindowMessageFilter(_uTBBCMsg,  MSGFLT_ADD);
+                    ChangeWindowMessageFilter(WM_COMMAND, MSGFLT_ADD);
                 }
                 return _uTBBCMsg;
             }
@@ -60,6 +63,12 @@ namespace Windows7.DesktopIntegration
 
         [DllImport("user32.dll")]
         private static extern uint RegisterWindowMessage(string lpString);
+
+        [DllImport("user32.dll")]
+        public static extern bool ChangeWindowMessageFilter(uint message, uint dwFlag);
+
+        private const uint MSGFLT_ADD = 1;
+        private const int  WM_COMMAND = 0x111;
 
         private static readonly object _syncRoot = new Object();
         private static volatile uint _uTBBCMsg;
