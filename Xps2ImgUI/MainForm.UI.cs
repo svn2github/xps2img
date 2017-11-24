@@ -37,15 +37,21 @@ namespace Xps2ImgUI
 
         private void UpdateThumbButtons(bool isRunning)
         {
-            if (_thumbButtonManager == null || _thumbButton == null || _thumbButtonBrowse == null)
+            if (_thumbButtonManager == null)
             {
                 return;
             }
 
-            _thumbButton.Tooltip = ConvertButtonCleanText;
-            _thumbButton.Icon = isRunning ? Resources.Icons.Stop : Resources.Icons.Play;
+            if (_thumbButton != null)
+            {
+                _thumbButton.Tooltip = ConvertButtonCleanText;
+                _thumbButton.Icon = isRunning ? Resources.Icons.Stop : Resources.Icons.Play;
+            }
 
-            _thumbButtonBrowse.Tooltip = BrowseImagesButtonText;
+            if (_thumbButtonBrowse != null)
+            {
+                _thumbButtonBrowse.Tooltip = BrowseImagesButtonText;
+            }
 
             _thumbButtonManager.RefreshThumbButtons();
         }

@@ -48,8 +48,14 @@ namespace Windows7.DesktopIntegration
                 {
                     _uTBBCMsg = RegisterWindowMessage("TaskbarButtonCreated");
 
-                    ChangeWindowMessageFilter(_uTBBCMsg,  MSGFLT_ADD);
-                    ChangeWindowMessageFilter(WM_COMMAND, MSGFLT_ADD);
+                    try
+                    {
+                        ChangeWindowMessageFilter(_uTBBCMsg, MSGFLT_ADD);
+                        ChangeWindowMessageFilter(WM_COMMAND, MSGFLT_ADD);
+                    }
+                    catch(EntryPointNotFoundException)
+                    {
+                    }
                 }
                 return _uTBBCMsg;
             }
