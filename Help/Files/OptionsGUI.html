@@ -1,16 +1,19 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" class="ie ie6 no-js"> <![endif]-->
+<!--[if IE 7 ]> <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" class="ie ie7 no-js"> <![endif]-->
+<!--[if IE 8 ]> <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" class="ie ie8 no-js"> <![endif]-->
+<!--[if IE 9 ]> <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" class="ie ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><!--<![endif]-->
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=8" />
-    <title>GUI Command-line Options</title>
+    <title>GUI Frontend Command-line Options</title>
     <link rel="stylesheet" type="text/css" href="css/help.css" media="all" />
 </head>
 <body>
     <h1>GUI Frontend Command-line Options</h1>
 
-    <a class="anchor" name="batch"></a><h2>Batch Mode</h2>
+    <h2><a class="anchor" name="batch" />Batch Mode</h2>
     <h3>-b, --batch</h3>
     <p>Starts GUI Frontend in batch mode.</p>
     <p>Features:</p>
@@ -19,20 +22,20 @@
         <li>All <a href="Options.html">CLI options</a> are supported.</li>
         <li>Error messages are printed to parent process console.</li>
         <li>On success, error or cancel/close application returns corresponding <a href="ExitCodes.html">exit code</a>.</li>
-        <li>Copy and use batch command-line in <a class="external" href="http://en.wikipedia.org/wiki/Windows_batch_file" target="_blank">batch</a> script as is.
+        <li>Copy and use batch command-line in <a class="external" href="http://en.wikipedia.org/wiki/Windows_batch_file">batch</a> script as is.
             <div>
                 <img class="list" src="img\Xps2ImgUI-Copy-Batch.png" width="437" height="121" alt="Copy UI Batch Command Line To Clipboard" />
             </div>
         </li>
     </ul>
 
-    <a class="anchor" name="fileNameAsImagePrefix" /><h2>Image Prefix Incudes Document Name</h2>
+    <h2><a class="anchor" name="fileNameAsImagePrefix" />Image Prefix Incudes Document Name</h2>
     <p>Image prefix incudes document name: src_file-01.png</p>
 
-    <a class="anchor" name="preferDpiOverSize" /><h2>Image DPI Instead Of Size</h2>
+    <h2><a class="anchor" name="preferDpiOverSize" />Image DPI Instead Of Size</h2>
     <p>Use image DPI instead of size.</p>
 
-    <a class="anchor" name="processors" /><h2>Processors</h2>
+    <h2><a class="anchor" name="processors" />Processors</h2>
     <h3>--processors-number=number</h3>
     <p>Number of simultaneously running document processors.</p>
     <p class="default">Number of logical CPUs by default (Auto)</p>
