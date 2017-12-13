@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -10,6 +11,11 @@ namespace Xps2Img.Shared.Controls
     public partial class IntControl : UserControl
     {
         private const string TrackingCategory = "Tracking";
+
+        [Category("Control")]
+        [Description("Hides track bar.")]
+        [DefaultValue(false)]
+        public bool HideTrackBar { get; set; }
 
         [Browsable(false)]
         [DefaultValue(0)]
@@ -126,6 +132,14 @@ namespace Xps2Img.Shared.Controls
             if (AlignTitleWidthWith != null)
             {
                 AlignTitleWidthWith.headerLabel.Resize += AlignTitleWidthWithHeaderLabelResize;
+            }
+
+            if (HideTrackBar)
+            {
+                valueComboBox.Anchor = AnchorStyles.Right | AnchorStyles.Left;
+                valueComboBox.Size = new Size(valueTrackBar.Right - valueComboBox.Left, valueComboBox.Height);
+
+                valueTrackBar.Visible = false;
             }
         }
 
