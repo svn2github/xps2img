@@ -67,6 +67,7 @@
             this.paperTypeIntControl.Location = new System.Drawing.Point(0, 0);
             this.paperTypeIntControl.Name = "paperTypeIntControl";
             this.paperTypeIntControl.Size = new System.Drawing.Size(358, 55);
+            this.paperTypeIntControl.HideTrackBar = true;
             this.paperTypeIntControl.TabIndex = 0;
             // 
             // dpiIntControl
