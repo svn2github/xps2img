@@ -12,7 +12,7 @@ namespace Xps2Img.Shared.Dialogs
         {
             TopLevel = false;
 
-            if (!DesignMode)
+			if (!DesignMode)
             {
                 FormBorderStyle = FormBorderStyle.None;
                 this.EnableFormLocalization();
@@ -24,7 +24,24 @@ namespace Xps2Img.Shared.Dialogs
             get { return base.DesignMode || LicenseManager.UsageMode == LicenseUsageMode.Designtime; }
         }
 
-        protected override void OnLoad(EventArgs e)
+	    protected override CreateParams CreateParams
+	    {
+		    get
+		    {
+			    // ReSharper disable InconsistentNaming
+			    const int WS_EX_COMPOSITED = 0x02000000;
+			    const int WS_CLIPCHILDREN = 0x02000000;
+			    // ReSharper restore InconsistentNaming
+
+				var createParams = base.CreateParams;
+			    createParams.ExStyle |= WS_EX_COMPOSITED;
+			    createParams.Style   &= ~WS_CLIPCHILDREN;
+
+			    return createParams;
+		    }
+	    }
+
+		protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
