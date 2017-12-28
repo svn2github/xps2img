@@ -6,15 +6,34 @@ using System.Linq;
 
 using Windows7.DesktopIntegration;
 
+using Timer = System.Windows.Forms.Timer;
+
 using Xps2Img.Shared.Utils;
+using Xps2ImgUI.Model;
 
 namespace Xps2ImgUI
 {
     public partial class MainForm
     {
-        private void UpdateProgress(int percent, string pages, string file)
+        private void UpdateProgress()
         {
-            Text = String.Format(Resources.Strings.WindowTitleProgressFormat, Resources.Strings.WindowTitle, percent, pages, Path.GetFileName(file), _srcFileDisplayName);
+	        if (_conversionProgressEventArgs == null)
+	        {
+		        return;
+	        }
+
+	        var percent = _conversionProgressEventArgs.Percent;
+			var pages   = _conversionProgressEventArgs.Pages;
+			var file    = _conversionProgressEventArgs.File;
+
+	        // ReSharper disable once PossibleLossOfFraction
+	        var timeLeft = Model.PagesProcessed == 0 ? TimeSpan.Zero : TimeSpan.FromSeconds(_elapsed.Ticks * (Model.PagesTotal - Model.PagesProcessed) / (Model.PagesProcessed * TimeSpan.TicksPerSecond));
+	        if (timeLeft == TimeSpan.Zero)
+	        {
+		        timeLeft = new TimeSpan(TimeSpan.TicksPerSecond);
+			}
+
+			Text = String.Format(Resources.Strings.WindowTitleProgressFormat, Resources.Strings.WindowTitle, percent, pages, Path.GetFileName(file), timeLeft, _elapsed, _srcFileDisplayName);
             progressBar.Value = percent;
 
             this.SetProgressValue(progressBar.Value, progressBar.Maximum);
@@ -61,7 +80,9 @@ namespace Xps2ImgUI
             if (!isRunning)
             {
                 _stopwatch.Stop();
-                UpdateElapsedTime();
+	            _elapsedTimer.Stop();
+
+				UpdateElapsedTime();
             }
 
             UpdateConvertButtons(isRunning);
@@ -91,28 +112,33 @@ namespace Xps2ImgUI
             }
         }
 
-        private void UpdateElapsedTime(bool reset = false)
+	    private void UpdateElapsedTime(bool reset = false)
+	    {
+		    Text = Resources.Strings.WindowTitle;
+
+		    TimeSpan elapsed;
+
+		    if (reset)
+		    {
+			    _stopwatch.Reset();
+			    return;
+		    }
+
+		    if (!_preferences.ShowElapsedTimeAndStatistics || (elapsed = _stopwatch.Elapsed) == default(TimeSpan))
+		    {
+			    return;
+		    }
+
+		    Text += GetElapsedTime(elapsed, Resources.Strings.ElapsedTimeTextTemplateShort, Resources.Strings.ElapsedTimeTextTemplate);
+		}
+		
+        private string GetElapsedTime(TimeSpan elapsed, string shortTemplate, string template)
         {
-            TimeSpan elapsed;
-
-            Text = Resources.Strings.WindowTitle;
-
-            if (reset)
-            {
-                _stopwatch.Reset();
-                return;
-            }
-
-            if (!_preferences.ShowElapsedTimeAndStatistics || (elapsed = _stopwatch.Elapsed) == default(TimeSpan))
-            {
-                return;
-            }
-
             var timeAbbrev = Resources.Strings.AbbrevSeconds;
 
             var pagesProcessed = Model.PagesProcessed;
 
-            Func<double, double> par = e => (e > 0.001) ? pagesProcessed/e : pagesProcessed;
+            Func<double, double> par = e => e > 0.001 ? pagesProcessed/e : pagesProcessed;
 
             var pp = par(elapsed.TotalSeconds);
             var ppMinute = par(elapsed.TotalMinutes);
@@ -140,7 +166,7 @@ namespace Xps2ImgUI
 
             Func<int, string> getPagesString = p => p == 1 ? Resources.Strings.AbbrevPage : Resources.Strings.AbbrevPages;
 
-            Text += String.Format(Model.IsDeleteMode || pagesProcessed == 0 ? Resources.Strings.ElapsedTimeTextTemplateShort : Resources.Strings.ElapsedTimeTextTemplate,
+            return String.Format(Model.IsDeleteMode || pagesProcessed == 0 ? shortTemplate : template,
                                   elapsed.Hours, elapsed.Minutes, elapsed.Seconds,
                                   ppInt, getPagesString(ppInt), timeAbbrev,
                                   Model.PagesProcessedTotal, Model.PagesTotal);
@@ -226,11 +252,16 @@ namespace Xps2ImgUI
             }
         }
 
-        private volatile bool _conversionFailed;
+	    private volatile ConversionProgressEventArgs _conversionProgressEventArgs;
+
+		private volatile bool _conversionFailed;
 
         private string _srcFileDisplayName;
         private string _uiCommandLine;
 
         private readonly Stopwatch _stopwatch = new Stopwatch();
-    }
+		private readonly Timer _elapsedTimer = new Timer();
+
+		private TimeSpan _elapsed;
+	}
 }

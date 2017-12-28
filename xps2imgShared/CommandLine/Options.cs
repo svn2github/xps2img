@@ -216,8 +216,12 @@ namespace Xps2Img.Shared.CommandLine
 
         // ReSharper disable once MemberCanBeProtected.Global
         [Category(Categories.Options)]
+#if DEBUG
+        [Editor(typeof(CheckBoxGlyphEditor), typeof(UITypeEditor))]
+#else
         [Browsable(false)]
-        [Option(ShortOptions.Test, ArgumentExpectancy.No)]
+#endif
+		[Option(ShortOptions.Test, ArgumentExpectancy.No)]
         [UIOption(ShortOptions.Test)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]

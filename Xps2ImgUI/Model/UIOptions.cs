@@ -8,6 +8,7 @@ using UIOption = Xps2Img.Shared.Attributes.Options.OptionAttribute;
 
 namespace Xps2ImgUI.Model
 {
+	// ReSharper disable once InconsistentNaming
     public class UIOptions : Options, ICustomTypeDescriptor
     {
         private readonly FilterableCustomTypeDescriptor _facade;
@@ -40,15 +41,17 @@ namespace Xps2ImgUI.Model
             set { }
         }
 
+#if !DEBUG
         public override bool Test
         {
-            get { return false; }
-            set { base.Test = value; }
+			get { return false; }
+			set { }
         }
+#endif
 
-        #region ICustomTypeDescriptor
+		#region ICustomTypeDescriptor
 
-        public AttributeCollection GetAttributes() { return _facade.GetAttributes(); }
+		public AttributeCollection GetAttributes() { return _facade.GetAttributes(); }
         public string GetClassName() { return _facade.GetClassName(); }
         public string GetComponentName() { return _facade.GetComponentName(); }
         public TypeConverter GetConverter() { return _facade.GetConverter(); }
@@ -61,6 +64,6 @@ namespace Xps2ImgUI.Model
         public PropertyDescriptorCollection GetProperties(Attribute[] attributes) { return _facade.GetProperties(attributes); }
         public object GetPropertyOwner(PropertyDescriptor pd) { return _facade.GetPropertyOwner(pd); }
 
-        #endregion
+#endregion
     }
 }

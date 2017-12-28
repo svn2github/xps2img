@@ -1453,7 +1453,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {1}% ({2}) [{3}] - {4} - {0}.
+        ///   Looks up a localized string similar to {1}% ({2}) ● {3} ● {4}/{5} ● {6} - {0}.
         /// </summary>
         internal static string WindowTitleProgressFormat {
             get {

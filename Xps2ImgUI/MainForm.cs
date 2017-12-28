@@ -74,7 +74,12 @@ namespace Xps2ImgUI
         {
             _handle = Handle;
 
-            RegisterCultureSpecificConvertButtonSize();
+	        var second = TimeSpan.FromSeconds(1);
+
+			_elapsedTimer.Interval = (int)second.TotalMilliseconds;
+	        _elapsedTimer.Tick += delegate { _elapsed = new TimeSpan(_elapsed.Ticks + second.Ticks); UpdateProgress(); };
+
+	        RegisterCultureSpecificConvertButtonSize();
 
             convertButton.ContextMenuStrip = convertContextMenuStrip;
 
@@ -221,8 +226,8 @@ namespace Xps2ImgUI
 
             if (m.Msg == WmProgress)
             {
-                var e = m.GetPostMessageData<ConversionProgressEventArgs>();
-                UpdateProgress(e.Percent, e.Pages, e.File);
+	            _conversionProgressEventArgs = m.GetPostMessageData<ConversionProgressEventArgs>();
+                UpdateProgress();
             }
 
             try
