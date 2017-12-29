@@ -159,7 +159,7 @@ namespace Xps2ImgUI
             if (conversionType != ConversionType.Resume)
             {
                 _stopwatch.Reset();
-	            _elapsed = new TimeSpan();
+	            _estimated = _elapsed = new TimeSpan();
 				_conversionProgressEventArgs = null;
 			}
 

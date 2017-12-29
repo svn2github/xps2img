@@ -74,10 +74,8 @@ namespace Xps2ImgUI
         {
             _handle = Handle;
 
-	        var second = TimeSpan.FromSeconds(1);
-
-			_elapsedTimer.Interval = (int)second.TotalMilliseconds;
-	        _elapsedTimer.Tick += delegate { _elapsed = new TimeSpan(_elapsed.Ticks + second.Ticks); UpdateProgress(); };
+			_elapsedTimer.Interval = (int)ElapsedInterval.TotalMilliseconds;
+	        _elapsedTimer.Tick += delegate { _elapsed = new TimeSpan(_elapsed.Ticks + ElapsedInterval.Ticks); UpdateProgress(); };
 
 	        RegisterCultureSpecificConvertButtonSize();
 

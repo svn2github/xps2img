@@ -26,20 +26,33 @@ namespace Xps2ImgUI
 			var pages   = _conversionProgressEventArgs.Pages;
 			var file    = _conversionProgressEventArgs.File;
 
-	        // ReSharper disable once PossibleLossOfFraction
-	        var timeLeft = Model.PagesProcessed == 0 ? TimeSpan.Zero : TimeSpan.FromSeconds(_elapsed.Ticks * (Model.PagesTotal - Model.PagesProcessed) / (Model.PagesProcessed * TimeSpan.TicksPerSecond));
-	        if (timeLeft == TimeSpan.Zero)
-	        {
-		        timeLeft = new TimeSpan(TimeSpan.TicksPerSecond);
-			}
-
-			Text = String.Format(Resources.Strings.WindowTitleProgressFormat, Resources.Strings.WindowTitle, percent, pages, Path.GetFileName(file), timeLeft, _elapsed, _srcFileDisplayName);
+	        CaclulateEstimated();
+			
+			Text = String.Format(Resources.Strings.WindowTitleProgressFormat, Resources.Strings.WindowTitle, percent, pages, Path.GetFileName(file), _estimated, _elapsed, _srcFileDisplayName);
             progressBar.Value = percent;
 
             this.SetProgressValue(progressBar.Value, progressBar.Maximum);
         }
 
-        private void UpdateConvertButtons(bool? isRunning = null)
+	    private void CaclulateEstimated()
+	    {
+		    const long threshold = 5;
+
+		    // ReSharper disable once PossibleLossOfFraction
+		    var timeLeft = Model.PagesProcessed == 0 ? TimeSpan.Zero : TimeSpan.FromSeconds(_elapsed.Ticks * (Model.PagesTotal - Model.PagesProcessed) / (Model.PagesProcessed * TimeSpan.TicksPerSecond));
+
+		    if (_estimated == TimeSpan.Zero || timeLeft < _estimated || (timeLeft - _estimated).Duration() > TimeSpan.FromTicks(Math.Max(_estimated.Ticks, timeLeft.Ticks) * threshold / 100))
+		    {
+			    _estimated = timeLeft;
+		    }
+
+		    if (_estimated == TimeSpan.Zero)
+		    {
+			    _estimated = new TimeSpan(TimeSpan.TicksPerSecond);
+		    }
+	    }
+
+		private void UpdateConvertButtons(bool? isRunning = null)
         {
             var isRunningBool = isRunning ?? Model.IsRunning;
 
@@ -263,5 +276,8 @@ namespace Xps2ImgUI
 		private readonly Timer _elapsedTimer = new Timer();
 
 		private TimeSpan _elapsed;
+		private TimeSpan _estimated;
+
+	    private static readonly TimeSpan ElapsedInterval = TimeSpan.FromSeconds(1);
 	}
 }
