@@ -74,10 +74,10 @@ namespace Xps2ImgUI
         {
             _handle = Handle;
 
-			_elapsedTimer.Interval = (int)ElapsedInterval.TotalMilliseconds;
-	        _elapsedTimer.Tick += delegate { _elapsed = new TimeSpan(_elapsed.Ticks + ElapsedInterval.Ticks); UpdateProgress(); };
+            _elapsedTimer.Interval = (int)ElapsedInterval.TotalMilliseconds;
+            _elapsedTimer.Tick += delegate { _elapsed = new TimeSpan(_elapsed.Ticks + ElapsedInterval.Ticks); UpdateProgress(true); };
 
-	        RegisterCultureSpecificConvertButtonSize();
+            RegisterCultureSpecificConvertButtonSize();
 
             convertButton.ContextMenuStrip = convertContextMenuStrip;
 
@@ -224,7 +224,7 @@ namespace Xps2ImgUI
 
             if (m.Msg == WmProgress)
             {
-	            _conversionProgressEventArgs = m.GetPostMessageData<ConversionProgressEventArgs>();
+                _conversionProgressEventArgs = m.GetPostMessageData<ConversionProgressEventArgs>();
                 UpdateProgress();
             }
 

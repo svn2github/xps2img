@@ -221,7 +221,7 @@ namespace Xps2Img.Shared.CommandLine
 #else
         [Browsable(false)]
 #endif
-		[Option(ShortOptions.Test, ArgumentExpectancy.No)]
+        [Option(ShortOptions.Test, ArgumentExpectancy.No)]
         [UIOption(ShortOptions.Test)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]

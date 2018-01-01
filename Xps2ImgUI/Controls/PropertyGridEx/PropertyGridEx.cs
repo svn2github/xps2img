@@ -246,7 +246,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             MoveSplitterTo(_propertyGridView.Width * percent / 100);
         }
 
-        private static readonly string[] MonospaceFontFamilies = { "Consolas", "Lucida Console", "Lucida Sans Typewriter", "Courier New" };
+        private static readonly string[] MonospaceFontFamilies = { "Consolas", "Lucida Console", "Courier New" };
         
         public void SetDocMonospaceFont()
         {

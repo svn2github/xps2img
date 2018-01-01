@@ -9,9 +9,7 @@ using System.Security;
 using System.Text;
 using System.Runtime.InteropServices;
 
-// ReSharper disable CheckNamespace
-// ReSharper disable InconsistentNaming
-// ReSharper disable EmptyGeneralCatchClause
+// ReSharper disable All
 
 // http://www.codeproject.com/KB/cs/IconExtractor.aspx
 

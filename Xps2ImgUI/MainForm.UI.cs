@@ -15,44 +15,46 @@ namespace Xps2ImgUI
 {
     public partial class MainForm
     {
-        private void UpdateProgress()
+        private void UpdateProgress(bool fromTimer = false)
         {
-	        if (_conversionProgressEventArgs == null)
-	        {
-		        return;
-	        }
+            if (_conversionProgressEventArgs == null)
+            {
+                return;
+            }
 
-	        var percent = _conversionProgressEventArgs.Percent;
-			var pages   = _conversionProgressEventArgs.Pages;
-			var file    = _conversionProgressEventArgs.File;
+            var percent = _conversionProgressEventArgs.Percent;
+            var pages   = _conversionProgressEventArgs.Pages;
+            var file    = _conversionProgressEventArgs.File;
 
-	        CaclulateEstimated();
-			
-			Text = String.Format(Resources.Strings.WindowTitleProgressFormat, Resources.Strings.WindowTitle, percent, pages, Path.GetFileName(file), _estimated, _elapsed, _srcFileDisplayName);
+            CaclulateEstimated(fromTimer);
+
+            Text = String.Format(Resources.Strings.WindowTitleProgressFormat, Resources.Strings.WindowTitle, percent, pages, Path.GetFileName(file), _estimated, _elapsed, _srcFileDisplayName);
             progressBar.Value = percent;
 
             this.SetProgressValue(progressBar.Value, progressBar.Maximum);
         }
 
-	    private void CaclulateEstimated()
-	    {
-		    const long threshold = 5;
+        private void CaclulateEstimated(bool fromTimer = false)
+        {
+            var timeLeft = Model.PagesProcessed == 0 ? TimeSpan.Zero : TimeSpan.FromSeconds((long)((double)_elapsed.Ticks * (Model.PagesTotal - Model.PagesProcessed) / (Model.PagesProcessed * TimeSpan.TicksPerSecond)));
 
-		    // ReSharper disable once PossibleLossOfFraction
-		    var timeLeft = Model.PagesProcessed == 0 ? TimeSpan.Zero : TimeSpan.FromSeconds(_elapsed.Ticks * (Model.PagesTotal - Model.PagesProcessed) / (Model.PagesProcessed * TimeSpan.TicksPerSecond));
+            if ((_lastEstimated - timeLeft).Duration() > EstimatedThreshold)
+            {
+                _lastEstimated = _estimated = timeLeft;
+            }
 
-		    if (_estimated == TimeSpan.Zero || timeLeft < _estimated || (timeLeft - _estimated).Duration() > TimeSpan.FromTicks(Math.Max(_estimated.Ticks, timeLeft.Ticks) * threshold / 100))
-		    {
-			    _estimated = timeLeft;
-		    }
+            if (fromTimer)
+            {
+                _estimated = _estimated.Add(-ElapsedInterval);
+            }
 
-		    if (_estimated == TimeSpan.Zero)
-		    {
-			    _estimated = new TimeSpan(TimeSpan.TicksPerSecond);
-		    }
-	    }
+            if (_estimated <= TimeSpan.Zero)
+            {
+                _estimated = ElapsedInterval;
+            }
+        }
 
-		private void UpdateConvertButtons(bool? isRunning = null)
+        private void UpdateConvertButtons(bool? isRunning = null)
         {
             var isRunningBool = isRunning ?? Model.IsRunning;
 
@@ -93,9 +95,9 @@ namespace Xps2ImgUI
             if (!isRunning)
             {
                 _stopwatch.Stop();
-	            _elapsedTimer.Stop();
+                _elapsedTimer.Stop();
 
-				UpdateElapsedTime();
+                UpdateElapsedTime();
             }
 
             UpdateConvertButtons(isRunning);
@@ -125,26 +127,26 @@ namespace Xps2ImgUI
             }
         }
 
-	    private void UpdateElapsedTime(bool reset = false)
-	    {
-		    Text = Resources.Strings.WindowTitle;
+        private void UpdateElapsedTime(bool reset = false)
+        {
+            Text = Resources.Strings.WindowTitle;
 
-		    TimeSpan elapsed;
+            TimeSpan elapsed;
 
-		    if (reset)
-		    {
-			    _stopwatch.Reset();
-			    return;
-		    }
+            if (reset)
+            {
+                _stopwatch.Reset();
+                return;
+            }
 
-		    if (!_preferences.ShowElapsedTimeAndStatistics || (elapsed = _stopwatch.Elapsed) == default(TimeSpan))
-		    {
-			    return;
-		    }
+            if (!_preferences.ShowElapsedTimeAndStatistics || (elapsed = _stopwatch.Elapsed) == default(TimeSpan))
+            {
+                return;
+            }
 
-		    Text += GetElapsedTime(elapsed, Resources.Strings.ElapsedTimeTextTemplateShort, Resources.Strings.ElapsedTimeTextTemplate);
-		}
-		
+            Text += GetElapsedTime(elapsed, Resources.Strings.ElapsedTimeTextTemplateShort, Resources.Strings.ElapsedTimeTextTemplate);
+        }
+        
         private string GetElapsedTime(TimeSpan elapsed, string shortTemplate, string template)
         {
             var timeAbbrev = Resources.Strings.AbbrevSeconds;
@@ -265,19 +267,21 @@ namespace Xps2ImgUI
             }
         }
 
-	    private volatile ConversionProgressEventArgs _conversionProgressEventArgs;
+        private volatile ConversionProgressEventArgs _conversionProgressEventArgs;
 
-		private volatile bool _conversionFailed;
+        private volatile bool _conversionFailed;
 
         private string _srcFileDisplayName;
         private string _uiCommandLine;
 
         private readonly Stopwatch _stopwatch = new Stopwatch();
-		private readonly Timer _elapsedTimer = new Timer();
+        private readonly Timer _elapsedTimer = new Timer();
 
-		private TimeSpan _elapsed;
-		private TimeSpan _estimated;
+        private TimeSpan _elapsed;
+        private TimeSpan _estimated;
+        private TimeSpan _lastEstimated;
 
-	    private static readonly TimeSpan ElapsedInterval = TimeSpan.FromSeconds(1);
-	}
+        private static readonly TimeSpan ElapsedInterval    = TimeSpan.FromSeconds(1);
+        private static readonly TimeSpan EstimatedThreshold = TimeSpan.FromSeconds(5);
+    }
 }

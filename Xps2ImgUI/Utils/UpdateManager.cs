@@ -152,7 +152,7 @@ namespace Xps2ImgUI.Utils
                 {
                     var page = streamReader.ReadToEnd();
 
-                    var versionMatch = (new Regex(VersionCheck, RegexOptions.IgnoreCase)).Match(page);
+                    var versionMatch = new Regex(VersionCheck, RegexOptions.IgnoreCase).Match(page);
                     if (!versionMatch.Success)
                     {
                         throw new InvalidDataException();

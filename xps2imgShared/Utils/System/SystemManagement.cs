@@ -59,13 +59,13 @@ namespace Xps2Img.Shared.Utils.System
             if ((ShutdownType.Hibernate & shutdownType) != 0)
             {
                 Application.SetSuspendState(PowerState.Hibernate, isForced, disableWakeEvent);
-                return;		
+                return;
             }
             
             if ((ShutdownType.Sleep & shutdownType) != 0)
             {
                 Application.SetSuspendState(PowerState.Suspend, isForced, disableWakeEvent);
-                return;		
+                return;
             }
 
             if (shutdownType == ShutdownType.Exit)
