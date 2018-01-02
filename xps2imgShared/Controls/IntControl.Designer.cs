@@ -102,6 +102,7 @@
             // valueComboBox
             // 
             this.valueComboBox.FormattingEnabled = true;
+            this.valueComboBox.IntegralHeight = false;
             this.valueComboBox.Location = new System.Drawing.Point(0, 10);
             this.valueComboBox.MaxDropDownItems = 15;
             this.valueComboBox.Name = "valueComboBox";
