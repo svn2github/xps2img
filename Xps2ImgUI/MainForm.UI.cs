@@ -26,26 +26,38 @@ namespace Xps2ImgUI
             var pages   = _conversionProgressEventArgs.Pages;
             var file    = _conversionProgressEventArgs.File;
 
-            CaclulateEstimated(fromTimer);
+            CaclulateEstimated(percent, fromTimer);
 
-            Text = String.Format(Resources.Strings.WindowTitleProgressFormat, Resources.Strings.WindowTitle, percent, pages, Path.GetFileName(file), _estimated, _elapsed, _srcFileDisplayName);
-            progressBar.Value = percent;
+            var intPercent = (int) percent;
+
+            Text = String.Format(Resources.Strings.WindowTitleProgressFormat, Resources.Strings.WindowTitle, intPercent, pages, Path.GetFileName(file), _estimated, _elapsed, _srcFileDisplayName);
+            progressBar.Value = intPercent;
 
             this.SetProgressValue(progressBar.Value, progressBar.Maximum);
         }
 
-        private void CaclulateEstimated(bool fromTimer = false)
+        private void CaclulateEstimated(double percent, bool fromTimer = false)
         {
-            var timeLeft = Model.PagesProcessed == 0 ? TimeSpan.Zero : TimeSpan.FromSeconds((long)((double)_elapsed.Ticks * (Model.PagesTotal - Model.PagesProcessed) / (Model.PagesProcessed * TimeSpan.TicksPerSecond)));
-
-            if ((_lastEstimated - timeLeft).Duration() > EstimatedThreshold)
-            {
-                _lastEstimated = _estimated = timeLeft;
-            }
+            const double percentThreshold   = 0.001;
+            const double estimatedThreshold = 0.95;
 
             if (fromTimer)
             {
-                _estimated = _estimated.Add(-ElapsedInterval);
+                _elapsed += ElapsedInterval;
+            }
+
+            var timeLeft = percent < percentThreshold ? ElapsedInterval : TimeSpan.FromSeconds((long)(_elapsed.Ticks / percent * (100 - percent) / TimeSpan.TicksPerSecond));
+
+            if (Math.Min(_lastEstimated.TotalMilliseconds, timeLeft.TotalMilliseconds) / Math.Max(_lastEstimated.TotalMilliseconds, timeLeft.TotalMilliseconds) < estimatedThreshold)
+            {
+                _lastEstimated = _estimated = timeLeft;
+            }
+            else
+            {
+                if (fromTimer)
+                {
+                    _estimated -= ElapsedInterval;
+                }
             }
 
             if (_estimated <= TimeSpan.Zero)
@@ -281,7 +293,6 @@ namespace Xps2ImgUI
         private TimeSpan _estimated;
         private TimeSpan _lastEstimated;
 
-        private static readonly TimeSpan ElapsedInterval    = TimeSpan.FromSeconds(1);
-        private static readonly TimeSpan EstimatedThreshold = TimeSpan.FromSeconds(5);
+        private static readonly TimeSpan ElapsedInterval = TimeSpan.FromSeconds(1);
     }
 }

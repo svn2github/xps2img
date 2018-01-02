@@ -61,7 +61,7 @@ namespace Xps2ImgUI.Model
             }
 
             var pageIndex = _pagesProcessedDelta + Interlocked.Increment(ref _pagesProcessed);
-            var percent = pageIndex*100 / PagesTotal;
+            var percent = pageIndex*100.0 / PagesTotal;
             var pages = String.Format(Resources.Strings.PageOfPagesFormat, pageIndex, PagesTotal);
             var page = int.Parse(GetMatchedValue(match, "page", "0"), CultureInfo.InvariantCulture);
             var file = GetMatchedValue(match, "file", String.Empty);
@@ -136,9 +136,10 @@ namespace Xps2ImgUI.Model
                 ExitCode = process.ExitCode;               
                 FreeProcessResources(process);
             }
-            // ReSharper disable once EmptyGeneralCatchClause
+            // ReSharper disable once CatchAllClause
             catch
             {
+                // ignored
             }
             finally
             {
