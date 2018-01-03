@@ -53,6 +53,9 @@
   <PropertyGroup>
     <ApplicationIcon>Resources\Ico\Application.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.WindowsAPICodePack">
       <HintPath>..\_Lib\_Bin\Microsoft.WindowsAPICodePack.dll</HintPath>
@@ -210,9 +213,10 @@
     <EmbeddedResource Include="Resources\Strings.uk.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="..\xps2img\App.config">
-      <Link>App.config</Link>
+    <None Include="..\xps2img\app.config">
+      <Link>app.config</Link>
     </None>
+    <None Include="app.manifest" />
     <None Include="Utils\Stubs\UpdateManager.cs" />
     <Compile Include="Utils\Interfaces\IUpdateManager.cs" />
     <Compile Include="Utils\UpdateManager.cs" />
