@@ -511,7 +511,7 @@ namespace Xps2ImgUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XPS to Images Converter Frontend..
+        ///   Looks up a localized string similar to XPS to Images Converter..
         /// </summary>
         internal static string HelpAbout_Description {
             get {

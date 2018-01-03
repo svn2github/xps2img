@@ -1,4 +1,4 @@
 ﻿using System.Reflection;
 
-[assembly: AssemblyTitle("XPS to Images Converter Frontend")]
-[assembly: AssemblyDescription("XPS to Images Converter Frontend")]
+[assembly: AssemblyTitle("XPS to Images Converter")]
+[assembly: AssemblyDescription("XPS to Images Converter")]

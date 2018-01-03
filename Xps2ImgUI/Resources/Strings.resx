@@ -814,7 +814,7 @@ What's new in version {0}
     <comment>NON LOCALIZABLE</comment>
   </data>
   <data name="HelpAbout_Description" xml:space="preserve">
-    <value>XPS to Images Converter Frontend.</value>
+    <value>XPS to Images Converter.</value>
     <comment>NON LOCALIZABLE</comment>
   </data>
 </root>
