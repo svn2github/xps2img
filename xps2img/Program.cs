@@ -265,12 +265,15 @@ namespace Xps2Img
                                     (int)args.ConverterState.Percent);
             }
 
-            Console.Title = String.Format(Resources.Strings.Template_ProgressTitle,
-                                (int)args.ConverterState.Percent,
-                                args.ConverterState.ActivePageIndex,
-                                args.ConverterState.TotalPages,
-                                Path.GetFileName(args.FullFileName),
-                                Path.GetFileNameWithoutExtension(converter.XpsFileName));
+            if(!_launchedAsInternal)
+            {
+                Console.Title = String.Format(Resources.Strings.Template_ProgressTitle,
+                                    (int)args.ConverterState.Percent,
+                                    args.ConverterState.ActivePageIndex,
+                                    args.ConverterState.TotalPages,
+                                    Path.GetFileName(args.FullFileName),
+                                    Path.GetFileNameWithoutExtension(converter.XpsFileName));
+            }
         }
 
         private static void OnError(object sender, Converter.ErrorEventArgs args)

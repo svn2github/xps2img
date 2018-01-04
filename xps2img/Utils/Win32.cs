@@ -46,10 +46,10 @@ namespace Xps2Img.Utils
             STD_ERROR_HANDLE  = -12
         }
 
-        [DllImport("Kernel32.dll")]
+        [DllImport("kernel32.dll")]
         private static extern IntPtr GetStdHandle(StdHandle stdHandle);
 
-        [DllImport("Kernel32.dll")]
+        [DllImport("kernel32.dll")]
         private static extern FileType GetFileType(IntPtr hFile);
 
         public static bool IsOutputRedirected()
