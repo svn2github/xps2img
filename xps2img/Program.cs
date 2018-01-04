@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
@@ -36,8 +35,10 @@ namespace Xps2Img
 
         private static bool _launchedAsInternal;
 
-        [DllImport("kernel32.dll")]
-        private static extern bool SetConsoleCP(int codePageId);
+        private static int _cursorLeft;
+        private static int _cursorTop;
+
+        private static bool _isOutputRedirected;
 
         [STAThread]
         private static int Main(string[] args)
@@ -78,16 +79,24 @@ namespace Xps2Img
                 }
 
                 _launchedAsInternal = options.HasInternal;
-
+                
                 if (_launchedAsInternal)
                 {
                     Console.OutputEncoding = Encoding.UTF8;
-                    SetConsoleCP(Console.OutputEncoding.CodePage);
+                    Win32.SetConsoleCP(Console.OutputEncoding.CodePage);
 
                     ThreadPool.QueueUserWorkItem(_ => WaitForCancellationThread(options));
                 }
 
                 Win32.SetConsoleCtrlHandler(_ => RequestCancellation(true), true);
+
+                _isOutputRedirected = Win32.IsOutputRedirected();
+
+                if (!_isOutputRedirected)
+                {
+                    _cursorLeft = Console.CursorLeft;
+                    _cursorTop  = Console.CursorTop;
+                }
 
                 Convert(options, () => _isCancelled, out conversionStarted);
 
@@ -241,6 +250,11 @@ namespace Xps2Img
 
             if (!converter.ConverterParameters.Silent)
             {
+                if (!(_isOutputRedirected || _launchedAsInternal))
+                {
+                    Console.SetCursorPosition(_cursorLeft, _cursorTop);
+                }
+
                 InitProgressFormatString(args, converter);
 
                 Console.WriteLine(_progressFormatString,
