@@ -6,6 +6,8 @@ using System.Linq;
 
 using Windows7.DesktopIntegration;
 
+using Xps2Img.Shared.Progress;
+
 using Timer = System.Windows.Forms.Timer;
 
 using Xps2Img.Shared.Utils;
@@ -26,44 +28,14 @@ namespace Xps2ImgUI
             var pages   = _conversionProgressEventArgs.Pages;
             var file    = _conversionProgressEventArgs.File;
 
-            CaclulateEstimated(percent, fromTimer);
+            _estimated.Caclulate(percent, fromTimer);
 
             var intPercent = (int) percent;
 
-            Text = String.Format(Resources.Strings.WindowTitleProgressFormat, Resources.Strings.WindowTitle, intPercent, pages, Path.GetFileName(file), _estimated, _elapsed, _srcFileDisplayName);
+            Text = String.Format(Resources.Strings.WindowTitleProgressFormat, Resources.Strings.WindowTitle, intPercent, pages, Path.GetFileName(file), _estimated.Left, _estimated.Elapsed, _srcFileDisplayName);
             progressBar.Value = intPercent;
 
             this.SetProgressValue(progressBar.Value, progressBar.Maximum);
-        }
-
-        private void CaclulateEstimated(double percent, bool fromTimer = false)
-        {
-            const double percentThreshold   = 0.001;
-            const double estimatedThreshold = 0.95;
-
-            if (fromTimer)
-            {
-                _elapsed += ElapsedInterval;
-            }
-
-            var timeLeft = percent < percentThreshold ? ElapsedInterval : TimeSpan.FromSeconds((long)(_elapsed.Ticks / percent * (100 - percent) / TimeSpan.TicksPerSecond));
-
-            if (Math.Min(_lastEstimated.TotalMilliseconds, timeLeft.TotalMilliseconds) / Math.Max(_lastEstimated.TotalMilliseconds, timeLeft.TotalMilliseconds) < estimatedThreshold)
-            {
-                _lastEstimated = _estimated = timeLeft;
-            }
-            else
-            {
-                if (fromTimer)
-                {
-                    _estimated -= ElapsedInterval;
-                }
-            }
-
-            if (_estimated <= TimeSpan.Zero)
-            {
-                _estimated = ElapsedInterval;
-            }
         }
 
         private void UpdateConvertButtons(bool? isRunning = null)
@@ -289,10 +261,6 @@ namespace Xps2ImgUI
         private readonly Stopwatch _stopwatch = new Stopwatch();
         private readonly Timer _elapsedTimer = new Timer();
 
-        private TimeSpan _elapsed;
-        private TimeSpan _estimated;
-        private TimeSpan _lastEstimated;
-
-        private static readonly TimeSpan ElapsedInterval = TimeSpan.FromSeconds(1);
+        private readonly Estimated _estimated = new Estimated();
     }
 }

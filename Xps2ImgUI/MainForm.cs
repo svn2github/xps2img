@@ -10,6 +10,7 @@ using Windows7.DesktopIntegration;
 using Xps2Img.Shared.CommandLine;
 using Xps2Img.Shared.Localization;
 using Xps2Img.Shared.Localization.Forms;
+using Xps2Img.Shared.Progress;
 using Xps2Img.Shared.TypeConverters;
 using Xps2Img.Shared.Utils.UI;
 
@@ -74,7 +75,7 @@ namespace Xps2ImgUI
         {
             _handle = Handle;
 
-            _elapsedTimer.Interval = (int)ElapsedInterval.TotalMilliseconds;
+            _elapsedTimer.Interval = (int)Estimated.Interval.TotalMilliseconds;
             _elapsedTimer.Tick += delegate { UpdateProgress(true); };
 
             RegisterCultureSpecificConvertButtonSize();

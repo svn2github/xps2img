@@ -102,6 +102,7 @@
     <Compile Include="Dialogs\IFormValue.cs" />
     <Compile Include="Localization\Forms\FormLocalizationManager.cs" />
     <Compile Include="Localization\Forms\IFormLocalization.cs" />
+    <Compile Include="Progress\Estimated.cs" />
     <Compile Include="TypeEditors\Dialogs\SelectFileFolderEditorBase.cs" />
     <Compile Include="TypeEditors\Dialogs\FormEditorBase.cs" />
     <Compile Include="TypeEditors\Dialogs\JpegQualityEditor.cs" />
