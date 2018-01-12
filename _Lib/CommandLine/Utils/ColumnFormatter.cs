@@ -19,7 +19,7 @@ namespace CommandLine.Utils
                 return new StringBuilder(String.Empty);
             }
 
-            var splitted = new List<string[]>(lines.Count()) { lines.First().Split(SeparatorArray) };
+            var splitted = new List<string[]>(lines.Count) { lines.First().Split(SeparatorArray) };
 
             // Max length for each column.
             var maxLength = new int[splitted[0].Length];
@@ -33,7 +33,7 @@ namespace CommandLine.Utils
             var resultLength = 0;
 
             // Data.
-            for (var row = 1; row < lines.Count(); row++)
+            for (var row = 1; row < lines.Count; row++)
             {
                 splitted.Add(lines.ElementAt(row).Split(Separator));
                 var addedRow = splitted[row];
