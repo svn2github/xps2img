@@ -122,16 +122,16 @@
     <comment>Error</comment>
   </data>
   <data name="Template_Progress" xml:space="preserve">
-    <value>[{{4,3}}%] Перетворюю сторінку {0} ({1}/{{2}}) у '{{3}}'...</value>
-    <comment>[{{4,3}}%] Converting page {0} ({1}/{{2}}) into '{{3}}'...</comment>
+    <value>[{{4,3}}%] {{5}}/{{6}} Перетворюю сторінку {0} ({1}/{{2}}) у '{{3}}'...</value>
+    <comment>[{{4,3}}%] {{5}}/{{6}} Converting page {0} ({1}/{{2}}) into '{{3}}'...</comment>
   </data>
   <data name="Error_PagesRange" xml:space="preserve">
     <value>Документ не має стільки сторінок. Сторінка №{0} є останньою.</value>
     <comment>Pages specified are out of document pages range. {0} is the last one.</comment>
   </data>
   <data name="Template_CleanProgress" xml:space="preserve">
-    <value>[{{4,3}}%] Видалення зображення {0} ({1}/{{2}}) у '{{3}}'...</value>
-    <comment>[{{4,3}}%] Deleting image {0} ({1}/{{2}}) at '{{3}}'...</comment>
+    <value>[{{4,3}}%] {{5}}/{{6}} Видалення зображення {0} ({1}/{{2}}) у '{{3}}'...</value>
+    <comment>[{{4,3}}%] {{5}}/{{6}} Deleting image {0} ({1}/{{2}}) at '{{3}}'...</comment>
   </data>
   <data name="Message_DiskStorage" xml:space="preserve">
     <value>Переконайтеся, що ви маєте достатньо прав та місця на диску.</value>

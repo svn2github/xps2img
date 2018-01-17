@@ -5,13 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-using Xps2Img.Utils;
-
 using CommandLine;
 
 using Xps2Img.Shared.CommandLine;
 using Xps2Img.Shared.Enums;
 using Xps2Img.Shared.Localization;
+using Xps2Img.Shared.Progress;
 using Xps2Img.Shared.Setup;
 using Xps2Img.Shared.TypeConverters;
 using Xps2Img.Shared.Utils;
@@ -19,6 +18,9 @@ using Xps2Img.Shared.Utils;
 using Xps2ImgLib;
 using Xps2ImgLib.Utils;
 
+using Xps2Img.Utils;
+
+using Timer = System.Threading.Timer;
 using ReturnCode = Xps2Img.Shared.CommandLine.CommandLine.ReturnCode;
 
 namespace Xps2Img
@@ -33,12 +35,21 @@ namespace Xps2Img
         // ReSharper disable once NotAccessedField.Local
         private static Timer _cancellationTimer;
 
+        private static bool _outToConsole;
         private static bool _launchedAsInternal;
+        private static bool _launchedAsInteractive;
+        private static bool _silent;
+        private static string _srcFile;
 
         private static int _cursorLeft;
         private static int _cursorTop;
 
-        private static bool _isOutputRedirected;
+        private static Converter.ProgressEventArgs _args;
+
+        private static Estimated _estimated;
+        private static Timer _estimatedTimer;
+
+        private static readonly object ProgressLock = new object();
 
         [STAThread]
         private static int Main(string[] args)
@@ -78,8 +89,8 @@ namespace Xps2Img
                     Process.GetCurrentProcess().ProcessorAffinity = options.CpuAffinity.Value;
                 }
 
-                _launchedAsInternal = options.HasInternal;
-                
+                _launchedAsInteractive = !(_launchedAsInternal = options.HasInternal);
+
                 if (_launchedAsInternal)
                 {
                     Console.OutputEncoding = Encoding.UTF8;
@@ -87,18 +98,35 @@ namespace Xps2Img
 
                     ThreadPool.QueueUserWorkItem(_ => WaitForCancellationThread(options));
                 }
+                else
+                {
+                    Win32.SetConsoleCtrlHandler(_ => RequestCancellation(true), true);
+                }
 
-                Win32.SetConsoleCtrlHandler(_ => RequestCancellation(true), true);
+                _outToConsole = !(Win32.IsOutputRedirected() || _launchedAsInternal);
 
-                _isOutputRedirected = Win32.IsOutputRedirected();
-
-                if (!_isOutputRedirected)
+                if (_outToConsole)
                 {
                     _cursorLeft = Console.CursorLeft;
                     _cursorTop  = Console.CursorTop;
                 }
 
+                if (_launchedAsInteractive)
+                {
+                    _estimated = new Estimated();
+                    _estimatedTimer = new Timer(_ => DisplayProgress(fromTimer: true), null, TimeSpan.Zero, Estimated.Interval);
+                }
+
+                _silent = options.Silent;
+                _srcFile = options.SrcFile;
+
                 Convert(options, () => _isCancelled, out conversionStarted);
+
+                if (_estimatedTimer != null)
+                {
+                    _estimatedTimer.Change(Timeout.Infinite, Timeout.Infinite);
+                    _estimatedTimer.Dispose();
+                }
 
                 exitCode = ExitCode;
             }
@@ -233,46 +261,97 @@ namespace Xps2Img
 
         private static void InitProgressFormatString(Converter.ProgressEventArgs args, Converter converter)
         {
-            if (_progressFormatString == null)
+            if (_progressFormatString != null)
             {
-                _progressFormatString = String.Format(
-                                            converter.ConverterParameters.Clean
-                                                ? Resources.Strings.Template_CleanProgress
-                                                : Resources.Strings.Template_Progress,
-                                            0.GetNumberFormat(args.ConverterState.LastPage, false),
-                                            1.GetNumberFormat(args.ConverterState.TotalPages, false));
+                return;
             }
+
+            _progressFormatString = String.Format(
+                                        converter.ConverterParameters.Clean
+                                            ? Resources.Strings.Template_CleanProgress
+                                            : Resources.Strings.Template_Progress,
+                                        0.GetNumberFormat(args.ConverterState.LastPage, false),
+                                        1.GetNumberFormat(args.ConverterState.TotalPages, false));
         }
 
         private static void OnProgress(object sender, Converter.ProgressEventArgs args)
         {
             var converter = (Converter) sender;
 
-            if (!converter.ConverterParameters.Silent)
+            if (!_silent)
             {
-                if (!(_isOutputRedirected || _launchedAsInternal))
+                InitProgressFormatString(args, converter);
+                DisplayProgress(args);
+            }
+        }
+
+        private static void DisplayProgress(Converter.ProgressEventArgs args = null, bool fromTimer = false)
+        {
+            if (_silent)
+            {
+                return;
+            }
+
+            lock (ProgressLock)
+            {
+                if (args != null)
+                {
+                    _args = args;
+                }
+                else
+                {
+                    args = _args;
+                }
+
+                if (_args == null)
+                {
+                    return;
+                }
+
+                var converterState = args.ConverterState;
+                
+                if (_outToConsole)
                 {
                     Console.SetCursorPosition(_cursorLeft, _cursorTop);
                 }
 
-                InitProgressFormatString(args, converter);
+                TimeSpan timeLeft = TimeSpan.Zero, timeElapsed = TimeSpan.Zero;
+
+                if (_launchedAsInteractive)
+                {
+                    _estimated.Caclulate(converterState.Percent, fromTimer);
+
+                    timeLeft    = _estimated.Left;
+                    timeElapsed = _estimated.Elapsed;
+                }
+
+                var percent = (int)converterState.Percent;
+
+                if (converterState.Done)
+                {
+                    timeLeft = TimeSpan.Zero;
+                }
 
                 Console.WriteLine(_progressFormatString,
-                                    args.ConverterState.ActivePage,
-                                    args.ConverterState.ActivePageIndex,
-                                    args.ConverterState.TotalPages,
-                                    args.FullFileName,
-                                    (int)args.ConverterState.Percent);
-            }
+                    converterState.ActivePage,
+                    converterState.ActivePageIndex,
+                    converterState.TotalPages,
+                    args.FullFileName,
+                    percent,
+                    timeLeft,
+                    timeElapsed);
 
-            if(!_launchedAsInternal)
-            {
-                Console.Title = String.Format(Resources.Strings.Template_ProgressTitle,
-                                    (int)args.ConverterState.Percent,
-                                    args.ConverterState.ActivePageIndex,
-                                    args.ConverterState.TotalPages,
-                                    Path.GetFileName(args.FullFileName),
-                                    Path.GetFileNameWithoutExtension(converter.XpsFileName));
+                if (_launchedAsInteractive)
+                {
+                    Console.Title = String.Format(Resources.Strings.Template_ProgressTitle,
+                        percent,
+                        converterState.ActivePageIndex,
+                        converterState.TotalPages,
+                        Path.GetFileName(args.FullFileName),
+                        Path.GetFileNameWithoutExtension(_srcFile),
+                        timeLeft,
+                        timeElapsed);
+                }
             }
         }
 

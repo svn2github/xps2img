@@ -22,6 +22,8 @@ namespace Xps2ImgLib
 
             public double Percent { get { return (double)ActivePageIndex / TotalPages * 100; } }
 
+            public bool Done { get { return ActivePageIndex == TotalPages; } }
+
             public override string ToString()
             {
                 return String.Format(

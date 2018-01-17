@@ -13,7 +13,7 @@ namespace Xps2ImgUI.Model
 {
     public partial class Xps2ImgModel
     {
-        private static readonly Regex OutputRegex = new Regex(@"^\[\s*(?<percent>\d+)%\][^\d]+(?<page>\d+)\s+\(\s*(?<pages>\d+/\d+)\).+?'(?<file>.+)'");
+        private static readonly Regex OutputRegex = new Regex(@"^\[\s*(?<percent>\d+)%\].+?\s*[^\d]+(?<page>\d+)\s+\(\s*(?<pages>\d+/\d+)\).+?'(?<file>.+)'");
         private static readonly Regex ErrorMessageRegex = new Regex(@"^(?<page>[^:]+):\s+(?<message>[\s\S]+)$");
 
         private void OutputDataReceivedHandler(object sender, DataReceivedEventArgs e)
