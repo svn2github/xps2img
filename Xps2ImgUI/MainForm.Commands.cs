@@ -158,12 +158,10 @@ namespace Xps2ImgUI
 
             if (conversionType != ConversionType.Resume)
             {
-                _stopwatch.Reset();
                 _estimated.Reset();
                 _conversionProgressEventArgs = null;
             }
 
-            _stopwatch.Start();
             _elapsedTimer.Start();
 
             Model.Launch(conversionType);

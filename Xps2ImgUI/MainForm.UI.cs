@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -78,7 +77,6 @@ namespace Xps2ImgUI
         {
             if (!isRunning)
             {
-                _stopwatch.Stop();
                 _elapsedTimer.Stop();
 
                 UpdateElapsedTime();
@@ -119,11 +117,11 @@ namespace Xps2ImgUI
 
             if (reset)
             {
-                _stopwatch.Reset();
+                _estimated.Reset();
                 return;
             }
 
-            if (!_preferences.ShowElapsedTimeAndStatistics || (elapsed = _stopwatch.Elapsed) == default(TimeSpan))
+            if (!_preferences.ShowElapsedTimeAndStatistics || (elapsed = _estimated.Elapsed) == TimeSpan.Zero)
             {
                 return;
             }
@@ -258,7 +256,6 @@ namespace Xps2ImgUI
         private string _srcFileDisplayName;
         private string _uiCommandLine;
 
-        private readonly Stopwatch _stopwatch = new Stopwatch();
         private readonly Timer _elapsedTimer = new Timer();
 
         private readonly Estimated _estimated = new Estimated();
