@@ -133,6 +133,14 @@
     <value>[{{4,3}}%] {{5}}/{{6}} Deleting image {0} ({1}/{{2}}) at '{{3}}'...</value>
     <comment>[{{4,3}}%] {{5}}/{{6}} Deleting image {0} ({1}/{{2}}) at '{{3}}'...</comment>
   </data>
+  <data name="Template_Done" xml:space="preserve">
+    <value>Converted {0} page(s) in {1}</value>
+    <comment>Converted {0} page(s) in {1}</comment>
+  </data>
+  <data name="Template_Cleared" xml:space="preserve">
+    <value>Deleted {0} file(s) in {1}</value>
+    <comment>Deleted {0} file(s) in {1}</comment>
+  </data>
   <data name="Message_DiskStorage" xml:space="preserve">
     <value>Make sure you have sufficient drive access rights and enough storage space.</value>
     <comment>Make sure you have sufficient drive access rights and enough storage space.</comment>

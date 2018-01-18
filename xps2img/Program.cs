@@ -129,6 +129,12 @@ namespace Xps2Img
                 }
 
                 exitCode = ExitCode;
+
+                if (_launchedAsInteractive && exitCode == ReturnCode.OK)
+                {
+                    WriteProgressLine(options.Clean ? Resources.Strings.Template_Cleared : Resources.Strings.Template_Done,
+                        _progressEventArgs != null ? _progressEventArgs.ConverterState.TotalPages : 0, _estimated.Elapsed);
+                }
             }
             catch (Exception ex)
             {
@@ -319,11 +325,6 @@ namespace Xps2Img
 
             var converterState = args.ConverterState;
 
-            if (_outToConsole)
-            {
-                Console.SetCursorPosition(_cursorLeft, _cursorTop);
-            }
-
             TimeSpan timeLeft = TimeSpan.Zero, timeElapsed = TimeSpan.Zero;
 
             if (_launchedAsInteractive)
@@ -336,7 +337,7 @@ namespace Xps2Img
 
             var percent = (int)converterState.Percent;
 
-            Console.WriteLine(_progressFormatString,
+            WriteProgressLine(_progressFormatString,
                 converterState.ActivePage,
                 converterState.ActivePageIndex,
                 converterState.TotalPages,
@@ -361,6 +362,31 @@ namespace Xps2Img
         private static void OnError(object sender, Converter.ErrorEventArgs args)
         {
             DisplayError(args.Exception);
+        }
+
+        private static int _lastProgressLineLength;
+
+        private static void WriteProgressLine(string format, params object[] args)
+        {
+            if (_silent)
+            {
+                return;
+            }
+
+            if (!_outToConsole)
+            {
+                Console.WriteLine(format, args);
+                return;
+            }
+
+            var progressLine = String.Format(format, args);
+            
+            var strLength = progressLine.Length;
+            var spacesCount = _lastProgressLineLength - strLength;
+            _lastProgressLineLength = strLength;
+            Console.SetCursorPosition(_cursorLeft, _cursorTop);
+
+            Console.WriteLine(spacesCount > 0 ? progressLine + new String('\x20', spacesCount) : progressLine);
         }
     }
 }

@@ -115,6 +115,24 @@ namespace Xps2Img.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleted {0} file(s) in {1}.
+        /// </summary>
+        internal static string Template_Cleared {
+            get {
+                return ResourceManager.GetString("Template_Cleared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Converted {0} page(s) in {1}.
+        /// </summary>
+        internal static string Template_Done {
+            get {
+                return ResourceManager.GetString("Template_Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [{{4,3}}%] {{5}}/{{6}} Converting page {0} ({1}/{{2}}) into &apos;{{3}}&apos;....
         /// </summary>
         internal static string Template_Progress {
