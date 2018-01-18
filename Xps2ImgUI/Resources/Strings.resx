@@ -453,30 +453,6 @@
     <value>&amp;Yes, Download and Update</value>
     <comment>&amp;Yes, Download and Update</comment>
   </data>
-  <data name="AbbrevSeconds" xml:space="preserve">
-    <value>sec</value>
-    <comment>sec</comment>
-  </data>
-  <data name="AbbrevMinutes" xml:space="preserve">
-    <value>min</value>
-    <comment>min</comment>
-  </data>
-  <data name="AbbrevHours" xml:space="preserve">
-    <value>hr</value>
-    <comment>hr</comment>
-  </data>
-  <data name="AbbrevDays" xml:space="preserve">
-    <value>d</value>
-    <comment>d</comment>
-  </data>
-  <data name="AbbrevPages" xml:space="preserve">
-    <value>pp</value>
-    <comment>pp</comment>
-  </data>
-  <data name="AbbrevPage" xml:space="preserve">
-    <value>p</value>
-    <comment>p</comment>
-  </data>
   <data name="VisitDownloadPage" xml:space="preserve">
     <value>&lt;a href="http://sourceforge.net/projects/xps2img/files/"&gt;Visit download page&lt;/a&gt;</value>
     <comment>&lt;a href="http://sourceforge.net/projects/xps2img/files/"&gt;Visit download page&lt;/a&gt;</comment>

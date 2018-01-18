@@ -124,7 +124,7 @@ namespace Xps2Img.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Converted {0} page(s) in {1}.
+        ///   Looks up a localized string similar to Converted {{0}} page(s) in {{1}} ({3}{4}/{5}).
         /// </summary>
         internal static string Template_Done {
             get {

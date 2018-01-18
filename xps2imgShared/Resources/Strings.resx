@@ -429,11 +429,35 @@
     <value>Paper Size</value>
     <comment>Paper Size</comment>
   </data>
+  <data name="AbbrevSeconds" xml:space="preserve">
+    <value>sec</value>
+    <comment>sec</comment>
+  </data>
+  <data name="AbbrevMinutes" xml:space="preserve">
+    <value>min</value>
+    <comment>min</comment>
+  </data>
+  <data name="AbbrevHours" xml:space="preserve">
+    <value>hr</value>
+    <comment>hr</comment>
+  </data>
+  <data name="AbbrevDays" xml:space="preserve">
+    <value>d</value>
+    <comment>d</comment>
+  </data>
+  <data name="AbbrevPages" xml:space="preserve">
+    <value>pp</value>
+    <comment>pp</comment>
+  </data>
+  <data name="AbbrevPage" xml:space="preserve">
+    <value>p</value>
+    <comment>p</comment>
+  </data>
   <data name="Yes" xml:space="preserve">
     <value>&#8203;</value>
     <comment>NON LOCALIZABLE</comment>
   </data>
-    <data name="No" xml:space="preserve">
+  <data name="No" xml:space="preserve">
     <value>&#8203;&#8203;</value>
     <comment>NON LOCALIZABLE</comment>
   </data>

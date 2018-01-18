@@ -19,7 +19,7 @@ namespace Xps2Img.Shared.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Strings {
@@ -57,6 +57,60 @@ namespace Xps2Img.Shared.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to d.
+        /// </summary>
+        public static string AbbrevDays {
+            get {
+                return ResourceManager.GetString("AbbrevDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hr.
+        /// </summary>
+        public static string AbbrevHours {
+            get {
+                return ResourceManager.GetString("AbbrevHours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to min.
+        /// </summary>
+        public static string AbbrevMinutes {
+            get {
+                return ResourceManager.GetString("AbbrevMinutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to p.
+        /// </summary>
+        public static string AbbrevPage {
+            get {
+                return ResourceManager.GetString("AbbrevPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pp.
+        /// </summary>
+        public static string AbbrevPages {
+            get {
+                return ResourceManager.GetString("AbbrevPages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to sec.
+        /// </summary>
+        public static string AbbrevSeconds {
+            get {
+                return ResourceManager.GetString("AbbrevSeconds", resourceCulture);
             }
         }
         

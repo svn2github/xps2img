@@ -113,62 +113,20 @@ namespace Xps2ImgUI
         {
             Text = Resources.Strings.WindowTitle;
 
-            TimeSpan elapsed;
-
             if (reset)
             {
                 _estimated.Reset();
                 return;
             }
 
-            if (!_preferences.ShowElapsedTimeAndStatistics || (elapsed = _estimated.Elapsed) == TimeSpan.Zero)
+            if (!_preferences.ShowElapsedTimeAndStatistics || _estimated.IsNone)
             {
                 return;
             }
 
-            Text += GetElapsedTime(elapsed, Resources.Strings.ElapsedTimeTextTemplateShort, Resources.Strings.ElapsedTimeTextTemplate);
+            Text += _estimated.FormatRatio(Model.PagesProcessedTotal, Model.PagesTotal, Model.IsDeleteMode, Resources.Strings.ElapsedTimeTextTemplate, Resources.Strings.ElapsedTimeTextTemplateShort);
         }
         
-        private string GetElapsedTime(TimeSpan elapsed, string shortTemplate, string template)
-        {
-            var timeAbbrev = Resources.Strings.AbbrevSeconds;
-
-            var pagesProcessed = Model.PagesProcessedTotal;
-
-            Func<double, double> par = e => e > 0.001 ? pagesProcessed/e : pagesProcessed;
-
-            var pp = par(elapsed.TotalSeconds);
-            var ppMinute = par(elapsed.TotalMinutes);
-            var ppHour = par(elapsed.TotalHours);
-
-            if (pp < 1.0)
-            {
-                pp = ppMinute;
-                timeAbbrev = Resources.Strings.AbbrevMinutes;
-            }
-
-            if (pp < 1.0)
-            {
-                pp = ppHour;
-                timeAbbrev = Resources.Strings.AbbrevHours;
-            }
-
-            if (pp < 1.0)
-            {
-                pp = pagesProcessed;
-                timeAbbrev = Resources.Strings.AbbrevDays;
-            }
-
-            var ppInt = (int)Math.Round(pp);
-
-            Func<int, string> getPagesString = p => p == 1 ? Resources.Strings.AbbrevPage : Resources.Strings.AbbrevPages;
-
-            return String.Format(Model.IsDeleteMode || pagesProcessed == 0 ? shortTemplate : template,
-                                  elapsed.Hours, elapsed.Minutes, elapsed.Seconds,
-                                  ppInt, getPagesString(ppInt), timeAbbrev,
-                                  Model.PagesProcessedTotal, Model.PagesTotal);
-        }
-
         private void UpdateFailedStatus(string message, Exception exception = null, int? page = null)
         {
             _conversionFailed = true;

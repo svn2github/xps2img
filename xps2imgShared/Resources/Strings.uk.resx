@@ -429,4 +429,28 @@
     <value>Розмір паперу</value>
     <comment>Paper Size</comment>
   </data>
+  <data name="AbbrevSeconds" xml:space="preserve">
+    <value>сек</value>
+    <comment>sec</comment>
+  </data>
+  <data name="AbbrevMinutes" xml:space="preserve">
+    <value>хв</value>
+    <comment>min</comment>
+  </data>
+  <data name="AbbrevHours" xml:space="preserve">
+    <value>год</value>
+    <comment>hr</comment>
+  </data>
+  <data name="AbbrevDays" xml:space="preserve">
+    <value>д</value>
+    <comment>d</comment>
+  </data>
+  <data name="AbbrevPages" xml:space="preserve">
+    <value>с</value>
+    <comment>pp</comment>
+  </data>
+  <data name="AbbrevPage" xml:space="preserve">
+    <value>с</value>
+    <comment>p</comment>
+  </data>
 </root>

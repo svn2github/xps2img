@@ -453,30 +453,6 @@
     <value>&amp;Так, завантажити та оновити</value>
     <comment>&amp;Yes, Download and Update</comment>
   </data>
-  <data name="AbbrevSeconds" xml:space="preserve">
-    <value>сек</value>
-    <comment>sec</comment>
-  </data>
-  <data name="AbbrevMinutes" xml:space="preserve">
-    <value>хв</value>
-    <comment>min</comment>
-  </data>
-  <data name="AbbrevHours" xml:space="preserve">
-    <value>год</value>
-    <comment>hr</comment>
-  </data>
-  <data name="AbbrevDays" xml:space="preserve">
-    <value>д</value>
-    <comment>d</comment>
-  </data>
-  <data name="AbbrevPages" xml:space="preserve">
-    <value>с</value>
-    <comment>pp</comment>
-  </data>
-  <data name="AbbrevPage" xml:space="preserve">
-    <value>с</value>
-    <comment>p</comment>
-  </data>
   <data name="VisitDownloadPage" xml:space="preserve">
     <value>&lt;a href="http://sourceforge.net/projects/xps2img/files/"&gt;Відкрити сторінку завантаження&lt;/a&gt;</value>
     <comment>&lt;a href="http://sourceforge.net/projects/xps2img/files/"&gt;Visit download page&lt;/a&gt;</comment>

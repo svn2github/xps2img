@@ -132,8 +132,15 @@ namespace Xps2Img
 
                 if (_launchedAsInteractive && exitCode == ReturnCode.OK)
                 {
-                    WriteProgressLine(options.Clean ? Resources.Strings.Template_Cleared : Resources.Strings.Template_Done,
-                        _progressEventArgs != null ? _progressEventArgs.ConverterState.TotalPages : 0, _estimated.Elapsed);
+                    var hasProgressEventArgs = _progressEventArgs != null;
+                    var totalPages = hasProgressEventArgs ? _progressEventArgs.ConverterState.TotalPages : 0;
+
+                    WriteProgressLine(options.Clean
+                                      ? Resources.Strings.Template_Cleared
+                                      : hasProgressEventArgs
+                                          ? _estimated.FormatRatio(totalPages, false, Resources.Strings.Template_Done)
+                                          : String.Empty,
+                                      totalPages, _estimated.Elapsed);
                 }
             }
             catch (Exception ex)
