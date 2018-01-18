@@ -29,8 +29,8 @@ namespace Xps2Img
     {
         private const int ForceExitAfterSecondsPassed = 5;
 
-        private static volatile bool _isCancelled;
-        private static volatile bool _isUserCancelled;
+        private static volatile bool _cancelled;
+        private static volatile bool _cancelledByUser;
 
         // ReSharper disable once NotAccessedField.Local
         private static Timer _cancellationTimer;
@@ -44,7 +44,7 @@ namespace Xps2Img
         private static int _cursorLeft;
         private static int _cursorTop;
 
-        private static Converter.ProgressEventArgs _args;
+        private static volatile Converter.ProgressEventArgs _progressEventArgs;
 
         private static Estimated _estimated;
         private static Timer _estimatedTimer;
@@ -114,13 +114,13 @@ namespace Xps2Img
                 if (_launchedAsInteractive)
                 {
                     _estimated = new Estimated();
-                    _estimatedTimer = new Timer(_ => DisplayProgress(fromTimer: true), null, TimeSpan.Zero, Estimated.Interval);
+                    _estimatedTimer = new Timer(_ => DisplayProgress(true), null, TimeSpan.Zero, Estimated.Interval);
                 }
 
                 _silent = options.Silent;
                 _srcFile = options.SrcFile;
 
-                Convert(options, () => _isCancelled, out conversionStarted);
+                Convert(options, () => _cancelled, out conversionStarted);
 
                 if (_estimatedTimer != null)
                 {
@@ -150,8 +150,8 @@ namespace Xps2Img
 
         private static bool RequestCancellation(bool isUserCancelled = false)
         {
-            _isCancelled = true;
-            _isUserCancelled = isUserCancelled;
+            _cancelled = true;
+            _cancelledByUser = isUserCancelled;
             _cancellationTimer = new Timer(_ => Environment.Exit(ExitCode), null, (long)TimeSpan.FromSeconds(ForceExitAfterSecondsPassed).TotalMilliseconds, Timeout.Infinite);
             return true;
         }
@@ -160,7 +160,7 @@ namespace Xps2Img
         {
             get
             {
-                return _isUserCancelled
+                return _cancelledByUser
                     ? ReturnCode.UserCancelled
                     : _launchedAsInternal
                         ? ReturnCode.InternalOK
@@ -278,80 +278,83 @@ namespace Xps2Img
         {
             var converter = (Converter) sender;
 
-            if (!_silent)
+            if (_silent)
             {
-                InitProgressFormatString(args, converter);
-                DisplayProgress(args);
+                return;
             }
+
+            _progressEventArgs = args;
+
+            InitProgressFormatString(args, converter);
+            DisplayProgress();
         }
 
-        private static void DisplayProgress(Converter.ProgressEventArgs args = null, bool fromTimer = false)
+        private static void DisplayProgress(bool fromTimer = false)
         {
             if (_silent)
             {
                 return;
             }
 
+            if (_launchedAsInternal)
+            {
+                DisplayProgressInternal(fromTimer);
+                return;
+            }
+            
             lock (ProgressLock)
             {
-                if (args != null)
-                {
-                    _args = args;
-                }
-                else
-                {
-                    args = _args;
-                }
+                DisplayProgressInternal(fromTimer);
+            }
+        }
 
-                if (_args == null)
-                {
-                    return;
-                }
+        private static void DisplayProgressInternal(bool fromTimer)
+        {
+            var args = _progressEventArgs;
 
-                var converterState = args.ConverterState;
-                
-                if (_outToConsole)
-                {
-                    Console.SetCursorPosition(_cursorLeft, _cursorTop);
-                }
+            if (args == null)
+            {
+                return;
+            }
 
-                TimeSpan timeLeft = TimeSpan.Zero, timeElapsed = TimeSpan.Zero;
+            var converterState = args.ConverterState;
 
-                if (_launchedAsInteractive)
-                {
-                    _estimated.Caclulate(converterState.Percent, fromTimer);
+            if (_outToConsole)
+            {
+                Console.SetCursorPosition(_cursorLeft, _cursorTop);
+            }
 
-                    timeLeft    = _estimated.Left;
-                    timeElapsed = _estimated.Elapsed;
-                }
+            TimeSpan timeLeft = TimeSpan.Zero, timeElapsed = TimeSpan.Zero;
 
-                var percent = (int)converterState.Percent;
+            if (_launchedAsInteractive)
+            {
+                _estimated.Caclulate(converterState.Percent, fromTimer);
 
-                if (converterState.Done)
-                {
-                    timeLeft = TimeSpan.Zero;
-                }
+                timeLeft = _estimated.Left;
+                timeElapsed = _estimated.Elapsed;
+            }
 
-                Console.WriteLine(_progressFormatString,
-                    converterState.ActivePage,
+            var percent = (int)converterState.Percent;
+
+            Console.WriteLine(_progressFormatString,
+                converterState.ActivePage,
+                converterState.ActivePageIndex,
+                converterState.TotalPages,
+                args.FullFileName,
+                percent,
+                timeLeft,
+                timeElapsed);
+
+            if (_launchedAsInteractive)
+            {
+                Console.Title = String.Format(Resources.Strings.Template_ProgressTitle,
+                    percent,
                     converterState.ActivePageIndex,
                     converterState.TotalPages,
-                    args.FullFileName,
-                    percent,
+                    Path.GetFileName(args.FullFileName),
+                    Path.GetFileNameWithoutExtension(_srcFile),
                     timeLeft,
                     timeElapsed);
-
-                if (_launchedAsInteractive)
-                {
-                    Console.Title = String.Format(Resources.Strings.Template_ProgressTitle,
-                        percent,
-                        converterState.ActivePageIndex,
-                        converterState.TotalPages,
-                        Path.GetFileName(args.FullFileName),
-                        Path.GetFileNameWithoutExtension(_srcFile),
-                        timeLeft,
-                        timeElapsed);
-                }
             }
         }
 
