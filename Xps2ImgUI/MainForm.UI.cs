@@ -133,7 +133,7 @@ namespace Xps2ImgUI
         {
             var timeAbbrev = Resources.Strings.AbbrevSeconds;
 
-            var pagesProcessed = Model.PagesProcessed;
+            var pagesProcessed = Model.PagesProcessedTotal;
 
             Func<double, double> par = e => e > 0.001 ? pagesProcessed/e : pagesProcessed;
 
