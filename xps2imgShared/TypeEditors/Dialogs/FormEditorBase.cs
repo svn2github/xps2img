@@ -19,6 +19,11 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
 
             using (var form = new T())
             {
+                if (value != null && value.GetType().IsEnum)
+                {
+                    value = (int)value;
+                }
+
                 InitForm(form, context, (TV)value);
 
                 CancelEventHandler formClosing = delegate { windowsFormsEditorService.CloseDropDown(); };

@@ -32,7 +32,7 @@ namespace Xps2Img.Shared.Localization.TypeConverters
 
         private static bool IsInvariant(CultureInfo culture)
         {
-            return String.IsNullOrEmpty(culture.Name);
+            return culture == null || String.IsNullOrEmpty(culture.Name);
         }
 
         private void InitCultureEnumValues()

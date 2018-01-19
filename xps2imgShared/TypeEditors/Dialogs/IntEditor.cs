@@ -21,6 +21,9 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
 
             form.TrackBarTickFrequency = TrackBarTickFrequency;
             form.TrackBarLargeChange = TrackBarLargeChange;
+
+            form.MapDefaultValueTo = MapDefaultValueTo;
+
         }
 
         protected abstract int DefaultValue { get; }
@@ -28,8 +31,10 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
         protected abstract int MinValue { get; }
 
         protected abstract int[] Values { get; }
-        protected virtual object[] Objects { get { return null; } }
 
+        protected virtual object[] Objects { get { return null; } }
+        protected virtual int? MapDefaultValueTo { get { return null; } }
+        
         protected abstract int TrackBarLargeChange { get; }
         protected abstract int TrackBarTickFrequency { get; }
     }

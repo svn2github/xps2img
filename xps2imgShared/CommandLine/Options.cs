@@ -160,6 +160,7 @@ namespace Xps2Img.Shared.CommandLine
         [Option(ShortOptions.ProcessPriority, DefaultValue = Defaults.ProcessPriority, ConverterType = typeof(ProcessPriorityClassTypeConverter), Flags = OptionFlags.NoDefaultValueDescription)]
         [UIOption(ShortOptions.ProcessPriority)]
         [TypeConverter(typeof(ProcessPriorityClassTypeConverter))]
+        [Editor(typeof(ProcessPriorityEditor), typeof(UITypeEditor))]
         [DefaultValue(ProcessPriorityClassTypeConverter.Auto)]
         public ProcessPriorityClass ProcessPriority { get; set; }
 
