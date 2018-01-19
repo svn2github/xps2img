@@ -12,6 +12,7 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
             form.DefaultValue = DefaultValue;
             form.Value = value;
             form.Values = Values;
+            form.Objects = Objects;
 
             form.MinValue = MinValue;
             form.MaxValue = MaxValue;
@@ -27,6 +28,7 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
         protected abstract int MinValue { get; }
 
         protected abstract int[] Values { get; }
+        protected virtual object[] Objects { get { return null; } }
 
         protected abstract int TrackBarLargeChange { get; }
         protected abstract int TrackBarTickFrequency { get; }

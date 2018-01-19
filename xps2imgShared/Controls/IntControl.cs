@@ -58,6 +58,11 @@ namespace Xps2Img.Shared.Controls
             get { return _objects; }
             set
             {
+                if (value == null || !value.Any())
+                {
+                    return;
+                }
+
                 valueComboBox.DropDown -= ValueComboBoxDropDown;
 
                 valueComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -141,6 +146,8 @@ namespace Xps2Img.Shared.Controls
 
                 valueTrackBar.Visible = false;
             }
+
+            AdjustValueComboBoxWidth();
         }
 
         private void SetComboBoxValue(int value)
@@ -207,6 +214,31 @@ namespace Xps2Img.Shared.Controls
         private int AdjustValue(int intValue, bool isValueValid = true)
         {
             return isValueValid && IsValueInRange(intValue) ? intValue : SelectedValue;
+        }
+
+        private void AdjustValueComboBoxWidth()
+        {
+            if (HideTrackBar || !HasObjects)
+            {
+                return;
+            }
+
+            using (var graphics = valueComboBox.CreateGraphics())
+            {
+                var size = Objects.Select(s => s.ToString()).Max(s => graphics.MeasureString(s, valueComboBox.Font).Width);
+                var width = (int)size + 1 + SystemInformation.VerticalScrollBarWidth;
+                if (width <= valueComboBox.Width)
+                {
+                    return;
+                }
+
+                var delta = width - valueComboBox.Width;
+
+                valueComboBox.Width = width;
+
+                valueTrackBar.Left  += delta;
+                valueTrackBar.Width -= delta;
+            }
         }
 
         private bool _fromComboBox;

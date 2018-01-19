@@ -53,5 +53,10 @@
         {
             set { intControl.Values = value; }
         }
+
+        public object[] Objects
+        {
+            set { intControl.Objects = value; }
+        }
     }
 }

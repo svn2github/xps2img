@@ -134,7 +134,7 @@ namespace Xps2Img.Shared.CommandLine
 
             var lastIndex = 1;
 
-            var intervalLength = intervals.GetTotalLength() /intervalsCount;
+            var intervalLength = intervals.GetTotalLength() / intervalsCount;
 
             if (intervalLength == 0)
             {

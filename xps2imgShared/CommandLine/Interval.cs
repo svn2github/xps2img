@@ -9,8 +9,11 @@ namespace Xps2Img.Shared.CommandLine
     [Serializable]
     public class Interval : IEquatable<Interval>
     {
-        public const string ValidationRegex  = @"(^\s*$)|(^(\s*,)*\s*((\s*[1-9](\d{1,4})?\s*)|(\s*-\s*[1-9](\d{1,4})?\s*)|(\s*[1-9](\d{1,4})?\s*-\s*[1-9](\d{1,4})?\s*)|(\s*[1-9](\d{1,4})?\s*-\s*))(\s*(\s*,\s*)+\s*((\s*[1-9](\d{1,4})?\s*)|(\s*-\s*[1-9](\d{1,4})?\s*)|(\s*[1-9](\d{1,4})?\s*-\s*[1-9](\d{1,4})?\s*)|(\s*[1-9](\d{1,4})?\s*-\s*)))*(\s*,)*\s*$)";
-        public const string ValidationRegex0 = @"(^\s*$)|(^(\s*,)*\s*((\s*[0-9](\d{1,4})?\s*)|(\s*-\s*[0-9](\d{1,4})?\s*)|(\s*[0-9](\d{1,4})?\s*-\s*[0-9](\d{1,4})?\s*)|(\s*[0-9](\d{1,4})?\s*-\s*))(\s*(\s*,\s*)+\s*((\s*[0-9](\d{1,4})?\s*)|(\s*-\s*[0-9](\d{1,4})?\s*)|(\s*[0-9](\d{1,4})?\s*-\s*[0-9](\d{1,4})?\s*)|(\s*[0-9](\d{1,4})?\s*-\s*)))*(\s*,)*\s*$)";
+        public const int MinValue = 1;
+        public const int MaxValue = 100000;
+
+        public const string ValidationRegex  = @"(?:^\s*$)|(?:^(?:\s*,)*\s*(?:(?:\s*[1-9](?:\d{1,4})?\s*)|(?:\s*-\s*[1-9](?:\d{1,4})?\s*)|(?:\s*[1-9](?:\d{1,4})?\s*-\s*[1-9](?:\d{1,4})?\s*)|(?:\s*[1-9](?:\d{1,4})?\s*-\s*))(?:\s*(?:\s*,\s*)+\s*(?:(?:\s*[1-9](?:\d{1,4})?\s*)|(?:\s*-\s*[1-9](?:\d{1,4})?\s*)|(?:\s*[1-9](?:\d{1,4})?\s*-\s*[1-9](?:\d{1,4})?\s*)|(?:\s*[1-9](?:\d{1,4})?\s*-\s*)))*(?:\s*,)*\s*$)";
+        public const string ValidationRegex0 = @"(?:^\s*$)|(?:^(?:\s*,)*\s*(?:(?:\s*[0-9](?:\d{1,4})?\s*)|(?:\s*-\s*[0-9](?:\d{1,4})?\s*)|(?:\s*[0-9](?:\d{1,4})?\s*-\s*[0-9](?:\d{1,4})?\s*)|(?:\s*[0-9](?:\d{1,4})?\s*-\s*))(?:\s*(?:\s*,\s*)+\s*(?:(?:\s*[0-9](?:\d{1,4})?\s*)|(?:\s*-\s*[0-9](?:\d{1,4})?\s*)|(?:\s*[0-9](?:\d{1,4})?\s*-\s*[0-9](?:\d{1,4})?\s*)|(?:\s*[0-9](?:\d{1,4})?\s*-\s*)))*(?:\s*,)*\s*$)";
 
         private static readonly Regex AdjustRegex = new Regex(@"\s*([\-,]|\s+)\s*");
 
@@ -85,9 +88,6 @@ namespace Xps2Img.Shared.CommandLine
                 Begin = _;
             }
         }
-
-        public const int MinValue = 1;
-        public const int MaxValue = int.MaxValue - 2;
 
         public int ActualMinValue { get; private set; }
         public int ActualMaxValue { get; private set; }

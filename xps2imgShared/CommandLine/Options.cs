@@ -152,6 +152,7 @@ namespace Xps2Img.Shared.CommandLine
         [Option(ShortOptionType.None2, ConverterType = typeof(ProcessorsNumberTypeConverter), Flags = OptionFlags.Internal)]
         [UIOption(Names.Processors)]
         [TypeConverter(typeof(ProcessorsNumberTypeConverter))]
+        [Editor(typeof(ProcessorsNumberEditor), typeof(UITypeEditor))]
         [DefaultValue(Defaults.Processors)]
         public int ProcessorsNumber { get; set; }
 

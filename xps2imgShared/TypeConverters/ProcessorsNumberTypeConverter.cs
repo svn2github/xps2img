@@ -11,10 +11,10 @@ namespace Xps2Img.Shared.TypeConverters
     {
         public const int AutoValue = 0;
 
-        private static int[] Processors
+        public static int[] Processors
         {
             get { return Enumerable.Range(0, Environment.ProcessorCount + 1).ToArray(); }
-        }           
+        }
 
         private static bool IsProcessorsCountValid(int processorsNumber)
         {
