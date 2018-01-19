@@ -146,6 +146,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Images.resx</DependentUpon>
     </Compile>
+    <Compile Include="Settings\FormState.cs" />
     <Compile Include="Utils\UI\ClipboardUtils.cs" />
     <Compile Include="Utils\UI\HelpUtils.cs" />
     <Compile Include="Utils\UI\HelpUtils.Data.cs">
