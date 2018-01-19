@@ -7,6 +7,7 @@ namespace Xps2ImgUI.Settings
     public class FormState
     {
         public bool Maximized { get; set; }
+
         public Point Location { get; set; }
         public Size Size { get; set; }
 
