@@ -7,6 +7,7 @@ using System.Security.AccessControl;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Web;
 
 using Xps2Img.Shared.Localization;
 using Xps2Img.Shared.Utils.System;
@@ -24,13 +25,10 @@ namespace Xps2ImgUI.Utils
         public const string ManualCheckUrl      = DownloadRootUrl;
         public const string ManualDownloadUrl   = DownloadRootUrl;
 
-        private const string UpdateUrl          = "http://sourceforge.net/projects/xps2img/";
-        private const string DownloadRootUrl    = "http://downloads.sourceforge.net/project/xps2img/Releases/";
-        private const string ReadmeUrl          = UpdateUrl + "files/readme.txt/download";
+        private const string RootUrl            = "http://sourceforge.net/projects/xps2img/";
+        private const string FilesUrl           = RootUrl  + "files/";
+        private const string DownloadRootUrl    = FilesUrl + "Releases/";
         private const string SetupDownload      = "Xps2ImgSetup-{0}.exe";
-
-        private const string VersionGroup       = "version";
-        private const string VersionCheck       = @"/Releases/xps2img[^-]*-(?<version>(\.?\d+){4})";
 
         private static readonly string DownloadFolder = String.Format("xps2img-update-{0}", Guid.NewGuid().ToString().Split("-".ToCharArray()).First());
         private static readonly string SetupCommandLineArguments = String.Format("/dir=\"{0}\" /update /silent /nocancel {1} /lang={{0}}", AssemblyInfo.ApplicationFolder, GetPortableArguments("/portable", "/tasks=\"\""));
@@ -115,7 +113,7 @@ namespace Xps2ImgUI.Utils
 
             if (Failed)
             {
-                Sleep();
+                Thread.Sleep(1000);
 
                 _useProxy = false;
                 CheckInternal(version);
@@ -138,32 +136,22 @@ namespace Xps2ImgUI.Utils
 
             try
             {
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(UpdateUrl + "?nocache=" + Environment.TickCount);
-
-                AddCompressionSupport(httpWebRequest);
-
-                httpWebRequest.Proxy = GetProxy();
-
-                var responseStream = httpWebRequest.GetResponse().GetResponseStream();
-
-                // ReSharper disable AssignNullToNotNullAttribute
-                using (var streamReader = new StreamReader(responseStream))
-                // ReSharper restore AssignNullToNotNullAttribute
+                using (var webClient = CreateWebClient())
                 {
-                    var page = streamReader.ReadToEnd();
+                    var page = Encoding.UTF8.GetString(webClient.DownloadData(FilesUrl + "?nocache=" + Environment.TickCount));
 
-                    var versionMatch = new Regex(VersionCheck, RegexOptions.IgnoreCase).Match(page);
+                    var versionMatch = new Regex(@"xps2img(?:|setup)-(?<version>(?:\d+\.){3}\d+)", RegexOptions.IgnoreCase).Match(page);
                     if (!versionMatch.Success)
                     {
                         throw new InvalidDataException();
                     }
 
-                    var newVersion = versionMatch.Groups[VersionGroup].Value;
-                    if(CompareVersions(version, newVersion) < 0)
+                    var newVersion = versionMatch.Groups["version"].Value;
+                    if (CompareVersions(version, newVersion) < 0)
                     {
                         _hasUpdate = true;
                         _downloadUrl = DownloadRootUrl + String.Format(SetupDownload, newVersion);
-                        _whatsNew = GetWhatsNew();
+                        _whatsNew = GetWhatsNew(page, version);
                     }
                 }
             }
@@ -173,14 +161,11 @@ namespace Xps2ImgUI.Utils
             }
         }
 
-        private string GetWhatsNew()
+        private string GetWhatsNew(string page, string version)
         {
             try
             {
-                var webClient = new GZipWebClient { Proxy = GetProxy() };
-                var readme = Encoding.UTF8.GetString(webClient.DownloadData(ReadmeUrl));
-
-                var match = new Regex(@"([\s\S]+?)(\r?\n){2}(\d+\.){3}").Match(readme);
+                var match = new Regex(@"(?:\d+\.){3}\d+\s+(?:\d{4}/\d{2}/\d{2})[\s\S]+?(?=(?:%VERSION%)|\<)".Replace("%VERSION%", Regex.Escape(version))).Match(page);
 
                 if (!match.Success)
                 {
@@ -188,7 +173,7 @@ namespace Xps2ImgUI.Utils
                 }
 
                 return new Regex(@"(\S+)\s+(\d{4}/\d{2}/\d{2})").Replace(
-                    new Regex(@"\[.\]\s*").Replace(match.Groups[1].Value, Resources.Strings.WhatsNewBullet),
+                    new Regex(@"\[.\]\s*").Replace(HttpUtility.HtmlDecode(match.Value), Resources.Strings.WhatsNewBullet),
                     m => String.Format(Resources.Strings.WhatsNewDateFormat, m.Groups[1].Value, DateTime.ParseExact(m.Groups[2].Value, "yyyy'/'MM'/'dd", null))
                 );
             }
@@ -198,69 +183,71 @@ namespace Xps2ImgUI.Utils
             }
         }
 
-        private static HttpWebRequest AddCompressionSupport(HttpWebRequest httpWebRequest)
-        {
-            if (httpWebRequest == null)
-            {
-                return null;
-            }
-
-            httpWebRequest.Headers.Add(HttpRequestHeader.AcceptEncoding, "gzip,deflate");
-            httpWebRequest.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
-
-            return httpWebRequest;
-        }
-
-        private class GZipWebClient : WebClient
+        private class UpdateWebClient : WebClient
         {
             protected override WebRequest GetWebRequest(Uri address)
             {
-                return AddCompressionSupport((HttpWebRequest)base.GetWebRequest(address));
+                var httpWebRequest = base.GetWebRequest(address) as HttpWebRequest;
+                if (httpWebRequest == null)
+                {
+                    return null;
+                }
+
+                httpWebRequest.Headers.Add(HttpRequestHeader.AcceptEncoding, "gzip,deflate");
+                httpWebRequest.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+
+                return httpWebRequest;
             }
+        }
+
+        private WebClient CreateWebClient()
+        {
+            return new UpdateWebClient { Proxy = GetProxy() };
         }
 
         private void DownloadAsyncInternal()
         {
-            var webClient = new WebClient();
-
-            webClient.DownloadFileCompleted += WebClientDownloadFileCompleted;
-            webClient.DownloadProgressChanged += WebClientDownloadProgressChanged;
-
-            try
+            using (var webClient = CreateWebClient())
             {
-                if (!HasUpdate || String.IsNullOrEmpty(_downloadUrl))
-                {
-                    throw new InvalidOperationException("DownloadUrl is not set.");
-                }
-
-                webClient.Proxy = GetProxy();
-
-                var downloadFolder = Path.Combine(Path.GetTempPath(), DownloadFolder);
-                Directory.CreateDirectory(downloadFolder);
-
-                // ReSharper disable AssignNullToNotNullAttribute
-                _downloadedFile = Path.Combine(downloadFolder, Path.GetFileName(_downloadUrl));
-                // ReSharper restore AssignNullToNotNullAttribute
-
-                IsDownloadCancelled = false;
-
-                webClient.DownloadFileAsync(new Uri(_downloadUrl), _downloadedFile);
-            }
-            catch (Exception ex)
-            {
-                webClient.DownloadFileCompleted -= WebClientDownloadFileCompleted;
-                webClient.DownloadProgressChanged -= WebClientDownloadProgressChanged;
+                webClient.DownloadFileCompleted += WebClientDownloadFileCompleted;
+                webClient.DownloadProgressChanged += WebClientDownloadProgressChanged;
 
                 try
                 {
-                    File.Delete(_downloadedFile);
+                    if (!HasUpdate || String.IsNullOrEmpty(_downloadUrl))
+                    {
+                        throw new InvalidOperationException("DownloadUrl is not set.");
+                    }
+
+                    webClient.Proxy = GetProxy();
+
+                    var downloadFolder = Path.Combine(Path.GetTempPath(), DownloadFolder);
+                    Directory.CreateDirectory(downloadFolder);
+
+                    // ReSharper disable AssignNullToNotNullAttribute
+                    _downloadedFile = Path.Combine(downloadFolder, Path.GetFileName(_downloadUrl));
+                    // ReSharper restore AssignNullToNotNullAttribute
+
+                    IsDownloadCancelled = false;
+
+                    webClient.DownloadFileAsync(new Uri(_downloadUrl), _downloadedFile);
                 }
-                // ReSharper disable EmptyGeneralCatchClause
-                catch
-                // ReSharper restore EmptyGeneralCatchClause
+                catch (Exception ex)
                 {
+                    webClient.DownloadFileCompleted -= WebClientDownloadFileCompleted;
+                    webClient.DownloadProgressChanged -= WebClientDownloadProgressChanged;
+
+                    try
+                    {
+                        File.Delete(_downloadedFile);
+                    }
+                    // ReSharper disable EmptyGeneralCatchClause
+                    catch
+                    // ReSharper restore EmptyGeneralCatchClause
+                    {
+                    }
+                    _exception = ex;
                 }
-                _exception = ex;
             }
         }
         
@@ -377,11 +364,6 @@ namespace Xps2ImgUI.Utils
             var proxy = WebRequest.GetSystemWebProxy();
             proxy.Credentials = CredentialCache.DefaultCredentials;
             return proxy;
-        }
-
-        private static void Sleep()
-        {
-            Thread.Sleep(1000);
         }
 
         private volatile bool _useProxy;

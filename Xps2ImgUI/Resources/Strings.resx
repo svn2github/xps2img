@@ -460,10 +460,11 @@
   <data name="WhatsNewFormat" xml:space="preserve">
     <value>
 
-What's new in version {0}
+What's new:
 
+{0}
 </value>
-    <comment>What's new in version {0}</comment>
+    <comment>What's new: {0}</comment>
   </data>
   <data name="ShortenImageExtension" xml:space="preserve">
     <value>S&amp;horten Image Extension</value>
@@ -770,7 +771,7 @@ What's new in version {0}
     <comment>NON LOCALIZABLE</comment>
   </data>
   <data name="WhatsNewDateFormat" xml:space="preserve">
-    <value>{0} {1:'('d MMMM yyyy'):'}</value>
+    <value>{0} {1:'('d MMMM yyyy')'}</value>
     <comment>NON LOCALIZABLE</comment>
   </data>
   <data name="WhatsNewBullet" xml:space="preserve">

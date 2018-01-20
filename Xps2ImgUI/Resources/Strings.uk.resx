@@ -460,10 +460,11 @@
   <data name="WhatsNewFormat" xml:space="preserve">
     <value>
 
-Що нового у оновленні {0}
+Що нового:
 
+{0}
 </value>
-    <comment>What's new in version {0}</comment>
+    <comment>What's new: {0}</comment>
   </data>
   <data name="ShortenImageExtension" xml:space="preserve">
     <value>&amp;Використовувати короткі розширення імен зображень</value>
