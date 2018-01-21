@@ -23,7 +23,6 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
             form.TrackBarLargeChange = TrackBarLargeChange;
 
             form.MapDefaultValueTo = MapDefaultValueTo;
-
         }
 
         protected abstract int DefaultValue { get; }
@@ -35,7 +34,7 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
         protected virtual object[] Objects { get { return null; } }
         protected virtual int? MapDefaultValueTo { get { return null; } }
         
-        protected abstract int TrackBarLargeChange { get; }
-        protected abstract int TrackBarTickFrequency { get; }
+        protected virtual int TrackBarLargeChange { get { return 1; } }
+        protected virtual int TrackBarTickFrequency { get { return 1; } }
     }
 }

@@ -101,6 +101,8 @@
             // 
             // valueComboBox
             // 
+            this.valueComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.valueComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.valueComboBox.FormattingEnabled = true;
             this.valueComboBox.IntegralHeight = false;
             this.valueComboBox.Location = new System.Drawing.Point(0, 10);

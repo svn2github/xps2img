@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq;
 
 using Xps2Img.Shared.TypeConverters;
@@ -12,9 +11,6 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
 
         protected override int MinValue { get { return DefaultValue; } }
         protected override int MaxValue { get { return Values.Length - 1; } }
-
-        protected override int TrackBarTickFrequency { get { return 1; } }
-        protected override int TrackBarLargeChange { get { return 1; } }
 
         protected override object[] Objects
         {

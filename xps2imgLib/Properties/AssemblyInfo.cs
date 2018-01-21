@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("http://xps2img.sf.net")]
 [assembly: AssemblyProduct("Xps2Img")]
-[assembly: AssemblyCopyright("Copyright © 2010-2017, Ivan Ivon")]
+[assembly: AssemblyCopyright("Copyright © 2010-2018, Ivan Ivon")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

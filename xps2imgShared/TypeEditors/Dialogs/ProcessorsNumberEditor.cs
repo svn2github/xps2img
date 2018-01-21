@@ -13,9 +13,6 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
         protected override int MinValue { get { return Values.First(); } }
         protected override int MaxValue { get { return Values.Last()-1; } }
 
-        protected override int TrackBarTickFrequency { get { return 1; } }
-        protected override int TrackBarLargeChange { get { return 1; } }
-
         protected override object[] Objects { get { return Values.Select((_, i) => i == 0 ? Resources.Strings.Auto : Convert.ToString(i, CultureInfo.InvariantCulture)).Cast<object>().ToArray(); } }
         protected override int? MapDefaultValueTo { get { return MaxValue; }}
 

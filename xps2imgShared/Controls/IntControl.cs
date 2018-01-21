@@ -65,7 +65,7 @@ namespace Xps2Img.Shared.Controls
 
                 valueComboBox.DropDown -= ValueComboBoxDropDown;
 
-                valueComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+                valueComboBox.DropDownStyle = HideTrackBar ? ComboBoxStyle.DropDownList : ComboBoxStyle.DropDown;
 
                 valueComboBox.Items.Clear();
                 valueComboBox.Items.AddRange(_objects = value);
@@ -87,8 +87,6 @@ namespace Xps2Img.Shared.Controls
         [Browsable(false)]
         [DefaultValue(null)]
         public int? MapDefaultValueTo { get; set; }
-
-        private bool HasObjects { get { return Objects != null; } }
 
         [Browsable(false)]
         [DefaultValue(0)]
@@ -115,6 +113,9 @@ namespace Xps2Img.Shared.Controls
                 _alignTitleWidthWith = value;
             }
         }
+
+        private bool HasMapDefaultValueTo { get { return MapDefaultValueTo.HasValue; } }
+        private bool HasObjects { get { return Objects != null; } }
 
         public IntControl()
         {
