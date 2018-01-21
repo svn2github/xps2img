@@ -12,6 +12,8 @@ namespace Xps2ImgUI
     public partial class UpdateDownloadForm : Form, IFormLocalization
     {
         private string _textFormat;
+
+        private readonly ProgressBarStyle _progressBarStyle;
         private readonly IUpdateManager _updateManager;
 
         public UpdateDownloadForm(IUpdateManager updateManager)
@@ -19,6 +21,7 @@ namespace Xps2ImgUI
             InitializeComponent();
 
             _updateManager = updateManager;
+            _progressBarStyle = downloadProgressBar.Style;
 
             this.EnableFormLocalization();
         }
@@ -26,6 +29,8 @@ namespace Xps2ImgUI
         protected override void OnLoad(EventArgs e)
         {
             this.RemoveSystemMenuDisabledItems();
+
+            downloadProgressBar.Style = ProgressBarStyle.Marquee;
 
             _updateManager.DownloadFileCompleted += DownloadFileCompleted;
             _updateManager.DownloadProgressChanged += DownloadProgressChanged;
@@ -39,6 +44,7 @@ namespace Xps2ImgUI
         {
             this.InvokeIfNeeded(() =>
             {
+                downloadProgressBar.Style = _progressBarStyle;
                 var progressPercentage = e.ProgressPercentage;
                 SetTitle(progressPercentage);
                 downloadProgressBar.Value = progressPercentage;
@@ -49,6 +55,7 @@ namespace Xps2ImgUI
         {
             this.InvokeIfNeeded(() =>
             {
+                SetTitle(downloadProgressBar.Maximum);
                 this.EnableSysClose(false);
                 cancelButton.Enabled = false;
                 DialogResult = e.Error != null || e.Cancelled ? DialogResult.Cancel : DialogResult.OK;
