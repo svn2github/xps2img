@@ -115,7 +115,7 @@ namespace Xps2Img.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deleted {0} file(s) in {1}.
+        ///   Looks up a localized string similar to Deleted {0} file(s).
         /// </summary>
         internal static string Template_Cleared {
             get {
