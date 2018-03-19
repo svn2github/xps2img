@@ -29,9 +29,9 @@ Files\Hints.html
 Files\ExitCodes.html
 
 [ALIAS]
-IDH_Preferences=Files\Preferences.html
-IDH_History=Files\History.html
-IDH_Options=Files\Options.html
+IDH_Preferences=xps2img.chm::/Files\Preferences.html
+IDH_History=xps2img.chm::/Files\History.html
+IDH_Options=xps2img.chm::/Files\Options.html
 IDH_XPSFile=xps2img.chm::/Files\Options.html#srcfile
 IDH_OutputFolder=xps2img.chm::/Files\Options.html#outdir
 IDH_PostConversionAction=xps2img.chm::/Files\Options.html#afterconversion
