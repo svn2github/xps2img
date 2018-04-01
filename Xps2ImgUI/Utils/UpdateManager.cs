@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Security.AccessControl;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -84,7 +85,24 @@ namespace Xps2ImgUI.Utils
         private UpdateManager()
         {
             const SecurityProtocolType tls1X = (SecurityProtocolType)(768 | 3072); // SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12
-            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | tls1X;
+            const SecurityProtocolType securityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | tls1X;
+
+            try
+            {
+                ServicePointManager.SecurityProtocol |= securityProtocol;
+            }
+            catch (NotSupportedException)
+            {
+                try
+                {
+                    // ReSharper disable once PossibleNullReferenceException
+                    typeof(ServicePointManager).GetField("s_SecurityProtocolType", BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, ServicePointManager.SecurityProtocol | securityProtocol);
+                }
+                catch
+                {
+                    // Ignored.
+                }
+            }
         }
 
         public void CheckAsync(string version, bool silent = false)
