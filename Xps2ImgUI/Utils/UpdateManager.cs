@@ -25,7 +25,7 @@ namespace Xps2ImgUI.Utils
         public const string ManualCheckUrl      = DownloadRootUrl;
         public const string ManualDownloadUrl   = DownloadRootUrl;
 
-        private const string RootUrl            = "http://sourceforge.net/projects/xps2img/";
+        private const string RootUrl            = "https://sourceforge.net/projects/xps2img/";
         private const string FilesUrl           = RootUrl  + "files/";
         private const string DownloadRootUrl    = FilesUrl + "Releases/";
         private const string SetupDownload      = "Xps2ImgSetup-{0}.exe";
@@ -83,6 +83,8 @@ namespace Xps2ImgUI.Utils
 
         private UpdateManager()
         {
+            const SecurityProtocolType tls1X = (SecurityProtocolType)(768 | 3072); // SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | tls1X;
         }
 
         public void CheckAsync(string version, bool silent = false)
@@ -161,7 +163,7 @@ namespace Xps2ImgUI.Utils
             }
         }
 
-        private string GetWhatsNew(string page, string version)
+        private static string GetWhatsNew(string page, string version)
         {
             try
             {
