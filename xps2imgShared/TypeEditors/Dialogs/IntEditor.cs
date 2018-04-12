@@ -30,7 +30,6 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
         protected abstract int[] Values { get; }
 
         protected virtual object[] Objects { get { return null; } }
-        protected virtual int? MapDefaultValueTo { get { return null; } }
         
         protected virtual int TrackBarLargeChange { get { return 1; } }
         protected virtual int TrackBarTickFrequency { get { return 1; } }
