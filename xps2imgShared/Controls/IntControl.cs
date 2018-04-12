@@ -90,7 +90,7 @@ namespace Xps2Img.Shared.Controls
         private IntControl _alignTitleWidthWith;
 
         [Category(TrackingCategory)]
-        [Description("Control with which title widths will be aligned.")]
+        [Description("Control title widths will be aligned to.")]
         [DefaultValue(null)]
         public IntControl AlignTitleWidthWith
         {
