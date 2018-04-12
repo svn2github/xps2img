@@ -21,8 +21,6 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
 
             form.TrackBarTickFrequency = TrackBarTickFrequency;
             form.TrackBarLargeChange = TrackBarLargeChange;
-
-            form.MapDefaultValueTo = MapDefaultValueTo;
         }
 
         protected abstract int DefaultValue { get; }

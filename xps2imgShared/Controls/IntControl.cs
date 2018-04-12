@@ -75,18 +75,9 @@ namespace Xps2Img.Shared.Controls
                 MinValue = Values.First();
                 MaxValue = Values.Last();
 
-                if (MapDefaultValueTo.HasValue)
-                {
-                    MaxValue = MaxValue-1;
-                }
-
                 TrackBarTickFrequency = 1;               
             }
         }
-
-        [Browsable(false)]
-        [DefaultValue(null)]
-        public int? MapDefaultValueTo { get; set; }
 
         [Browsable(false)]
         [DefaultValue(0)]
@@ -114,7 +105,6 @@ namespace Xps2Img.Shared.Controls
             }
         }
 
-        private bool HasMapDefaultValueTo { get { return MapDefaultValueTo.HasValue; } }
         private bool HasObjects { get { return Objects != null; } }
 
         public IntControl()

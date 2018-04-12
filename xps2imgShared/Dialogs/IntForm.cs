@@ -58,10 +58,5 @@
         {
             set { intControl.Objects = value; }
         }
-
-        public int? MapDefaultValueTo
-        {
-            set { intControl.MapDefaultValueTo = value; }
-        }
     }
 }

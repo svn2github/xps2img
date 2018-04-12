@@ -9,9 +9,9 @@ namespace Xps2Img.Shared.TypeConverters
     {
         public const ProcessPriorityClass Auto = 0;
 
-        public static readonly object[] PriorityClasses =
+        private readonly object[] _allowedValues =
         {
-            Auto,
+            (int)Auto,
             ProcessPriorityClass.Idle,
             ProcessPriorityClass.BelowNormal,
             ProcessPriorityClass.Normal,
@@ -21,7 +21,7 @@ namespace Xps2Img.Shared.TypeConverters
 
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(PriorityClasses);
+            return new StandardValuesCollection(_allowedValues);
         }
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
