@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace Xps2ImgUI.Utils.UI
 {
@@ -8,32 +9,7 @@ namespace Xps2ImgUI.Utils.UI
     {
         public static void Browse(string pathOrFile)
         {
-            Execute("root,select", pathOrFile);
-        }
-
-        public static void Select(string path, string file)
-        {
-            Select(Path.Combine(path, file));
-        }
-
-        public static void Select(string pathOrFile)
-        {
-            if (File.Exists(pathOrFile) || Directory.Exists(pathOrFile))
-            {
-                Execute("select", pathOrFile);
-            }
-            else
-            {
-                try
-                {
-                    Browse(Path.GetDirectoryName(pathOrFile));
-                }
-                // ReSharper disable EmptyGeneralCatchClause
-                catch
-                // ReSharper restore EmptyGeneralCatchClause
-                {
-                }
-            }
+            SelectInOpened(pathOrFile);
         }
 
         public static void ShellExecute(string command, bool useShellExecute = true, string arguments = null, string verb = null)
@@ -47,9 +23,34 @@ namespace Xps2ImgUI.Utils.UI
             });
         }
 
-        private static void Execute(string command, string pathOrFile)
+        [DllImport("shell32.dll")]
+        private static extern int SHOpenFolderAndSelectItems(IntPtr pidlFolder, uint cidl, [MarshalAs(UnmanagedType.LPArray)] IntPtr[] apidl, uint dwFlags);
+
+        [DllImport("shell32.dll")]
+        private static extern void SHParseDisplayName([MarshalAs(UnmanagedType.LPWStr)] string name, IntPtr bindingContext, out IntPtr pidl, uint sfgaoIn, out uint psfgaoOut);
+
+        private static void SelectInOpened(string filePath)
         {
-            Process.Start("explorer.exe", String.Format(@"/{0},""{1}""", command, pathOrFile.Trim('"')));
+            var folderPath = Path.GetDirectoryName(filePath);
+
+            SHParseDisplayName(folderPath, IntPtr.Zero, out var folder, 0, out uint _);
+
+            if (folder == IntPtr.Zero)
+            {
+                return;
+            }
+
+            SHParseDisplayName(filePath, IntPtr.Zero, out var file, 0, out _);
+
+            if (file != IntPtr.Zero)
+            {
+                IntPtr[] files = { file };
+
+                SHOpenFolderAndSelectItems(folder, (uint)files.Length, files, 0);
+                Marshal.FreeCoTaskMem(file);
+            }
+
+            Marshal.FreeCoTaskMem(folder);
         }
     }
 }
