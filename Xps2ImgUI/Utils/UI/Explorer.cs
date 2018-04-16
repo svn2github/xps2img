@@ -33,14 +33,17 @@ namespace Xps2ImgUI.Utils.UI
         {
             var folderPath = Path.GetDirectoryName(filePath);
 
-            SHParseDisplayName(folderPath, IntPtr.Zero, out var folder, 0, out uint _);
+            uint _;
+            IntPtr folder;
+            SHParseDisplayName(folderPath, IntPtr.Zero, out folder, 0, out _);
 
             if (folder == IntPtr.Zero)
             {
                 return;
             }
 
-            SHParseDisplayName(filePath, IntPtr.Zero, out var file, 0, out _);
+            IntPtr file;
+            SHParseDisplayName(filePath, IntPtr.Zero, out file, 0, out _);
 
             if (file != IntPtr.Zero)
             {
