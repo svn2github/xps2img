@@ -12,5 +12,15 @@ namespace Xps2Img.Shared.TypeConverters
             Validation.ValidateProperty(value, Options.ValidationExpressions.RequiredSize);
             return base.ConvertFrom(context, culture, value);
         }
+
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
+        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+        {
+            return new StandardValuesCollection(Options.Defaults.RequiredSizeValues);
+        }
     }
 }
