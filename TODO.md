@@ -2,7 +2,8 @@
 
 * Fix images.
 * Add Foxit reader as recommendation for xps printing.
-* Add how to handle oxps.
+* Add FAQ.
+* FAQ: Add how to handle oxps.
 
 ## readme.md ##
 
