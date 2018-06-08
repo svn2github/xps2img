@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Linq;
+
 using Xps2Img.Shared.TypeConverters;
 
 namespace Xps2Img.Shared.CommandLine
