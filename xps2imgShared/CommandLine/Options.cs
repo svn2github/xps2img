@@ -98,7 +98,6 @@ namespace Xps2Img.Shared.CommandLine
         [DefaultValue(null)]
         [DynamicPropertyFilter(Properties.Consts.PreferDpiOverSize, false)]
         [TypeConverter(typeof (CheckedRequiredSizeTypeConverter))]
-        [Editor(typeof (RequiredSizeEditor), typeof (UITypeEditor))]
         public Size? RequiredSize { get; set; }
 
         [Category(Categories.Options)]

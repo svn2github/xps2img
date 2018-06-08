@@ -115,12 +115,6 @@
     <Compile Include="TypeEditors\Dialogs\SelectFolderEditor.cs" />
     <Compile Include="TypeEditors\Dialogs\SelectXpsFileEditor.cs" />
     <Compile Include="TypeEditors\Dialogs\SelectXpsFolderEditor.cs" />
-    <Compile Include="Dialogs\RequiredSizeForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\RequiredSizeForm.Designer.cs">
-      <DependentUpon>RequiredSizeForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Enums\LanguagesSupported.cs" />
     <Compile Include="Internal\ProcessOutput.cs" />
     <Compile Include="Localization\DefaultLocalizablePropertyDescriptorStrategy.cs" />
@@ -148,7 +142,6 @@
     <Compile Include="TypeConverters\RequiredSizeTypeConverter.cs" />
     <Compile Include="TypeEditors\CheckedListBoxEditor.cs" />
     <Compile Include="TypeEditors\CheckBoxGlyphEditor.cs" />
-    <Compile Include="TypeEditors\Dialogs\RequiredSizeEditor.cs" />
     <Compile Include="TypeEditors\CpuAffinityEditor.cs" />
     <Compile Include="TypeEditors\Utils.cs" />
     <Compile Include="Utils\ReflectionUtils.cs" />
