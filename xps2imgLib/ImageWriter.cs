@@ -71,10 +71,17 @@ namespace Xps2ImgLib
             bitmapEncoder.Frames.Add(BitmapFrame.Create(getBitmapSourceFunc()));
             checkIfCancelled();
 
+            //BitmapFrameProcessor.Process(bitmapEncoder.Frames[0], GetCropRectangle);
+
             using (var fileStream = new FileStream(fullFileName, FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 bitmapEncoder.Save(fileStream);
             }
+        }
+
+        private static unsafe void GetCropRectangle(IntPtr data, uint stride, int width, int height)
+        {
+            ImageMeasurer.GetCropRectangle(data.ToPointer(), (int) stride, width, height);
         }
     }
 }

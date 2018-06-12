@@ -23,6 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>4</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>4</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -44,11 +46,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImageMeasurer.cs" />
+    <Compile Include="Utils\Disposables\EmptyDisposable.cs" />
+    <Compile Include="Utils\PresentationCoreUtils.cs" />
     <Compile Include="ConversionFailedException.cs" />
     <Compile Include="ConversionCancelledException.cs" />
     <Compile Include="ConversionException.cs" />
     <Compile Include="ImageOptions.cs" />
     <Compile Include="ImageType.cs" />
+    <Compile Include="BitmapFrameProcessor.cs" />
     <Compile Include="Utils\Disposables\DisposableAction.cs" />
     <Compile Include="Utils\Disposables\DisposableActions.cs" />
     <Compile Include="Utils\Disposables\EnterLeaveDisposableActions.cs" />
