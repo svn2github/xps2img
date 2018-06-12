@@ -104,7 +104,7 @@
             this.valueComboBox.FormattingEnabled = true;
             this.valueComboBox.IntegralHeight = false;
             this.valueComboBox.Location = new System.Drawing.Point(0, 10);
-            this.valueComboBox.MaxDropDownItems = 15;
+            this.valueComboBox.MaxDropDownItems = 20;
             this.valueComboBox.Name = "valueComboBox";
             this.valueComboBox.Size = new System.Drawing.Size(59, 21);
             this.valueComboBox.TabIndex = 1;

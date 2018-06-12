@@ -22,7 +22,7 @@ namespace Xps2Img.Shared.CommandLine
 
             public static readonly int JpegQualityValue = IntToString(JpegQuality);
 
-            public static readonly int[] DpiValues              = { 72, 96, 120, 144, 150, 200, 300, 600, 900, 1200, 1600, 1800, 2000, 2350 };
+            public static readonly int[] DpiValues              = { 72, 96, 120, 144, 150, 200, 213, 240, 300, 320, 480, 600, 640, 900, 1200, 1600, 1800, 2000, 2350 };
             public static readonly int[] JpegQualityValues      = { 10, 15, 25, 35, 45, 55, 65, 75, 85, 95, 100 };
 
             private static readonly int[] ScreenWidthValues     = { 360, 480, 540, 600, 720, 768, 800, 854, 900, 960, 1024, 1050, 1080, 1136, 1200, 1280, 1334, 1366, 1440, 1536, 1600, 1700, 1800, 1824, 1920, 2000, 2048, 2160, 2304, 2560, 2880, 3840, 4096 };
