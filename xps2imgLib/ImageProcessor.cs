@@ -9,11 +9,11 @@ using Xps2ImgLib.Utils.Disposables;
 
 namespace Xps2ImgLib
 {
-    public static class BitmapFrameProcessor
+    public static class ImageProcessor
     {
-        public static void Process(BitmapFrame bitmapFrame, Action<IntPtr, uint, int, int> processData)
+        public static T ProcessData<T>(this BitmapSource bitmapFrame, Func<IntPtr, uint, int, int, T> processData)
         {
-            var handle = bitmapFrame.GetBitmapSourceHandle();
+            var handle = bitmapFrame.GetHandle();
 
             var lockHandle = IntPtr.Zero;
 
@@ -30,7 +30,7 @@ namespace Xps2ImgLib
                 GetDataPointer(lockHandle, out bufferSize, out data).CheckHResult();
                 GetStride(lockHandle, out stride).CheckHResult();
 
-                processData(data, stride, int32Rect.Width, int32Rect.Height);
+                return processData(data, stride, int32Rect.Width, int32Rect.Height);
             }
         }
 

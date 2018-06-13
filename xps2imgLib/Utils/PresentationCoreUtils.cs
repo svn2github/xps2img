@@ -20,8 +20,6 @@ namespace Xps2ImgLib.Utils
         private static ConstructorInfo _safeHandleConstructorInfo;
         private static bool _safeHandleConstructorInfoLegacy;
 
-        private static MethodInfo _checkMethodInfo;
-
         private static void LoadAssembly()
         {
             if(_presentationCoreAssembly == null)
@@ -32,8 +30,13 @@ namespace Xps2ImgLib.Utils
             }
         }
 
+        public static void CheckHResult(this int code)
+        {
+            Marshal.ThrowExceptionForHR(code);
+        }
+
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-        public static IntPtr GetBitmapSourceHandle(this BitmapFrame bitmapSource)
+        public static IntPtr GetHandle(this BitmapSource bitmapSource)
         {
             LoadAssembly();
             
@@ -44,27 +47,6 @@ namespace Xps2ImgLib.Utils
             }
 
             return (IntPtr)_handleFieldInfo.GetValue(_wicSourceHandlePropertyPropertyInfo.GetValue(bitmapSource, null));
-        }
-
-        public static void CheckHResult(this int code)
-        {
-            if (code >= 0)
-            {
-                return;
-            }
-
-            if (_checkMethodInfo == null)
-            {
-                LoadAssembly();
-
-                var hresultType = _presentationCoreAssembly.GetType("MS.Internal.HRESULT");
-
-                _checkMethodInfo = hresultType == null ? null : hresultType.GetMethod("Check");
-            }
-
-            throw _checkMethodInfo == null
-                ? new COMException("Failed with HRESULT", code)
-                : (Exception)_checkMethodInfo.Invoke(null, new object[] { code });
         }
 
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]

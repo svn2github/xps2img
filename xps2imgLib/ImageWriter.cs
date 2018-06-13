@@ -68,20 +68,19 @@ namespace Xps2ImgLib
             }
 
             checkIfCancelled();
-            bitmapEncoder.Frames.Add(BitmapFrame.Create(getBitmapSourceFunc()));
+            var bitmapSource = getBitmapSourceFunc();
             checkIfCancelled();
 
-            //BitmapFrameProcessor.Process(bitmapEncoder.Frames[0], GetCropRectangle);
+            bitmapSource = bitmapSource.Crop();
+            checkIfCancelled();
+
+            bitmapEncoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+            checkIfCancelled();
 
             using (var fileStream = new FileStream(fullFileName, FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 bitmapEncoder.Save(fileStream);
             }
-        }
-
-        private static unsafe void GetCropRectangle(IntPtr data, uint stride, int width, int height)
-        {
-            ImageMeasurer.GetCropRectangle(data.ToPointer(), (int) stride, width, height);
         }
     }
 }

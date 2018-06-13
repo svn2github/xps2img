@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImageMeasurer.cs" />
+    <Compile Include="ImageCropper.cs" />
     <Compile Include="Utils\Disposables\EmptyDisposable.cs" />
     <Compile Include="Utils\PresentationCoreUtils.cs" />
     <Compile Include="ConversionFailedException.cs" />
@@ -54,7 +55,7 @@
     <Compile Include="ConversionException.cs" />
     <Compile Include="ImageOptions.cs" />
     <Compile Include="ImageType.cs" />
-    <Compile Include="BitmapFrameProcessor.cs" />
+    <Compile Include="ImageProcessor.cs" />
     <Compile Include="Utils\Disposables\DisposableAction.cs" />
     <Compile Include="Utils\Disposables\DisposableActions.cs" />
     <Compile Include="Utils\Disposables\EnterLeaveDisposableActions.cs" />

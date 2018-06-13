@@ -1,5 +1,5 @@
-﻿using System.Drawing;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace Xps2ImgLib
 {
@@ -7,7 +7,7 @@ namespace Xps2ImgLib
     {
         private const MethodImplOptions AggressiveInlining = (MethodImplOptions)0x100;
 
-        public static Rectangle GetCropRectangle(void* bitmap, int stride, int width, int height)
+        public static Int32Rect GetCropRectangle(void* bitmap, int stride, int width, int height)
         {
             var left = width;
             var top = height;
@@ -68,7 +68,7 @@ namespace Xps2ImgLib
                 top = 0;
             }
 
-            return new Rectangle(left, top, right - left, bottom - top);
+            return new Int32Rect(left, top, right - left, bottom - top);
         }
 
         [MethodImpl(AggressiveInlining)]
