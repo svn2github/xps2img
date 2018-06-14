@@ -71,7 +71,7 @@ namespace Xps2ImgLib.Utils
                 }
             }
             
-            return (IDisposable)_safeHandleConstructorInfo.Invoke(_safeHandleConstructorInfoLegacy ? new object[] { handle, 0L } :  new object[] { handle });
+            return (IDisposable)_safeHandleConstructorInfo.Invoke(_safeHandleConstructorInfoLegacy ? new object[] { handle, 0L } : new object[] { handle });
         }
     }
 }
