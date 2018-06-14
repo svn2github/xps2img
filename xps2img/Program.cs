@@ -255,6 +255,7 @@ namespace Xps2Img
                 ImageOptions = new ImageOptions(options.JpegQuality.Value, options.TiffCompression),
                 RequiredSize = options.RequiredSize,
                 Dpi = options.Dpi.Value,
+                PageCrop = options.PageCrop,
                 BaseImageName = !String.IsNullOrEmpty(options.ImageName) ?
                                     options.ImageName :
                                     (options.ImageName == null ? String.Empty : null),

@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="ImageMeasurer.cs" />
     <Compile Include="ImageCropper.cs" />
+    <Compile Include="PageCrop.cs" />
     <Compile Include="Utils\Disposables\EmptyDisposable.cs" />
     <Compile Include="Utils\PresentationCoreUtils.cs" />
     <Compile Include="ConversionFailedException.cs" />

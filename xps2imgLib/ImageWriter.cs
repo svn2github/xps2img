@@ -47,7 +47,7 @@ namespace Xps2ImgLib
             return extension;
         }
 
-        public static void Write(Func<string, bool> shouldWriteFileFunc, string fileName, ImageType imageType, bool shortenExtension, ImageOptions imageOptions, bool forceGetBitmapSourceIfNoWrite, Func<BitmapSource> getBitmapSourceFunc, Action<string> writeCallback, Action checkIfCancelled)
+        public static void Write(Func<string, bool> shouldWriteFileFunc, string fileName, ImageType imageType, PageCrop pageCrop, bool shortenExtension, ImageOptions imageOptions, bool forceGetBitmapSourceIfNoWrite, Func<BitmapSource> getBitmapSourceFunc, Action<string> writeCallback, Action checkIfCancelled)
         {
             var bitmapEncoder = CreateEncoder(imageType, imageOptions);
             var fullFileName = fileName + GetImageExtension(imageType, shortenExtension);
@@ -71,7 +71,7 @@ namespace Xps2ImgLib
             var bitmapSource = getBitmapSourceFunc();
             checkIfCancelled();
 
-            bitmapSource = bitmapSource.Crop();
+            bitmapSource = Crop(pageCrop, bitmapSource);
             checkIfCancelled();
 
             bitmapEncoder.Frames.Add(BitmapFrame.Create(bitmapSource));
@@ -80,6 +80,17 @@ namespace Xps2ImgLib
             using (var fileStream = new FileStream(fullFileName, FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 bitmapEncoder.Save(fileStream);
+            }
+        }
+
+        private static BitmapSource Crop(PageCrop pageCrop, BitmapSource bitmapSource)
+        {
+            switch (pageCrop)
+            {
+                case PageCrop.None: return bitmapSource;
+                case PageCrop.Crop: return bitmapSource.Crop();
+                case PageCrop.Fit:  return bitmapSource;
+                default: throw new ArgumentOutOfRangeException("pageCrop", pageCrop, "UNEXPECTED: Unknown page crop value");
             }
         }
     }

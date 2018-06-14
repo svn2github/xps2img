@@ -60,6 +60,8 @@ namespace Xps2ImgLib
             public Size? RequiredSize { get; set; }
             public int Dpi { get; set; }
 
+            public PageCrop PageCrop { get; set; }
+
             public string OutputDir { get; set; }
             public string BaseImageName { get; set; }
 

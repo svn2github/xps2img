@@ -22,6 +22,7 @@
             public const char SilentMode       = 's';
             public const char Test             = 'e';
             public const char Batch            = 'b';
+            public const char PageCrop         = 'o';
         }
     }
 }
