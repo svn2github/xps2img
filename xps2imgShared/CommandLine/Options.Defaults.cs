@@ -15,7 +15,6 @@ namespace Xps2Img.Shared.CommandLine
             public const int    DpiValue        =  120;
             public const string Dpi             = "120";
             public const string PageCrop        = "None";
-            public const string PageCropMargin  = "3x3";
             public const string FirstPageIndex  = "1";
             public const string PrelimsPrefix   = "$";
             public const int    Processors      = ProcessorsNumberTypeConverter.AutoValue;

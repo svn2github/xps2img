@@ -257,7 +257,7 @@ namespace Xps2Img
                 RequiredSize = options.RequiredSize,
                 Dpi = options.Dpi.Value,
                 PageCrop = options.PageCrop,
-                PageCropMargin = options.PageCropMargin,
+                PageCropMargin = options.PageCropMargin ?? new Size(),
                 BaseImageName = !String.IsNullOrEmpty(options.ImageName) ?
                                     options.ImageName :
                                     (options.ImageName == null ? String.Empty : null),
