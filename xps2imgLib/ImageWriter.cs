@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Windows.Media.Imaging;
 
@@ -47,7 +48,7 @@ namespace Xps2ImgLib
             return extension;
         }
 
-        public static void Write(Func<string, bool> shouldWriteFileFunc, string fileName, ImageType imageType, PageCrop pageCrop, bool shortenExtension, ImageOptions imageOptions, bool forceGetBitmapSourceIfNoWrite, Func<BitmapSource> getBitmapSourceFunc, Action<string> writeCallback, Action checkIfCancelled)
+        public static void Write(Func<string, bool> shouldWriteFileFunc, string fileName, ImageType imageType, PageCrop pageCrop, Size pageCropMargin, bool shortenExtension, ImageOptions imageOptions, bool forceGetBitmapSourceIfNoWrite, Func<BitmapSource> getBitmapSourceFunc, Action<string> writeCallback, Action checkIfCancelled)
         {
             var bitmapEncoder = CreateEncoder(imageType, imageOptions);
             var fullFileName = fileName + GetImageExtension(imageType, shortenExtension);
@@ -71,7 +72,7 @@ namespace Xps2ImgLib
             var bitmapSource = getBitmapSourceFunc();
             checkIfCancelled();
 
-            bitmapSource = Crop(pageCrop, bitmapSource);
+            bitmapSource = Crop(pageCrop, bitmapSource, pageCropMargin);
             checkIfCancelled();
 
             bitmapEncoder.Frames.Add(BitmapFrame.Create(bitmapSource));
@@ -83,14 +84,18 @@ namespace Xps2ImgLib
             }
         }
 
-        private static BitmapSource Crop(PageCrop pageCrop, BitmapSource bitmapSource)
+        private static BitmapSource Crop(PageCrop pageCrop, BitmapSource bitmapSource, Size pageCropMargin)
         {
             switch (pageCrop)
             {
-                case PageCrop.None: return bitmapSource;
-                case PageCrop.Crop: return bitmapSource.Crop();
-                case PageCrop.Fit:  return bitmapSource;
-                default: throw new ArgumentOutOfRangeException("pageCrop", pageCrop, "UNEXPECTED: Unknown page crop value");
+                case PageCrop.None:
+                    return bitmapSource;
+                case PageCrop.Crop:
+                    return bitmapSource.Crop(pageCropMargin.Width, pageCropMargin.Height);
+                case PageCrop.Fit:
+                    return bitmapSource;
+                default:
+                    throw new ArgumentOutOfRangeException("pageCrop", pageCrop, "UNEXPECTED: Unknown page crop value");
             }
         }
     }

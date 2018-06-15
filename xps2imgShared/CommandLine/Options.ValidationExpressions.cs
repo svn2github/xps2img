@@ -26,7 +26,8 @@ namespace Xps2Img.Shared.CommandLine
             public const string JpegQuality    = MinJpegQuality + "-" + MaxJpegQuality;
             public const string Pages          = "/" + Interval.ValidationRegex + "/";
             public const string PrelimsPrefix  = FileName;
-            public const string RequiredSize   = "/" + @"^$|" + RequiredSizeTypeConverter.ValidationRegex + "/";
+            public const string RequiredSize   = "/" + @"^$|" + RequiredSizeTypeConverter.ValidationRegex   + "/";
+            public const string PageCropMargin = "/" + @"^$|" + PageCropMarginTypeConverter.ValidationRegex + "/";
 
             public static readonly int MinDpiValue = IntToString(MinDpi);
             public static readonly int MaxDpiValue = IntToString(MaxDpi);

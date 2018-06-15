@@ -23,6 +23,7 @@
             public const char Test             = 'e';
             public const char Batch            = 'b';
             public const char PageCrop         = 'o';
+            public const char PageCropMargin   = 'm';
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -256,6 +257,7 @@ namespace Xps2Img
                 RequiredSize = options.RequiredSize,
                 Dpi = options.Dpi.Value,
                 PageCrop = options.PageCrop,
+                PageCropMargin = options.PageCropMargin,
                 BaseImageName = !String.IsNullOrEmpty(options.ImageName) ?
                                     options.ImageName :
                                     (options.ImageName == null ? String.Empty : null),

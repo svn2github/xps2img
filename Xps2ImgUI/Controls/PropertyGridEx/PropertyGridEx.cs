@@ -406,7 +406,13 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
                 var defaultValue = pi.FirstOrNewAttribute(() => new DefaultValueAttribute(null)).Value;
                 var propertyValue = pi.GetValue(SelectedObject, null);
 
-                return defaultValue == null ? propertyValue == null : defaultValue.Equals(propertyValue);
+                // ????
+                if (defaultValue is string && pi.PropertyType != defaultValue.GetType())
+                {
+                    defaultValue = ReflectionUtils.GetTypeConverter(pi).ConvertFromInvariantString(defaultValue as string);
+                }
+
+                return Equals(defaultValue, propertyValue);
             });
         }
 

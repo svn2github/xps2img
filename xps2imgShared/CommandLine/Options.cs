@@ -117,6 +117,14 @@ namespace Xps2Img.Shared.CommandLine
         public PageCrop PageCrop { get; set; }
 
         [Category(Categories.Options)]
+        [Option(ShortOptions.PageCropMargin, DefaultValue = Defaults.PageCropMargin, ConverterType = typeof(CheckedPageCropMarginTypeConverter), ValidationExpression = ValidationExpressions.PageCropMargin)]
+        [UIOption(ShortOptions.PageCropMargin)]
+        [DefaultValue(Defaults.PageCropMargin)]
+        [DynamicPropertyFilter(Properties.Consts.PageCrop, PageCrop.Crop)]
+        [TypeConverter(typeof(CheckedPageCropMarginTypeConverter))]
+        public Size PageCropMargin { get; set; }
+
+        [Category(Categories.Options)]
         [DefaultValue(false)]
         [TypeConverter(typeof(YesNoConverter))]
         [Editor(typeof(CheckBoxGlyphEditor), typeof(UITypeEditor))]

@@ -174,7 +174,7 @@ namespace Xps2ImgUI
             }
         }
 
-        private readonly string[] _forceRefreshForProperties = { Options.Properties.FileType, Options.Properties.PostAction, Options.Properties.UseFileNameAsImageName, Options.Properties.PreferDpiOverSize };
+        private readonly string[] _forceRefreshForProperties = { Options.Properties.FileType, Options.Properties.PostAction, Options.Properties.UseFileNameAsImageName, Options.Properties.PreferDpiOverSize, Options.Properties.PageCrop };
 
         private void UpdateCategoryReset()
         {

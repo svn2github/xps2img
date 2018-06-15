@@ -15,6 +15,7 @@ namespace Xps2Img.Shared.CommandLine
             public const int    DpiValue        =  120;
             public const string Dpi             = "120";
             public const string PageCrop        = "None";
+            public const string PageCropMargin  = "3x3";
             public const string FirstPageIndex  = "1";
             public const string PrelimsPrefix   = "$";
             public const int    Processors      = ProcessorsNumberTypeConverter.AutoValue;
@@ -30,6 +31,7 @@ namespace Xps2Img.Shared.CommandLine
 
             public static readonly string[] PrelimsPrefixValues = { "!", "#", "$", ".", "!!!", "###", "$$$", "..." };
             public static readonly Size[]   RequiredSizeValues  = ScreenWidthValues.Select(w => new Size(w, 0)).ToArray();
+            public static readonly Size[]   PageCropMarginValues= Enumerable.Range(1, 10).Select(w => new Size(w, w)).ToArray();
             public static readonly string[] ImageNameValues     = PrelimsPrefixValues;
         }
     }
