@@ -20,6 +20,8 @@ namespace Xps2ImgLib.Utils
         private static ConstructorInfo _safeHandleConstructorInfo;
         private static bool _safeHandleConstructorInfoLegacy;
 
+        private static MethodInfo _checkMethodInfo;
+
         private static void LoadAssembly()
         {
             if(_presentationCoreAssembly == null)
@@ -32,6 +34,25 @@ namespace Xps2ImgLib.Utils
 
         public static void CheckHResult(this int code)
         {
+            if (code >= 0)
+            {
+                return;
+            }
+
+            if (_checkMethodInfo == null)
+            {
+                LoadAssembly();
+
+                var hresultType = _presentationCoreAssembly.GetType("MS.Internal.HRESULT");
+
+                _checkMethodInfo = hresultType == null ? null : hresultType.GetMethod("Check");
+            }
+
+            if (_checkMethodInfo != null)
+            {
+                _checkMethodInfo.Invoke(null, new object[] { code });
+            }
+
             Marshal.ThrowExceptionForHR(code);
         }
 
