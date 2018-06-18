@@ -218,9 +218,7 @@ namespace Xps2ImgLib
             try
             {
                 // Render page.
-                ImageWriter.Write(f => !parameters.Test && (!parameters.IgnoreExisting || !File.Exists(f)), fileName,
-                                  parameters.ImageType, parameters.PageCrop, parameters.PageCropMargin, parameters.ShortenExtension, parameters.ImageOptions, parameters.Test,
-                                  () => GetPageBitmap(_documentPaginator, docPageNumber - 1, parameters), FireOnProgress, CheckIfCancelled);
+                ImageWriter.Write(parameters, fileName, () => GetPageBitmap(_documentPaginator, docPageNumber - 1, parameters), FireOnProgress, CheckIfCancelled);
             }
             catch(Exception ex)
             {

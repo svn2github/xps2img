@@ -48,31 +48,36 @@ namespace Xps2ImgLib
             return extension;
         }
 
-        public static void Write(Func<string, bool> shouldWriteFileFunc, string fileName, ImageType imageType, PageCrop pageCrop, Size pageCropMargin, bool shortenExtension, ImageOptions imageOptions, bool forceGetBitmapSourceIfNoWrite, Func<BitmapSource> getBitmapSourceFunc, Action<string> writeCallback, Action checkIfCancelled)
+        public static void Write(Converter.Parameters parameters, string fileName, Func<BitmapSource> getBitmapSourceFunc, Action<string> writeCallback, Action checkIfCancelled)
         {
-            var bitmapEncoder = CreateEncoder(imageType, imageOptions);
-            var fullFileName = fileName + GetImageExtension(imageType, shortenExtension);
+            var imageType = parameters.ImageType;
+
+            var fullFileName = fileName + GetImageExtension(imageType, parameters.ShortenExtension);
 
             if (writeCallback != null)
             {
                 writeCallback(fullFileName);
             }
 
-            if (!shouldWriteFileFunc(fullFileName))
+            if (parameters.Test)
             {
-                if (forceGetBitmapSourceIfNoWrite)
-                {
-                    checkIfCancelled();
-                    getBitmapSourceFunc();
-                }
+                checkIfCancelled();
+                getBitmapSourceFunc();
                 return;
             }
+
+            if (parameters.IgnoreExisting && File.Exists(fullFileName))
+            {
+                return;
+            }
+
+            var bitmapEncoder = CreateEncoder(imageType, parameters.ImageOptions);
 
             checkIfCancelled();
             var bitmapSource = getBitmapSourceFunc();
             checkIfCancelled();
 
-            bitmapSource = Crop(pageCrop, bitmapSource, pageCropMargin);
+            bitmapSource = Crop(parameters.PageCrop, bitmapSource, parameters.PageCropMargin);
             checkIfCancelled();
 
             bitmapEncoder.Frames.Add(BitmapFrame.Create(bitmapSource));
