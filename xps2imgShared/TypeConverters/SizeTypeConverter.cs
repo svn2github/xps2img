@@ -58,7 +58,7 @@ namespace Xps2Img.Shared.TypeConverters
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if ((value != null && !CanConvertFrom(value.GetType())) || String.IsNullOrEmpty((string)value))
+            if (value != null && !CanConvertFrom(value.GetType()) || String.IsNullOrEmpty((string)value))
             {
                 return null;
             }
