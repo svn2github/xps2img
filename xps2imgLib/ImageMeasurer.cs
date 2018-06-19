@@ -75,7 +75,7 @@ namespace Xps2ImgLib
         private static bool SkipColor(uint* data)
         {
             const int colorToSkip = 299 * 0xFF + 587 * 0xFF + 114 * 0xFF;
-            const int colorToSkipThreshold = 150000;
+            const int colorToSkipThreshold = 140000;
 
             var rgb = (byte*)data;
 

@@ -6,25 +6,35 @@ namespace Xps2ImgLib
 {
     public static class ImageCropper
     {
-        public static BitmapSource Crop(this BitmapSource bitmapSource, int xMargin, int yMargin)
+        public static Int32Rect GetCropRectangle(this BitmapSource bitmapSource, int xMargin, int yMargin)
         {
             var cropRectangle = bitmapSource.ProcessData(GetCropRectangle);
 
-            cropRectangle.X = AdjustPosition(cropRectangle.X, xMargin);
-            cropRectangle.Y = AdjustPosition(cropRectangle.Y, yMargin);
-            cropRectangle.Width = AdjustSize(cropRectangle.Width, xMargin, bitmapSource.PixelWidth);
+            cropRectangle.X      = AdjustPosition(cropRectangle.X,  xMargin);
+            cropRectangle.Y      = AdjustPosition(cropRectangle.Y,  yMargin);
+            cropRectangle.Width  = AdjustSize(cropRectangle.Width,  xMargin, bitmapSource.PixelWidth);
             cropRectangle.Height = AdjustSize(cropRectangle.Height, yMargin, bitmapSource.PixelHeight);
 
-            return new CroppedBitmap(bitmapSource, cropRectangle);
+            return cropRectangle;
         }
 
-        public static int AdjustPosition(int original, int adjust)
+        public static BitmapSource Crop(this BitmapSource bitmapSource, int xMargin, int yMargin)
+        {
+            return Crop(bitmapSource, bitmapSource.GetCropRectangle(xMargin, yMargin));
+        }
+
+        public static BitmapSource Crop(this BitmapSource bitmapSource, Int32Rect int32Rect)
+        {
+            return new CroppedBitmap(bitmapSource, int32Rect);
+        }
+
+        private static int AdjustPosition(int original, int adjust)
         {
             var delta = original - adjust;
             return delta < 0 ? original : delta;
         }
 
-        public static int AdjustSize(int original, int adjust, int max)
+        private static int AdjustSize(int original, int adjust, int max)
         {
             if (original <= 0)
             {
