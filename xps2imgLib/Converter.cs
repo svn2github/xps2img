@@ -278,9 +278,9 @@ namespace Xps2ImgLib
 
             if (ConverterParameters.XpsRenderOptions.AnimatedVisualTextHintingMode && VisualTextHintingModePropertyInfo != null)
             {
-                // System.Windows.Media.TextHintingMode.Animated as of .NET 4.0+
-                const int textHintingModeAnimated = 2;
-                VisualTextHintingModePropertyInfo.SetValue(visual, textHintingModeAnimated, null);
+                // System.Windows.Media.TextHintingMode.Fixed as of .NET 4.0+
+                const int textHintingModeFixed = 1;
+                VisualTextHintingModePropertyInfo.SetValue(visual, textHintingModeFixed, null);
             }
         }
 
