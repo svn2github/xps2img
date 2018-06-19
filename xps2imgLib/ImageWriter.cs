@@ -50,25 +50,26 @@ namespace Xps2ImgLib
             return extension;
         }
 
-        public static void Write(Converter.Parameters parameters, string fileName, Func<bool, Size?, BitmapSource> getBitmapSourceFunc, Func<Size> getSizeFunc, Action<string> writeCallback, Action checkIfCancelled)
+        public static void Write(string fileName, IPageRenderer pageRenderer)
         {
+            var parameters = pageRenderer.Parameters;
+
             var imageType = parameters.ImageType;
 
             var fullFileName = fileName + GetImageExtension(imageType, parameters.ShortenExtension);
 
-            if (writeCallback != null)
-            {
-                writeCallback(fullFileName);
-            }
+            pageRenderer.FireOnProgress(fullFileName);
 
             if (parameters.IgnoreExisting && File.Exists(fullFileName))
             {
                 return;
             }
 
-            checkIfCancelled();
-            var bitmapSource = Crop(parameters.PageCrop, parameters.PageCropMargin, getBitmapSourceFunc, getSizeFunc, checkIfCancelled);
-            checkIfCancelled();
+            pageRenderer.ThrowIfCancelled();
+
+            var bitmapSource = Crop(pageRenderer);
+
+            pageRenderer.ThrowIfCancelled();
 
             if (parameters.Test)
             {
@@ -77,7 +78,8 @@ namespace Xps2ImgLib
 
             var bitmapEncoder = CreateEncoder(imageType, parameters.ImageOptions);
             bitmapEncoder.Frames.Add(BitmapFrame.Create(bitmapSource));
-            checkIfCancelled();
+
+            pageRenderer.ThrowIfCancelled();
 
             using (var fileStream = new FileStream(fullFileName, FileMode.Create, FileAccess.Write, FileShare.None))
             {
@@ -85,58 +87,74 @@ namespace Xps2ImgLib
             }
         }
 
-        private static BitmapSource Crop(PageCrop pageCrop, Size pageCropMargin, Func<bool, Size?, BitmapSource> getBitmapSourceFunc, Func<Size> getSizeFunc, Action checkIfCancelled)
+        private static BitmapSource Crop(IPageRenderer pageRenderer)
         {
-            if(pageCrop == PageCrop.None)
+            var parameters = pageRenderer.Parameters;
+
+            var pageCrop = parameters.PageCrop;
+            var pageCropMargin = parameters.PageCropMargin;
+            
+            if (pageCrop == PageCrop.None)
             {
-                return getBitmapSourceFunc(false, null);
+                return pageRenderer.GetBitmap();
             }
 
             if (pageCrop == PageCrop.Crop)
             {
-                var bitmapSource = getBitmapSourceFunc(false, null);
-                checkIfCancelled();
+                var bitmapSource = pageRenderer.GetBitmap();
+
+                pageRenderer.ThrowIfCancelled();
+
                 return bitmapSource.Crop(pageCropMargin.Width, pageCropMargin.Height);
             }
 
             if (pageCrop == PageCrop.Fit)
             {
-                // TODO: REMOVE
-                //pageCropMargin = new Size(3, 3);
-
-                var bitmapSource = getBitmapSourceFunc(true, null);
-                checkIfCancelled();
-                // Do not use pageCropMargin here.
-                var cropRectangle = bitmapSource.GetCropRectangle(pageCropMargin.Width, pageCropMargin.Height);
-                var desiredSize = getSizeFunc();
-
-                var xRatio = (double)desiredSize.Width / cropRectangle.Width;
-
-                var fitSize = new Size((int)(bitmapSource.Width * xRatio), 0);
-
-                try
-                {
-                    checkIfCancelled();
-                    bitmapSource = getBitmapSourceFunc(false, fitSize);
-
-                    var cropRectangle1 = bitmapSource.GetCropRectangle(pageCropMargin.Width, pageCropMargin.Height);
-                    var fitRect = new Int32Rect((int)(cropRectangle.X * xRatio), cropRectangle1.Y, desiredSize.Width, cropRectangle1.Height);
-
-                    checkIfCancelled();
-                    return bitmapSource.Crop(fitRect);
-                }
-                catch (Exception ex)
-                {
-                    if (ex is OverflowException || ex is OutOfMemoryException)
-                    {
-                        return getBitmapSourceFunc(false, null);
-                    }
-
-                    throw;
-                }
+                return CropToFit(pageRenderer);
             }
 
-            throw new ArgumentOutOfRangeException("pageCrop", pageCrop, "UNEXPECTED: Unknown page crop value");
+            throw new ArgumentOutOfRangeException("pageRenderer", pageCrop, "UNEXPECTED: Unknown page crop value");
+        }
+
+        private static BitmapSource CropToFit(IPageRenderer pageRenderer)
+        {
+            var pageCropMargin = pageRenderer.Parameters.PageCropMargin;
+
+            // TODO: REMOVE
+            //pageCropMargin = new Size(3, 3);
+
+            var bitmapSource = pageRenderer.GetDefaultBitmap();
+            pageRenderer.ThrowIfCancelled();
+
+            // Do not use pageCropMargin here.
+            var cropRect = bitmapSource.GetCropRectangle(pageCropMargin.Width, pageCropMargin.Height);
+            var desiredSize = pageRenderer.GetBitmapSize();
+
+            try
+            {
+                pageRenderer.ThrowIfCancelled();
+
+                var xRatio = (double)desiredSize.Width / cropRect.Width;
+                var fitSize = new Size((int)(bitmapSource.Width * xRatio), 0);
+
+                bitmapSource = pageRenderer.GetBitmap(fitSize);
+
+                var fitCropRect = bitmapSource.GetCropRectangle(pageCropMargin.Width, pageCropMargin.Height);
+                var fitRect = new Int32Rect((int)(cropRect.X * xRatio), fitCropRect.Y, desiredSize.Width, fitCropRect.Height);
+
+                pageRenderer.ThrowIfCancelled();
+
+                return bitmapSource.Crop(fitRect);
+            }
+            catch (Exception ex)
+            {
+                if (ex is OverflowException || ex is OutOfMemoryException)
+                {
+                    return pageRenderer.GetBitmap();
+                }
+
+                throw;
+            }
         }
     }
 }

@@ -5,12 +5,9 @@ using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Documents;
-using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Xps.Packaging;
-
-using Size = System.Drawing.Size;
 
 using Xps2ImgLib.Utils;
 using Xps2ImgLib.Utils.Disposables;
@@ -219,12 +216,8 @@ namespace Xps2ImgLib
 
             try
             {
-                var pageNumber = docPageNumber - 1;
                 // Render page.
-                ImageWriter.Write(parameters, fileName,
-                                  (renderDefault, size) => GetPageBitmap(_documentPaginator, pageNumber, renderDefault, parameters, size),
-                                  () => GetPageBitmapSize(_documentPaginator, pageNumber, parameters),
-                                  FireOnProgress, CheckIfCancelled);
+                ImageWriter.Write(fileName, new PageRenderer(_documentPaginator, docPageNumber - 1, parameters, RenderPageToBitmap, FireOnProgress, CheckIfCancelled));
             }
             catch(Exception ex)
             {
@@ -269,61 +262,6 @@ namespace Xps2ImgLib
             catch
             {
             }
-        }
-
-        private static T CalculateAndApplyPageSize<T>(DocumentPaginator documentPaginator, int pageNumber, bool renderDefault, Parameters parameters, Func<DocumentPage, double, int, int, T> applyPageSizeFunc, Size? actualSize)
-        {
-            const double dpiConst = 96.0;
-
-            var dpi = renderDefault ? dpiConst : parameters.Dpi;
-
-            var size = actualSize ?? (!renderDefault && parameters.RequiredSize.HasValue ? parameters.RequiredSize.Value : new Size());
-
-            Func<int, bool> isSizeDefined = requiredSize => requiredSize > 0;
-            Action<int, double> calcDpi = (requiredSize, pageSize) => { if (isSizeDefined(requiredSize)) { dpi = requiredSize / pageSize * dpiConst; } };
-
-            try
-            {
-                using (var page = documentPaginator.GetPage(pageNumber))
-                {
-                    if (!size.IsEmpty)
-                    {
-                        var portrait = page.Size.Height >= page.Size.Width;
-
-                        if (portrait || !isSizeDefined(size.Width))
-                        {
-                            calcDpi(size.Height, page.Size.Height);
-                        }
-
-                        if (!portrait || !isSizeDefined(size.Height))
-                        {
-                            calcDpi(size.Width, page.Size.Width);
-                        }
-                    }
-
-                    var ratio = dpi / dpiConst;
-
-                    return applyPageSizeFunc(page, dpi, (int) Math.Round(page.Size.Width * ratio), (int) Math.Round(page.Size.Height * ratio));
-                }
-            }
-            catch (XamlParseException ex)
-            {
-                throw new ConversionFailedException(ex.Message, pageNumber + 1, ex);
-            }
-        }
-
-        private RenderTargetBitmap GetPageBitmap(DocumentPaginator documentPaginator, int pageNumber, bool renderDefault, Parameters parameters, Size? requiredSize)
-        {
-            Func<DocumentPage, double, int, int, RenderTargetBitmap> applyPageSizeFunc = (page, dpi, width, height) => RenderPageToBitmap(page, new RenderTargetBitmap(width, height, dpi, dpi, PixelFormats.Pbgra32));
-
-            return CalculateAndApplyPageSize(documentPaginator, pageNumber, renderDefault, parameters, applyPageSizeFunc, requiredSize);
-        }
-
-        private static Size GetPageBitmapSize(DocumentPaginator documentPaginator, int pageNumber, Parameters parameters)
-        {
-            Func<DocumentPage, double, int, int, Size> applyPageSizeFunc = (page, dpi, width, height) => new Size(width, height);
-
-            return CalculateAndApplyPageSize(documentPaginator, pageNumber, false, parameters, applyPageSizeFunc, null);
         }
 
         private void SetVisualProperties(DependencyObject visual)
@@ -387,6 +325,11 @@ namespace Xps2ImgLib
                     Thread.Sleep(ConverterParameters.ConverterOutOfMemoryStrategy.TriesSleepInterval);
                 }
             }
+        }
+
+        private RenderTargetBitmap RenderPageToBitmap(DocumentPage page, double dpi, int width, int height)
+        {
+            return RenderPageToBitmap(page, new RenderTargetBitmap(width, height, dpi, dpi, PixelFormats.Pbgra32));
         }
 
         private bool _disposed;
