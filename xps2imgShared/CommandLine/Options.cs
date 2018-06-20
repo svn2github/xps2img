@@ -121,6 +121,7 @@ namespace Xps2Img.Shared.CommandLine
         [UIOption(ShortOptions.PageCropMargin)]
         [DefaultValue(null)]
         [DynamicPropertyFilter(Properties.Consts.PageCrop, PageCrop.Crop)]
+        [DynamicPropertyFilter(Properties.Consts.PageCrop, PageCrop.Fit)]
         [TypeConverter(typeof(CheckedPageCropMarginTypeConverter))]
         public Size? PageCropMargin { get; set; }
 

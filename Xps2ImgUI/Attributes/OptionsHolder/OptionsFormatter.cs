@@ -32,14 +32,12 @@ namespace Xps2ImgUI.Attributes.OptionsHolder
 
             if (!optionAttribute.AlwaysFormat && !includeFiltered)
             {
-                var dynamicPropertyFilterAttribute = (DynamicPropertyFilterAttribute)Attribute.GetCustomAttribute(propertyInfo, typeof(DynamicPropertyFilterAttribute));
-                if (dynamicPropertyFilterAttribute != null)
+                var dynamicPropertyFilterAttributes = Attribute.GetCustomAttributes(propertyInfo, typeof(DynamicPropertyFilterAttribute));
+
+                // ReSharper disable once PossibleNullReferenceException
+                if (dynamicPropertyFilterAttributes.Any() && !dynamicPropertyFilterAttributes.OfType<DynamicPropertyFilterAttribute>().Any(dynamicPropertyFilterAttribute => boundObject.GetType().GetProperty(dynamicPropertyFilterAttribute.PropertyName).GetValue(boundObject, null).Equals(dynamicPropertyFilterAttribute.ShowOn)))
                 {
-                    var propertyValue = boundObject.GetType().GetProperty(dynamicPropertyFilterAttribute.PropertyName).GetValue(boundObject, null);
-                    if (!propertyValue.Equals(dynamicPropertyFilterAttribute.ShowOn))
-                    {
-                        return null;
-                    }
+                    return null;
                 }
             }
 

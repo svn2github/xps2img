@@ -13,5 +13,10 @@ namespace Xps2Img.Shared.Attributes.UI
             PropertyName = propertyName;
             ShowOn = showOn;
         }
+
+        public override object TypeId
+        {
+            get { return this; }
+        }
     }
 }

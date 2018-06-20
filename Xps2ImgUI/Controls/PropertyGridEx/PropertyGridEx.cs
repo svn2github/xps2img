@@ -398,7 +398,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
             {
                 var categoryAttribute = pi.FirstOrDefaultAttribute<CategoryAttribute>();
 
-                if (categoryAttribute == null || (useCategory && category != categoryAttribute.Category) || (ResetByCategoryFilter != null && !ResetByCategoryFilter(pi)))
+                if (categoryAttribute == null || useCategory && category != categoryAttribute.Category || ResetByCategoryFilter != null && !ResetByCategoryFilter(pi))
                 {
                     return true;
                 }
