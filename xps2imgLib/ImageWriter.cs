@@ -38,7 +38,7 @@ namespace Xps2ImgLib
 
             if (!ImageTypeExtensions.TryGetValue(imageType, out extension))
             {
-                extension = CreateEncoder(imageType, new ImageOptions()).CodecInfo.FileExtensions.Split(new[] { ',' })[0];
+                extension = CreateEncoder(imageType, new ImageOptions()).CodecInfo.FileExtensions.Split(',')[0];
                 if (shortenExtension && extension.Length > 4)
                 {
                     extension = extension.Remove(extension.Length - 2, 1);

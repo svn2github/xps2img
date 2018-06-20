@@ -35,7 +35,7 @@ namespace Xps2Img.CommandLine
 
             Console.WriteLine("{1} {2}{0}{0}{3}",
                               Environment.NewLine,
-                              AssemblyInfo.Description.TrimEnd(new[]{ '.' }),
+                              AssemblyInfo.Description.TrimEnd('.'),
                               AssemblyInfo.AssemblyVersion,
                               Parser.GetUsageString<T>());
 
