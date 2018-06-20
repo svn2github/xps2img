@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows;
 using System.Windows.Media.Imaging;
 
 using Size = System.Drawing.Size;
@@ -120,31 +119,30 @@ namespace Xps2ImgLib
         {
             var pageCropMargin = pageRenderer.Parameters.PageCropMargin;
 
-            // TODO: REMOVE
-            //pageCropMargin = new Size(3, 3);
-
             var bitmapSource = pageRenderer.GetDefaultBitmap();
             pageRenderer.ThrowIfCancelled();
 
-            // Do not use pageCropMargin here.
-            var cropRect = bitmapSource.GetCropRectangle(pageCropMargin.Width, pageCropMargin.Height);
+            var cropRect = bitmapSource.GetCropRectangle();
             var desiredSize = pageRenderer.GetBitmapSize();
 
             try
             {
                 pageRenderer.ThrowIfCancelled();
 
-                var xRatio = (double)desiredSize.Width / cropRect.Width;
+                var marginWidth = pageCropMargin.Width * 2;
+                var desiredSizeWidth = desiredSize.Width;
+
+                var xRatio = (desiredSizeWidth > marginWidth ? desiredSizeWidth - marginWidth : desiredSizeWidth) / (double)cropRect.Width;
                 var fitSize = new Size((int)(bitmapSource.Width * xRatio), 0);
 
                 bitmapSource = pageRenderer.GetBitmap(fitSize);
 
                 var fitCropRect = bitmapSource.GetCropRectangle(pageCropMargin.Width, pageCropMargin.Height);
-                var fitRect = new Int32Rect((int)(cropRect.X * xRatio), fitCropRect.Y, desiredSize.Width, fitCropRect.Height);
+                fitCropRect.Width = desiredSizeWidth;
 
                 pageRenderer.ThrowIfCancelled();
 
-                return bitmapSource.Crop(fitRect);
+                return bitmapSource.Crop(fitCropRect);
             }
             catch (Exception ex)
             {

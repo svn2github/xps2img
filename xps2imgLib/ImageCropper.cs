@@ -6,7 +6,7 @@ namespace Xps2ImgLib
 {
     public static class ImageCropper
     {
-        public static Int32Rect GetCropRectangle(this BitmapSource bitmapSource, int xMargin, int yMargin)
+        public static Int32Rect GetCropRectangle(this BitmapSource bitmapSource, int xMargin = 0, int yMargin = 0)
         {
             var cropRectangle = bitmapSource.ProcessData(GetCropRectangle);
 
@@ -18,12 +18,12 @@ namespace Xps2ImgLib
             return cropRectangle;
         }
 
-        public static BitmapSource Crop(this BitmapSource bitmapSource, int xMargin, int yMargin)
+        public static BitmapSource Crop(this BitmapSource bitmapSource, int xMargin = 0, int yMargin = 0)
         {
             return Crop(bitmapSource, bitmapSource.GetCropRectangle(xMargin, yMargin));
         }
 
-        public static BitmapSource Crop(this BitmapSource bitmapSource, Int32Rect int32Rect)
+        public static BitmapSource Crop(this BitmapSource bitmapSource, Int32Rect int32Rect = default(Int32Rect))
         {
             return new CroppedBitmap(bitmapSource, int32Rect);
         }
