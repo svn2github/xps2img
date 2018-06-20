@@ -133,7 +133,7 @@ namespace Xps2ImgLib
                 var desiredSizeWidth = desiredSize.Width;
 
                 var xRatio = (desiredSizeWidth > marginWidth ? desiredSizeWidth - marginWidth : desiredSizeWidth) / (double)cropRect.Width;
-                var fitSize = new Size((int)(bitmapSource.Width * xRatio), 0);
+                var fitSize = new Size((int)(bitmapSource.Width * xRatio + 0.5), 0);
 
                 bitmapSource = pageRenderer.GetBitmap(fitSize);
 
