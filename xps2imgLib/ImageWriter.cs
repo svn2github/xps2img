@@ -88,10 +88,8 @@ namespace Xps2ImgLib
 
         private static BitmapSource Crop(IPageRenderer pageRenderer)
         {
-            var parameters = pageRenderer.Parameters;
-
-            var pageCrop = parameters.PageCrop;
-            var pageCropMargin = parameters.PageCropMargin;
+            var pageCrop = pageRenderer.Parameters.PageCrop;
+            var pageCropMargin = pageRenderer.Parameters.PageCropMargin;
             
             if (pageCrop == PageCrop.None)
             {
@@ -122,6 +120,7 @@ namespace Xps2ImgLib
             var fitHeight = (pageRenderer.Parameters.RequiredSize ?? new Size()).Height > 0;
 
             var bitmapSource = pageRenderer.GetDefaultBitmap();
+
             pageRenderer.ThrowIfCancelled();
 
             var cropRect = bitmapSource.GetCropRectangle();
