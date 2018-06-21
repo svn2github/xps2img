@@ -119,6 +119,8 @@ namespace Xps2ImgLib
         {
             var pageCropMargin = pageRenderer.Parameters.PageCropMargin;
 
+            var fitHeight = (pageRenderer.Parameters.RequiredSize ?? new Size()).Height > 0;
+
             var bitmapSource = pageRenderer.GetDefaultBitmap();
             pageRenderer.ThrowIfCancelled();
 
@@ -129,16 +131,30 @@ namespace Xps2ImgLib
             {
                 pageRenderer.ThrowIfCancelled();
 
-                var marginWidth = pageCropMargin.Width * 2;
-                var desiredSizeWidth = desiredSize.Width;
+                var marginWidth  = pageCropMargin.Width  * 2;
+                var marginHeight = pageCropMargin.Height * 2;
 
-                var xRatio = (desiredSizeWidth > marginWidth ? desiredSizeWidth - marginWidth : desiredSizeWidth) / (double)cropRect.Width;
-                var fitSize = new Size((int)(bitmapSource.Width * xRatio + 0.5), 0);
+                var desiredSizeWidth  = desiredSize.Width;
+                var desiredSizeHeight = desiredSize.Height;
+
+                var xRatio = (desiredSizeWidth  > marginWidth  ? desiredSizeWidth  - marginWidth  : desiredSizeWidth)  / (double)cropRect.Width;
+                var yRatio = (desiredSizeHeight > marginHeight ? desiredSizeHeight - marginHeight : desiredSizeHeight) / (double)cropRect.Height;
+
+                var fitSize = new Size(!fitHeight ? (int)Math.Round(bitmapSource.Width  * xRatio) : 0,
+                                       fitHeight  ? (int)Math.Round(bitmapSource.Height * yRatio) : 0);
 
                 bitmapSource = pageRenderer.GetBitmap(fitSize);
 
                 var fitCropRect = bitmapSource.GetCropRectangle(pageCropMargin.Width, pageCropMargin.Height);
-                fitCropRect.Width = desiredSizeWidth;
+
+                if (fitHeight)
+                {
+                    fitCropRect.Height = desiredSizeHeight;
+                }
+                else
+                {
+                    fitCropRect.Width  = desiredSizeWidth;
+                }
 
                 pageRenderer.ThrowIfCancelled();
 
