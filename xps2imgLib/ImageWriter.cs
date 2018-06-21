@@ -146,7 +146,7 @@ namespace Xps2ImgLib
             }
             catch (Exception ex)
             {
-                if (ex is OverflowException || ex is OutOfMemoryException)
+                if (ex is OverflowException || ex is OutOfMemoryException || ex is ArgumentException)
                 {
                     return pageRenderer.GetBitmap();
                 }

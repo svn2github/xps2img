@@ -10,9 +10,11 @@ namespace Xps2Img.Shared.TypeConverters
     public class SizeTypeConverter : TypeConverter
     {
         private readonly Regex _filter;
+        private readonly bool _supportsBoth;
 
-        protected SizeTypeConverter(string validationRegex)
+        protected SizeTypeConverter(string validationRegex, bool supportsBoth)
         {
+            _supportsBoth = supportsBoth;
             _filter = new Regex(validationRegex);
         }
 
@@ -41,6 +43,10 @@ namespace Xps2Img.Shared.TypeConverters
             if (size.Width > 0)
             {
                 converted.AppendFormat("{0}", size.Width);
+                if (!_supportsBoth)
+                {
+                    return converted.ToString();
+                }
             }
 
             if (size.Height > 0)

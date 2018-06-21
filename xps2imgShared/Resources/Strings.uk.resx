@@ -282,8 +282,8 @@
     <comment>Image Size</comment>
   </data>
   <data name="Options_RequiredSizeDescription" xml:space="preserve">
-    <value>Бажанний розмір зображення. Повинен бути більше або дорівнювати 10&#xA;  DPI зображення ігнорується, якщо розмір зображення задано&#xA;Синтаксис:&#xA;  тільки ширина:&#x9;2000&#xA;  тільки висота:&#x9;x1000&#xA;  ширина та висота:&#x9;2000x1000&#xA;&#x9;&#x9;&#x9;ширина - для краєвида&#xA;&#x9;&#x9;&#x9;висота - для портретної орієнтації</value>
-    <comment>Desired image size (greater or equal 10)&#xA;  DPI will be ignored if image size is specified&#xA;Syntax:&#xA;  width only:&#x9;2000&#xA;  height only:&#x9;x1000&#xA;  both:&#x9;&#x9;2000x1000&#xA;&#x9;&#x9;width for landscape orientation&#xA;&#x9;&#x9;height for portrait orientation</comment>
+    <value>Бажанний розмір зображення. Повинен бути більше або дорівнювати 10&#xA;  DPI зображення ігнорується, якщо розмір зображення задано&#xA;Синтаксис:&#xA;  тільки ширина:  2000&#xA;  тільки висота:  x1000&#xA;</value>
+    <comment>Desired image size (greater or equal 10)&#xA;  DPI will be ignored if image size is specified&#xA;Syntax:&#xA;  width only:&#x9;2000&#xA;  height only:&#x9;x1000&#xA;</comment>
   </data>
   <data name="Options_DpiName" xml:space="preserve">
     <value>DPI зображення</value>

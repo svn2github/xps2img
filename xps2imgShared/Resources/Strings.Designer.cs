@@ -630,9 +630,6 @@ namespace Xps2Img.Shared.Resources {
         ///Syntax:
         ///  width only:	2000
         ///  height only:	x1000
-        ///  both:		2000x1000
-        ///		width for landscape orientation
-        ///		height for portrait orientation.
         /// </summary>
         public static string Options_RequiredSizeDescription {
             get {

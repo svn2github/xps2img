@@ -282,8 +282,8 @@
     <comment>Image Size</comment>
   </data>
   <data name="Options_RequiredSizeDescription" xml:space="preserve">
-    <value>Desired image size (greater or equal 10)&#xA;  DPI will be ignored if image size is specified&#xA;Syntax:&#xA;  width only:&#x9;2000&#xA;  height only:&#x9;x1000&#xA;  both:&#x9;&#x9;2000x1000&#xA;&#x9;&#x9;width for landscape orientation&#xA;&#x9;&#x9;height for portrait orientation</value>
-    <comment>Desired image size (greater or equal 10)&#xA;  DPI will be ignored if image size is specified&#xA;Syntax:&#xA;  width only:&#x9;2000&#xA;  height only:&#x9;x1000&#xA;  both:&#x9;&#x9;2000x1000&#xA;&#x9;&#x9;width for landscape orientation&#xA;&#x9;&#x9;height for portrait orientation</comment>
+    <value>Desired image size (greater or equal 10)&#xA;  DPI will be ignored if image size is specified&#xA;Syntax:&#xA;  width only:&#x9;2000&#xA;  height only:&#x9;x1000&#xA;</value>
+    <comment>Desired image size (greater or equal 10)&#xA;  DPI will be ignored if image size is specified&#xA;Syntax:&#xA;  width only:&#x9;2000&#xA;  height only:&#x9;x1000&#xA;</comment>
   </data>
   <data name="Options_DpiName" xml:space="preserve">
     <value>Image DPI</value>

@@ -69,27 +69,14 @@ namespace Xps2ImgLib
 
             var size = actualSize ?? (!renderDefault && parameters.RequiredSize.HasValue ? parameters.RequiredSize.Value : new Size());
 
-            Func<int, bool> isSizeDefined = requiredSize => requiredSize > 0;
-            Action<int, double> calcDpi = (requiredSize, pageSize) => { if (isSizeDefined(requiredSize)) { dpi = requiredSize / pageSize * dpiConst; } };
+            Action<int, double> calcDpi = (requiredSize, pageSize) => { if (requiredSize > 0) { dpi = requiredSize / pageSize * dpiConst; } };
 
             try
             {
                 using (var page = documentPaginator.GetPage(pageNumber))
                 {
-                    if (!size.IsEmpty)
-                    {
-                        var portrait = page.Size.Height >= page.Size.Width;
-
-                        if (portrait || !isSizeDefined(size.Width))
-                        {
-                            calcDpi(size.Height, page.Size.Height);
-                        }
-
-                        if (!portrait || !isSizeDefined(size.Height))
-                        {
-                            calcDpi(size.Width, page.Size.Width);
-                        }
-                    }
+                    calcDpi(size.Width,  page.Size.Width);
+                    calcDpi(size.Height, page.Size.Height);
 
                     var ratio = dpi / dpiConst;
 
