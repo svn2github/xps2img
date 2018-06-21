@@ -130,14 +130,14 @@ namespace Xps2ImgLib
             {
                 pageRenderer.ThrowIfCancelled();
 
-                var marginWidth  = pageCropMargin.Width  * 2;
-                var marginHeight = pageCropMargin.Height * 2;
+                var marginWidth  = pageCropMargin.Width  * 2 + 2;
+                var marginHeight = pageCropMargin.Height * 2 + 2;
 
                 var desiredSizeWidth  = desiredSize.Width;
                 var desiredSizeHeight = desiredSize.Height;
 
-                var xRatio = (desiredSizeWidth  > marginWidth  ? desiredSizeWidth  - marginWidth  : desiredSizeWidth)  / (double)cropRect.Width;
-                var yRatio = (desiredSizeHeight > marginHeight ? desiredSizeHeight - marginHeight : desiredSizeHeight) / (double)cropRect.Height;
+                var xRatio = cropRect.Width  != 0 ? (desiredSizeWidth  > marginWidth  ? desiredSizeWidth  - marginWidth  : desiredSizeWidth)  / (double)cropRect.Width  : 1;
+                var yRatio = cropRect.Height != 0 ? (desiredSizeHeight > marginHeight ? desiredSizeHeight - marginHeight : desiredSizeHeight) / (double)cropRect.Height : 1;
 
                 var fitSize = new Size(!fitHeight ? (int)Math.Round(bitmapSource.Width  * xRatio) : 0,
                                        fitHeight  ? (int)Math.Round(bitmapSource.Height * yRatio) : 0);
