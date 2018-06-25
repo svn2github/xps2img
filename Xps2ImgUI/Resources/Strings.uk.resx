@@ -758,6 +758,10 @@
     <value>використання імені документа як префіксу ім'я зображення</value>
     <comment>LANGUAGE SPECIFIC</comment>
   </data>
+  <data name="PropertyGrid_ResetUIOptions_PageCrop" xml:space="preserve">
+    <value>обріз білих полів</value>
+    <comment>LANGUAGE SPECIFIC</comment>
+  </data>
   <data name="PropertyGrid_ResetUIOptions_IgnoreErrors" xml:space="preserve">
     <value>ігнорування помилок перетворення</value>
     <comment>LANGUAGE SPECIFIC</comment>
