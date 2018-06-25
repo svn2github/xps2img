@@ -110,9 +110,9 @@ namespace Xps2Img.Shared.CommandLine
         public int? Dpi { get; set; }
 
         [Category(Categories.Options)]
-        [Option(ShortOptions.PageCrop, DefaultValue = Defaults.PageCrop, ConverterType = typeof(PageCropTypeConverter))]
+        [Option(ShortOptions.PageCrop, DefaultValue = Defaults.PageCrop)]
         [UIOption(ShortOptions.PageCrop)]
-        [TypeConverter(typeof(PageCropTypeConverter))]
+        [TypeConverter(typeof(OptionsEnumConverter<PageCrop>))]
         [DefaultValue(PageCrop.None)]
         public PageCrop PageCrop { get; set; }
 

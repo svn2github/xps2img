@@ -69,6 +69,8 @@ IDH_ShortenImageExtension=xps2img.chm::/Files\Preferences.html#shortenImageExten
 IDH_Updates=xps2img.chm::/Files\Preferences.html#updates
 IDH_CheckForUpdates=xps2img.chm::/Files\Preferences.html#checkForUpdates
 IDH_PreferDpiOverSize=xps2img.chm::/Files\OptionsGUI.html#preferDpiOverSize
+IDH_PageCrop=xps2img.chm::/Files\Options.html#pageCrop
+IDH_PageCropMargin=xps2img.chm::/Files\Options.html#pageCropMargin
 
 [MAP]
 #define IDH_Preferences			1000
@@ -86,7 +88,7 @@ IDH_PreferDpiOverSize=xps2img.chm::/Files\OptionsGUI.html#preferDpiOverSize
 #define IDH_ImagePrefix			1209
 #define IDH_FirstPageIndex		1210
 #define IDH_PreliminariesPrefix		1211
-#define IDH_Processors             	1212
+#define IDH_Processors			1212
 #define IDH_ProcessPriority		1213
 #define IDH_ProcessAffinity		1214
 #define IDH_Interface			1250
@@ -109,5 +111,7 @@ IDH_PreferDpiOverSize=xps2img.chm::/Files\OptionsGUI.html#preferDpiOverSize
 #define IDH_IgnoreExisting		1267
 #define IDH_IgnoreErrors		1268
 #define IDH_FileNameAsImagePrefix	1270
-#define IDH_PreferDpiOverSize	        1271
-#define IDH_UseFullExePath	        1272
+#define IDH_PreferDpiOverSize		1271
+#define IDH_UseFullExePath		1272
+#define IDH_PageCrop			1273
+#define IDH_PageCropMargin		1274

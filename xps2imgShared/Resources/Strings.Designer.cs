@@ -271,11 +271,11 @@ namespace Xps2Img.Shared.Resources {
         ///   Looks up a localized string similar to CPUs process will be executed on
         ///  all by default
         ///Syntax:
-        ///  all:		0-
-        ///  single:	0
-        ///  set:		0,2
-        ///  range:	0-2 or -2 or 2-
-        ///  combined:	0,2-.
+        ///  all:      0-
+        ///  single:   0
+        ///  set:      0,2
+        ///  range:    0-2 or -2 or 2-
+        ///  combined: 0,2-.
         /// </summary>
         public static string Options_CpuAffinityCmdDescription {
             get {
@@ -287,11 +287,11 @@ namespace Xps2Img.Shared.Resources {
         ///   Looks up a localized string similar to CPUs document processors will be executed on
         ///  all by default
         ///Syntax:
-        ///  all:		0-
-        ///  single:	0
-        ///  set:		0,2
-        ///  range:	0-2 or -2 or 2-
-        ///  combined:	0,2-.
+        ///  all:      0-
+        ///  single:   0
+        ///  set:      0,2
+        ///  range:    0-2 or -2 or 2-
+        ///  combined: 0,2-.
         /// </summary>
         public static string Options_CpuAffinityDescription {
             get {
@@ -499,14 +499,52 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pages
-        ///  all by default
+        ///   Looks up a localized string similar to Crop white margins.
+        /// </summary>
+        public static string Options_PageCropDescription {
+            get {
+                return ResourceManager.GetString("Options_PageCropDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cropped margins
+        ///  3x3 by default
         ///Syntax:
-        ///  all:		1-
-        ///  single:	1
-        ///  set:		1,3
-        ///  range:	1-10 or -10 or 10-
-        ///  combined:	1,3-5,7-9,15-.
+        ///  left and right: 10
+        ///  top and bottom: x10.
+        /// </summary>
+        public static string Options_PageCropMarginDescription {
+            get {
+                return ResourceManager.GetString("Options_PageCropMarginDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cropped Margins.
+        /// </summary>
+        public static string Options_PageCropMarginName {
+            get {
+                return ResourceManager.GetString("Options_PageCropMarginName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Crop White Margins.
+        /// </summary>
+        public static string Options_PageCropName {
+            get {
+                return ResourceManager.GetString("Options_PageCropName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pages
+        ///  all:      1-
+        ///  single:   1
+        ///  set:      1,3
+        ///  range:    1-10 or -10 or 10-
+        ///  combined: 1,3-5,7-9,15-.
         /// </summary>
         public static string Options_PagesDescription {
             get {
@@ -628,8 +666,8 @@ namespace Xps2Img.Shared.Resources {
         ///   Looks up a localized string similar to Desired image size (greater or equal 10)
         ///  DPI will be ignored if image size is specified
         ///Syntax:
-        ///  width only:	2000
-        ///  height only:	x1000
+        ///  width only:  2000
+        ///  height only: x1000.
         /// </summary>
         public static string Options_RequiredSizeDescription {
             get {
@@ -752,6 +790,33 @@ namespace Xps2Img.Shared.Resources {
         public static string Options_UseFileNameAsImageNameName {
             get {
                 return ResourceManager.GetString("Options_UseFileNameAsImageNameName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Crop.
+        /// </summary>
+        public static string PageCrop_CropValue {
+            get {
+                return ResourceManager.GetString("PageCrop_CropValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fit Content.
+        /// </summary>
+        public static string PageCrop_FitValue {
+            get {
+                return ResourceManager.GetString("PageCrop_FitValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string PageCrop_NoneValue {
+            get {
+                return ResourceManager.GetString("PageCrop_NoneValue", resourceCulture);
             }
         }
         

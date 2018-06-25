@@ -242,8 +242,8 @@
     <comment>Pages</comment>
   </data>
   <data name="Options_PagesDescription" xml:space="preserve">
-    <value>Сторінки&#xA;  всі сторінки, якщо не задано&#xA;Синтаксис:&#xA;  всі:&#x9;&#x9;1-&#xA;  одна:&#x9;&#x9;1&#xA;  декілька:&#x9;1,3&#xA;  діапазон:&#x9;1-10 або -10 або 10-&#xA;  комбіновано:&#x9;1,3-5,7-9,15-</value>
-    <comment>Pages&#xA;  all by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;1-&#xA;  single:&#x9;1&#xA;  set:&#x9;&#x9;1,3&#xA;  range:&#x9;1-10 or -10 or 10-&#xA;  combined:&#x9;1,3-5,7-9,15-</comment>
+    <value>Сторінки&#xA;  всі сторінки, якщо не задано&#xA;Синтаксис:&#xA;  всі:         1-&#xA;  одна:        1&#xA;  декілька:    1,3&#xA;  діапазон:    1-10 або -10 або 10-&#xA;  комбіновано: 1,3-5,7-9,15-</value>
+    <comment>Pages&#xA;  all by default&#xA;Syntax:&#xA;  all:      1-&#xA;  single:   1&#xA;  set:      1,3&#xA;  range:    1-10 or -10 or 10-&#xA;  combined: 1,3-5,7-9,15-</comment>
   </data>
   <data name="Options_FileTypeName" xml:space="preserve">
     <value>Тип зображення</value>
@@ -282,8 +282,8 @@
     <comment>Image Size</comment>
   </data>
   <data name="Options_RequiredSizeDescription" xml:space="preserve">
-    <value>Бажанний розмір зображення. Повинен бути більше або дорівнювати 10&#xA;  DPI зображення ігнорується, якщо розмір зображення задано&#xA;Синтаксис:&#xA;  тільки ширина:  2000&#xA;  тільки висота:  x1000&#xA;</value>
-    <comment>Desired image size (greater or equal 10)&#xA;  DPI will be ignored if image size is specified&#xA;Syntax:&#xA;  width only:&#x9;2000&#xA;  height only:&#x9;x1000&#xA;</comment>
+    <value>Бажанний розмір зображення. Повинен бути більше або дорівнювати 10&#xA;  DPI зображення ігнорується, якщо розмір зображення задано&#xA;Синтаксис:&#xA;  тільки ширина: 2000&#xA;  тільки висота: x1000</value>
+    <comment>Desired image size (greater or equal 10)&#xA;  DPI will be ignored if image size is specified&#xA;Syntax:&#xA;  width only:  2000&#xA;  height only: x1000</comment>
   </data>
   <data name="Options_DpiName" xml:space="preserve">
     <value>DPI зображення</value>
@@ -292,6 +292,34 @@
   <data name="Options_DpiDescription" xml:space="preserve">
     <value>DPI зображення (16-2350)&#xA;  DPI зображення ігнорується, якщо розмір зображення задано</value>
     <comment>Image DPI (16-2350)&#xA;  DPI will be ignored if image size is specified</comment>
+  </data>
+  <data name="Options_PageCropName" xml:space="preserve">
+    <value>Обрізати білі поля</value>
+    <comment>Crop White Margins</comment>
+  </data>
+  <data name="Options_PageCropDescription" xml:space="preserve">
+    <value>Обрізати білі поля</value>
+    <comment>Crop white margins</comment>
+  </data>
+  <data name="PageCrop_NoneValue" xml:space="preserve">
+    <value>Ні</value>
+    <comment>No</comment>
+  </data>
+  <data name="PageCrop_CropValue" xml:space="preserve">
+    <value>Обрізати</value>
+    <comment>Crop</comment>
+  </data>
+  <data name="PageCrop_FitValue" xml:space="preserve">
+    <value>Приладити зміст сторінки</value>
+    <comment>Fit Content</comment>
+  </data>
+  <data name="Options_PageCropMarginName" xml:space="preserve">
+    <value>Розмір полів після обрізу</value>
+    <comment>Cropped Margins Size</comment>
+  </data>
+  <data name="Options_PageCropMarginDescription" xml:space="preserve">
+    <value>Розмір полів після обрізу&#xA;  3x3 якщо не задано&#xA;Синтаксис:&#xA;  право та ліво: 10&#xA;  верх та низ:   x10</value>
+    <comment>Cropped margins&#xA;  3x3 by default&#xA;Syntax:&#xA;  left and right: 10&#xA;  top and bottom: x10</comment>
   </data>
   <data name="Options_UseFileNameAsImageNameName" xml:space="preserve">
     <value>Ім'я документа як префікс імені зображення</value>
@@ -354,12 +382,12 @@
     <comment>Processors Affinity</comment>
   </data>
   <data name="Options_CpuAffinityDescription" xml:space="preserve">
-    <value>Процесори, на яких буде виконуватися перетворення&#xA;  всі, якщо не задано&#xA;Синтаксис:&#xA;  всі:&#x9;&#x9;0-&#xA;  один:&#x9;&#x9;0&#xA;  декілька:&#x9;0,2&#xA;  діапазон:&#x9;0-2 або -2 або 2-&#xA;  комбіновано:&#x9;0,2-</value>
-    <comment>CPUs document processors will be executed on&#xA;  all by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;0-&#xA;  single:&#x9;0&#xA;  set:&#x9;&#x9;0,2&#xA;  range:&#x9;0-2 or -2 or 2-&#xA;  combined:&#x9;0,2-</comment>
+    <value>Процесори, на яких буде виконуватися перетворення&#xA;  всі, якщо не задано&#xA;Синтаксис:&#xA;  всі:         0-&#xA;  один:        0&#xA;  декілька:    0,2&#xA;  діапазон:    0-2 або -2 або 2-&#xA;  комбіновано: 0,2-</value>
+    <comment>CPUs document processors will be executed on&#xA;  all by default&#xA;Syntax:&#xA;  all:      0-&#xA;  single:   0&#xA;  set:      0,2&#xA;  range:    0-2 or -2 or 2-&#xA;  combined: 0,2-</comment>
   </data>
   <data name="Options_CpuAffinityCmdDescription" xml:space="preserve">
-    <value>Процесори, на яких буде виконуватися перетворення&#xA;  всі, якщо не задано&#xA;Синтаксис:&#xA;  всі:&#x9;&#x9;0-&#xA;  один:&#x9;&#x9;0&#xA;  декілька:&#x9;0,2&#xA;  діапазон:&#x9;0-2 або -2 або 2-&#xA;  комбіновано:&#x9;0,2-</value>
-    <comment>CPUs process will be executed on&#xA;  all by default&#xA;Syntax:&#xA;  all:&#x9;&#x9;0-&#xA;  single:&#x9;0&#xA;  set:&#x9;&#x9;0,2&#xA;  range:&#x9;0-2 or -2 or 2-&#xA;  combined:&#x9;0,2-</comment>
+    <value>Процесори, на яких буде виконуватися перетворення&#xA;  всі, якщо не задано&#xA;Синтаксис:&#xA;  всі:         0-&#xA;  один:        0&#xA;  декілька:    0,2&#xA;  діапазон:    0-2 або -2 або 2-&#xA;  комбіновано: 0,2-</value>
+    <comment>CPUs process will be executed on&#xA;  all by default&#xA;Syntax:&#xA;  all:      0-&#xA;  single:   0&#xA;  set:      0,2&#xA;  range:    0-2 or -2 or 2-&#xA;  combined: 0,2-</comment>
   </data>
   <data name="Options_IgnoreExistingName" xml:space="preserve">
     <value>Ігнорувати існуючі зображення</value>

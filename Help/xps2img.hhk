@@ -97,6 +97,14 @@
 			<param name="Local" value="Files\Options.html#dpi">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="-o, --page-crop">
+			<param name="Local" value="Files\Options.html#pageCrop">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="-m, --page-crop-margin">
+			<param name="Local" value="Files\Options.html#pageCropMargin">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="-i, --image-name">
 			<param name="Local" value="Files\Options.html#imagename">
 			</OBJECT>
@@ -209,6 +217,14 @@
 			<param name="Local" value="Files\Options.html#requiredsize">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Crop White Margins">
+			<param name="Local" value="Files\Options.html#pageCrop">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Cropped Margins">
+			<param name="Local" value="Files\Options.html#pageCropMargin">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Image Prefix Incudes Document Name">
 			<param name="Local" value="Files\OptionsGUI.html#fileNameAsImagePrefix">
 			</OBJECT>
@@ -256,6 +272,14 @@
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Batch Mode">
 		<param name="Local" value="Files\OptionsGUI.html#batch">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Crop White Margins">
+		<param name="Local" value="Files\Options.html#pageCrop">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Cropped Margins">
+		<param name="Local" value="Files\Options.html#pageCropMargin">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="First Page Index">
@@ -382,8 +406,16 @@
 		<param name="Local" value="Files\Options.html#ignoreExisting">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="-m">
+		<param name="Local" value="Files\Options.html#pageCropMargin">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-n">
 		<param name="Local" value="Files\Options.html#shortenextension">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="-o">
+		<param name="Local" value="Files\Options.html#pageCrop">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-p">
@@ -460,6 +492,14 @@
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="--pages">
 		<param name="Local" value="Files\Options.html#pages">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="--page-crop">
+		<param name="Local" value="Files\Options.html#pageCrop">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="--page-crop-margin">
+		<param name="Local" value="Files\Options.html#pageCropMargin">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="--post-action">
