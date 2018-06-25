@@ -252,7 +252,7 @@ namespace Xps2ImgUI.Controls.PropertyGridEx
         {
             foreach (var newFont in MonospaceFontFamilies.Select(font => new Font(font, DocFont.Size, DocFont.Style, DocFont.Unit)))
             {
-                if (newFont.Name != "Microsoft Sans Serif")
+                if (newFont.Name != DocFont.Name)
                 {
                     DocFont = newFont;
                     break;
