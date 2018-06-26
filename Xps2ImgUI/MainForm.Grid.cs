@@ -65,7 +65,7 @@ namespace Xps2ImgUI
             // Explorer/Browse.
             ToolStripButtonItem xpsCopyButton, xpsBrowseButton;
             settingsPropertyGrid.AddToolStripSplitButton(Resources.Images.BrowseImages, () => BrowseImagesButtonText, BrowseConvertedImagesToolStripButtonClick,
-                new ToolStripButtonItem(() => Resources.Strings.BrowseImagesFolder, (_, __) => Explorer.Browse(ConvertedImagesFolder)),
+                new ToolStripButtonItem(() => Resources.Strings.BrowseImagesFolder, (_, __) => BrowseConvertedImages()),
                 xpsBrowseButton = new ToolStripButtonItem(() => Resources.Strings.BrowseXPSFile, (_, __) => Explorer.Browse(Model.SrcFile)),
                 new ToolStripButtonItem(),
                 new ToolStripButtonItem(() => Resources.Strings.CopyImagesFolderPathToClipboard, (_, __) => ClipboardUtils.CopyToClipboard(ConvertedImagesFolder)),

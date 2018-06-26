@@ -275,9 +275,14 @@ namespace Xps2ImgUI
             UpdateShowCommandLineCommand();
         }
 
-        private void BrowseConvertedImagesToolStripButtonClick(object sender, EventArgs e)
+        private void BrowseConvertedImages()
         {
             Explorer.Browse(ConvertedImagesFolder);
+        }
+
+        private void BrowseConvertedImagesToolStripButtonClick(object sender, EventArgs e)
+        {
+            BrowseConvertedImages();
         }
 
         private void DeleteImagesToolStripMenuItemClick(object sender, EventArgs e)
