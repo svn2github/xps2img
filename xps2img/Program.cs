@@ -268,7 +268,8 @@ namespace Xps2Img
                 Test = options.Test,
                 Silent = options.Silent,
                 Clean = options.Clean,
-                OutOfMemoryStrategyEnabled = true
+                OutOfMemoryStrategyEnabled = true,
+                ConverterOutOfMemoryStrategy = options.PageCrop == PageCrop.Fit ? Converter.Parameters.OutOfMemoryStrategy.Fit : Converter.Parameters.OutOfMemoryStrategy.Default
             };
             // ReSharper restore PossibleInvalidOperationException
         }

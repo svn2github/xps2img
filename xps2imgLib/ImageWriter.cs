@@ -117,7 +117,7 @@ namespace Xps2ImgLib
         {
             var pageCropMargin = pageRenderer.Parameters.PageCropMargin;
 
-            var fitHeight = (pageRenderer.Parameters.RequiredSize ?? new Size()).Height > 0;
+            var fitWidth = (pageRenderer.Parameters.RequiredSize ?? new Size()).Width > 0;
 
             var bitmapSource = pageRenderer.GetDefaultBitmap();
 
@@ -139,20 +139,20 @@ namespace Xps2ImgLib
                 var xRatio = cropRect.Width  != 0 ? (desiredSizeWidth  > marginWidth  ? desiredSizeWidth  - marginWidth  : desiredSizeWidth)  / (double)cropRect.Width  : 1;
                 var yRatio = cropRect.Height != 0 ? (desiredSizeHeight > marginHeight ? desiredSizeHeight - marginHeight : desiredSizeHeight) / (double)cropRect.Height : 1;
 
-                var fitSize = new Size(!fitHeight ? (int)Math.Round(bitmapSource.Width  * xRatio) : 0,
-                                       fitHeight  ? (int)Math.Round(bitmapSource.Height * yRatio) : 0);
+                var fitSize = new Size(fitWidth  ? (int)Math.Round(bitmapSource.Width  * xRatio) : 0,
+                                       !fitWidth ? (int)Math.Round(bitmapSource.Height * yRatio) : 0);
 
                 bitmapSource = pageRenderer.GetBitmap(fitSize);
 
                 var fitCropRect = bitmapSource.GetCropRectangle(pageCropMargin.Width, pageCropMargin.Height);
 
-                if (fitHeight)
+                if (fitWidth)
                 {
-                    fitCropRect.Height = desiredSizeHeight;
+                    fitCropRect.Width  = desiredSizeWidth;
                 }
                 else
                 {
-                    fitCropRect.Width  = desiredSizeWidth;
+                    fitCropRect.Height = desiredSizeHeight;
                 }
 
                 pageRenderer.ThrowIfCancelled();

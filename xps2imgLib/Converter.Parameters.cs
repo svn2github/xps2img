@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace Xps2ImgLib
 {
@@ -22,26 +23,17 @@ namespace Xps2ImgLib
 
             public class OutOfMemoryStrategy
             {
-                private int _triesTotal;
+                public static readonly OutOfMemoryStrategy Default = new OutOfMemoryStrategy(10, TimeSpan.FromSeconds(30));
+                public static readonly OutOfMemoryStrategy Fit     = new OutOfMemoryStrategy(5,  TimeSpan.FromSeconds(2));
 
-                public int TriesSleepInterval { get; set; }
+                public TimeSpan SleepInterval { get; private set; }
 
-                public int TriesTotal
+                public int Tries { get; private set; }
+
+                public OutOfMemoryStrategy(int tries, TimeSpan sleepInterval)
                 {
-                    get { return _triesTotal; }
-                    set
-                    {
-                        _triesTotal = value;
-                        MaxTries = TriesTotal*10;
-                    }
-                }
-
-                public int MaxTries { get; private set; }
-
-                public OutOfMemoryStrategy()
-                {
-                    TriesSleepInterval = 1000;
-                    TriesTotal = 30;
+                    Tries = tries;
+                    SleepInterval = sleepInterval;
                 }
             }
 
@@ -85,7 +77,7 @@ namespace Xps2ImgLib
                 XpsRenderOptionsEnabled = true;
                 XpsRenderOptions = new RenderOptions();
 
-                ConverterOutOfMemoryStrategy = new OutOfMemoryStrategy();
+                ConverterOutOfMemoryStrategy = OutOfMemoryStrategy.Default;
             }
         }
     }

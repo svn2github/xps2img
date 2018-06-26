@@ -297,19 +297,17 @@ namespace Xps2ImgLib
             ((FixedPage)visual).UpdateLayout();
         }
 
-        private bool _convertionStarted;
-
-        private RenderTargetBitmap RenderPageToBitmap(DocumentPage page, RenderTargetBitmap bitmap)
+        private RenderTargetBitmap RenderPageToBitmap(DocumentPage page, Func<RenderTargetBitmap> renderTargetBitmapFactory)
         {
-            var triesCount = ConverterParameters.ConverterOutOfMemoryStrategy.TriesTotal;
+            var triesCount = 0;
 
             while (true)
             {
                 try
                 {
-                    RenderPageToBitmapOnce(page, bitmap);
+                    var bitmap = renderTargetBitmapFactory();
 
-                    _convertionStarted = true;
+                    RenderPageToBitmapOnce(page, bitmap);
 
                     return bitmap;
                 }
@@ -317,19 +315,19 @@ namespace Xps2ImgLib
                 {
                     CheckIfCancelled();
 
-                    if (!ConverterParameters.OutOfMemoryStrategyEnabled || --triesCount < 0 && (!_convertionStarted || -triesCount > ConverterParameters.ConverterOutOfMemoryStrategy.MaxTries))
+                    if (!ConverterParameters.OutOfMemoryStrategyEnabled || ++triesCount >= ConverterParameters.ConverterOutOfMemoryStrategy.Tries)
                     {
                         throw;
                     }
 
-                    Thread.Sleep(ConverterParameters.ConverterOutOfMemoryStrategy.TriesSleepInterval);
+                    Thread.Sleep(ConverterParameters.ConverterOutOfMemoryStrategy.SleepInterval);
                 }
             }
         }
 
         private RenderTargetBitmap RenderPageToBitmap(DocumentPage page, double dpi, int width, int height)
         {
-            return RenderPageToBitmap(page, new RenderTargetBitmap(width, height, dpi, dpi, PixelFormats.Pbgra32));
+            return RenderPageToBitmap(page, () => new RenderTargetBitmap(width, height, dpi, dpi, PixelFormats.Pbgra32));
         }
 
         private bool _disposed;
