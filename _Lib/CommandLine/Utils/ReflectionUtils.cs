@@ -41,7 +41,7 @@ namespace CommandLine.Utils
             {
                 var str = defaultValueAttribute.Value as string;
                 propertyInfo.SetValue(obj,
-                    str!= null
+                    str != null
                         ? GetTypeConverter(propertyInfo).ConvertFromInvariantString(str)
                         : defaultValueAttribute.Value,
                     null);
@@ -55,8 +55,7 @@ namespace CommandLine.Utils
 
         public static bool ForEachPropertyInfo(object optionsObject, Func<PropertyInfo, bool> propertyInfoAction)
         {
-            const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public;
-            return optionsObject.GetType().GetProperties(bindingFlags).All(propertyInfoAction);
+            return optionsObject.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public).Aggregate(true, (r, pi) => propertyInfoAction(pi) && r);
         }
 
         public static bool HasAttribute<T>(this MemberInfo memberInfo) where T : Attribute
