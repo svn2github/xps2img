@@ -119,7 +119,7 @@ namespace Xps2Img.Shared.CommandLine
         [Category(Categories.Options)]
         [Option(ShortOptions.PageCropMargin, ConverterType = typeof(CheckedPageCropMarginTypeConverter), ValidationExpression = ValidationExpressions.PageCropMargin)]
         [UIOption(ShortOptions.PageCropMargin)]
-        [DefaultValue(null)]
+        [DefaultValue(Defaults.PageCropMargin)]
         [DynamicPropertyFilter(Properties.Consts.PageCrop, PageCrop.Crop)]
         [DynamicPropertyFilter(Properties.Consts.PageCrop, PageCrop.Fit)]
         [TypeConverter(typeof(CheckedPageCropMarginTypeConverter))]
