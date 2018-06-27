@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 
 using CommandLine.Strings;
 
@@ -23,6 +24,40 @@ namespace Xps2Img.Shared.Localization
             _propertyDescriptor = propertyDescriptor;
             _localizablePropertyDescriptorStrategy = localizablePropertyDescriptorStrategy;
             _stringsSource = new StringsSource(stringsSourceType);
+
+            AdjustDefaultValue();
+        }
+
+        private void AdjustDefaultValue()
+        {
+            const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic;
+
+            var converter = _propertyDescriptor.Converter;
+            if (converter == null)
+            {
+                return;
+            }
+
+            var defaultValueProperty = _propertyDescriptor.GetType().GetProperty("DefaultValue", bindingFlags);
+            if (defaultValueProperty == null)
+            {
+                return;
+            }
+
+            var defaultValue = defaultValueProperty.GetValue(_propertyDescriptor, null);
+            var defaultValueAsString = defaultValue as string;
+            if (defaultValueAsString == null || defaultValue.GetType() == PropertyType)
+            {
+                return;
+            }
+
+            var defaultValueField = _propertyDescriptor.GetType().GetField("defaultValue", bindingFlags);
+            if (defaultValueField == null)
+            {
+                return;
+            }
+
+            defaultValueField.SetValue(_propertyDescriptor, converter.ConvertFromInvariantString(defaultValueAsString));
         }
 
         private string GetLocalizedString(string id)

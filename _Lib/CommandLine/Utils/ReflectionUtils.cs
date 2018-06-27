@@ -39,13 +39,23 @@ namespace CommandLine.Utils
             var defaultValueAttribute = propertyInfo.FirstOrDefaultAttribute<DefaultValueAttribute>();
             if (defaultValueAttribute != null)
             {
-                var str = defaultValueAttribute.Value as string;
-                propertyInfo.SetValue(obj,
-                    str != null
-                        ? GetTypeConverter(propertyInfo).ConvertFromInvariantString(str)
-                        : defaultValueAttribute.Value,
-                    null);
+                propertyInfo.SetValue(obj, GetDefaultValue(propertyInfo), null);
             }
+        }
+
+        public static object GetDefaultValue(PropertyInfo propertyInfo)
+        {
+            var defaultValueAttribute = propertyInfo.FirstOrDefaultAttribute<DefaultValueAttribute>();
+            if (defaultValueAttribute != null)
+            {
+                var str = defaultValueAttribute.Value as string;
+                return str != null
+                        ? GetTypeConverter(propertyInfo).ConvertFromInvariantString(str)
+                        : defaultValueAttribute.Value;
+            }
+
+            var type = propertyInfo.PropertyType;
+            return type.IsValueType ? Activator.CreateInstance(type) : null;
         }
 
         public static void ForEachPropertyInfo(object optionsObject, Action<PropertyInfo> propertyInfoAction)
