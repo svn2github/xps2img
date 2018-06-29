@@ -12,7 +12,6 @@ namespace Xps2Img.Shared.CommandLine
 
         public static readonly string[] ExcludeOnResumeCheck =
         {
-            Properties.PreferDpiOverSize,
             Properties.ProcessorsNumber,
             Properties.ProcessPriority,
             Properties.PostAction,
