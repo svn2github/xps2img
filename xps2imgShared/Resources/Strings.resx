@@ -318,8 +318,8 @@
     <comment>Cropped Margins</comment>
   </data>
   <data name="Options_PageCropMarginDescription" xml:space="preserve">
-    <value>Cropped margins&#xA;  3x3 by default&#xA;Syntax:&#xA;  left and right: 10&#xA;  top and bottom: x10</value>
-    <comment>Cropped margins&#xA;  3x3 by default&#xA;Syntax:&#xA;  left and right: 10&#xA;  top and bottom: x10</comment>
+    <value>Cropped margins&#xA;  3x3 by default&#xA;Syntax:&#xA;  left and right: 20&#xA;  top and bottom: x10&#xA;  all           : 20x10</value>
+    <comment>Cropped margins&#xA;  3x3 by default&#xA;Syntax:&#xA;  left and right: 20&#xA;  top and bottom: x10&#xA;  all           : 20x10</comment>
   </data>
   <data name="Options_UseFileNameAsImageNameName" xml:space="preserve">
     <value>Image Prefix Incudes Document Name</value>

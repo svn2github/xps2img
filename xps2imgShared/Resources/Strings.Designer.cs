@@ -511,8 +511,9 @@ namespace Xps2Img.Shared.Resources {
         ///   Looks up a localized string similar to Cropped margins
         ///  3x3 by default
         ///Syntax:
-        ///  left and right: 10
-        ///  top and bottom: x10.
+        ///  left and right: 20
+        ///  top and bottom: x10
+        ///  all           : 20x10.
         /// </summary>
         public static string Options_PageCropMarginDescription {
             get {
@@ -540,6 +541,8 @@ namespace Xps2Img.Shared.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to Pages
+        ///  all by default
+        ///Syntax:
         ///  all:      1-
         ///  single:   1
         ///  set:      1,3

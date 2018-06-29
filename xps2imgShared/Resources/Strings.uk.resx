@@ -310,7 +310,7 @@
     <comment>Crop</comment>
   </data>
   <data name="PageCrop_FitValue" xml:space="preserve">
-    <value>Приладити зміст сторінки</value>
+    <value>Підігнати зміст сторінки</value>
     <comment>Fit Content</comment>
   </data>
   <data name="Options_PageCropMarginName" xml:space="preserve">
@@ -318,8 +318,8 @@
     <comment>Cropped Margins Size</comment>
   </data>
   <data name="Options_PageCropMarginDescription" xml:space="preserve">
-    <value>Розмір полів після обрізу&#xA;  3x3 якщо не задано&#xA;Синтаксис:&#xA;  право та ліво: 10&#xA;  верх та низ:   x10</value>
-    <comment>Cropped margins&#xA;  3x3 by default&#xA;Syntax:&#xA;  left and right: 10&#xA;  top and bottom: x10</comment>
+    <value>Розмір полів після обрізу&#xA;  3x3 якщо не задано&#xA;Синтаксис:&#xA;  право та ліво: 10&#xA;  верх та низ:   x10&#xA;  всі        :   x10</value>
+    <comment>Cropped margins&#xA;  3x3 by default&#xA;Syntax:&#xA;  left and right: 20&#xA;  top and bottom: x10&#xA;  all           : 20x10</comment>
   </data>
   <data name="Options_UseFileNameAsImageNameName" xml:space="preserve">
     <value>Ім'я документа як префікс імені зображення</value>

@@ -117,7 +117,7 @@ namespace Xps2ImgLib
         {
             var pageCropMargin = pageRenderer.Parameters.PageCropMargin;
 
-            var fitWidth = (pageRenderer.Parameters.RequiredSize ?? new Size()).Width > 0;
+            var fitWidth = (pageRenderer.Parameters.RequiredSize ?? new Size()).Height <= 0;
 
             var bitmapSource = pageRenderer.GetDefaultBitmap();
 
