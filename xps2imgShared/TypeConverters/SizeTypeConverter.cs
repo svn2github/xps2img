@@ -9,12 +9,20 @@ namespace Xps2Img.Shared.TypeConverters
 {
     public class SizeTypeConverter : TypeConverter
     {
-        private readonly Regex _filter;
-        private readonly bool _supportsBoth;
-
-        protected SizeTypeConverter(string validationRegex, bool supportsBoth)
+        [Flags]
+        protected enum Supports
         {
-            _supportsBoth = supportsBoth;
+            Default = 0,
+            Both    = 1 << 0,
+            Zero    = 1 << 1
+        }
+
+        private readonly Regex _filter;
+        private readonly Supports _supports;
+
+        protected SizeTypeConverter(string validationRegex, Supports supports = Supports.Default)
+        {
+            _supports = supports;
             _filter = new Regex(validationRegex);
         }
 
@@ -38,12 +46,17 @@ namespace Xps2Img.Shared.TypeConverters
 
             var size = nullableSize.Value;
 
-            var converted = new StringBuilder(16);
+            var converted = new StringBuilder(48);
+
+            if ((_supports & Supports.Zero) != 0 && size.IsEmpty)
+            {
+                return "0x0";
+            }
 
             if (size.Width > 0)
             {
                 converted.AppendFormat("{0}", size.Width);
-                if (!_supportsBoth)
+                if ((_supports & Supports.Both) == 0)
                 {
                     return converted.ToString();
                 }
