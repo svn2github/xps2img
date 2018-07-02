@@ -1,9 +1,13 @@
+## New ##
+
+## UI ## 
+
 ## Help ##
 
 * Fix images.
 
-## UI ## 
+## Setup ##
 
-## New ##
+* Update InnoSetup.
 
 ## readme.md ##
