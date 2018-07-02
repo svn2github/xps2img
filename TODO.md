@@ -4,7 +4,7 @@
 
 ## Help ##
 
-* Fix images.
+* Update Xps2ImgUI-Copy-Batch.png
 
 ## Setup ##
 
