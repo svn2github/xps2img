@@ -9,18 +9,19 @@ namespace Xps2Img.Shared.CommandLine
     {
         public static class Defaults
         {
-            public const string FileType        = "png";
-            public const string JpegQuality     = "85";
-            public const string TiffCompression = "zip";
-            public const int    DpiValue        =  120;
-            public const string Dpi             = "120";
-            public const string PageCrop        = "none";
-            public const string PageCropMargin  = "3x3";
-            public const string FirstPageIndex  = "1";
-            public const string PrelimsPrefix   = "$";
-            public const int    Processors      = ProcessorsNumberTypeConverter.AutoValue;
-            public const string ProcessPriority = ValidationExpressions.AutoValue;
-            public const string ImageName       = null;
+            public const string FileType          = "png";
+            public const string JpegQuality       = "85";
+            public const string TiffCompression   = "zip";
+            public const int    DpiValue          =  120;
+            public const string Dpi               = "120";
+            public const string PageCrop          = "none";
+            public const string PageCropThreshold = "normal";
+            public const string PageCropMargin    = "3x3";
+            public const string FirstPageIndex    = "1";
+            public const string PrelimsPrefix     = "$";
+            public const int    Processors        = ProcessorsNumberTypeConverter.AutoValue;
+            public const string ProcessPriority   = ValidationExpressions.AutoValue;
+            public const string ImageName         = null;
 
             public static readonly int JpegQualityValue = IntToString(JpegQuality);
 

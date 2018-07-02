@@ -33,6 +33,7 @@ namespace Xps2Img.Shared.CommandLine
             public static readonly string RequiredSize          = Consts.RequiredSize;
             public static readonly string Dpi                   = "Dpi";
             public static readonly string PageCrop              = Consts.PageCrop;
+            public static readonly string PageCropThreshold     = "PageCropThreshold";
             public static readonly string PageCropMargin        = "PageCropMargin";
             public static readonly string UseFileNameAsImageName= Consts.UseFileNameAsImageName;
             public static readonly string ImageName             = Consts.ImageName;

@@ -5,9 +5,9 @@ namespace Xps2ImgLib
 {
     public static unsafe class ImageMeasurer
     {
-        private const MethodImplOptions AggressiveInlining = (MethodImplOptions)0x100;
+        private const MethodImplOptions AggressiveInlining = (MethodImplOptions)0x100; // MethodImplOptions.AggressiveInlining
 
-        public static Int32Rect GetCropRectangle(void* bitmap, int stride, int width, int height)
+        public static Int32Rect GetCropRectangle(void* bitmap, int stride, int width, int height, int colorToSkipThreshold)
         {
             var left = width;
             var top = height;
@@ -21,7 +21,7 @@ namespace Xps2ImgLib
                 var rowData = (uint*)((byte*)bitmap + row * stride);
                 var data = rowData;
 
-                for (column = 0; column < width && SkipColor(data++); column++)
+                for (column = 0; column < width && SkipColor(data++, colorToSkipThreshold); column++)
                 {
                 }
 
@@ -37,7 +37,7 @@ namespace Xps2ImgLib
                 data = rowData + width - 1;
 
                 var prevColumn = column;
-                for (; column < width && SkipColor(data--); column++)
+                for (; column < width && SkipColor(data--, colorToSkipThreshold); column++)
                 {
                 }
 
@@ -72,10 +72,15 @@ namespace Xps2ImgLib
         }
 
         [MethodImpl(AggressiveInlining)]
-        private static bool SkipColor(uint* data)
+        private static bool SkipColor(uint* data, int colorToSkipThreshold)
         {
+            if (colorToSkipThreshold == 0)
+            {
+                const int compareWith = 0x00FFFFFF;
+                return (*data & compareWith) == compareWith;
+            }
+
             const int colorToSkip = 299 * 0xFF + 587 * 0xFF + 114 * 0xFF;
-            const int colorToSkipThreshold = 140000;
 
             var rgb = (byte*)data;
 

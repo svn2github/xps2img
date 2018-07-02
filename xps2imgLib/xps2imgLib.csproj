@@ -46,6 +46,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PageCropThreshold.cs" />
     <Compile Include="PageRenderer.cs" />
     <Compile Include="IPageRenderer.cs" />
     <Compile Include="ImageMeasurer.cs" />
@@ -59,6 +60,9 @@
     <Compile Include="ImageOptions.cs" />
     <Compile Include="ImageType.cs" />
     <Compile Include="ImageProcessor.cs" />
+    <Compile Include="ImageProcessor.Parameters.cs">
+      <DependentUpon>ImageProcessor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils\Disposables\DisposableAction.cs" />
     <Compile Include="Utils\Disposables\DisposableActions.cs" />
     <Compile Include="Utils\Disposables\EnterLeaveDisposableActions.cs" />

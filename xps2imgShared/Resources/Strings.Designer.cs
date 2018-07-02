@@ -540,6 +540,24 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Crop white threshold.
+        /// </summary>
+        public static string Options_PageCropThresholdDescription {
+            get {
+                return ResourceManager.GetString("Options_PageCropThresholdDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Crop White Threshold.
+        /// </summary>
+        public static string Options_PageCropThresholdName {
+            get {
+                return ResourceManager.GetString("Options_PageCropThresholdName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pages
         ///  all by default
         ///Syntax:
@@ -820,6 +838,33 @@ namespace Xps2Img.Shared.Resources {
         public static string PageCrop_NoneValue {
             get {
                 return ResourceManager.GetString("PageCrop_NoneValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aggressive.
+        /// </summary>
+        public static string PageCropThreshold_AggressiveValue {
+            get {
+                return ResourceManager.GetString("PageCropThreshold_AggressiveValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exact Match.
+        /// </summary>
+        public static string PageCropThreshold_ExactValue {
+            get {
+                return ResourceManager.GetString("PageCropThreshold_ExactValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normal.
+        /// </summary>
+        public static string PageCropThreshold_NormalValue {
+            get {
+                return ResourceManager.GetString("PageCropThreshold_NormalValue", resourceCulture);
             }
         }
         

@@ -313,6 +313,26 @@
     <value>Fit Content</value>
     <comment>Fit Content</comment>
   </data>
+  <data name="Options_PageCropThresholdName" xml:space="preserve">
+    <value>Crop White Threshold</value>
+    <comment>Crop White Threshold</comment>
+  </data>
+  <data name="Options_PageCropThresholdDescription" xml:space="preserve">
+    <value>Crop white threshold</value>
+    <comment>Crop white threshold</comment>
+  </data>
+  <data name="PageCropThreshold_ExactValue" xml:space="preserve">
+    <value>Exact Match</value>
+    <comment>Exact Match</comment>
+  </data>
+  <data name="PageCropThreshold_NormalValue" xml:space="preserve">
+    <value>Normal</value>
+    <comment>Normal</comment>
+  </data>
+  <data name="PageCropThreshold_AggressiveValue" xml:space="preserve">
+    <value>Aggressive</value>
+    <comment>Aggressive</comment>
+  </data>
   <data name="Options_PageCropMarginName" xml:space="preserve">
     <value>Cropped Margins</value>
     <comment>Cropped Margins</comment>

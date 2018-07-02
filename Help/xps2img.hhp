@@ -71,6 +71,7 @@ IDH_CheckForUpdates=xps2img.chm::/Files\Preferences.html#checkForUpdates
 IDH_PreferDpiOverSize=xps2img.chm::/Files\OptionsGUI.html#preferDpiOverSize
 IDH_PageCrop=xps2img.chm::/Files\Options.html#pageCrop
 IDH_PageCropMargin=xps2img.chm::/Files\Options.html#pageCropMargin
+IDH_PageCropThreshold=xps2img.chm::/Files\Options.html#pageCropThreshold
 
 [MAP]
 #define IDH_Preferences			1000
@@ -115,3 +116,4 @@ IDH_PageCropMargin=xps2img.chm::/Files\Options.html#pageCropMargin
 #define IDH_UseFullExePath		1272
 #define IDH_PageCrop			1273
 #define IDH_PageCropMargin		1274
+#define IDH_PageCropThreshold		1275

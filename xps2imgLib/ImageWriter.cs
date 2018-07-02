@@ -88,8 +88,11 @@ namespace Xps2ImgLib
 
         private static BitmapSource Crop(IPageRenderer pageRenderer)
         {
-            var pageCrop = pageRenderer.Parameters.PageCrop;
-            var pageCropMargin = pageRenderer.Parameters.PageCropMargin;
+            var parameters = pageRenderer.Parameters;
+
+            var pageCrop = parameters.PageCrop;
+            var pageCropMargin = parameters.PageCropMargin;
+            var pageCropThreshold = (int)parameters.PageCropThreshold;
             
             if (pageCrop == PageCrop.None)
             {
@@ -102,7 +105,7 @@ namespace Xps2ImgLib
 
                 pageRenderer.ThrowIfCancelled();
 
-                return bitmapSource.Crop(pageCropMargin.Width, pageCropMargin.Height);
+                return bitmapSource.Crop(pageCropThreshold, pageCropMargin.Width, pageCropMargin.Height);
             }
 
             if (pageCrop == PageCrop.Fit)
@@ -115,15 +118,18 @@ namespace Xps2ImgLib
 
         private static BitmapSource CropToFit(IPageRenderer pageRenderer)
         {
-            var pageCropMargin = pageRenderer.Parameters.PageCropMargin;
+            var parameters = pageRenderer.Parameters;
 
-            var fitWidth = (pageRenderer.Parameters.RequiredSize ?? new Size()).Height <= 0;
+            var pageCropMargin = parameters.PageCropMargin;
+            var pageCropThreshold = 140000; // Gives best results with this algorithm so far.
+
+            var fitWidth = (parameters.RequiredSize ?? new Size()).Height <= 0;
 
             var bitmapSource = pageRenderer.GetDefaultBitmap();
 
             pageRenderer.ThrowIfCancelled();
 
-            var cropRect = bitmapSource.GetCropRectangle();
+            var cropRect = bitmapSource.GetCropRectangle(pageCropThreshold);
             var desiredSize = pageRenderer.GetBitmapSize();
 
             try
@@ -144,7 +150,7 @@ namespace Xps2ImgLib
 
                 bitmapSource = pageRenderer.GetBitmap(fitSize);
 
-                var fitCropRect = bitmapSource.GetCropRectangle(pageCropMargin.Width, pageCropMargin.Height);
+                var fitCropRect = bitmapSource.GetCropRectangle(pageCropThreshold, pageCropMargin.Width, pageCropMargin.Height);
 
                 if (fitWidth)
                 {

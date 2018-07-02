@@ -67,8 +67,8 @@
             // 
             this.settingsSplitContainer.Panel2.Controls.Add(this.commandLineTextBorder);
             this.settingsSplitContainer.Panel2Collapsed = true;
-            this.settingsSplitContainer.Size = new System.Drawing.Size(704, 489+32);
-            this.settingsSplitContainer.SplitterDistance = 428+32;
+            this.settingsSplitContainer.Size = new System.Drawing.Size(704, 489+16*3);
+            this.settingsSplitContainer.SplitterDistance = 428+16*3;
             this.settingsSplitContainer.TabIndex = 7;
             // 
             // commandLineTextBorder
@@ -140,7 +140,7 @@
             this.progressTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.progressTableLayoutPanel.Controls.Add(this.convertButton, 1, 0);
             this.progressTableLayoutPanel.Controls.Add(this.progressBar, 0, 0);
-            this.progressTableLayoutPanel.Location = new System.Drawing.Point(5, 492+32);
+            this.progressTableLayoutPanel.Location = new System.Drawing.Point(5, 492+16*3);
             this.progressTableLayoutPanel.Name = "progressTableLayoutPanel";
             this.progressTableLayoutPanel.RowCount = 1;
             this.progressTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -155,7 +155,7 @@
             this.settingsPropertyGrid.Location = new System.Drawing.Point(0, 0);
             this.settingsPropertyGrid.Name = "settingsPropertyGrid";
             this.settingsPropertyGrid.PropertySort = System.Windows.Forms.PropertySort.Categorized;
-            this.settingsPropertyGrid.Size = new System.Drawing.Size(704, 428+32);
+            this.settingsPropertyGrid.Size = new System.Drawing.Size(704, 428+16*3);
             this.settingsPropertyGrid.TabIndex = 0;
             this.settingsPropertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.SettingsPropertyGridPropertyValueChanged);
             this.settingsPropertyGrid.PropertySortChanged += new System.EventHandler(this.SettingsPropertyGridPropertySortChanged);
@@ -179,7 +179,7 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(720, 525+32);
+            this.ClientSize = new System.Drawing.Size(720, 525+16*3);
             this.Controls.Add(this.settingsSplitContainer);
             this.Controls.Add(this.progressTableLayoutPanel);
             this.Name = "MainForm";

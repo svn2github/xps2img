@@ -52,6 +52,7 @@ namespace Xps2Img
 
         private static readonly object ProgressLock = new object();
 
+        // ReSharper disable once FunctionComplexityOverflow
         [STAThread]
         private static int Main(string[] args)
         {
@@ -257,6 +258,7 @@ namespace Xps2Img
                 RequiredSize = options.RequiredSize,
                 Dpi = options.Dpi.Value,
                 PageCrop = options.PageCrop,
+                PageCropThreshold = options.PageCropThreshold,
                 PageCropMargin = options.PageCropMargin ?? new Size(),
                 BaseImageName = !String.IsNullOrEmpty(options.ImageName) ?
                                     options.ImageName :

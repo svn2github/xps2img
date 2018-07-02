@@ -53,6 +53,7 @@ namespace Xps2ImgLib
             public int Dpi { get; set; }
 
             public PageCrop PageCrop { get; set; }
+            public PageCropThreshold PageCropThreshold { get; set; }
             public Size PageCropMargin { get; set; }
 
             public string OutputDir { get; set; }

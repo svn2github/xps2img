@@ -101,6 +101,10 @@
 			<param name="Local" value="Files\Options.html#pageCrop">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="-l, --page-crop-threshold">
+			<param name="Local" value="Files\Options.html#pageCropThreshold">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="-m, --page-crop-margin">
 			<param name="Local" value="Files\Options.html#pageCropMargin">
 			</OBJECT>
@@ -221,6 +225,10 @@
 			<param name="Local" value="Files\Options.html#pageCrop">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Crop White Threshold">
+			<param name="Local" value="Files\Options.html#pageCropThreshold">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Cropped Margins">
 			<param name="Local" value="Files\Options.html#pageCropMargin">
 			</OBJECT>
@@ -274,12 +282,16 @@
 		<param name="Local" value="Files\OptionsGUI.html#batch">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Cropped Margins">
+		<param name="Local" value="Files\Options.html#pageCropMargin">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Crop White Margins">
 		<param name="Local" value="Files\Options.html#pageCrop">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="Cropped Margins">
-		<param name="Local" value="Files\Options.html#pageCropMargin">
+		<param name="Name" value="Crop White Threshold">
+		<param name="Local" value="Files\Options.html#pageCropThreshold">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="First Page Index">
@@ -406,6 +418,10 @@
 		<param name="Local" value="Files\Options.html#ignoreExisting">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="-l">
+		<param name="Local" value="Files\Options.html#pageCropThreshold">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="-m">
 		<param name="Local" value="Files\Options.html#pageCropMargin">
 		</OBJECT>
@@ -500,6 +516,10 @@
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="--page-crop-margin">
 		<param name="Local" value="Files\Options.html#pageCropMargin">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="--page-crop-threshold">
+		<param name="Local" value="Files\Options.html#pageCropThreshold">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="--post-action">

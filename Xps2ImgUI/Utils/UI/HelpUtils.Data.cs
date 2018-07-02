@@ -45,6 +45,7 @@ namespace Xps2ImgUI.Utils.UI
             { Options.Properties.RequiredSize,           "1207" },
             { Options.Properties.Dpi,                    "1208" },
             { Options.Properties.PageCrop,               "1273" },
+            { Options.Properties.PageCropThreshold,      "1275" },
             { Options.Properties.PageCropMargin,         "1274" },
             { Options.Properties.UseFileNameAsImageName, "1270" },
             { Options.Properties.ImageName,              "1209" },
