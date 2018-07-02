@@ -513,7 +513,7 @@ namespace Xps2Img.Shared.Resources {
         ///Syntax:
         ///  left and right: 20
         ///  top and bottom: x10
-        ///  all           : 20x10.
+        ///  all:            20x10.
         /// </summary>
         public static string Options_PageCropMarginDescription {
             get {
