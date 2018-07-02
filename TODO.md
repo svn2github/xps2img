@@ -10,4 +10,9 @@
 
 * Update InnoSetup.
 
+## Site ##
+
+* Update features.
+* Update images.
+
 ## readme.md ##
