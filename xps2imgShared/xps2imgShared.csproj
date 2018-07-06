@@ -148,6 +148,7 @@
     <Compile Include="TypeEditors\CpuAffinityEditor.cs" />
     <Compile Include="TypeEditors\Utils.cs" />
     <Compile Include="Utils\ReflectionUtils.cs" />
+    <Compile Include="Utils\PathUtils.cs" />
     <Compile Include="Utils\SystemManagementUtils.cs" />
     <Compile Include="Utils\System\AssemblyInformation.cs" />
     <Compile Include="Setup\SetupGuard.cs" />
@@ -174,7 +175,7 @@
     <Compile Include="TypeConverters\PostActionTypeConverter.cs" />
     <Compile Include="TypeConverters\ProcessorsNumberTypeConverter.cs" />
     <Compile Include="TypeConverters\ProcessPriorityClassTypeConverter.cs" />
-    <Compile Include="TypeConverters\TrimStringTypeConverter.cs" />
+    <Compile Include="TypeConverters\PathTypeConverter.cs" />
     <Compile Include="TypeConverters\YesNoConverter.cs" />
     <Compile Include="TypeEditors\OrdinalEditor.cs" />
     <Compile Include="CommandLine\Validation.cs" />

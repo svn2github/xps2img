@@ -2,6 +2,8 @@
 
 ## UI ## 
 
+* Autocalc path for browse if not rooted.
+
 ## Help ##
 
 * Update Xps2ImgUI-Copy-Batch.png
@@ -12,7 +14,6 @@
 
 ## Site ##
 
-* Update features.
 * Update images.
 
 ## readme.md ##

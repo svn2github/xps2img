@@ -2,9 +2,11 @@
 using System.ComponentModel;
 using System.Globalization;
 
+using Xps2Img.Shared.CommandLine;
+
 namespace Xps2Img.Shared.TypeConverters
 {
-    public class TrimStringTypeConverter : TypeConverter
+    public class PathTypeConverter : TypeConverter
     {
         private static readonly char[] FileNameTrimCharacters = "\"\x20\t\r\n".ToCharArray();
 
@@ -15,7 +17,9 @@ namespace Xps2Img.Shared.TypeConverters
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            return TrimFileName(value as string);
+            var path = TrimFileName(value as string);
+            Validation.ValidateProperty(path, Options.ValidationExpressions.Path);
+            return path;
         }
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)

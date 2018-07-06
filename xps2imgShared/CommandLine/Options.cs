@@ -32,19 +32,19 @@ namespace Xps2Img.Shared.CommandLine
         private const string DescriptionKeyPostfix = "Cmd";
 
         [Category(Categories.Parameters)]
-        [UnnamedOption(DescriptionKey = Properties.Consts.SrcFile + DescriptionKeyPostfix, ConverterType = typeof(TrimStringTypeConverter))]
+        [UnnamedOption(DescriptionKey = Properties.Consts.SrcFile + DescriptionKeyPostfix, ConverterType = typeof(PathTypeConverter), ValidationExpression = ValidationExpressions.Path)]
         [UIUnnamedOption]
         [Editor(typeof(SelectXpsFileEditor), typeof(UITypeEditor))]
         [DefaultValue(null)]
-        [TypeConverter(typeof(TrimStringTypeConverter))]
+        [TypeConverter(typeof(PathTypeConverter))]
         public string SrcFile { get; set; }
 
         [Category(Categories.Parameters)]
-        [UnnamedOption(false, ConverterType = typeof(TrimStringTypeConverter))]
+        [UnnamedOption(false, ConverterType = typeof(PathTypeConverter), ValidationExpression = ValidationExpressions.Path)]
         [UIUnnamedOption(false)]
         [Editor(typeof(SelectXpsFolderEditor), typeof(UITypeEditor))]
         [DefaultValue(null)]
-        [TypeConverter(typeof(TrimStringTypeConverter))]
+        [TypeConverter(typeof(PathTypeConverter))]
         public string OutDir { get; set; }
 
         [Category(Categories.Parameters)]

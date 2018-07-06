@@ -3,13 +3,15 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 
+using Xps2Img.Shared.Utils;
+
 namespace Xps2ImgUI.Utils.UI
 {
     public static class Explorer
     {
         public static void Browse(string pathOrFile)
         {
-            SelectInOpened(pathOrFile);
+            SelectInOpened(PathUtils.GetAbsolutePath(pathOrFile));
         }
 
         public static void ShellExecute(string command, bool useShellExecute = true, string arguments = null, string verb = null)

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing.Design;
+using System.IO;
 using System.Windows.Forms;
 
+using Xps2Img.Shared.Utils;
 using Xps2Img.Shared.Utils.UI;
 
 namespace Xps2Img.Shared.TypeEditors.Dialogs
@@ -27,12 +29,18 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
 
             using (new ModalGuard())
             {
-                using (var dialog = new FolderBrowserDialog {SelectedPath = path})
+                path = PathUtils.GetAbsolutePath(path);
+
+                EnsureDirectory(path);
+
+                using (var dialog = new FolderBrowserDialog { SelectedPath = path, ShowNewFolderButton = true })
                 {
                     if (!String.IsNullOrEmpty(Description))
                     {
                         dialog.Description = Description;
                     }
+
+                    FocusSelection();
 
                     if (dialog.ShowDialog() == DialogResult.OK)
                     {
@@ -42,6 +50,24 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
             }
 
             return value;
+        }
+
+        private static void FocusSelection()
+        {
+            SendKeys.Send("{TAB}{TAB}{RIGHT}");
+        }
+
+        private static void EnsureDirectory(string path)
+        {
+            try
+            {
+                Directory.CreateDirectory(path);
+            }
+            // ReSharper disable once RedundantCatchClause
+            catch
+            {
+                // ignored
+            }
         }
     }
 }

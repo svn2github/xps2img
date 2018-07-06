@@ -4,6 +4,7 @@ using System.Drawing.Design;
 using System.IO;
 using System.Windows.Forms;
 
+using Xps2Img.Shared.Utils;
 using Xps2Img.Shared.Utils.UI;
 
 namespace Xps2Img.Shared.TypeEditors.Dialogs
@@ -21,7 +22,7 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
         public SelectFileEditor(Func<string> filter, string initialDirectory)
         {
             Filter = filter ?? (() => Resources.Strings.FilterAllFiles);
-            InitialDirectory = String.IsNullOrEmpty(initialDirectory) ? DefaultFolder : initialDirectory;
+            InitialDirectory = String.IsNullOrEmpty(initialDirectory) ? DefaultFolder : PathUtils.GetAbsolutePath(initialDirectory);
         }
 
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
