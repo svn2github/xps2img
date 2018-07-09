@@ -151,6 +151,15 @@ namespace Xps2Img.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Value is not valid file name.
+        /// </summary>
+        public static string FilePathIsNotValid {
+            get {
+                return ResourceManager.GetString("FilePathIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Files (*.*)|*.*.
         /// </summary>
         public static string FilterAllFiles {
@@ -174,6 +183,15 @@ namespace Xps2Img.Shared.Resources {
         public static string FilterXPSFiles {
             get {
                 return ResourceManager.GetString("FilterXPSFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value is not valid folder name.
+        /// </summary>
+        public static string FolderPathIsNotValid {
+            get {
+                return ResourceManager.GetString("FolderPathIsNotValid", resourceCulture);
             }
         }
         

@@ -19,7 +19,6 @@ namespace Xps2Img.Shared.CommandLine
             public const string MaxDpi         = "2350";
             public const string Dpi            = MinDpi + "-" + MaxDpi;
             public const string FileName       = @"/^([^\x00-\x1F<>:""/\\|?*])*$/";
-            public const string Path           = @"/^([^\x00-\x1F<>""|?*])*$/";
             public const string FirstPageIndex = "/" + Regexps.FirstPageIndex + "/";
             public const string ImageName      = FileName;
             public const string MinJpegQuality = "10";

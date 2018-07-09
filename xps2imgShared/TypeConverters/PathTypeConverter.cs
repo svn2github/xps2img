@@ -2,14 +2,19 @@
 using System.ComponentModel;
 using System.Globalization;
 
+using CommandLine.Validation;
+
 using Xps2Img.Shared.CommandLine;
 
 namespace Xps2Img.Shared.TypeConverters
 {
-    public class PathTypeConverter : TypeConverter
+    internal class PathTypeConverterStatic
     {
-        private static readonly char[] FileNameTrimCharacters = "\"\x20\t\r\n".ToCharArray();
+        internal static readonly char[] FileNameTrimCharacters = "\"\x20\t\r\n".ToCharArray();
+    }
 
+    public class PathTypeConverter<T> : TypeConverter where T : ValidatorBase
+    {
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             return sourceType == typeof(string);
@@ -18,7 +23,7 @@ namespace Xps2Img.Shared.TypeConverters
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var path = TrimFileName(value as string);
-            Validation.ValidateProperty(path, Options.ValidationExpressions.Path);
+            Validation.ValidateProperty(path, typeof(T));
             return path;
         }
 
@@ -29,7 +34,7 @@ namespace Xps2Img.Shared.TypeConverters
 
         private static string TrimFileName(string val)
         {
-            return val == null ? null : val.Trim(FileNameTrimCharacters);
+            return val == null ? null : val.Trim(PathTypeConverterStatic.FileNameTrimCharacters);
         }
     }
 }

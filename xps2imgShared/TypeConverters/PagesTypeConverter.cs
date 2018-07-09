@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 
 using Xps2Img.Shared.CommandLine;
+using Xps2Img.Shared.CommandLine.Validators;
 
 namespace Xps2Img.Shared.TypeConverters
 {

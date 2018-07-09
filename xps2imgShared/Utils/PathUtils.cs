@@ -5,6 +5,34 @@ namespace Xps2Img.Shared.Utils
 {
     public static class PathUtils
     {
+        public static bool TryGetAbsolutePath(string path, out string absolutePath)
+        {
+            try
+            {
+                absolutePath = GetAbsolutePath(path);
+                return true;
+            }
+            catch
+            {
+                absolutePath = path;
+                return false;
+            }
+        }
+
+        public static bool TryGetAbsolutePath(string basePath, string path, out string absolutePath)
+        {
+            try
+            {
+                absolutePath = GetAbsolutePath(basePath, path);
+                return true;
+            }
+            catch
+            {
+                absolutePath = path;
+                return false;
+            }
+        }
+
         public static string GetAbsolutePath(string path)
         {
             return GetAbsolutePath(null, path);

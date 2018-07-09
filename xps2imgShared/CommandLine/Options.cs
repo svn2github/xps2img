@@ -9,6 +9,7 @@ using CommandLine;
 using CommandLine.Utils;
 
 using Xps2Img.Shared.Attributes.UI;
+using Xps2Img.Shared.CommandLine.Validators;
 using Xps2Img.Shared.Enums;
 using Xps2Img.Shared.TypeConverters;
 using Xps2Img.Shared.TypeEditors;
@@ -32,19 +33,19 @@ namespace Xps2Img.Shared.CommandLine
         private const string DescriptionKeyPostfix = "Cmd";
 
         [Category(Categories.Parameters)]
-        [UnnamedOption(DescriptionKey = Properties.Consts.SrcFile + DescriptionKeyPostfix, ConverterType = typeof(PathTypeConverter), ValidationExpression = ValidationExpressions.Path)]
+        [UnnamedOption(DescriptionKey = Properties.Consts.SrcFile + DescriptionKeyPostfix, ConverterType = typeof(FilePathTypeConverter), ValidationExpression = typeof(FilePathValidator))]
         [UIUnnamedOption]
         [Editor(typeof(SelectXpsFileEditor), typeof(UITypeEditor))]
         [DefaultValue(null)]
-        [TypeConverter(typeof(PathTypeConverter))]
+        [TypeConverter(typeof(FilePathTypeConverter))]
         public string SrcFile { get; set; }
 
         [Category(Categories.Parameters)]
-        [UnnamedOption(false, ConverterType = typeof(PathTypeConverter), ValidationExpression = ValidationExpressions.Path)]
+        [UnnamedOption(false, ConverterType = typeof(FolderPathTypeConverter), ValidationExpression = typeof(FolderPathValidator))]
         [UIUnnamedOption(false)]
         [Editor(typeof(SelectXpsFolderEditor), typeof(UITypeEditor))]
         [DefaultValue(null)]
-        [TypeConverter(typeof(PathTypeConverter))]
+        [TypeConverter(typeof(FolderPathTypeConverter))]
         public string OutDir { get; set; }
 
         [Category(Categories.Parameters)]

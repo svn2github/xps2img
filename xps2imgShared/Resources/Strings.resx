@@ -121,6 +121,14 @@
     <value>Value is not valid integer number</value>
     <comment>Value is not valid integer number</comment>
   </data>
+  <data name="FolderPathIsNotValid" xml:space="preserve">
+    <value>Value is not valid folder name</value>
+    <comment>Value is not valid folder name</comment>
+  </data>
+  <data name="FilePathIsNotValid" xml:space="preserve">
+    <value>Value is not valid file name</value>
+    <comment>Value is not valid file name</comment>
+  </data>
   <data name="FilterAllFiles" xml:space="preserve">
     <value>All Files (*.*)|*.*</value>
     <comment>All Files (*.*)|*.*</comment>

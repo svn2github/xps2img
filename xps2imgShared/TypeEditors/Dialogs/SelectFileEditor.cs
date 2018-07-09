@@ -22,7 +22,7 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
         public SelectFileEditor(Func<string> filter, string initialDirectory)
         {
             Filter = filter ?? (() => Resources.Strings.FilterAllFiles);
-            InitialDirectory = String.IsNullOrEmpty(initialDirectory) ? DefaultFolder : PathUtils.GetAbsolutePath(initialDirectory);
+            InitialDirectory = !String.IsNullOrEmpty(initialDirectory) && PathUtils.TryGetAbsolutePath(initialDirectory, out initialDirectory) ? initialDirectory : DefaultFolder;
         }
 
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)

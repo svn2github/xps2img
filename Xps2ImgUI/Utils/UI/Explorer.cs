@@ -11,7 +11,8 @@ namespace Xps2ImgUI.Utils.UI
     {
         public static void Browse(string pathOrFile)
         {
-            SelectInOpened(PathUtils.GetAbsolutePath(pathOrFile));
+            PathUtils.TryGetAbsolutePath(pathOrFile, out pathOrFile);
+            SelectInOpened(pathOrFile);
         }
 
         public static void ShellExecute(string command, bool useShellExecute = true, string arguments = null, string verb = null)

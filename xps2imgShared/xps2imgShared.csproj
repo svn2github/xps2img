@@ -49,7 +49,10 @@
     <Compile Include="Attributes\Options\BaseOptionAttribute.cs" />
     <Compile Include="Attributes\Options\NamedOptionAttribute.cs" />
     <Compile Include="Attributes\Options\UnnamedOptionAttribute.cs" />
-    <Compile Include="CommandLine\PagesValidator.cs" />
+    <Compile Include="CommandLine\Validators\FolderPathValidator.cs" />
+    <Compile Include="CommandLine\Validators\FilePathValidator.cs" />
+    <Compile Include="CommandLine\Validators\PathValidator.cs" />
+    <Compile Include="CommandLine\Validators\PagesValidator.cs" />
     <Compile Include="Controls\Settings\Dpi.cs" />
     <Compile Include="CommandLine\Options.cs" />
     <Compile Include="CommandLine\Options.Properties.cs">
@@ -106,7 +109,9 @@
     <Compile Include="Localization\Forms\IFormLocalization.cs" />
     <Compile Include="Progress\Estimated.cs" />
     <Compile Include="TypeConverters\CheckedPageCropMarginTypeConverter.cs" />
+    <Compile Include="TypeConverters\FolderPathTypeConverter.cs" />
     <Compile Include="TypeConverters\PageCropMarginTypeConverter.cs" />
+    <Compile Include="TypeConverters\FilePathTypeConverter.cs" />
     <Compile Include="TypeConverters\SizeTypeConverter.cs" />
     <Compile Include="TypeEditors\Dialogs\SelectFileFolderEditorBase.cs" />
     <Compile Include="TypeEditors\Dialogs\FormEditorBase.cs" />
