@@ -40,8 +40,6 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
                         dialog.Description = Description;
                     }
 
-                    FocusSelection();
-
                     if (dialog.ShowDialog() == DialogResult.OK)
                     {
                         return dialog.SelectedPath;
@@ -50,11 +48,6 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
             }
 
             return value;
-        }
-
-        private static void FocusSelection()
-        {
-            SendKeys.Send("{TAB}{TAB}{RIGHT}");
         }
 
         private static void EnsureDirectory(string path)
