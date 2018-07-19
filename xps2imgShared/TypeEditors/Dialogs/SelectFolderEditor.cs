@@ -29,7 +29,7 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
 
             using (new ModalGuard())
             {
-                PathUtils.TryGetAbsolutePath(DefaultFolder, path, out path);
+                PathUtils.TryGetAbsolutePath(path, out path);
 
                 EnsureDirectory(path);
 
