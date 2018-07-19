@@ -12,6 +12,8 @@ using CommandLine;
 using Xps2Img.Shared.CommandLine;
 using Xps2Img.Shared.TypeConverters;
 using Xps2Img.Shared.Utils;
+using Xps2Img.Shared.Utils.UI;
+
 using Xps2ImgUI.Model;
 
 namespace Xps2ImgUI.Settings
@@ -20,12 +22,17 @@ namespace Xps2ImgUI.Settings
     {
         public static Xps2ImgModel LoadSettings()
         {
-            var openFileDialog = new OpenFileDialog { Title = Resources.Strings.LoadSettingsTitle };
-            InitFileDialog(openFileDialog);
+            using (new ModalGuard())
+            {
+                using (var openFileDialog = new OpenFileDialog {Title = Resources.Strings.LoadSettingsTitle})
+                {
+                    InitFileDialog(openFileDialog);
 
-            return openFileDialog.ShowDialog() == DialogResult.OK
-                        ? LoadSettings(openFileDialog.FileName)
-                        : null;
+                    return openFileDialog.ShowDialog() == DialogResult.OK
+                            ? LoadSettings(openFileDialog.FileName)
+                            : null;
+                }
+            }
         }
 
         public static Xps2ImgModel LoadSettings(string file)
@@ -67,14 +74,19 @@ namespace Xps2ImgUI.Settings
 
         public static void SaveSettings(Xps2ImgModel xps2ImgModel)
         {
-            var saveFileDialog = new SaveFileDialog { Title = Resources.Strings.SaveSettingsTitle, AddExtension = true };
-            InitFileDialog(saveFileDialog);
-
-            saveFileDialog.FileName = GetSettingsFileName(xps2ImgModel);
-
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            using (new ModalGuard())
             {
-                File.WriteAllText(saveFileDialog.FileName, xps2ImgModel.FormatCommandLineForSave());
+                using (var saveFileDialog = new SaveFileDialog {Title = Resources.Strings.SaveSettingsTitle, AddExtension = true})
+                {
+                    InitFileDialog(saveFileDialog);
+
+                    saveFileDialog.FileName = GetSettingsFileName(xps2ImgModel);
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        File.WriteAllText(saveFileDialog.FileName, xps2ImgModel.FormatCommandLineForSave());
+                    }
+                }
             }
         }
 

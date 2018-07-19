@@ -34,13 +34,10 @@ namespace Xps2Img.Shared.TypeEditors.Dialogs
         {
             var fileName = (string)value ?? String.Empty;
 
-            if (!String.IsNullOrEmpty(fileName))
+            string path;
+            if (!String.IsNullOrEmpty(fileName) && PathUtils.TryGetAbsolutePath(fileName, out path))
             {
-                var folder = Path.GetDirectoryName(fileName);
-                if (!String.IsNullOrEmpty(folder))
-                {
-                    InitialDirectory = folder;
-                }
+                InitialDirectory = Path.GetDirectoryName(path);
             }
 
             using (new ModalGuard())
