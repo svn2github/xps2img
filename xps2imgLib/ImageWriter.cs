@@ -145,8 +145,7 @@ namespace Xps2ImgLib
                 var xRatio = cropRect.Width  != 0 ? (desiredSizeWidth  > marginWidth  ? desiredSizeWidth  - marginWidth  : desiredSizeWidth)  / (double)cropRect.Width  : 1;
                 var yRatio = cropRect.Height != 0 ? (desiredSizeHeight > marginHeight ? desiredSizeHeight - marginHeight : desiredSizeHeight) / (double)cropRect.Height : 1;
 
-                var fitSize = new Size(fitWidth  ? (int)Math.Round(bitmapSource.Width  * xRatio) : 0,
-                                       !fitWidth ? (int)Math.Round(bitmapSource.Height * yRatio) : 0);
+                var fitSize = fitWidth ? new Size((int)Math.Round(bitmapSource.Width  * xRatio), 0) : new Size(0, (int)Math.Round(bitmapSource.Height * yRatio));
 
                 bitmapSource = pageRenderer.GetBitmap(fitSize);
 
