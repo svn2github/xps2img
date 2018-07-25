@@ -23,18 +23,22 @@ namespace Xps2ImgLib
 
         private static Int32Rect AdjustСropRectangle(this BitmapSource bitmapSource, Int32Rect cropRectangle, int xMargin, int yMargin)
         {
-            return new Int32Rect(
-                AdjustPosition(cropRectangle.X, xMargin),
-                AdjustPosition(cropRectangle.Y, yMargin),
-                AdjustSize(cropRectangle.Width, xMargin, bitmapSource.PixelWidth),
-                AdjustSize(cropRectangle.Height, yMargin, bitmapSource.PixelHeight)
-            );
+            var x = AdjustPosition(cropRectangle.X, xMargin);
+            var y = AdjustPosition(cropRectangle.Y, yMargin);
+
+            return new Int32Rect(x, y, AdjustSize(x, cropRectangle.Width, xMargin, bitmapSource.PixelWidth), AdjustSize(y, cropRectangle.Height, yMargin, bitmapSource.PixelHeight));
         }
 
         private static int AdjustPosition(int original, int adjust)
         {
             var delta = original - adjust;
-            return delta < 0 ? original : delta;
+            return delta <= 0 ? original : delta;
+        }
+
+        private static int AdjustSize(int pos, int original, int adjust, int max)
+        {
+            var size = AdjustSize(original, adjust, max);
+            return size + pos > max ? max - pos : size;
         }
 
         private static int AdjustSize(int original, int adjust, int max)
