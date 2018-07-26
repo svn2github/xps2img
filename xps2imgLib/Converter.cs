@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using System.Windows.Xps.Packaging;
 
 using Xps2ImgLib.Utils;
@@ -78,12 +79,23 @@ namespace Xps2ImgLib
             PageCount = _documentPaginator.PageCount;
         }
 
+
+        private static void FixDocumentMemoryLeak()
+        {
+            const BindingFlags invokeBindingFlags = BindingFlags.InvokeMethod | BindingFlags.NonPublic;
+
+            var contextLayoutManagerType = Assembly.GetAssembly(typeof(UIElement)).GetType("System.Windows.ContextLayoutManager");
+            var contextLayoutManager = contextLayoutManagerType.InvokeMember("From", invokeBindingFlags | BindingFlags.Static, null, null, new object[] { Dispatcher.CurrentDispatcher });
+            contextLayoutManagerType.InvokeMember("UpdateLayout", invokeBindingFlags | BindingFlags.Instance, null, contextLayoutManager, null);
+        }
+
         private void CloseDocument()
         {
             try
             {
                 if (_xpsDocument != null)
                 {
+                    FixDocumentMemoryLeak();
                     _xpsDocument.Close();
                 }
             }
