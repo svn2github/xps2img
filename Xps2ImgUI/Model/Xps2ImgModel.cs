@@ -6,6 +6,7 @@ using System.Threading;
 
 using Xps2Img.Shared.CommandLine;
 using Xps2Img.Shared.Enums;
+using Xps2Img.Shared.Utils;
 
 using Xps2ImgLib.Utils;
 
@@ -51,7 +52,7 @@ namespace Xps2ImgUI.Model
 
         public void Launch(ConversionType conversionType)
         {
-            if (_isRunning)
+            if (IsRunning)
             {
                 throw new InvalidOperationException(Resources.Strings.UnexpectedConversionIsInProgress);  
             }
@@ -61,7 +62,7 @@ namespace Xps2ImgUI.Model
 
         public void CancelShutdownRequest()
         {
-            _userCancelled = true;
+            IsUserCancelled = true;
         }
 
         public void Cancel()
@@ -72,14 +73,14 @@ namespace Xps2ImgUI.Model
 
         private void Stop()
         {
-            if (!_isRunning)
+            if (!IsRunning)
             {
                 return;
             }
 
             IsStopPending = true;
 
-            _isRunning = false;
+            IsRunning = false;
         }
 
         public string FormatCommandLineForSave()
@@ -171,14 +172,20 @@ namespace Xps2ImgUI.Model
             get { return _optionsHolder.FirstRequiredPropertyName; }
         }
 
+        private int _isRunning;
+
         public bool IsRunning
         {
-            get { return _isRunning; }
+            get { return InterlockedUtils.Get(ref _isRunning); }
+            private set { InterlockedUtils.Set(ref _isRunning, value); }
         }
+
+        private int _isProgressStarted;
 
         private bool IsProgressStarted
         {
-            get { return _progressStarted; }
+            get { return InterlockedUtils.Get(ref _isProgressStarted); }
+            set { InterlockedUtils.Set(ref _isProgressStarted, value); }
         }
 
         public bool IsStopPending
@@ -237,7 +244,7 @@ namespace Xps2ImgUI.Model
             {
                 return ShutdownType != PostAction.DoNothing
                        && !IsDeleteMode
-                       && (IsBatchMode || (IsProgressStarted && !_userCancelled));
+                       && (IsBatchMode || (IsProgressStarted && !IsUserCancelled));
             }
         }
 

@@ -7,22 +7,21 @@ namespace Xps2Img.Shared.Internal
     {
         public static string Encode(string str, bool encode)
         {
-            return encode
-                     ? Convert.ToBase64String(Encoding.UTF8.GetBytes(str))
-                     : str;
+            return encode ? Convert.ToBase64String(Encoding.UTF8.GetBytes(str)) : str;
         }
 
-        public static string Decode(string str)
+        public static bool TryDecode(string str, out string decodedStr)
         {
-            str = str.Trim();
+            decodedStr = str.Trim();
 
             try
             {
-                return Encoding.UTF8.GetString(Convert.FromBase64String(str));
+                decodedStr = Encoding.UTF8.GetString(Convert.FromBase64String(decodedStr));
+                return true;
             }
             catch
             {
-                return str;
+                return false;
             }
         }
     }

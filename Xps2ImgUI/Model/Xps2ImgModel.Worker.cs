@@ -9,6 +9,7 @@ using System.Threading;
 using CommandLine.Utils;
 
 using Xps2Img.Shared.CommandLine;
+using Xps2Img.Shared.Utils;
 
 using Xps2ImgLib;
 using Xps2ImgLib.Utils;
@@ -30,10 +31,10 @@ namespace Xps2ImgUI.Model
 
         private void WorkerInit()
         {
-            _isRunning = true;
-            _isErrorReported = false;
-            _progressStarted = false;
-            _userCancelled = false;
+            IsRunning = true;
+            IsErrorReported = false;
+            IsProgressStarted = false;
+            IsUserCancelled = false;
 
             _processExitCode = ExitOK;
             _threadsLeft = 0;
@@ -70,7 +71,7 @@ namespace Xps2ImgUI.Model
 
         private void WorkerCleanup()
         {
-            _isRunning = false;
+            IsRunning = false;
 
             IsStopPending = false;
 
@@ -85,7 +86,7 @@ namespace Xps2ImgUI.Model
                 BoostProcessPriority(false);
             }
 
-            if (_userCancelled)
+            if (IsUserCancelled)
             {
                 ExitCode = ReturnCode.UserCancelled;
             }
@@ -105,7 +106,7 @@ namespace Xps2ImgUI.Model
 
             ExitCode = ReturnCode.Failed;
 
-            if (!_isErrorReported)
+            if (!IsErrorReported)
             {
                 launchFailed(this, new ThreadExceptionEventArgs(ex));
             }
@@ -145,7 +146,7 @@ namespace Xps2ImgUI.Model
             }
             finally
             {
-                CanResume = (failed || _userCancelled) && IsCreationMode;
+                CanResume = (failed || IsUserCancelled) && IsCreationMode;
 
                 WorkerCleanup();
 
@@ -324,10 +325,21 @@ namespace Xps2ImgUI.Model
 
         private ConversionType _conversionType;
 
-        private volatile bool _isErrorReported;
-        private volatile bool _isRunning;
-        private volatile bool _progressStarted;
-        private volatile bool _userCancelled;
+        private int _isErrorReported;
+
+        private bool IsErrorReported
+        {
+            get { return InterlockedUtils.Get(ref _isErrorReported); }
+            set { InterlockedUtils.Set(ref _isErrorReported, value); }
+        }
+
+        private int _isUserCancelled;
+
+        private bool IsUserCancelled
+        {
+            get { return InterlockedUtils.Get(ref _isUserCancelled); }
+            set { InterlockedUtils.Set(ref _isUserCancelled, value); }
+        }
 
         private EventWaitHandle _cancelEvent;
         private Mutex _appMutex;

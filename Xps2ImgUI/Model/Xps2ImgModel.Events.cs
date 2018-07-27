@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 
 using Xps2Img.Shared.Internal;
+using Xps2Img.Shared.Utils;
 
 using Xps2ImgLib.Utils;
 
@@ -31,7 +32,7 @@ namespace Xps2ImgUI.Model
 
             RegisterLastProcessedPage(sender, args.Page);
 
-            _progressStarted = true;
+            IsProgressStarted = true;
 
             OutputDataReceived.SafeInvoke(this, args);
         }
@@ -76,10 +77,11 @@ namespace Xps2ImgUI.Model
                 return;
             }
 
-            var errorMessage = ProcessOutput.Decode(e.Data);
+            string errorMessage;
 
-            var isErrorReported = _isErrorReported;
-            _isErrorReported = true;
+            ProcessOutput.TryDecode(e.Data, out errorMessage);
+
+            var isErrorReported = InterlockedUtils.GetAndSet(ref _isErrorReported, true);
 
             var args = GetConversionErrorEventArgs(errorMessage);
 
@@ -88,14 +90,14 @@ namespace Xps2ImgUI.Model
                 return;
             }
 
-            if (!isErrorReported)
-            {
-                ErrorDataReceived.SafeInvoke(this, args);
-            }
-
             if (!IgnoreErrors)
             {
                 Stop();
+            }
+
+            if (!isErrorReported)
+            {
+                ErrorDataReceived.SafeInvoke(this, args);
             }
         }
 

@@ -154,6 +154,7 @@
     <Compile Include="TypeEditors\Utils.cs" />
     <Compile Include="Utils\ReflectionUtils.cs" />
     <Compile Include="Utils\PathUtils.cs" />
+    <Compile Include="Utils\InterlockedUtils.cs" />
     <Compile Include="Utils\SystemManagementUtils.cs" />
     <Compile Include="Utils\System\AssemblyInformation.cs" />
     <Compile Include="Setup\SetupGuard.cs" />

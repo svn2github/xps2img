@@ -140,9 +140,9 @@ namespace Xps2ImgUI
                 message = String.Format(CultureInfo.InvariantCulture, Resources.Strings.UpdatePageFailedStatus, page, message);
             }
 
-            ShowErrorMessageBox(message, exception, true, Resources.Strings.ConversionFailed, message, Resources.Strings.BackToApplication);
-
             UpdateRunningStatus(false);
+
+            ShowErrorMessageBox(message, exception, true, Resources.Strings.ConversionFailed, message, Resources.Strings.BackToApplication);
         }
 
         private void UpdateCommandLine(bool canResume = false)
