@@ -32,7 +32,7 @@ namespace Xps2Img.Shared.CommandLine
 
             public static readonly string[] PrelimsPrefixValues  = { "!", "#", "$", ".", "!!!", "###", "$$$", "..." };
             public static readonly Size[]   RequiredSizeValues   = ScreenSizeValues.Select(s => new Size(s, 0)).Concat(ScreenSizeValues.Select(s => new Size(0, s))).ToArray();
-            public static readonly Size[]   PageCropMarginValues = Enumerable.Range(0, 40).Select(w => new Size(w, w)).ToArray();
+            public static readonly Size[]   PageCropMarginValues = Enumerable.Range(0, 40+1).Select(w => new Size(w, w)).ToArray();
             public static readonly string[] ImageNameValues      = PrelimsPrefixValues;
         }
     }
