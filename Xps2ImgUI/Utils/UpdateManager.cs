@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -27,8 +28,8 @@ namespace Xps2ImgUI.Utils
         public const string ManualDownloadUrl   = DownloadRootUrl;
 
         private const string RootUrl            = "https://sourceforge.net/projects/xps2img/";
-        private const string FilesUrl           = RootUrl  + "files/";
-        private const string DownloadRootUrl    = FilesUrl + "Releases/";
+        private const string FilesUrl           = RootUrl + "files/Releases/";
+        private const string DownloadRootUrl    = FilesUrl;
         private const string SetupDownload      = "Xps2ImgSetup-{0}.exe";
 
         private static readonly string DownloadFolder = String.Format("xps2img-update-{0}", Guid.NewGuid().ToString().Split("-".ToCharArray()).First());
@@ -194,7 +195,7 @@ namespace Xps2ImgUI.Utils
 
                 return new Regex(@"(\S+)\s+(\d{4}/\d{2}/\d{2})")
                            .Replace(new Regex(@"\[.\]\s*").Replace(HttpUtility.HtmlDecode(match.Value), Resources.Strings.WhatsNewBullet),
-                                    m => String.Format(Resources.Strings.WhatsNewDateFormat, m.Groups[1].Value, DateTime.ParseExact(m.Groups[2].Value, "yyyy'/'MM'/'dd", null))
+                                    m => String.Format(CultureInfo.InvariantCulture, Resources.Strings.WhatsNewDateFormat, m.Groups[1].Value, DateTime.ParseExact(m.Groups[2].Value, "yyyy'/'MM'/'dd", null))
                 );
             }
             catch
