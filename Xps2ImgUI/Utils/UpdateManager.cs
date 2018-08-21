@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -24,11 +23,12 @@ namespace Xps2ImgUI.Utils
 {
     public class UpdateManager : IUpdateManager
     {
-        public const string ManualCheckUrl      = FilesUrl;
-        public const string ManualDownloadUrl   = FilesUrl;
+        public const string ManualCheckUrl      = DownloadRootUrl;
+        public const string ManualDownloadUrl   = DownloadRootUrl;
 
         private const string RootUrl            = "https://sourceforge.net/projects/xps2img/";
-        private const string FilesUrl           = RootUrl + "files/Releases/";
+        private const string FilesUrl           = RootUrl  + "files/";
+        private const string DownloadRootUrl    = FilesUrl + "Releases/";
         private const string SetupDownload      = "Xps2ImgSetup-{0}.exe";
 
         private static readonly string DownloadFolder = String.Format("xps2img-update-{0}", Guid.NewGuid().ToString().Split("-".ToCharArray()).First());
@@ -170,7 +170,7 @@ namespace Xps2ImgUI.Utils
                     if (CompareVersions(version, newVersion) < 0)
                     {
                         _hasUpdate = true;
-                        _downloadUrl = FilesUrl + String.Format(SetupDownload, newVersion);
+                        _downloadUrl = DownloadRootUrl + String.Format(SetupDownload, newVersion);
                         _whatsNew = GetWhatsNew(page, version);
                     }
                 }
