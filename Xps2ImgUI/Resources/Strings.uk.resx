@@ -194,7 +194,7 @@
     <comment>&amp;Copy Images Folder Path To Clipboard</comment>
   </data>
   <data name="Help" xml:space="preserve">
-    <value>Довідка (Англійскою)</value>
+    <value>Довідка (Англійською)</value>
     <comment>Help</comment>
   </data>
   <data name="About" xml:space="preserve">
@@ -460,7 +460,7 @@
   <data name="WhatsNewFormat" xml:space="preserve">
     <value>
 
-Що нового (Англійскою):
+Що нового (Англійською):
 
 {0}
 </value>
@@ -535,11 +535,11 @@
     <comment>Check For Updates</comment>
   </data>
   <data name="HelpAbout_HistoryLinkLabel" xml:space="preserve">
-    <value>Історія оновлень (Англійскою)</value>
+    <value>Історія оновлень (Англійською)</value>
     <comment>View Revision History</comment>
   </data>
   <data name="HelpAbout_SiteLinkLabel" xml:space="preserve">
-    <value>Переглянути Веб-сторінку програми (Англійскою)</value>
+    <value>Переглянути Веб-сторінку програми (Англійською)</value>
     <comment>Visit Web Site</comment>
   </data>
   <data name="HelpAbout_Title" xml:space="preserve">
